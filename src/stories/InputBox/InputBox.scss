@@ -1,0 +1,58 @@
+.InputBox {
+    input::placeholder {
+        color: var(--color-grey-light-3) !important ;
+    }
+    .form-control {
+        font-size: 1.9rem;
+        border: 0.1rem solid var(--color-grey-light-3);
+        box-sizing: border-box;
+        border-radius: 6rem;
+        font-style: normal;
+        font-weight: 600;
+        // width: 9.9rem;
+        // height: 2.5rem;
+        // padding: 1.5rem 2rem;
+        padding: 1.3rem 2rem;
+    }
+    .form-control1 {
+        border: 0.1rem solid var(--color-grey-light-3);
+        box-sizing: border-box;
+        border-radius: 6rem;
+        // width: 16.5rem;
+        // height: 2.5rem;
+    }
+    .storybook-button--small {
+        // font-size: 14px;
+        // padding: 10px 15px;
+        // width: 150px;
+    }
+    .storybook-button--medium {
+        // font-size: 12px;
+        // padding: 11px 20px;
+    }
+    .storybook-button--large {
+        // font-size: 16px;
+        // padding: 12px 24px;
+        // width: 466px;
+    }
+}
+.defaultInput > input {
+    border-radius: 1rem !important;
+    background: var(--color-white-3);
+}
+.InputBox {
+    position: relative;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}

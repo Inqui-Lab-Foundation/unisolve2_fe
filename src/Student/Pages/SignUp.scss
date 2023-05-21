@@ -1,0 +1,259 @@
+.SignUp {
+  background-color: var(--color-white-5);
+  .language-selector {
+    .single-dropdown {
+      border: none;
+      padding-top: 0;
+      padding-bottom: 0;
+      vertical-align: bottom;
+      padding-right: 3.5rem;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .fl-con {
+      display: table;
+      width: inherit;
+    } 
+    .fl-body {
+      display: table-cell;
+      float: none;
+      vertical-align: top;
+    }
+  }
+
+  .aside {
+    // height: 100%;
+    // @media screen and (max-width: 667px) {
+    //   height: auto !important;
+    // }
+    background-color: var(--color-blue);
+    color: var(--color-white-1);
+    padding: 6rem;
+    @media screen and (max-width: 1200px) {
+      padding: 6rem 2rem;
+    }
+    
+    p {
+      font-size: 2rem !important;
+    }
+
+    h2 {
+      font-weight: 500;
+      margin-bottom: 7rem;
+      @media screen and (max-width: 991px) {
+        margin-bottom: 5rem;
+      }
+      @media screen and (max-width: 768px) {
+        margin-bottom: 0rem;
+      }
+
+      // img {
+      //   margin-right: 1.5rem;
+      //   animation-name: floating;
+      //   animation-duration: 3s;
+      //   animation-iteration-count: infinite;
+      //   animation-timing-function: ease-in-out;
+      // }
+    }
+
+    h1 {
+      color: var(--color-white-1);
+    }
+    p {
+      margin-bottom: 7rem;
+    }
+    
+  }
+
+  .article {
+    padding-left: 5rem;
+    padding-top: 6rem;
+    @media screen and (max-width: 991px) {
+      padding-left: 3rem;
+    }
+    @media screen and (max-width: 767px) {
+      padding: 4rem 2rem 0rem 2rem;
+    }
+    &-header {
+      margin-bottom: 6rem;
+
+      h4 {
+        color: var(--color-black-1);
+        @media screen and (max-width: 397px) {
+          font-size: 2.5rem;
+        }
+      }
+      p {
+        &sub {
+          color: var(--color-grey-light-1);
+        }
+      }
+      .storybook-button--small {
+        margin-right: 1.5rem;
+      }
+      .studentDropdown .single-dropdown {
+        width: 13rem;
+        padding: 0.8rem 1.6rem;
+      }
+    }
+
+    .verification {
+      font-family: "Roboto", sans-serif;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 2.2rem;
+      @media screen and (max-width: 1400px) {
+        font-size: 1.6rem;
+      }
+
+      padding: 0.7rem 1.6rem;
+      border-radius: 6rem;
+      border: 1px solid var(--color-green);
+      text-align: center;
+
+      i.fa-check {
+        font-size: 1.1rem;
+        color: var(--color-white-1);
+        background: var(--color-green);
+        padding: 0.4rem 0.5rem;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.Login {
+  .keepme_login {
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .aside {
+    p {
+      font-size: 2rem !important;
+    }
+  }
+  .login-options {
+    align-items: center;
+    .storybook-button--primary-outline {
+      background-color: transparent !important;
+    }
+  }
+  background-color: var(--color-white-5);
+  .article {
+    .wavingHand {
+      animation-name: wavingHand; /* Refers to the name of your @keyframes element below */
+      animation-duration: 2.5s; /* Change to speed up or slow down */
+      animation-iteration-count: infinite; /* Never stop waving :) */
+      transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+      display: inline-block;
+    }
+    span {
+      &.sub {
+        font-size: 16px;
+        font-weight: normal;
+        color: var(--color-grey-light-1);
+        margin-top: 25px;
+      }
+    }
+  }
+}
+
+.ForgotPassword,
+.PasswordConfirmation {
+  .header-comp {
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+}
+
+.mobile-header {
+  @media screen and (max-width: 767px) {
+    padding: 2rem !important;
+    .storybook-button {
+      &--small {
+        padding: 2px 10px;
+        width: auto;
+      }
+      &--primary {
+        background: none;
+        color: var(--color-yellow);
+        font-weight: normal;
+      }
+    }
+  }
+  .studentDropdown {
+    .single-dropdown {
+      border: none;
+      padding: 0px;
+      color: var(--color-yellow);
+    }
+  }
+  @media screen and (max-width: 397px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    img {
+      width: 4.5rem !important;
+      margin-right: 1rem !important;
+    }
+  }
+}
+.language-selector {
+  text-align: right;
+  padding-top: 6rem;
+  padding-right: 4rem;
+}
+
+.dynamic-form .form-check:nth-child(even) {
+  background: #f4f7fb;
+}
+.dynamic-form .form-check:nth-child(odd) {
+  background: #e4e8ef;
+}
+
+.dynamic-form .form-check {
+  padding-left: 30px;
+  margin-bottom: 1rem;
+}
+.height-100{
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login-div {
+  margin-bottom: 3rem;
+  // background-color: var(--color-white-1);
+  a{
+    margin: 0 1rem;
+    color: var(--color-black-1);
+    
+    &:hover  {
+      color: var(--color-green);
+      border-bottom: 0.4rem solid var(--color-green);
+    }
+    button{
+      font-size: 2rem;
+      padding: 2rem 4rem 2rem 3rem;
+      background-color: var(--color-white-1);
+      border-radius: 0rem;
+      width: 100%;
+      @media (max-width: 528px) {
+        padding: 1rem 2rem 1rem 1.5rem;
+      }
+      
+      &:hover{
+        transform: none;
+        box-shadow: none;
+      }
+      
+    }
+    .active {
+      color: var(--color-green);
+      border-bottom: 0.4rem solid var(--color-green);
+    }
+  }
+ 
+
+}

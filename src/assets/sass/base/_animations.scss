@@ -1,0 +1,57 @@
+@keyframes floating {
+  from {
+    transform: translate(0, 0px);
+  }
+  65% {
+    transform: translate(0, 4px);
+  }
+  to {
+    transform: translate(0, -0px);
+  }
+}
+
+// @keyframes shine {
+//     from {
+//       -webkit-mask-position: 150%;
+//     }
+
+//     to {
+//       -webkit-mask-position: -50%;
+//     }
+//   }
+
+@keyframes wavingHand {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 225, 225, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(255, 225, 225, 0.2);
+  }
+}

@@ -1,0 +1,44 @@
+.profile {
+  margin-left: 0.5rem;
+  .studentDropdown select.single-dropdown {
+    padding: 1.6rem 0.5rem;
+  }
+  
+  .common-language-selc{
+    .dropdown-menu .dropdown-item{
+      padding: 1rem 1.5rem !important;
+    }
+  }
+  img{
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+  }
+}
+
+.Footer {
+  a {
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--color-yellow);
+    &:hover {
+      color: var(--color-yellow-light-1);
+    }
+  }
+  p {
+    font-size: 12px;
+    color: var(--color-grey-light-2);
+  }
+}
+.notify-sec{
+  .dropdown-toggle{
+    padding: 0 !important;
+  }
+  svg{
+    margin: 0 !important;
+  }
+  .dropdown-toggle::after{
+    display: none !important;
+  }
+}
+

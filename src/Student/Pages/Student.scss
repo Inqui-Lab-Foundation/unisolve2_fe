@@ -1,0 +1,171 @@
+.MySettings {
+    // background-color: var(--color-white-5);
+    .card {
+        &-title {
+            font-family: 'Roboto', sans-serif !important;
+            font-size: 2rem !important;
+            line-height: 2rem !important;
+            font-weight: 700 !important;
+        }
+        &-subtitle {
+            font-family: 'Open Sans', sans-serif !important;
+            color: var(--color-black-2) !important;
+            font-size: 2rem !important;
+            line-height: 2rem !important;
+            font-weight: 600 !important;
+        }
+        &-text {
+            font-size: 1.8rem !important;
+            color: var(--color-grey-light-1) !important;
+            line-height: 2.5rem !important;
+            font-weight: 400 !important;
+        }
+        .form-label {
+            color: var(--color-grey-light-1);
+        }
+    }
+
+    .form-check-input {
+        margin-top: 0.6rem;
+        margin-right: 1rem;
+    }
+    .form-label {
+        font-family: 'Open Sans', sans-serif !important;
+        font-size: 1.8rem !important;
+        line-height: 2.5rem !important;
+        font-weight: 400 !important;
+    }
+}
+
+.ChangePSWModal,
+.EditPersonalDetails {
+    text-align: initial;
+    h1 {
+        font-size: 3rem !important;
+        font-weight: 500 !important;
+    }
+}
+
+.EditPersonalDetails {
+    .image-item .image-item__action {
+        left: 16.6rem;
+        cursor: pointer;
+    }
+
+    h5 {
+        font-size: 2.2rem !important;
+        color: var(--color-black-2);
+        font-weight: 600;
+    }
+    h6 {
+        font-size: 2rem !important;
+        color: var(--color-black-2);
+    }
+    .fa-solid.top {
+        color: var(--color-grey-light-3);
+        font-size: 1rem !important;
+        border-radius: 50%;
+        padding: 0.4rem 0.7rem;
+    }
+    .CalendarDropdownComp .ant-picker,
+    .defaultDropdown .dropdown-toggle,
+    .InputBox .form-control {
+        border-radius: 1rem !important;
+        border: 0 !important;
+    }
+    label {
+        font-weight: 500;
+        span {
+            color: var(--color-grey-light-3);
+        }
+    }
+}
+
+.MyProfile {
+    .image-item .image-item__action {
+        left: 16.6rem;
+        cursor: pointer;
+    }
+    h1 {
+        font-size: 3rem !important;
+        font-weight: 500 !important;
+    }
+    .card {
+        &-title {
+            font-size: 1.8rem !important;
+        }
+    }
+    h6 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-grey-light-1);
+        span {
+            font-family: 'Roboto', sans-serif !important;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-black-2);
+        }
+    }
+    .CalendarDropdownComp .ant-picker,
+    .defaultDropdown .dropdown-toggle,
+    .InputBox .form-control {
+        border-radius: 1rem !important;
+        border: 0 !important;
+    }
+    .badges {
+        background-color: var(--color-white-5);
+        padding: 1rem;
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+            // background-image: url('../assets/img/Star_Badge.png');
+        }
+
+        .card-title {
+            font-size: 1.8rem !important;
+            font-weight: normal;
+            color: var(--color-grey-light-1);
+        }
+        .card-text {
+            font-size: 1.4rem !important;
+            color: var(--color-grey-light-3);
+            font-weight: 700;
+            span {
+                color: var(--color-grey-light-1);
+            }
+        }
+    }
+    .profile-detail {
+        span {
+            color: var(--color-grey-light-3);
+            font-weight: bold;
+            @media screen and (min-width: 1400px) {
+                padding-right: 1.5rem;
+            }
+        }
+        p.card-text b {
+            color: var(--color-black-2) !important;
+        }
+    }
+    .card-title {
+        font-weight: bold;
+    }
+    .card-text {
+        color: var(--color-grey-light-3);
+    }
+    .sub.card-title,
+    a.text-link {
+        font-size: 1.5rem !important;
+    }
+}
+
+.common-links {
+    a.text-link {
+        color: var(--color-grey-light-3) !important;
+        font-size: 1.5rem !important;
+        font-weight: 600;
+    }
+    a.text-bold {
+        color: var(--color-black-2) !important;
+    }
+}

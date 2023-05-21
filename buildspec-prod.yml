@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 14
+    pre_build:
+        commands:
+            - npm install -g npm@8.15.1
+            - npm config set legacy-peer-deps true
+            - echo Installing source NPM dependencies...
+            - npm install --force
+    build:
+        commands:
+            - npm run build:prod
+            - cp .htaccess build
+            - chmod +x ./scripts/*.sh
+    post_build:
+        commands:
+            - echo Build completed on `date`
+
+artifacts:
+    files:
+        - '**/*'
+cache:
+    paths:
+        - '/node_modules/**/*'

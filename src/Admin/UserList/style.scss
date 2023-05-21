@@ -1,0 +1,147 @@
+.ticket-page.userlist {
+  .ant-tabs-content {
+    display: block !important;
+  }
+  .card{
+    box-shadow: none !important;
+  }
+  .ant-tabs-tab + .ant-tabs-tab,
+  .sub-tab .ant-tabs-tab {
+    margin-right: 32px !important;
+    margin-left: 0 !important;
+  }
+  background: var(--color-white-3);
+  text-align: left;
+  // padding: 4rem 2rem;
+  // height: 88vh;
+  .ticket-data {
+    // margin-top: 2rem;
+    .ant-tabs-tab-btn {
+      font-size: 1.8rem;
+      line-height: 2.5rem;
+      color: var(--color-grey-light-1);
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: var(--color-blue);
+    }
+    .tableActionTemplate {
+      .action-drops {
+        // gap: 1rem;
+      }
+      .InputWithSearchComp .ant-input-affix-wrapper,
+      .single-dropdown {
+        background-color: var(--color-white-1) !important;
+        border: 1px solid #dde2e4;
+        padding: 0.8rem 1rem !important;
+        font-size: 1.4rem !important;
+        background-color: #ffffff;
+        border: 1px solid #dde2e4;
+        box-sizing: border-box;
+        border-radius: 6px !important;
+      }
+      .InputWithSearchComp .ant-input-affix-wrapper > input.ant-input {
+        background-color: var(--color-white-1);
+      }
+      .studentDropdown {
+        margin: 0 1rem;
+      }
+      .ticket-btn {
+        text-align: right;
+      }
+      .ticket-table {
+        margin-top: 3rem;
+        .custom-dropdown .btn.btn-default svg {
+          margin: 0;
+        }
+        .custom-dropdown .show .dropdown-toggle {
+        }
+        .custom-dropdown .dropdown-toggle {
+          border: none;
+          color: var(--color-grey-light-3);
+        }
+        .custom-dropdown .dropdown-toggle::after {
+          display: none;
+        }
+        .view-link {
+          color: var(--color-blue);
+          text-decoration: none;
+        }
+        .action-link {
+          font-size: 2rem;
+        }
+        .ant-tag {
+          border: none;
+          padding: 0.3rem 1.2rem;
+          box-sizing: border-box;
+          border-radius: 6px;
+        }
+        .add-ticket {
+          text-align: center;
+          background-color: var(--color-white-1);
+          padding: 8rem;
+          box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+          border-radius: 8px;
+          .text {
+            font-weight: 600;
+            font-size: 2rem;
+            line-height: 2rem;
+            color: var(--color-grey-light-1);
+            margin-top: 1rem;
+          }
+        }
+        .storybook-button--btn-circle {
+          svg {
+            margin: 0;
+          }
+        }
+      }
+    }
+    select{
+      padding: 1rem;
+      box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+      border-color: #f8f1f1;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.exportModal {
+  .modal-body > div {
+    margin-bottom: 0px !important;
+  }
+  .upload-file-name {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+.btnUpload {
+  color: var(--color-black-1) !important;
+  padding: 0.5rem 1.2rem 0.5rem 1rem;
+  background-color: var(--color-white-1) !important;
+  font-size: 1.4rem;
+  line-height: 2.5rem;
+  border: 1px solid #dde2e4;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-right: 0.5rem;
+  display: flex;
+  width: 100%;
+  span {
+    color: var(--color-black-1) !important;
+    font-family: "Open Sans", sans-serif;
+  }
+}
+.add-admin{
+    flex-direction: column;
+    align-items: center;
+    select{
+      display: block;
+      width: 100%;
+      padding: 1.3rem 2rem;
+      box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+      border-color: 0.1rem solid var(--color-grey-light-3);;
+      border-radius: 0.5rem;
+  }
+}
