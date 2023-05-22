@@ -33,7 +33,6 @@ import {
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/media/logout.svg';
-import ImportPopup from './ImportPopup';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -90,7 +89,6 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
 const TicketsPage = (props) => {
     // const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const [showImportPopup, setImportPopup] = useState(false);
     const [menter, activeMenter] = useState(false);
     // const [admin, activeAdmin] = useState(false);
     const [evaluater, activeEvaluater] = useState(false);
@@ -1053,11 +1051,6 @@ const TicketsPage = (props) => {
                     </div>
                 </Row>
             </Container>
-            <ImportPopup
-                show={showImportPopup}
-                setImportPopup={setImportPopup}
-                onHide={() => setImportPopup(false)}
-            />
             {registerModalShow && (
                 <Register
                     show={registerModalShow}

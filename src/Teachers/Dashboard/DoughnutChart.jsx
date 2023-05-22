@@ -1,6 +1,4 @@
 /* eslint-disable indent */
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-// import { Doughnut } from 'react-chartjs-2';
 import 'antd/dist/antd.css';
 import { Card, Col, Progress } from 'reactstrap';
 import { Table } from 'antd';
@@ -9,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-// import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { Button } from '../../stories/Button';
 import IdeaSubmissionCard from '../../components/IdeaSubmissionCard';
@@ -17,52 +14,8 @@ import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistr
 import { useTranslation } from 'react-i18next';
 import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
-//import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green'],
-    datasets: [
-        {
-            label: '# of Votes',
-            data: [12, 19, 3, 5],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                '#00008b',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                '#00008b',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
-            ],
-            borderWidth: 1
-        }
-    ]
-};
-export const options = {
-    indexAxis: 'y',
-    elements: {
-        bar: {
-            borderWidth: 1
-        }
-    },
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'left'
-        },
-        title: {
-            display: true,
-            text: 'Student progress'
-        }
-    }
-};
 
 export default function DoughnutChart({ user }) {
     const { t } = useTranslation();

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, List, Label, Card } from 'reactstrap';
 import { Tabs, Space } from 'antd';
-import TicketDataTable from './TicketDataTable';
 import Layout from '../Layout';
 import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';

@@ -13,7 +13,6 @@ import {
     BsUpload
 } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
-import ImportPopup from './ImportPopup';
 import { useHistory } from 'react-router-dom';
 
 import { getSchoolRegistationBulkUploadList } from '../../redux/actions';
@@ -28,7 +27,6 @@ import axios from 'axios';
 const TicketsPage = (props) => {
     // here we can see all the support tickets //
     const currentUser = getCurrentUser('current_user');
-    const [showImportPopup, setImportPopup] = useState(false);
     const [reqList, setReqList] = useState(false);
     const [newList, setNewList] = useState(false);
     const [reqSchoolsResponse, setReqSchoolsResponse] = useState([]);
@@ -651,11 +649,6 @@ const TicketsPage = (props) => {
                     )}
                 </Row>
             </Container>
-            <ImportPopup
-                show={showImportPopup}
-                setImportPopup={setImportPopup}
-                onHide={() => setImportPopup(false)}
-            />
         </Layout>
     );
 };

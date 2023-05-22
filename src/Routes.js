@@ -50,33 +50,24 @@ import AdminLogin from './Admin/LoginNew';
 import AdminDashboard from './Admin/Dashboard/index';
 import ViewMore from './Admin/Dashboard/ViewMore';
 import AdminMyProfile from './Admin/MyProfile';
-import AdminMySettings from './Admin/MySettings';
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
 import AdminEvaluationProcess from './Admin/EvalProcess/index';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
-import AdminNotification from './Admin/Notification';
 import AdminUserList from './Admin/UserList/Ticket';
-import AdminAddMentor from './Admin/UserList/AddNewMentor';
 import CommonUserProfile from './Admin/UserList/CommonUserProfile';
 import CommonUserProfileEdit from './Admin/UserList/EditProfile';
-import AdminEvaluator from './Admin/UserList/AddNewEvaluator';
-import EditEvaluator from './Admin/UserList/EditNewEvaluator';
-import AdminEditPersonalDetails from './Admin/EditPersonalDetails';
 import AdminFaqByCategory from './Admin/FAQ/FaqByCategory';
 import AddNewFaq from './Admin/FAQ/AddNewFaq';
 import EditFaq from './Admin/FAQ/EditFaq';
-import EditFaqCate from './Admin/FAQ/EditFaqCategory';
-import AddNewFaqCategory from './Admin/FAQ/AddNewFaqCategory';
 import AdminTickets from './Admin/Tickets/Ticket';
 // import AdminTicketsViewDetails from "./Admin/Tickets/TicketsCard";
 import AdminAllSchools from './Admin/Schools/Ticket';
 import AddNewSchool from './Admin/Schools/AddNewSchool';
 import Reports from './Admin/Reports';
 import IndividualReport from './Admin/Reports/ReportFilter';
-import StudentSignup from './Admin/StudentSignup';
 // import Home from './home/home';
 // import Terms from './home/termsandconditions';
 import AdminChallengesComp from './Admin/Badges/Badges';
@@ -88,7 +79,6 @@ import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
-import TeacherMySettings from './Teachers/MySettings';
 
 import TeacherFaqPage from './Teachers/HelpPages/FaqPage';
 
@@ -304,16 +294,6 @@ const Routers = () => {
                         path="/admin/my-profile"
                         component={AdminMyProfile}
                     />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/edit-profile"
-                        component={AdminEditPersonalDetails}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/settings"
-                        component={AdminMySettings}
-                    />
 
                     {/* <Route
             exact={true}
@@ -348,27 +328,6 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/notifications"
-                        component={AdminNotification}
-                    />
-
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/add-mentor"
-                        component={AdminAddMentor}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/add-evaluator"
-                        component={AdminEvaluator}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/edit-evaluator"
-                        component={EditEvaluator}
-                    />
-                    <ProtectedRoute
-                        exact={true}
                         path="/admin/faq"
                         // component={AdminFaq}
                         component={AdminFaqByCategory}
@@ -387,17 +346,6 @@ const Routers = () => {
                         exact={true}
                         path="/admin/edit-faq/:faqid"
                         component={EditFaq}
-                    />
-
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/edit-faqcategory"
-                        component={EditFaqCate}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/add-new-faq-category"
-                        component={AddNewFaqCategory}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -424,12 +372,6 @@ const Routers = () => {
                         path="/admin/register-new-schools"
                         component={AddNewSchool}
                     />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/admin/signup"
-                        component={StudentSignup}
-                    />
-
                     <ProtectedRoute
                         exact={true}
                         path="/admin/challenges"
@@ -536,11 +478,6 @@ const Routers = () => {
                         exact={true}
                         path="/teacher/playvideo/:id"
                         component={TeacherPlayVideo}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        path="/teacher/settings"
-                        component={TeacherMySettings}
                     />
                     <ProtectedRoute
                         exact={true}
