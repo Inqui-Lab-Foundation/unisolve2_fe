@@ -12,12 +12,6 @@ import {
     Label
     // CardImg
 } from 'reactstrap';
-//import { IoIosArrowBack } from 'react-icons/io';
-//import { Link } from 'react-router-dom';
-// import { static_badges } from '../../data/StaticBadges.js';
-// import { ProgressComp } from '../../stories/Progress/Progress.jsx';
-// import { PhotoUpload } from '../../stories/PhotoUpload/PhotoUpload.jsx';
-//import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
 
 import Layout from '../Layout.jsx';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';

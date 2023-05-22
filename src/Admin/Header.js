@@ -8,8 +8,6 @@ import { CommonDropDownComp } from '../stories/CommonDropdown/CommonDropdownComp
 
 import { VscBell } from 'react-icons/vsc';
 import AvatarImg from '../assets/media/img/Avatar.png';
-
-import { InputWithSearch } from '../stories/InputWithSearch/InputWithSearch.stories';
 import { Badge } from 'antd';
 import { getAdminNotificationsList } from '../redux/actions';
 import { useHistory } from 'react-router-dom';
@@ -79,9 +77,6 @@ const Header = (props) => {
                         </div>
                         <Navbar>
                             <Row className="justify-content-between w-100">
-                                {/* <Col md={6}>
-                                    <InputWithSearch {...headerProps} />
-                                </Col> */}
                                 <Col
                                     md={12}
                                     className="d-flex profile-section text-right"

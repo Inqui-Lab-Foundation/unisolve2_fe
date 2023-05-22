@@ -18,12 +18,10 @@ import { Button } from '../../stories/Button';
 import axios from 'axios';
 
 import { InputBox } from '../../stories/InputBox/InputBox';
-// import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 // import { AiOutlineInfoCircle } from "react-icons/ai";
-// import { DropDownComp } from '../../stories/DropdownComp/DropdownComp';
 // import { getCurrentUser } from '../../helpers/Utils';
 import { URL, KEY } from '../../constants/defaultValues';
 import {

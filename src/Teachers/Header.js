@@ -8,8 +8,6 @@ import { Row, Col, Navbar } from 'reactstrap';
 // import { VscBell } from "react-icons/vsc";
 import AvatarImg from '../assets/media/img/teacher.png';
 // import AvatarImg from '../assets/media/img/Avatar.png';
-
-// import { InputWithSearch } from "../stories/InputWithSearch/InputWithSearch.stories";
 // import { Badge } from "antd";
 import { getAdminNotificationsList, getTeacherPresurveyStatus } from "../redux/actions";
 // import { useHistory } from "react-router-dom";

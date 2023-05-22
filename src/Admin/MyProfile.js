@@ -18,8 +18,6 @@ import ChangePSWModal from './ChangePSWModal';
 
 import { Link } from 'react-router-dom';
 // import { static_badges } from '../data/StaticBadges';
-// import { ProgressComp } from '../stories/Progress/Progress';
-// import { PhotoUpload } from '../stories/PhotoUpload/PhotoUpload';
 import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import Layout from './Layout';

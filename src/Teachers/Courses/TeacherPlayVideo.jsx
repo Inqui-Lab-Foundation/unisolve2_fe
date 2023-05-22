@@ -33,10 +33,7 @@ import { GrDocument } from 'react-icons/gr';
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-// import { ProgressComp } from "../../stories/Progress/Progress";
 import ModuleAssesmentImg from '../../assets/media/moduleAssesmentPopup.svg';
-
-// import { FileComp } from "../../stories/FileComp/FileComp";
 import { connect, useSelector } from 'react-redux';
 
 // import DetaledQuiz from "../../Admin/DetailedQuiz";

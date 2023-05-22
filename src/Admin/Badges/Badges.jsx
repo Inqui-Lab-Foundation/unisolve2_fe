@@ -25,7 +25,6 @@ import {
 } from 'reactstrap';
 import './style.scss';
 // import badgesBg from '../../../assets/media/img/badge_header.svg';
-// import { ProgressComp } from '../../../stories/Progress/Progress';
 import { Figure } from 'react-bootstrap';
 import Layout from '../../Admin/Layout';
 // import { useDispatch, useSelector } from 'react-redux';
