@@ -13,38 +13,17 @@ import { ProtectedRoute } from './helpers/authHelper';
 
 import Dashboard from './Student/Pages/Dashboard/index';
 import BadgesComp from './Student/Pages/Badges/Badges';
-import Ideas from './Student/Pages/Ideas';
 import StudenetChangePSWModal from './Student/Pages/ChangePS';
 import './i18n';
 // import SignUpNew from './Student/Pages/SignUpNew';
 import LoginNew from './Student/Pages/LoginNew';
-import CreateNewPassword from './Student/Pages/CreateNewPassword';
-import PasswordEmailConfirmation from './Student/Pages/PasswordEmailConfirmation';
-import ForgotPassword from './Student/Pages/ForgotPassword';
-
-import MySettings from './Student/Pages/MySettings';
-import EditPersonalDetails from './Student/Pages/EditPersonalDetails';
 import MyProfile from './Student/Pages/MyProfile';
 // import { getCurrentUser } from './helpers/Utils';
-import Courses from './Student/Pages/Courses';
-import CourseView from './Student/Pages/Courses/coursesView';
 import PlayVideoCourses from './Student/Pages/Courses/PlayVideo';
-import Notification from './Student/Pages/Notification';
-import SampleCourseList from './Student/Pages/SampleCourseList';
 import FaqPage from './Student/Pages/HelpPages/FaqPage';
-import TicketsPage from './Student/Pages/HelpPages/Ticket';
-import NewTicket from './Student/Pages/HelpPages/NewTicket';
-import DiscussionForum from './Student/Pages/DiscussionForum';
-import QuerySection from './Student/Pages/DiscussionForum/QuerySection';
-import TeamMentorsPage from './Student/Pages/TeamsMentors';
-import TeamMemberPage from './Student/Pages/TeamsMentors/TeamMember';
-import AddNewMember from './Student/Pages/TeamsMentors/AddNewMember';
-import EditMember from './Student/Pages/TeamsMentors/EditMember';
 // import IdeasPage from './Student/Pages/Ideas/IdeasPage';
 import IdeasPageNew from './Student/Pages/Ideas/IdeaSubmission';
 import SDG from './Student/Pages/Ideas/SDG';
-import SubmittedIdeas from './Student/Pages/Ideas/SubmittedIdeas';
-import TicketViewDetails from './Student/Pages/HelpPages/TicketViewDetails';
 // ADMIN ROUTES
 import AdminLogin from './Admin/LoginNew';
 import AdminDashboard from './Admin/Dashboard/index';
@@ -103,8 +82,6 @@ import ChangePSWModal from './Teachers/ChangePSWModal';
 import Translation from './Admin/Translation/Translation';
 import EditTranslation from './Admin/Translation/EditTranslation';
 import CreateTranslation from './Admin/Translation/CreateTranslation';
-//import IdeasubmissionunderCOn from './Student/Ideasubsaticundercon';
-// import DummyStuMyCer from './Student/DummyStudentMyCertificate';
 
 import EditSchool from './Admin/Schools/EditSchool';
 
@@ -157,27 +134,6 @@ const Routers = () => {
                         path="/login"
                         render={() => <LoginNew />}
                     />
-                    <Route
-                        exact={true}
-                        path="/forgotpassword"
-                        render={() => <ForgotPassword />}
-                    />
-                    <Route
-                        exact
-                        path="/create-password"
-                        render={() => <CreateNewPassword />}
-                    />
-                    <Route
-                        exact
-                        path="/confirm-password"
-                        render={() => <PasswordEmailConfirmation />}
-                    />
-                    <Route
-                        exact
-                        path="/verifypassword"
-                        render={() => <PasswordEmailConfirmation />}
-                    />
-
                     <ProtectedRoute
                         exact
                         path="/dashboard"
@@ -195,31 +151,10 @@ const Routers = () => {
                         path="/challenge-initiation"
                         component={SDG}
                     />
-                    <ProtectedRoute path="/ideasPage" component={Ideas} />
-                    <ProtectedRoute
-                        path="/submittedIdeas"
-                        component={SubmittedIdeas}
-                    />
                     <ProtectedRoute
                         exact
                         path="/badges"
                         component={BadgesComp}
-                    />
-                    <ProtectedRoute
-                        exact
-                        path="/teams"
-                        component={TeamMentorsPage}
-                    />
-                    <ProtectedRoute
-                        exact
-                        path="/teams/member"
-                        component={TeamMemberPage}
-                    />
-                    <ProtectedRoute exact path="/courses" component={Courses} />
-                    <ProtectedRoute
-                        exact
-                        path="/coursesView"
-                        component={CourseView}
                     />
                     <ProtectedRoute
                         exact
@@ -231,53 +166,12 @@ const Routers = () => {
                         path="/notification"
                         component={Notification}
                     />
-                    <ProtectedRoute
-                        exact
-                        path="/settings"
-                        component={MySettings}
-                    />
                     <ProtectedRoute exact path="/faq" component={FaqPage} />
-                    <ProtectedRoute
-                        exact
-                        path="/tickets"
-                        component={TicketsPage}
-                    />
-                    <ProtectedRoute
-                        exact
-                        path="/viewTicketDetails"
-                        component={TicketViewDetails}
-                    />
-                    <ProtectedRoute path="/NewTicket" component={NewTicket} />
-                    <ProtectedRoute
-                        path="/discussionForum"
-                        component={DiscussionForum}
-                    />
-                    <ProtectedRoute
-                        path="/querySection"
-                        component={QuerySection}
-                    />
-                    <ProtectedRoute
-                        path="/addNewMember"
-                        component={AddNewMember}
-                    />
-                    <ProtectedRoute path="/editMember" component={EditMember} />
-
                     <ProtectedRoute
                         exact
                         path="/my-profile"
                         component={MyProfile}
                     />
-                    <ProtectedRoute
-                        exact
-                        path="/edit-details"
-                        component={EditPersonalDetails}
-                    />
-                    <Route
-                        exact
-                        path="/samplelist"
-                        component={SampleCourseList}
-                    />
-
                     {/* ADMIN ROUTES */}
                     <Route
                         exact={true}
