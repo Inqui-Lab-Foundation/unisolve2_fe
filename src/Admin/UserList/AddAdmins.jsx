@@ -1,31 +1,22 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
-import { InputBox } from '../stories/InputBox/InputBox';
+import { InputBox } from '../../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
-import { Button } from '../stories/Button';
+import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
-import { URL, KEY } from '../constants/defaultValues';
+import { getNormalHeaders, openNotificationWithIcon } from '../../helpers/Utils';
+import { URL, KEY } from '../../constants/defaultValues';
 import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
-import { getAdminEvalutorsList } from '../redux/actions';
+import { getAdmin} from '../store/admin/actions';
 
 const Register = (props) => {
     // here we can add admin / eadmin //
     const handleClose = () => {};
     const dispatch = useDispatch();
-
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-    const inputPhone = {
-        type: 'text',
-        placeholder: 'Enter Phone Number',
-        className: 'defaultInput'
-    };
 
     const inputEmail = {
         type: 'email',
@@ -38,47 +29,33 @@ const Register = (props) => {
         placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
-    const inputCity = {
-        type: 'text',
-        placeholder: 'District Name',
-        className: 'defaultInput'
-    };
 
-    const validationForEvaluator = Yup.object({
+    const validationForAdmin = Yup.object({
         full_name: Yup.string()
             .trim()
             .min(2, 'Enter Name')
             .matches(/^[aA-zZ\s]+$/, 'Not allowed')
             .required('Required'),
-        mobile: Yup.string()
-            .required('required')
-            .trim()
-            .matches(phoneRegExp, 'Contact number is not valid')
-            .min(10, 'Please enter valid number')
-            .max(10, 'Please enter valid number'),
         username: Yup.string()
             .trim()
             .email('Invalid username format')
-            .required('Required'),
-        district: Yup.string().trim().required('Required')
+            .required('Required')
     });
 
     const formik = useFormik({
         initialValues: {
             username: '',
-            mobile: '',
             full_name: '',
             password: '',
-            role: 'EVALUATOR',
-            district: ''
+            role: 'ADMIN'
         },
 
-        validationSchema: validationForEvaluator,
+        validationSchema: validationForAdmin,
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            values.password = values.mobile.trim();
+            values.password = values.username.trim();
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
             );
@@ -90,12 +67,12 @@ const Register = (props) => {
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             values.password = encrypted;
-            const actualUrl = URL.evaluatorRegister;
+            const actualUrl = URL.adminRegister;
             await axios
                 .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
-                        dispatch(getAdminEvalutorsList());
+                        dispatch(getAdmin());
                         openNotificationWithIcon(
                             'success',
                             evaluatorRegRes?.data?.message
@@ -116,7 +93,7 @@ const Register = (props) => {
                 });
         }
     });
-
+    const dists = ['ADMIN', 'EADMIN'];
     return (
         <Modal
             {...props}
@@ -132,7 +109,7 @@ const Register = (props) => {
                     id="contained-modal-title-vcenter"
                     className="w-100 d-block text-center"
                 >
-                    {'ADD EVALUATOR'}
+                    {'ADD ADMIN'}
                 </Modal.Title>
             </Modal.Header>
 
@@ -143,10 +120,12 @@ const Register = (props) => {
                         onSubmit={formik.handleSubmit}
                         isSubmitting
                     >
-                        <div className={`row justify-content-center pe-md-0`}>
-                            <div className={`col-md-6 p-0 `}>
+                        <div
+                            className={`row justify-content-center pe-md-0 add-admin`}
+                        >
+                            <div className={`col-md-6 p-0 w-100`}>
                                 <FormGroup
-                                    className={`form-group mt-md-0 mt-5 me-md-3 `}
+                                    className={`form-group mt-md-0 mt-5 `}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="name">
@@ -171,45 +150,15 @@ const Register = (props) => {
                                     ) : null}
                                 </FormGroup>
                             </div>
-
-                            <div className="col-md-6 p-0">
+                            <div className="col-md-6 p-0 w-100">
                                 <FormGroup
-                                    className="form-group mt-md-0 mt-5"
-                                    md={12}
-                                >
-                                    <Label className="mb-2" htmlFor="mobile">
-                                        Contact Number
-                                    </Label>
-                                    {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
-                                    <InputBox
-                                        {...inputPhone}
-                                        id="mobile"
-                                        name="mobile"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.mobile}
-                                        maxLength={10}
-                                    />
-
-                                    {formik.touched.mobile &&
-                                    formik.errors.mobile ? (
-                                        <small className="error-cls">
-                                            {formik.errors.mobile}
-                                        </small>
-                                    ) : null}
-                                </FormGroup>
-                            </div>
-                        </div>
-
-                        <div className="row justify-content-center pe-md-0">
-                            <div className="col-md-6 p-0">
-                                <FormGroup
-                                    className="form-group mt-5 me-md-3"
+                                    className={`form-group  w-100`}
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="username">
                                         Email Address
                                     </Label>
+
                                     <InputBox
                                         {...inputEmail}
                                         id="username"
@@ -228,36 +177,38 @@ const Register = (props) => {
                                         </small>
                                     ) : null}
                                 </FormGroup>
-                            </div>
-
-                            <div className="col-md-6 p-0">
-                                <FormGroup className="form-group mt-5" md={12}>
-                                    <Label className="mb-2" htmlFor="district">
-                                        District Name
+                                <FormGroup
+                                    className={`form-group me-md-3 w-100`}
+                                    md={12}
+                                >
+                                    <Label className="mb-2" htmlFor="username">
+                                        Admin Type
                                     </Label>
-                                    <InputBox
-                                        {...inputCity}
-                                        id="district"
-                                        name="district"
+                                    <select
+                                        id="role"
+                                        name="role"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.district}
-                                        maxLength={50}
-                                    />
-
-                                    {formik.touched.district &&
-                                    formik.errors.district ? (
+                                        value={formik.values.role}
+                                    >
+                                        {dists.map((item, i) => (
+                                            <option key={i} value={item}>
+                                                {item}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {formik.touched.role &&
+                                    formik.errors.role ? (
                                         <small className="error-cls">
-                                            {formik.errors.district}
+                                            {formik.errors.role}
                                         </small>
                                     ) : null}
                                 </FormGroup>
                             </div>
                         </div>
-
                         <div className="mt-5">
                             <Button
-                                label={'Add Evaluator'}
+                                label={'Add Admin'}
                                 btnClass={
                                     !(formik.dirty && formik.isValid)
                                         ? 'default'

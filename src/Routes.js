@@ -3,25 +3,21 @@ import {
     BrowserRouter as Router,
     Route,
     Switch
-    // useHistory
 } from 'react-router-dom';
-
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import { createBrowserHistory, createHashHistory } from "history";
-
+import './SupportingSCSS/Ideas/style.scss';
+import './SupportingSCSS/Ideas.scss';
+import './SupportingSCSS/TeamsMentors/style.scss';
+import './SupportingSCSS/Courses/style.scss';
 import { ProtectedRoute } from './helpers/authHelper';
 
 import Dashboard from './Student/Pages/Dashboard/index';
 import BadgesComp from './Student/Pages/Badges/Badges';
 import StudenetChangePSWModal from './Student/Pages/ChangePS';
 import './i18n';
-// import SignUpNew from './Student/Pages/SignUpNew';
 import LoginNew from './Student/Pages/LoginNew';
 import MyProfile from './Student/Pages/MyProfile';
-// import { getCurrentUser } from './helpers/Utils';
 import PlayVideoCourses from './Student/Pages/Courses/PlayVideo';
 import FaqPage from './Student/Pages/HelpPages/FaqPage';
-// import IdeasPage from './Student/Pages/Ideas/IdeasPage';
 import IdeasPageNew from './Student/Pages/Ideas/IdeaSubmission';
 import SDG from './Student/Pages/Ideas/SDG';
 // ADMIN ROUTES
@@ -42,18 +38,13 @@ import AdminFaqByCategory from './Admin/FAQ/FaqByCategory';
 import AddNewFaq from './Admin/FAQ/AddNewFaq';
 import EditFaq from './Admin/FAQ/EditFaq';
 import AdminTickets from './Admin/Tickets/Ticket';
-// import AdminTicketsViewDetails from "./Admin/Tickets/TicketsCard";
 import AdminAllSchools from './Admin/Schools/Ticket';
 import AddNewSchool from './Admin/Schools/AddNewSchool';
 import Reports from './Admin/Reports';
 import IndividualReport from './Admin/Reports/ReportFilter';
-// import Home from './home/home';
-// import Terms from './home/termsandconditions';
 import AdminChallengesComp from './Admin/Badges/Badges';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
 import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
-// import TeacherPostservey from './Teachers/PostSurvey/PostSurveyStatic';
-// const hashHistory = createHashHistory();.
 
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
@@ -108,21 +99,6 @@ import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Routers = () => {
-    // const history = useHistory();
-    // const currentUser = getCurrentUser('current_user');
-    // if (currentUser && currentUser?.data[0]?.role === 'ADMIN') {
-    //     history.push('/admin/dashboard');
-    // } else if (currentUser && currentUser?.data[0]?.role === 'STUDENT') {
-    //     history.push('/dashboard');
-    // } else if (currentUser && currentUser?.data[0]?.role === 'TEACHER') {
-    //     history.push('/teacher/dashboard');
-    // }
-    // if (currentUser) {
-    //   // history.push("/admin/dashboard");
-    //   // } else {
-    //   //   history.push("/admin");
-    // }
-
     return (
         <>
             <Router>
@@ -144,7 +120,6 @@ const Routers = () => {
                         exact
                         path="/challenges"
                         component={IdeasPageNew}
-                        //component={IdeasubmissionunderCOn}
                     />
                     <ProtectedRoute
                         exact
@@ -188,12 +163,6 @@ const Routers = () => {
                         path="/admin/my-profile"
                         component={AdminMyProfile}
                     />
-
-                    {/* <Route
-            exact={true}
-            path='/admin/tickets'
-            component={AdminTicketsPage}
-          /> */}
                     <ProtectedRoute
                         exact={true}
                         path="/admin/badges"
@@ -223,14 +192,8 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         path="/admin/faq"
-                        // component={AdminFaq}
                         component={AdminFaqByCategory}
                     />
-                    {/* <ProtectedRoute
-                        exact={true}
-                        path="/admin/faq-by-category"
-                        component={AdminFaqByCategory}
-                    /> */}
                     <ProtectedRoute
                         exact={true}
                         path="/admin/New-faq"

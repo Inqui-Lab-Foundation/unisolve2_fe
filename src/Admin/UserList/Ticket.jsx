@@ -39,6 +39,7 @@ import { updateEvaluator } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 import Register from '../../Evaluator/Register';
 import dist from 'react-data-table-component-extensions';
+import AddADmins from './AddAdmins';
 
 const { TabPane } = Tabs;
 
@@ -965,17 +966,20 @@ const TicketsPage = (props) => {
                     </div>
                 </Row>
             </Container>
-            {registerModalShow && (
-                <Register
-                    show={registerModalShow}
-                    setShow={setRegisterModalShow}
-                    onHide={() => setRegisterModalShow(false)}
-                    roleToBeAdded={
-                        tab &&
-                        (tab == 3 ? 'EVALUATOR' : tab == 4 ? 'ADMIN' : null)
-                    }
-                />
-            )}
+            {registerModalShow &&
+                (tab == 4 ? (
+                    <AddADmins
+                        show={registerModalShow}
+                        setShow={setRegisterModalShow}
+                        onHide={() => setRegisterModalShow(false)}
+                    />
+                ) : (
+                    <Register
+                        show={registerModalShow}
+                        setShow={setRegisterModalShow}
+                        onHide={() => setRegisterModalShow(false)}
+                    />
+                ))}
         </Layout>
     );
 };
