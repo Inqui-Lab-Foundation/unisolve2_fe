@@ -5,15 +5,10 @@ import { useHistory, withRouter } from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardText } from 'reactstrap';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
-import {
-    // getNormalHeaders,
-    getCurrentUser,
-    openNotificationWithIcon
-} from '../../helpers/Utils';
+import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 
 const CommonUserProfile = (props) => {
-    // console.log('props', props);
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
 
@@ -38,14 +33,10 @@ const CommonUserProfile = (props) => {
         });
         localStorage.setItem('dist', JSON.stringify(props.location.dist));
         localStorage.setItem('num', JSON.stringify(props.location.num));
-        // localStorage.setItem(
-        //     'mentor',
-        //     JSON.stringify(mentor.organization_code)
-        // );
     };
     const handleReset = () => {
         // where we can reset the password  as diesCode //
-        
+
         const body = JSON.stringify({
             organization_code:
                 props.location.data && props.location.data?.organization_code,
@@ -86,7 +77,6 @@ const CommonUserProfile = (props) => {
                     props.location.data &&
                     props.location.data?.organization_code,
                 mentor_id: props.location.data && props.location.data.mentor_id
-                // where: 'Dashbord'
             }
         });
     };
@@ -111,25 +101,9 @@ const CommonUserProfile = (props) => {
                             label="Reset"
                             onClick={handleReset}
                         />
-                        {/* <Button
-                            btnClass="btn btn-info"
-                            size="small"
-                            label="Download"
-                        /> */}
-                        {/* <Button
-                            btnClass="btn btn-success"
-                            size="small"
-                            label="View Details"
-                        /> */}
-                        {/* <Button
-                            btnClass="btn btn-danger"
-                            size="small"
-                            label="Delete"
-                        /> */}
                         <Button
                             btnClass={'primary'}
                             size="small"
-                            // onClick={() => history.push('/admin/userlist')}
                             label="Back"
                             onClick={handleViewBack}
                         />
@@ -138,8 +112,6 @@ const CommonUserProfile = (props) => {
                 <Row>
                     <Card className="py-5">
                         <CardBody>
-                            {/* <h2 className="mb-4">Personal Details</h2> */}
-
                             <CardText>
                                 <span className="mx-3">
                                     <b>Name:</b>
@@ -152,29 +124,12 @@ const CommonUserProfile = (props) => {
                                         : '-'}
                                 </b>
                             </CardText>
-                            {/* <CardText>
-                                <span className="mx-3">
-                                    <b>Mobile:</b>
-                                </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.mobile
-                                        ? props.location.data &&
-                                          props.location.data.mobile
-                                        : '-'}
-                                </b>
-                            </CardText> */}
+
                             <CardText>
                                 <span className="mx-3">
                                     <b>Email:</b>
                                 </span>
                                 <b>
-                                    {/* {props.location.data.organization &&
-                                    props.location.data.organization.username
-                                        ? props.location.data.organization &&
-                                          props.location.data.organization
-                                              .username
-                                        : '-'} */}
                                     {props.location.data &&
                                     props.location.data?.username
                                         ? props.location.data &&
@@ -182,68 +137,6 @@ const CommonUserProfile = (props) => {
                                         : '-'}
                                 </b>
                             </CardText>
-                            {/* <Table bordered className="w-25">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" className="w-25">
-                                            ID
-                                        </th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.mentor_id}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">NAME</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.full_name}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">MOBILE</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.mobile}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">STATUS</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.status}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">CITY</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.city}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">DISTRICT</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.district}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">STATE</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.state}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">COUNTRY</th>
-                                        <td>
-                                            {props.location.data &&
-                                                props.location.data.country}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table> */}
                         </CardBody>
                     </Card>
                 </Row>
@@ -277,13 +170,6 @@ const CommonUserProfile = (props) => {
                                         ? props.location.data.organization
                                               .organization_name
                                         : '-'}
-
-                                    {/* {props.location.data &&
-                                    props.location.data?.organization_name
-                                        ? props.location.data &&
-                                          props.location.organization
-                                              ?.organization_name
-                                        : '-'} */}
                                 </b>
                             </CardText>
                             <CardText>

@@ -54,7 +54,6 @@ export const getAdminCoursesList = (lang) => async (dispatch) => {
         if (result && result.status === 200) {
             const data = result.data;
             dispatch(getAdminCorsesListSuccess(data));
-            // history.push("admin/courses");
         } else {
             dispatch(getAdminCoursesListError(result.statusText));
         }
@@ -98,7 +97,6 @@ export const adminCoursesCreate = (data, history, lang) => async (dispatch) => {
                 history.push('/admin/playvideo');
                 dispatch(adminCoursesCreateSuccess(''));
             }, 1000);
-            // history.push("/teams");
         } else {
             dispatch(adminCoursesCreateError(result.statusText));
         }

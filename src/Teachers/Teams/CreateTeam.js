@@ -36,10 +36,6 @@ const CreateTeam = (props) => {
         },
 
         validationSchema: Yup.object({
-            // teamName: Yup.string()
-            //     .matches(/^[A-Za-z ]*$/, 'Please enter Team name')
-            //     .max(40)
-            //     .required('Please enter Team name')
             teamName: Yup.string()
                 .required('Please enter Team name')
                 .matches(
@@ -59,7 +55,7 @@ const CreateTeam = (props) => {
                 url: process.env.REACT_APP_API_BASE_URL + '/teams',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Accept: "application/json",
+
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body

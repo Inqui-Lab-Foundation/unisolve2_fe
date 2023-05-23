@@ -1,24 +1,20 @@
 /* eslint-disable indent */
 import './SignUp.scss';
 import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../../stories/InputBox/InputBox.jsx';
 import { Button } from '../../stories/Button.jsx';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import { Button, notification, Space } from "antd";
-
 import { useTranslation } from 'react-i18next';
 import signuplogo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import ellipse_1 from '../../assets/media/ellipse.svg';
 import { loginUser } from '../../redux/actions.js';
-// import LanguageSelectorComp from '../../components/LanguageSelectorComp';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../../helpers/Utils';
 
@@ -99,15 +95,6 @@ const LoginNew = (props) => {
         label: t('login.logIn'),
         size: 'large'
     };
-
-    // const openNotificationWithIcon = (type, item) => {
-    //   notification[type]({
-    //     message: item,
-    //     // description:
-    //     //   "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-    //   });
-    // };
-    // console.log("===========error", props.currentUser);
     const handleShow = (e, type) => {
         if (type === 'password') {
             handlePassword('text');
@@ -139,9 +126,11 @@ const LoginNew = (props) => {
                         </div>
 
                         <h1 className="text-left pb-5 mobile_tab-hide">
-                        Together let’s learn and build something amazing.
+                            Together let’s learn and build something amazing.
                         </h1>
-                        <p className="mobile_tab-hide">Creating change makers of tomorrow</p>
+                        <p className="mobile_tab-hide">
+                            Creating change makers of tomorrow
+                        </p>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
@@ -155,21 +144,9 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="login-options">
-                            <Col md={12} className="text-right">
-                                {/* <LanguageSelectorComp module={"general"} /> */}
-                            </Col>
+                            <Col md={12} className="text-right"></Col>
                         </Row>
                         <Row className=" article-header mb-4">
-                            {/* <h4 className='mb-4'>
-                                <span className="color-green">
-                                    {t('loginPage.Student')}
-                                </span>{' '}
-                                {t('loginPage.Login')}
-                            </h4> */}
-                            {/* <span className=" sub">
-                                {t('loginPage.Let’s_build_something_great')}
-                            </span> */}
-
                             <div className="d-flex mt-4 login-div">
                                 <Link
                                     className="landing-page-actions "
@@ -200,44 +177,7 @@ const LoginNew = (props) => {
                                     </button>
                                 </Link>
                             </div>
-
-                            {/* <div className='d-flex mt-4'>
-                                <Link
-                                    className="landing-page-actions"
-                                    exact="true"
-                                    to="/login"
-                                >
-                                    <Button
-                                        label={t('loginPage.student_login')}
-                                        btnClass="primary "
-                                        size="small"
-                                    />
-                                </Link>
-                                <Link
-                                    className="landing-page-actions"
-                                    exact="true"
-                                    to="/teacher"
-                                >
-                                    <Button
-                                        label={t('loginPage.teacher_login')}
-                                        btnClass="primary "
-                                        size="small"
-                                    />
-                                </Link>
-                            </div> */}
-
-                            {/* <p className="mt-2">You are logging as a <Link exact="true" to="/login">
-                            student.
-                            </Link> Click here for <Link exact="true" to="/teacher">teacher</Link> logging.</p> */}
                         </Row>
-
-                        {/* <Row>
-              <Col className="form-group" xs={12} sm={12} md={10} xl={7}>
-                <Alert color="danger">
-                  This is a primary alert with . Give it a click if you like.
-                </Alert>
-              </Col>
-            </Row> */}
 
                         <Row className="my-2">
                             <Col md={12}>
@@ -328,20 +268,8 @@ const LoginNew = (props) => {
                                                     </small>
                                                 </FormGroup>
                                             </Col>
-                                            {/* <Col className="col-sm-8">
-                                                <Link
-                                                    exact="true"
-                                                    to="/forgotpassword"
-                                                    className="text-link pt-1"
-                                                >
-                                                    {t(
-                                                        'loginPage.Forgot_your_password'
-                                                    )}
-                                                </Link>
-                                            </Col> */}
                                         </Row>
                                     </div>
-                                    {/* {props.error} */}
 
                                     <div className="form-row row mb-5">
                                         {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
@@ -372,76 +300,9 @@ const LoginNew = (props) => {
                                                 }
                                             />
                                         </Col>
-                                        {/* <Space>
-                      <Button
-                        onClick={() =>
-                          openNotificationWithIcon("success", "success")
-                        }
-                      >
-                        Success
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          openNotificationWithIcon("warning", "warning")
-                        }
-                      >
-                        Warning
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          openNotificationWithIcon("error", "error")
-                        }
-                      >
-                        Error
-                      </Button>
-                    </Space> */}
                                     </div>
                                 </Form>
-
-                                {/* <Row className="pt-3">
-                                    <p className="d-flex">
-                                        {t('loginPage.Dont_have_an_account')}
-                                        <Link
-                                            exact="true"
-                                            to="/register"
-                                            className="my-auto pt-0 text-link px-2"
-                                        >
-                                            {t('loginPage.Signup')}
-                                        </Link>
-                                    </p>
-                                </Row> */}
                             </Col>
-                            {/* <Col>
-                                <List type="unstyled">
-                                    <li>
-                                        <a
-                                            href="http://tiny.cc/StudentVideoOne"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            Click here to watch video 1
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="http://tiny.cc/StudentVideoTwo"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            Click here to watch video 2
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="http://tiny.cc/StudentVideoThree"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            Click here to watch video 3
-                                        </a>
-                                    </li>
-                                </List>
-                            </Col> */}
                         </Row>
                     </Col>
                 </Row>
@@ -458,4 +319,4 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     loginUserAction: loginUser
 })(LoginNew);
-// export default LoginNew;
+

@@ -1,0 +1,144 @@
+.new-ticket-page {
+  background: var(--color-white-3);
+  padding: 4rem 2rem;
+  text-align: left;
+  .raiseTicket {
+    color: var(--color-black-2);
+    font-weight: 600;
+    padding-top: 1rem;
+  }
+  .create-ticket {
+    background: #ffffff;
+    box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    .question {
+      font-weight: 600;
+      color: var(--color-black-2);
+    }
+    .que-text {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: var(--color-grey-light-3);
+    }
+    .defaultDropdown {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    .textarea {
+      margin-top: 1rem;
+    }
+  }
+  .storybook-button--secondary {
+    opacity: 0.6;
+  }
+  .submit-btn {
+    text-align: right;
+    .storybook-button--primary-outline {
+      margin-right: 1rem;
+    }
+  }
+}
+.view-tickets-page {
+  background: var(--color-white-3);
+  padding: 4rem 2rem;
+  text-align: left;
+  .ticket-info {
+    p {
+      color: var(--color-black-2);
+      font-weight: 600;
+      span {
+        font-size: 3rem;
+      }
+      .ticket-status {
+        font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        margin-left: 4rem;
+      }
+    }
+  }
+  .ticket-action {
+    .custom-dropdown .btn.btn-default svg {
+      margin: 0;
+    }
+    .custom-dropdown .dropdown-toggle::after {
+      display: none;
+    }
+    display: inline-flex;
+    .storybook-button--btn-square {
+      margin-right: 1rem;
+      border: 1px solid #dde2e4;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+  }
+}
+
+.progress-card {
+  background: var(--color-white-1);
+  box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+  border-radius: 0.8rem;
+  text-align: center;
+  padding: 1.2rem;
+
+  .progress-section {
+    padding-left: 20px;
+    text-align: left;
+  }
+  .progress-name {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2rem;
+    color: var(--color-black-2);
+  }
+  .progress-text {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: var(--color-grey-light-1);
+  }
+  .progress-count {
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: var(--color-grey-light-1);
+    float: right;
+  }
+}
+
+button.storybook-button--primary-outlined {
+  background-color: var(--color-white-1);
+  border: 1px solid #dde2e4;
+}
+
+.assign-evaluator {
+  .modal-content {
+    padding: 2.5rem;
+  }
+  .modal-header {
+    display: block !important;
+  }
+  .modal-title {
+    font-size: 2.5rem;
+  }
+  .modal-header .btn-close {
+    position: absolute;
+    right: 11px;
+    top: 15px;
+  }
+  .list-group-item {
+    border: none;
+  }
+  .info {
+    font-weight: 500;
+    margin-left: 1rem;
+    span {
+      font-weight: normal;
+    }
+  }
+  .modal-footer {
+    justify-content: inherit;
+    padding-top: 2rem;
+  }
+}

@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom';
 import './style.scss';
 import Layout from '../Layout';
 import { Button } from '../../stories/Button';
-
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
@@ -72,8 +70,6 @@ const AddNewTicket = (props) => {
         }
     });
 
-    // console.log(formik.errors);
-
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -103,13 +99,6 @@ const AddNewTicket = (props) => {
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
-                                                        // value={
-                                                        //     formik.values
-                                                        //         .selectCategory
-                                                        // }
-                                                        // defaultValue={
-                                                        //     defaultCategory
-                                                        // }
                                                         onChange={(option) => {
                                                             formik.setFieldValue(
                                                                 'selectCategory',

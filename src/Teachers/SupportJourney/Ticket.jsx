@@ -1,35 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-// import { Tabs } from "antd";
 import Layout from '../Layout';
-import {
-    // BsChevronRight,
-    // BsFilter,
-    BsPlusLg,
-    // BsGraphUp,
-    BsUpload
-} from 'react-icons/bs';
+import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { useHistory, Link } from 'react-router-dom';
 
-import {
-    getSchoolRegistationBulkUploadList,
-    getSupportTickets
-} from '../../redux/actions';
-import { connect } from 'react-redux';
+import { getSupportTickets } from '../../redux/actions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import { FaComments } from 'react-icons/fa';
 import { getCurrentUser } from '../../helpers/Utils';
 
 const TicketsPage = (props) => {
     const [rows, setRows] = React.useState([]);
-    // console.log(rows);
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { supportTickets } = useSelector((state) => state.mentors);
@@ -47,33 +34,19 @@ const TicketsPage = (props) => {
                 name: 'No.',
                 selector: 'id',
                 width: '8%'
-                // center: true,
             },
             {
                 name: 'Category',
                 selector: 'query_category',
                 sortable: true,
                 width: '13%'
-                // center: true,
-
-                // cell: (params) => [
-                //     <Link
-                //         key={params.support_ticket_id}
-                //         to={`/teacher/support-journey/ans-ticket?id=${params.support_ticket_id}`}
-                //     >
-                //         {params?.query_category} <FaComments />{' '}
-                //         {params.replies_count}{' '}
-                //     </Link>
-                // ]
-
-                // cell:(params)=>[<Link key={params.support_ticket_id} onClick ={()=>handleSelect(params.support_ticket_id)}>{params?.query_category}</Link>]
             },
             {
                 name: 'Query',
                 selector: 'query_details',
                 sortable: true,
                 width: '64%',
-                // center: true,
+
                 cell: (params) => [
                     <Link
                         key={params.support_ticket_id}
@@ -84,23 +57,6 @@ const TicketsPage = (props) => {
                     </Link>
                 ]
             },
-            // {
-            //     name: "Created By",
-            //     selector: "created_by",
-            //     center: true,
-            //     // width: "20%",
-
-            // },
-
-            // {
-            //     name: "Created On",
-            //     // selector: "updated_at",
-            //     cell : (record)=>[<span key={record.id}>{moment(record.updated_at).format(
-            //         'Do MMM, YYYY'
-            //     )}</span>]
-            //     // width: "20%",
-            //     // center: right,
-            // },
 
             {
                 name: 'Status',
@@ -126,17 +82,9 @@ const TicketsPage = (props) => {
                         ''
                     )
                 ]
-                //center: true,
             }
         ]
     };
-    // console.log(SchoolsData);
-    // const handleSelect = (id) => {
-    //     history.push({
-    //         pathname: `/teacher/support-journey/ans-ticket`,
-    //         itemId: id,
-    //     });
-    // };
 
     return (
         <Layout>
@@ -174,13 +122,11 @@ const TicketsPage = (props) => {
                         >
                             <DataTable
                                 data={rows}
-                                // noHeader
                                 defaultSortField="id"
                                 defaultSortAsc={false}
                                 pagination
                                 highlightOnHover
                                 fixedHeader
-                                // fixedHeaderScrollHeight='300px'
                                 subHeaderAlign={Alignment.Center}
                             />
                         </DataTableExtensions>

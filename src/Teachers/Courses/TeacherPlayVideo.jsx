@@ -16,18 +16,15 @@ import {
     getMentorCourseAttachments
 } from '../../redux/actions';
 import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
-// import { BsFillPauseFill } from "react-icons/bs";
-// import { FiPlayCircle } from "react-icons/fi";
 import { VscCircleFilled } from 'react-icons/vsc';
 import { VscCheck } from 'react-icons/vsc';
-// import CourseVideo from "../../assets/img/courseVideo.png";
-// import { Avatar, Icon } from "antd";
+
 import Vimeo from '@u-wave/react-vimeo';
 import Layout from '../Layout';
-// import { Progress } from "antd";
+
 import { BsQuestionCircle } from 'react-icons/bs';
 import { Accordion, Modal } from 'react-bootstrap';
-// import User from "../../assets/img/avatar1.png";
+
 import { Button } from '../../stories/Button';
 import { GrDocument } from 'react-icons/gr';
 import { AiFillPlayCircle } from 'react-icons/ai';
@@ -36,7 +33,6 @@ import axios from 'axios';
 import ModuleAssesmentImg from '../../assets/media/moduleAssesmentPopup.svg';
 import { connect, useSelector } from 'react-redux';
 
-// import DetaledQuiz from "../../Admin/DetailedQuiz";
 import DetaledQuiz from '../../Admin/DetailedQuiz/DetaledQuiz';
 
 import Csv from '../../assets/media/csv1.png';
@@ -172,8 +168,6 @@ const TeacherPlayVideo = (props) => {
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
-        // let response = await axios(config);
-        // console.log("res", response);
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {

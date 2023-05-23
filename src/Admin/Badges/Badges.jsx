@@ -1,18 +1,4 @@
 /* eslint-disable indent */
-// import React from 'react';
-// import './style.scss';
-// import Layout from '../../Admin/Layout';
-// import PageConstruction from '../../components/PageUnderConstrcution';
-
-// const BadgesComp = () => {
-//     return (
-//         <Layout>
-//             <PageConstruction />
-//         </Layout>
-//     );
-// };
-
-// export default BadgesComp;
 import React, { useEffect, useState } from 'react';
 import {
     Container,
@@ -24,24 +10,15 @@ import {
     CardTitle
 } from 'reactstrap';
 import './style.scss';
-// import badgesBg from '../../../assets/media/img/badge_header.svg';
 import { Figure } from 'react-bootstrap';
 import Layout from '../../Admin/Layout';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getStudentBadges } from '../../redux/studentRegistration/actions';
 import axios from 'axios';
 
 import { getCurrentUser } from '../../helpers/Utils';
-// import moment from 'moment/moment';
 const BadgesComp = () => {
-    // const { badges } = useSelector((state) => state.studentRegistration);
-    // const language = useSelector(
-    //     (state) => state?.studentRegistration?.studentLanguage
-    // );
     const [badgesRes, setBadgesRes] = useState({});
 
     const currentUser = getCurrentUser('current_user');
-    // const dispatch = useDispatch();
     useEffect(() => {
         var config = {
             method: 'get',
@@ -51,7 +28,6 @@ const BadgesComp = () => {
                 Accept: 'application/json',
                 Authorization: `Bearer ${currentUser.data[0]?.token}`
             }
-            // data: finalObj,
         };
         axios(config)
             .then(function (response) {
@@ -86,16 +62,7 @@ const BadgesComp = () => {
                                         key={i}
                                         className="badgesCard  col-xs-12 col-sm-6  col-xl-2 mb-3"
                                     >
-                                        <Card
-                                            className="badge-card py-5 h-100"
-                                            // style={{
-                                            //     backgroundColor: `${
-                                            //         badge?.student_status
-                                            //             ? ''
-                                            //             : 'lightgrey'
-                                            //     }`
-                                            // }}
-                                        >
+                                        <Card className="badge-card py-5 h-100">
                                             <Figure className="w-100 text-center">
                                                 <CardImg
                                                     alt={badge.icon}
@@ -111,18 +78,6 @@ const BadgesComp = () => {
                                                 <CardTitle className="badge-name mb-3">
                                                     {badge.name}
                                                 </CardTitle>
-                                                {/* <CardSubtitle className="badge-date">
-                                                    EARNED ON:{' '}
-                                                    <span className="badge-time">
-                                                        {badge?.student_status
-                                                            ? moment(
-                                                                  badge?.student_status
-                                                              ).format(
-                                                                  'DD MMM YYYY'
-                                                              )
-                                                            : 'Locked'}
-                                                    </span>
-                                                </CardSubtitle> */}
                                             </CardBody>
                                         </Card>
                                     </div>

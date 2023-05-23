@@ -39,12 +39,6 @@ const CourseSuccessMessage = () => {
                         <p>{t('student_course.continue_to_idea')}</p>
                     </div>
                     <div className='d-sm-flex justify-content-center mb-3 text-center'>
-                        {/* <Button
-                            label={t('student_course.go_certificate')}
-                            btnClass="primary mt-4 mx-4"
-                            size="small"
-                            onClick={() => handleClick(false)}
-                        /> */}
                         <Button
                             label={t('student_course.go_idea_submission')}
                             btnClass="primary mt-4 mx-4"

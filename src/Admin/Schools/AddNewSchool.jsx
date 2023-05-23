@@ -3,26 +3,13 @@ import React from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
-// import { BsChevronRight, BsFilter, BsFillPauseFill } from "react-icons/bs";
-// import { RiAwardFill } from "react-icons/ri";
-// import { VscCheck } from "react-icons/vsc";
-// import CourseVideo from "../../assets/img/courseVideo.png";
 import Layout from '../../Admin/Layout';
-// import { BsDot, BsQuestionCircle } from "react-icons/bs";
-// import { Accordion } from "react-bootstrap";
-// import { AccordionHeader, AccordionBody, AccordionItem } from "reactstrap";
-// import User from "../../assets/img/avatar1.png";
 import { Button } from '../../stories/Button';
-// import { GrDocument } from "react-icons/gr";
-// import { AiFillPlayCircle } from "react-icons/ai";
 import axios from 'axios';
-
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import { AiOutlineInfoCircle } from "react-icons/ai";
-// import { getCurrentUser } from '../../helpers/Utils';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
     getNormalHeaders,
@@ -30,7 +17,6 @@ import {
 } from '../../helpers/Utils';
 
 const AddNewSchool = (props) => {
-    // const currentUser = getCurrentUser('current_user');
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'

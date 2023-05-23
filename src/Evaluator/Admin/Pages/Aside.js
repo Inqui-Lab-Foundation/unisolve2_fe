@@ -13,14 +13,11 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import {RiLogoutBoxRFill, RiLockPasswordFill} from 'react-icons/ri';
+import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-import {  logout } from "../../../helpers/Utils";
-// import DashboardIcon from '../assets/media/DashboardIcon.svg';
+import { logout } from '../../../helpers/Utils';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
-    // const intl = useIntl();
-
     const location = useLocation();
     const history = useHistory();
     const { t } = useTranslation();
@@ -35,16 +32,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
 
-    // useEffect(() => {
-    //     if (location.pathname === '/admin/playvideo') {
-    //         // document.querySelector(".pro-sidebar").classList.add("collapsed");
-    //         setMenuCollapse(true);
-    //     }
-    // });
-    // console.log("-----57", location);
-    // console.log("-----50", location.pathname === '/admin/registered-schools' || location.pathname === '/admin/register-new-schools');
     const handleLogout = (e) => {
-        logout(history, t,"EADMIN");
+        logout(history, t, 'EADMIN');
         e.preventDefault();
     };
 
@@ -93,22 +82,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    
-                    {/* <MenuItem
-                        icon={<img src={DashboardIcon} style={{width:"20px"}}/>}
-                        className={
-                            location.pathname === '/evaluator/dashboard' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} to={'/evaluator/dashboard'}>
-                            Dashboard
-                        </NavLink>
-                    </MenuItem> */}
                     <MenuItem
-                        icon={ <FaLightbulb />}
+                        icon={<FaLightbulb />}
                         className={
-                            (location.pathname === '/eadmin/dashboard' || location.pathname ==='/eadmin/listofideas') &&
+                            (location.pathname === '/eadmin/dashboard' ||
+                                location.pathname === '/eadmin/listofideas') &&
                             'sidebar-active'
                         }
                     >
@@ -123,29 +101,20 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            //onClick={(e) => handleClick(e, '')}
-                            to={'/eadmin/change-password'}
-                        >
+                        <NavLink exact={true} to={'/eadmin/change-password'}>
                             Change Password
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<RiLogoutBoxRFill  />}
+                        icon={<RiLogoutBoxRFill />}
                         className={location.pathname === '' && 'sidebar-active'}
                     >
                         <NavLink exact={true} onClick={handleLogout} to={''}>
                             Logout
                         </NavLink>
                     </MenuItem>
-
-                    
                 </Menu>
-
             </SidebarContent>
-
-       
         </ProSidebar>
     );
 };

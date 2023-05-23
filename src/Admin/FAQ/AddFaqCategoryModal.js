@@ -21,12 +21,9 @@ const AddFaqCategoryModal = (props) => {
     const formik = useFormik({
         initialValues: {
             category_name: ''
-            // a
-            // b
         },
 
         validationSchema: Yup.object({
-            // dob: Yup.required(t("login.error_required")),
             category_name: Yup.string().required('required')
         }),
 

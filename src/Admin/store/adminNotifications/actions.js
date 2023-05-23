@@ -35,7 +35,6 @@ export const getAdminNotificationsList = () => async (dispatch) => {
         if (result && result.status === 200) {
             const data = result.data;
             dispatch(getAdminNotificationsListSuccess(data));
-            // history.push("/teams");
         } else {
             dispatch(getAdminNotificationsListError(result.statusText));
         }

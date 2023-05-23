@@ -74,7 +74,7 @@ const Quiz = (props) => {
                 props.adminRefQstResponce &&
                 props.adminRefQstResponce.status === 200 ? (
                         <Fragment>
-                            {/* <ProgressComp {...progressBar} /> */}
+                           
                             <div className="question-section">
                                 <div className="score">
                                     {props.adminRefQstResponce &&
@@ -91,7 +91,7 @@ const Quiz = (props) => {
                                                     alt="quiz"
                                                 />
                                             </figure>
-                                            {/* <FaCheck className="green mx-3" /> */}
+                                           
                                             <p style={{ textAlign: 'center' }}>
                                                 {props.adminRefQstResponce &&
                                                     props.adminRefQstResponce
@@ -147,7 +147,7 @@ const Quiz = (props) => {
                                             <Button
                                                 btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                                 size="small"
-                                                // Icon={BsPlusLg}
+                                               
                                                 label="Refer Video"
                                                 onClick={() =>
                                                     props.handleClose(false)
@@ -156,7 +156,7 @@ const Quiz = (props) => {
                                             <Button
                                                 btnClass="primary px-5"
                                                 size="small"
-                                                // Icon={BsPlusLg}
+                                             
                                                 label={t('student.continue')}
                                                 onClick={(e) => handleNxtQst(e)}
                                             />
@@ -171,7 +171,7 @@ const Quiz = (props) => {
                             <div className="container new-result">
                                 <div className="row justify-content-md-center ">
                                     <div className="col col-lg-9">
-                                        {/* <Confetti className='w-100' /> */}
+                                      
                                         <div className="results-heading">
                                             <img src={ResultStar} alt="star" />
                                         </div>

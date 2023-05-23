@@ -5,7 +5,6 @@ import './EvaluatedIdea.scss';
 import Layout from '../Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-// import { Button } from '../../stories/Button';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getL1EvaluatedIdea } from '../store/evaluator/action';
@@ -93,13 +92,7 @@ const EvaluatedIdea = () => {
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
-    // const evaluatedIdeaList = [
-    //     {
-    //         team_name: 'Test Team 1',
-    //         sdg: 'Idea Name 1',
-    //         initiated_name: 'Test Name'
-    //     }
-    // ];
+
     const evaluatedIdea = {
         data: tabledate || [],
         columns: [
@@ -152,7 +145,7 @@ const EvaluatedIdea = () => {
                     evalSchema && evalSchema?.toLowerCase() == 'accept_reject'
                         ? 'Status'
                         : 'Overall',
-                // selector: (row) => row.evaluation_status && row.evaluation_status=='SELECTEDROUND1'?'Accepted':row.evaluation_status=='REJECTEDROUND1'?'Rejected':'',
+
                 cell: (row) => {
                     return evalSchema &&
                         evalSchema?.toLowerCase() == 'accept_reject'

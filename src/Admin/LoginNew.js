@@ -75,7 +75,6 @@ const LoginNew = (props) => {
                 password: encrypted,
                 role: 'ADMIN'
             };
-            // history.push("/admin/dashboard");
             props.adminLoginUserAction(body, history, 'ADMIN');
         }
     });
@@ -92,25 +91,7 @@ const LoginNew = (props) => {
     const logInBtn = {
         label: 'Login',
         size: 'large'
-        // btnClass: "default",
     };
-    // const openNotificationWithIcon = (type, item) => {
-    //   notification[type]({
-    //     message: item,
-    //     // description:
-    //     //   "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-    //   });
-    // };
-    // const MINUTE_MS = 6000;
-
-    // useEffect(() => {
-    //   if (props.currentUser && props.currentUser.status === 200) {
-    //     const sucess = props.currentUser && props.currentUser.message;
-    //     openNotificationWithIcon("success", sucess);
-    //   } else {
-    //     openNotificationWithIcon("error", "Please check login details");
-    //   }
-    // }, [props.currentUser, props.error]);
     const handleShow = (e, type) => {
         if (type === 'password') {
             handlePassword('text');
@@ -320,4 +301,3 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     adminLoginUserAction: adminLoginUser
 })(LoginNew);
-// export default LoginNew;

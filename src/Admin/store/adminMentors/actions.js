@@ -5,7 +5,6 @@ import {
     ADMIN_MENTORS_LIST_SUCCESS,
     ADMIN_MENTORS_LIST_ERROR,
     ADMIN_MENTORS_STATUS_UPDATE,
-    // ADMIN_MENTORS_PAGE_NUMBER,
     ADMIN_MENTORS_PAGE_SIZE
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
@@ -25,12 +24,6 @@ export const getAdminMentorsListError = (message) => async (dispatch) => {
         payload: { message }
     });
 };
-// export const updatePageNumber = (number) => async (dispatch) => {
-//     dispatch({
-//         type: ADMIN_MENTORS_PAGE_NUMBER,
-//         payload: number
-//     });
-// };
 export const updatePageSize = (number) => async (dispatch) => {
     dispatch({
         type: ADMIN_MENTORS_PAGE_SIZE,

@@ -23,7 +23,6 @@ const EditTranslation = (props) => {
     }, []);
 
     const handleEditorChangeOfToValue = (state) => {
-        // console.log(state.target.value);
         setEditorStateOfToValue(state.target.value);
         formik.setFieldValue('value', state.target.value);
     };
@@ -100,12 +99,6 @@ const EditTranslation = (props) => {
                             </Col>
 
                             <Col className="form-group" md={12}>
-                                {/* <textarea
-                                    className="form-control form-control-lg"
-                                    rows="3"
-                                    value={formik.values.from_key}
-                                    style={{ fontSize: '2rem' }}
-                                ></textarea> */}
                                 <p style={{ fontSize: '2rem' }} className="p-3">
                                     {formik.values.key}
                                 </p>

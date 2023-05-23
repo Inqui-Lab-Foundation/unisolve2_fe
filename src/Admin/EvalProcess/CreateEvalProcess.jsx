@@ -33,8 +33,6 @@ const CreateEvalProcess = (props) => {
             }
         ]
     };
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
             level_name: '',
@@ -96,7 +94,6 @@ const CreateEvalProcess = (props) => {
                                         <Label
                                             className="mb-2"
                                             htmlFor="level_name"
-                                            // style={{ fontSize: 15 }}
                                         >
                                             Level Name
                                         </Label>
@@ -145,23 +142,7 @@ const CreateEvalProcess = (props) => {
                                         >
                                             Evaluation Schema
                                         </Label>
-                                        {/* <InputBox
-                                            {...inputDICE}
-                                            id="no_of_evaluation"
-                                            name="no_of_evaluation"
-                                            type="number"
-                                            placeholder="Please enter no of Evaluation"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={
-                                                formik.values.no_of_evaluation
-                                            }
-                                        />
-                                        {formik.touched.no_of_evaluation &&
-                                        formik.errors.no_of_evaluation ? (
-                                            <small className="error-cls">
-                                                {formik.errors.no_of_evaluation}
-                                            </small> */}
+
                                         <select
                                             name="eval_schema"
                                             id="eval_schema"

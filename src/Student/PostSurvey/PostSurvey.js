@@ -13,7 +13,6 @@ import {
 } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
-// import * as Yup from 'yup';
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
@@ -49,7 +48,6 @@ const PostSurvey = () => {
         (state) =>
             state?.studentRegistration.dashboardStatus?.topics_completed_count
     );
-    // const  postSurveyStatusGl  = useSelector((state) => state?.studentRegistration?.postSurveyStatusGl);
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();

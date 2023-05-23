@@ -26,9 +26,7 @@ const Translation = (props) => {
     async function handletranslationList() {
         var config = {
             method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/translations',
+            url: process.env.REACT_APP_API_BASE_URL + '/translations',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -37,7 +35,11 @@ const Translation = (props) => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setTranslationList(response.data && response.data.data[0] && response.data.data[0].dataValues);
+                    setTranslationList(
+                        response.data &&
+                            response.data.data[0] &&
+                            response.data.data[0].dataValues
+                    );
                 }
             })
             .catch(function (error) {
@@ -45,7 +47,10 @@ const Translation = (props) => {
             });
     }
     var translationsListArray = {
-        data: translationList && translationList.length > 0 ? translationList : [],
+        data:
+            translationList && translationList.length > 0
+                ? translationList
+                : [],
         columns: [
             {
                 name: 'From',
@@ -71,16 +76,14 @@ const Translation = (props) => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <a onClick={() => handleEditTranslationById (params)}>
+                        <a onClick={() => handleEditTranslationById(params)}>
                             <i
-                                // key={params.translation_id}
                                 className="fa fa-edit"
                                 style={{ marginRight: '10px' }}
                             />
                         </a>,
-                         <a onClick={() => handleDeleteTranslationById(params)}>
+                        <a onClick={() => handleDeleteTranslationById(params)}>
                             <i
-                                // key={params.translation_id}
                                 className="fa fa-trash"
                                 style={{ marginRight: '10px' }}
                             />
@@ -135,7 +138,7 @@ const Translation = (props) => {
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                        },
+                        }
                     };
                     axios(config)
                         .then(function (response) {
@@ -167,19 +170,21 @@ const Translation = (props) => {
     return (
         <Layout>
             <Container className="mt-5 pt-5 mb-5">
-                <Row className='mb-2'>
+                <Row className="mb-2">
                     <Col>
                         <div>
                             <h2>Translation</h2>
                         </div>
                     </Col>
-                    <Col className='text-right'>
+                    <Col className="text-right">
                         <Button
                             label="Add"
                             btnClass="primary mx-3"
                             size="small"
                             shape="btn-square"
-                            onClick={() =>history.push("/admin/create-translation")}
+                            onClick={() =>
+                                history.push('/admin/create-translation')
+                            }
                         />
                     </Col>
                 </Row>

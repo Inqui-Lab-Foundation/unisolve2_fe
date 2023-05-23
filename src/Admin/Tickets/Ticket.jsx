@@ -1,26 +1,17 @@
 import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import { Tabs } from 'antd';
-// import TicketDataTable from './TicketDataTable';
 import Layout from '../../Admin/Layout';
-// import { Link, withRouter } from 'react-router-dom';
-// import { BiEditAlt } from 'react-icons/bi';
-// import { AiFillDelete } from 'react-icons/ai';
-// import { BsChevronRight, BsFilter, BsPlusLg } from 'react-icons/bs';
-// import { BreadcrumbComp } from '../../stories/Breadcrumb/BreadcrumbComp';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { FaComments } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 
 import { useState } from 'react';
 
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 const { TabPane } = Tabs;
-// const { supportTickets } = useSelector((state) => state.mentors);
-// const language = useSelector((state) => state?.mentors.mentorLanguage);
 
 const TicketsPage = () => {
     const currentUser = getCurrentUser('current_user');
@@ -46,7 +37,6 @@ const TicketsPage = () => {
         };
         await axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status === 200) {
                     setAllTicketResponse(
                         response.data.data[0] &&
@@ -164,25 +154,14 @@ const TicketsPage = () => {
             {
                 name: 'No.',
                 selector: (row, key) => key + 1,
-                // selector: 'id',
+
                 width: '7%'
-                // center: true,
             },
             {
                 name: 'Category',
                 selector: (row) => row.query_category,
                 sortable: true,
                 width: '15%'
-                // center: true,
-                // cell: (support_ticket_id) => [
-                //     <Link
-                //         key={support_ticket_id}
-                //         to={`/admin/support-journey/ans-ticket?id=${support_ticket_id}`}
-                //     >
-                //         {support_ticket_id.query_category} <FaComments />{' '}
-                //         {support_ticket_id.replies_count}{' '}
-                //     </Link>
-                // ]
             },
 
             {
@@ -200,12 +179,7 @@ const TicketsPage = () => {
                     </Link>
                 ]
             },
-            // {
-            //     name: ' Replies Count',
-            //     selector: (row) => row.replies_count,
-            //     width: '30%'
-            //     // center: true,
-            // },
+
             {
                 name: 'Status',
                 selector: (row) => row.status,
@@ -278,7 +252,6 @@ const TicketsPage = () => {
                                     >
                                         <DataTable
                                             data={rows}
-                                            // noHeader
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
@@ -299,7 +272,6 @@ const TicketsPage = () => {
                                     >
                                         <DataTable
                                             data={rows}
-                                            // noHeader
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
@@ -320,7 +292,6 @@ const TicketsPage = () => {
                                     >
                                         <DataTable
                                             data={rows}
-                                            // noHeader
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
@@ -341,7 +312,6 @@ const TicketsPage = () => {
                                     >
                                         <DataTable
                                             data={rows}
-                                            // noHeader
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
@@ -362,7 +332,6 @@ const TicketsPage = () => {
                                     >
                                         <DataTable
                                             data={rows}
-                                            // noHeader
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination

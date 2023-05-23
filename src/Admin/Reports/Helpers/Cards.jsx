@@ -10,7 +10,6 @@ import {
     getCurrentUser
 } from '../../../helpers/Utils';
 import './table.css';
-import './button.css';
 import { useHistory } from 'react-router-dom';
 
 const Cards = ({ heading, list, reports, props, distList }) => {

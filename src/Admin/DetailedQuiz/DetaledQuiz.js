@@ -10,9 +10,6 @@ import ResultStar from '../../assets/media/quiz-result-star.png';
 import { connect, useSelector } from 'react-redux';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import { useTranslation } from 'react-i18next';
-// import hardIcon from '../../assets/media/img/quiz_icon_hard.png';
-// import mediumIcon from '../../assets/media/img/quiz_icon_medium.png';
-// import easyIcon from '../../assets/media/img/quiz_icon_easy.png';
 
 import {
     getAdminQuizQuestions,
@@ -20,8 +17,8 @@ import {
     getAdminCourseDetails
 } from '../../redux/actions';
 import QuizResponse from './QuizResponse';
-import succesImg from "../../assets/media/success1.jpeg";
-//import { getCurrentUser } from '../../helpers/Utils';
+import succesImg from '../../assets/media/success1.jpeg';
+
 const DetaledQuiz = (props) => {
     const { t } = useTranslation();
     const quizId = props.quizId;
@@ -32,9 +29,10 @@ const DetaledQuiz = (props) => {
     const [condition, SetCondition] = useState(true);
     const [video, SetVideo] = useState(true);
     const [qst, SetQst] = useState({});
-    const language = useSelector((state) => state?.studentRegistration?.studentLanguage);
-    // const currentUser = getCurrentUser('current_user');
-    // const role = currentUser?.data[0]?.role;
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
+
     useEffect(() => {
         props.getAdminQuizQuestionsActions(quizId, language);
     }, [props.quizId, language]);
@@ -123,12 +121,10 @@ const DetaledQuiz = (props) => {
                     <div className="container new-result">
                         <div className="row justify-content-md-center ">
                             <div className="col col-lg-9">
-                                {/* <div className="results-heading">
-                                    <span></span>
-                                </div> */}
                                 <div className="mt-4 text-center">
-                                     <div className="success_img text-center w-100">
-                                        <img src={succesImg} alt=".." /><br />
+                                    <div className="success_img text-center w-100">
+                                        <img src={succesImg} alt=".." />
+                                        <br />
                                     </div>
                                     <p>{t('student.quiz_completed')}</p>
                                 </div>
@@ -173,41 +169,8 @@ const DetaledQuiz = (props) => {
                             <div className="score"></div>
                             <Row>
                                 <Col xs={10}>
-                                    <p>
-                                        {t('teacher.question')}
-                                        {/* #
-                                        {props.adminCourseQst.data &&
-                                            props.adminCourseQst.data[0] &&
-                                            props.adminCourseQst.data[0]
-                                                .question_no} */}
-                                    </p>
+                                    <p>{t('teacher.question')}</p>
                                 </Col>
-                                {/* <Col xs={2}>
-                                    {role && role === 'STUDENT' && (
-                                        <div className="quiz_ques_img d-flex justify-content-end">
-                                            <img
-                                                src={
-                                                    (props?.adminCourseQst
-                                                        ?.data &&
-                                                    props?.adminCourseQst
-                                                        ?.data[0] &&
-                                                    props?.adminCourseQst?.data[0]?.level?.toLowerCase() ===
-                                                        'hard'
-                                                        ? hardIcon
-                                                        : props?.adminCourseQst
-                                                              ?.data &&
-                                                          props?.adminCourseQst
-                                                              ?.data[0] &&
-                                                          props?.adminCourseQst?.data[0]?.level?.toLowerCase() ===
-                                                              'medium'
-                                                        ? mediumIcon
-                                                        : easyIcon) || ''
-                                                }
-                                                alt="..."
-                                            />
-                                        </div>
-                                    )}
-                                </Col> */}
                             </Row>
 
                             <Question
@@ -264,7 +227,9 @@ const DetaledQuiz = (props) => {
                                                     <Button
                                                         btnClass="primary px-5"
                                                         size="small"
-                                                        label={t('student.continue')}
+                                                        label={t(
+                                                            'student.continue'
+                                                        )}
                                                         onClick={(e) =>
                                                             handleNxtQst(e)
                                                         }
@@ -289,8 +254,9 @@ const DetaledQuiz = (props) => {
                                                             <Button
                                                                 btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                                                 size="small"
-                                                                // Icon={BsPlusLg}
-                                                                label={t('teacher.refer_video')}
+                                                                label={t(
+                                                                    'teacher.refer_video'
+                                                                )}
                                                                 onClick={() =>
                                                                     handlevideo(
                                                                         props.adminQstResponce &&
@@ -346,7 +312,6 @@ const DetaledQuiz = (props) => {
     );
 };
 
-// export default DetaledQuiz;
 const mapStateToProps = ({ adminCourses }) => {
     const { adminCourseQst, adminQstResponce } = adminCourses;
     return { adminCourseQst, adminQstResponce };

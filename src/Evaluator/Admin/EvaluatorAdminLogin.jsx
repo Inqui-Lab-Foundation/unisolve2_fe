@@ -249,13 +249,6 @@ const LoginAdminEvaluator = (props) => {
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="col-sm-8 text-right">
-                                                    {/* <Link
-                                                    exact="true"
-                                                    to="/evaluator/forgotpassword"
-                                                    className="text-link pt-1"
-                                                >
-                                                    Forgot your password
-                                                </Link> */}
                                                 </Col>
                                             </Row>
                                         </Col>
@@ -306,5 +299,3 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     evaluatorAdminLoginUserAction: evaluatorAdminLoginUser
 })(LoginAdminEvaluator);
-
-// export default LoginEvaluator;

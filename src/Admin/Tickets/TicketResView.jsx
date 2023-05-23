@@ -7,8 +7,6 @@ import { withRouter } from 'react-router-dom';
 import './style.scss';
 import Layout from '../../Admin/Layout';
 import { Button } from '../../stories/Button';
-
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
@@ -18,7 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {
     createSupportTicketResponse,
-    getSupportResponsesTicketById,
     getSupportTicketById,
     SupportTicketStatusChange
 } from '../../Teachers/store/mentors/actions';
@@ -33,8 +30,6 @@ const TicketResView = (props) => {
     const id = new URLSearchParams(search).get('id');
     const { supportTicket } = useSelector((state) => state.mentors);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
-
-    // const {supportTicketRespnses} = useSelector(state=>state.mentors);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -108,7 +103,6 @@ const TicketResView = (props) => {
                         <BreadcrumbTwo {...headingDetails} />
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                {/* <Card className="aside p-4 py-5"> */}
                                 <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
                                     <CardBody>
                                         <p>
@@ -134,15 +128,8 @@ const TicketResView = (props) => {
                                                 </span>
                                             </Col>
                                         </Row>
-                                        {/* <div className="d-flex justify-content-between">
-                                                 sdasdas   
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                 sdasdas   
-                                            </div> */}
                                     </CardBody>
                                 </Card>
-                                {/* <h6>{supportTicket.query_details}</h6> */}
 
                                 {supportTicket?.support_ticket_replies?.length >
                                     0 &&
@@ -189,21 +176,6 @@ const TicketResView = (props) => {
                                         }
                                     )}
 
-                                {/* {supportTicket?.support_ticket_replies?.length > 0 && supportTicket.support_ticket_replies.map((data, i) => {
-                                        return(
-                                            <p>{data.reply_details}</p>
-                                        );
-                                    })} */}
-
-                                {/* {supportTicketRespnses && supportTicketRespnses.dataValues ? supportTicketRespnses.dataValues.map((details) => {
-                                        return(
-                                            <div>
-                                                <p>{details.reply_details}</p>
-                                            </div>
-                                        );
-                                    }): null} */}
-
-                                {/* <div className="create-ticket register-block"> */}
                                 {supportTicket.status != 'INVALID' ? (
                                     <Row>
                                         <Card className="aside p-4 py-4">
@@ -251,7 +223,6 @@ const TicketResView = (props) => {
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    {/* {console.log(formik.values)} */}
                                                     <DropDownWithSearch
                                                         {...selectProgress}
                                                         onBlur={

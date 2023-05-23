@@ -7,7 +7,6 @@ import Footer from './Footer.js';
 function Layout(props) {
     const [rtl, setRtl] = useState(false);
     const [toggled, setToggled] = useState(false);
-    // const intl = useIntl();
 
     const handleToggleSidebar = (value) => {
         setToggled(value);

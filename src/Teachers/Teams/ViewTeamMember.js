@@ -3,16 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Tabs } from 'antd';
-// import TicketDataTable from './TicketDataTable';
 import Layout from '../Layout';
-// import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import dummyCSV from '../../media/basic-csv.csv';
+
 import {
-    // getAdminTeamsList,
     getAdminTeamMembersList,
     studentResetPassword
 } from '../../redux/actions';
@@ -86,7 +83,6 @@ const ViewTeamMember = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log('response.data.data', response.data.data);
                     const updatedWithKey =
                         response.data &&
                         response.data.data.map((item, i) => {
@@ -315,10 +311,6 @@ const ViewTeamMember = () => {
                             </div>
                         </Col>
                     </Row>
-                    {/* 
-                    <p>
-                        {t('teacher_teams.team_name')}: {teamID.team_name}
-                    </p> */}
                     <div className="ticket-data">
                         <Tabs defaultActiveKey="1">
                             {teamsMembersList &&
@@ -335,7 +327,6 @@ const ViewTeamMember = () => {
                                             data={rows}
                                             defaultSortField="id"
                                             defaultSortAsc={false}
-                                            // pagination
                                             highlightOnHover
                                             fixedHeader
                                             subHeaderAlign={Alignment.Center}

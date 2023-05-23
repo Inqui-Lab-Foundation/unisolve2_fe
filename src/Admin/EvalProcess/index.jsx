@@ -84,7 +84,6 @@ const evalprocess = () => {
         };
         axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status === 200) {
                     handleEvalList();
 
@@ -107,22 +106,12 @@ const evalprocess = () => {
                 selector: (row, key) => key + 1,
                 sortable: true,
                 width: '6%'
-                // center: true,
             },
-            // {
-            //     name: 'Evaluation Id',
-            //     selector: 'evaluation_process_id',
-            //     // cellExport: (row) => row.evaluation_process_id,
 
-            //     sortable: true,
-            //     width: '12%'
-            //     // center: true,
-            // },
             {
                 name: 'Level Name',
                 selector: 'level_name',
                 width: '10%'
-                // center: true,
             },
             {
                 name: 'Evaluation Schema',
@@ -149,7 +138,6 @@ const evalprocess = () => {
                     </Badge>
                 ],
                 width: '7%'
-                // center: right,
             },
             {
                 name: 'Actions',
@@ -235,15 +223,9 @@ const evalprocess = () => {
                     </Row>
 
                     <div className="my-2">
-                        <DataTableExtensions
-                            // print={false}
-                            // export={false}
-                            {...evalData}
-                            exportHeaders
-                        >
+                        <DataTableExtensions {...evalData} exportHeaders>
                             <DataTable
                                 data={setEvalList}
-                                // noHeader
                                 defaultSortField="id"
                                 defaultSortAsc={false}
                                 pagination
@@ -255,7 +237,6 @@ const evalprocess = () => {
                     </div>
                 </Row>
             </Container>
-            {/* <h1>hi</h1> */}
         </Layout>
     );
 };

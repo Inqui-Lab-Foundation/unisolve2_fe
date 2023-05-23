@@ -3,7 +3,6 @@ import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { getlogout, userLogout } from '../redux/studentRegistration/actions';
-// import { useTranslation } from 'react-i18next';
 
 export const getCurrentUser = () => {
     let user = null;
@@ -12,7 +11,6 @@ export const getCurrentUser = () => {
             localStorage.getItem('current_user') != null
                 ? JSON.parse(localStorage.getItem('current_user'))
                 : null;
-        // console.log(user, 'getCurrentUser---------------------------------------');
     } catch (error) {
         console.log(
             '>>>>: src/helpers/Utils.js  : getCurrentUser -> error',
@@ -41,14 +39,12 @@ export const setCurrentUser = (user) => {
 export const getNormalHeaders = (apiKey) => {
     // it receive api_key argument if not it will assign null to it.
     const loginUser = getCurrentUser();
-    // console.log("=========", loginUser.data[0].token);
     let axiosConfig = {};
     if (loginUser) {
         // eslint-disable-next-line no-return-await
         axiosConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                // Accept: "application/json",
                 Authorization: `Bearer ${loginUser.data[0].token}`
             }
         };
@@ -66,7 +62,6 @@ export const getNormalHeaders = (apiKey) => {
 };
 
 export const openNotificationWithIcon = (type, msg, des) => {
-    // type :- success,info , warning,error
     notification[type]({
         message: msg,
         description: des

@@ -291,13 +291,9 @@ export default function DoughnutChart({ user }) {
                         <p className="text-primary">
                             There are no students in selected Team
                         </p>
-                        {/* <p className="text-primary">{"No Data Found"}*</p> */}
                     </div>
                 ) : null}
             </div>
-            {/* <div style={{ width: '50%' }}>
-                <Doughnut options={options} data={data} />
-            </div> */}
             {ideaShow && (
                 <IdeaSubmissionCard
                     show={ideaShow}

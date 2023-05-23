@@ -123,9 +123,7 @@ const SDG = ({setShowChallenges}) => {
                                                             item?.bg_color
                                                     }}
                                                 >
-                                                    {/* <h1 className="text-light opacity-50">
-                                                        {item?.goal_number}
-                                                    </h1> */}
+                                                    
                                                     <h2 className="text-white m-md-5">
                                                         {item?.goal_title}
                                                     </h2>

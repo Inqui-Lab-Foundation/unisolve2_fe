@@ -69,14 +69,6 @@ const EditFaq = (props) => {
 
     let { faqid } = useParams();
 
-    // A custom hook that builds on useLocation to parse
-    // the query string for you.
-    // function useQuery() {
-    //     const { search } = useLocation();
-
-    //     return React.useMemo(() => new URLSearchParams(search), [search]);
-    // }
-
     const handleEditorChange = (state) => {
         setEditorState(state);
         formik.setFieldValue(
@@ -209,29 +201,19 @@ const EditFaq = (props) => {
         toggleFaqCatModal();
     };
 
-    useEffect(() => {
-        // console.log('formik.values ', formik.values, formik.errors);
-    }, [formik.values, formik.errors]);
+    useEffect(() => {}, [formik.values, formik.errors]);
 
     useEffect(() => {
         if (Object.keys(faqData).length > 0 && categoriesList.length > 0) {
             let defaultCategoryValue = categoriesList.find(
                 (eachFaqCat) => eachFaqCat.value == faqData.faq_category_id
             );
-            // console.log(
-            //     '🚀 ~ file: EditFaq.js ~ line 213 ~ EditFaq ~ defaultCategory',
-            //     defaultCategoryValue
-            // );
+
             setDefaultCategory(defaultCategoryValue);
         }
     }, [categoriesList, faqData]);
 
-    useEffect(() => {
-        // console.log(
-        //     '🚀 ~ file: EditFaq.js ~ line 220 ~ EditFaq ~ defaultCategory',
-        //     defaultCategory
-        // );
-    }, [defaultCategory]);
+    useEffect(() => {}, [defaultCategory]);
 
     return (
         <Layout>
@@ -320,7 +302,6 @@ const EditFaq = (props) => {
                                 </div>
 
                                 <Card className="aside p-4 mb-5">
-                                    {/* <Collapse items={faqItemList} label="Collapses" /> */}
                                     <>
                                         <Col
                                             className="form-group mb-5  mb-md-0"
@@ -363,9 +344,7 @@ const EditFaq = (props) => {
                                                 FAQ answer
                                             </Label>
                                             <Col className="form-group" md={12}>
-                                                <div
-                                                // style={{ height: '211px' }}
-                                                >
+                                                <div>
                                                     <RichText
                                                         name="answer"
                                                         value={
@@ -389,18 +368,6 @@ const EditFaq = (props) => {
                                     </>
                                 </Card>
 
-                                {/* <div className="col-4">
-                  <Button
-                    btnClass="primary"
-                    label="Add Question"
-                    onClick={() => onAddNewFaqCollapse()}
-                    shape="btn-square"
-                    size="small"
-                    icon={blackPlusIcon}
-                  />
-                </div> */}
-
-                                {/* <div className="form-row row mb-4 aside"> */}
                                 <hr className="my-5 w-100 mb-4 clearfix" />
                                 <div className="row mb-4 justify-content-between">
                                     <div className="col-6">
@@ -426,7 +393,6 @@ const EditFaq = (props) => {
                                         />
                                     </div>
                                 </div>
-                                {/* </div> */}
                             </Col>
                         </Row>
                     </Col>
@@ -436,50 +402,6 @@ const EditFaq = (props) => {
                         toggleFaqCatModal={toggleFaqCatModal}
                         updateFaqCatList={updateFaqCatList}
                     />
-                    {/* <Modal
-            show={showFaqCatModal}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            className="modal-popup text-center quiz-modal"
-            backdrop="static"
-          >
-            <Fragment>
-              <Modal.Header
-                closeButton
-                onClick={() => toggleFaqCatModal()}
-              ></Modal.Header>
-
-              <Modal.Body>
-                <Col className="form-group mb-5  mb-md-0" md={12}>
-                  <Col className="form-group" md={12}>
-                    <InputBox
-                      className="defaultInput"
-                      label="InputBox"
-                      name=""
-                      onClick={() => {}}
-                      placeholder="Enter FAQ Category Name Here..."
-                      type=""
-                      value=""
-                    />
-
-                    {formik.touched.sessionTopic &&
-                    formik.errors.sessionTopic ? (
-                      <small className="error-cls">
-                        {formik.errors.sessionTopic}
-                      </small>
-                    ) : null}
-                  </Col>
-                </Col>
-                <Button
-                  label="Create"
-                  btnClass="primary mt-4"
-                  size="small"
-                  onClick={() => {}}
-                />
-              </Modal.Body>
-            </Fragment>
-          </Modal> */}
                 </Row>
             </Container>
         </Layout>

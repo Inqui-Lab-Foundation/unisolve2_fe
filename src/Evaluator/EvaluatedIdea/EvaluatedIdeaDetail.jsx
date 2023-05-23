@@ -10,23 +10,23 @@ import RatedDetailCard from './RatedDetailCard';
 const EvaluatedIdeaDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState([]);
     const currentUser = getCurrentUser('current_user');
-    React.useEffect(()=>{
+    React.useEffect(() => {
         if (props?.ideaDetails?.response) {
             setTeamResponse(
                 Object.entries(props?.ideaDetails?.response).map((e) => e[1])
             );
         }
-    },[props]);
-    const [levelName, setLevelName]=React.useState('');
-    React.useEffect(()=>{
-        if(currentUser){
+    }, [props]);
+    const [levelName, setLevelName] = React.useState('');
+    React.useEffect(() => {
+        if (currentUser) {
             setLevelName(currentUser?.data[0]?.level_name);
         }
-    },[currentUser]);
+    }, [currentUser]);
 
-  return (
-    <div>
-        {teamResponse && teamResponse?.length > 0 ? (
+    return (
+        <div>
+            {teamResponse && teamResponse?.length > 0 ? (
                 <>
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
@@ -41,11 +41,11 @@ const EvaluatedIdeaDetail = (props) => {
                                     </h2>
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
-                                <div className="ms-auto me-sm-3 p-0">
+                                    <div className="ms-auto me-sm-3 p-0">
                                         <Button
                                             btnClass="primary"
                                             size="small"
-                                            label='Back to List'
+                                            label="Back to List"
                                             onClick={() =>
                                                 props?.setIsDetail(false)
                                             }
@@ -53,24 +53,32 @@ const EvaluatedIdeaDetail = (props) => {
                                     </div>
                                     <div className="ms-auto me-sm-3 p-0">
                                         <Button
-                                            btnClass={props?.currentRow > 1 ? "primary":'default'}
+                                            btnClass={
+                                                props?.currentRow > 1
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }
                                             size="small"
                                             label={'Previous'}
-                                            onClick={() =>
-                                                props?.handlePrev()
-                                            }
-                                            disabled={props?.currentRow==1}
+                                            onClick={() => props?.handlePrev()}
+                                            disabled={props?.currentRow == 1}
                                         />
                                     </div>
                                     <div className="ms-auto me-sm-3 p-0">
                                         <Button
-                                            btnClass={props?.dataLength!=props?.currentRow?"primary":'default'}
+                                            btnClass={
+                                                props?.dataLength !=
+                                                props?.currentRow
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }
                                             size="small"
                                             label={'Next'}
-                                            onClick={() =>
-                                                props?.handleNext()
+                                            onClick={() => props?.handleNext()}
+                                            disabled={
+                                                props?.dataLength ==
+                                                props?.currentRow
                                             }
-                                            disabled={props?.dataLength==props?.currentRow}
                                         />
                                     </div>
                                 </div>
@@ -134,68 +142,56 @@ const EvaluatedIdeaDetail = (props) => {
                         </div>
                         <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                                <p className={`${props?.ideaDetails?.evaluation_status=='SELECTEDROUND1'?'text-success':'text-danger'} fs-3 fw-bold text-center`}>
-                                <span className='fs-2 text-info'>L1 - </span>{props?.ideaDetails?.evaluation_status=='SELECTEDROUND1'?'Accepted':'Rejected'}
+                                <p
+                                    className={`${
+                                        props?.ideaDetails?.evaluation_status ==
+                                        'SELECTEDROUND1'
+                                            ? 'text-success'
+                                            : 'text-danger'
+                                    } fs-3 fw-bold text-center`}
+                                >
+                                    <span className="fs-2 text-info">
+                                        L1 -{' '}
+                                    </span>
+                                    {props?.ideaDetails?.evaluation_status ==
+                                    'SELECTEDROUND1'
+                                        ? 'Accepted'
+                                        : 'Rejected'}
                                 </p>
-                                <p className='text-center'>
-                                    <span className='text-bold'>Evaluated At: </span> {moment(props?.ideaDetails?.evaluated_at).format('DD-MM-YY h:mm:ss a')|| ''}
+                                <p className="text-center">
+                                    <span className="text-bold">
+                                        Evaluated At:{' '}
+                                    </span>{' '}
+                                    {moment(
+                                        props?.ideaDetails?.evaluated_at
+                                    ).format('DD-MM-YY h:mm:ss a') || ''}
                                 </p>
-                                {
-                                    props?.ideaDetails?.evaluation_status=='REJECTEDROUND1' && 
-
+                                {props?.ideaDetails?.evaluation_status ==
+                                    'REJECTEDROUND1' && (
                                     <p className="text-center">
-                                        <span className='text-bold'>Rejected Reason: </span> {props?.ideaDetails?.rejected_reason || ''}
+                                        <span className="text-bold">
+                                            Rejected Reason:{' '}
+                                        </span>{' '}
+                                        {props?.ideaDetails?.rejected_reason ||
+                                            ''}
                                     </p>
-                                }
+                                )}
                             </div>
-                            {levelName !== 'L1' && ( 
-                            //     <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                            //     <p className='text-center fs-3 fw-bold'>
-                            //     <span className='fs-2 text-info'>{props?.ideaDetails?.evaluator_ratings[0]?.level} - </span> <span className='fs-3'>Overall Rating: </span>{props?.ideaDetails?.evaluator_ratings[0]?.overall}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Evaluated At: </span> {moment(props?.ideaDetails?.evaluator_ratings[0]?.created_at).format('DD-MM-YY h:mm:ss a')|| ''}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Novelty Score: </span> {props?.ideaDetails?.evaluator_ratings[0]?.param_1}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Usefulness Score: </span> {props?.ideaDetails?.evaluator_ratings[0]?.param_2}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Feasability Score: </span> {props?.ideaDetails?.evaluator_ratings[0]?.param_3}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Scalability Score: </span> {props?.ideaDetails?.evaluator_ratings[0]?.param_4}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Sustainability Score: </span> {props?.ideaDetails?.evaluator_ratings[0]?.param_5}
-                            //     </p>
-                            //     <p className='text-center'>
-                            //         <span className='text-bold'>Comments: </span>{props?.ideaDetails?.evaluator_ratings[0]?.comments} 
-                            //     </p>
-                            // </div>
-                            <RatedDetailCard 
-                                details={props?.ideaDetails}
-                            />
+                            {levelName !== 'L1' && (
+                                <RatedDetailCard details={props?.ideaDetails} />
                             )}
                         </div>
-                        
-                        
-                    
                     </div>
-                        <div>
-                            <Button
-                                btnClass="primary"
-                                size="small"
-                                label="Back"
-                                onClick={() => {
-                                    props?.setIsDetail(false);
-                                }}
-                            />
-                        </div>
-
-                  
+                    <div>
+                        <Button
+                            btnClass="primary"
+                            size="small"
+                            label="Back"
+                            onClick={() => {
+                                props?.setIsDetail(false);
+                            }}
+                        />
+                    </div>
                 </>
             ) : (
                 <>
@@ -214,8 +210,8 @@ const EvaluatedIdeaDetail = (props) => {
                     </div>
                 </>
             )}
-    </div>
-  );
+        </div>
+    );
 };
 
 export default EvaluatedIdeaDetail;

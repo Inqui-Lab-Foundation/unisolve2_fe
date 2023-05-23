@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import '../PostSurvey/style.scss';
 import '../../Teachers/PostSurvey/style.scss';
 import {
     Container,
@@ -13,7 +12,6 @@ import {
 } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
-// import * as Yup from 'yup';
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
@@ -33,33 +31,6 @@ import {
     getStudentDashboardStatus,
     updateStudentBadges
 } from '../../redux/studentRegistration/actions';
-//import { Modal } from 'react-bootstrap';
-//import ChildrensDaysGif from '../../assets/media/childrensdays.gif';
-
-// const GreetingModal = (props) => {
-//     return (
-//         <Modal
-//             show={props.show}
-//             size="lg"
-//             centered
-//             className="modal-popup text-center"
-//             onHide={props.handleClose}
-//             backdrop={true}
-//         >
-//             <Modal.Header closeButton></Modal.Header>
-
-//             <Modal.Body>
-//                 <figure>
-//                     <img
-//                         src={ChildrensDaysGif}
-//                         alt="Happy Children's Day"
-//                         className="img-fluid"
-//                     />
-//                 </figure>
-//             </Modal.Body>
-//         </Modal>
-//     );
-// };
 
 const PreSurvey = () => {
     // here student can attempt all the questions //
@@ -152,14 +123,9 @@ const PreSurvey = () => {
         setShow(true);
     };
 
-    // const handleClose = () => {
-    //     setGreetChildrensDay(false);
-    // };
-
     useEffect(() => {
         if (!localStorage.getItem('greetingChildren')) {
             localStorage.setItem('greetingChildren', true);
-            //setGreetChildrensDay(true);
         }
     }, []);
     useEffect(() => {
@@ -168,11 +134,6 @@ const PreSurvey = () => {
 
     return (
         <Layout>
-            {/* <GreetingModal
-                handleClose={handleClose}
-                show={greetChildrensDay}
-            ></GreetingModal> */}
-
             <Container className="presuervey mb-50 mt-5 ">
                 <Row className="justify-content-center aside p-0 p-md-4 bg-transparent">
                     {!show && preSurveyStatus != 'COMPLETED' ? (

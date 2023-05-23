@@ -3,18 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
-// import { Tabs } from "antd";
 import Layout from '../../Admin/Layout';
-import {
-    // BsChevronRight,
-    // BsFilter,
-    BsPlusLg,
-    // BsGraphUp,
-    BsUpload
-} from 'react-icons/bs';
+import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
-
 import { getSchoolRegistationBulkUploadList } from '../../redux/actions';
 import { connect } from 'react-redux';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -22,7 +14,6 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
 
 const TicketsPage = (props) => {
     // here we can see all the support tickets //
@@ -34,7 +25,6 @@ const TicketsPage = (props) => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [SRows, setSRows] = React.useState([]);
-    // const list = JSON.parse(localStorage.getItem('list'));
 
     React.useEffect(() => {
         const timeout = setTimeout(() => {
@@ -368,20 +358,17 @@ const TicketsPage = (props) => {
                 selector: (row, key) => key + 1,
                 sortable: true,
                 width: '6%'
-                // center: true,
             },
             {
                 name: 'Unique Code',
                 selector: (row) => row.organization_code,
                 sortable: true,
                 width: '15%'
-                // center: true,
             },
             {
                 name: 'Institution Name',
                 selector: (row) => row.organization_name,
                 width: '27%'
-                // center: true,
             },
             {
                 name: 'Principal Name',
@@ -401,7 +388,6 @@ const TicketsPage = (props) => {
                     </Badge>
                 ],
                 width: '10%'
-                // center: right,
             },
             {
                 name: 'Actions',
@@ -597,7 +583,6 @@ const TicketsPage = (props) => {
                             >
                                 <DataTable
                                     data={SRows}
-                                    // noHeader
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
@@ -614,14 +599,11 @@ const TicketsPage = (props) => {
                                 exportHeaders
                             >
                                 <DataTable
-                                    // data={rows}
-                                    // noHeader
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
-                                    // fixedHeaderScrollHeight='300px'
                                     subHeaderAlign={Alignment.Center}
                                 />
                             </DataTableExtensions>
@@ -635,13 +617,11 @@ const TicketsPage = (props) => {
                             >
                                 <DataTable
                                     data={rows}
-                                    // noHeader
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
-                                    // fixedHeaderScrollHeight='300px'
                                     subHeaderAlign={Alignment.Center}
                                 />
                             </DataTableExtensions>

@@ -61,4 +61,4 @@ const mapStateToProps = ({ adminNotifications }) => {
 export default connect(mapStateToProps, {
     getAdminNotificationsListActions: getAdminNotificationsList,
 })(Header);
-// export default Header;
+

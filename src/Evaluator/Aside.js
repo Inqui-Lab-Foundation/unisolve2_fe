@@ -13,10 +13,9 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import {RiLogoutBoxRFill, RiLockPasswordFill} from 'react-icons/ri';
+import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-import {  logout } from "../helpers/Utils";
-// import DashboardIcon from '../assets/media/DashboardIcon.svg';
+import { logout } from '../helpers/Utils';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     // const intl = useIntl();
@@ -35,16 +34,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
 
-    // useEffect(() => {
-    //     if (location.pathname === '/admin/playvideo') {
-    //         // document.querySelector(".pro-sidebar").classList.add("collapsed");
-    //         setMenuCollapse(true);
-    //     }
-    // });
-    // console.log("-----57", location);
-    // console.log("-----50", location.pathname === '/admin/registered-schools' || location.pathname === '/admin/register-new-schools');
     const handleLogout = (e) => {
-        logout(history, t,"EVALUATOR");
+        logout(history, t, 'EVALUATOR');
         e.preventDefault();
     };
 
@@ -62,7 +53,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
                     >
-                        <Link to={'/evaluator/submitted-ideas'} exact className="d-flex">
+                        <Link
+                            to={'/evaluator/submitted-ideas'}
+                            exact
+                            className="d-flex"
+                        >
                             {menuCollapse ? (
                                 <img
                                     src={Logo}
@@ -93,20 +88,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    
-                    {/* <MenuItem
-                        icon={<img src={DashboardIcon} style={{width:"20px"}}/>}
-                        className={
-                            location.pathname === '/evaluator/dashboard' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} to={'/evaluator/dashboard'}>
-                            Dashboard
-                        </NavLink>
-                    </MenuItem> */}
                     <MenuItem
-                        icon={ <FaInfo />}
+                        icon={<FaInfo />}
                         className={
                             location.pathname === '/evaluator/instructions' &&
                             'sidebar-active'
@@ -117,10 +100,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={ <FaLightbulb />}
+                        icon={<FaLightbulb />}
                         className={
-                            location.pathname === '/evaluator/submitted-ideas' &&
-                            'sidebar-active'
+                            location.pathname ===
+                                '/evaluator/submitted-ideas' && 'sidebar-active'
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/submitted-ideas'}>
@@ -128,10 +111,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={ <FaLightbulb />}
+                        icon={<FaLightbulb />}
                         className={
-                            location.pathname === '/evaluator/evaluated-ideas' &&
-                            'sidebar-active'
+                            location.pathname ===
+                                '/evaluator/evaluated-ideas' && 'sidebar-active'
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/evaluated-ideas'}>
@@ -141,33 +124,24 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
-                            location.pathname === '/evaluator/change-password' &&
-                            'sidebar-active'
+                            location.pathname ===
+                                '/evaluator/change-password' && 'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            //onClick={(e) => handleClick(e, '')}
-                            to={'/evaluator/change-password'}
-                        >
+                        <NavLink exact={true} to={'/evaluator/change-password'}>
                             Change Password
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<RiLogoutBoxRFill  />}
+                        icon={<RiLogoutBoxRFill />}
                         className={location.pathname === '' && 'sidebar-active'}
                     >
                         <NavLink exact={true} onClick={handleLogout} to={''}>
                             Logout
                         </NavLink>
                     </MenuItem>
-
-                    
                 </Menu>
-
             </SidebarContent>
-
-       
         </ProSidebar>
     );
 };

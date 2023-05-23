@@ -1,5 +1,3 @@
-// import { useContext } from 'react';
-// import { DetailedQuizContext } from '../../context/detailquiz.context';
 import { React, useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { FormGroup, Input, Label, Row, Col } from 'reactstrap';

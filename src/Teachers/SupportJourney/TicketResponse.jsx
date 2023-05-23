@@ -1,14 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Row, Col, Form, Label, Card, CardBody } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
 import Layout from '../Layout';
 import { Button } from '../../stories/Button';
-
-// import { InputBox } from '../../stories/InputBox/InputBox';
 import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
@@ -18,7 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {
     createSupportTicketResponse,
-    getSupportResponsesTicketById,
     getSupportTicketById,
     SupportTicketStatusChange
 } from '../store/mentors/actions';
@@ -33,7 +30,6 @@ const TicketResponse = (props) => {
     const id = new URLSearchParams(search).get('id');
     const { supportTicket } = useSelector((state) => state.mentors);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
-    // const {supportTicketRespnses} = useSelector(state=>state.mentors);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -149,15 +145,8 @@ const TicketResponse = (props) => {
                                                     </span>
                                                 </Col>
                                             </Row>
-                                            {/* <div className="d-flex justify-content-between">
-                                                 sdasdas   
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                 sdasdas   
-                                            </div> */}
                                         </CardBody>
                                     </Card>
-                                    {/* <h6>{supportTicket.query_details}</h6> */}
 
                                     {supportTicket?.support_ticket_replies
                                         ?.length > 0 &&
@@ -204,21 +193,6 @@ const TicketResponse = (props) => {
                                             }
                                         )}
 
-                                    {/* {supportTicket?.support_ticket_replies?.length > 0 && supportTicket.support_ticket_replies.map((data, i) => {
-                                        return(
-                                            <p>{data.reply_details}</p>
-                                        );
-                                    })} */}
-
-                                    {/* {supportTicketRespnses && supportTicketRespnses.dataValues ? supportTicketRespnses.dataValues.map((details) => {
-                                        return(
-                                            <div>
-                                                <p>{details.reply_details}</p>
-                                            </div>
-                                        );
-                                    }): null} */}
-
-                                    {/* <div className="create-ticket register-block"> */}
                                     {supportTicket.status != 'INVALID' ? (
                                         <Row>
                                             <Col md={12}>
@@ -265,7 +239,6 @@ const TicketResponse = (props) => {
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    {/* {console.log(formik.values)} */}
                                                     <DropDownWithSearch
                                                         {...selectProgress}
                                                         onBlur={

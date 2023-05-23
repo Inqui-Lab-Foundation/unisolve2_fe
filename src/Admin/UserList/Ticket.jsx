@@ -6,14 +6,9 @@ import { Tabs } from 'antd';
 import Layout from '../../Admin/Layout';
 import { Link } from 'react-router-dom';
 
-import {
-    // BsPlusLg,
-    BsUpload
-    // BsGraphUp
-} from 'react-icons/bs';
+import { BsUpload } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { connect } from 'react-redux';
-// import dummyCSV from '../../assets/media/basic-csv.csv';
 import {
     getAdmin,
     getAdminEvalutorsList,
@@ -24,11 +19,7 @@ import {
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
-import {
-    getNormalHeaders
-    // getCurrentUser,
-    // openNotificationWithIcon
-} from '../../helpers/Utils';
+import { getNormalHeaders } from '../../helpers/Utils';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -87,10 +78,9 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
     );
 };
 const TicketsPage = (props) => {
-    // const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const [menter, activeMenter] = useState(false);
-    // const [admin, activeAdmin] = useState(false);
+
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState('');
@@ -136,26 +126,22 @@ const TicketsPage = (props) => {
         // here e = students / teachers / evaluators / admins //
         setmentorDist('');
         setNewDists('');
-        // localStorage.removeItem('dist');
-        // localStorage.removeItem('num');
         setstudentDist('');
         localStorage.setItem('tab', e);
         if (e === '4') {
             activeMenter(false);
             activeEvaluater(false);
             props.getAdminListAction();
-            // activeAdmin(true);
         } else if (e === '3') {
             activeEvaluater(!evaluater);
             props.getEvaluatorListAction();
             activeMenter(false);
-            // activeAdmin(false);
+
             activeEvaluater(true);
         } else if (e === '2') {
-            //props.getAdminMentorsListAction('ALL',mentorDist);
             dispatch(getAdminMentorsListSuccess([], 0));
             activeMenter(!menter);
-            // activeAdmin(false);
+
             activeEvaluater(false);
         } else {
             activeEvaluater(false);
@@ -187,13 +173,6 @@ const TicketsPage = (props) => {
         }
     }, [localStorage.getItem('dist')]);
 
-    // const viewDetail = (item) => {
-    //     props.history.push({
-    //         pathname: '/admin/userprofile',
-    //         data: item
-    //     });
-    //     // localStorage.setItem('mentor', JSON.stringify(item));
-    // };
     const handleSelect = (item, num) => {
         // where item = student id / mentor id //
         localStorage.removeItem('dist');
@@ -358,14 +337,10 @@ const TicketsPage = (props) => {
                             status
                         };
                         handleStatusUpdateInAdmin({ obj }, id);
-                        // dispatch(updateAdmin({ status }, id));
+
                         setTimeout(() => {
                             props.getAdminListAction();
                         }, 500);
-
-                        // setTimeout(() => {
-                        //     props.getEvaluatorListAction();
-                        // }, 500);
                     } else {
                         const obj = {
                             full_name: all.full_name,
@@ -510,38 +485,32 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: 'id',
                 width: '6%'
-                // center: true,
             },
             {
                 name: 'Team Name',
                 selector: 'team.team_name',
-                // sortable: true,
+
                 width: '17%'
-                // center: true,
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
                 width: '20%'
-                // center: true,
             },
             {
                 name: 'Grade',
                 selector: 'Grade',
                 width: '9%'
-                // center: right,
             },
             {
                 name: 'Age',
                 selector: 'Age',
                 width: '8%'
-                // center: right,
             },
             {
                 name: 'Gender',
                 selector: 'Gender',
                 width: '10%'
-                // center: right,
             },
             {
                 name: 'Status',
@@ -566,7 +535,6 @@ const TicketsPage = (props) => {
                     <Link
                         key={record.id}
                         exact="true"
-                        // onClick={viewDetail}
                         onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
@@ -801,16 +769,12 @@ const TicketsPage = (props) => {
         ]
     };
 
-    // const handleEvaluatorStatus=(status,id)=>{
-    //     console.warn(status,id);
-    // };
-
     return (
         <Layout>
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>
-                    {/* <h2 onClick={handleDelete}>User List</h2> */}
+
                     <div className="ticket-data">
                         <Tabs
                             defaultActiveKey={
@@ -889,56 +853,6 @@ const TicketsPage = (props) => {
                                                 }
                                             />
                                         )}
-                                        {/* <div>
-                                            <Button
-                                                label="Import"
-                                                btnClass="primary-outlined"
-                                                size="small"
-                                                shape="btn-square"
-                                                Icon={BsUpload}
-                                                onClick={() =>
-                                                    setImportPopup(true)
-                                                }
-                                            />
-
-                                            <a
-                                                href={dummyCSV}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="primary"
-                                            >
-                                                <Button
-                                                    label="Export"
-                                                    btnClass="primary-outlined mx-2"
-                                                    size="small"
-                                                    shape="btn-square"
-                                                    Icon={BsGraphUp}
-                                                    style={{ color: '#231f20' }}
-                                                />
-                                            </a>
-                                        </div> */}
-
-                                        {/* {menter === true ? (
-                                            <Button
-                                                label='Add Mentor'
-                                                btnClass='primary ml-2'
-                                                size='small'
-                                                shape='btn-square'
-                                                Icon={BsPlusLg}
-                                                onClick={() => props.history.push("/admin/add-mentor")}
-                                            />
-                                        ) : evaluater === true ? (
-                                            <Button
-                                                label='Add Evaluator'
-                                                btnClass='primary ml-2'
-                                                size='small'
-                                                shape='btn-square'
-                                                Icon={BsPlusLg}
-                                                onClick={() =>
-                                                    props.history.push("/admin/add-evaluator")
-                                                }
-                                            />
-                                        ) : null} */}
                                     </div>
                                 </Col>
                             </Row>

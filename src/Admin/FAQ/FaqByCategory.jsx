@@ -14,49 +14,14 @@ import { KEY, URL } from '../../constants/defaultValues';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { Button } from '../../stories/Button';
-import { getCurrentUser } from '../../helpers/Utils.js';
 
 const FaqByCategory = () => {
     // eslint-disable-next-line no-unused-vars
     const [rows, setRows] = useState([]);
     const history = useHistory();
     const search = useLocation().search;
-    // const id = new URLSearchParams(search).get('id');
 
     const [data, setData] = useState([]);
-    // const currentUser = getCurrentUser("current_user");
-
-    // useEffect(() => {
-    //     var config = {
-    //         method: "get",
-    //         url: process.env.REACT_APP_API_BASE_URL + "/faqs",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             // Accept: "application/json",
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-    //         },
-    //         // data: body,
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             console.log("line no:99", response);
-
-    //             if (response.status === 200) {
-    //                 setData(() =>
-    //                     response?.data?.data[0]?.dataValues &&
-    //                 response?.data?.data[0]?.dataValues.map(
-    //                     (item, i) => {
-    //                         item.index = i + 1;
-    //                         return item;
-    //                     }
-    //                 ));
-
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // },[]);
 
     const getFaqByCategory = async (id) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -134,23 +99,9 @@ const FaqByCategory = () => {
                 sortable: true
             },
 
-            // {
-            //     name: 'Answer',
-            //     selector: 'answer',
-            //     width: '60%',
-            //     sortable: true
-            // },
             {
                 name: 'Status',
                 cell: (row) => [
-                    // <i
-                    //     key={row.faq_id}
-                    //     className="fa fa-edit"
-                    //     style={{ marginRight: '10px' }}
-                    //     onClick={() =>
-                    //         history.push(`/admin/edit-faq/${row.faq_id}`)
-                    //     }
-                    // />,
                     <div
                         className={`btn ${
                             row.status === 'ACTIVE'
@@ -203,12 +154,6 @@ const FaqByCategory = () => {
                 <Row>
                     <div className="ticket-data p-3 bg-white">
                         <div className="my-5">
-                            {/* <Button
-                                label={`Back to FAQ`}
-                                btnClass="primary float-end mb-3"
-                                size="small"
-                                onClick={() =>history.push("/admin/faq")}
-                            /> */}
                             <Button
                                 label={`Add FAQ`}
                                 btnClass="primary float-end mb-3"
@@ -222,13 +167,11 @@ const FaqByCategory = () => {
                             >
                                 <DataTable
                                     data={rows}
-                                    // noHeader
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
-                                    // fixedHeaderScrollHeight='300px'
                                     subHeaderAlign={Alignment.Center}
                                 />
                             </DataTableExtensions>

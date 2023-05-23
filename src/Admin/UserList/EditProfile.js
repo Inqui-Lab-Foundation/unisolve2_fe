@@ -39,7 +39,6 @@ const EditProfile = (props) => {
             }
         ]
     };
-    // console.log(mentorData);
     // const phoneRegExp =
     //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -299,21 +298,12 @@ const EditProfile = (props) => {
                                             btnClass="secondary"
                                             size="small"
                                             onClick={handleDiscard}
-                                            // onClick={() =>
-                                            //     props.history.push(
-                                            //         mentorData.where ===
-                                            //             'Dashbord'
-                                            //             ? '/admin/dashboard'
-                                            //             : '/admin/userlist'
-                                            //     )
-                                            // }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">
                                         <Button
                                             label="Submit details"
                                             type="submit"
-                                            // onClick={handleBack}
                                             btnClass={
                                                 !(
                                                     formik.dirty &&

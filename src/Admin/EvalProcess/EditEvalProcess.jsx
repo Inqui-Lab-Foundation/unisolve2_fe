@@ -47,10 +47,9 @@ const EditEvalProcess = (props) => {
                 .required('Level Name is Required'),
             no_of_evaluation: Yup.number()
                 .optional()
-                // .matches(phoneRegExp, 'Enter only numeric Values')
+                
                 .positive()
-                // .integer()
-                // .max(2)
+                
                 .required('No of Evaluation is Required')
         }),
         onSubmit: async (values) => {
@@ -88,7 +87,7 @@ const EditEvalProcess = (props) => {
                                         <Label
                                             className="mb-2"
                                             htmlFor="level_name"
-                                            // style={{ fontSize: 15 }}
+                                    
                                         >
                                             Level Name
                                         </Label>

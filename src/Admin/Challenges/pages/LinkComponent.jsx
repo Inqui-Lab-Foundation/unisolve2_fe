@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 
-const LinkComponent = ({item}) => {
+const LinkComponent = ({ item }) => {
     return (
         <>
             {item &&

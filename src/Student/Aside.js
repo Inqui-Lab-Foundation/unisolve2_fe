@@ -12,7 +12,6 @@ import {
     FaThLarge,
     FaLightbulb,
     FaShieldVirus,
-    // FaQuestionCircle,
     FaBars,
     FaHouseUser,
     FaCertificate
@@ -34,12 +33,11 @@ import { useTranslation } from 'react-i18next';
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const { t } = useTranslation();
     const history = useHistory();
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
     const presuveyStatusGl = useSelector(
-        (state) =>
-            state?.studentRegistration.presuveyStatusGl
+        (state) => state?.studentRegistration.presuveyStatusGl
     );
-    
+
     const location = useLocation();
 
     //create initial menuCollapse state using useState hook
@@ -58,12 +56,12 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         ) {
             setMenuCollapse(true);
         }
-    },[]);
+    }, []);
     const handleClick = (e) => {
         if (presuveyStatusGl !== 'COMPLETED') e.preventDefault();
     };
     const handleLogout = (e) => {
-        logout(history, t, 'student',dispatch);
+        logout(history, t, 'student', dispatch);
         e.preventDefault();
     };
     return (
@@ -111,9 +109,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    {/* <MenuItem className="static">
-                        {menuCollapse ? '' : <span>MAIN MENU</span>}
-                    </MenuItem> */}
                     <MenuItem
                         icon={<RiSurveyFill />}
                         className={
@@ -122,7 +117,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/student/pre-survey'}>
-                            {/* <NavLink exact={true} to={'/student/pre-survey'} className={`${setpresurveyStatus ? 'noHover' : ""}`}> */}
                             {/* Pre Survey */}
                             {t('home.pre_survey')}
                         </NavLink>
@@ -134,7 +128,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             location.pathname === '/dashboard' &&
                             'sidebar-active'
                         }
-                        // suffix={<span className="badge red">new1</span>}
                     >
                         <NavLink
                             exact={true}
@@ -161,16 +154,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('home.courses')}
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
-                        icon={<FaBriefcase />}
-                        className={
-                            location.pathname === '/teams' && 'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} onClick={handleClick} to={'/teams'}>
-                            {t('home.teams')}
-                        </NavLink>
-                    </MenuItem> */}
                     <MenuItem
                         icon={<FaShieldVirus />}
                         className={
@@ -188,11 +171,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<FaLightbulb />}
                         className={
-                            (location.pathname === '/challenges'|| location.pathname === '/challenge-initiation') &&
+                            (location.pathname === '/challenges' ||
+                                location.pathname ===
+                                    '/challenge-initiation') &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} onClick={handleClick} to={'/challenges'}>
+                        <NavLink
+                            exact={true}
+                            onClick={handleClick}
+                            to={'/challenges'}
+                        >
                             {t('home.idea_submission')}
                         </NavLink>
                     </MenuItem>
@@ -246,7 +235,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'certificate')}
                             to={'/student/my-certificate'}
                         >
                             {t('teacher.certificate')}
@@ -260,11 +248,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            // onClick={(e) => handleClick(e, '')}
-                            to={'/my-profile'}
-                        >
+                        <NavLink exact={true} to={'/my-profile'}>
                             {t('home.my_profile')}
                         </NavLink>
                     </MenuItem>
@@ -275,11 +259,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            //onClick={(e) => handleClick(e, '')}
-                            to={'/change-password'}
-                        >
+                        <NavLink exact={true} to={'/change-password'}>
                             {t('home.change_pass')}
                         </NavLink>
                     </MenuItem>
@@ -292,54 +272,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                 </Menu>
-                {/* <Menu iconShape="circle">
-                    <MenuItem className="static">
-                        {menuCollapse ? '' : <span>GENERAL</span>}
-                    </MenuItem>
-                    <SubMenu
-                        suffix={<span className="badge yellow">2</span>}
-                        title="Help"
-                        icon={<FaQuestionCircle />}
-                        data-element={location.pathname}
-                    >
-                        <MenuItem
-                            className={
-                                location.pathname === '/faq' && 'sidebar-active'
-                            }
-                        >
-                            <NavLink exact={true} to={'/faq'}>
-                                FAQ
-                            </NavLink>
-                        </MenuItem>
-                        <MenuItem
-                            className={
-                                location.pathname === '/tickets' &&
-                                'sidebar-active'
-                            }
-                        >
-                            <NavLink to={'/tickets'}>Tickets</NavLink>
-                        </MenuItem>
-                    </SubMenu>
-                </Menu> */}
             </SidebarContent>
-
-            {/* <SidebarFooter style={{ textAlign: "center" }}>
-        <div
-          className="sidebar-btn-wrapper"
-          style={{
-            padding: "20px 24px",
-          }}
-        >
-          <a
-            href="#"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            <span> Footer</span>
-          </a>
-        </div>
-      </SidebarFooter> */}
         </ProSidebar>
     );
 };

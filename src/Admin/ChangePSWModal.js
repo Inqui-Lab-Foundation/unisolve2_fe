@@ -1,26 +1,16 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
-
 import axios from 'axios';
-// import bcrypt from "bcryptjs";
 import '../Student/Pages/SignUp.scss';
 import { InputBox } from '../stories/InputBox/InputBox';
-
 import CryptoJS from 'crypto-js';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { getCurrentUser } from '../helpers/Utils';
-
 import { useTranslation } from 'react-i18next';
-// import UsersPage from "./UserPages";
-
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
-
-// const CryptoJS = require("crypto-js");
-// const bcrypt = require("bcrypt");
 
 const ChangePSWModal = (props) => {
     // here we can change the password //
@@ -49,16 +39,6 @@ const ChangePSWModal = (props) => {
             } else if (values.newPassword !== values.confirmPassword) {
                 SetError('New Password and Confirm Password not same');
             } else {
-                // var ciphertext = CryptoJS.AES.encrypt(
-                //   "my message",
-                //   "secret key 123"
-                // ).toString();
-
-                // CryptoJS.AES.encrypt(
-                //   JSON.stringify(data),
-                //   "my-secret-key@123"
-                // ).toString();
-
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
                 );
@@ -79,18 +59,6 @@ const ChangePSWModal = (props) => {
                     old_password: old1,
                     new_password: new1
                 });
-                // console.log(
-                //   "===========old",
-                //   CryptoJS.AES.encrypt(
-                //     values.oldPassword,
-                //     "my-secret-key@123"
-                //   ).toString()
-                // );
-                // const body = JSON.stringify({
-                //   userId: currentUser.id,
-                //   oldPassword: values.oldPassword,
-                //   newPassword: values.newPassword,
-                // });
 
                 var config = {
                     method: 'put',
@@ -99,7 +67,7 @@ const ChangePSWModal = (props) => {
                         '/admins/changePassword',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Accept: "application/json",
+
                         Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
@@ -206,10 +174,6 @@ const ChangePSWModal = (props) => {
                                             <FaEye size={18} />
                                         )}
                                     </div>
-                                    {/* <Link exact to="/forgotpassword" className="text-link pt-1">
-                    Forgot your password?
-                  </Link> */}
-                                    {/* <p onClick={onPick}>Forgot your password?</p> */}
 
                                     {formik.touched.oldPassword &&
                                     formik.errors.oldPassword ? (
@@ -307,11 +271,6 @@ const ChangePSWModal = (props) => {
                             </div>
                             {error}
 
-                            {/* <div className="form-row row mb-5">
-                <Col className="form-group" md={6}>
-                  <Button {...logInBtn} type="submit" />
-                </Col>
-              </div> */}
                             {responce}
                             <div
                                 className="swal2-actions"

@@ -138,12 +138,8 @@ const ForgotPassword = () => {
 
                                     <div className="form-row row mb-5">
                                         <Col className="form-group">
-                                            {/* <Link exact='true' to='/verifypassword'>
-                                                <Button {...logInBtn} type='submit' />
-                                            </Link> */}
                                             <Button
                                                 label="Generate Password"
-                                                // btnClass='primary w-100'
                                                 btnClass={
                                                     !(
                                                         formik.dirty &&
@@ -165,7 +161,6 @@ const ForgotPassword = () => {
                                     </div>
                                 </Form>
                                 <p className="d-flex text-center ">
-                                    {/* <NavLink className="p-0 blue">Back to Login</NavLink> */}
                                     <Link
                                         exact="true"
                                         to="/evaluator"
@@ -179,7 +174,6 @@ const ForgotPassword = () => {
                     </Col>
                 </Row>
             </div>
-            {/* </div> */}
         </React.Fragment>
     );
 };

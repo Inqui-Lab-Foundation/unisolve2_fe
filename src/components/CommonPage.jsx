@@ -38,9 +38,7 @@ const CommonPage = ({
                                 __html: text ? text : 'Coming Soon...'
                             }}
                         >
-                            {/* <h2 className="common-flex">
-                                {text ? text : 'Coming Soon...'}
-                            </h2> */}
+                           
                         </div>
                     </div>
                     {showButton && (

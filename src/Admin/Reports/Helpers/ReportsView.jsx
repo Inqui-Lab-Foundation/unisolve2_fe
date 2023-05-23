@@ -13,9 +13,7 @@ import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../../constants/defaultValues';
 const ReportsView = () => {
     // her we can see challenges reports view in district wise and count //
-    // const currentUser = getCurrentUser('current_user');
     const history = useHistory();
-    // const [rows, setRows] = React.useState([]);
     const [listData, setListData] = useState([]);
     const disTrict = JSON.parse(localStorage.getItem('district'));
 
@@ -87,10 +85,8 @@ const ReportsView = () => {
                                 {...reportList}
                             >
                                 <DataTable
-                                    // data={rows}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
-                                    // pagination
                                     highlightOnHover
                                     fixedHeader
                                     subHeaderAlign={Alignment.Center}

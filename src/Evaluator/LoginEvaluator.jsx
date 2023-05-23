@@ -75,14 +75,12 @@ const LoginEvaluator = (props) => {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            // console.log(encrypted);
             const body = {
                 username: values.email,
                 password: encrypted,
                 role: 'EVALUATOR'
             };
             props.evaluatorLoginUserAction(body, history, 'EVALUATOR');
-            // history.push('/evaluator/submitted-ideas');
         }
     });
 
@@ -324,5 +322,3 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     evaluatorLoginUserAction: evaluatorLoginUser
 })(LoginEvaluator);
-
-// export default LoginEvaluator;

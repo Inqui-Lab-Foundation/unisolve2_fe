@@ -38,12 +38,7 @@ const ViewMore = () => {
                         label="Back"
                         btnClass="primary"
                         size="small"
-                        onClick={
-                            handleBack
-                            // history.push(
-                            //     '/admin/dashboard'
-                            // )
-                        }
+                        onClick={handleBack}
                     />
                 </div>
                 <Row>
@@ -57,12 +52,6 @@ const ViewMore = () => {
                                 </span>
                                 <b>{orgDaTa.principal_name}</b>
                             </CardText>
-                            {/* <CardText>
-                                <span className="mx-3">
-                                    <b>principal Mobile :</b>
-                                </span>
-                                <b>{orgDaTa.principal_mobile}</b>
-                            </CardText> */}
                             <CardText>
                                 <span className="mx-3">
                                     <b>principal Email :</b>
@@ -123,12 +112,6 @@ const ViewMore = () => {
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_id}</b>
                                 </CardText>
-                                {/* <CardText>
-                                    <span className="mx-3">
-                                        <b>Mentor Mobile :</b>
-                                    </span>
-                                    <b>{orgDaTa.mentor.mobile}</b>
-                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

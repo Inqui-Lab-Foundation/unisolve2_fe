@@ -9,12 +9,10 @@ import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import { DatePicker } from "antd";
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import "semantic-ui-css/semantic.min.css";
 
 const EditTeamMember = (props) => {
     const { t } = useTranslation();

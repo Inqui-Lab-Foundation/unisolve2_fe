@@ -14,30 +14,6 @@ const CreateTranslation = (props) => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
-
-    // const [editorStateOfFromKey, setEditorStateOfFromKey] = useState(() =>
-    //     EditorState.createEmpty()
-    // );
-    // const [editorStateOfToValue, setEditorStateOfToValue] = useState(() =>
-    //     EditorState.createEmpty()
-    // );
-
-    // const handleEditorChangeOfFromKey = (state) => {
-    //     setEditorStateOfFromKey(state);
-    //     formik.setFieldValue(
-    //         'from_key',
-    //         state.getCurrentContent().getPlainText()
-    //     );
-    // };
-
-    // const handleEditorChangeOfToValue = (state) => {
-    //     setEditorStateOfToValue(state);
-    //     formik.setFieldValue(
-    //         'to_value',
-    //         state.getCurrentContent().getPlainText()
-    //     );
-    // };
-
     const formik = useFormik({
         initialValues: {
             from_locale: 'en',

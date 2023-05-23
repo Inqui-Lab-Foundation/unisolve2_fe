@@ -8,7 +8,6 @@ import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import dummyCSV from '../../media/basic-csv.csv';
 import {
     getAdminTeamsList,
     getAdminTeamMembersList
@@ -24,8 +23,6 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { useTranslation } from 'react-i18next';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 
-// const { TabPane } = Tabs;
-
 const TicketsPage = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
@@ -35,12 +32,12 @@ const TicketsPage = (props) => {
 
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
-    // const [show, setDelete] = useState(false);
+    
 
     const [teamsArray, setTeamsArray] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [teamMembersListArray, setTeamMembersArray] = useState([]);
-    // const [newTeamMembersListArray, setNewTeamMembersArray] = useState([]);
+    
     // eslint-disable-next-line no-unused-vars
     const [teamId, setTeamId] = useState('');
 
@@ -74,9 +71,7 @@ const TicketsPage = (props) => {
         setLoading(false);
     }, [props.teamsList]);
 
-    // useEffect(() => {
-    //     props.getAdminTeamMembersListAction(teamId);
-    // }, [teamId]);
+
 
     useEffect(() => {
         var teamsMembersArrays = [];

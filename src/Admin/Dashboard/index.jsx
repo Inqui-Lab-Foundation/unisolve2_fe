@@ -420,20 +420,6 @@ const Dashboard = () => {
                             orgData?.organization_name &&
                             orgData?.mentor !== null ? (
                                 <>
-                                    {/* <div>
-                                        <Descriptions
-                                            bordered
-                                            className='mt-3 text-left p-4'
-                                            column={{ xxl: 1, xl: 1, lg: 1, md: 3, sm: 2, xs: 1 }}
-                                        >
-                                            <Descriptions.Item label="School">{orgData.organization_name}</Descriptions.Item>
-                                            <Descriptions.Item label="City">{orgData.city}</Descriptions.Item>
-                                            <Descriptions.Item label="District">{orgData.district}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty Name">{orgData.mentor?.full_name}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty Mobile">{orgData.mentor?.mobile}</Descriptions.Item>
-                                            <Descriptions.Item label="Faculty email">{orgData.mentor?.user?.username}</Descriptions.Item>
-                                        </Descriptions>
-                                    </div> */}
                                     <div className="mb-5 p-3" ref={pdfRef}>
                                         <div className="container-fluid card shadow border">
                                             <div className="row">
@@ -479,16 +465,6 @@ const Dashboard = () => {
                                                                 }
                                                             </p>
                                                         </li>
-                                                        {/* <li className="d-flex justify-content-between">
-                                                            Mentor Mobile:{' '}
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.mobile
-                                                                }
-                                                            </p>
-                                                        </li> */}
                                                         <li className="d-flex justify-content-between">
                                                             Mentor email:{' '}
                                                             <p>
@@ -508,7 +484,6 @@ const Dashboard = () => {
                                     <div className="d-flex justify-content-between">
                                         <button
                                             onClick={handleEdit}
-                                            // onClick={() => handleEdit()}
                                             className="btn btn-warning btn-lg"
                                         >
                                             Edit
@@ -567,21 +542,13 @@ const Dashboard = () => {
                                                 <DataTableExtensions
                                                     print={false}
                                                     export={false}
-                                                    // style={{ fontSize: '10' }}
                                                     {...MentorsData}
                                                 >
                                                     <DataTable
-                                                        // data={SRows}
-                                                        // style={{ fontSize: 8 }}
                                                         noHeader
                                                         defaultSortField="id"
                                                         defaultSortAsc={false}
-                                                        // pagination
                                                         highlightOnHover
-                                                        // fixedHeader
-                                                        // subHeaderAlign={
-                                                        //     Alignment.Center
-                                                        // }
                                                     />
                                                 </DataTableExtensions>
                                             </div>
@@ -589,32 +556,23 @@ const Dashboard = () => {
                                     </div>
                                 </>
                             ) : (
-                                // !error &&
-                                // diesCode &&
-                                // orgData !== {} &&
                                 count != 0 && (
-                                    // <Card className="mt-3 p-4">
                                     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
                                         <span>Still No Teacher Registered</span>
                                     </div>
-                                    // </Card>
                                 )
                             )}
                             {error && diesCode && (
-                                // <Card className="mt-3 p-4">
                                 <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
                                     <span>{error}</span>
                                 </div>
                             )}
                             {!diesCode && (
-                                // <Card className="mt-3 p-4">
-
                                 <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
                                     <span className="text-primary fs-highlight">
                                         Enter Unique Code
                                     </span>
                                 </div>
-                                // </Card>
                             )}
                         </div>
                     </div>

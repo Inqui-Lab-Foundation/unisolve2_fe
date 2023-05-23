@@ -3,7 +3,6 @@ import axios from 'axios';
 import { getNormalHeaders } from '../../helpers/Utils';
 import { Row, Col } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
-
 import Layout from '../Layout';
 import { useSelector } from 'react-redux';
 import { getLanguage } from '../../constants/languageOptions';
@@ -11,8 +10,6 @@ import { KEY, URL } from '../../constants/defaultValues';
 
 const FaqPage = () => {
     const [queryId] = useState('Idea Submission');
-    // changed
-    // const currentUser = getCurrentUser('current_user');
     const [response, SetResponse] = useState([]);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
 
@@ -35,33 +32,12 @@ const FaqPage = () => {
     // changed
     useEffect(() => {
         getFaqByCategory(1);
-        // var config = {
-        //     method: 'get',
-        //     url: process.env.REACT_APP_API_BASE_URL + '/faqs?'+getLanguage(language),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         // Accept: "application/json",
-        //         Authorization: `Bearer ${currentUser?.data[0]?.token}`
-        //     }
-        //     // data: body,
-        // };
-        // axios(config)
-        //     .then(function (response) {
-        //         console.log('line no:99', response);
-        //         if (response.status === 200) {
-        //             SetResponse(response.data.data[0].dataValues);
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
     }, [language]);
     return (
         <Layout>
             <div className="faq-page">
                 {queryId ? (
                     <div className="idea-section text-center container">
-                        {/* <h1>{queryId}</h1> */}
                         <h1>FAQ’s</h1>
 
                         <Row className="justify-content-center">
@@ -78,7 +54,6 @@ const FaqPage = () => {
                                                     >
                                                         <Accordion.Header className="question">
                                                             <div className="idea-query py-3">
-                                                                {/* <Avatar src={User} className="avatar-imgs" /> */}
                                                                 <span className="avatar-txt">
                                                                     {
                                                                         que.question

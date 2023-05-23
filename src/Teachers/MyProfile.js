@@ -1,125 +1,25 @@
 /* eslint-disable indent */
 import React, { useLayoutEffect } from 'react';
-import {
-    Container,
-    Row,
-    Col,
-    Card,
-    // CardTitle,
-    CardBody,
-    CardText
-    // CardImg
-} from 'reactstrap';
-//import { IoIosArrowBack } from 'react-icons/io';
-// import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Container, Row, Col, Card, CardBody, CardText } from 'reactstrap';
 import 'sweetalert2/src/sweetalert2.scss';
-// import ChangePSWModal from './ChangePSWModal';
-// import withReactContent from 'sweetalert2-react-content';
-
-//import { Link } from 'react-router-dom';
-//import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
-
 import Layout from './Layout.jsx';
 import { getCurrentUser } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
-// import moment from 'moment';
-
-// const MySwal = withReactContent(Swal);
-
-// const onCancel = () => {
-//     Swal.close();
-// };
-
-// const btnSubmit = () => {
-//     Swal.close();
-// };
-
-// const showFormModal = (values) => {
-//     return new Promise((resolve, reject) => {
-//         MySwal.fire({
-//             title: "Enter values",
-//             reverseButtons: false,
-//             showCloseButton: true,
-//             allowOutsideClick: false,
-//             html: (
-//                 <ChangePSWModal
-//                     values={values}
-//                     onSubmit={(values) => {
-//                         resolve(values);
-//                         Swal.close();
-//                     }}
-//                     onCancel={onCancel}
-//                     btnSubmit={btnSubmit}
-//                 />
-//             ),
-//             onClose: () => reject(),
-//             showConfirmButton: false
-//         });
-//     });
-// };
-
 const MyProfile = () => {
     // here we can see all the details of details of teacher //
     const currentUser = getCurrentUser('current_user');
-    //const [profileAction, setProfileAction] = useState(true);
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
-
-    // function showModal() {
-    //     showFormModal({
-    //         oldPassword: '',
-    //         newPassword: '',
-    //         confirmPassword: '',
-    //         lastName: ''
-    //     })
-    //         .then((values) => console.log(values))
-    //         .catch(() => console.log('Modal closed'));
-    // }
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser?.data[0]?.mentor_id]);
-    // useEffect(() => {
-    //     const search = window.location.search;
-    //     // if (search === '?id=teams') {
-    //     //     setProfileAction(false);
-    //     // }
-    // });
-    // const headingDetails = {
-    //     title: 'My Profile'
-
-    //     // options: [
-    //     //     {
-    //     //         title: 'Home',
-    //     //         path: '/teacher/dashboard'
-    //     //     },
-    //     //     {
-    //     //         title: 'My Profile',
-    //     //         path: '/teacher/my-profile'
-    //     //     }
-    //     // ]
-    // };
-
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <h2>My Profile</h2>
-                        {/* {profileAction ? (
-                            <BreadcrumbTwo {...headingDetails} />
-                        ) 
-                        : (
-                            <Link
-                                to="/teams"
-                                className="color-grey-1 mb-3 d-block"
-                            >
-                                <IoIosArrowBack />
-                                Go Back
-                            </Link>
-                        )
-                        } */}
-
                         <Row>
                             <Col md={12}>
                                 <Card className="w-100  mb-5 p-4">

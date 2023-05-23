@@ -4,7 +4,6 @@ import './ViewFinalSelectedideas.scss';
 import Layout from '../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-//import moment from 'moment';
 import ViewDetail from './ViewFinalDetail';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -56,34 +55,6 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    //     const handlePromotelFinalEvaluated = (item) => {
-    //         promoteapi(item.challenge_response_id);
-    //      };
-
-    //  async function promoteapi(id) {
-    //     const body = JSON.stringify({"final_result":"1"});
-    //      var config = {
-    //          method: 'put',
-    //          url: `${
-    //              process.env.REACT_APP_API_BASE_URL +
-    //              '/challenge_response/updateEntry/' + id
-    //          }`,
-    //          headers: {
-    //              'Content-Type': 'application/json',
-    //              Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //          },
-    //          data: body
-    //      };
-    //      await axios (config)
-    //      .then(function (response) {
-    //          if (response.status === 200) {
-    //              handleclickcall();
-    //          }
-    //      })
-    //      .catch(function (error) {
-    //          console.log(error);
-    //      });
-    //  }
     const handleclickcall = () => {
         setshowspin(true);
         handleideaList();
@@ -117,7 +88,7 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-    // const average = arr => arr.reduce((p,c) => p+c,0)/arr.length;
+
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -136,18 +107,12 @@ const ViewSelectedIdea = () => {
                 name: 'Team Name',
                 selector: (row) => row?.team_name || '',
                 sortable: true
-                //width: '11.5%'
             },
             {
                 name: 'SDG',
                 selector: (row) => row?.sdg,
                 width: '10%'
             },
-            // {
-            //     name: 'Submitted By',
-            //     selector: (row) => row.evaluator_ratings[0]?.challenge_response?.initiated_name,
-            //     width: '11.5%'
-            // },
 
             {
                 name: 'Novelty',
@@ -160,7 +125,6 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '8%'
                 sortable: true
             },
             {
@@ -174,7 +138,6 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '9%'
                 sortable: true
             },
             {
@@ -188,7 +151,6 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '9%'
                 sortable: true
             },
             {
@@ -202,7 +164,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '9%'
+
                 sortable: true
             },
             {
@@ -216,7 +178,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '11%'
+
                 sortable: true
             },
             {
@@ -230,7 +192,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
-                //  width : '7%'
+
                 sortable: true
             },
 
@@ -275,17 +237,6 @@ const ViewSelectedIdea = () => {
                                     />
                                 )}
                             </div>
-                            {/* {params.final_result === '0' && (<Link
-                            //exact="true"
-                           // key={record}
-                            onClick={() => handlePromotelFinalEvaluated(params)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-info btn-lg mx-2">
-                                Promote
-                            </div>
-                        </Link>)
-                } */}
                         </div>
                     ];
                 },

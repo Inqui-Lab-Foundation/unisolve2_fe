@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import DashboardIcon from '../assets/media/DashboardIcon.svg';
 
@@ -10,38 +10,38 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaTh,FaQuestionCircle,FaCaretSquareRight,FaCertificate,FaHouseUser } from 'react-icons/fa';
-import { RiSurveyFill,RiTeamFill,RiLogoutBoxRFill,RiLockPasswordFill} from 'react-icons/ri';
-
+import {
+    FaBars,
+    FaTh,
+    FaQuestionCircle,
+    FaCaretSquareRight,
+    FaCertificate,
+    FaHouseUser
+} from 'react-icons/fa';
+import {
+    RiSurveyFill,
+    RiTeamFill,
+    RiLogoutBoxRFill,
+    RiLockPasswordFill
+} from 'react-icons/ri';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-// import Logo from '../assets/media/img/Logo.svg';
-import Logo from "../assets/media/tn-brands/UPSHIFT_BLACK.png"; 
-
-import { compareDates, getNormalHeaders, logout } from '../helpers/Utils';
-import { KEY, URL } from '../constants/defaultValues';
-import axios from 'axios';
+import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import { compareDates, logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { getSchedulesForTeacherAndStudents } from '../redux/schedules/actions';
 
 import { useTranslation } from 'react-i18next';
-import { getLanguage } from '../constants/languageOptions';
-
-// import { getCurrentUser, logout } from "../helpers/Utils";
-
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const { t } = useTranslation();
     const history = useHistory();
     const dispatch = useDispatch();
     const { schedules } = useSelector((state) => state.schedules);
-    const presurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
+    const presurveyStatus = useSelector(
+        (state) => state?.mentors.teacherPresurveyStatus
+    );
 
-    // for future use
-    // useLayoutEffect(() => {
-    //     dispatch(getSchedulesForTeacherAndStudents());
-    // }, []);
     const location = useLocation();
 
     //create initial menuCollapse state using useState hook
@@ -64,12 +64,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         const typeFilter = type && schedules[0].teacher[type];
         if (presurveyStatus !== 'COMPLETED') e.preventDefault();
 
-        if(type){
-            if((presurveyStatus === 'COMPLETED') && !compareDates(typeFilter)) e.preventDefault();
+        if (type) {
+            if (presurveyStatus === 'COMPLETED' && !compareDates(typeFilter))
+                e.preventDefault();
         }
     };
     const handleLogout = (e) => {
-        logout(history, t,"teacher",dispatch);
+        logout(history, t, 'teacher', dispatch);
         e.preventDefault();
     };
     return (
@@ -82,8 +83,15 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         >
             <SidebarHeader>
                 <div className="sidebar-header header-comp sticky-top">
-                    <div className="d-flex logo-section" style={{height:"5rem"}}>
-                        <Link to={'/teacher/dashboard'} exact className="d-flex">
+                    <div
+                        className="d-flex logo-section"
+                        style={{ height: '5rem' }}
+                    >
+                        <Link
+                            to={'/teacher/dashboard'}
+                            exact
+                            className="d-flex"
+                        >
                             {menuCollapse ? (
                                 <img
                                     src={Logo}
@@ -114,12 +122,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    {/* <MenuItem className="static">
-                        {menuCollapse ? '' : <span>MAIN MENU</span>}
-                    </MenuItem> */}
-
                     <MenuItem
-                        icon={<RiSurveyFill/>}
+                        icon={<RiSurveyFill />}
                         className={
                             location.pathname === '/teacher/pre-survey' &&
                             'sidebar-active'
@@ -131,7 +135,12 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     </MenuItem>
 
                     <MenuItem
-                        icon={<img src={DashboardIcon} style={{width:"20px"}}/>}
+                        icon={
+                            <img
+                                src={DashboardIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
                         className={
                             location.pathname === '/teacher/dashboard' &&
                             'sidebar-active'
@@ -141,38 +150,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'dashboard')}
                             to={'/teacher/dashboard'}
                         >
                             {t('teacher.dashboard')}
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
-            icon={<img src={CourseIcon} />}
-            className={
-              location.pathname === "/admin/all-courses" && "sidebar-active"
-            }
-          >
-            <NavLink exact={true} to={"/admin/all-courses"}>
-              Courses
-            </NavLink>
-          </MenuItem> */}
-                    {/* <MenuItem
-            icon={<FaShieldVirus />}
-            className={
-              location.pathname === "/admin/registered-schools" &&
-              "sidebar-active"
-            }
-          >
-            <NavLink
-              exact={true}
-              to={"/admin/registered-schools"}
-              activeClassName="sidebar-active"
-            >
-              Schools Registered
-            </NavLink>
-          </MenuItem> */}
-
                     <MenuItem
                         icon={<FaTh />}
                         className={
@@ -183,7 +165,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'course')}
                             to={`/teacher/playvideo/${1}`}
                         >
                             {t('teacher.course')}
@@ -193,15 +174,18 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiTeamFill />}
                         className={
-                            (location.pathname === '/teacher/teamlist' || location.pathname === '/teacher/create-team-member'
-                            || location.pathname === '/teacher/view-team-member' || location.pathname === '/teacher/create-team' ) && 
+                            (location.pathname === '/teacher/teamlist' ||
+                                location.pathname ===
+                                    '/teacher/create-team-member' ||
+                                location.pathname ===
+                                    '/teacher/view-team-member' ||
+                                location.pathname === '/teacher/create-team') &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'teams')}
                             to={'/teacher/teamlist'}
                         >
                             {t('teacher.team')}
@@ -229,7 +213,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className={
                             (location.pathname === '/teacher/support-journey' ||
                                 location.pathname ===
-                                    '/teacher/support-journey/add-ticket' || location.pathname ===`/teacher/support-journey/ans-ticket`) &&
+                                    '/teacher/support-journey/add-ticket' ||
+                                location.pathname ===
+                                    `/teacher/support-journey/ans-ticket`) &&
                             'sidebar-active'
                         }
                     >
@@ -254,7 +240,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'post_survery')}
                             to={'/teacher/post-survey'}
                         >
                             {t('teacher.post_survey')}
@@ -270,7 +255,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             onClick={(e) => handleClick(e, '')}
-                            // onClick={(e) => handleClick(e, 'certificate')}
                             to={'/teacher/my-certificate'}
                         >
                             {t('teacher.certificate')}
@@ -283,11 +267,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            // onClick={(e) => handleClick(e, '')}
-                            to={'/teacher/my-profile'}
-                        >
+                        <NavLink exact={true} to={'/teacher/my-profile'}>
                             {t('teacher.profile')}
                         </NavLink>
                     </MenuItem>
@@ -298,11 +278,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink
-                            exact={true}
-                            // onClick={(e) => handleClick(e, '')}
-                            to={'/teacher/change-password'}
-                        >
+                        <NavLink exact={true} to={'/teacher/change-password'}>
                             {t('teacher.password')}
                         </NavLink>
                     </MenuItem>

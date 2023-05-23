@@ -21,7 +21,6 @@ import { useSelector } from 'react-redux';
 import {
     getStudentChallengeQuestions,
     getStudentChallengeSubmittedResponse
-    // updateStudentBadges
 } from '../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../../helpers/Utils';
@@ -40,23 +39,28 @@ import { cardData } from './SDGData';
 import moment from 'moment';
 import { getLanguage } from '../../../constants/languageOptions';
 
-const LinkComponent = ({ original, item,url, removeFileHandler, i }) => {
+const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
     let a_link;
     let count;
-    if(url){
-        a_link = item.split( '/' ); 
+    if (url) {
+        a_link = item.split('/');
         count = a_link.length - 1;
     }
     return (
         <>
-            {original ? <div className="badge mb-2 bg-info ms-3">
-                <span className="p-2">{item.name}</span>
-                {original && (
-                    <span className="pointer" onClick={() => removeFileHandler(i)}>
-                        <AiOutlineCloseCircle size={20} />
-                    </span>
-                )}            
-            </div> :
+            {original ? (
+                <div className="badge mb-2 bg-info ms-3">
+                    <span className="p-2">{item.name}</span>
+                    {original && (
+                        <span
+                            className="pointer"
+                            onClick={() => removeFileHandler(i)}
+                        >
+                            <AiOutlineCloseCircle size={20} />
+                        </span>
+                    )}
+                </div>
+            ) : (
                 <a
                     className="badge mb-2 bg-info p-3 ms-3"
                     href={item}
@@ -65,13 +69,13 @@ const LinkComponent = ({ original, item,url, removeFileHandler, i }) => {
                 >
                     {a_link[count]}
                 </a>
-            }
+            )}
         </>
     );
 };
 const IdeasPageNew = () => {
     const { t } = useTranslation();
-     const history = useHistory();
+    const history = useHistory();
     const challengeQuestions = useSelector(
         (state) => state?.studentRegistration.challengeQuestions
     );
@@ -197,7 +201,7 @@ const IdeasPageNew = () => {
             wordCount &&
             wordCount.length > 0 &&
             wordCount.filter((item) => item.i == id);
-        return data && data.length > 0 && (data[0]?.count || "0") 
+        return data && data.length > 0 && (data[0]?.count || '0')
             ? data[0].count
             : max
             ? max
@@ -216,7 +220,7 @@ const IdeasPageNew = () => {
                 parseInt(e.target.name)
         );
         if (findExistanceIndex === -1) {
-                newItems.push(obj);
+            newItems.push(obj);
         } else {
             let temp = newItems[findExistanceIndex];
             if (e.target.type === 'checkbox') {
@@ -232,9 +236,9 @@ const IdeasPageNew = () => {
                     selected_option: options
                 };
             } else {
-                if(e.target.value === ''){
+                if (e.target.value === '') {
                     newItems.splice(findExistanceIndex, 1);
-                }else{
+                } else {
                     newItems[findExistanceIndex] = {
                         ...temp,
                         selected_option: e.target.value
@@ -248,7 +252,7 @@ const IdeasPageNew = () => {
         challengeQuestions.filter((item) => item.type !== 'DRAW').length +
         (sdg === 'OTHERS' ? 1 : 0);
     const responseData = answerResponses.map((eachValues) => {
-        lengthCheck += eachValues.type ==="DRAW" ? 1 : 0;
+        lengthCheck += eachValues.type === 'DRAW' ? 1 : 0;
         return {
             challenge_question_id: eachValues.challenge_question_id,
             selected_option: eachValues.selected_option
@@ -296,9 +300,10 @@ const IdeasPageNew = () => {
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
-                    t('general_req.cancelled'),
-                    t('general_req.idea_sub_cancelled'),
-                    'error');
+                        t('general_req.cancelled'),
+                        t('general_req.idea_sub_cancelled'),
+                        'error'
+                    );
                 }
             });
     };
@@ -334,10 +339,7 @@ const IdeasPageNew = () => {
             return;
         }
         if (choosenFiles.filter((item) => item.size > maxFileSize).length > 0) {
-            openNotificationWithIcon(
-                'error',
-                t('student.less_20MB')
-            );
+            openNotificationWithIcon('error', t('student.less_20MB'));
             return;
         }
         handleUploadFiles(choosenFiles);
@@ -353,7 +355,9 @@ const IdeasPageNew = () => {
         };
         await axios
             .post(
-                `${URL.submitChallengeResponse}team_id=${currentUser?.data[0]?.team_id}&${getLanguage(language)}`,
+                `${URL.submitChallengeResponse}team_id=${
+                    currentUser?.data[0]?.team_id
+                }&${getLanguage(language)}`,
                 submitData,
                 axiosConfig
             )
@@ -362,39 +366,29 @@ const IdeasPageNew = () => {
                     openNotificationWithIcon(
                         'success',
                         `${
-                            type ? t("student.idea_draft") : t("student.idea_submitted")
+                            type
+                                ? t('student.idea_draft')
+                                : t('student.idea_submitted')
                         } `
                     );
-                if(type!=='DRAFT'){
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-success'
-                        },
-                        buttonsStyling: false
-                    });
+                    if (type !== 'DRAFT') {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            },
+                            buttonsStyling: false
+                        });
 
-                    swalWithBootstrapButtons.fire({
-                        title: t('badges.congratulations'),
-                        text: t('badges.earn'),
-                        // text:`You have Earned a New Badge ${data.badge_slugs[0].replace("_"," ").toUpperCase()}`,
-                        imageUrl: `${logout}`,
-                        showCloseButton: true,
-                        confirmButtonText: t('badges.ok'),
-                        showCancelButton: false,
-                        reverseButtons: false
-                    });
-                }
-                    // const badge = 'the_change_maker';
-                    // if (!type) {
-                    //     dispatch(
-                    //         updateStudentBadges(
-                    //             { badge_slugs: [badge] },
-                    //             currentUser?.data[0]?.user_id,
-                    //             language,
-                    //             t
-                    //         )
-                    //     );
-                    // }
+                        swalWithBootstrapButtons.fire({
+                            title: t('badges.congratulations'),
+                            text: t('badges.earn'),
+                            imageUrl: `${logout}`,
+                            showCloseButton: true,
+                            confirmButtonText: t('badges.ok'),
+                            showCancelButton: false,
+                            reverseButtons: false
+                        });
+                    }
                     setTimeout(() => {
                         dispatch(
                             getStudentChallengeSubmittedResponse(
@@ -480,7 +474,8 @@ const IdeasPageNew = () => {
         scroll();
     };
     const comingSoonText = t('dummytext.student_idea_sub');
-    const acceptedParamfileTypes="Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 20MB";
+    const acceptedParamfileTypes =
+        'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 20MB';
     return (
         <Layout>
             {showPage ? (
@@ -493,16 +488,23 @@ const IdeasPageNew = () => {
                             initiatedBy !== currentUser?.data[0]?.user_id && (
                                 <div className="d-md-flex justify-content-end px-4">
                                     <Card className="p-3">
-                                        {t('student_course.idea_submission_msg1')}
+                                        {t(
+                                            'student_course.idea_submission_msg1'
+                                        )}
                                         {challengesSubmittedResponse[0]
                                             ?.status === 'DRAFT'
                                             ? t('student_course.idea_status1')
                                             : t('student_course.idea_status2')}
-                                        {t('student_course.idea_submission_msg2')}
+                                        {t(
+                                            'student_course.idea_submission_msg2'
+                                        )}
                                         {
                                             challengesSubmittedResponse[0]
                                                 ?.initiated_name
-                                        }{t('student_course.idea_submission_msg3')}
+                                        }
+                                        {t(
+                                            'student_course.idea_submission_msg3'
+                                        )}
                                         {moment(
                                             challengesSubmittedResponse[0]
                                                 ?.created_at
@@ -561,7 +563,9 @@ const IdeasPageNew = () => {
                                                                 <Button
                                                                     type="button"
                                                                     btnClass="secondary me-3"
-                                                                    onClick={redirect}
+                                                                    onClick={
+                                                                        redirect
+                                                                    }
                                                                     size="small"
                                                                     label={t(
                                                                         'teacher_teams.discard'
@@ -794,7 +798,14 @@ const IdeasPageNew = () => {
                                                                                             disabled={
                                                                                                 isDisabled
                                                                                             }
-                                                                                            placeholder= {`${t('student.max_length_msg1')}${eachQuestion?.word_limit ||100}${t('student.max_length_msg2')}`}
+                                                                                            placeholder={`${t(
+                                                                                                'student.max_length_msg1'
+                                                                                            )}${
+                                                                                                eachQuestion?.word_limit ||
+                                                                                                100
+                                                                                            }${t(
+                                                                                                'student.max_length_msg2'
+                                                                                            )}`}
                                                                                             maxLength={
                                                                                                 eachQuestion?.word_limit ||
                                                                                                 100
@@ -830,49 +841,58 @@ const IdeasPageNew = () => {
                                                                             </>
                                                                         )}
                                                                         {eachQuestion.type ===
-                                                                            'DRAW' &&  (
+                                                                            'DRAW' && (
                                                                             <>
-                                                                                {acceptedParamfileTypes}
+                                                                                {
+                                                                                    acceptedParamfileTypes
+                                                                                }
                                                                                 {initiatedBy &&
-                                                                            initiatedBy ===
-                                                                                currentUser?.data[0]
-                                                                                    ?.user_id &&
-                                                                            challengesSubmittedResponse[0]
-                                                                                ?.status === 'DRAFT' &&
-                                                                                <FormGroup
-                                                                                    check
-                                                                                    className="answers"
-                                                                                >
-                                                                                    <div className="wrapper my-3 common-flex">
-                                                                                        {!isDisabled && <Button
-                                                                                            type="button"
-                                                                                            btnClass={`${
-                                                                                                isDisabled
-                                                                                                    ? 'secondary'
-                                                                                                    : 'primary'
-                                                                                            } me-3 pointer `}
-                                                                                            size="small"
-                                                                                            label={t('student.upload_file')}
-                                                                                        />}
-                                                                                        <input
-                                                                                            type="file"
-                                                                                            name="file"
-                                                                                            disabled={
-                                                                                                isDisabled
-                                                                                            }
-                                                                                            accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
-                                                                                            multiple
-                                                                                            onChange={(
-                                                                                                e
-                                                                                            ) =>
-                                                                                                fileHandler(
-                                                                                                    e,
-                                                                                                    eachQuestion.challenge_question_id
-                                                                                                )
-                                                                                            }
-                                                                                        />
-                                                                                    </div>
-                                                                                </FormGroup>}
+                                                                                    initiatedBy ===
+                                                                                        currentUser
+                                                                                            ?.data[0]
+                                                                                            ?.user_id &&
+                                                                                    challengesSubmittedResponse[0]
+                                                                                        ?.status ===
+                                                                                        'DRAFT' && (
+                                                                                        <FormGroup
+                                                                                            check
+                                                                                            className="answers"
+                                                                                        >
+                                                                                            <div className="wrapper my-3 common-flex">
+                                                                                                {!isDisabled && (
+                                                                                                    <Button
+                                                                                                        type="button"
+                                                                                                        btnClass={`${
+                                                                                                            isDisabled
+                                                                                                                ? 'secondary'
+                                                                                                                : 'primary'
+                                                                                                        } me-3 pointer `}
+                                                                                                        size="small"
+                                                                                                        label={t(
+                                                                                                            'student.upload_file'
+                                                                                                        )}
+                                                                                                    />
+                                                                                                )}
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="file"
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
+                                                                                                    multiple
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        fileHandler(
+                                                                                                            e,
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        )
+                                                                                                    }
+                                                                                                />
+                                                                                            </div>
+                                                                                        </FormGroup>
+                                                                                    )}
                                                                                 <div className="mx-4">
                                                                                     {immediateLink &&
                                                                                         immediateLink.length >
@@ -885,7 +905,9 @@ const IdeasPageNew = () => {
                                                                                                     item={
                                                                                                         item
                                                                                                     }
-                                                                                                    url={true}
+                                                                                                    url={
+                                                                                                        true
+                                                                                                    }
                                                                                                     key={
                                                                                                         i
                                                                                                     }
@@ -934,15 +956,19 @@ const IdeasPageNew = () => {
                                                                                             (
                                                                                                 item,
                                                                                                 i
-                                                                                            ) => <LinkComponent
+                                                                                            ) => (
+                                                                                                <LinkComponent
                                                                                                     item={
                                                                                                         item
                                                                                                     }
-                                                                                                    url={true}
+                                                                                                    url={
+                                                                                                        true
+                                                                                                    }
                                                                                                     key={
                                                                                                         i
                                                                                                     }
                                                                                                 />
+                                                                                            )
                                                                                         )}
                                                                                 </div>
                                                                             </>

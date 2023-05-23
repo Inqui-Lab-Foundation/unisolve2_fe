@@ -187,13 +187,6 @@ const RateIdea = (props) => {
                                                 text2={'Difficult to Sustain'}
                                                 text3={'Sustainable and Environment friendly'}
                                             />}
-                                {/* <NumberScale
-                                    name={item}
-                                    setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
-                                    text1={'Not at all Likely'}
-                                    text2={'Maybe'}
-                                    text3={'Extremely Likely'}
-                                /> */}
                             </div>
                         </div>
                     );

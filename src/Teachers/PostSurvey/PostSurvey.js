@@ -15,7 +15,6 @@ import {
 } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
-// import * as Yup from 'yup';
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
 import {

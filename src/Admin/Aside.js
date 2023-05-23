@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-// import CourseIcon from '../assets/media/CoursesIcon.svg';
 import UserIcon from '../assets/media/UserListIcon.svg';
 import DashboardIcon from '../assets/media/DashboardIcon.svg';
 import BadgesIcon from '../assets/media/BadgesIcon.svg';
-
 import TicketIcon from '../assets/media/ticket.png';
 import ReportIcon from '../assets/media/reports.png';
-// import LogoutIcon from '../assets/media/logout.png';
 import FaqIcon from '../assets/media/faq.png';
 import SchoolIcon from '../assets/media/schools.png';
 
@@ -15,26 +12,19 @@ import {
     ProSidebar,
     Menu,
     MenuItem,
-    // SubMenu,
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
 import { FaBars, FaHouseUser, FaLightbulb, FaPen } from 'react-icons/fa';
-
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-// import Logo from "../../assets/img/Logo.png";
-// import Logo from '../assets/media/img/Logo.svg';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
 import { RiLogoutBoxRFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-
-// import { getCurrentUser, logout } from "../helpers/Utils";
 import { logout } from '../helpers/Utils';
-const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
-    // const intl = useIntl();
 
+const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const location = useLocation();
     const history = useHistory();
     const { t } = useTranslation();
@@ -51,7 +41,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
     useEffect(() => {
         if (location.pathname === '/admin/playvideo') {
-            // document.querySelector(".pro-sidebar").classList.add("collapsed");
             setMenuCollapse(true);
         }
     });
@@ -105,9 +94,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    {/* <MenuItem className="static">
-                        {menuCollapse ? '' : <span>MAIN MENU</span>}
-                    </MenuItem> */}
                     <MenuItem
                         icon={
                             <img
@@ -124,18 +110,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Dashboard
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
-                        icon={<img src={CourseIcon} />}
-                        className={
-                            (location.pathname === '/admin/all-courses' ||
-                                location.pathname === '/admin/playvideo/*') &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} to={'/admin/all-courses'}>
-                            Courses
-                        </NavLink>
-                    </MenuItem> */}
                     <MenuItem
                         icon={<FaLightbulb />}
                         className={
@@ -194,22 +168,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Institutions
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
-            icon={<img src={ProblemIcon} />}
-            className={
-              location.pathname === "/admin/problem-categories" &&
-              "sidebar-active"
-            }
-          >
-            <NavLink exact={true} to={"/admin/problem-categories"}>
-              Problem Categories
-            </NavLink>
-          </MenuItem> */}
                     <MenuItem
                         icon={<img src={UserIcon} />}
                         className={
-                            // location.pathname === '/admin/userlist' &&
-                            // 'sidebar-active'
                             (location.pathname === '/admin/userlist' ||
                                 location.pathname === '/admin/add-mentor' ||
                                 location.pathname === '/admin/add-evaluator') &&
@@ -286,46 +247,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Tranlsation
                         </NavLink>
                     </MenuItem>
-                    {/* <SubMenu
-                        title="Settings"
-                        icon={<img src={TicketIcon} />}
-                        data-element={location.pathname}
-                    >
-                        <MenuItem
-                            icon={
-                                <img
-                                    src={FaqIcon}
-                                    className="img-fluid"
-                                    alt="faq"
-                                />
-                            }
-                            className={
-                                location.pathname === '/admin/road-map' &&
-                                'sidebar-active'
-                            }
-                        >
-                            <NavLink exact={true} to={'/admin/road-map'}>
-                                Schedule Roadmap
-                            </NavLink>
-                        </MenuItem> */}
-                    {/* <MenuItem
-                            icon={
-                                <img
-                                    src={FaqIcon}
-                                    className="img-fluid"
-                                    alt="faq"
-                                />
-                            }
-                            className={
-                                location.pathname === '/admin/translation' &&
-                                'sidebar-active'
-                            }
-                        >
-                            <NavLink exact={true} to={'/admin/translation'}>
-                                Tranlsation
-                            </NavLink>
-                        </MenuItem> */}
-                    {/* </SubMenu> */}
 
                     <MenuItem
                         icon={
@@ -365,77 +286,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Logout
                         </NavLink>
                     </MenuItem>
-
-                    {/* <MenuItem
-                      
-                        icon={
-                            <img
-                                src={LogoutIcon}
-                                className="img-fluid"
-                                alt="logout"
-                            />
-                        }
-                        className={
-                            location.pathname === '/admin/logout' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink
-                            exact={true}
-                            to={'/admin/logout'}
-                            
-                            activeClassName="sidebar-active"
-                        >
-                            Logout
-                        </NavLink>
-                    </MenuItem> */}
                 </Menu>
-
-                {/* <Menu iconShape='circle'>
-          <MenuItem className='static'>
-            {menuCollapse ? "" : <span>GENERAL</span>}
-          </MenuItem>
-          <SubMenu
-            suffix={<span className='badge yellow'>2</span>}
-            title='Help'
-            icon={<FaQuestionCircle />}
-            data-element={location.pathname}
-          >
-            <MenuItem
-              className={location.pathname === "/admin/faq" && "sidebar-active"}
-            >
-              <NavLink exact={true} to={"/admin/faq"}>
-                Manage FAQ's
-              </NavLink>
-            </MenuItem>
-            <MenuItem
-              className={
-                location.pathname === "/admin/tickets" && "sidebar-active"
-              }
-            >
-              <NavLink to={"/admin/all-tickets"}>Tickets</NavLink>
-            </MenuItem>
-          </SubMenu>
-        </Menu> */}
             </SidebarContent>
-
-            {/* <SidebarFooter style={{ textAlign: "center" }}>
-        <div
-          className="sidebar-btn-wrapper"
-          style={{
-            padding: "20px 24px",
-          }}
-        >
-          <a
-            href="#"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            <span> Footer</span>
-          </a>
-        </div>
-      </SidebarFooter> */}
         </ProSidebar>
     );
 };

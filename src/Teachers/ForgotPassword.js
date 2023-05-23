@@ -4,7 +4,6 @@ import { Modal, Form, FormGroup } from 'react-bootstrap';
 import { Label } from 'reactstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
-// import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { URL, KEY } from '../constants/defaultValues';
@@ -19,26 +18,16 @@ function ForgotPassword(props) {
     const handleClose = () => {
         props.setShow(false);
     };
-
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
             email: ''
-            // password: ''
         },
 
         validationSchema: Yup.object({
             email: Yup.string().required('Required email id')
-            // password: Yup.string().required('Required password')
-            // validationSchema: Yup.object({
-            //     email: Yup.string()
-            //         .matches(phoneRegExp, 'Phone Number is not valid')
-            //         .required('Phone Number is Required')
         }),
 
         onSubmit: async (values) => {
-            // console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -110,19 +99,8 @@ function ForgotPassword(props) {
                         </b>
                     )}
                     <div className="mt-3">
-                        {/* <Link
-                            exact='true'
-                            // onSubmit={formik.handleSubmit}
-
-                            // to='/admin/forgotpassword'
-                            // onClick={formik.handleSubmit}
-                            className='text-link pt-1'
-                        >
-                            Generate Link
-                        </Link> */}
                         <Button
                             label="Generate Password"
-                            // btnClass='primary w-100'
                             btnClass={
                                 !(formik.dirty && formik.isValid)
                                     ? 'default'

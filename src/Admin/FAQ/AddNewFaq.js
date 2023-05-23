@@ -75,7 +75,6 @@ const AddNewFaq = (props) => {
         setEditorState(state);
         formik.setFieldValue(
             'answer',
-            // a
             state.getCurrentContent().getPlainText()
         );
     };
@@ -103,7 +102,6 @@ const AddNewFaq = (props) => {
                 )
                 .then((faqsubmitRest) => {
                     if (faqsubmitRest?.status == 201) {
-                        // alert("Faq Created Sucessfully");
                         openNotificationWithIcon(
                             'success',
                             'Faq Created Sucessfully',
@@ -128,7 +126,6 @@ const AddNewFaq = (props) => {
     const update = {
         label: 'Save changes',
         size: 'small'
-        // btnClass: "default",
     };
 
     const discard = {
@@ -206,35 +203,18 @@ const AddNewFaq = (props) => {
         toggleFaqCatModal();
     };
 
-    useEffect(() => {
-        // console.log('formik.values ', formik.values, formik.errors);
-    }, [formik.values, formik.errors]);
+    useEffect(() => {}, [formik.values, formik.errors]);
 
     useEffect(() => {
-        // console.log(
-        //     '🚀 ~ file: AddNewFaq.js ~ line 209 ~ useEffect ~ Object.keys(faqData).length > 0 && categoriesList.length',
-        //     Object.keys(faqData).length,
-        //     ' && ',
-        //     categoriesList.length
-        // );
         if (Object.keys(faqData).length > 0 && categoriesList.length > 0) {
             let defaultCategoryValue = categoriesList.find(
                 (eachFaqCat) => eachFaqCat.value == faqData.faq_category_id
             );
-            // console.log(
-            //     '🚀 ~ file: AddNewFaq.js ~ line 213 ~ AddNewFaq ~ defaultCategory',
-            //     defaultCategoryValue
-            // );
             setDefaultCategory(defaultCategoryValue);
         }
     }, [categoriesList, faqData]);
 
-    useEffect(() => {
-        // console.log(
-        //     '🚀 ~ file: AddNewFaq.js ~ line 220 ~ AddNewFaq ~ defaultCategory',
-        //     defaultCategory
-        // );
-    }, [defaultCategory]);
+    useEffect(() => {}, [defaultCategory]);
 
     return (
         <Layout>
@@ -276,11 +256,6 @@ const AddNewFaq = (props) => {
                                                             defaultCategory
                                                         }
                                                         onChange={(option) => {
-                                                            // console.log(
-                                                            //     '🚀 ~ file: AddNewFaq.js ~ line 233 ~ AddNewFaq ~ option',
-                                                            //     option
-                                                            // );
-
                                                             formik.setFieldValue(
                                                                 'faq_category_id',
                                                                 option[0].value
@@ -332,7 +307,6 @@ const AddNewFaq = (props) => {
                                 </div>
 
                                 <Card className="aside p-4 mb-5">
-                                    {/* <Collapse items={faqItemList} label="Collapses" /> */}
                                     <>
                                         <Col
                                             className="form-group mb-5  mb-md-0"
@@ -401,18 +375,6 @@ const AddNewFaq = (props) => {
                                     </>
                                 </Card>
 
-                                {/* <div className="col-4">
-                  <Button
-                    btnClass="primary"
-                    label="Add Question"
-                    onClick={() => onAddNewFaqCollapse()}
-                    shape="btn-square"
-                    size="small"
-                    icon={blackPlusIcon}
-                  />
-                </div> */}
-
-                                {/* <div className="form-row row mb-4 aside"> */}
                                 <hr className="my-5 w-100 mb-4 clearfix" />
                                 <div className="row mb-4 justify-content-between">
                                     <div className="col-6">
@@ -438,7 +400,6 @@ const AddNewFaq = (props) => {
                                         />
                                     </div>
                                 </div>
-                                {/* </div> */}
                             </Col>
                         </Row>
                     </Col>
@@ -448,50 +409,6 @@ const AddNewFaq = (props) => {
                         toggleFaqCatModal={toggleFaqCatModal}
                         updateFaqCatList={updateFaqCatList}
                     />
-                    {/* <Modal
-            show={showFaqCatModal}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            className="modal-popup text-center quiz-modal"
-            backdrop="static"
-          >
-            <Fragment>
-              <Modal.Header
-                closeButton
-                onClick={() => toggleFaqCatModal()}
-              ></Modal.Header>
-
-              <Modal.Body>
-                <Col className="form-group mb-5  mb-md-0" md={12}>
-                  <Col className="form-group" md={12}>
-                    <InputBox
-                      className="defaultInput"
-                      label="InputBox"
-                      name=""
-                      onClick={() => {}}
-                      placeholder="Enter FAQ Category Name Here..."
-                      type=""
-                      value=""
-                    />
-
-                    {formik.touched.sessionTopic &&
-                    formik.errors.sessionTopic ? (
-                      <small className="error-cls">
-                        {formik.errors.sessionTopic}
-                      </small>
-                    ) : null}
-                  </Col>
-                </Col>
-                <Button
-                  label="Create"
-                  btnClass="primary mt-4"
-                  size="small"
-                  onClick={() => {}}
-                />
-              </Modal.Body>
-            </Fragment>
-          </Modal> */}
                 </Row>
             </Container>
         </Layout>

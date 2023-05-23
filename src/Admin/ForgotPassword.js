@@ -115,7 +115,7 @@ const ForgotPassword = () => {
                                     </div>
                                 </Form>
                                 <p className='d-flex text-center '>
-                                    {/* <NavLink className="p-0 blue">Back to Login</NavLink> */}
+                                    
                                     <Link
                                         exact='true'
                                         to='/login'
@@ -129,7 +129,7 @@ const ForgotPassword = () => {
                     </Col>
                 </Row>
             </div>
-            {/* </div> */}
+          
         </React.Fragment>
     );
 };

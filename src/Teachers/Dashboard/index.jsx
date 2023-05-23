@@ -4,9 +4,6 @@ import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
-//import VerticalLinearStepper from './StepperComponent';
-// import Charts from './Chart';
-// import BarChart from './BarChart';
 import { getCurrentUser } from '../../helpers/Utils';
 import institutions from '../../assets/media/img/university.png';
 import districtImg from '../../assets/media/img/building.png';
@@ -138,18 +135,8 @@ const Dashboard = () => {
                         <Col>
                             <div className="d-flex flex-wrap">
                                 <DoughnutChart user={currentUser?.data} />
-                                {/* <BarChart /> */}
                             </div>
                         </Col>
-                        {/* <Col> */}
-                        {/* <div className="teacher-progress">
-                                teacher progress{' '}
-                            </div> */}
-                        {/* <div className="stepper">
-                                <h2 className='mb-5'>Teacher Roadmap</h2>
-                                <VerticalLinearStepper />
-                            </div> */}
-                        {/* </Col> */}
                     </Row>
                 </Row>
             </Container>

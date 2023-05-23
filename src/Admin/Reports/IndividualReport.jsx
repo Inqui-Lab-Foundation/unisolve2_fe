@@ -18,20 +18,17 @@ const IndividualReport = () => {
                 name: 'S.No.',
                 selector: 'student_id',
                 width: '10%'
-                // center: true,
             },
             {
                 name: 'Team Code',
                 selector: 'team_id',
-                // sortable: true,
+
                 width: '20%'
-                // center: true,
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
                 width: '21%'
-                // center: true,
             },
             {
                 name: 'Institute',

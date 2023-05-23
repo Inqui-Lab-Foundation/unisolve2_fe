@@ -2,15 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import axios from 'axios';
-// import '../Student/Pages/SignUp.scss';
 import { InputBox } from '../stories/InputBox/InputBox';
-
 import CryptoJS from 'crypto-js';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
-
 import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -78,7 +74,7 @@ const ChangePSWModal = () => {
                         '/evaluators/changePassword',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Accept: "application/json",
+
                         Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body

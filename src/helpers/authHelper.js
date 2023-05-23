@@ -5,7 +5,6 @@ import { getCurrentUser } from './Utils';
 
 const ProtectedRoute = ({
     component: Component,
-    // roles = undefined,
     ...rest
 }) => {
     const setComponent = (props) => {

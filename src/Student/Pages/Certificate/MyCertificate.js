@@ -15,7 +15,6 @@ import {
     updateStudentBadges,
     updateStudentCertificate
 } from '../../../redux/studentRegistration/actions';
-//import CommonPage from '../../../components/CommonPage';
 import moment from 'moment';
 import Congo from '../../../assets/media/survey-success.jpg';
 
@@ -35,7 +34,6 @@ const Certificate = ({
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
         const size = type ? [298, 220] : [298, 220];
-        // const size = type ? [210, 297] : [298, 200];
         const orientation = type ? 'l' : 'l';
         const doc = new jsPDF(orientation, 'px', size);
         const certName = `${currentUser?.data[0]?.full_name}_${
@@ -93,8 +91,6 @@ const Certificate = ({
                                 position: 'absolute',
                                 top: `${type ? '8.1rem' : '7.4rem'}`,
                                 left: `${type ? '10.3rem' : '10rem'}`,
-                                // top: `${type ? '9rem' : '12.8rem'}`,
-                                // left: `${type ? '10.3rem' : '6.5rem'}`,
                                 fontSize: '0.8rem',
                                 fontFamily: 'Times New Roman'
                             }}
@@ -125,8 +121,6 @@ const Certificate = ({
                             style={{
                                 width: '297px',
                                 height: '210px',
-                                // width: `${type ? '297px' : '200px'}`,
-                                // height: `${type ? '209px' : '297px'}`,
                                 border: '1px solid #cccccc'
                             }}
                         />
@@ -157,7 +151,6 @@ const Certificate = ({
 const MyCertificate = () => {
     const showDummypage = false;
     const { t } = useTranslation();
-    // const teamMember = useSelector((state) => state?.studentRegistration.teamMember);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
@@ -209,14 +202,12 @@ const MyCertificate = () => {
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
                     {showDummypage ? (
-                        // all_topics_count === topics_completed_count || enablePostSurvey
                         <Row>
                             <Col className="d-lg-flex justify-content-center">
                                 <Certificate
                                     type={'participate'}
                                     currentUser={currentUser}
                                     postSurveyStatus={enablePostSurvey}
-                                    //certDate={ideaSubmissionsSubmittedAt}
                                     ideaDate={ideaSubmissionsSubmittedAt}
                                     language={language}
                                 />
@@ -232,7 +223,6 @@ const MyCertificate = () => {
                             </Col>
                         </Row>
                     ) : (
-                        //<CommonPage text={t('dummytext.certificate_msg')+t('dummytext.student_my_cer')} />
                         <Card className="course-sec-basic p-5">
                             <div className="text-left">
                                 <div>
@@ -246,7 +236,6 @@ const MyCertificate = () => {
                                         __html:
                                             t('dummytext.name') +
                                             currentUser?.data[0].full_name
-                                        // t('dummytext.school') + teamMember.team?.mentor?.organization?.organization_name
                                     }}
                                 ></h6>
                                 <p
