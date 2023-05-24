@@ -1077,7 +1077,6 @@ const PlayVideoCourses = (props) => {
                                         {item === 'QUIZ' && !showQuiz ? (
                                             <div
                                                 size="lg"
-                                                centered
                                                 className="modal-popup text-screen text-center  modal-popup"
                                             >
                                                 <div className="modal-content">

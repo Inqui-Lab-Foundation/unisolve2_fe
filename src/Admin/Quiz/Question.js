@@ -159,7 +159,7 @@ const Question = (props) => {
                                 <div className={'answer '} key={i}>
                                     {quiz[0] && quiz[0].type == 'MCQ' ? (
                                         <label htmlFor={answer} className="my-auto mx-3 common-flex">
-                                            <input
+                                            <Input
                                                 id={answer}
                                                 name={answer}
                                                 type="checkbox"
