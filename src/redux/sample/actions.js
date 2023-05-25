@@ -5,4 +5,4 @@
 // import { KEY, superAdmin, URL } from "../../constants/defaultValues";
 
 // import { GET_SAMPLE_LIST_DATA } from '../actions';
-export const GetSampleList = (body) => async (dispatch) => {};
+export const GetSampleList = (body) => async (dispatch) => {}

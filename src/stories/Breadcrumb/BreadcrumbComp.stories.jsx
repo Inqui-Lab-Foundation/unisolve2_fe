@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react'
 
-import { BreadcrumbComp } from "./BreadcrumbComp";
+import { BreadcrumbComp } from './BreadcrumbComp'
 
 export default {
-    title: "Home",
-    subTitle: "Sub Title",
-    options: [
-        {
-            title: "Course",
-            path: "/",
-        },
-    ],
-    bgImage: true,
-};
+  title: 'Home',
+  subTitle: 'Sub Title',
+  options: [
+    {
+      title: 'Course',
+      path: '/'
+    }
+  ],
+  bgImage: true
+}
 
-const Template = (args) => <BreadcrumbComp {...args} />;
+const Template = (args) => <BreadcrumbComp {...args} />
 
-export const Breadcrumb = Template.bind({});
+export const Breadcrumb = Template.bind({})
 Breadcrumb.args = {
-    title: "Home",
-    subTitle: "Sub Title",
-    options: [
-        {
-            title: "Course",
-            path: "/",
-        },
-    ],
-    bgImage: true,
-};
+  title: 'Home',
+  subTitle: 'Sub Title',
+  options: [
+    {
+      title: 'Course',
+      path: '/'
+    }
+  ],
+  bgImage: true
+}

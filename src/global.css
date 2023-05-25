@@ -20,6 +20,6 @@ input[type='radio'] {
     padding: 3rem;
     border-radius: 1rem;
 }
-.default-vh{
+.default-vh {
     min-height: 81vh !important;
 }

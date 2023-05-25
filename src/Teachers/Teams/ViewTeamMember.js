@@ -1,45 +1,45 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { Tabs } from 'antd';
-import Layout from '../Layout';
-import { BsPlusLg } from 'react-icons/bs';
-import { Button } from '../../stories/Button';
-import { connect, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Container, Row, Col } from 'reactstrap'
+import { Tabs } from 'antd'
+import Layout from '../Layout'
+import { BsPlusLg } from 'react-icons/bs'
+import { Button } from '../../stories/Button'
+import { connect, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import {
     getAdminTeamMembersList,
     studentResetPassword
-} from '../../redux/actions';
-import axios from 'axios';
-import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
-import logout from '../../assets/media/logout.svg';
-import DataTable, { Alignment } from 'react-data-table-component';
-import DataTableExtensions from 'react-data-table-component-extensions';
-import 'react-data-table-component-extensions/dist/index.css';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { useTranslation } from 'react-i18next';
-import DoubleBounce from '../../components/Loaders/DoubleBounce';
+} from '../../redux/actions'
+import axios from 'axios'
+import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import logout from '../../assets/media/logout.svg'
+import DataTable, { Alignment } from 'react-data-table-component'
+import DataTableExtensions from 'react-data-table-component-extensions'
+import 'react-data-table-component-extensions/dist/index.css'
+import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo'
+import { useTranslation } from 'react-i18next'
+import DoubleBounce from '../../components/Loaders/DoubleBounce'
 
 // const { TabPane } = Tabs;
 
 const ViewTeamMember = () => {
-    const { t } = useTranslation();
-    const currentUser = getCurrentUser('current_user');
-    const teamID = JSON.parse(localStorage.getItem('teamId'));
-    const dispatch = useDispatch();
+    const { t } = useTranslation()
+    const currentUser = getCurrentUser('current_user')
+    const teamID = JSON.parse(localStorage.getItem('teamId'))
+    const dispatch = useDispatch()
 
-    const history = useHistory();
+    const history = useHistory()
     const teamId =
         (history &&
             history.location &&
             history.location.item &&
             history.location.item.team_id) ||
-        teamID.team_id;
+        teamID.team_id
 
     const headingDetails = {
         title: teamID.team_name + t('teacher_teams.view_team_member_details'),
@@ -52,22 +52,22 @@ const ViewTeamMember = () => {
                 title: t('teacher_teams.view_team_member')
             }
         ]
-    };
-    const [count, setCount] = useState(0);
+    }
+    const [count, setCount] = useState(0)
     // eslint-disable-next-line no-unused-vars
-    const [teamsMembersList, setTeamsMemers] = useState([]);
+    const [teamsMembersList, setTeamsMemers] = useState([])
     // eslint-disable-next-line no-unused-vars
-    const [pending, setPending] = React.useState(true);
-    const [rows, setRows] = React.useState([]);
+    const [pending, setPending] = React.useState(true)
+    const [rows, setRows] = React.useState([])
 
     useEffect(() => {
-        handleteamMembersAPI(teamId);
+        handleteamMembersAPI(teamId)
         // here teamId = team id //
-    }, [teamId, count]);
+    }, [teamId, count])
 
-    async function handleteamMembersAPI(teamId) {
+    async function handleteamMembersAPI (teamId) {
         // here we can get all team member details //
-        var config = {
+        const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
@@ -79,23 +79,23 @@ const ViewTeamMember = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
-        };
+        }
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
                     const updatedWithKey =
                         response.data &&
                         response.data.data.map((item, i) => {
-                            const upd = { ...item };
-                            upd['key'] = i + 1;
-                            return upd;
-                        });
-                    setTeamsMemers(updatedWithKey && updatedWithKey);
+                            const upd = { ...item }
+                            upd.key = i + 1
+                            return upd
+                        })
+                    setTeamsMemers(updatedWithKey && updatedWithKey)
                 }
             })
             .catch(function (error) {
-                console.log(error);
-            });
+                console.log(error)
+            })
     }
 
     const handleResetPassword = (data) => {
@@ -107,7 +107,7 @@ const ViewTeamMember = () => {
                 cancelButton: 'btn btn-danger'
             },
             buttonsStyling: false
-        });
+        })
 
         swalWithBootstrapButtons
             .fire({
@@ -126,18 +126,18 @@ const ViewTeamMember = () => {
                         studentResetPassword({
                             user_id: data.user_id.toString()
                         })
-                    );
+                    )
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
                         'Reset password is cancelled',
                         'error'
-                    );
+                    )
                 }
             })
-            .catch((err) => console.log(err.response));
-    };
-    var adminTeamMembersList = {
+            .catch((err) => console.log(err.response))
+    }
+    const adminTeamMembersList = {
         data: teamsMembersList.length > 0 && teamsMembersList,
         columns: [
             {
@@ -180,49 +180,49 @@ const ViewTeamMember = () => {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
                     return [
-                        <a onClick={() => handleEditTeamMember(params)}>
-                            <i
-                                key={params.team_id}
-                                className="fa fa-edit"
-                                style={{ marginRight: '10px' }}
-                            />
-                        </a>,
-                        <a onClick={() => handleDeleteTeamMember(params)}>
-                            {teamsMembersList &&
+                      <a onClick={() => handleEditTeamMember(params)}>
+                        <i
+                          key={params.team_id}
+                          className='fa fa-edit'
+                          style={{ marginRight: '10px' }}
+                        />
+                      </a>,
+                      <a onClick={() => handleDeleteTeamMember(params)}>
+                        {teamsMembersList &&
                                 teamsMembersList.length > 2 && (
-                                    <i
-                                        key={params.team_id}
-                                        className="fa fa-trash"
-                                        style={{ marginRight: '10px' }}
-                                    />
+                                  <i
+                                    key={params.team_id}
+                                    className='fa fa-trash'
+                                    style={{ marginRight: '10px' }}
+                                  />
                                 )}
-                        </a>,
-                        <a onClick={() => handleResetPassword(params)}>
-                            <i key={params.team_id} className="fa fa-key" />
-                        </a>
-                    ];
+                      </a>,
+                      <a onClick={() => handleResetPassword(params)}>
+                        <i key={params.team_id} className='fa fa-key' />
+                      </a>
+                    ]
                 },
                 width: '12%',
                 center: true
             }
         ]
-    };
+    }
     React.useEffect(() => {
         const timeout = setTimeout(() => {
-            setRows(adminTeamMembersList.data);
-            setPending(false);
-        }, 2000);
-        return () => clearTimeout(timeout);
-    }, []);
+            setRows(adminTeamMembersList.data)
+            setPending(false)
+        }, 2000)
+        return () => clearTimeout(timeout)
+    }, [])
 
     const handleEditTeamMember = (item) => {
         // here we can edit team member details //
         // here item = student_id //
         history.push({
             pathname: '/teacher/edit-team-member',
-            item: item
-        });
-    };
+            item
+        })
+    }
 
     const handleDeleteTeamMember = (item) => {
         // here we can delete the team member details //
@@ -233,7 +233,7 @@ const ViewTeamMember = () => {
                 cancelButton: 'btn btn-danger'
             },
             buttonsStyling: false
-        });
+        })
 
         swalWithBootstrapButtons
             .fire({
@@ -248,7 +248,7 @@ const ViewTeamMember = () => {
             })
             .then((result) => {
                 if (result.isConfirmed) {
-                    var config = {
+                    const config = {
                         method: 'delete',
                         url:
                             process.env.REACT_APP_API_BASE_URL +
@@ -258,95 +258,96 @@ const ViewTeamMember = () => {
                             'Content-Type': 'application/json',
                             Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
-                    };
+                    }
                     axios(config)
                         .then(function (response) {
                             if (response.status === 200) {
-                                setCount(count + 1);
+                                setCount(count + 1)
                                 openNotificationWithIcon(
                                     'success',
                                     t('teacher_teams.delete_success')
-                                );
+                                )
                             } else {
                                 openNotificationWithIcon(
                                     'error',
                                     'Opps! Something Wrong'
-                                );
+                                )
                             }
                         })
                         .catch(function (error) {
-                            console.log(error);
-                        });
+                            console.log(error)
+                        })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         t('teacher_teams.delete_cancelled'),
                         t('teacher_teams.delete_member_cancel'),
                         'error'
-                    );
+                    )
                 }
-            });
-    };
+            })
+    }
 
     return (
-        <Layout>
-            <Container className="ticket-page mt-5 mb-50 userlist">
-                <Row className="pt-5">
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                            <BreadcrumbTwo {...headingDetails} />
-                        </Col>
+      <Layout>
+        <Container className='ticket-page mt-5 mb-50 userlist'>
+          <Row className='pt-5'>
+            <Row className='mb-2 mb-sm-5 mb-md-5 mb-lg-0'>
+              <Col className='col-auto'>
+                <BreadcrumbTwo {...headingDetails} />
+              </Col>
 
-                        <Col className="ticket-btn col ml-auto ">
-                            <div className="d-flex justify-content-end">
-                                <Button
-                                    label={t('teacher_teams.back')}
-                                    btnClass="primary ml-2"
-                                    size="small"
-                                    shape="btn-square"
-                                    Icon={BsPlusLg}
-                                    onClick={() =>
-                                        history.push('/teacher/teamlist')
-                                    }
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <div className="ticket-data">
-                        <Tabs defaultActiveKey="1">
-                            {teamsMembersList &&
-                            !teamsMembersList.length > 0 ? (
-                                <DoubleBounce />
-                            ) : (
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...adminTeamMembersList}
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+              <Col className='ticket-btn col ml-auto '>
+                <div className='d-flex justify-content-end'>
+                  <Button
+                    label={t('teacher_teams.back')}
+                    btnClass='primary ml-2'
+                    size='small'
+                    shape='btn-square'
+                    Icon={BsPlusLg}
+                    onClick={() =>
+                                        history.push('/teacher/teamlist')}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <div className='ticket-data'>
+              <Tabs defaultActiveKey='1'>
+                {teamsMembersList &&
+                            !teamsMembersList.length > 0
+? (
+  <DoubleBounce />
+                            )
+: (
+  <div className='my-2'>
+    <DataTableExtensions
+      print={false}
+      export={false}
+      {...adminTeamMembersList}
+    >
+      <DataTable
+        data={rows}
+        defaultSortField='id'
+        defaultSortAsc={false}
+        highlightOnHover
+        fixedHeader
+        subHeaderAlign={Alignment.Center}
+      />
+    </DataTableExtensions>
+  </div>
                             )}
-                        </Tabs>
-                    </div>
-                </Row>
-            </Container>
-        </Layout>
-    );
-};
+              </Tabs>
+            </div>
+          </Row>
+        </Container>
+      </Layout>
+    )
+}
 
 const mapStateToProps = ({ teams }) => {
-    const { teamsMembersList } = teams;
-    return { teamsMembersList };
-};
+    const { teamsMembersList } = teams
+    return { teamsMembersList }
+}
 
 export default connect(mapStateToProps, {
     getAdminTeamMembersListAction: getAdminTeamMembersList
-})(ViewTeamMember);
+})(ViewTeamMember)

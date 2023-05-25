@@ -1,22 +1,22 @@
 /* eslint-disable indent */
-import React, { useEffect, Fragment } from 'react';
-import { Modal } from 'react-bootstrap';
-import { Col, Form } from 'reactstrap';
-import { InputBox } from '../../stories/InputBox/InputBox';
-import { Button } from '../../stories/Button';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { URL, KEY } from '../../constants/defaultValues';
+import React, { useEffect, Fragment } from 'react'
+import { Modal } from 'react-bootstrap'
+import { Col, Form } from 'reactstrap'
+import { InputBox } from '../../stories/InputBox/InputBox'
+import { Button } from '../../stories/Button'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import axios from 'axios'
+import { URL, KEY } from '../../constants/defaultValues'
 import {
     getNormalHeaders,
     openNotificationWithIcon
-} from '../../helpers/Utils';
-import { getLanguage } from '../../constants/languageOptions';
-import { useSelector } from 'react-redux';
+} from '../../helpers/Utils'
+import { getLanguage } from '../../constants/languageOptions'
+import { useSelector } from 'react-redux'
 
 const AddFaqCategoryModal = (props) => {
-    const language = useSelector((state) => state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage)
 
     const formik = useFormik({
         initialValues: {
@@ -28,7 +28,7 @@ const AddFaqCategoryModal = (props) => {
         }),
 
         onSubmit: (values) => {
-            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            const axiosConfig = getNormalHeaders(KEY.User_API_Key)
 
             axios
                 .post(
@@ -42,73 +42,75 @@ const AddFaqCategoryModal = (props) => {
                             'success',
                             'category added successfully..!!',
                             ''
-                        );
-                        formik.resetForm();
+                        )
+                        formik.resetForm()
                         if (props?.updateFaqCatList) {
-                            props.updateFaqCatList();
+                            props.updateFaqCatList()
                         }
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon('error', err.response, '');
-                });
+                    openNotificationWithIcon('error', err.response, '')
+                })
         }
-    });
+    })
 
     useEffect(() => {
-        //whenever modal open reset the erros
-        if (props.show) formik.setErrors({});
-    }, [props.show]);
+        // whenever modal open reset the erros
+        if (props.show) formik.setErrors({})
+    }, [props.show])
 
     return (
-        <Modal
-            show={props.show}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            className="modal-popup text-center quiz-modal"
-            backdrop="static"
-        >
-            <Fragment>
-                <Modal.Header
-                    closeButton
-                    onClick={() => props.toggleFaqCatModal()}
-                ></Modal.Header>
+      <Modal
+        show={props.show}
+        size='lg'
+        aria-labelledby='contained-modal-title-vcenter'
+        centered
+        className='modal-popup text-center quiz-modal'
+        backdrop='static'
+      >
+        <>
+          <Modal.Header
+            closeButton
+            onClick={() => props.toggleFaqCatModal()}
+          />
 
-                <Modal.Body>
-                    <Form onSubmit={formik.handleSubmit}>
-                        <Col className="form-group mb-5  mb-md-0" md={12}>
-                            <Col className="form-group" md={12}>
-                                <InputBox
-                                    className="defaultInput"
-                                    label="InputBox"
-                                    name="category_name"
-                                    id="category_name"
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={formik.values.category_name}
-                                    placeholder="Enter FAQ Category Name Here..."
-                                />
+          <Modal.Body>
+            <Form onSubmit={formik.handleSubmit}>
+              <Col className='form-group mb-5  mb-md-0' md={12}>
+                <Col className='form-group' md={12}>
+                  <InputBox
+                    className='defaultInput'
+                    label='InputBox'
+                    name='category_name'
+                    id='category_name'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.category_name}
+                    placeholder='Enter FAQ Category Name Here...'
+                  />
 
-                                {formik.touched.category_name &&
-                                formik.errors.category_name ? (
-                                    <small className="error-cls">
-                                        {formik.errors.category_name}
-                                    </small>
-                                ) : null}
-                            </Col>
-                        </Col>
-                        <Button
-                            label="Create"
-                            btnClass="primary mt-4"
-                            size="small"
-                            type="submit"
-                        />
-                    </Form>
-                </Modal.Body>
-            </Fragment>
-        </Modal>
-    );
-};
+                  {formik.touched.category_name &&
+                                formik.errors.category_name
+? (
+  <small className='error-cls'>
+    {formik.errors.category_name}
+  </small>
+                                )
+: null}
+                </Col>
+              </Col>
+              <Button
+                label='Create'
+                btnClass='primary mt-4'
+                size='small'
+                type='submit'
+              />
+            </Form>
+          </Modal.Body>
+        </>
+      </Modal>
+    )
+}
 
-export default AddFaqCategoryModal;
+export default AddFaqCategoryModal

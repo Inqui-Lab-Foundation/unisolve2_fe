@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react'
 
-import { BreadcrumbTwo } from "./BreadcrumbTwo";
+import { BreadcrumbTwo } from './BreadcrumbTwo'
 
 export default {
-    title: "Home",
-    options: [
-        {
-            title: "Course",
-            path: "/",
-        },
-    ],
-};
+  title: 'Home',
+  options: [
+    {
+      title: 'Course',
+      path: '/'
+    }
+  ]
+}
 
-const Template = (args) => <BreadcrumbTwo {...args} />;
+const Template = (args) => <BreadcrumbTwo {...args} />
 
-export const Breadcrumb = Template.bind({});
+export const Breadcrumb = Template.bind({})
 Breadcrumb.args = {
-    title: "Home",
+  title: 'Home',
 
-    options: [
-        {
-            title: "Course",
-            path: "/",
-        },
-    ],
-};
+  options: [
+    {
+      title: 'Course',
+      path: '/'
+    }
+  ]
+}

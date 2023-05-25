@@ -1,18 +1,15 @@
-import {
-    GET_SCHEDULES,
-} from '../actions';
-
+import { GET_SCHEDULES } from '../actions'
 
 const INIT_STATE = {
-    schedules:[]
-};
+  schedules: []
+}
 
 export default (state = INIT_STATE, action) => {
-    const newState = { ...state };
-    switch (action.type) {
+  const newState = { ...state }
+  switch (action.type) {
     case GET_SCHEDULES:
-        return { schedules:action.payload };
+      return { schedules: action.payload }
     default:
-        return newState;
-    }
-};
+      return newState
+  }
+}

@@ -1,64 +1,66 @@
 .add-category-container {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  /* identical to box height, or 143% */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
 
-  /* Links */
-  cursor: pointer;
-  color: #067de1;
+    /* Links */
+    cursor: pointer;
+    color: #067de1;
 }
 
 .main-title {
-  /* Title 2 */
+    /* Title 2 */
 
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 30px;
-  /* identical to box height, or 100% */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 30px;
+    /* identical to box height, or 100% */
 
-  /* Title */
+    /* Title */
 
-  color: #231f20;
+    color: #231f20;
 }
 
 .accordion-story {
-  .accordion-item {
-    .accordion-body {
-      border: none;
+    .accordion-item {
+        .accordion-body {
+            border: none;
+        }
     }
-  }
 }
 
 .error-cls {
-  text-transform: capitalize;
-  text-align: left;
-  font-weight: 700;
-  margin-left: 3px;
+    text-transform: capitalize;
+    text-align: left;
+    font-weight: 700;
+    margin-left: 3px;
 }
 
 html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
-  overflow-y: visible !important;
+    overflow-y: visible !important;
 }
 
 .faqList .ticket-data .ant-tabs-tab {
-  margin-right: 32px !important;
-  margin-left: 0 !important;
+    margin-right: 32px !important;
+    margin-left: 0 !important;
 }
 
-.faqList{
-  .custom-dropdown .btn.btn-default{
-    border: 0;
-  }
-  .dropdown-toggle::after{
-    display: none;
-  }
-  .custom-dropdown .btn.btn-default svg{margin-right:0;}
-  .dropdown-menu.show{
-    transform: translate(-5px, 0px) !important;
-  }
+.faqList {
+    .custom-dropdown .btn.btn-default {
+        border: 0;
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .custom-dropdown .btn.btn-default svg {
+        margin-right: 0;
+    }
+    .dropdown-menu.show {
+        transform: translate(-5px, 0px) !important;
+    }
 }

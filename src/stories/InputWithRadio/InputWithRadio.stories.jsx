@@ -1,32 +1,32 @@
-import React from "react";
+import React from 'react'
 
-import { InputWithRadioComp } from "./InputWithRadio";
+import { InputWithRadioComp } from './InputWithRadio'
 
 export default {
-    title: "Example/InputWithRadioComp",
-    component: InputWithRadioComp,
-    argTypes: {},
-};
+  title: 'Example/InputWithRadioComp',
+  component: InputWithRadioComp,
+  argTypes: {}
+}
 
-const Template = (args) => <InputWithRadioComp {...args} />;
+const Template = (args) => <InputWithRadioComp {...args} />
 
-export const InputWithRadio = Template.bind({});
+export const InputWithRadio = Template.bind({})
 
 InputWithRadio.args = {
-    name: "xxy",
-    label: "Select Student",
-    type: "radio",
-    value: "1",
-    checked: false,
-    onChange: undefined,
-    id: 0,
-};
+  name: 'xxy',
+  label: 'Select Student',
+  type: 'radio',
+  value: '1',
+  checked: false,
+  onChange: undefined,
+  id: 0
+}
 
-export const defaultRadio = Template.bind({});
+export const defaultRadio = Template.bind({})
 defaultRadio.args = {
-    name: "",
-    label: "",
-    type: "radio",
-    onChange: undefined,
-    className: "defaultInput",
-};
+  name: '',
+  label: '',
+  type: 'radio',
+  onChange: undefined,
+  className: 'defaultInput'
+}

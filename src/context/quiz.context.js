@@ -1,71 +1,73 @@
-import { createContext, useReducer } from 'react';
-import { shuffleAnswers } from '../Admin/Quiz/helpers';
-import questions from '../Admin/Quiz/quiz-data';
+import { createContext, useReducer } from 'react'
+import { shuffleAnswers } from '../Admin/Quiz/helpers'
+import questions from '../Admin/Quiz/quiz-data'
 
 const initialState = {
-    questions,
-    currentQuestionIndex: 0,
-    currentAnswer: '',
-    answers: shuffleAnswers(questions[0]),
-    showResults: false,
-    correctAnswersCount: 0,
-};
+  questions,
+  currentQuestionIndex: 0,
+  currentAnswer: '',
+  answers: shuffleAnswers(questions[0]),
+  showResults: false,
+  correctAnswersCount: 0
+}
 
 const reducer = (state, action) => {
-    switch (action.type) {
+  switch (action.type) {
     case 'SELECT_ANSWER': {
-        const correctAnswersCount =
-        action.payload ===
-        state.questions[state.currentQuestionIndex].correctAnswer
-            ? state.correctAnswersCount + 1
-            : state.correctAnswersCount;
-        return {
-            ...state,
-            currentAnswer: action.payload,
-            correctAnswersCount,
-        };
+      const correctAnswersCount =
+                action.payload ===
+                state.questions[state.currentQuestionIndex].correctAnswer
+                  ? state.correctAnswersCount + 1
+                  : state.correctAnswersCount
+      return {
+        ...state,
+        currentAnswer: action.payload,
+        correctAnswersCount
+      }
     }
     case 'NEXT_QUESTION': {
-        const showResults =
-        state.currentQuestionIndex === state.questions.length - 1;
-        const currentQuestionIndex = showResults
-            ? state.currentQuestionIndex
-            : state.currentQuestionIndex + 1;
-        const answers = showResults
-            ? []
-            : shuffleAnswers(state.questions[currentQuestionIndex]);
-        return {
-            ...state,
-            currentAnswer: '',
-            showResults,
-            currentQuestionIndex,
-            answers,
-        };
+      const showResults =
+                state.currentQuestionIndex === state.questions.length - 1
+      const currentQuestionIndex = showResults
+        ? state.currentQuestionIndex
+        : state.currentQuestionIndex + 1
+      const answers = showResults
+        ? []
+        : shuffleAnswers(state.questions[currentQuestionIndex])
+      return {
+        ...state,
+        currentAnswer: '',
+        showResults,
+        currentQuestionIndex,
+        answers
+      }
     }
     case 'PREV_QUESTION': {
-        const currentQuestionIndex = state.currentQuestionIndex - 1;
+      const currentQuestionIndex = state.currentQuestionIndex - 1
 
-        return {
-            ...state,
-            currentAnswer: '',
+      return {
+        ...state,
+        currentAnswer: '',
 
-            currentQuestionIndex,
-        };
+        currentQuestionIndex
+      }
     }
     case 'LATEST': {
-        return initialState;
+      return initialState
     }
     case 'RESTART': {
-        return initialState;
+      return initialState
     }
     default:
-        return state;
-    }
-};
+      return state
+  }
+}
 
-export const QuizContext = createContext();
+export const QuizContext = createContext()
 
 export const QuizProvider = ({ children }) => {
-    const value = useReducer(reducer, initialState);
-    return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
-};
+  const value = useReducer(reducer, initialState)
+  return (
+    <QuizContext.Provider value={value}>{children}</QuizContext.Provider>
+  )
+}

@@ -1,182 +1,184 @@
-import '../Student/Pages/Student.scss';
-import React, { useState, useEffect } from 'react';
+import '../Student/Pages/Student.scss'
+import React, { useState, useEffect } from 'react'
 import {
-    Container,
-    Row,
-    Col,
-    Card,
-    CardTitle,
-    CardBody,
-    CardText
-} from 'reactstrap';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
-import withReactContent from 'sweetalert2-react-content';
-import { IoIosArrowBack } from 'react-icons/io';
-import ChangePSWModal from './ChangePSWModal';
-import { Link } from 'react-router-dom';
-import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo';
+  Container,
+  Row,
+  Col,
+  Card,
+  CardTitle,
+  CardBody,
+  CardText
+} from 'reactstrap'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import withReactContent from 'sweetalert2-react-content'
+import { IoIosArrowBack } from 'react-icons/io'
+import ChangePSWModal from './ChangePSWModal'
+import { Link } from 'react-router-dom'
+import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo'
 
-import Layout from './Layout';
-const MySwal = withReactContent(Swal);
+import Layout from './Layout'
+const MySwal = withReactContent(Swal)
 
 const onCancel = () => {
-    Swal.close();
-};
+  Swal.close()
+}
 const btnSubmit = () => {
-    Swal.close();
-};
+  Swal.close()
+}
 
 const MyProfile = () => {
-    const currentUser = JSON.parse(localStorage.getItem('current_user'));
+  const currentUser = JSON.parse(localStorage.getItem('current_user'))
 
-    const [profileAction, setProfileAction] = useState(true);
-    const showFormModal = (values) => {
-        return new Promise((resolve, reject) => {
-            MySwal.fire({
-                reverseButtons: false,
-                showCloseButton: true,
-                allowOutsideClick: false,
-                html: (
-                    <ChangePSWModal
-                        values={values}
-                        onSubmit={(values) => {
-                            resolve(values);
-                            Swal.close();
-                        }}
-                        onCancel={onCancel}
-                        btnSubmit={btnSubmit}
-                    />
-                ),
-                onClose: () => reject(),
-                showConfirmButton: false
-            });
-        });
-    };
-    function showModal() {
-        showFormModal({
-            oldPassword: '',
-            newPassword: '',
-            confirmPassword: '',
-            lastName: ''
-        })
-            .then((values) => console.log(values))
-            .catch(() => console.log('Modal closed'));
+  const [profileAction, setProfileAction] = useState(true)
+  const showFormModal = (values) => {
+    return new Promise((resolve, reject) => {
+      MySwal.fire({
+        reverseButtons: false,
+        showCloseButton: true,
+        allowOutsideClick: false,
+        html: (
+          <ChangePSWModal
+            values={values}
+            onSubmit={(values) => {
+              resolve(values)
+              Swal.close()
+            }}
+            onCancel={onCancel}
+            btnSubmit={btnSubmit}
+          />
+        ),
+        onClose: () => reject(),
+        showConfirmButton: false
+      })
+    })
+  }
+  function showModal () {
+    showFormModal({
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+      lastName: ''
+    })
+      .then((values) => console.log(values))
+      .catch(() => console.log('Modal closed'))
+  }
+
+  useEffect(() => {
+    const search = window.location.search
+
+    if (search === '?id=teams') {
+      setProfileAction(false)
     }
+  })
+  const headingDetails = {
+    title: 'My Profile',
 
-    useEffect(() => {
-        const search = window.location.search;
-
-        if (search === '?id=teams') {
-            setProfileAction(false);
-        }
-    });
-    const headingDetails = {
+    options: [
+      {
+        title: 'Home',
+        path: '/admin/dashboard'
+      },
+      {
         title: 'My Profile',
+        path: '/my-profile'
+      }
+    ]
+  }
 
-        options: [
-            {
-                title: 'Home',
-                path: '/admin/dashboard'
-            },
-            {
-                title: 'My Profile',
-                path: '/my-profile'
-            }
-        ]
-    };
+  return (
+    <Layout>
+      <Container className='MyProfile pt-3 pt-xl-5 mb-50'>
+        {/* <UsersPage /> */}
+        <Row>
+          <Col className='col-xl-10 offset-xl-1 offset-md-0'>
+            {profileAction
+              ? (
+                <BreadcrumbTwo {...headingDetails} />
+                )
+              : (
+                <Link
+                  to='/teams'
+                  className='color-grey-1 mb-3 d-block'
+                >
+                  <IoIosArrowBack />
+                  Go Back
+                </Link>
+                )}
 
-    return (
-        <Layout>
-            <Container className="MyProfile pt-3 pt-xl-5 mb-50">
-                {/* <UsersPage /> */}
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {profileAction ? (
-                            <BreadcrumbTwo {...headingDetails} />
-                        ) : (
-                            <Link
-                                to="/teams"
-                                className="color-grey-1 mb-3 d-block"
-                            >
-                                <IoIosArrowBack />
-                                Go Back
-                            </Link>
-                        )}
-
-                        <Row>
-                            <Col md={12}>
-                                <Card className="w-100  mb-5 p-4">
-                                    <CardBody>
-                                        <Row>
-                                            <Col
-                                                md={8}
-                                                className="border-right my-auto "
-                                            >
-                                                <Row>
-                                                    <Col
-                                                        md={7}
-                                                        className="my-auto profile-detail"
-                                                    >
-                                                        {' '}
-                                                        <CardText>
-                                                            <span>Name:</span>{' '}
-                                                            <b>
-                                                                {
+            <Row>
+              <Col md={12}>
+                <Card className='w-100  mb-5 p-4'>
+                  <CardBody>
+                    <Row>
+                        <Col
+                            md={8}
+                            className='border-right my-auto '
+                          >
+                            <Row>
+                                <Col
+                                    md={7}
+                                    className='my-auto profile-detail'
+                                  >
+                                    {' '}
+                                    <CardText>
+                                        <span>Name:</span>{' '}
+                                        <b>
+                                            {
                                                                     currentUser
-                                                                        .data[0]
-                                                                        .full_name
+                                                                      .data[0]
+                                                                      .full_name
                                                                 }
-                                                            </b>
-                                                        </CardText>
-                                                        <CardText>
-                                                            <span>Email:</span>{' '}
-                                                            <b>
-                                                                {
+                                          </b>
+                                      </CardText>
+                                    <CardText>
+                                        <span>Email:</span>{' '}
+                                        <b>
+                                            {
                                                                     currentUser
-                                                                        .data[0]
-                                                                        .name
+                                                                      .data[0]
+                                                                      .name
                                                                 }
-                                                            </b>
-                                                        </CardText>
-                                                        <CardText>
-                                                            <span>state :</span>{' '}
-                                                            <b>Maldives</b>
-                                                        </CardText>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
+                                          </b>
+                                      </CardText>
+                                    <CardText>
+                                        <span>state :</span>{' '}
+                                        <b>Maldives</b>
+                                      </CardText>
+                                  </Col>
+                              </Row>
+                          </Col>
 
-                                            <Col md={12}></Col>
-                                        </Row>
-                                        <br />
-                                        <Row>
-                                            <Col md={6}>
-                                                <CardText>
-                                                    <CardTitle className="pb-2">
-                                                        Password
+                        <Col md={12} />
+                      </Row>
+                    <br />
+                    <Row>
+                        <Col md={6}>
+                            <CardText>
+                                <CardTitle className='pb-2'>
+                                    Password
                                                     </CardTitle>
-                                                </CardText>
-                                                <CardText>
-                                                    <Link
-                                                        exact="true"
-                                                        onClick={showModal}
-                                                        className="my-auto pt-0 text-link "
-                                                    >
-                                                        Change Password
-                                                    </Link>
-                                                </CardText>
-                                            </Col>
-                                        </Row>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        </Layout>
-    );
-};
+                              </CardText>
+                            <CardText>
+                                <Link
+                                    exact='true'
+                                    onClick={showModal}
+                                    className='my-auto pt-0 text-link '
+                                  >
+                                                      Change Password
+                                  </Link>
+                              </CardText>
+                          </Col>
+                      </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
+  )
+}
 
-export default MyProfile;
+export default MyProfile

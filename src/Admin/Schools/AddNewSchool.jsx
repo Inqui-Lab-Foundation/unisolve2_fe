@@ -1,26 +1,26 @@
 /* eslint-disable indent */
-import React from 'react';
-import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
-import './style.scss';
-import Layout from '../../Admin/Layout';
-import { Button } from '../../stories/Button';
-import axios from 'axios';
-import { InputBox } from '../../stories/InputBox/InputBox';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { URL, KEY } from '../../constants/defaultValues';
+import React from 'react'
+import { Row, Col, Form, Label, FormGroup } from 'reactstrap'
+import { withRouter } from 'react-router-dom'
+import './style.scss'
+import Layout from '../../Admin/Layout'
+import { Button } from '../../stories/Button'
+import axios from 'axios'
+import { InputBox } from '../../stories/InputBox/InputBox'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo'
+import { URL, KEY } from '../../constants/defaultValues'
 import {
     getNormalHeaders,
     openNotificationWithIcon
-} from '../../helpers/Utils';
+} from '../../helpers/Utils'
 
 const AddNewSchool = (props) => {
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
-    };
+    }
     // const phoneRegExp =
     //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const headingDetails = {
@@ -36,7 +36,7 @@ const AddNewSchool = (props) => {
                 path: '/admin/register-new-schools'
             }
         ]
-    };
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -82,7 +82,7 @@ const AddNewSchool = (props) => {
         }),
 
         onSubmit: async (values) => {
-            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            const axiosConfig = getNormalHeaders(KEY.User_API_Key)
             await axios
                 .post(
                     `${URL.createOrganization}`,
@@ -94,167 +94,177 @@ const AddNewSchool = (props) => {
                         openNotificationWithIcon(
                             'success',
                             'School Create Successfully'
-                        );
-                        props.history.push('/admin/registered-schools');
+                        )
+                        props.history.push('/admin/registered-schools')
                     }
                 })
                 .catch((err) => {
                     openNotificationWithIcon(
                         'error',
                         err.response.data.message
-                    );
-                    return err.response;
-                });
+                    )
+                    return err.response
+                })
         }
-    });
+    })
 
     return (
-        <Layout>
-            <div className="EditPersonalDetails new-member-page">
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+      <Layout>
+        <div className='EditPersonalDetails new-member-page'>
+          <Row>
+            <Col className='col-xl-10 offset-xl-1 offset-md-0'>
+              <BreadcrumbTwo {...headingDetails} />
 
-                        <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
-                                    <FormGroup className="form-group" md={12}>
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="organization_code"
-                                            // style={{ fontSize: 15 }}
-                                        >
-                                            Unique Code
-                                            <span required>*</span>
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="organization_code"
-                                            name="organization_code"
-                                            placeholder="Please enter Unique Code"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={
+              <div>
+                <Form onSubmit={formik.handleSubmit} isSubmitting>
+                  <div className='create-ticket register-block'>
+                    <FormGroup className='form-group' md={12}>
+                      <Label
+                        className='mb-2'
+                        htmlFor='organization_code'
+                      >
+                                          Unique Code
+                        <span required>*</span>
+                      </Label>
+                      <InputBox
+                        {...inputDICE}
+                        id='organization_code'
+                        name='organization_code'
+                        placeholder='Please enter Unique Code'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={
                                                 formik.values.organization_code
                                             }
-                                        />
-                                        {formik.touched.organization_code &&
-                                        formik.errors.organization_code ? (
-                                            <small className="error-cls">
-                                                {
+                      />
+                      {formik.touched.organization_code &&
+                                        formik.errors.organization_code
+? (
+  <small className='error-cls'>
+    {
                                                     formik.errors
                                                         .organization_code
                                                 }
-                                            </small>
-                                        ) : null}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="organization_name"
-                                            // style={{ fontSize: 15 }}
-                                        >
-                                            Institute/School Name
-                                            <span required>*</span>
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="organization_name"
-                                            name="organization_name"
-                                            placeholder="Please enter Institute/School name"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={
+  </small>
+                                        )
+: null}
+                      <Label
+                        className='mb-2'
+                        htmlFor='organization_name'
+                      >
+                                          Institute/School Name
+                        <span required>*</span>
+                      </Label>
+                      <InputBox
+                        {...inputDICE}
+                        id='organization_name'
+                        name='organization_name'
+                        placeholder='Please enter Institute/School name'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={
                                                 formik.values.organization_name
                                             }
-                                        />
-                                        {formik.touched.organization_name &&
-                                        formik.errors.organization_name ? (
-                                            <small className="error-cls">
-                                                {
+                      />
+                      {formik.touched.organization_name &&
+                                        formik.errors.organization_name
+? (
+  <small className='error-cls'>
+    {
                                                     formik.errors
                                                         .organization_name
                                                 }
-                                            </small>
-                                        ) : null}
-                                        <Label className="mb-2" htmlFor="city">
-                                            City
+  </small>
+                                        )
+: null}
+                      <Label className='mb-2' htmlFor='city'>
+                        City
                                         </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="city"
-                                            name="city"
-                                            placeholder="Please enter city"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.city}
-                                        />
-                                        {formik.touched.city &&
-                                        formik.errors.city ? (
-                                            <small className="error-cls">
-                                                {formik.errors.city}
-                                            </small>
-                                        ) : null}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="district"
-                                        >
-                                            District
-                                            <span required>*</span>
+                      <InputBox
+                        {...inputDICE}
+                        id='city'
+                        name='city'
+                        placeholder='Please enter city'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.city}
+                      />
+                      {formik.touched.city &&
+                                        formik.errors.city
+? (
+  <small className='error-cls'>
+    {formik.errors.city}
+  </small>
+                                        )
+: null}
+                      <Label
+                        className='mb-2'
+                        htmlFor='district'
+                      >
+                                          District
+                        <span required>*</span>
+                      </Label>
+                      <InputBox
+                        {...inputDICE}
+                        id='district'
+                        name='district'
+                        placeholder='Please enter district'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.district}
+                      />
+                      {formik.touched.district &&
+                                        formik.errors.district
+? (
+  <small className='error-cls'>
+    {formik.errors.district}
+  </small>
+                                        )
+: null}
+                      <Label className='mb-2' htmlFor='state'>
+                        State
                                         </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="district"
-                                            name="district"
-                                            placeholder="Please enter district"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.district}
-                                        />
-                                        {formik.touched.district &&
-                                        formik.errors.district ? (
-                                            <small className="error-cls">
-                                                {formik.errors.district}
-                                            </small>
-                                        ) : null}
-                                        <Label className="mb-2" htmlFor="state">
-                                            State
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="state"
-                                            name="state"
-                                            placeholder="Please enter state"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.state}
-                                        />
-                                        {formik.touched.state &&
-                                        formik.errors.state ? (
-                                            <small className="error-cls">
-                                                {formik.errors.state}
-                                            </small>
-                                        ) : null}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="principal_name"
-                                        >
-                                            Principal Name
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="principal_name"
-                                            name="principal_name"
-                                            placeholder="Please enter principal name"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.principal_name}
-                                        />
-                                        {formik.touched.principal_name &&
-                                        formik.errors.principal_name ? (
-                                            <small className="error-cls">
-                                                {formik.errors.principal_name}
-                                            </small>
-                                        ) : null}
-                                        {/* <Label
+                      <InputBox
+                        {...inputDICE}
+                        id='state'
+                        name='state'
+                        placeholder='Please enter state'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.state}
+                      />
+                      {formik.touched.state &&
+                                        formik.errors.state
+? (
+  <small className='error-cls'>
+    {formik.errors.state}
+  </small>
+                                        )
+: null}
+                      <Label
+                        className='mb-2'
+                        htmlFor='principal_name'
+                      >
+                                          Principal Name
+                      </Label>
+                      <InputBox
+                        {...inputDICE}
+                        id='principal_name'
+                        name='principal_name'
+                        placeholder='Please enter principal name'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.principal_name}
+                      />
+                      {formik.touched.principal_name &&
+                                        formik.errors.principal_name
+? (
+  <small className='error-cls'>
+    {formik.errors.principal_name}
+  </small>
+                                        )
+: null}
+                      {/* <Label
                                             className="mb-2"
                                             htmlFor="principal_mobile"
                                         >
@@ -277,51 +287,52 @@ const AddNewSchool = (props) => {
                                                 {formik.errors.principal_mobile}
                                             </small>
                                         ) : null} */}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="principal_email"
-                                        >
-                                            Principal Email
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="principal_email"
-                                            name="principal_email"
-                                            placeholder="Please enter principal email"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={
+                      <Label
+                        className='mb-2'
+                        htmlFor='principal_email'
+                      >
+                                          Principal Email
+                      </Label>
+                      <InputBox
+                        {...inputDICE}
+                        id='principal_email'
+                        name='principal_email'
+                        placeholder='Please enter principal email'
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={
                                                 formik.values.principal_email
                                             }
-                                        />
-                                        {formik.touched.principal_email &&
-                                        formik.errors.principal_email ? (
-                                            <small className="error-cls">
-                                                {formik.errors.principal_email}
-                                            </small>
-                                        ) : null}
-                                    </FormGroup>
-                                </div>
+                      />
+                      {formik.touched.principal_email &&
+                                        formik.errors.principal_email
+? (
+  <small className='error-cls'>
+    {formik.errors.principal_email}
+  </small>
+                                        )
+: null}
+                    </FormGroup>
+                  </div>
 
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={() =>
+                  <hr className='mt-4 mb-4' />
+                  <Row>
+                    <Col className='col-xs-12 col-sm-6'>
+                      <Button
+                        label='Discard'
+                        btnClass='secondary'
+                        size='small'
+                        onClick={() =>
                                                 props.history.push(
                                                     '/admin/registered-schools'
-                                                )
-                                            }
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
+                                                )}
+                      />
+                    </Col>
+                    <Col className='submit-btn col-xs-12 col-sm-6'>
+                      <Button
+                        label='Submit details'
+                        type='submit'
+                        btnClass={
                                                 !(
                                                     formik.dirty &&
                                                     formik.isValid
@@ -329,17 +340,17 @@ const AddNewSchool = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
-                                            size="small"
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </div>
+                        size='small'
+                      />
                     </Col>
-                </Row>
-            </div>
-        </Layout>
-    );
-};
+                  </Row>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </Layout>
+    )
+}
 
-export default withRouter(AddNewSchool);
+export default withRouter(AddNewSchool)

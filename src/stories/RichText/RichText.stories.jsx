@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
-import { RichText } from "./RichText";
+import { RichText } from './RichText'
 
 export default {
-    title: "Example/RichText",
-    component: RichText,
-};
+  title: 'Example/RichText',
+  component: RichText
+}
 
-const Template = (args) => <RichText {...args} />;
+const Template = (args) => <RichText {...args} />
 
-export const RichTextLabel = Template.bind({});
+export const RichTextLabel = Template.bind({})
 RichText.args = {
-    label: "RichText",
-};
+  label: 'RichText'
+}

@@ -1,45 +1,45 @@
 /* eslint-disable indent */
-import { notification } from 'antd';
-import moment from 'moment';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { getlogout, userLogout } from '../redux/studentRegistration/actions';
+import { notification } from 'antd'
+import moment from 'moment'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { getlogout, userLogout } from '../redux/studentRegistration/actions'
 
 export const getCurrentUser = () => {
-    let user = null;
+    let user = null
     try {
         user =
             localStorage.getItem('current_user') != null
                 ? JSON.parse(localStorage.getItem('current_user'))
-                : null;
+                : null
     } catch (error) {
         console.log(
             '>>>>: src/helpers/Utils.js  : getCurrentUser -> error',
             error
-        );
-        user = null;
+        )
+        user = null
     }
-    return user;
-};
+    return user
+}
 
 export const setCurrentUser = (user) => {
     try {
         if (user) {
-            localStorage.setItem('current_user', JSON.stringify(user));
+            localStorage.setItem('current_user', JSON.stringify(user))
         } else {
-            localStorage.removeItem('current_user');
+            localStorage.removeItem('current_user')
         }
     } catch (error) {
         console.log(
             '>>>>: src/helpers/Utils.js : setCurrentUser -> error',
             error
-        );
+        )
     }
-};
+}
 
 export const getNormalHeaders = (apiKey) => {
     // it receive api_key argument if not it will assign null to it.
-    const loginUser = getCurrentUser();
-    let axiosConfig = {};
+    const loginUser = getCurrentUser()
+    let axiosConfig = {}
     if (loginUser) {
         // eslint-disable-next-line no-return-await
         axiosConfig = {
@@ -47,7 +47,7 @@ export const getNormalHeaders = (apiKey) => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${loginUser.data[0].token}`
             }
-        };
+        }
     } else {
         // eslint-disable-next-line no-return-await
         axiosConfig = {
@@ -56,25 +56,25 @@ export const getNormalHeaders = (apiKey) => {
                 Accept: 'application/json',
                 'x-api-key': apiKey
             }
-        };
+        }
     }
-    return axiosConfig;
-};
+    return axiosConfig
+}
 
 export const openNotificationWithIcon = (type, msg, des) => {
     notification[type]({
         message: msg,
         description: des
-    });
-};
+    })
+}
 
 export const compareDates = (filterDate) => {
-    const date = moment().format('yyyy-MM-DD');
+    const date = moment().format('yyyy-MM-DD')
     return (
         moment(date).isSameOrAfter(filterDate.start_date) &&
         moment(date).isSameOrBefore(filterDate.end_date)
-    );
-};
+    )
+}
 
 export const logout = (history, t, module, dispatch) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -84,7 +84,7 @@ export const logout = (history, t, module, dispatch) => {
         },
         buttonsStyling: false,
         allowOutsideClick: false
-    });
+    })
 
     swalWithBootstrapButtons
         .fire({
@@ -100,22 +100,22 @@ export const logout = (history, t, module, dispatch) => {
         .then((result) => {
             if (result.isConfirmed) {
                 if (result.isConfirmed) {
-                    if (dispatch) dispatch(getlogout());
-                    localStorage.clear();
-                    if (module) localStorage.removeItem('module');
-                    if (dispatch) dispatch(userLogout());
+                    if (dispatch) dispatch(getlogout())
+                    localStorage.clear()
+                    if (module) localStorage.removeItem('module')
+                    if (dispatch) dispatch(userLogout())
                     switch (module) {
                         case 'EVALUATOR':
-                            history.push('/evaluator');
-                            break;
+                            history.push('/evaluator')
+                            break
                         case 'ADMIN':
-                            history.push('/admin');
-                            break;
+                            history.push('/admin')
+                            break
                         case 'EADMIN':
-                            history.push('/eadmin');
-                            break;
+                            history.push('/eadmin')
+                            break
                         default:
-                            history.push('/');
+                            history.push('/')
                     }
                 }
             } else if (
@@ -126,7 +126,7 @@ export const logout = (history, t, module, dispatch) => {
                     t('general_req.cancelled'),
                     t('general_req.logged_in'),
                     'error'
-                );
+                )
             }
-        });
-};
+        })
+}

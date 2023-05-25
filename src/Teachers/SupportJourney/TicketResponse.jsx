@@ -1,43 +1,41 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Row, Col, Form, Label, Card, CardBody } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
-import './style.scss';
-import Layout from '../Layout';
-import { Button } from '../../stories/Button';
-import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
-import { TextArea } from '../../stories/TextArea/TextArea';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { Row, Col, Form, Label, Card, CardBody } from 'reactstrap'
+import { withRouter, useHistory, useLocation } from 'react-router-dom'
+import './style.scss'
+import Layout from '../Layout'
+import { Button } from '../../stories/Button'
+import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch'
+import { TextArea } from '../../stories/TextArea/TextArea'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo'
+import { useDispatch, useSelector } from 'react-redux'
 // eslint-disable-next-line no-unused-vars
 import {
     createSupportTicketResponse,
     getSupportTicketById,
     SupportTicketStatusChange
-} from '../store/mentors/actions';
-import { useHistory, useLocation } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
-import { FaRegClock } from 'react-icons/fa';
-import moment from 'moment';
-import { useLayoutEffect } from 'react';
+} from '../store/mentors/actions'
+import { FaUserCircle, FaRegClock } from 'react-icons/fa'
+import moment from 'moment'
+import { useLayoutEffect } from 'react'
 
 const TicketResponse = (props) => {
-    const { search } = useLocation();
-    const id = new URLSearchParams(search).get('id');
-    const { supportTicket } = useSelector((state) => state.mentors);
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
+    const { search } = useLocation()
+    const id = new URLSearchParams(search).get('id')
+    const { supportTicket } = useSelector((state) => state.mentors)
+    const language = useSelector((state) => state?.mentors.mentorLanguage)
 
-    const dispatch = useDispatch();
-    const history = useHistory();
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     useLayoutEffect(() => {
-        dispatch(getSupportTicketById(id, language));
+        dispatch(getSupportTicketById(id, language))
         // here id = support_ticket_id //
-    }, [dispatch, id]);
+    }, [dispatch, id])
 
     const headingDetails = {
         title: 'Support Details',
@@ -55,7 +53,7 @@ const TicketResponse = (props) => {
                 title: 'Support View'
             }
         ]
-    };
+    }
     const formik = useFormik({
         initialValues: {
             ansDetails: '',
@@ -68,23 +66,23 @@ const TicketResponse = (props) => {
         }),
 
         onSubmit: (values) => {
-            const ansDetails = values.ansDetails;
+            const ansDetails = values.ansDetails
             const body = JSON.stringify({
                 support_ticket_id: id,
                 reply_details: ansDetails
-            });
+            })
 
-            dispatch(createSupportTicketResponse(body));
+            dispatch(createSupportTicketResponse(body))
             dispatch(
                 SupportTicketStatusChange(id, { status: values.selectStatus })
-            );
-            props.history.push('/teacher/support-journey/');
+            )
+            props.history.push('/teacher/support-journey/')
 
             setTimeout(() => {
-                dispatch(getSupportTicketById(id, language));
-            }, 500);
+                dispatch(getSupportTicketById(id, language))
+            }, 500)
         }
-    });
+    })
 
     const selectProgress = {
         // here we can select the support tickets //
@@ -101,216 +99,223 @@ const TicketResponse = (props) => {
             { label: 'INVALID ', value: 'INVALID' }
         ],
         className: 'defaultDropdown'
-    };
+    }
     return (
-        <Layout>
-            <div className="EditPersonalDetails new-member-page">
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
-                        <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <Card className="aside p-4 py-5">
-                                    <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
-                                        <CardBody>
-                                            <p>
-                                                <b>
-                                                    {
+      <Layout>
+        <div className='EditPersonalDetails new-member-page'>
+          <Row>
+            <Col className='col-xl-10 offset-xl-1 offset-md-0'>
+              <BreadcrumbTwo {...headingDetails} />
+              <div>
+                <Form onSubmit={formik.handleSubmit} isSubmitting>
+                  <Card className='aside p-4 py-5'>
+                    <Card className='card mb-4 my-3 comment-card px-0 card-outline-warning'>
+                      <CardBody>
+                        <p>
+                            <b>
+                                {
                                                         supportTicket.query_details
                                                     }
-                                                </b>
-                                            </p>
-                                            <hr />
-                                            <Row>
-                                                <Col md={6}>
-                                                    <span>
-                                                        <FaUserCircle />{' '}
-                                                        {
+                              </b>
+                          </p>
+                        <hr />
+                        <Row>
+                            <Col md={6}>
+                                <span>
+                                    <FaUserCircle />{' '}
+                                    {
                                                             supportTicket.created_by
                                                         }
-                                                    </span>{' '}
-                                                </Col>
-                                                <Col
-                                                    md={6}
-                                                    className="text-right"
-                                                >
-                                                    <span>
-                                                        <FaRegClock />{' '}
-                                                        {moment(
+                                  </span>{' '}
+                              </Col>
+                            <Col
+                                md={6}
+                                className='text-right'
+                              >
+                                <span>
+                                    <FaRegClock />{' '}
+                                    {moment(
                                                             supportTicket.created_at
                                                         ).format(
                                                             // 'Do MMM, YYYY HH:mm',
                                                             'LLL'
                                                         )}
-                                                    </span>
-                                                </Col>
-                                            </Row>
-                                        </CardBody>
-                                    </Card>
+                                  </span>
+                              </Col>
+                          </Row>
+                      </CardBody>
+                    </Card>
 
-                                    {supportTicket?.support_ticket_replies
+                    {supportTicket?.support_ticket_replies
                                         ?.length > 0 &&
                                         supportTicket.support_ticket_replies.map(
                                             (data, i) => {
                                                 return (
-                                                    <>
-                                                        <Card className="card mb-4 my-3 comment-card card-outline-success">
-                                                            <CardBody>
-                                                                <p>
-                                                                    {
+                                                  <>
+                                                    <Card className='card mb-4 my-3 comment-card card-outline-success'>
+                                                      <CardBody>
+                                                        <p>
+                                                          {
                                                                         data.reply_details
                                                                     }
-                                                                </p>
-                                                                <hr />
-                                                                <Row>
-                                                                    <Col md={6}>
-                                                                        <span>
-                                                                            <FaUserCircle />{' '}
-                                                                            {
+                                                        </p>
+                                                        <hr />
+                                                        <Row>
+                                                          <Col md={6}>
+                                                            <span>
+                                                              <FaUserCircle />{' '}
+                                                              {
                                                                                 data.created_by
                                                                             }
-                                                                        </span>{' '}
-                                                                    </Col>
-                                                                    <Col
-                                                                        md={6}
-                                                                        className="text-right"
-                                                                    >
-                                                                        <span>
-                                                                            <FaRegClock />{' '}
-                                                                            {moment(
+                                                            </span>{' '}
+                                                          </Col>
+                                                          <Col
+                                                            md={6}
+                                                            className='text-right'
+                                                          >
+                                                            <span>
+                                                              <FaRegClock />{' '}
+                                                              {moment(
                                                                                 data.created_at
                                                                             ).format(
                                                                                 // 'Do MMM, YYYY HH:mm',
                                                                                 'LLL'
                                                                             )}
-                                                                        </span>
-                                                                    </Col>
-                                                                </Row>
-                                                            </CardBody>
-                                                        </Card>
-                                                    </>
-                                                );
+                                                            </span>
+                                                          </Col>
+                                                        </Row>
+                                                      </CardBody>
+                                                    </Card>
+                                                  </>
+                                                )
                                             }
                                         )}
 
-                                    {supportTicket.status != 'INVALID' ? (
-                                        <Row>
-                                            <Col md={12}>
-                                                <Label
-                                                    className="name-req mt-5"
-                                                    htmlFor="ticketDetails"
-                                                >
-                                                    Details
-                                                </Label>
-                                                <TextArea
-                                                    className={'defaultInput'}
-                                                    placeholder="Enter reply comments"
-                                                    id="ansDetails"
-                                                    name="ansDetails"
-                                                    onChange={
+                    {supportTicket.status != 'INVALID'
+? (
+  <Row>
+    <Col md={12}>
+      <Label
+        className='name-req mt-5'
+        htmlFor='ticketDetails'
+      >
+        Details
+      </Label>
+      <TextArea
+        className='defaultInput'
+        placeholder='Enter reply comments'
+        id='ansDetails'
+        name='ansDetails'
+        onChange={
                                                         formik.handleChange
                                                     }
-                                                    onBlur={formik.handleBlur}
-                                                    value={
+        onBlur={formik.handleBlur}
+        value={
                                                         formik.values.ansDetails
                                                     }
-                                                />
+      />
 
-                                                {formik.touched.ansDetails &&
-                                                formik.errors.ansDetails ? (
-                                                    <small className="error-cls">
-                                                        {
+      {formik.touched.ansDetails &&
+                                                formik.errors.ansDetails
+? (
+  <small className='error-cls'>
+    {
                                                             formik.errors
                                                                 .ansDetails
                                                         }
-                                                    </small>
-                                                ) : null}
-                                            </Col>
+  </small>
+                                                )
+: null}
+    </Col>
 
-                                            <Col
-                                                className="form-group my-5  mb-md-0"
-                                                md={12}
-                                            >
-                                                <Label className="mb-2">
-                                                    Select Status
-                                                </Label>
+    <Col
+      className='form-group my-5  mb-md-0'
+      md={12}
+    >
+      <Label className='mb-2'>
+        Select Status
+      </Label>
 
-                                                <Col
-                                                    className="form-group"
-                                                    md={12}
-                                                >
-                                                    <DropDownWithSearch
-                                                        {...selectProgress}
-                                                        onBlur={
+      <Col
+        className='form-group'
+        md={12}
+      >
+        <DropDownWithSearch
+          {...selectProgress}
+          onBlur={
                                                             formik.handleBlur
                                                         }
-                                                        onChange={(option) => {
+          onChange={(option) => {
                                                             formik.setFieldValue(
                                                                 'selectStatus',
                                                                 option[0].value
-                                                            );
+                                                            )
                                                         }}
-                                                        name="selectStatus"
-                                                        id="selectStatus"
-                                                    />
+          name='selectStatus'
+          id='selectStatus'
+        />
 
-                                                    {formik.errors
-                                                        .selectStatus ? (
-                                                        <small className="error-cls">
-                                                            {
+        {formik.errors
+                                                        .selectStatus
+? (
+  <small className='error-cls'>
+    {
                                                                 formik.errors
                                                                     .selectStatus
                                                             }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
+  </small>
+                                                    )
+: null}
+      </Col>
 
-                                                <Col
-                                                    className="form-group mt-5  mb-md-0"
-                                                    md={12}
-                                                ></Col>
-                                            </Col>
-                                        </Row>
-                                    ) : null}
-                                </Card>
+      <Col
+        className='form-group mt-5  mb-md-0'
+        md={12}
+      />
+    </Col>
+  </Row>
+                                    )
+: null}
+                  </Card>
 
-                                <hr className="mt-4 mb-4"></hr>
-                                <div>
-                                    <Row>
-                                        {supportTicket.status != 'INVALID' ? (
-                                            <Col className="col-xs-12 col-sm-6">
-                                                <Button
-                                                    label="Discard"
-                                                    btnClass="secondary"
-                                                    size="small"
-                                                    onClick={() =>
+                  <hr className='mt-4 mb-4' />
+                  <div>
+                    <Row>
+                      {supportTicket.status != 'INVALID'
+? (
+  <Col className='col-xs-12 col-sm-6'>
+    <Button
+      label='Discard'
+      btnClass='secondary'
+      size='small'
+      onClick={() =>
                                                         props.history.push(
                                                             '/teacher/support-journey'
-                                                        )
-                                                    }
-                                                />
-                                            </Col>
-                                        ) : (
-                                            <Col className="col-xs-12 col-sm-6">
-                                                <Button
-                                                    label="Back"
-                                                    btnClass="secondary"
-                                                    size="small"
-                                                    onClick={() =>
+                                                        )}
+    />
+  </Col>
+                                        )
+: (
+  <Col className='col-xs-12 col-sm-6'>
+    <Button
+      label='Back'
+      btnClass='secondary'
+      size='small'
+      onClick={() =>
                                                         props.history.push(
                                                             '/teacher/support-journey'
-                                                        )
-                                                    }
-                                                />
-                                            </Col>
+                                                        )}
+    />
+  </Col>
                                         )}
 
-                                        {supportTicket.status != 'INVALID' ? (
-                                            <Col className="submit-btn col-xs-12 col-sm-6">
-                                                <Button
-                                                    label="Submit details"
-                                                    type="submit"
-                                                    btnClass={
+                      {supportTicket.status != 'INVALID'
+? (
+  <Col className='submit-btn col-xs-12 col-sm-6'>
+    <Button
+      label='Submit details'
+      type='submit'
+      btnClass={
                                                         !(
                                                             formik.dirty &&
                                                             formik.isValid
@@ -318,25 +323,26 @@ const TicketResponse = (props) => {
                                                             ? 'default'
                                                             : 'primary'
                                                     }
-                                                    size="small"
-                                                    disabled={
+      size='small'
+      disabled={
                                                         !(
                                                             formik.dirty &&
                                                             formik.isValid
                                                         )
                                                     }
-                                                />
-                                            </Col>
-                                        ) : null}
-                                    </Row>
-                                </div>
-                            </Form>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
-        </Layout>
-    );
-};
+    />
+  </Col>
+                                        )
+: null}
+                    </Row>
+                  </div>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </Layout>
+    )
+}
 
-export default withRouter(TicketResponse);
+export default withRouter(TicketResponse)

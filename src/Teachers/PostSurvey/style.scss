@@ -1,13 +1,13 @@
-.presuervey{
-    h6{
+.presuervey {
+    h6 {
         font-size: 1.6rem;
         line-height: inherit;
     }
-    label.form-label{
+    label.form-label {
         font-size: 1.4rem;
     }
     .form-check {
-        .form-check-label{
+        .form-check-label {
             cursor: pointer !important;
             font-weight: normal;
         }
@@ -15,11 +15,11 @@
             margin-right: 1rem !important;
         }
     }
-    .comment-card::before{
+    .comment-card::before {
         content: '';
         height: 100%;
         width: 5px;
-        background: #067DE1;
+        background: #067de1;
         position: absolute;
         left: 0;
         top: 0;
