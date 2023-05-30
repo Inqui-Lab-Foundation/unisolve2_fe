@@ -136,6 +136,9 @@ const ViewDetail = (props) => {
             )
             pdf.save(`${new Date().toISOString()}.pdf`)
         })
+        .catch((e) => {
+            console.log(e);
+        });
         setPdfLoader(false)
     }
 
