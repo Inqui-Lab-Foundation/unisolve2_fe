@@ -121,24 +121,25 @@ const ViewDetail = (props) => {
                 document.getElementById('pdfId').style.display = 'block'
             },
             scale: 1.13
-        }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png')
-            const pdf = new jsPDF('p', 'px', [2580, 3508])
-            pdf.addImage(
-                imgData,
-                'JPEG',
-                20,
-                20,
-                2540,
-                pdf.internal.pageSize.height,
-                undefined,
-                'FAST'
-            )
-            pdf.save(`${new Date().toISOString()}.pdf`)
         })
-        .catch((e) => {
-            console.log(e);
-        });
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png')
+                const pdf = new jsPDF('p', 'px', [2580, 3508])
+                pdf.addImage(
+                    imgData,
+                    'JPEG',
+                    20,
+                    20,
+                    2540,
+                    pdf.internal.pageSize.height,
+                    undefined,
+                    'FAST'
+                )
+                pdf.save(`${new Date().toISOString()}.pdf`)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
         setPdfLoader(false)
     }
 
