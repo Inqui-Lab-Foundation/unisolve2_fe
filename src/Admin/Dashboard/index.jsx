@@ -53,12 +53,12 @@ const Dashboard = () => {
         setOrgData({});
         setError('');
     };
-    useEffect(() => {
+    useEffect(async () => {
         // where list = diescode //
         //where organization_code = diescode //
         const list = JSON.parse(localStorage.getItem('organization_code'));
         setDiesCode(list);
-        apiCall(list);
+        await apiCall(list);
     }, []);
     async function apiCall(list) {
         // Dice code list API //
@@ -76,7 +76,7 @@ const Dashboard = () => {
         };
 
         await axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
@@ -84,7 +84,7 @@ const Dashboard = () => {
                     setError('');
 
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
+                        await getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -115,14 +115,14 @@ const Dashboard = () => {
         };
 
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
+                        await getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -318,14 +318,14 @@ const Dashboard = () => {
             data: submitData
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
                     openNotificationWithIcon(
                         'success',
                         'Idea Submission Status Successfully Update!',
                         ''
                     );
-                    getMentorIdApi(mentorId);
+                    await getMentorIdApi(mentorId);
                 }
             })
             .catch(function (error) {
@@ -355,10 +355,10 @@ const Dashboard = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        deleteTempMentorById(id);
+                        await deleteTempMentorById(id);
                         setOrgData({});
                         setDiesCode('');
                     }

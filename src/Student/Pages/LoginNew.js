@@ -109,11 +109,12 @@ const LoginNew = (props) => {
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                            <Link to={'/'} exact>
+                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className=" mr-auto mobile_tab-hide"
                                 >
+                                    {' '}
                                     <h2 className="text-white">
                                         <img
                                             src={signuplogo}
@@ -122,7 +123,7 @@ const LoginNew = (props) => {
                                         />
                                     </h2>
                                 </Col>
-                            </Link>
+                            </a>
                         </div>
 
                         <h1 className="text-left pb-5 mobile_tab-hide">
