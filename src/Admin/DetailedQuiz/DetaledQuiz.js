@@ -230,8 +230,8 @@ const DetaledQuiz = (props) => {
                                                         label={t(
                                                             'student.continue'
                                                         )}
-                                                        onClick={(e) =>
-                                                            handleNxtQst(e)
+                                                        onClick={() =>
+                                                            handleNxtQst()
                                                         }
                                                     />
                                                 </Col>
@@ -277,8 +277,8 @@ const DetaledQuiz = (props) => {
                                                         label={t(
                                                             'teacher.continue'
                                                         )}
-                                                        onClick={(e) =>
-                                                            handleNxtQst(e)
+                                                        onClick={() =>
+                                                            handleNxtQst()
                                                         }
                                                     />
                                                 </Col>
@@ -294,7 +294,7 @@ const DetaledQuiz = (props) => {
                                         <Button
                                             size="small"
                                             label={t('teacher.submit')}
-                                            onClick={(e) => handleSubmit(e)}
+                                            onClick={() => handleSubmit()}
                                             btnClass={
                                                 !selectOption
                                                     ? 'default'

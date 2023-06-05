@@ -83,7 +83,7 @@ const EditEvalProcess = (props) => {
             });
     }
 
-    const handleclick = () => {
+    const handleclick = async() => {
         // where we can select  the districts //
         const value = { district: '' };
         selectedDistricts.includes('All Districts')
@@ -91,7 +91,7 @@ const EditEvalProcess = (props) => {
                   ?.filter((item) => item !== 'All Districts')
                   .toString())
             : (value.district = selectedDistricts.toString());
-        handledistricts(value);
+        await handledistricts(value);
     };
 
     return (

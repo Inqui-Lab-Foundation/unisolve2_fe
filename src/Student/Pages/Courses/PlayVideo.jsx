@@ -284,7 +284,7 @@ const PlayVideoCourses = (props) => {
             });
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
-            topicArrays.map((item, i) => {
+            topicArrays.forEach((item, i) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }
@@ -361,9 +361,9 @@ const PlayVideoCourses = (props) => {
             });
     }
 
-    const handleNxtVideo = (id) => {
+    const handleNxtVideo = async(id) => {
         // here we can go for next video //
-        fetchData(id?.topic_type_id);
+        await fetchData(id?.topic_type_id);
         setItem('VIDEO');
     };
 
@@ -482,7 +482,7 @@ const PlayVideoCourses = (props) => {
     //   }
     // };
     const [videoCompleted, setVideoCompleted] = useState(false);
-    const handleVimeoOnEnd = (event) => {
+    const handleVimeoOnEnd = async(event) => {
         const topixIndex = setTopicArrays.findIndex(
             (item) => item.topic_type_id === topicObj.topic_type_id
         );
@@ -492,7 +492,7 @@ const PlayVideoCourses = (props) => {
                 setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id
             ) {
                 setTopic(setTopicArrays[topixIndex]);
-                modulesListUpdateApi(topicObj.course_topic_id);
+                await modulesListUpdateApi(topicObj.course_topic_id);
                 handleSelect(
                     topicObj.topic_type_id,
                     topicObj.course_topic_id,
@@ -564,7 +564,7 @@ const PlayVideoCourses = (props) => {
         // handlePlayerPlay();
     };
 
-    const handleSelect = (topicId, couseId, type) => {
+    const handleSelect = async(topicId, couseId, type) => {
         // here topicId = topicId ; couseId = couseId //
         // type = worksheet ,video, quiz //
         setShowCompleteMessage(false);
@@ -584,7 +584,7 @@ const PlayVideoCourses = (props) => {
         setTopicObj(topicObj);
         if (type === 'WORKSHEET') {
             setWorksheetId(topicId);
-            getWorkSheetApi(topicId);
+            await getWorkSheetApi(topicId);
             setItem('WORKSHEET');
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
@@ -592,7 +592,7 @@ const PlayVideoCourses = (props) => {
             setQizId(topicId);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
-            fetchData(topicId);
+            await fetchData(topicId);
             setHideQuiz(false);
         } else {
             setItem('');
@@ -633,17 +633,17 @@ const PlayVideoCourses = (props) => {
         setModalShow(item);
         setHideQuiz(false);
     };
-    const handleQuiz = () => {
+    const handleQuiz = async() => {
         // here we can see quiz //
-        modulesListUpdateApi(topicObj.course_topic_id);
+        await modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.course_topic_id,
             topicObj.topic_type
         );
     };
-    const handleAssesmentClose = () => {
-        modulesListUpdateApi(topicObj.course_topic_id);
+    const handleAssesmentClose = async() => {
+        await modulesListUpdateApi(topicObj.course_topic_id);
         setItem('VIDEO');
         setTopic(topicObj);
         handleSelect(
@@ -704,9 +704,9 @@ const PlayVideoCourses = (props) => {
                 data: formData
             };
             axios(config)
-                .then(function (response) {
+                .then(async function (response) {
                     if (response.status === 200) {
-                        getWorkSheetApi(worksheetId);
+                        await getWorkSheetApi(worksheetId);
                         // setImage();
                         // setFileName();
                         // setUrl();
@@ -726,11 +726,11 @@ const PlayVideoCourses = (props) => {
                 });
         }
     };
-    const handleNextCourse = () => {
+    const handleNextCourse = async() => {
         // here we can go for next course //
         if (topicObj) {
             toggle(topicObj.course_module_id);
-            modulesListUpdateApi(topicObj.course_topic_id);
+            await modulesListUpdateApi(topicObj.course_topic_id);
             setTopic(topicObj);
             handleSelect(
                 topicObj.topic_type_id,
@@ -742,10 +742,10 @@ const PlayVideoCourses = (props) => {
         }
     };
 
-    const startFirstCourse = (e) => {
+    const startFirstCourse = async(e) => {
         // here we can start the student presurvey journey //
         setCourseData(null);
-        modulesListUpdateApi(firstObj[0].course_topic_id);
+        await modulesListUpdateApi(firstObj[0].course_topic_id);
         setTopic(firstObj[0]);
         handleSelect(
             firstObj[0].topic_type_id,
@@ -755,10 +755,10 @@ const PlayVideoCourses = (props) => {
         toggle(firstObj[0].course_module_id);
     };
 
-    const startContinueCourse = (e) => {
+    const startContinueCourse = async(e) => {
         // here we can start the course //
         setCourseData(null);
-        modulesListUpdateApi(continueObj[0].course_topic_id);
+        await modulesListUpdateApi(continueObj[0].course_topic_id);
         setTopic(continueObj[0]);
         handleSelect(
             continueObj[0].topic_type_id,
@@ -767,8 +767,8 @@ const PlayVideoCourses = (props) => {
         );
         toggle(continueObj[0].course_module_id);
     };
-    const startCourseModule = (e) => {
-        modulesListUpdateApi(
+    const startCourseModule = async(e) => {
+        await modulesListUpdateApi(
             selectedCourseModule.course_topics[0].course_topic_id
         );
         handleSelect(
@@ -1184,8 +1184,7 @@ const PlayVideoCourses = (props) => {
                                                                             e
                                                                         ) =>
                                                                             fileHandler(
-                                                                                e,
-                                                                                '34'
+                                                                                e
                                                                             )
                                                                         }
                                                                     />
@@ -1614,7 +1613,7 @@ const PlayVideoCourses = (props) => {
                 refQst={id && id.reflective_quiz_questions}
                 videoId={videoId}
                 show={modalShow}
-                handleClose={() => handleAssesmentClose(topic)}
+                handleClose={() => handleAssesmentClose()}
                 onHide={() => setModalShow(false)}
             />
         </Layout>

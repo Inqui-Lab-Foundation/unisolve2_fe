@@ -290,10 +290,10 @@ const IdeasPageNew = () => {
                 cancelButtonText: t('general_req.btn_cancel'),
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async(result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        handleSubmit(e, type);
+                        await handleSubmit(e, type);
                     }
                 } else if (
                     /* Read more about handling dismissals below */
@@ -435,7 +435,7 @@ const IdeasPageNew = () => {
                     challenge_question_id: uploadQId,
                     selected_option: result.data?.data[0]?.attachments
                 });
-                submittingCall(type, responses);
+                await submittingCall(type, responses);
                 setTimeout(() => {
                     dispatch(
                         getStudentChallengeSubmittedResponse(
@@ -452,7 +452,7 @@ const IdeasPageNew = () => {
                 return;
             }
         } else {
-            submittingCall(type, responses);
+            await submittingCall(type, responses);
             setLoading(initialLoadingStatus);
         }
     };

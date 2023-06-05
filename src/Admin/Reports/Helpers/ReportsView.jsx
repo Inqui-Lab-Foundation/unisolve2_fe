@@ -22,8 +22,8 @@ const ReportsView = () => {
         options: []
     };
 
-    useEffect(() => {
-        handleDistAPI(disTrict);
+    useEffect(async() => {
+        await handleDistAPI(disTrict);
     }, []);
 
     async function handleDistAPI(disTrict) {

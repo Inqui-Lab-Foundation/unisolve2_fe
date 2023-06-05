@@ -33,8 +33,8 @@ const Certificate = ({
         // here we can download the certificates //
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
-        const size = type ? [298, 220] : [298, 220];
-        const orientation = type ? 'l' : 'l';
+        const size = [298, 220];
+        const orientation = 'l';
         const doc = new jsPDF(orientation, 'px', size);
         const certName = `${currentUser?.data[0]?.full_name}_${
             type ? 'idea_certificate' : 'course_certificate'
@@ -102,7 +102,7 @@ const Certificate = ({
                             style={{
                                 position: 'absolute',
                                 top: `${type ? '9.5rem' : '8.8rem'}`,
-                                left: `${type ? '5rem' : '5rem'}`,
+                                left: `${type ? '5rem' : '5.1rem'}`,
                                 fontSize: '0.8rem',
                                 fontFamily: 'Times New Roman'
                             }}

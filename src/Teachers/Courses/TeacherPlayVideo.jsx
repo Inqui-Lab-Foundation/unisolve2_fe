@@ -142,7 +142,7 @@ const TeacherPlayVideo = (props) => {
             );
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
-            topicArrays.map((item, i) => {
+            topicArrays.forEach((item, i) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }
@@ -207,9 +207,9 @@ const TeacherPlayVideo = (props) => {
             });
     }
 
-    const handleNxtVideo = (id) => {
+    const handleNxtVideo = async(id) => {
         // here id = course_id //
-        fetchData(id);
+        await fetchData(id);
         setItem('VIDEO');
     };
 
@@ -309,8 +309,8 @@ const TeacherPlayVideo = (props) => {
         const calculatedSeconds = Math.floor(halfTrimmedLength);
     };
 
-    const handleVimeoOnEnd = (event) => {
-        modulesListUpdateApi(topicObj.mentor_course_topic_id);
+    const handleVimeoOnEnd = async(event) => {
+        await modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.mentor_course_topic_id,
@@ -320,7 +320,7 @@ const TeacherPlayVideo = (props) => {
         setHandbook(true);
     };
 
-    const handleSelect = (topicId, couseId, type) => {
+    const handleSelect = async(topicId, couseId, type) => {
         // here topicId = topicId //
         // here couseId = couseId  //
         // here type = Attachment ,Video ,Quiz //
@@ -337,12 +337,12 @@ const TeacherPlayVideo = (props) => {
         setTopicObj(topicObj);
         if (type === 'ATTACHMENT') {
             setWorksheetId(topicId);
-            getWorkSheetApi(topicId);
+            await getWorkSheetApi(topicId);
             setItem('ATTACHMENT');
             setHideQuiz(false);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
-            fetchData(topicId);
+            await fetchData(topicId);
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
             setItem('QUIZ');
@@ -386,9 +386,9 @@ const TeacherPlayVideo = (props) => {
         setModalShow(item);
         setHideQuiz(false);
     };
-    const handleQuiz = () => {
+    const handleQuiz = async() => {
         // here we can see Quiz //
-        modulesListUpdateApi(topicObj.mentor_course_topic_id);
+        await modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.mentor_course_topic_id,
@@ -440,9 +440,9 @@ const TeacherPlayVideo = (props) => {
             data: data
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
-                    getWorkSheetApi(worksheetId);
+                    await getWorkSheetApi(worksheetId);
                     setImage();
                     setFileName();
                     setUrl();
@@ -453,10 +453,10 @@ const TeacherPlayVideo = (props) => {
             });
     };
 
-    const handleNextCourse = () => {
+    const handleNextCourse = async() => {
         // here we can go for next course //
         // here course_topic_id = course_topic_id //
-        modulesListUpdateApi(topicObj.course_topic_id);
+        await modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.course_topic_id,
@@ -464,10 +464,10 @@ const TeacherPlayVideo = (props) => {
         );
     };
 
-    const startFirstCourse = (e) => {
+    const startFirstCourse = async(e) => {
         // here we can start the course //
         setCourseData(null);
-        modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
+        await modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
             firstObj[0].topic_type_id,
             firstObj[0].mentor_course_topic_id,
@@ -475,10 +475,10 @@ const TeacherPlayVideo = (props) => {
         );
     };
 
-    const startContinueCourse = (e) => {
+    const startContinueCourse = async(e) => {
         // here we can continue the course //
         setCourseData(null);
-        modulesListUpdateApi(continueObj[0].course_topic_id);
+        await modulesListUpdateApi(continueObj[0].course_topic_id);
         handleSelect(
             continueObj[0].topic_type_id,
             continueObj[0].course_topic_id,

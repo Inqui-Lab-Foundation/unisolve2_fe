@@ -317,7 +317,7 @@ const TicketsPage = (props) => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async(result) => {
                 if (result.isConfirmed) {
                     if (type && type === 'student') {
                         props.studentStatusUpdate({ status }, id);
@@ -337,7 +337,7 @@ const TicketsPage = (props) => {
                             // mobile: all.mobile,
                             status
                         };
-                        handleStatusUpdateInAdmin({ obj }, id);
+                        await handleStatusUpdateInAdmin({ obj }, id);
 
                         setTimeout(() => {
                             props.getAdminListAction();

@@ -362,8 +362,8 @@ const CreateTeamMember = (props) => {
             }
         ]
     };
-    useEffect(() => {
-        handleCreateMemberAPI(id);
+    useEffect(async() => {
+        await handleCreateMemberAPI(id);
     }, [id]);
 
     async function handleCreateMemberAPI(teamId) {

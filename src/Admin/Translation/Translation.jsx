@@ -20,8 +20,8 @@ const Translation = (props) => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [count, setCount] = useState(0);
-    useEffect(() => {
-        handletranslationList();
+    useEffect(async() => {
+        await handletranslationList();
     }, [count]);
     async function handletranslationList() {
         var config = {

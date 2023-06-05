@@ -60,8 +60,8 @@ const ViewTeamMember = () => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
 
-    useEffect(() => {
-        handleteamMembersAPI(teamId);
+    useEffect(async() => {
+       await handleteamMembersAPI(teamId);
         // here teamId = team id //
     }, [teamId, count]);
 
@@ -90,7 +90,7 @@ const ViewTeamMember = () => {
                             upd['key'] = i + 1;
                             return upd;
                         });
-                    setTeamsMemers(updatedWithKey && updatedWithKey);
+                    setTeamsMemers(updatedWithKey);
                 }
             })
             .catch(function (error) {
