@@ -207,9 +207,9 @@ const TeacherPlayVideo = (props) => {
             });
     }
 
-    const handleNxtVideo = async(id) => {
+    const handleNxtVideo = (id) => {
         // here id = course_id //
-        await fetchData(id);
+        fetchData(id);
         setItem('VIDEO');
     };
 
@@ -309,8 +309,8 @@ const TeacherPlayVideo = (props) => {
         const calculatedSeconds = Math.floor(halfTrimmedLength);
     };
 
-    const handleVimeoOnEnd = async(event) => {
-        await modulesListUpdateApi(topicObj.mentor_course_topic_id);
+    const handleVimeoOnEnd = (event) => {
+        modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.mentor_course_topic_id,
@@ -320,7 +320,7 @@ const TeacherPlayVideo = (props) => {
         setHandbook(true);
     };
 
-    const handleSelect = async(topicId, couseId, type) => {
+    const handleSelect = (topicId, couseId, type) => {
         // here topicId = topicId //
         // here couseId = couseId  //
         // here type = Attachment ,Video ,Quiz //
@@ -337,12 +337,12 @@ const TeacherPlayVideo = (props) => {
         setTopicObj(topicObj);
         if (type === 'ATTACHMENT') {
             setWorksheetId(topicId);
-            await getWorkSheetApi(topicId);
+            getWorkSheetApi(topicId);
             setItem('ATTACHMENT');
             setHideQuiz(false);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
-            await fetchData(topicId);
+            fetchData(topicId);
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
             setItem('QUIZ');
@@ -386,9 +386,9 @@ const TeacherPlayVideo = (props) => {
         setModalShow(item);
         setHideQuiz(false);
     };
-    const handleQuiz = async() => {
+    const handleQuiz = () => {
         // here we can see Quiz //
-        await modulesListUpdateApi(topicObj.mentor_course_topic_id);
+        modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.mentor_course_topic_id,
@@ -440,9 +440,9 @@ const TeacherPlayVideo = (props) => {
             data: data
         };
         axios(config)
-            .then(async function (response) {
+            .then(function (response) {
                 if (response.status === 200) {
-                    await getWorkSheetApi(worksheetId);
+                    getWorkSheetApi(worksheetId);
                     setImage();
                     setFileName();
                     setUrl();
@@ -453,10 +453,10 @@ const TeacherPlayVideo = (props) => {
             });
     };
 
-    const handleNextCourse = async() => {
+    const handleNextCourse = () => {
         // here we can go for next course //
         // here course_topic_id = course_topic_id //
-        await modulesListUpdateApi(topicObj.course_topic_id);
+        modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
             topicObj.course_topic_id,
@@ -464,10 +464,10 @@ const TeacherPlayVideo = (props) => {
         );
     };
 
-    const startFirstCourse = async(e) => {
+    const startFirstCourse = (e) => {
         // here we can start the course //
         setCourseData(null);
-        await modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
+        modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
             firstObj[0].topic_type_id,
             firstObj[0].mentor_course_topic_id,
@@ -475,10 +475,10 @@ const TeacherPlayVideo = (props) => {
         );
     };
 
-    const startContinueCourse = async(e) => {
+    const startContinueCourse = (e) => {
         // here we can continue the course //
         setCourseData(null);
-        await modulesListUpdateApi(continueObj[0].course_topic_id);
+        modulesListUpdateApi(continueObj[0].course_topic_id);
         handleSelect(
             continueObj[0].topic_type_id,
             continueObj[0].course_topic_id,

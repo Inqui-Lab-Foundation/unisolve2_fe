@@ -115,9 +115,9 @@ const ViewSelectedIdea = () => {
             data: body
         };
         await axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
-                    handleclickcall();
+                    await handleclickcall();
                 }
             })
             .catch(function (error) {
