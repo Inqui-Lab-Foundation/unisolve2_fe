@@ -11,9 +11,8 @@ import { Button } from '../../stories/Button';
 import Select from './pages/Select';
 import { Col, Container, Row } from 'reactstrap';
 import { cardData } from '../../Student/Pages/Ideas/SDGData.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
-import { useDispatch } from 'react-redux';
 import { getNormalHeaders } from '../../helpers/Utils';
 import Spinner from 'react-bootstrap/Spinner';
 import { useLocation } from 'react-router-dom';
@@ -26,7 +25,7 @@ const ViewSelectedIdea = () => {
     const [tableData, settableData] = React.useState([]);
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
-    //---for handle next idea---
+    // ---for handle next idea---
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
     // eslint-disable-next-line no-unused-vars
@@ -50,23 +49,21 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleclickcall = () => {
+    const handleclickcall = async () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
-        handleideaList();
+        await handleideaList();
     };
 
     async function handleideaList() {
         // handleideaList api //
-        //where we can see all ideas in districtwise //
+        // where we can see all ideas in districtwise //
         settableData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getidealist}status=${
-                    status ? status : 'ALL'
-                }${filterParams}`,
+                `${URL.getidealist}status=${status || 'ALL'}${filterParams}`,
                 axiosConfig
             )
             .then(function (response) {
@@ -76,10 +73,10 @@ const ViewSelectedIdea = () => {
                         response.data.data[0] &&
                         response.data.data[0].dataValues.map((item, i) => {
                             const upd = { ...item };
-                            upd['key'] = i + 1;
+                            upd.key = i + 1;
                             return upd;
                         });
-                    settableData(updatedWithKey && updatedWithKey);
+                    settableData(updatedWithKey);
                     setshowspin(false);
                 }
             })
@@ -186,9 +183,7 @@ const ViewSelectedIdea = () => {
                                                 <Select
                                                     list={fullDistrictsNames}
                                                     setValue={setdistrict}
-                                                    placeHolder={
-                                                        'Select District'
-                                                    }
+                                                    placeHolder="Select District"
                                                     value={district}
                                                 />
                                             </div>
@@ -198,7 +193,7 @@ const ViewSelectedIdea = () => {
                                                 <Select
                                                     list={SDGDate}
                                                     setValue={setsdg}
-                                                    placeHolder={'Select SDG'}
+                                                    placeHolder="Select SDG"
                                                     value={sdg}
                                                 />
                                             </div>

@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import '../Student/Pages/SignUp.scss';
 import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,7 +19,7 @@ import Register from './Register';
 const LoginEvaluator = (props) => {
     const history = useHistory();
     const [password, handlePassword] = useState('password');
-    //-for evaluator registration modal
+    // -for evaluator registration modal
     const [registerModalShow, setRegisterModalShow] = useState(false);
 
     React.useLayoutEffect(() => {
@@ -72,7 +71,7 @@ const LoginEvaluator = (props) => {
                 '00000000000000000000000000000000'
             );
             const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                iv: iv,
+                iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             const body = {
@@ -106,13 +105,13 @@ const LoginEvaluator = (props) => {
         }
     };
     return (
-        <React.Fragment>
+        <>
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                            <Link to={'/'} exact>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className=" mr-auto mobile_tab-hide"
@@ -126,7 +125,7 @@ const LoginEvaluator = (props) => {
                                         />
                                     </h2>
                                 </Col>
-                            </Link>
+                            </a>
                         </div>
 
                         <h1 className="text-left pb-5 mobile_tab-hide">
@@ -310,7 +309,7 @@ const LoginEvaluator = (props) => {
                     onHide={() => setRegisterModalShow(false)}
                 />
             )}
-        </React.Fragment>
+        </>
     );
 };
 

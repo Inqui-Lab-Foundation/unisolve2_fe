@@ -74,7 +74,7 @@ const ViewDetail = (props) => {
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
             rejected_reason: handledText == 'reject' ? reason : ''
         });
-        var config = {
+        const config = {
             method: 'put',
             url: `${
                 process.env.REACT_APP_API_BASE_URL +
@@ -147,7 +147,7 @@ const ViewDetail = (props) => {
                         <DetailToDownload
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
-                            level={'Draft'}
+                            level="Draft"
                         />
                     </div>
                     <div className="row idea_detail_card">
@@ -181,7 +181,7 @@ const ViewDetail = (props) => {
                                                     : 'default'
                                             }
                                             size="small"
-                                            label={'Previous'}
+                                            label="Previous"
                                             onClick={() => props?.handlePrev()}
                                             disabled={props?.currentRow == 1}
                                         />
@@ -195,7 +195,7 @@ const ViewDetail = (props) => {
                                                     : 'default'
                                             }
                                             size="small"
-                                            label={'Next'}
+                                            label="Next"
                                             onClick={() => props?.handleNext()}
                                             disabled={
                                                 props?.dataLength ==
@@ -207,8 +207,8 @@ const ViewDetail = (props) => {
                                         {!pdfLoader ? (
                                             <FaDownload
                                                 size={22}
-                                                onClick={() => {
-                                                    downloadPDF();
+                                                onClick={async () => {
+                                                    await downloadPDF();
                                                 }}
                                             />
                                         ) : (
@@ -430,7 +430,7 @@ const ViewDetail = (props) => {
                 centered
                 className="assign-evaluator ChangePSWModal teacher-register-modal"
                 backdrop="static"
-                scrollable={true}
+                scrollable
             >
                 <Modal.Header closeButton onHide={() => setIsreject(false)}>
                     <Modal.Title
@@ -449,13 +449,13 @@ const ViewDetail = (props) => {
                         <Select
                             list={selectData}
                             setValue={setReason}
-                            placeHolder={'Please Select'}
+                            placeHolder="Please Select"
                             value={reason}
                         />
                     </div>
                     <div className="text-center">
                         <Button
-                            label={'Submit'}
+                            label="Submit"
                             btnClass={!reason ? 'default' : 'primary'}
                             size="small "
                             onClick={() => handleReject()}

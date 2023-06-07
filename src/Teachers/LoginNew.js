@@ -2,10 +2,9 @@
 import '../Student/Pages/SignUp.scss';
 import React, { useLayoutEffect, useState } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -75,7 +74,7 @@ const LoginNew = (props) => {
                 '00000000000000000000000000000000'
             );
             const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                iv: iv,
+                iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             const body = {
@@ -111,13 +110,13 @@ const LoginNew = (props) => {
         setShowPopUp(true);
     };
     return (
-        <React.Fragment>
+        <>
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                            <Link to={'/'} exact>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className=" mr-auto mobile_tab-hide"
@@ -131,7 +130,7 @@ const LoginNew = (props) => {
                                         />
                                     </h2>
                                 </Col>
-                            </Link>
+                            </a>
                         </div>
 
                         <h1 className="text-left pb-5 mobile_tab-hide">
@@ -151,7 +150,7 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="login-options">
-                            <Col md={12} className="text-right"></Col>
+                            <Col md={12} className="text-right" />
                         </Row>
                         <Row className=" article-header mb-4">
                             <div className="d-flex mt-4 login-div">
@@ -339,7 +338,7 @@ const LoginNew = (props) => {
                     onHide={() => setShowPopUp(false)}
                 />
             )}
-        </React.Fragment>
+        </>
     );
 };
 
