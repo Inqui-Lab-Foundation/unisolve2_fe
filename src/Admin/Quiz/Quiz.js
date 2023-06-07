@@ -135,7 +135,7 @@ const Quiz = (props) => {
                                                 btnClass="primary px-5"
                                                 size="small"
                                                 label={t('student.continue')}
-                                                onClick={(e) => handleNxtQst(e)}
+                                                onClick={() => handleNxtQst()}
                                             />
                                         </Col>
                                     )}
@@ -158,7 +158,7 @@ const Quiz = (props) => {
                                                 size="small"
                                              
                                                 label={t('student.continue')}
-                                                onClick={(e) => handleNxtQst(e)}
+                                                onClick={() => handleNxtQst()}
                                             />
                                         </Col>
                                     )}
@@ -208,7 +208,7 @@ const Quiz = (props) => {
                                                 <Button
                                                     size="small"
                                                     label={t('teacher_teams.submit')}
-                                                    onClick={(e) =>  !selectOption ? null :handleSubmit(e)}
+                                                    onClick={() =>  !selectOption ? null :handleSubmit()}
                                                     btnClass={
                                                         !selectOption
                                                             ? 'default'

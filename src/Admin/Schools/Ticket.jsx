@@ -113,10 +113,10 @@ const TicketsPage = (props) => {
             data: body
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
                     setReqList(true);
-                    listApi();
+                    await listApi();
                     openNotificationWithIcon(
                         'success',
                         'Status update successfully'
@@ -152,10 +152,10 @@ const TicketsPage = (props) => {
             data: body
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
                     setNewList(true);
-                    newListApi();
+                    await newListApi();
                     openNotificationWithIcon(
                         'success',
                         'Status update successfully'
@@ -167,10 +167,10 @@ const TicketsPage = (props) => {
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-    const handleNewSchoolsList = () => {
+    const handleNewSchoolsList = async() => {
         // here we can see  list of  new institutions //
         setReqList(false);
-        newListApi();
+        await newListApi();
     };
     async function listApi() {
         //  here we can see listApi where we can see all InActive Institutions //
@@ -224,9 +224,9 @@ const TicketsPage = (props) => {
                 console.log(error);
             });
     }
-    const handleReqSchoolsList = (e) => {
+    const handleReqSchoolsList = async(e) => {
         // here we can see  list of inActive institutions //
-        listApi();
+       await listApi();
     };
 
     const handleBack = (e) => {
@@ -566,7 +566,7 @@ const TicketsPage = (props) => {
                                         btnClass="primary"
                                         size="small"
                                         shape="btn-square"
-                                        onClick={(e) => handleNewSchoolsList(e)}
+                                        onClick={() => handleNewSchoolsList()}
                                     />
                                 </div>
                             )}

@@ -10,12 +10,12 @@ import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
 import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
-const evalprocess = () => {
+const Evalprocess = () => {
     const history = useHistory();
     const [evalList, setEvalList] = useState([]);
     const currentUser = getCurrentUser('current_user');
-    useEffect(() => {
-        handleEvalList();
+    useEffect(async () => {
+        await handleEvalList();
     }, []);
     async function handleEvalList() {
         //  handleEvalList Api where we can see list of all evaluationProcess //
@@ -83,9 +83,9 @@ const evalprocess = () => {
             data: body
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
-                    handleEvalList();
+                    await handleEvalList();
 
                     openNotificationWithIcon(
                         'success',
@@ -241,4 +241,4 @@ const evalprocess = () => {
     );
 };
 
-export default evalprocess;
+export default Evalprocess;

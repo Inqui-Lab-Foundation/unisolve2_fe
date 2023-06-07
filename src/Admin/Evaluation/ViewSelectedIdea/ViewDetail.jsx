@@ -218,8 +218,8 @@ const ViewDetail = (props) => {
                                         {!pdfLoader ? (
                                             <FaDownload
                                                 size={22}
-                                                onClick={() => {
-                                                    downloadPDF();
+                                                onClick={async() => {
+                                                    await downloadPDF();
                                                 }}
                                             />
                                         ) : (

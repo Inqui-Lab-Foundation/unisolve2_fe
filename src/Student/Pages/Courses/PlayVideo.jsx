@@ -284,7 +284,7 @@ const PlayVideoCourses = (props) => {
             });
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
-            topicArrays.map((item, i) => {
+            topicArrays.forEach((item, i) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }

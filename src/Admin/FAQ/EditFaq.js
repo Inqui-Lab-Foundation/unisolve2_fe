@@ -191,13 +191,13 @@ const EditFaq = (props) => {
     const toggleFaqCatModal = () => {
         setShowFaqCatModal((showFaqCatModal) => !showFaqCatModal);
     };
-    useEffect(() => {
-        getFaqCategoryList();
-        getFaqList();
+    useEffect(async() => {
+        await getFaqCategoryList();
+        await getFaqList();
     }, []);
 
-    const updateFaqCatList = () => {
-        getFaqCategoryList();
+    const updateFaqCatList = async() => {
+        await getFaqCategoryList();
         toggleFaqCatModal();
     };
 

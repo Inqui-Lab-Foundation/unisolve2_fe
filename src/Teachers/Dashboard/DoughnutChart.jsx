@@ -256,6 +256,10 @@ export default function DoughnutChart({ user }) {
                         <div className="m-3">
                             <Button
                                 label={'Change'}
+                                disabled={teamsMembersStatus.length > 0 &&
+                                    challengesSubmittedResponse[0]?.status
+                                        ? false
+                                        : true}
                                 btnClass={`${
                                     teamsMembersStatus.length > 0 &&
                                     challengesSubmittedResponse[0]?.status

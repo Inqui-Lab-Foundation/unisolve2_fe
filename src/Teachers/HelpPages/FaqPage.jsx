@@ -30,8 +30,8 @@ const FaqPage = () => {
             });
     };
     // changed
-    useEffect(() => {
-        getFaqByCategory(1);
+    useEffect(async() => {
+        await getFaqByCategory(1);
     }, [language]);
     return (
         <Layout>

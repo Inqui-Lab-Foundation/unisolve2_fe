@@ -9,12 +9,12 @@ import { KEY, URL } from '../../constants/defaultValues';
 import axios from 'axios';
 import { getNormalHeaders } from '../../helpers/Utils';
 
-const eadmindashboard = () => {
+const Eadmindashboard = () => {
     // here we can see all  the Challenges  and count //
 
     const [dateCount, setdateCount] = useState({});
-    useEffect(() => {
-        handlecountvalue();
+    useEffect(async() => {
+        await handlecountvalue();
     }, []);
 
     async function handlecountvalue() {
@@ -170,4 +170,4 @@ const eadmindashboard = () => {
     );
 };
 
-export default eadmindashboard;
+export default Eadmindashboard;

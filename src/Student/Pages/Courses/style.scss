@@ -41,7 +41,6 @@
         background-color: var(--color-white-1) !important;
         font-size: 1.4rem;
         line-height: 2.5rem;
-        background: #ffffff;
         border: 1px solid #dde2e4;
         box-sizing: border-box;
         border-radius: 6px;
@@ -320,7 +319,7 @@
         text-decoration: none;
       }
       .videoTime {
-        font-family: Inter;
+        font-family: Inter, sans-serif;
         font-size: 1.4rem;
         line-height: 2.4rem;
         color: var(--color-grey-light-3);
@@ -374,7 +373,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
             height: 100%;
           }
         }
@@ -420,7 +418,6 @@ iframe {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
   padding: 0.8rem;
 }

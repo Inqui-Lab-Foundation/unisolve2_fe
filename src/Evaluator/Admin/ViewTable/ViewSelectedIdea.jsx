@@ -112,7 +112,7 @@ const ViewSelectedIdea = () => {
                             upd['key'] = i + 1;
                             return upd;
                         });
-                    settableData(updatedWithKey && updatedWithKey);
+                    settableData(updatedWithKey);
                     setshowspin(false);
                 }
             })
@@ -121,9 +121,9 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-    const handleclickcall = () => {
+    const handleclickcall = async() => {
         setshowspin(true);
-        handleideaList();
+        await handleideaList();
     };
     const average = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length;
     const evaluatedIdeaL1 = {
@@ -374,8 +374,8 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={() => {
-                                            downloadPDF(params);
+                                        onClick={async () => {
+                                            await downloadPDF(params);
                                         }}
                                         className="text-danger"
                                     />
@@ -449,8 +449,8 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={() => {
-                                            downloadPDF(params);
+                                        onClick={async() => {
+                                            await downloadPDF(params);
                                         }}
                                         className="text-danger"
                                     />

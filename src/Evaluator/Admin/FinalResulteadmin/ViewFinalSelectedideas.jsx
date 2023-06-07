@@ -55,9 +55,9 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleclickcall = () => {
+    const handleclickcall = async() => {
         setshowspin(true);
-        handleideaList();
+        await handleideaList();
     };
 
     async function handleideaList() {
@@ -79,7 +79,7 @@ const ViewSelectedIdea = () => {
                             upd['key'] = i + 1;
                             return upd;
                         });
-                    settableData(updatedWithKey && updatedWithKey);
+                    settableData(updatedWithKey);
                     setshowspin(false);
                 }
             })
@@ -225,8 +225,8 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={() => {
-                                            downloadPDF(params);
+                                        onClick={async() => {
+                                            await downloadPDF(params);
                                         }}
                                         className="text-danger"
                                     />
