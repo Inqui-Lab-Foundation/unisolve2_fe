@@ -8,8 +8,8 @@ import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import {
+    getAdminTeamsList,
     getAdminTeamMembersList,
     studentResetPassword
 } from '../../redux/actions';
@@ -24,10 +24,11 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useTranslation } from 'react-i18next';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
-
+import Select from '../../Admin/Challenges/pages/Select';
+import { Modal } from 'react-bootstrap';
 // const { TabPane } = Tabs;
 
-const ViewTeamMember = () => {
+const ViewTeamMember = (props) => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const teamID = JSON.parse(localStorage.getItem('teamId'));
@@ -59,9 +60,14 @@ const ViewTeamMember = () => {
     // eslint-disable-next-line no-unused-vars
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
+    const [show, setShow] = useState(false);
+    const [teamlist, setteamlist] = useState([]);
+    const [value, setvalue] = useState('');
+    const [teamchangeobj, setteamchangeObj] = useState({});
+    const [selectedstudent, setselectedstudent] = useState();
 
-    useEffect(async() => {
-       await handleteamMembersAPI(teamId);
+    useEffect(async () => {
+        await handleteamMembersAPI(teamId);
         // here teamId = team id //
     }, [teamId, count]);
 
@@ -97,6 +103,49 @@ const ViewTeamMember = () => {
                 console.log(error);
             });
     }
+    const handleSwitchTeam = (item) => {
+        //here we can switch the teams
+        setShow(true);
+        setselectedstudent(item);
+    };
+
+    const handleChangeStudent = (name) => {
+        console.log(name, selectedstudent);
+        const body = {
+            team_id: teamchangeobj[name].toString()
+        };
+        var config = {
+            method: 'PUT',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/students/' +
+                selectedstudent.student_id,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    openNotificationWithIcon(
+                        'success',
+                        t('student Team switch success')
+                    );
+                    history.push({
+                        pathname: '/teacher/teamlist'
+                    });
+                } else {
+                    openNotificationWithIcon('error', 'Opps! Something Wrong');
+                }
+            })
+
+            .catch(function (error) {
+                console.log(error);
+            });
+        setShow(false);
+    };
 
     const handleResetPassword = (data) => {
         // here we can reset password as  user_id //
@@ -199,6 +248,13 @@ const ViewTeamMember = () => {
                         </a>,
                         <a onClick={() => handleResetPassword(params)}>
                             <i key={params.team_id} className="fa fa-key" />
+                        </a>,
+                        <a onClick={() => handleSwitchTeam(params)}>
+                            <i
+                                key={params.team_id}
+                                className="fa fa-user-circle"
+                                style={{ paddingLeft: '10px' }}
+                            />
                         </a>
                     ];
                 },
@@ -286,6 +342,25 @@ const ViewTeamMember = () => {
                 }
             });
     };
+    useEffect(() => {
+        const teamlistobj = {};
+        const listofteams = props.teamsList
+            .map((item) => {
+                if (item.student_count < 5) {
+                    teamlistobj[item.team_name] = item.team_id;
+                    return item.team_name;
+                }
+            }).filter(Boolean);
+        if (Object.keys(teamlistobj).length > 0) {
+            let index = listofteams.indexOf(teamID.team_name);
+
+            if (index >= 0) {
+                listofteams.splice(index, 1);
+            }
+        }
+        setteamlist(listofteams);
+        setteamchangeObj(teamlistobj);
+    }, [props.teamsList, show]);
 
     return (
         <Layout>
@@ -338,15 +413,61 @@ const ViewTeamMember = () => {
                     </div>
                 </Row>
             </Container>
+            {show && (
+                <Modal
+                    show={show}
+                    onHide={() => setShow(false)}
+                    //{...props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    className="assign-evaluator ChangePSWModal teacher-register-modal"
+                    backdrop="static"
+                    scrollable={true}
+                >
+                    <Modal.Header closeButton onHide={() => setShow(false)}>
+                        <Modal.Title
+                            id="contained-modal-title-vcenter"
+                            className="w-100 d-block text-center"
+                        >
+                            Teams Change
+                        </Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <div className="my-3 text-center">
+                            <h3 className="mb-sm-4 mb-3">
+                                Please select Team to switch student
+                            </h3>
+                            <Select
+                                list={teamlist}
+                                setValue={setvalue}
+                                placeHolder={'Please Select team'}
+                                value={value}
+                            />
+                        </div>
+                        <div className="text-center">
+                            <Button
+                                label={'Submit'}
+                                btnClass={!value ? 'default' : 'primary'}
+                                size="small "
+                                onClick={() => handleChangeStudent(value)}
+                                disabled={!value}
+                            />
+                        </div>
+                    </Modal.Body>
+                </Modal>
+            )}
         </Layout>
     );
 };
 
 const mapStateToProps = ({ teams }) => {
-    const { teamsMembersList } = teams;
-    return { teamsMembersList };
+    const { teamsList, teamsMembersList } = teams;
+    return { teamsList, teamsMembersList };
 };
 
 export default connect(mapStateToProps, {
-    getAdminTeamMembersListAction: getAdminTeamMembersList
+    getAdminTeamMembersListAction:getAdminTeamMembersList,
+    getAdminTeamsListAction:getAdminTeamsList
 })(ViewTeamMember);
