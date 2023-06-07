@@ -11,11 +11,12 @@ import {
     teacherResetPassword
 } from '../store/admin/actions';
 import './dashboard.scss';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import { URL, KEY } from '../../constants/defaultValues';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/media/logout.svg';
@@ -45,19 +46,19 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const handleOnChange = (e) => {
         // we can give diescode as input //
-        // where organization_code = diescode //
+        //where organization_code = diescode //
         localStorage.removeItem('organization_code');
         setCount(0);
         setDiesCode(e.target.value);
         setOrgData({});
         setError('');
     };
-    useEffect(async () => {
+    useEffect(() => {
         // where list = diescode //
-        // where organization_code = diescode //
+        //where organization_code = diescode //
         const list = JSON.parse(localStorage.getItem('organization_code'));
         setDiesCode(list);
-        await apiCall(list);
+        apiCall(list);
     }, []);
     async function apiCall(list) {
         // Dice code list API //
@@ -65,7 +66,7 @@ const Dashboard = () => {
         const body = JSON.stringify({
             organization_code: list
         });
-        const config = {
+        var config = {
             method: 'post',
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
@@ -75,7 +76,7 @@ const Dashboard = () => {
         };
 
         await axios(config)
-            .then(async function (response) {
+            .then(function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
@@ -83,7 +84,7 @@ const Dashboard = () => {
                     setError('');
 
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
+                        getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -98,13 +99,13 @@ const Dashboard = () => {
     }
 
     const handleSearch = (e) => {
-        // where we can search through diescode //
+        //where we can search through diescode //
         // we can see Registration Details & Mentor Details //
 
         const body = JSON.stringify({
             organization_code: diesCode
         });
-        const config = {
+        var config = {
             method: 'post',
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
@@ -114,14 +115,14 @@ const Dashboard = () => {
         };
 
         axios(config)
-            .then(async function (response) {
+            .then(function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
+                        getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -139,8 +140,8 @@ const Dashboard = () => {
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
         // id = Mentor Id //
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axiosConfig.params = {
+        let axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        axiosConfig['params'] = {
             mentor_id: id,
             status: 'ACTIVE',
             ideaStatus: true
@@ -149,14 +150,14 @@ const Dashboard = () => {
             .get(`${URL.getTeamMembersList}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
-                    const mentorTeamArray = [];
+                    var mentorTeamArray = [];
                     res &&
                         res.data &&
                         res.data.data[0] &&
                         res.data.data[0].dataValues.length > 0 &&
                         res.data &&
                         res.data.data[0].dataValues.map((teams, index) => {
-                            const key = index + 1;
+                            var key = index + 1;
                             return mentorTeamArray.push({ ...teams, key });
                         });
                     setMentorTeam(mentorTeamArray);
@@ -301,10 +302,10 @@ const Dashboard = () => {
         // where id = challenge response id //
         // here we  can see the Revoke button when ever idea is submitted //
         // where type = ideaStatus //
-        const submitData = {
+        let submitData = {
             status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
         };
-        const config = {
+        var config = {
             method: 'put',
             url:
                 process.env.REACT_APP_API_BASE_URL +
@@ -317,14 +318,14 @@ const Dashboard = () => {
             data: submitData
         };
         axios(config)
-            .then(async function (response) {
+            .then(function (response) {
                 if (response.status === 200) {
                     openNotificationWithIcon(
                         'success',
                         'Idea Submission Status Successfully Update!',
                         ''
                     );
-                    await getMentorIdApi(mentorId);
+                    getMentorIdApi(mentorId);
                 }
             })
             .catch(function (error) {
@@ -354,10 +355,10 @@ const Dashboard = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then(async (result) => {
+            .then((result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        await deleteTempMentorById(id);
+                        deleteTempMentorById(id);
                         setOrgData({});
                         setDiesCode('');
                     }
@@ -405,7 +406,7 @@ const Dashboard = () => {
                                         </Col>
                                         <Col md={3} className="partner-btn">
                                             <Button
-                                                label="Search"
+                                                label={'Search'}
                                                 btnClass="primary mx-3 w-100"
                                                 size="small"
                                                 onClick={(e) => handleSearch(e)}
