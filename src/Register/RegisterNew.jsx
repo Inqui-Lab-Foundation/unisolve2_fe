@@ -568,7 +568,7 @@ function RegisterNew() {
                                                 <Button
                                                     label="Click Here to Continue"
                                                     btnClass={'primary mt-5'}
-                                                    size="large"
+                                                    size="small"
                                                     type="submit"
                                                     onClick={() => {
                                                         history.push(
