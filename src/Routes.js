@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
 import './SupportingSCSS/Ideas.scss';
 import './SupportingSCSS/TeamsMentors/style.scss';
@@ -97,6 +93,7 @@ import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import RegisterNew from './Register/RegisterNew';
 
 const Routers = () => {
     return (
@@ -109,6 +106,11 @@ const Routers = () => {
                         exact={true}
                         path="/login"
                         render={() => <LoginNew />}
+                    />
+                    <Route
+                        exact={true}
+                        path="/register"
+                        render={() => <RegisterNew />}
                     />
                     <ProtectedRoute
                         exact
