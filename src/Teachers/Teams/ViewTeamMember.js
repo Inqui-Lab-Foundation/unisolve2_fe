@@ -43,7 +43,7 @@ const ViewTeamMember = (props) => {
         teamID.team_id;
 
     const headingDetails = {
-        title: teamID.team_name + t('teacher_teams.view_team_member_details'),
+        title: teamID?.team_name + t('teacher_teams.view_team_member_details'),
         options: [
             {
                 title: t('teacher_teams.teamslist'),
