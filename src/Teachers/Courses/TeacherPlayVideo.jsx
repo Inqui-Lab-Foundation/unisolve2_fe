@@ -311,11 +311,11 @@ const TeacherPlayVideo = (props) => {
 
     const handleVimeoOnEnd = (event) => {
         modulesListUpdateApi(topicObj.mentor_course_topic_id);
-        // handleSelect(
-        //     topicObj.topic_type_id,
-        //     topicObj.mentor_course_topic_id,
-        //     topicObj.topic_type
-        // );
+        handleSelect(
+            topicObj.topic_type_id,
+            topicObj.mentor_course_topic_id,
+            topicObj.topic_type
+        );
         handlePlayerPlay();
         setHandbook(true);
     };
