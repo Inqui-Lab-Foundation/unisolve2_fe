@@ -59,12 +59,13 @@ function RegisterNew() {
         placeholder: `${t('teacehr_red.faculty_name_pl')}`,
         className: 'defaultInput'
     };
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const inputPhone = {
         type: 'text',
-        placeholder: `${t('teacehr_red.faculty_ph')}`,
+        placeholder: 'Faculty Phone Number',
+        // placeholder: `${t('teacehr_red.faculty_phone')}`,
         className: 'defaultInput'
     };
     const inputEmail = {
@@ -374,7 +375,8 @@ function RegisterNew() {
                                                 className="mb-2"
                                                 htmlFor="mobile"
                                             >
-                                                {t('teacehr_red.faculty_ph')}
+                                                {/* {t('teacehr_red.faculty_phone')} */}
+                                                Faculty Phone Number
                                             </Label>
                                             <InputBox
                                                 {...inputPhone}
