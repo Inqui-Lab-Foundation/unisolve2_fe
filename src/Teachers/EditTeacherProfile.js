@@ -20,40 +20,39 @@ const EditTeacherProfileDetails = (props) => {
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
 
-    console.log(mentorData, '----', history.location);
+    // console.log(mentorData, '----', history.location);
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-    const getValidationSchema = (data) => {
+    const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
             name: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid name ')
                 .min(2, 'Enter a valid name')
-                .required('Name is Required')
-        });
-        if (data?.mentor_id)
-            adminValidation['phone'] = Yup.string()
-                .matches(phoneRegExp, 'Mobile number is not valid')
+                .required('Name is Required'),
+            phone: Yup.string()
+                .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Enter a valid mobile number')
-                .required('Mobile Number is Required');
+                .required('Mobile Number is Required')
+        });        
         return adminValidation;
     };
     const getInitialValues = (mentorData) => {
         const commonInitialValues = {
             name: mentorData?.full_name,
-            mobile: mentorData.mobile
+            phone: mentorData.mobile
         };
         return commonInitialValues;
     };
     const formik = useFormik({
         initialValues: getInitialValues(mentorData),
-        validationSchema: getValidationSchema(mentorData),
+        validationSchema: getValidationSchema(),
         onSubmit: (values) => {
             const full_name = values.name;
-            const mobile = values.mobile;
+            const mobile = values.phone;
             const body = JSON.stringify({
                 full_name: full_name,
                 mobile: mobile,
