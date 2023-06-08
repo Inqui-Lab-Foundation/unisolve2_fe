@@ -33,9 +33,9 @@ const EditTeacherProfileDetails = (props) => {
                 .min(2, 'Enter a valid name')
                 .required('Name is Required'),
             phone: Yup.string()
-                .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Mobile number is not valid')
+                .matches(/^[0-9]/, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
-                .max(10, 'Enter a valid mobile number')
+                .max(10, 'Mobile number must be 10 Digit')
                 .required('Mobile Number is Required')
         });        
         return adminValidation;
