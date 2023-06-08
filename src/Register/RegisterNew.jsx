@@ -67,7 +67,6 @@ function RegisterNew() {
         placeholder: `${t('teacehr_red.faculty_ph')}`,
         className: 'defaultInput'
     };
-
     const inputEmail = {
         type: 'email',
         placeholder: `${t('teacehr_red.faculty_email')}`,
@@ -95,7 +94,7 @@ function RegisterNew() {
             mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(phoneRegExp, 'Phone number is not valid')
+                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             username: Yup.string()
@@ -568,6 +567,7 @@ function RegisterNew() {
                                                 <Button
                                                     label="Click Here to Continue"
                                                     btnClass={'primary mt-5'}
+                                                    centered
                                                     size="small"
                                                     type="submit"
                                                     onClick={() => {
