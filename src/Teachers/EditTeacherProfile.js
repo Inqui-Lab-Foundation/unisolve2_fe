@@ -20,11 +20,6 @@ const EditTeacherProfileDetails = (props) => {
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
 
-    // console.log(mentorData, '----', history.location);
-
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
     const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
