@@ -28,7 +28,7 @@ const EditTeacherProfileDetails = (props) => {
                 .min(2, 'Enter a valid name')
                 .required('Name is Required'),
             phone: Yup.string()
-                .matches(/^[0-9]/, 'Mobile number is not valid')
+                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Mobile number must be 10 Digit')
                 .required('Mobile Number is Required')
