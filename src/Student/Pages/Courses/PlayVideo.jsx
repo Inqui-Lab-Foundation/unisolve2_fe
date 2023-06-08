@@ -1184,8 +1184,8 @@ const PlayVideoCourses = (props) => {
                                                                             e
                                                                         ) =>
                                                                             fileHandler(
-                                                                                e,
-                                                                                '34'
+                                                                                e
+                                                                                
                                                                             )
                                                                         }
                                                                     />
@@ -1614,7 +1614,7 @@ const PlayVideoCourses = (props) => {
                 refQst={id && id.reflective_quiz_questions}
                 videoId={videoId}
                 show={modalShow}
-                handleClose={() => handleAssesmentClose(topic)}
+                handleClose={() => handleAssesmentClose()}
                 onHide={() => setModalShow(false)}
             />
         </Layout>

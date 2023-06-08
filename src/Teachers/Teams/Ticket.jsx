@@ -106,9 +106,8 @@ const TicketsPage = (props) => {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
                     return [
-                        <Link
+                        <div
                             key={params}
-                            exact="true"
                             onClick={() => handleCreate(params)}
                         >
                             {process.env.REACT_APP_TEAM_LENGTH >
@@ -117,10 +116,9 @@ const TicketsPage = (props) => {
                                     {t('teacher_teams.create')}
                                 </div>
                             )}
-                        </Link>,
-                        <Link
+                        </div>,
+                        <div
                             key={params}
-                            exact="true"
                             onClick={() => handleView(params)}
                         >
                             {!params.student_count < 1 && (
@@ -128,7 +126,7 @@ const TicketsPage = (props) => {
                                     {t('teacher_teams.view')}
                                 </div>
                             )}
-                        </Link>,
+                        </div>,
                         // <Link
                         //     key={params}
                         //     exact='true'
@@ -137,9 +135,8 @@ const TicketsPage = (props) => {
                         // >
                         //     <div className="btn btn-warning btn-lg mr-5 mx-2">{t('teacher_teams.edit')}</div>
                         // </Link>,
-                        <Link
+                        <div
                             key={params}
-                            exact="true"
                             onClick={() => handleDelete(params)}
                             // style={{marginRight:"20px"}}
                         >
@@ -148,7 +145,7 @@ const TicketsPage = (props) => {
                                     {t('teacher_teams.delete')}
                                 </div>
                             )}
-                        </Link>
+                        </div>
                     ];
                 },
                 width: '40%',
