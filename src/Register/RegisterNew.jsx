@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Label, UncontrolledAlert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Input } from 'antd';
-import successIcon from '../assets/media/img/';
+import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/img/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/img/ellipse.svg';
 import { useFormik } from 'formik';
