@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import Layout from '../../Admin/Layout';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
@@ -313,8 +312,7 @@ const TicketsPage = (props) => {
                 cellExport: (row) => {},
                 cell: (record) => [
                     <>
-                        <Link
-                            exact="true"
+                        <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
@@ -322,9 +320,8 @@ const TicketsPage = (props) => {
                             <div className="btn btn-primary btn-lg mx-2">
                                 EDIT
                             </div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() =>
                                 handleActiveStatusUpdate(record, 'NEW')
@@ -332,9 +329,8 @@ const TicketsPage = (props) => {
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-success btn-lg">NEW</div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() =>
                                 handleActiveStatusUpdate(record, 'INACTIVE')
@@ -344,7 +340,7 @@ const TicketsPage = (props) => {
                             <div className="btn btn-danger btn-lg">
                                 INACTIVE
                             </div>
-                        </Link>
+                        </div>
                     </>
                 ]
             }
@@ -396,8 +392,7 @@ const TicketsPage = (props) => {
                 width: '20%',
                 cell: (record) => [
                     <>
-                        <Link
-                            exact="true"
+                        <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
@@ -405,23 +400,21 @@ const TicketsPage = (props) => {
                             <div className="btn btn-primary btn-lg mx-2">
                                 EDIT
                             </div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() => handleStatusUpdate(record, 'ACTIVE')}
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-warning btn-lg">ACTIVE</div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() => handleStatusUpdate(record, 'NEW')}
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-success btn-lg">NEW</div>
-                        </Link>
+                        </div>
                     </>
                 ]
             }
@@ -471,8 +464,7 @@ const TicketsPage = (props) => {
                 center: true,
                 cell: (record) => [
                     <>
-                        <Link
-                            exact="true"
+                        <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
@@ -480,17 +472,15 @@ const TicketsPage = (props) => {
                             <div className="btn btn-primary btn-lg mx-2">
                                 EDIT
                             </div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() => handleNewUpdate(record, 'ACTIVE')}
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-warning btn-lg">ACTIVE</div>
-                        </Link>
-                        <Link
-                            exact="true"
+                        </div>
+                        <div
                             key={record}
                             onClick={() => handleNewUpdate(record, 'INACTIVE')}
                             style={{ marginRight: '10px' }}
@@ -498,7 +488,7 @@ const TicketsPage = (props) => {
                             <div className="btn btn-danger btn-lg">
                                 INACTIVE
                             </div>
-                        </Link>
+                        </div>
                     </>
                 ]
             }

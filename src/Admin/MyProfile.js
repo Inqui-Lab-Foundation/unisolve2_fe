@@ -158,13 +158,12 @@ const MyProfile = () => {
                                                     </CardTitle>
                                                 </CardText>
                                                 <CardText>
-                                                    <Link
-                                                        exact="true"
+                                                    <div
                                                         onClick={showModal}
-                                                        className="my-auto pt-0 text-link "
+                                                        className="my-auto pt-0 text-link text-primary"
                                                     >
                                                         Change Password
-                                                    </Link>
+                                                    </div>
                                                 </CardText>
                                             </Col>
                                         </Row>

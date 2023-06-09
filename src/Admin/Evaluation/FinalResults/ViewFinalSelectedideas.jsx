@@ -5,7 +5,7 @@ import Layout from '../../../Admin/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { Button } from '../../../stories/Button';
@@ -268,7 +268,7 @@ const ViewSelectedIdea = () => {
                                 )}
                             </div>
                             {params.final_result === '0' && (
-                                <Link
+                                <div
                                     onClick={() =>
                                         handlePromotelFinalEvaluated(params)
                                     }
@@ -277,7 +277,7 @@ const ViewSelectedIdea = () => {
                                     <div className="btn btn-info btn-lg mx-2">
                                         Promote
                                     </div>
-                                </Link>
+                                </div>
                             )}
                         </div>
                     ];
