@@ -29,14 +29,16 @@ const EditEvalProcess = (props) => {
     );
 
     useEffect(() => {
-        evalID && evalID.district
-            ? evalID.district.split(',').length ===
-                  fullDistrictsNames.length - 1 &&
-              !evalID.district.includes('All Districts')
-                ? setselectedDistricts(fullDistrictsNames)
-                : setselectedDistricts(evalID.district.split(','))
-            : '';
-    }, []);
+        (() => {
+            evalID && evalID.district
+                ? evalID.district.split(',').length ===
+                      fullDistrictsNames.length - 1 &&
+                  !evalID.district.includes('All Districts')
+                    ? setselectedDistricts(fullDistrictsNames)
+                    : setselectedDistricts(evalID.district.split(','))
+                : '';
+        })();
+        }, []);
 
     useEffect(() => {
         if (clickedValue.name === 'All Districts') {

@@ -58,7 +58,7 @@ const CreateMultipleMembers = ({ id }) => {
         }
     ]);
     let pattern = /[A-Za-z0-9 ]*$/;
-
+   // const re = new RegExp("/[A-Za-z0-9 ]*$/");
     const handleChange = (e, i) => {
         let newItem = [...studentData];
         const dataKeys = Object.keys(studentBody);
@@ -86,6 +86,7 @@ const CreateMultipleMembers = ({ id }) => {
                     errCopy[i] = { ...foo };
                     setItemDataErrors(errCopy);
                 }
+                return;
             });
         }
         setStudentData(newItem);
