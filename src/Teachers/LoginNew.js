@@ -284,15 +284,14 @@ const LoginNew = (props) => {
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="col-sm-2 text-right">
-                                                    <Link
-                                                        exact="true"
+                                                    <div
                                                         onClick={handleOnClick}
-                                                        className="text-link pt-1"
+                                                        className="text-link pt-1 text-primary"
                                                     >
                                                         {t(
                                                             'loginPage.Forgot_password'
                                                         )}
-                                                    </Link>
+                                                    </div>
                                                 </Col>
                                             </Row>
                                         </Col>

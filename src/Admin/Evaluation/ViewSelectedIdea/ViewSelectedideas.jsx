@@ -6,7 +6,7 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import moment from 'moment';
 import ViewDetail from './ViewDetail';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { Button } from '../../../stories/Button';
@@ -431,7 +431,7 @@ const ViewSelectedIdea = () => {
                                 )}
                             </div>
                             {!params.final_result && (
-                                <Link
+                                <div
                                     //exact="true"
                                     // key={record}
                                     onClick={() =>
@@ -442,7 +442,7 @@ const ViewSelectedIdea = () => {
                                     <div className="btn btn-info btn-lg mx-2">
                                         Promote
                                     </div>
-                                </Link>
+                                </div>
                             )}
                         </>
                     ];

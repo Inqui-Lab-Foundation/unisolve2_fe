@@ -275,9 +275,8 @@ const Dashboard = () => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <Link
+                        <div
                             key={params}
-                            exact="true"
                             onClick={() =>
                                 handleRevoke(
                                     params.challenge_response_id,
@@ -290,7 +289,7 @@ const Dashboard = () => {
                                     Revoke
                                 </div>
                             )}
-                        </Link>
+                        </div>
                     ];
                 },
                 width: '20%',
