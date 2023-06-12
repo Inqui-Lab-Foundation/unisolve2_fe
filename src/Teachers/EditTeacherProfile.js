@@ -8,7 +8,11 @@ import axios from 'axios';
 import { InputBox } from '../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
+import {
+    getCurrentUser,
+    openNotificationWithIcon,
+    setCurrentUser
+} from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 
 const EditTeacherProfileDetails = (props) => {
@@ -24,7 +28,7 @@ const EditTeacherProfileDetails = (props) => {
         // where data = mentorData //
         const adminValidation = Yup.object({
             name: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid name ')
+                .matches(/^[A-Za-z]*$/, 'Invalid name ')
                 .min(2, 'Enter a valid name')
                 .required('Name is Required'),
             phone: Yup.string()
@@ -32,7 +36,7 @@ const EditTeacherProfileDetails = (props) => {
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Mobile number must be 10 Digit')
                 .required('Mobile Number is Required')
-        });        
+        });
         return adminValidation;
     };
     const getInitialValues = (mentorData) => {
@@ -73,6 +77,8 @@ const EditTeacherProfileDetails = (props) => {
                             'success',
                             'Updated Successfully'
                         );
+                        currentUser.data[0].full_name = values.name;
+                        setCurrentUser(currentUser);
                         setTimeout(() => {
                             props.history.push('/teacher/my-profile');
                         }, 200);
