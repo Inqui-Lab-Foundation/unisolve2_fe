@@ -6,20 +6,43 @@ import Layout from './Layout.jsx';
 import { getCurrentUser } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
+import { Button } from '../stories/Button';
+import { useHistory } from 'react-router-dom';
 const MyProfile = () => {
     // here we can see all the details of details of teacher //
+    const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser?.data[0]?.mentor_id]);
+    const handleEdit = () => {
+        history.push({
+            pathname: '/EditTeacherProfile',
+            item: {
+                full_name: teacher?.full_name,
+                mentor_id: teacher?.mentor_id,
+                mobile: teacher?.mobile,
+                username: teacher?.username_email
+            }
+        });
+    };
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
+                        
+                        <div className="d-flex justify-content-between mb-3">
                         <h2>My Profile</h2>
+                            <Button
+                                onClick={() => handleEdit()}
+                                size="small"
+                                label={'Edit'}
+                                btnClass={"primary"}
+                            ></Button>
+                        </div>
                         <Row>
                             <Col md={12}>
                                 <Card className="w-100  mb-5 p-4">
