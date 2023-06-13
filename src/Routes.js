@@ -71,6 +71,7 @@ import EditTranslation from './Admin/Translation/EditTranslation';
 import CreateTranslation from './Admin/Translation/CreateTranslation';
 
 import EditSchool from './Admin/Schools/EditSchool';
+import TeacherEditProfile from './Teachers/EditTeacherProfile';
 
 //evaluator routes
 import LoginEvaluator from './Evaluator/LoginEvaluator';
@@ -337,6 +338,11 @@ const Routers = () => {
                         exact={true}
                         path="/teacher/playvideo/:id"
                         component={TeacherPlayVideo}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/EditTeacherProfile"
+                        component={TeacherEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}

@@ -29,13 +29,24 @@ const EditEvalProcess = (props) => {
     );
 
     useEffect(() => {
-        evalID && evalID.district
-            ? evalID.district.split(',').length ===
-                  fullDistrictsNames.length - 1 &&
-              !evalID.district.includes('All Districts')
-                ? setselectedDistricts(fullDistrictsNames)
-                : setselectedDistricts(evalID.district.split(','))
-            : '';
+        // evalID && evalID.district
+        //     ? evalID.district.split(',').length ===
+        //           fullDistrictsNames.length - 1 &&
+        //       !evalID.district.includes('All Districts')
+        //         ? setselectedDistricts(fullDistrictsNames)
+        //         : setselectedDistricts(evalID.district.split(','))
+        //     : '';
+        if (evalID && evalID.district) {
+            if (
+                evalID.district.split(',').length ===
+                    fullDistrictsNames.length - 1 &&
+                !evalID.district.includes('All Districts')
+            ) {
+                setselectedDistricts(fullDistrictsNames);
+            } else {
+                setselectedDistricts(evalID.district.split(','));
+            }
+        }
     }, []);
 
     useEffect(() => {
@@ -83,7 +94,7 @@ const EditEvalProcess = (props) => {
             });
     }
 
-    const handleclick = async() => {
+    const handleclick = async () => {
         // where we can select  the districts //
         const value = { district: '' };
         selectedDistricts.includes('All Districts')

@@ -127,14 +127,13 @@ const TicketsPage = (props) => {
                                 </div>
                             )}
                         </div>,
-                        // <Link
+                        // <div
                         //     key={params}
-                        //     exact='true'
                         //     onClick={() => handleEditTeam(params)}
                         //     // style={{marginRight:"20px"}}
                         // >
                         //     <div className="btn btn-warning btn-lg mr-5 mx-2">{t('teacher_teams.edit')}</div>
-                        // </Link>,
+                        // </div>,
                         <div
                             key={params}
                             onClick={() => handleDelete(params)}
