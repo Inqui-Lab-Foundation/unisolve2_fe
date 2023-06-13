@@ -58,7 +58,7 @@ const CreateMultipleMembers = ({ id }) => {
         }
     ]);
     let pattern = /[A-Za-z0-9 ]*$/;
-   // const re = new RegExp("/[A-Za-z0-9 ]*$/");
+    // const re = new RegExp("/[A-Za-z0-9 ]*$/");
     const handleChange = (e, i) => {
         let newItem = [...studentData];
         const dataKeys = Object.keys(studentBody);
@@ -363,7 +363,7 @@ const CreateTeamMember = (props) => {
             }
         ]
     };
-    useEffect(async() => {
+    useEffect(async () => {
         await handleCreateMemberAPI(id);
     }, [id]);
 
@@ -491,8 +491,7 @@ const CreateTeamMember = (props) => {
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <BreadcrumbTwo {...headingDetails} />
-                        {studentCount &&
-                        (studentCount === 'new' || studentCount < 2) ? (
+                        {studentCount && studentCount === 'new' ? (
                             <CreateMultipleMembers id={id} />
                         ) : (
                             <div>
