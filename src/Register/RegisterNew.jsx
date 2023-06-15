@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import { Button } from '../stories/Button';
 import { URL, KEY } from '../constants/defaultValues';
 import { Modal } from 'react-bootstrap';
-
+import './dropDown.scss';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 
 import axios from 'axios';
@@ -36,6 +36,8 @@ function RegisterNew() {
     const [mentorData, setMentorData] = useState({});
     const [diceBtn, setDiceBtn] = useState(true);
     const [btn, setBtn] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [change, setChange] = useState('Send Otp');
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
@@ -59,31 +61,30 @@ function RegisterNew() {
         placeholder: `${t('teacehr_red.faculty_name_pl')}`,
         className: 'defaultInput'
     };
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const inputPhone = {
         type: 'text',
-        placeholder: 'Faculty Phone Number',
-        // placeholder: `${t('teacehr_red.faculty_phone')}`,
+        placeholder: `${t('teacehr_red.faculty_ph')}`,
         className: 'defaultInput'
     };
-    const inputEmail = {
-        type: 'email',
-        placeholder: `${t('teacehr_red.faculty_email')}`,
-        className: 'defaultInput'
-    };
+    // const inputEmail = {
+    //     type: 'email',
+    //     placeholder: `${t('teacehr_red.faculty_email')}`,
+    //     className: 'defaultInput'
+    // };
     const formik = useFormik({
         initialValues: {
             full_name: '',
             organization_code: '',
             mobile: '',
-            username: '',
+            // username: '',
             role: 'MENTOR',
             qualification: '-',
             reg_status: false,
             otp: '',
-            password: ''
+            password: '',
+            gender: '',
+            title: ''
         },
 
         validationSchema: Yup.object({
@@ -98,10 +99,12 @@ function RegisterNew() {
                 .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
-            username: Yup.string()
-                .trim()
-                .email('Invalid username format')
-                .required('Required')
+            // username: Yup.string()
+            //     .trim()
+            //     .email('Invalid username format')
+            //     .required('Required'),
+            gender: Yup.string().required('Please select valid gender'),
+            title: Yup.string().required('Please select Title')
         }),
 
         onSubmit: async (values) => {
@@ -199,10 +202,14 @@ function RegisterNew() {
     const handleSendOtp = (e) => {
         setBtnOtp(true);
         setOtpRes('112233');
+        const timeOut = setTimeout(() => {
+            setChange('Resend Otp');
+        }, 60000);
         e.preventDefault();
     };
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
+
         setErrorMsg(false);
     };
 
@@ -307,94 +314,272 @@ function RegisterNew() {
                                 <div className="w-100 clearfix" />
                                 {schoolBtn && (
                                     <div className="form-row row mb-5">
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={10}
-                                            xl={7}
-                                        >
-                                            <Label className="mb-3 w-100 mt-4">
-                                                <UncontrolledAlert color="primary ">
-                                                    {t('teacehr_red.school')}:{' '}
-                                                    {orgData?.organization_name}{' '}
-                                                    <br />
-                                                    {t(
-                                                        'teacehr_red.city'
-                                                    )}:{' '}
-                                                    {orgData?.city
-                                                        ? orgData?.city
-                                                        : ' N/A'}{' '}
-                                                    <br />
-                                                    {t(
-                                                        'teacehr_red.district'
-                                                    )}:{' '}
-                                                    {orgData?.district
-                                                        ? orgData?.district
-                                                        : ' N/A'}
-                                                </UncontrolledAlert>
-                                            </Label>
-                                        </Col>
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={10}
-                                            xl={7}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="name"
+                                        <Col className="form-row row mb-5">
+                                            <Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={10}
+                                                xl={7}
                                             >
-                                                {t('teacehr_red.faculty_name')}
-                                            </Label>
-                                            <InputBox
-                                                {...inputName}
-                                                id="full_name"
-                                                name="full_name"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.full_name}
-                                            />
-
-                                            {formik.touched.full_name &&
-                                            formik.errors.full_name ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.full_name}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={10}
-                                            xl={7}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="mobile"
+                                                <Label className="mb-3 w-100 mt-4">
+                                                    <UncontrolledAlert color="primary ">
+                                                        {t(
+                                                            'teacehr_red.school'
+                                                        )}
+                                                        :{' '}
+                                                        {
+                                                            orgData?.organization_name
+                                                        }{' '}
+                                                        <br />
+                                                        {t(
+                                                            'teacehr_red.city'
+                                                        )}:{' '}
+                                                        {orgData?.city
+                                                            ? orgData?.city
+                                                            : ' N/A'}{' '}
+                                                        <br />
+                                                        {t(
+                                                            'teacehr_red.district'
+                                                        )}
+                                                        :{' '}
+                                                        {orgData?.district
+                                                            ? orgData?.district
+                                                            : ' N/A'}
+                                                    </UncontrolledAlert>
+                                                </Label>
+                                            </Col>
+                                            <Row
+                                                className="form-group"
+                                                xs={6}
+                                                sm={12}
+                                                md={10}
+                                                xl={7}
                                             >
-                                                {/* {t('teacehr_red.faculty_phone')} */}
-                                                Faculty Phone Number
-                                            </Label>
-                                            <InputBox
-                                                {...inputPhone}
-                                                id="mobile"
-                                                name="mobile"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.mobile}
-                                            />
+                                                <Col
+                                                    className="form-group"
+                                                    xs={2}
+                                                    sm={4}
+                                                    md={4}
+                                                    xl={3}
+                                                    // xs={6}
+                                                    // sm={12}
+                                                    // md={10}
+                                                    // xl={7}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="title"
+                                                    >
+                                                        {t('teacehr_red.title')}
+                                                    </Label>
+                                                    <select
+                                                        name="title"
+                                                        // id="gender"
+                                                        className=" col-8 form-control custom-registerdropdown "
+                                                        value={
+                                                            formik.values.title
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                    >
+                                                        <option value="">
+                                                            {t(
+                                                                'teacehr_red.teacher_title'
+                                                            )}
+                                                        </option>
+                                                        <option value="Dr">
+                                                            {t(
+                                                                'teacehr_red.teacher_title_dr'
+                                                            )}
+                                                        </option>
+                                                        <option value="Mr">
+                                                            {t(
+                                                                'teacehr_red.teacher_title_mr'
+                                                            )}
+                                                        </option>
+                                                        <option value="Miss">
+                                                            {t(
+                                                                'teacehr_red.teacher_title_miss'
+                                                            )}
+                                                        </option>
+                                                        <option value="Mrs">
+                                                            {t(
+                                                                'teacehr_red.teacher_title_mrs'
+                                                            )}
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched.title &&
+                                                    formik.errors.title ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .title
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={4}
+                                                    sm={8}
+                                                    md={6}
+                                                    xl={4}
+                                                    // xs={6}
+                                                    // sm={12}
+                                                    // md={10}
+                                                    // xl={7}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="name"
+                                                    >
+                                                        {t(
+                                                            'teacehr_red.faculty_name'
+                                                        )}
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputName}
+                                                        id="full_name"
+                                                        name="full_name"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .full_name
+                                                        }
+                                                    />
 
-                                            {formik.touched.mobile &&
-                                            formik.errors.mobile ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.mobile}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <Col
+                                                    {formik.touched.full_name &&
+                                                    formik.errors.full_name ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .full_name
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            </Row>
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={10}
+                                                xl={7}
+                                            >
+                                                <Col
+                                                    className="form-group"
+                                                    xs={2}
+                                                    sm={4}
+                                                    md={4}
+                                                    xl={3}
+                                                    // xs={12}
+                                                    // sm={12}
+                                                    // md={10}
+                                                    // xl={7}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="gender"
+                                                    >
+                                                        {t(
+                                                            'teacehr_red.gender'
+                                                        )}
+                                                    </Label>
+                                                    <select
+                                                        name="gender"
+                                                        // id="gender"
+                                                        className=" col-8 SelectBox form-control custom-registerdropdown "
+                                                        value={
+                                                            formik.values.gender
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                    >
+                                                        <option value="">
+                                                            {t(
+                                                                'teacehr_red.teacher_gender'
+                                                            )}
+                                                        </option>
+                                                        <option value="Male">
+                                                            {t(
+                                                                'teacehr_red.teacher_gender_male'
+                                                            )}
+                                                        </option>
+                                                        <option value="Female">
+                                                            {t(
+                                                                'teacehr_red.teacher_gender_female'
+                                                            )}
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched.gender &&
+                                                    formik.errors.gender ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .gender
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={4}
+                                                    sm={8}
+                                                    md={6}
+                                                    xl={4}
+                                                    // xs={12}
+                                                    // sm={12}
+                                                    // md={10}
+                                                    // xl={7}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="mobile"
+                                                    >
+                                                        {t(
+                                                            'teacehr_red.faculty_ph'
+                                                        )}
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputPhone}
+                                                        id="mobile"
+                                                        name="mobile"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.mobile
+                                                        }
+                                                    />
+
+                                                    {formik.touched.mobile &&
+                                                    formik.errors.mobile ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .mobile
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                {/* <Col
                                             className="form-group"
                                             xs={12}
                                             sm={12}
@@ -422,10 +607,11 @@ function RegisterNew() {
                                                     {formik.errors.username}
                                                 </small>
                                             ) : null}
-
+                                        </Col> */}
+                                            </Row>
                                             <div className="mt-5">
                                                 <Button
-                                                    label={'Sent Otp'}
+                                                    label={change}
                                                     btnClass={
                                                         !(
                                                             formik.dirty &&
@@ -445,14 +631,20 @@ function RegisterNew() {
                                                 />
                                             </div>
                                             {btnOtp && (
-                                                <div className="w-100 d-block text-center">
+                                                <div
+                                                    className="w-50 d-block text-center"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                >
                                                     <Label
-                                                        className="mb-2"
+                                                        className="mb-2 mt-4  text-center "
                                                         htmlFor="otp"
                                                     >
                                                         Enter Otp
                                                     </Label>
-                                                    <div className="d-flex justify-content-center mt-5">
+                                                    <div
+                                                        // className="form-row row mb-6"
+                                                        className="d-flex justify-content-center mt-5"
+                                                    >
                                                         <OtpInput
                                                             numInputs={6}
                                                             isDisabled={false}
@@ -499,8 +691,12 @@ function RegisterNew() {
                                             )}
                                             {formik.values.otp.length > 5 &&
                                                 otpRes != formik.values.otp && (
-                                                    <div className="d-flex justify-content-center">
+                                                    <div
+                                                        className="form-row row mb-5 text-center"
+                                                        // className=" w-50 d-flex justify-content-center"
+                                                    >
                                                         <span
+                                                            className=" w-50 mt-3 d-flex justify-content-center"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -519,8 +715,8 @@ function RegisterNew() {
                                                             otpRes ==
                                                                 formik.values
                                                                     .otp
-                                                                ? 'primary w-100'
-                                                                : 'default w-100'
+                                                                ? 'primary '
+                                                                : 'default'
                                                         }
                                                         size="small"
                                                         type="submit"
