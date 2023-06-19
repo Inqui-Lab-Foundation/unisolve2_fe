@@ -44,7 +44,6 @@ function RegisterNew() {
     const [time] = useState('00');
     const [counter, setCounter] = useState(59);
     const [sec, setSec] = useState(59);
-    const [min, setMin] = useState(0);
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
