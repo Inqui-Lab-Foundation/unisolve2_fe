@@ -117,7 +117,7 @@ const LoginNew = (props) => {
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className=" mr-auto mobile_tab-hide"
@@ -324,6 +324,15 @@ const LoginNew = (props) => {
                                                 }
                                             />
                                         </Col>
+                                    </div>
+                                    <div className="form-row row mb-5">
+                                        <Link
+                                            to={'/register'}
+                                            exact
+                                            className="w-50 d-block text-center"
+                                        >
+                                            Click Here To Register
+                                        </Link>
                                     </div>
                                 </Form>
                             </Col>
