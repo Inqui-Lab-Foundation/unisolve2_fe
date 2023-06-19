@@ -13,8 +13,9 @@ const MyProfile = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
+    console.log(teacher);
     const dispatch = useDispatch();
-    console.log(currentUser);
+    // console.log(currentUser);
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser?.data[0]?.mentor_id]);
@@ -63,6 +64,27 @@ const MyProfile = () => {
                                                                     md={5}
                                                                     className="my-auto profile-detail"
                                                                 >
+                                                                    <b>Title</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {teacher?.title
+                                                                            ? teacher?.title
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
                                                                     <b>Name</b>
                                                                 </Col>
                                                                 <Col md={1}>
@@ -75,6 +97,29 @@ const MyProfile = () => {
                                                                     <b>
                                                                         {teacher?.full_name
                                                                             ? teacher?.full_name
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        Gender
+                                                                    </b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {teacher?.gender
+                                                                            ? teacher?.gender
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -98,6 +143,30 @@ const MyProfile = () => {
                                                                     <b>
                                                                         {teacher?.username_email
                                                                             ? teacher?.username_email
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        WhatsApp
+                                                                        Mobile
+                                                                    </b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {teacher?.whatapp_mobile
+                                                                            ? teacher?.whatapp_mobile
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
