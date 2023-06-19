@@ -313,6 +313,7 @@
         "faculty_name_pl": "Enter full name",
         "faculty_email": "Faculty Email Address",
         "faculty_ph": "Faculty Phone Number",
+        "faculty_mobile": " WhatsApp Number",
         "faculty_email_pl": "Faculty email address",
         "otp_me": "OTP has been sent to",
         "otp_err": "Did't recieve OTP",

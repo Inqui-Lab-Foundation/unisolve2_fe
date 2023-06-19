@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Label, UncontrolledAlert } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Input } from 'antd';
+import { Input, Radio } from 'antd';
+
 import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
@@ -36,8 +37,14 @@ function RegisterNew() {
     const [mentorData, setMentorData] = useState({});
     const [diceBtn, setDiceBtn] = useState(true);
     const [btn, setBtn] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [checkBox, setCheckBox] = useState(false);
     const [change, setChange] = useState('Send Otp');
+    const [wtsNum, setWtsNum] = useState('');
+    const [sendOtp, setSendOtp] = useState('');
+    const [time] = useState('00');
+    const [counter, setCounter] = useState(59);
+    const [sec, setSec] = useState(59);
+    const [min, setMin] = useState(0);
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
@@ -62,29 +69,33 @@ function RegisterNew() {
         className: 'defaultInput'
     };
 
-    const inputPhone = {
+    const inputUsername = {
         type: 'text',
         placeholder: `${t('teacehr_red.faculty_ph')}`,
         className: 'defaultInput'
     };
-    // const inputEmail = {
-    //     type: 'email',
-    //     placeholder: `${t('teacehr_red.faculty_email')}`,
-    //     className: 'defaultInput'
-    // };
+    const inputMobile = {
+        type: 'text',
+        placeholder: `${t('teacehr_red.faculty_mobile')}`,
+        className: 'defaultInput'
+    };
+
     const formik = useFormik({
         initialValues: {
             full_name: '',
-            organization_code: '',
-            mobile: '',
-            // username: '',
+            organization_code: diesCode,
+            username: '',
+            // mobile: '',
+            whatapp_mobile: '',
             role: 'MENTOR',
             qualification: '-',
             reg_status: false,
             otp: '',
             password: '',
             gender: '',
-            title: ''
+            title: '',
+            click: false,
+            checkbox: false
         },
 
         validationSchema: Yup.object({
@@ -93,7 +104,13 @@ function RegisterNew() {
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
-            mobile: Yup.string()
+            username: Yup.string()
+                .required('required')
+                .trim()
+                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+                .min(10, 'Please enter valid number')
+                .max(10, 'Please enter valid number'),
+            whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
                 .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
@@ -108,18 +125,18 @@ function RegisterNew() {
         }),
 
         onSubmit: async (values) => {
-            if (values.otp != '112233') {
+            if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                values.password = values.mobile.trim();
+                values.password = values.username.trim();
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
                 );
                 const iv = CryptoJS.enc.Hex.parse(
                     '00000000000000000000000000000000'
                 );
-                const encrypted = CryptoJS.AES.encrypt(values.mobile, key, {
+                const encrypted = CryptoJS.AES.encrypt(values.username, key, {
                     iv: iv,
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
@@ -169,6 +186,7 @@ function RegisterNew() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
+                    console.log(response);
                     if (
                         response?.data?.data[0].mentor != null &&
                         process.env.REACT_APP_USEDICECODE == 1
@@ -199,18 +217,69 @@ function RegisterNew() {
 
         e.preventDefault();
     };
-    const handleSendOtp = (e) => {
-        setBtnOtp(true);
-        setOtpRes('112233');
+    const handleSendOtp = async (e) => {
+        setSec(59);
+        setCounter(59);
+        if (change == 'Resend Otp') {
+            if (sec == 59) {
+                setSec(sec - 1);
+            }
+        } else {
+            setSec(sec - 1);
+        }
+        const body = JSON.stringify({
+            mobile: formik.values.username
+        });
+        var config = {
+            method: 'post',
+            url: process.env.REACT_APP_API_BASE_URL + '/mentors/mobileOtp',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: body
+        };
+        axios(config).then(function (response) {
+            console.log(response);
+            if (response.status === 202) {
+                setOtpRes(response?.data?.data);
+                openNotificationWithIcon('success', 'Otp send to mobile');
+                setBtnOtp(true);
+            }
+        });
+        // .catch(function (error) {
+        //     openNotificationWithIcon(
+        //         'error',
+        //         error?.response?.data?.message
+        //     );
+        //     console.log(error);
+        // });
+
         const timeOut = setTimeout(() => {
             setChange('Resend Otp');
         }, 60000);
         e.preventDefault();
     };
+    useEffect(() => {
+        if (sec == 58) {
+            counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+        }
+    }, [counter, sec]);
+
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
-
         setErrorMsg(false);
+    };
+
+    const handleCheckbox = (e, click) => {
+        if (click) {
+            setCheckBox(click);
+            formik.setFieldValue('whatapp_mobile', formik.values.username);
+
+            setWtsNum(formik.values.username);
+        } else {
+            setCheckBox(click);
+            formik.setFieldValue('whatapp_mobile', '');
+        }
     };
 
     return (
@@ -308,6 +377,15 @@ function RegisterNew() {
                                                     />
                                                 </div>
                                             )}
+                                            <div className="form-row row mb-5">
+                                                <Link
+                                                    to={'/teacher'}
+                                                    exact
+                                                    className=" m-3 text-center"
+                                                >
+                                                    Already have an Account
+                                                </Link>
+                                            </div>
                                         </Col>
                                     </div>
                                 )}
@@ -555,9 +633,9 @@ function RegisterNew() {
                                                         )}
                                                     </Label>
                                                     <InputBox
-                                                        {...inputPhone}
-                                                        id="mobile"
-                                                        name="mobile"
+                                                        {...inputUsername}
+                                                        id="username"
+                                                        name="username"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -565,49 +643,125 @@ function RegisterNew() {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.mobile
+                                                            formik.values
+                                                                .username
                                                         }
                                                     />
 
-                                                    {formik.touched.mobile &&
-                                                    formik.errors.mobile ? (
+                                                    {formik.touched.username &&
+                                                    formik.errors.username ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .mobile
+                                                                    .username
                                                             }
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                {/* <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={10}
-                                            xl={7}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="username"
-                                            >
-                                                {t('teacehr_red.faculty_email')}
-                                            </Label>
-                                            <InputBox
-                                                {...inputEmail}
-                                                id="username"
-                                                name="username"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.username}
-                                            />
+                                                <Row
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={10}
+                                                    xl={7}
+                                                >
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={6}
+                                                        sm={6}
+                                                        md={5}
+                                                        xl={3}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="phone"
+                                                        >
+                                                            Phone/WhatsApp
+                                                        </Label>
+                                                        <Input
+                                                            type="checkbox"
+                                                            className="mt-3 mb-4 pb-4 pt-3"
+                                                            name="click"
+                                                            id="click"
+                                                            onClick={(e) =>
+                                                                handleCheckbox(
+                                                                    e,
+                                                                    !checkBox
+                                                                )
+                                                            }
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={6}
+                                                        sm={6}
+                                                        md={5}
+                                                        xl={4}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="phone"
+                                                        >
+                                                            {t(
+                                                                'teacehr_red.faculty_mobile'
+                                                            )}
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputMobile}
+                                                            id="whatapp_mobile"
+                                                            name="whatapp_mobile"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .whatapp_mobile
+                                                            }
+                                                        />
 
-                                            {formik.touched.username &&
-                                            formik.errors.username ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.username}
-                                                </small>
-                                            ) : null}
-                                        </Col> */}
+                                                        {formik.touched
+                                                            .whatapp_mobile &&
+                                                        formik.errors
+                                                            .whatapp_mobile ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .whatapp_mobile
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                    {/* <Col
+                                                        className="form-group"
+                                                        xs={4}
+                                                        sm={4}
+                                                        md={2}
+                                                        xl={2}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="phone"
+                                                        >
+                                                            Phone/WhatsApp
+                                                        </Label>
+                                                        <Input
+                                                            type="checkbox"
+                                                            className="mt-3 mb-3 pb-3 pt-3"
+                                                            name="click"
+                                                            id="click"
+                                                            onClick={(e) =>
+                                                                handleCheckbox(
+                                                                    e,
+                                                                    !checkBox
+                                                                )
+                                                            }
+                                                        />
+                                                    </Col> */}
+                                                </Row>
                                             </Row>
                                             <div className="mt-5">
                                                 <Button
@@ -620,7 +774,9 @@ function RegisterNew() {
                                                             ? 'default'
                                                             : 'primary'
                                                     }
-                                                    onClick={handleSendOtp}
+                                                    onClick={(e) =>
+                                                        handleSendOtp(e)
+                                                    }
                                                     size="small"
                                                     disabled={
                                                         !(
@@ -635,6 +791,13 @@ function RegisterNew() {
                                                     className="w-50 d-block text-center"
                                                     // className="form-row row mb-5 col-md-3 text-centered"
                                                 >
+                                                    {/* <h3>{counter}</h3> */}
+                                                    <h3>
+                                                        {time}:
+                                                        {counter < 59
+                                                            ? counter - '0'
+                                                            : counter}
+                                                    </h3>
                                                     <Label
                                                         className="mb-2 mt-4  text-center "
                                                         htmlFor="otp"

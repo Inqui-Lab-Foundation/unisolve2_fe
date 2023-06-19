@@ -109,7 +109,7 @@ const LoginNew = (props) => {
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
                         <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className=" mr-auto mobile_tab-hide"
@@ -302,6 +302,7 @@ const LoginNew = (props) => {
                                             />
                                         </Col>
                                     </div>
+                                  
                                 </Form>
                             </Col>
                         </Row>
@@ -320,4 +321,3 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     loginUserAction: loginUser
 })(LoginNew);
-

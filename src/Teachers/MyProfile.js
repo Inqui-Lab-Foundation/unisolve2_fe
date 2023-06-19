@@ -14,6 +14,7 @@ const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
+    console.log(currentUser);
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser?.data[0]?.mentor_id]);
@@ -33,14 +34,13 @@ const MyProfile = () => {
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        
                         <div className="d-flex justify-content-between mb-3">
-                        <h2>My Profile</h2>
+                            <h2>My Profile</h2>
                             <Button
                                 onClick={() => handleEdit()}
                                 size="small"
                                 label={'Edit'}
-                                btnClass={"primary"}
+                                btnClass={'primary'}
                             ></Button>
                         </div>
                         <Row>
@@ -84,7 +84,9 @@ const MyProfile = () => {
                                                                     md={5}
                                                                     className="my-auto profile-detail"
                                                                 >
-                                                                    <b>Email</b>
+                                                                    <b>
+                                                                        Mobile
+                                                                    </b>
                                                                 </Col>
                                                                 <Col md={1}>
                                                                     :

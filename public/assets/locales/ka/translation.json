@@ -308,6 +308,7 @@
         "teacher_gender_others": "Others",
         "faculty_name_pl": "Enter full name",
         "faculty_ph": "Faculty Phone Number",
+        "faculty_mobile": "Faculty WhatsApp Number",
         "faculty_ph_pl": "Faculty phone number",
         "faculty_email": "Faculty Email Address",
         "faculty_email_pl": "Faculty email address",
