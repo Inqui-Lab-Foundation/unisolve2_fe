@@ -23,7 +23,6 @@ const EditTeacherProfileDetails = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
-    console.log(mentorData);
 
     const getValidationSchema = () => {
         // where data = mentorData //
@@ -43,7 +42,7 @@ const EditTeacherProfileDetails = (props) => {
     const getInitialValues = (mentorData) => {
         const commonInitialValues = {
             name: mentorData?.full_name,
-            phone: mentorData.username
+            phone: mentorData.mobile
         };
         return commonInitialValues;
     };
@@ -52,11 +51,11 @@ const EditTeacherProfileDetails = (props) => {
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
             const full_name = values.name;
-            const username = values.phone;
+            const mobile = values.phone;
             const body = JSON.stringify({
                 full_name: full_name,
-                mobile: username
-                // username: mentorData.username
+                mobile: mobile,
+                username: mentorData.username
             });
             const url =
                 process.env.REACT_APP_API_BASE_URL +
