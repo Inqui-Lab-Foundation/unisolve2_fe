@@ -245,13 +245,6 @@ function RegisterNew() {
                 setBtnOtp(true);
             }
         });
-        // .catch(function (error) {
-        //     openNotificationWithIcon(
-        //         'error',
-        //         error?.response?.data?.message
-        //     );
-        //     console.log(error);
-        // });
 
         const timeOut = setTimeout(() => {
             setChange('Resend Otp');
@@ -658,6 +651,53 @@ function RegisterNew() {
                                                     ) : null}
                                                 </Col>
                                                 <Row
+                                                    className="form-group mt-3"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={10}
+                                                    xl={7}
+                                                >
+                                                    <Col
+                                                        xs={10}
+                                                        sm={10}
+                                                        md={8}
+                                                        xl={6}
+                                                    >
+                                                        <p>
+                                                            {' '}
+                                                            Mobile Number Same
+                                                            as WhatsApp Number
+                                                            Click Here !
+                                                        </p>
+                                                    </Col>
+                                                    <Col
+                                                        className="form-group "
+                                                        // xs={12}
+                                                        // sm={12}
+                                                        // md={10}
+                                                        // xl={7}
+                                                        xs={2}
+                                                        sm={2}
+                                                        md={2}
+                                                        xl={1}
+                                                    >
+                                                        <div className="my-10 checkbox-right">
+                                                            <Input
+                                                                type="checkbox"
+                                                                className="mt-3 mb-8 my-10 pb-4 pt-3 "
+                                                                name="click"
+                                                                id="click"
+                                                                onClick={(e) =>
+                                                                    handleCheckbox(
+                                                                        e,
+                                                                        !checkBox
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                                <Row
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
@@ -666,36 +706,14 @@ function RegisterNew() {
                                                 >
                                                     <Col
                                                         className="form-group"
-                                                        xs={6}
-                                                        sm={6}
-                                                        md={5}
-                                                        xl={3}
-                                                    >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="phone"
-                                                        >
-                                                            Phone/WhatsApp
-                                                        </Label>
-                                                        <Input
-                                                            type="checkbox"
-                                                            className="mt-3 mb-4 pb-4 pt-3"
-                                                            name="click"
-                                                            id="click"
-                                                            onClick={(e) =>
-                                                                handleCheckbox(
-                                                                    e,
-                                                                    !checkBox
-                                                                )
-                                                            }
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={6}
-                                                        sm={6}
-                                                        md={5}
-                                                        xl={4}
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={10}
+                                                        xl={7}
+                                                        // xs={6}
+                                                        // sm={6}
+                                                        // md={5}
+                                                        // xl={4}
                                                     >
                                                         <Label
                                                             className="mb-2"
@@ -734,32 +752,6 @@ function RegisterNew() {
                                                             </small>
                                                         ) : null}
                                                     </Col>
-                                                    {/* <Col
-                                                        className="form-group"
-                                                        xs={4}
-                                                        sm={4}
-                                                        md={2}
-                                                        xl={2}
-                                                    >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="phone"
-                                                        >
-                                                            Phone/WhatsApp
-                                                        </Label>
-                                                        <Input
-                                                            type="checkbox"
-                                                            className="mt-3 mb-3 pb-3 pt-3"
-                                                            name="click"
-                                                            id="click"
-                                                            onClick={(e) =>
-                                                                handleCheckbox(
-                                                                    e,
-                                                                    !checkBox
-                                                                )
-                                                            }
-                                                        />
-                                                    </Col> */}
                                                 </Row>
                                             </Row>
                                             <div className="mt-5">
@@ -790,7 +782,6 @@ function RegisterNew() {
                                                     className="w-50 d-block text-center"
                                                     // className="form-row row mb-5 col-md-3 text-centered"
                                                 >
-                                                    {/* <h3>{counter}</h3> */}
                                                     <h3>
                                                         {time}:
                                                         {counter < 59
