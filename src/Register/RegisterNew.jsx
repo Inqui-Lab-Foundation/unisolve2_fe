@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
@@ -120,19 +121,6 @@ function RegisterNew() {
         }),
 
         onSubmit: async (values) => {
-            const body = JSON.stringify({
-                full_name: values.full_name,
-                organization_code: values.organization_code,
-                mobile: values.mobile,
-                whatapp_mobile: values.whatapp_mobile,
-                username: values.username,
-                qualification: values.qualification,
-                role: values.role,
-                gender: values.gender,
-                title: values.title,
-                reg_status: values.reg_status,
-                password: values.password
-            });
             if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
@@ -149,6 +137,19 @@ function RegisterNew() {
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
                 values.password = encrypted;
+                const body = JSON.stringify({
+                    full_name: values.full_name,
+                    organization_code: values.organization_code,
+                    mobile: values.mobile,
+                    whatapp_mobile: values.whatapp_mobile,
+                    username: values.username,
+                    qualification: values.qualification,
+                    role: values.role,
+                    gender: values.gender,
+                    title: values.title,
+                    reg_status: values.reg_status,
+                    password: encrypted
+                });
                 var config = {
                     method: 'post',
                     url:
@@ -166,7 +167,6 @@ function RegisterNew() {
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             setBtn(true);
-                           
                         }
                     })
                     .catch((err) => {
