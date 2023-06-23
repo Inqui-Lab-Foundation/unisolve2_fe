@@ -26,7 +26,10 @@ const MyProfile = () => {
                 full_name: teacher?.full_name,
                 mentor_id: teacher?.mentor_id,
                 mobile: teacher?.mobile,
-                username: teacher?.username_email
+                username: teacher?.username_email,
+                title: teacher?.title,
+                gender: teacher?.gender,
+                whatapp_mobile: teacher?.whatapp_mobile
             }
         });
     };

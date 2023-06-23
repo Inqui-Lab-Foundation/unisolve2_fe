@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
 import React, { useLayoutEffect, useState } from 'react';
@@ -51,7 +52,12 @@ const LoginNew = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('Required email id'),
+            email: Yup.string()
+                .required('required')
+                .trim()
+                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+                .min(10, 'Please enter valid number')
+                .max(10, 'Please enter valid number'),
             password: Yup.string().required('Required password')
         }),
         // TEACHER ROLE
@@ -88,8 +94,9 @@ const LoginNew = (props) => {
     });
 
     const inputUserId = {
-        type: 'text',
-        placeholder: t('loginPage.Enter_your_email')
+        type: 'mobile',
+        // placeholder: t('loginPage.Enter_your_email')
+        placeholder: 'Enter your Mobile number'
     };
 
     const inputPassword = {
@@ -107,9 +114,10 @@ const LoginNew = (props) => {
             handlePassword('password');
         }
     };
-    const handleOnClick = () => {
-        setShowPopUp(true);
-    };
+    // const handleOnClick = () => {
+    //     // setShowPopUp(true);
+    //     history.push('/teacher/forgotpasswordnew');
+    // };
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
@@ -201,7 +209,8 @@ const LoginNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                {t('loginPage.User_ID_Teacher')}
+                                                Mobile Number
+                                                {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -285,12 +294,21 @@ const LoginNew = (props) => {
                                                 </Col>
                                                 <Col className="col-sm-2 text-right">
                                                     <div
-                                                        onClick={handleOnClick}
+                                                        // onClick={handleOnClick}
                                                         className="text-link pt-1 text-primary"
                                                     >
-                                                        {t(
+                                                        {/* {t(
                                                             'loginPage.Forgot_password'
-                                                        )}
+                                                        )} */}
+                                                        <Link
+                                                            exact="true"
+                                                            to="/teacher/forgotpassword"
+                                                            className="text-link pt-1"
+                                                        >
+                                                            {t(
+                                                                'loginPage.Forgot_password'
+                                                            )}
+                                                        </Link>
                                                     </div>
                                                 </Col>
                                             </Row>
@@ -340,13 +358,13 @@ const LoginNew = (props) => {
                     </Col>
                 </Row>
             </div>
-            {showPopUp && (
+            {/* {showPopUp && (
                 <ForgotPassword
                     show={showPopUp}
                     setShow={setShowPopUp}
                     onHide={() => setShowPopUp(false)}
                 />
-            )}
+            )} */}
         </React.Fragment>
     );
 };

@@ -136,7 +136,7 @@ function RegisterNew() {
                     iv: iv,
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
-                values.password = encrypted;
+                // values.password = encrypted;
                 const body = JSON.stringify({
                     full_name: values.full_name,
                     organization_code: values.organization_code,
