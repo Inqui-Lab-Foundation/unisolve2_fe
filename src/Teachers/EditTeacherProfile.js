@@ -65,13 +65,13 @@ const EditTeacherProfileDetails = (props) => {
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
             const full_name = values.name;
-            const mobile = values.phone;
+            // const mobile = values.phone;
             const title = values.title;
             const whatapp_mobile = values.whatapp_mobile;
             const gender = values.gender;
             const body = JSON.stringify({
                 full_name: full_name,
-                mobile: mobile,
+                // mobile: mobile,
                 title: title,
                 whatapp_mobile: whatapp_mobile,
                 gender: gender,
