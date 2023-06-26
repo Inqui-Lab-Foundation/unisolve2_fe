@@ -52,12 +52,10 @@ const LoginNew = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string()
-                .required('required')
-                .trim()
-                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number'),
+            email: Yup.string().required('required').trim(),
+            // .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+            // .min(10, 'Please enter valid number')
+            // .max(10, 'Please enter valid number'),
             password: Yup.string().required('Required password')
         }),
         // TEACHER ROLE
