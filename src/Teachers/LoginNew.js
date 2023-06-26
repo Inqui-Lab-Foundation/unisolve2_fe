@@ -207,7 +207,7 @@ const LoginNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Mobile Number
+                                                Mobile /phone
                                                 {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
