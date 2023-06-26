@@ -1,16 +1,17 @@
 /* eslint-disable indent */
 import './SignUp.scss';
-import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useLayoutEffect} from 'react';
+import { Row, Col, Form, Label} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../../stories/InputBox/InputBox.jsx';
+import { Carousel } from 'react-bootstrap';
 import { Button } from '../../stories/Button.jsx';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import signuplogo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import ellipse_1 from '../../assets/media/ellipse.svg';
@@ -20,7 +21,7 @@ import { openNotificationWithIcon } from '../../helpers/Utils';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
-    const [password, handlePassword] = useState('password');
+    const password = 'password';
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
@@ -88,67 +89,148 @@ const LoginNew = (props) => {
     };
 
     const inputPassword = {
-        placeholder: t('loginPage.Password')
+        placeholder: t('loginPage.Password'),
+        showEyeIcon: true
     };
 
     const logInBtn = {
         label: t('login.logIn'),
         size: 'large'
     };
-    const handleShow = (e, type) => {
-        if (type === 'password') {
-            handlePassword('text');
-        } else {
-            handlePassword('password');
-        }
-    };
+    // const handleShow = (e, type) => {
+    //     if (type === 'password') {
+    //         handlePassword('text');
+    //     } else {
+    //         handlePassword('password');
+    //     }
+    // };
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                <Col
-                                    md={12}
-                                    className=" mr-auto mobile_tab-hide"
-                                >
-                                    {' '}
-                                    <h2 className="text-white">
-                                        <img
-                                            src={signuplogo}
-                                            alt="Signup logo"
-                                            className="img-fluid w-50"
-                                        />
-                                    </h2>
-                                </Col>
-                            </a>
-                        </div>
+                        <Carousel>
+                            <Carousel.Item>
+                                {/* <div className="row">
+                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                        <Col
+                                            md={12}
+                                            className=" mr-auto mobile_tab-hide"
+                                        >
+                                            {' '}
+                                            <h2 className="text-white">
+                                                <img
+                                                    src={logo}
+                                                    alt="Signup logo"
+                                                    className="img-fluid w-50"
+                                                />
+                                            </h2>
+                                        </Col>
+                                    </a>
+                                </div> */}
 
-                        <h1 className="text-left pb-5 mobile_tab-hide">
-                            Together let’s learn and build something amazing.
-                        </h1>
-                        <p className="mobile_tab-hide">
-                            Creating change makers of tomorrow
-                        </p>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Together let’s learn and build something amazing.
+                                </h1>
+                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Creating change makers of tomorrow
+                                </p>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_1}
+                                            alt="ellipse_1"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                {/* <div className="row">
+                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                        <Col
+                                            md={12}
+                                            className=" mr-auto mobile_tab-hide"
+                                        >
+                                            {' '}
+                                            <h2 className="text-white">
+                                                <img
+                                                    src={logo}
+                                                    alt="Signup logo"
+                                                    className="img-fluid w-50"
+                                                />
+                                            </h2>
+                                        </Col>
+                                    </a>
+                                </div> */}
+
+                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Together let’s learn and build something amazing.
+                                </h1>
+                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Fostering a generation of impactful leaders and innovators.
+                                </p>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_1}
+                                            alt="ellipse_1"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                {/* <div className="row">
+                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                        <Col
+                                            md={12}
+                                            className=" mr-auto mobile_tab-hide"
+                                        >
+                                            {' '}
+                                            <h2 className="text-white">
+                                                <img
+                                                    src={logo}
+                                                    alt="Signup logo"
+                                                    className="img-fluid w-50"
+                                                />
+                                            </h2>
+                                        </Col>
+                                    </a>
+                                </div> */}
+
+                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Together let’s learn and build something amazing.
+                                </h1>
+                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                    Fueling the potential of future change catalysts.
+                                </p>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_1}
+                                            alt="ellipse_1"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
+                            </Carousel.Item>
+                        </Carousel>
                     </div>
+                    
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
-                        <Row className="login-options">
+                        <Row className="logo">
+                            <Col md={12} className="d-flex justify-content-center align-items-center">
+                                <img src={logo} alt="Logo" className="logo-image" />
+                            </Col>
+                        </Row>
+                        <Row className="login-options d-flex ">
                             <Col md={12} className="text-right"></Col>
                         </Row>
-                        <Row className=" article-header mb-4">
-                            <div className="d-flex mt-4 login-div">
+                        <Row className=" article-header mb-4 d-flex ">
+                            <div className="d-flex mt-4 login-div justify-content-center align-items-center">
                                 <Link
                                     className="landing-page-actions "
                                     exact="true"
@@ -189,15 +271,15 @@ const LoginNew = (props) => {
                                             xs={12}
                                             sm={12}
                                             md={10}
-                                            xl={7}
+                                            xl={11}
                                         >
-                                            <Label
+                                            <Label 
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
                                                 {t('loginPage.User_ID_Email')}
                                             </Label>
-                                            <InputBox
+                                            <InputBox 
                                                 {...inputUserId}
                                                 id="email"
                                                 name="email"
@@ -222,7 +304,7 @@ const LoginNew = (props) => {
                                             xs={12}
                                             sm={12}
                                             md={10}
-                                            xl={7}
+                                            xl={11}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -248,7 +330,7 @@ const LoginNew = (props) => {
                                             ) : null}
                                         </Col>
                                         <Row className="keepme_login">
-                                            <Col className="col-sm-4">
+                                            {/* <Col className="col-sm-4">
                                                 <FormGroup check>
                                                     <Input
                                                         type="checkbox"
@@ -268,7 +350,7 @@ const LoginNew = (props) => {
                                                         )}
                                                     </small>
                                                 </FormGroup>
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                     </div>
 
@@ -280,7 +362,7 @@ const LoginNew = (props) => {
                                             xs={12}
                                             sm={12}
                                             md={10}
-                                            xl={7}
+                                            xl={11}
                                         >
                                             <Button
                                                 {...logInBtn}
@@ -299,6 +381,7 @@ const LoginNew = (props) => {
                                                         formik.isValid
                                                     )
                                                 }
+                                                style={{ borderRadius: '0' }}
                                             />
                                         </Col>
                                     </div>
