@@ -95,6 +95,7 @@ import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
+import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 
 const Routers = () => {
     return (
@@ -297,6 +298,11 @@ const Routers = () => {
                         exact={true}
                         path="/teacher/faq"
                         component={TeacherFaqPage}
+                    />
+                    <Route
+                        exact={true}
+                        path="/teacher/forgotpassword"
+                        component={ForgotPasswordNew}
                     />
                     <ProtectedRoute
                         exact={true}
