@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
@@ -84,7 +85,7 @@ function RegisterNew() {
             full_name: '',
             organization_code: diesCode,
             username: '',
-            // mobile: '',
+            mobile: '',
             whatapp_mobile: '',
             role: 'MENTOR',
             qualification: '-',
@@ -115,10 +116,6 @@ function RegisterNew() {
                 .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
-            // username: Yup.string()
-            //     .trim()
-            //     .email('Invalid username format')
-            //     .required('Required'),
             gender: Yup.string().required('Please select valid gender'),
             title: Yup.string().required('Please select Title')
         }),
@@ -139,20 +136,37 @@ function RegisterNew() {
                     iv: iv,
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
-                values.password = encrypted;
-                await axios
-                    .post(
-                        `${URL.mentorRegister}`,
-                        JSON.stringify(values, null, 2),
-                        axiosConfig
-                    )
+                // values.password = encrypted;
+                const body = JSON.stringify({
+                    full_name: values.full_name,
+                    organization_code: values.organization_code,
+                    mobile: values.mobile,
+                    whatapp_mobile: values.whatapp_mobile,
+                    username: values.username,
+                    qualification: values.qualification,
+                    role: values.role,
+                    gender: values.gender,
+                    title: values.title,
+                    reg_status: values.reg_status,
+                    password: encrypted
+                });
+                var config = {
+                    method: 'post',
+                    url:
+                        process.env.REACT_APP_API_BASE_URL +
+                        '/mentors/register',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    data: body
+                };
+                await axios(config)
                     .then((mentorRegRes) => {
                         console.log(mentorRegRes);
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             setBtn(true);
-                            // setSchoolBtn(true);
-                            // setDiceBtn(false);
                         }
                     })
                     .catch((err) => {
@@ -217,6 +231,7 @@ function RegisterNew() {
         e.preventDefault();
     };
     const handleSendOtp = async (e) => {
+        formik.setFieldValue('mobile', formik.values.username);
         setSec(59);
         setCounter(59);
         if (change == 'Resend Otp') {
