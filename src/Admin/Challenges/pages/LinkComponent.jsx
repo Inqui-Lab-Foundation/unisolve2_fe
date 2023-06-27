@@ -12,7 +12,7 @@ const LinkComponent = ({ item }) => {
                     return (
                         <a
                             key={i}
-                            className="badge mb-2 bg-info p-3 ms-3"
+                            className="badge mb-2 bg-success p-3 ms-3"
                             href={ans}
                             target="_blank"
                             rel="noreferrer"
