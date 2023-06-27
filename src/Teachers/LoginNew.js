@@ -25,7 +25,6 @@ import i18next from 'i18next';
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
-    const password = 'password';
     const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
@@ -121,23 +120,7 @@ const LoginNew = (props) => {
                     <div className="col-md-4 aside mobile-header">
                         <Carousel>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={signuplogo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
+                                
 
                                 <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
                                     Together let’s learn and build something amazing.
@@ -156,23 +139,7 @@ const LoginNew = (props) => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={signuplogo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
+                                
 
                                 <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
                                     Together let’s learn and build something amazing.
@@ -191,23 +158,7 @@ const LoginNew = (props) => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={signuplogo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
+                                
 
                                 <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
                                     Together let’s learn and build something amazing.
@@ -321,7 +272,7 @@ const LoginNew = (props) => {
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
-                                                type={password}
+                                                type='password'
                                                 id="password"
                                                 name="password"
                                                 onChange={formik.handleChange}
@@ -345,27 +296,7 @@ const LoginNew = (props) => {
                                             // xl={12}
                                         >
                                             <Row className="keepme_login">
-                                                {/* <Col className="showp d-flex justify-content-start">
-                                                    <FormGroup check>
-                                                        <Input
-                                                            type="checkbox"
-                                                            name="acceptedTerms"
-                                                            className="my-auto"
-                                                            onClick={(e) =>
-                                                                handleShow(
-                                                                    e,
-                                                                    password
-                                                                )
-                                                            }
-                                                        />
-                                                        <small className="text-bold ">
-                                                            {' '}
-                                                            {t(
-                                                                'loginPage.Show_Password'
-                                                            )}
-                                                        </small>
-                                                    </FormGroup>
-                                                </Col>   */}
+                                                
                                                 <Col className="forgotp d-flex ">
                                                     <div
                                                         onClick={handleOnClick}
