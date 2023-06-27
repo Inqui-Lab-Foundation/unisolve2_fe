@@ -10,6 +10,7 @@ import {
 import {
     FaTh,
     FaThLarge,
+    FaLandmark,
     FaLightbulb,
     FaShieldVirus,
     FaBars,
@@ -152,6 +153,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {/* Courses */}
                             {t('home.courses')}
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaLandmark/>}
+                        className={
+                            (location.pathname === '/Student/Resources' ) && 
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            onClick={(e) => handleClick(e, '')}
+                            // onClick={(e) => handleClick(e, 'Resources')}
+                            to={'/Student/Resources/index'}
+                        >
+                            {t('Resources')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
