@@ -112,61 +112,49 @@ const LoginNew = (props) => {
                     <div className="col-md-4 aside mobile-header">
                         <Carousel>
                             <Carousel.Item>
-
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Creating change makers of tomorrow
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                             <Carousel.Item>
-
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fostering a generation of impactful leaders and innovators.
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                             <Carousel.Item>
-
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fueling the potential of future change catalysts.
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                         </Carousel>
                     </div>

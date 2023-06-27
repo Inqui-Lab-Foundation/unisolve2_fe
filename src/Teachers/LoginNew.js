@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect} from 'react';
 import { Row, Col, Form, Label,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -18,14 +18,14 @@ import teacherIcon from '../assets/media/teacher_login_icon.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
-import ForgotPassword from './ForgotPassword';
+// import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import i18next from 'i18next';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
-    const [showPopUp, setShowPopUp] = useState(false);
+    // const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
@@ -109,9 +109,9 @@ const LoginNew = (props) => {
     //         handlePassword('password');
     //     }
     // };
-    const handleOnClick = () => {
-        setShowPopUp(true);
-    };
+    // const handleOnClick = () => {
+    //     setShowPopUp(true);
+    // };
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
@@ -120,61 +120,49 @@ const LoginNew = (props) => {
                     <div className="col-md-4 aside mobile-header">
                         <Carousel>
                             <Carousel.Item>
-                                
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Creating change makers of tomorrow
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fostering a generation of impactful leaders and innovators.
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
-                                </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fueling the potential of future change catalysts.
-                                </p>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_1}
-                                            alt="ellipse_1"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                         </Carousel>
                     </div>
@@ -299,11 +287,21 @@ const LoginNew = (props) => {
                                                 
                                                 <Col className="forgotp d-flex ">
                                                     <div
-                                                        onClick={handleOnClick}
-                                                        className="text-link pt-1 text-primary "
-                                                        style={{ whiteSpace: 'nowrap' }}
+                                                        // onClick={handleOnClick}
+                                                        className="text-link pt-1 text-primary"
                                                     >
-                                                        {t('loginPage.Forgot_password')}
+                                                        {/* {t(
+                                                            'loginPage.Forgot_password'
+                                                        )} */}
+                                                        <Link
+                                                            exact="true"
+                                                            to="/teacher/forgotpassword"
+                                                            className="text-link pt-1"
+                                                        >
+                                                            {t(
+                                                                'loginPage.Forgot_password'
+                                                            )}
+                                                        </Link>
                                                     </div>
                                                 </Col>
  
@@ -346,13 +344,13 @@ const LoginNew = (props) => {
                     </Col>
                 </Row>
             </div>
-            {showPopUp && (
+            {/* {showPopUp && (
                 <ForgotPassword
                     show={showPopUp}
                     setShow={setShowPopUp}
                     onHide={() => setShowPopUp(false)}
                 />
-            )}
+            )} */}
         </React.Fragment>
     );
 };

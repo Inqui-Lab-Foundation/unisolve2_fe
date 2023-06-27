@@ -13,11 +13,12 @@ import * as Yup from 'yup';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { adminLoginUser } from '../redux/actions';
-
+import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../helpers/Utils';
 
 const LoginNew = (props) => {
+    const { t } = useTranslation();
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
@@ -106,17 +107,13 @@ const LoginNew = (props) => {
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
-                    <div className="col-md-4 aside mobile-header">
-                    <Carousel>
+                <div className="col-md-4 aside mobile-header">
+                        <Carousel>
                             <Carousel.Item>
-                               
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Creating change makers of tomorrow
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -128,14 +125,10 @@ const LoginNew = (props) => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                               
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fostering a generation of impactful leaders and innovators.
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -147,14 +140,10 @@ const LoginNew = (props) => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                               
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fueling the potential of future change catalysts.
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img

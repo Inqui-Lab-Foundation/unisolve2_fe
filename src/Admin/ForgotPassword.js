@@ -7,11 +7,13 @@ import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { InputBox } from "../stories/InputBox/InputBox";
 import { Button } from "../stories/Button";
 import { useFormik } from "formik";
+import { useTranslation } from 'react-i18next';
 import * as Yup from "yup";
 // import signuplogo from "../assets/media/logo-rect.svg";
 import ellipse_1 from "../assets/media/ellipse.svg";
 
 const ForgotPassword = () => {
+    const { t } = useTranslation();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -44,33 +46,13 @@ const ForgotPassword = () => {
         <React.Fragment>
             <div className='container-fluid  SignUp Login vh-100'>
                 <Row>
-                    <div className='col-md-4 aside mobile-header'>
+                    <div className="col-md-4 aside mobile-header">
                         <Carousel>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={logo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Creating change makers of tomorrow
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -82,30 +64,10 @@ const ForgotPassword = () => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={logo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fostering a generation of impactful leaders and innovators.
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -117,30 +79,10 @@ const ForgotPassword = () => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                {/* <div className="row">
-                                <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                        <Col
-                                            md={12}
-                                            className=" mr-auto mobile_tab-hide"
-                                        >
-                                            {' '}
-                                            <h2 className="text-white">
-                                                <img
-                                                    src={logo}
-                                                    alt="Signup logo"
-                                                    className="img-fluid w-50"
-                                                />
-                                            </h2>
-                                        </Col>
-                                    </a>
-                                </div> */}
-
-                                <h1 className="text-left pb-5 mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Together let’s learn and build something amazing.
+                                <h1 className="text-left pb-5 mobile_tab-hide">
+                                    {t('login.Title')}
                                 </h1>
-                                <p className="mobile_tab-hide" style={{ fontFamily: 'Roboto, sans-serif' }}>
-                                    Fueling the potential of future change catalysts.
-                                </p>
+                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -204,16 +146,16 @@ const ForgotPassword = () => {
                                         </Col>
                                     </div>
                                 </Form>
-                                {/* <p className='d-flex text-center '>
+                                <p className='d-flex text-center '>
                                     
                                     <Link
                                         exact='true'
-                                        to='/login'
+                                        to='/admin'
                                         className='p-0 blue text-link w-100'
                                     >
                     Back to Login
                                     </Link>
-                                </p> */}
+                                </p>
                             </Col>
                         </Row>
                     </Col>
