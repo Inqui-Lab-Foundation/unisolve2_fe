@@ -65,8 +65,10 @@ const SuccessPage = () => {
                                     <img
                                         src={successLogo}
                                         alt="successLogo"
-                                        style={{ width: '70%' }}
-                                        // className="img-fluid img-1"
+                                        style={{
+                                            width: '30%'
+                                        }}
+                                        className="img-fluid img-1"
                                     />
                                 </figure>
                                 <h3> Success !....</h3>
