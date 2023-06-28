@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
     - source: /
-      destination: /var/www/html/app/unisolve2_fe
+      destination: /var/www/html/unisolve2_fe
 file_exists_behavior: OVERWRITE
 hooks:
     BeforeInstall:
@@ -14,7 +14,7 @@ hooks:
           timeout: 300
           runas: ubuntu
 permissions:
-    - object: /var/www/html/app/unisolve2_fe
+    - object: /var/www/html/unisolve2_fe
 
       owner: ubuntu
       group: ubuntu
