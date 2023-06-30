@@ -10,6 +10,7 @@ import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { useFormik } from 'formik';
+import { Carousel } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -320,8 +321,8 @@ function RegisterNew() {
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
-                <div className="col-md-4 aside mobile-header">
-                    <div className="row">
+                <div className="col-md-6 aside mobile-header">
+                    {/* <div className="row">
                         <Link to={'/'} exact>
                             <Col md={12} className=" mr-auto mobile_tab-hide">
                                 {' '}
@@ -334,14 +335,12 @@ function RegisterNew() {
                                 </h2>
                             </Col>
                         </Link>
-                    </div>
+                    </div> */}
 
-                    <h1 className="text-left pb-5 mobile_tab-hide">
-                        Together let’s learn and build something amazing.
+                    {/* <h1 className="text-left pb-5 mobile_tab-hide">
+                        {t('login.Title')}
                     </h1>
-                    <p className="mobile_tab-hide">
-                        Creating change makers of tomorrow
-                    </p>
+                    <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                     <div className="mobile_tab-hide">
                         <figure>
                             <img
@@ -350,12 +349,72 @@ function RegisterNew() {
                                 className="img-fluid img-1"
                             />
                         </figure>
-                    </div>
+                    </div> */}
+                    <Carousel>
+                        <Carousel.Item>
+                            <h1 className="text-left pb-5 mobile_tab-hide">
+                                {t('login.Title')}
+                            </h1>
+                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={ellipse_1}
+                                        alt="ellipse_1"
+                                        className="img-fluid img-1"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <h1 className="text-left pb-5 mobile_tab-hide">
+                                {t('login.Title')}
+                            </h1>
+                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={ellipse_1}
+                                        alt="ellipse_1"
+                                        className="img-fluid img-1"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <h1 className="text-left pb-5 mobile_tab-hide">
+                                {t('login.Title')}
+                            </h1>
+                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={ellipse_1}
+                                        alt="ellipse_1"
+                                        className="img-fluid img-1"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item>
+                    </Carousel>
                 </div>
-                <Col xs={12} sm={12} md={8} xl={8} className="article">
-                    <Row className=" article-header mb-4">
+            
+                <Col xs={12} sm={12} md={6} xl={6} className="article">
+                    <div className="row">
+                        <Col md={12} className="mr-auto text-center">
+                            <h2 className="text-white">
+                            <img
+                                src={signuplogo}
+                                alt="Signup logo"
+                                className="img-fluid w-50"
+                            />
+                            </h2>
+                        </Col>
+                    </div>
+
+                    <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
-                            <span className="color-green">Register</span>
+                            <span className="color-black">Register Here</span>
                         </h4>
                     </Row>
 
@@ -368,8 +427,8 @@ function RegisterNew() {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -388,7 +447,7 @@ function RegisterNew() {
                                                 placeholder="Enter UDISE Code"
                                                 className="w-100 mb-3 mb-md-0"
                                                 style={{
-                                                    borderRadius: '60px',
+                                                    borderRadius: '0px',
                                                     padding: '9px 11px'
                                                 }}
                                             />
@@ -402,8 +461,7 @@ function RegisterNew() {
                                                         )}
                                                         btnClass={
                                                             !diesCode.length
-                                                                ? 'default '
-                                                                : 'primary'
+                                                                ? 'default rounded-0' : 'primary rounded-0'
                                                         }
                                                         size="small"
                                                         onClick={(e) =>
@@ -432,8 +490,8 @@ function RegisterNew() {
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
-                                                md={10}
-                                                xl={7}
+                                                md={12}
+                                                xl={12}
                                             >
                                                 <Label className="mb-3 w-100 mt-4">
                                                     <UncontrolledAlert color="primary ">
@@ -466,15 +524,15 @@ function RegisterNew() {
                                                 className="form-group"
                                                 xs={6}
                                                 sm={12}
-                                                md={10}
-                                                xl={7}
+                                                md={12}
+                                                xl={12}
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={2}
+                                                    xs={4}
                                                     sm={4}
                                                     md={4}
-                                                    xl={3}
+                                                    xl={4}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -490,6 +548,7 @@ function RegisterNew() {
                                                         name="title"
                                                         // id="gender"
                                                         className=" col-8 form-control custom-registerdropdown "
+                                                        style={{ borderRadius: '0' }}
                                                         value={
                                                             formik.values.title
                                                         }
@@ -538,10 +597,10 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
+                                                    xs={8}
                                                     sm={8}
-                                                    md={6}
-                                                    xl={4}
+                                                    md={8}
+                                                    xl={8}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -586,22 +645,22 @@ function RegisterNew() {
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
-                                                md={10}
-                                                xl={7}
+                                                md={12}
+                                                xl={12}
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={2}
+                                                    xs={4}
                                                     sm={4}
                                                     md={4}
-                                                    xl={3}
+                                                    xl={4}
                                                     // xs={12}
                                                     // sm={12}
                                                     // md={10}
                                                     // xl={7}
                                                 >
                                                     <Label
-                                                        className="mb-2"
+                                                        className="mb-2 mt-2"
                                                         htmlFor="gender"
                                                     >
                                                         {t(
@@ -612,6 +671,7 @@ function RegisterNew() {
                                                         name="gender"
                                                         // id="gender"
                                                         className=" col-8 SelectBox form-control custom-registerdropdown "
+                                                        style={{ borderRadius: '0' }}
                                                         value={
                                                             formik.values.gender
                                                         }
@@ -650,17 +710,17 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
+                                                    xs={8}
                                                     sm={8}
-                                                    md={6}
-                                                    xl={4}
+                                                    md={8}
+                                                    xl={8}
                                                     // xs={12}
                                                     // sm={12}
                                                     // md={10}
                                                     // xl={7}
                                                 >
                                                     <Label
-                                                        className="mb-2"
+                                                        className="mb-2 mt-2"
                                                         htmlFor="mobile"
                                                     >
                                                         {t(
@@ -744,15 +804,15 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
-                                                    md={10}
-                                                    xl={7}
+                                                    md={12}
+                                                    xl={12}
                                                 >
                                                     <Col
                                                         className="form-group"
                                                         xs={12}
                                                         sm={12}
-                                                        md={10}
-                                                        xl={7}
+                                                        md={12}
+                                                        xl={12}
                                                         // xs={6}
                                                         // sm={6}
                                                         // md={5}
@@ -802,8 +862,8 @@ function RegisterNew() {
                                                     label={change}
                                                     btnClass={
                                                         !disable
-                                                            ? 'default'
-                                                            : 'primary'
+                                                            ? 'default rounded-0'
+                                                            : 'primary rounded-0 '
                                                     }
                                                     onClick={(e) =>
                                                         handleSendOtp(e)
@@ -815,6 +875,7 @@ function RegisterNew() {
                                                             : true
                                                     }
                                                 />
+                                                
                                             </div>
                                             {btnOtp && (
                                                 <div
@@ -888,7 +949,7 @@ function RegisterNew() {
                                                         // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
-                                                            className=" w-50 mt-3 d-flex justify-content-center"
+                                                            className=" w-100 mt-3 d-flex justify-content-center"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -914,8 +975,8 @@ function RegisterNew() {
                                                             otpRes ==
                                                                 formik.values
                                                                     .otp
-                                                                ? 'primary '
-                                                                : 'default'
+                                                                ? 'primary rounded-0'
+                                                                : 'default rounded-0'
                                                         }
                                                         size="small w-50"
                                                         type="submit"
