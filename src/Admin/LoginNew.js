@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import ellipse_2 from '../assets/media/ellipse.svg';
 import { adminLoginUser } from '../redux/actions';
 import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
@@ -94,13 +94,6 @@ const LoginNew = (props) => {
         label: 'Login',
         size: 'large'
     };
-    // const handleShow = (e, type) => {
-    //     if (type === 'password') {
-    //         handlePassword('text');
-    //     } else {
-    //         handlePassword('password');
-    //     }
-    // };
 
     return (
         <React.Fragment>
@@ -117,8 +110,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_2}
+                                    alt="ellipse_2"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -128,8 +121,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_2}
+                                    alt="ellipse_2"
                                     className="img-fluid img-2"
                                 />
                             </figure>
@@ -139,8 +132,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_2}
+                                    alt="ellipse_2"
                                     className="img-fluid img-3"
                                 />
                             </figure>

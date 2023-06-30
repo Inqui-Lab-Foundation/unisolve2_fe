@@ -21,7 +21,7 @@ import { openNotificationWithIcon } from '../../helpers/Utils';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
-    // const password = 'password';
+
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
@@ -97,13 +97,7 @@ const LoginNew = (props) => {
         label: t('login.logIn'),
         size: 'large'
     };
-    // const handleShow = (e, type) => {
-    //     if (type === 'password') {
-    //         handlePassword('text');
-    //     } else {
-    //         handlePassword('password');
-    //     }
-    // };
+
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">

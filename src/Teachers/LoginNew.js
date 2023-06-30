@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
-// import logo from '../assets/media/logo-rect.svg';
-import ellipse_1 from '../assets/media/ellipse.svg';
+
+import ellipse_3 from '../assets/media/ellipse.svg';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 // import ForgotPassword from './ForgotPassword';
@@ -107,16 +107,7 @@ const LoginNew = (props) => {
         label: t('login.logIn'),
         size: 'large'
     };
-    // const handleShow = (e, type) => {
-    //     if (type === 'password') {
-    //         handlePassword('text');
-    //     } else {
-    //         handlePassword('password');
-    //     }
-    // };
-    // const handleOnClick = () => {
-    //     setShowPopUp(true);
-    // };
+
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
@@ -132,8 +123,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_3}
+                                    alt="ellipse_3"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -143,8 +134,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_3}
+                                    alt="ellipse_3"
                                     className="img-fluid img-2"
                                 />
                             </figure>
@@ -154,8 +145,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={ellipse_3}
+                                    alt="ellipse_3"
                                     className="img-fluid img-3"
                                 />
                             </figure>
@@ -340,7 +331,7 @@ const LoginNew = (props) => {
                                         <Link
                                             to={'/register'}
                                             exact
-                                            className="w-50 d-block text-center"
+                                            className="w-100 d-block text-center"
                                         >
                                             Click Here To Register
                                         </Link>
