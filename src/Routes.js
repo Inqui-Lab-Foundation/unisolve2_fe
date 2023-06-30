@@ -99,6 +99,9 @@ import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
+import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
+import SuccessPage from './Register/SuccessPage';
+
 
 const Routers = () => {
     return (
@@ -117,6 +120,11 @@ const Routers = () => {
                         path="/register"
                         render={() => <RegisterNew />}
                     />
+                    {/* <Route
+                        exact={true}
+                        path="/success"
+                        render={() => <SuccessPage />}
+                    /> */}
                     <ProtectedRoute
                         exact
                         path="/dashboard"
@@ -165,6 +173,11 @@ const Routers = () => {
                         path="/admin"
                         render={() => <AdminLogin />}
                     />
+                    <Route
+                        exact={true}
+                        path="/admin/success"
+                        render={() => <SuccessPage />}
+                    />
                     <ProtectedRoute
                         exact={true}
                         path="/admin/dashboard"
@@ -182,7 +195,7 @@ const Routers = () => {
                     />
                     <Route
                         exact={true}
-                        path="/admin/forgotpassword"
+                        path="/admin/password"
                         component={AdminForgotPassword}
                     />
                     <ProtectedRoute
