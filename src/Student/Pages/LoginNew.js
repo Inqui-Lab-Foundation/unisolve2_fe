@@ -109,13 +109,13 @@ const LoginNew = (props) => {
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
-                    <div className="col-md-4 aside mobile-header">
+                <div className="col-md-4 aside mobile-header">
+                        <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <Carousel>
                             <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                            {t('login.Title')}
-                        </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
@@ -127,31 +127,23 @@ const LoginNew = (props) => {
                         </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                            {t('login.Title')}
-                        </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
                                     src={ellipse_1}
                                     alt="ellipse_1"
-                                    className="img-fluid img-1"
+                                    className="img-fluid img-2"
                                 />
                             </figure>
                         </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                            {t('login.Title')}
-                        </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
                                     src={ellipse_1}
                                     alt="ellipse_1"
-                                    className="img-fluid img-1"
+                                    className="img-fluid img-3"
                                 />
                             </figure>
                         </div>
