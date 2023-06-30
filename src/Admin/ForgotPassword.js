@@ -47,12 +47,12 @@ const ForgotPassword = () => {
             <div className='container-fluid  SignUp Login vh-100'>
                 <Row>
                     <div className="col-md-4 aside mobile-header">
+                        <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
+                        </h1>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <Carousel>
-                            <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                                    {t('login.Title')}
-                                </h1>
-                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <Carousel.Item>                                
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -63,11 +63,7 @@ const ForgotPassword = () => {
                                     </figure>
                                 </div>
                             </Carousel.Item>
-                            <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                                    {t('login.Title')}
-                                </h1>
-                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <Carousel.Item>                                
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
@@ -78,11 +74,7 @@ const ForgotPassword = () => {
                                     </figure>
                                 </div>
                             </Carousel.Item>
-                            <Carousel.Item>
-                                <h1 className="text-left pb-5 mobile_tab-hide">
-                                    {t('login.Title')}
-                                </h1>
-                                <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            <Carousel.Item>                                
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
