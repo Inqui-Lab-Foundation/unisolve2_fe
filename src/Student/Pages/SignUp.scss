@@ -18,6 +18,15 @@
       display: table-cell;
       float: none;
       vertical-align: top;
+      width: 50%;
+    }
+    .aside {
+      /* Existing styles */
+      width: 50%; /* Set the width to 50% */
+    }
+    .article{
+      width:50%;
+
     }
   }
 
@@ -73,15 +82,23 @@
     }
     @media screen and (max-width: 767px) {
       padding: 4rem 2rem 0rem 2rem;
+
     }
     &-header {
       margin-bottom: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       h4 {
         color: var(--color-black-1);
         @media screen and (max-width: 397px) {
           font-size: 2.5rem;
         }
+        @media screen and (min-width: 768px) {
+          margin-right: 40px;
+        }
+        
       }
       p {
         &sub {
@@ -89,7 +106,10 @@
         }
       }
       .storybook-button--small {
+        display: flex;
         margin-right: 1.5rem;
+        justify-content: center;
+        align-items: center;
       }
       .studentDropdown .single-dropdown {
         width: 13rem;
@@ -122,16 +142,47 @@
   }
 }
 
+
+.logo-image {
+  width: 200px; /* Adjust the width to fit your logo size */
+  height: 100%; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Add some space below the logo */
+  @media screen and (min-width: 768px) {
+    margin-right: 40px;
+  }
+  display: flex;
+  justify-content: center;
+}
+
 .Login {
   .keepme_login {
+    @media screen and (min-width: 768px) {
+      .forgotp
+      {
+        margin-right: 5rem;
+      }
+    }
+    // display: flex;
     align-items: center;
     margin-top: 1rem;
+    // margin-right: -500px;
   }
   .aside {
     p {
       font-size: 2rem !important;
     }
   }
+  .InputBox .form-control {
+    border-radius: 0rem !important;
+    border: 0 !important;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+  }
+  .form-group .form-label{
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+  }
+
   .login-options {
     align-items: center;
     .storybook-button--primary-outline {
@@ -140,6 +191,7 @@
   }
   background-color: var(--color-white-5);
   .article {
+
     .wavingHand {
       animation-name: wavingHand; /* Refers to the name of your @keyframes element below */
       animation-duration: 2.5s; /* Change to speed up or slow down */
@@ -169,6 +221,22 @@
 
 .mobile-header {
   @media screen and (max-width: 767px) {
+    // .aside {
+    //   /* Existing styles */
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: auto;
+    //   padding: 6rem;
+    //   /* Rest of the styles */
+    // }
+  
+    // .article {
+    //   /* Existing styles */
+    //   padding: 4rem 2rem 0rem 2rem;
+    //   /* Rest of the styles */
+    // }
     padding: 2rem !important;
     .storybook-button {
       &--small {
@@ -224,14 +292,18 @@
 
 .login-div {
   margin-bottom: 3rem;
+  margin-right: 4rem;
   // background-color: var(--color-white-1);
   a{
     margin: 0 1rem;
     color: var(--color-black-1);
+    @media screen and (min-width: 768px) {
+      margin-right: 3rem;
+    }
     
     &:hover  {
-      color: var(--color-green);
-      border-bottom: 0.4rem solid var(--color-green);
+      color: var(--color-blue);
+      border-bottom: 0.4rem solid var(--color-blue);
     }
     button{
       font-size: 2rem;
@@ -250,8 +322,8 @@
       
     }
     .active {
-      color: var(--color-green);
-      border-bottom: 0.4rem solid var(--color-green);
+      color: var(--color-blue);
+      border-bottom: 0.4rem solid var(--color-blue);
     }
   }
  
