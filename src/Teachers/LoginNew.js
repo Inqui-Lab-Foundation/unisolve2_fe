@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
 import React, { useLayoutEffect} from 'react';
@@ -52,7 +53,10 @@ const LoginNew = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('Required email id'),
+            email: Yup.string().required('required').trim(),
+            // .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+            // .min(10, 'Please enter valid number')
+            // .max(10, 'Please enter valid number'),
             password: Yup.string().required('Required password')
         }),
         // TEACHER ROLE
@@ -89,8 +93,9 @@ const LoginNew = (props) => {
     });
 
     const inputUserId = {
-        type: 'text',
-        placeholder: t('loginPage.Enter_your_email')
+        type: 'mobile',
+        // placeholder: t('loginPage.Enter_your_email')
+        placeholder: 'Enter your Mobile number'
     };
 
     const inputPassword = {
@@ -215,7 +220,8 @@ const LoginNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                {t('loginPage.User_ID_Teacher')}
+                                                Mobile /phone
+                                                {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -329,6 +335,15 @@ const LoginNew = (props) => {
                                                 style={{ borderRadius: '0' }}
                                             />
                                         </Col>
+                                    </div>
+                                    <div className="form-row row mb-5">
+                                        <Link
+                                            to={'/register'}
+                                            exact
+                                            className="w-50 d-block text-center"
+                                        >
+                                            Click Here To Register
+                                        </Link>
                                     </div>
                                 </Form>
                             </Col>

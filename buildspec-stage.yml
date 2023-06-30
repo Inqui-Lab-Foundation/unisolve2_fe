@@ -12,7 +12,7 @@ phases:
             - npm install --force
     build:
         commands:
-            - npm run build:dev
+            - npm run build:staging
             - cp .htaccess build
             - chmod +x ./scripts/*.sh
     post_build:

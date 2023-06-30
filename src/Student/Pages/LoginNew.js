@@ -297,6 +297,7 @@ const LoginNew = (props) => {
                                             />
                                         </Col>
                                     </div>
+                                  
                                 </Form>
                             </Col>
                         </Row>
@@ -315,4 +316,3 @@ const mapStateToProps = ({ authUser }) => {
 export default connect(mapStateToProps, {
     loginUserAction: loginUser
 })(LoginNew);
-
