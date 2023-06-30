@@ -350,12 +350,13 @@ function RegisterNew() {
                             />
                         </figure>
                     </div> */}
+                    <h1 className="text-left pb-5 mobile_tab-hide">
+                        {t('login.Title')}
+                    </h1>
+                    <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                     <Carousel>
                         <Carousel.Item>
-                            <h1 className="text-left pb-5 mobile_tab-hide">
-                                {t('login.Title')}
-                            </h1>
-                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -367,10 +368,7 @@ function RegisterNew() {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <h1 className="text-left pb-5 mobile_tab-hide">
-                                {t('login.Title')}
-                            </h1>
-                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -382,10 +380,7 @@ function RegisterNew() {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <h1 className="text-left pb-5 mobile_tab-hide">
-                                {t('login.Title')}
-                            </h1>
-                            <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                            
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -878,16 +873,20 @@ function RegisterNew() {
                                                 
                                             </div>
                                             {btnOtp && (
-                                                <div
-                                                    className="w-50 d-block text-center"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
-                                                >
-                                                    <h3>
+                                                <div>
+                                                   <h3>
                                                         {time}:
                                                         {counter < 59
                                                             ? counter - '0'
                                                             : counter}
-                                                    </h3>
+                                                    </h3> 
+                                                
+                                                
+                                                <div
+                                                    className="w-100 d-block text-center"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                >
+                                                    
                                                     <Label
                                                         className="mb-2 mt-4  text-center "
                                                         htmlFor="otp"
@@ -941,6 +940,7 @@ function RegisterNew() {
                                                         />
                                                     </div>
                                                 </div>
+                                                </div>
                                             )}
                                             {formik.values.otp.length > 5 &&
                                                 otpRes != formik.values.otp && (
@@ -966,7 +966,7 @@ function RegisterNew() {
                                                         }
                                                         onClick={() => {
                                                             history.push(
-                                                                '/success'
+                                                                '/admin/success'
                                                             );
                                                         }}
                                                         btnClass={
