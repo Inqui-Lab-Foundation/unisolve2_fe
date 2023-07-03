@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useHistory } from 'react-router-dom';
 import {
     ProSidebar,
     Menu,
@@ -12,17 +12,13 @@ import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 
-import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import { useHistory } from 'react-router-dom';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import logoutIcon from '../assets/media/logoutIcon.png';
 
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
-    // const intl = useIntl();
-
     const location = useLocation();
     const history = useHistory();
     const { t } = useTranslation();
@@ -34,7 +30,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const menuIconClick = (val) => {
         //condition checking to change state from true to false and vice versa
         setMenuCollapse(val);
-        // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
 
     const handleLogout = (e) => {

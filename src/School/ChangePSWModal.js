@@ -92,7 +92,6 @@ const ChangePSWModal = (props) => {
                     })
                     .catch(function (error) {
                         console.log(error);
-                        // SetError(error.response.data.message);
                     });
             }
         }

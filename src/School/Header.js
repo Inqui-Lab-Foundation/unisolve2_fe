@@ -1,13 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-// import './Header.scss';
+import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
-import { VscBell } from 'react-icons/vsc';
 import AvatarImg from '../assets/media/img/Avatar.png';
-import { getAdminNotificationsList } from '../redux/actions';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { getCurrentUser, logout } from '../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 
@@ -15,27 +11,6 @@ const Header = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    // const profileOpt = {
-    //     options: [
-    //         { name: 'My Profile', path: '/admin/my-profile' },
-    //         { name: 'Logout', path: '', onClick: () => logout(history, t) }
-    //     ],
-    //     name: currentUser?.data[0]?.full_name,
-    //     img: AvatarImg
-    // };
-    // const notifyOpt = {
-    //     options: [
-    //         {
-    //             name: 'You have a new Notification',
-    //             path: '/admin/notifications',
-    //             data:
-    //                 props.notificationsList.length > 0
-    //                     ? props.notificationsList
-    //                     : []
-    //         }
-    //     ],
-    //     Icon: VscBell
-    // };
 
     const headerProps = {
         size: 'large',
@@ -90,12 +65,3 @@ const Header = (props) => {
     );
 };
 export default Header;
-
-// const mapStateToProps = ({ adminNotifications }) => {
-//     const { notificationsList, NotificationCount } = adminNotifications;
-//     return { notificationsList, NotificationCount };
-// };
-
-// export default connect(mapStateToProps, {
-//     getAdminNotificationsListActions: getAdminNotificationsList
-// })(Header);

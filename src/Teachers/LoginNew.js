@@ -42,8 +42,6 @@ const LoginNew = (props) => {
                 ? history.push('/evaluator/submitted-ideas')
                 : moduleName === 'EADMIN'
                 ? history.push('/eadmin/dashboard')
-                : moduleName === 'SCHOOL'
-                ? history.push('/school/dashboard')
                 : history.push('/dashboard');
         }
     }, []);
