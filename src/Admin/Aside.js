@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import UserIcon from '../assets/media/UserListIcon.svg';
-import DashboardIcon from '../assets/media/DashboardIcon.svg';
-import BadgesIcon from '../assets/media/BadgesIcon.svg';
-import TicketIcon from '../assets/media/ticket.png';
-import ReportIcon from '../assets/media/reports.png';
-import FaqIcon from '../assets/media/faq.png';
-import SchoolIcon from '../assets/media/schools.png';
-
+import UsersIcon1 from '../assets/media/UsersIcon1.png';
+import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
+import ChallengesIcon from '../assets/media/ChallengesIcon.png';
+import EvaluationIcon from '../assets/media/EvaluationIcon.png';
+import BadgesIcon from '../assets/media/BadgesIcon.png';
+import SupportIcon from '../assets/media/SupportIcon.png';
+import ReportIcon1 from '../assets/media/ReportIcon1.png';
+import FAQICON from '../assets/media/FAQICON.png';
+import InstituionsIcon from '../assets/media/InstitutionsIcon.jpg';
+import ProfileIcon from '../assets/media/ProfileIcon.png';
+import logoutIcon from '../assets/media/logoutIcon.png';
 import {
     ProSidebar,
     Menu,
@@ -15,12 +18,11 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaHouseUser, FaLightbulb, FaPen } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import { RiLogoutBoxRFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
 
@@ -97,7 +99,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={
                             <img
-                                src={DashboardIcon}
+                                src={DashboardIcon1}
                                 style={{ width: '20px' }}
                             />
                         }
@@ -106,12 +108,26 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/dashboard'}>
-                            Dashboard
+                        <NavLink
+                            exact={true}
+                            to={'/admin/dashboard'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Dashboard
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<FaLightbulb />}
+                        icon={
+                            <img
+                                src={ChallengesIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
                         className={
                             (location.pathname === '/admin/challenges' ||
                                 location.pathname ===
@@ -119,13 +135,27 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/challenges'}>
-                            Challenges
+                        <NavLink
+                            exact={true}
+                            to={'/admin/challenges'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Challenges
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
-                        icon={<FaPen />}
+                        icon={
+                            <img
+                                src={EvaluationIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
                         className={
                             (location.pathname === '/admin/evaluationStatus' ||
                                 location.pathname ===
@@ -133,25 +163,49 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/evaluationStatus'}>
-                            Evaluation Status
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem
-                        icon={<FaPen />}
-                        className={
-                            location.pathname === '/admin/evaluationProcess' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} to={'/admin/evaluationProcess'}>
-                            Evaluation Config
+                        <NavLink
+                            exact={true}
+                            to={'/admin/evaluationStatus'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluation Status
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
                         icon={
                             <img
-                                src={SchoolIcon}
+                                src={EvaluationIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
+                        className={
+                            location.pathname === '/admin/evaluationProcess' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/evaluationProcess'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluation Config
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={InstituionsIcon}
+                                style={{ width: '20px' }}
                                 className="img-fluid"
                                 alt="school"
                             />
@@ -164,12 +218,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/registered-schools'}>
-                            Institutions
+                        <NavLink
+                            exact={true}
+                            to={'/admin/registered-schools'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Institutions
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<img src={UserIcon} />}
+                        icon={
+                            <img src={UsersIcon1} style={{ width: '20px' }} />
+                        }
                         className={
                             (location.pathname === '/admin/userlist' ||
                                 location.pathname === '/admin/add-mentor' ||
@@ -177,26 +242,47 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/userlist'}>
-                            Users
+                        <NavLink
+                            exact={true}
+                            to={'/admin/userlist'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Users
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<img src={BadgesIcon} />}
+                        icon={
+                            <img src={BadgesIcon} style={{ width: '20px' }} />
+                        }
                         className={
                             location.pathname === '/admin/badges' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/badges'}>
-                            Badges
+                        <NavLink
+                            exact={true}
+                            to={'/admin/badges'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Badges
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
                         icon={
                             <img
-                                src={FaqIcon}
+                                src={FAQICON}
+                                style={{ width: '20px' }}
                                 className="img-fluid"
                                 alt="faq"
                             />
@@ -207,15 +293,25 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/faq'}>
-                            FAQs
+                        <NavLink
+                            exact={true}
+                            to={'/admin/faq'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                FAQs
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
                         icon={
                             <img
-                                src={TicketIcon}
+                                src={SupportIcon}
+                                style={{ width: '20px' }}
                                 className="img-fluid"
                                 alt="ticket"
                             />
@@ -225,15 +321,25 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/tickets'}>
-                            Support
+                        <NavLink
+                            exact={true}
+                            to={'/admin/tickets'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Support
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
                         icon={
                             <img
-                                src={FaqIcon}
+                                src={FAQICON}
+                                style={{ width: '20px' }}
                                 className="img-fluid"
                                 alt="faq"
                             />
@@ -243,15 +349,25 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/translation'}>
-                            Tranlsation
+                        <NavLink
+                            exact={true}
+                            to={'/admin/translation'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Translation
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
                         icon={
                             <img
-                                src={ReportIcon}
+                                src={ReportIcon1}
+                                style={{ width: '20px' }}
                                 className="img-fluid"
                                 alt="report"
                             />
@@ -261,29 +377,71 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/reports'}>
-                            Reports
+                        <NavLink
+                            exact={true}
+                            to={'/admin/reports'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Reports
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
-                        icon={<FaHouseUser />}
+                        icon={
+                            <img
+                                src={ProfileIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="report"
+                            />
+                        }
                         className={
                             location.pathname === '/admin/my-profile' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/my-profile'}>
-                            My Profile
+                        <NavLink
+                            exact={true}
+                            to={'/admin/my-profile'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                My Profile
+                            </span>
                         </NavLink>
                     </MenuItem>
 
                     <MenuItem
-                        icon={<RiLogoutBoxRFill />}
+                        icon={
+                            <img
+                                src={logoutIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="report"
+                            />
+                        }
                         className={location.pathname === '' && 'sidebar-active'}
                     >
-                        <NavLink exact={true} onClick={handleLogout} to={''}>
-                            Logout
+                        <NavLink
+                            exact={true}
+                            onClick={handleLogout}
+                            to={''}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Logout
+                            </span>
                         </NavLink>
                     </MenuItem>
                 </Menu>

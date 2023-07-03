@@ -8,13 +8,16 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import signuplogo from '../assets/media/logo-rect.svg';
+import { useTranslation } from 'react-i18next';
+import { Carousel } from 'react-bootstrap';
+import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 const ForgotPasswordNew = () => {
+    const { t } = useTranslation();
     const [errorMsg, seterrorMsg] = useState('');
     const inputMobile = {
         type: 'mobile',
@@ -70,44 +73,58 @@ const ForgotPasswordNew = () => {
             <div className="container-fluid  SignUp Login vh-100">
                 <Row>
                     <div className="col-md-4 aside mobile-header">
-                        <div className="row">
-                            <Col md={12} className=" mr-auto mobile_tab-hide">
-                                {' '}
-                                <h2 className="text-white">
-                                    <img
-                                        src={signuplogo}
-                                        alt="Signup logo"
-                                        className="img-fluid"
-                                    />
-                                    Unisolve
-                                </h2>
-                            </Col>
-                        </div>
-
                         <h1 className="text-left pb-5 mobile_tab-hide">
-                            Together let’s learn and build something amazing.
+                            {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">
-                            Creating change makers of tomorrow
-                        </p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <Carousel>
+                            <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
                                     src={ellipse_1}
                                     alt="ellipse_1"
-                                    style={{ width: '70%' }}
                                     className="img-fluid img-1"
                                 />
                             </figure>
                         </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_1}
+                                    alt="ellipse_1"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item>
+                        </Carousel>
                     </div>
-                    <Col xs={12} sm={12} md={8} xl={8} className="article">
-                        <Row className="mb-0 h-100">
+                    <Col xs={12} sm={12} md={12} xl={12} className="article">
+                        <Row className="logo">
+                            <Col md={12} className="d-flex justify-content-center align-items-center">
+                                <img src={logo} alt="Logo" className="logo-image" />
+                            </Col>
+                        </Row>
+                        <Row className="mb-0">
                             <Col
                                 xs={12}
                                 sm={12}
-                                md={10}
-                                xl={8}
+                                md={12}
+                                xl={11}
                                 className="my-auto"
                             >
                                 <h4>Did you forgot your password?</h4>
@@ -169,6 +186,7 @@ const ForgotPasswordNew = () => {
                                                     formik.isValid
                                                 )
                                             }
+                                            style={{ borderRadius: '0' }}
                                         />
                                     </div>
                                 </Form>

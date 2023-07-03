@@ -23,6 +23,7 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import OtpInput from 'react-otp-input-rc-17';
 import { useHistory } from 'react-router-dom';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 function RegisterNew() {
     const { t } = useTranslation();
@@ -45,6 +46,8 @@ function RegisterNew() {
     const [time] = useState('00');
     const [counter, setCounter] = useState(59);
     const [sec, setSec] = useState(59);
+    const [disable, setDisable] = useState(false);
+    const [timer, setTimer] = useState(0);
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
@@ -167,6 +170,7 @@ function RegisterNew() {
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             setBtn(true);
+                            // setRegBtn(true);
                         }
                     })
                     .catch((err) => {
@@ -214,6 +218,7 @@ function RegisterNew() {
                                 'organization_code',
                                 response?.data?.data[0].organization_code
                             );
+
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
@@ -231,16 +236,23 @@ function RegisterNew() {
         e.preventDefault();
     };
     const handleSendOtp = async (e) => {
+        setDisable(false);
         formik.setFieldValue('mobile', formik.values.username);
+        setTimer(timer + 1);
         setSec(59);
         setCounter(59);
         if (change == 'Resend Otp') {
-            if (sec == 59) {
+            if (!sec) {
                 setSec(sec - 1);
             }
         } else {
             setSec(sec - 1);
         }
+        setTimeout(() => {
+            setChange('Resend Otp');
+            setDisable(true);
+            setTimer(0);
+        }, 60000);
         const body = JSON.stringify({
             mobile: formik.values.username
         });
@@ -260,17 +272,33 @@ function RegisterNew() {
                 setBtnOtp(true);
             }
         });
-
-        const timeOut = setTimeout(() => {
-            setChange('Resend Otp');
-        }, 60000);
         e.preventDefault();
     };
     useEffect(() => {
-        if (sec == 58) {
+        if (!disable) {
             counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
         }
-    }, [counter, sec]);
+    }, [counter, disable]);
+
+    useEffect(() => {
+        if (
+            formik.values.title.length > 0 &&
+            formik.values.full_name.length > 0 &&
+            formik.values.gender.length > 0 &&
+            formik.values.username.length > 0 &&
+            formik.values.whatapp_mobile.length > 0
+        ) {
+            setDisable(true);
+        } else {
+            setDisable(false);
+        }
+    }, [
+        formik.values.title,
+        formik.values.full_name,
+        formik.values.gender,
+        formik.values.username,
+        formik.values.whatapp_mobile
+    ]);
 
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
@@ -773,10 +801,7 @@ function RegisterNew() {
                                                 <Button
                                                     label={change}
                                                     btnClass={
-                                                        !(
-                                                            formik.dirty &&
-                                                            formik.isValid
-                                                        )
+                                                        !disable
                                                             ? 'default'
                                                             : 'primary'
                                                     }
@@ -785,10 +810,9 @@ function RegisterNew() {
                                                     }
                                                     size="small"
                                                     disabled={
-                                                        !(
-                                                            formik.dirty &&
-                                                            formik.isValid
-                                                        )
+                                                        timer == 0
+                                                            ? false
+                                                            : true
                                                     }
                                                 />
                                             </div>
@@ -876,7 +900,14 @@ function RegisterNew() {
                                             {btnOtp && (
                                                 <div className="mt-5">
                                                     <Button
-                                                        label={'Continue'}
+                                                        label={
+                                                            ' Click Here To Register'
+                                                        }
+                                                        onClick={() => {
+                                                            history.push(
+                                                                '/success'
+                                                            );
+                                                        }}
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
@@ -886,7 +917,7 @@ function RegisterNew() {
                                                                 ? 'primary '
                                                                 : 'default'
                                                         }
-                                                        size="small"
+                                                        size="small w-50"
                                                         type="submit"
                                                     />
                                                 </div>
@@ -894,8 +925,19 @@ function RegisterNew() {
                                         </Col>
                                     </div>
                                 )}
-                                {/* {btn && ( */}
-                                <Modal
+                                {/* {regBtn && (
+                                    <Button
+                                        label="Click Here to Continue"
+                                        btnClass={'primary mt-5'}
+                                        centered
+                                        size="small"
+                                        type="submit"
+                                        onClick={() => {
+                                            history.push('/teacher');
+                                        }}
+                                    />
+                                )} */}
+                                {/* <Modal
                                     size="lg"
                                     aria-labelledby="contained-modal-title-vcenter"
                                     centered
@@ -945,7 +987,7 @@ function RegisterNew() {
                                             </div>
                                         </div>
                                     </Modal.Body>
-                                </Modal>
+                                </Modal> */}
                                 {/* )} */}
                             </Form>
                         </Col>
