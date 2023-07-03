@@ -18,7 +18,6 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 const ChangePSWModal = (props) => {
-    // here we can change the  teacher password //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const { t } = useTranslation();
@@ -70,7 +69,7 @@ const ChangePSWModal = (props) => {
                         currentUser?.data[0]?.organization_id
                     )
                 });
-                var config = {
+                const config = {
                     method: 'put',
                     url:
                         process.env.REACT_APP_API_BASE_URL +
@@ -100,7 +99,6 @@ const ChangePSWModal = (props) => {
         SetError('');
         setErrorText('');
     }, [formik.values]);
-    //----password fields initial state and hide show password
     const [oldPassType, setOldPassType] = useState('password');
     const [newPassType, setNewPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
@@ -111,25 +109,20 @@ const ChangePSWModal = (props) => {
     };
 
     const newPassword = {
-        //  here we can generate new password //
         type: newPassType,
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
-        // here  newPassword  is confirmPassword //
         type: confirmPassType,
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
-        //here we can cancel the changes //
         history.push('/school/dashboard');
     };
     const handleShowPassword = (name) => {
-        // here we can see the password //
-        // here name = Password //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

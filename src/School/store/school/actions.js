@@ -28,7 +28,6 @@ export const schoolLoginUser = (data, history, module) => async (dispatch) => {
     try {
         const loginData = {
             ...data
-            // passwordConfirmation: data.password
         };
         dispatch({ type: SCHOOL_LOGIN_USER });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -47,17 +46,21 @@ export const schoolLoginUser = (data, history, module) => async (dispatch) => {
             dispatch(schoolLoginUserSuccess(result));
             history.push('/school/dashboard');
         } else {
-            // dispatch(schoolLoginUserError(result.statusText));
-            openNotificationWithIcon('error', 'Enter the correct credentials');
+            if (result && result.status === 200) {
+                openNotificationWithIcon(
+                    'error',
+                    'Enter the correct credentials'
+                );
+            } else {
+                openNotificationWithIcon(
+                    'error',
+                    'User is ditected as inactive'
+                );
+            }
         }
     } catch (error) {
         console.log(error);
         dispatch(schoolLoginUserError({}));
-        // NotificationManager.error(
-        //   "Server down! Please try again later.",
-        //   "Error",
-        //   3000
-        // );
     }
 };
 

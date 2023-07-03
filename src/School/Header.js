@@ -3,22 +3,10 @@ import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
 import AvatarImg from '../assets/media/img/Avatar.png';
-import { useHistory } from 'react-router-dom';
-import { getCurrentUser, logout } from '../helpers/Utils';
-import { useTranslation } from 'react-i18next';
+import { getCurrentUser } from '../helpers/Utils';
 
 const Header = (props) => {
-    const { t } = useTranslation();
-    const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-
-    const headerProps = {
-        size: 'large',
-        placeholder: 'Search',
-        isLogin: false
-    };
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    // const open = Boolean(anchorEl);
 
     window.onunload = function () {
         localStorage.setItem('headerOption', JSON.stringify('Home'));

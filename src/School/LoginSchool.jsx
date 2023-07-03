@@ -67,9 +67,7 @@ function LoginSchool(props) {
             discecode: Yup.string().required('required'),
             password: Yup.string().required('required')
         }),
-        // ADMIN ROLE
         onSubmit: (values) => {
-            console.log('11111111');
             if (
                 localStorage.getItem('current_user') &&
                 localStorage.getItem('module')
@@ -95,7 +93,6 @@ function LoginSchool(props) {
             const body = {
                 organization_code: values.discecode,
                 password: encrypted
-                // role: 'SCHOOL'
             };
             props.schoolLoginUserAction(body, history, 'SCHOOL');
         }
@@ -237,15 +234,6 @@ function LoginSchool(props) {
                                                     </small>
                                                 </FormGroup>
                                             </Col>
-                                            {/* <Col className="col-sm-8 text-right">
-                                                <Link
-                                                    exact="true"
-                                                    to="/admin/forgotpassword"
-                                                    className="text-link pt-1"
-                                                >
-                                                    Forgot your password
-                                                </Link>
-                                            </Col> */}
                                         </Row>
                                     </Col>
                                 </div>
