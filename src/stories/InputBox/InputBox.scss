@@ -6,7 +6,8 @@
         font-size: 1.9rem;
         border: 0.1rem solid var(--color-grey-light-3);
         box-sizing: border-box;
-        border-radius: 6rem;
+        border-radius: 0;
+        font-family: "Roboto", sans-serif;
         font-style: normal;
         font-weight: 600;
         // width: 9.9rem;
@@ -17,7 +18,7 @@
     .form-control1 {
         border: 0.1rem solid var(--color-grey-light-3);
         box-sizing: border-box;
-        border-radius: 6rem;
+        border-radius: 0rem;
         // width: 16.5rem;
         // height: 2.5rem;
     }
@@ -35,9 +36,16 @@
         // padding: 12px 24px;
         // width: 466px;
     }
+    .eye-icon {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 }
 .defaultInput > input {
-    border-radius: 1rem !important;
+    border-radius: 0rem !important;
     background: var(--color-white-3);
 }
 .InputBox {
