@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -41,7 +42,6 @@ import IndividualReport from './Admin/Reports/ReportFilter';
 import AdminChallengesComp from './Admin/Badges/Badges';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
 import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
-
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
@@ -97,6 +97,9 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
 import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 import SuccessPage from './Register/SuccessPage';
+import LoginSchool from './School/LoginSchool';
+import DashboardSchool from './School/Dashboard';
+import SchoolChangePSWModal from './School/ChangePSWModal';
 
 const Routers = () => {
     return (
@@ -115,11 +118,27 @@ const Routers = () => {
                         path="/register"
                         render={() => <RegisterNew />}
                     />
-                    {/* <Route
+                    <Route
                         exact={true}
                         path="/success"
                         render={() => <SuccessPage />}
-                    /> */}
+                    />
+                    <Route
+                        exact={true}
+                        path="/school"
+                        render={() => <LoginSchool />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/school/dashboard"
+                        component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/school-changePassword"
+                        component={SchoolChangePSWModal}
+                    />
+
                     <ProtectedRoute
                         exact
                         path="/dashboard"
@@ -163,11 +182,7 @@ const Routers = () => {
                         path="/admin"
                         render={() => <AdminLogin />}
                     />
-                    <Route
-                        exact={true}
-                        path="/admin/success"
-                        render={() => <SuccessPage />}
-                    />
+
                     <ProtectedRoute
                         exact={true}
                         path="/admin/dashboard"

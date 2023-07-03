@@ -6,6 +6,7 @@ export const UserRole = {
 
 export const URL = {
     // Post //
+    schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
     eadminLogin:
@@ -69,6 +70,7 @@ export const URL = {
 
     //Get//
     logOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+    schoolLogOut: process.env.REACT_APP_API_BASE_URL + '/organizations/logout',
     adminLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     teacherLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
@@ -89,6 +91,7 @@ export const URL = {
     mentorRegister: `${process.env.REACT_APP_API_BASE_URL}/mentors/register`,
     mentorOTP: `${process.env.REACT_APP_API_BASE_URL}/mentors/validateOtp`,
     mentorChangePwd: `${process.env.REACT_APP_API_BASE_URL}/mentors/changePassword`,
+    schoolChangePwd: `${process.env.REACT_APP_API_BASE_URL}/organizations/changePassword`,
     getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
     getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
     getReportsView: `${process.env.REACT_APP_API_BASE_URL}/reports/challengesDistrictCount`,
