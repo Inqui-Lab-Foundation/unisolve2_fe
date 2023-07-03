@@ -8,13 +8,16 @@ import {
     SidebarContent
 } from 'react-pro-sidebar';
 import { FaBars } from 'react-icons/fa';
-import DashboardIcon from '../assets/media/DashboardIcon.svg';
+import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
+
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import logoutIcon from '../assets/media/logoutIcon.png';
+
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
@@ -35,7 +38,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     };
 
     const handleLogout = (e) => {
-        logout(history, t, 'SCHOOL');
+        logout(history, t, 'school');
         e.preventDefault();
     };
 
@@ -87,7 +90,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={
                             <img
-                                src={DashboardIcon}
+                                src={DashboardIcon1}
                                 style={{ width: '20px' }}
                             />
                         }
@@ -96,10 +99,19 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/school/dashboard'}>
-                            Dashboard
+                        <NavLink
+                            exact={true}
+                            to={'/school/dashboard'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Dashboard
+                            </span>
                         </NavLink>
-                    </MenuItem>{' '}
+                    </MenuItem>
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
@@ -108,15 +120,33 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/school-changePassword'}>
-                            Change Password
+                            {t('teacher.password')}
                         </NavLink>
                     </MenuItem>
+
                     <MenuItem
-                        icon={<RiLogoutBoxRFill />}
+                        icon={
+                            <img
+                                src={logoutIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="report"
+                            />
+                        }
                         className={location.pathname === '' && 'sidebar-active'}
                     >
-                        <NavLink exact={true} onClick={handleLogout} to={''}>
-                            Logout
+                        <NavLink
+                            exact={true}
+                            onClick={handleLogout}
+                            to={''}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Logout
+                            </span>
                         </NavLink>
                     </MenuItem>
                 </Menu>

@@ -64,9 +64,11 @@ const ChangePSWModal = (props) => {
                 }).toString();
 
                 const body = JSON.stringify({
-                    user_id: JSON.stringify(currentUser?.data[0]?.user_id),
                     old_password: old1,
-                    new_password: new1
+                    new_password: new1,
+                    organization_id: JSON.stringify(
+                        currentUser?.data[0]?.organization_id
+                    )
                 });
                 var config = {
                     method: 'put',
@@ -81,6 +83,7 @@ const ChangePSWModal = (props) => {
                 };
                 axios(config)
                     .then(function (response) {
+                        console.log('response', response);
                         SetResponce('Password updated successfully');
                         setTimeout(() => {
                             SetResponce('');
@@ -88,7 +91,8 @@ const ChangePSWModal = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
-                        SetError(error.response.data.message);
+                        console.log(error);
+                        // SetError(error.response.data.message);
                     });
             }
         }

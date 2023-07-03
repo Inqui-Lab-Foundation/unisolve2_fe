@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../Layout';
 import './dashboard.scss';
 
-function index() {
+const Dashboard = () => {
     return (
         <Layout>
             <div className="container dashboard-wrapper mt-5 mb-50">
@@ -13,6 +13,6 @@ function index() {
             </div>
         </Layout>
     );
-}
+};
 
-export default index;
+export default Dashboard;

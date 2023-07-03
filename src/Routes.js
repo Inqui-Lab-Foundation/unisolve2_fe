@@ -63,7 +63,7 @@ import TeacherViewTeamMember from './Teachers/Teams/ViewTeamMember';
 import TeacherEditTeamMember from './Teachers/Teams/EditTeamMember';
 import TeacherPlayVideo from './Teachers/Courses/TeacherPlayVideo';
 import TeacherMyProfile from './Teachers/MyProfile';
-import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
+// import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 import TeacherSupport from './Teachers/SupportJourney/Ticket';
 import TeacherSupportAdd from './Teachers/SupportJourney/AddNewTicket';
 import TeacherSupportAnswer from './Teachers/SupportJourney/TicketResponse';
@@ -104,7 +104,6 @@ import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
 import SchoolChangePSWModal from './School/ChangePSWModal';
-
 
 const Routers = () => {
     return (
