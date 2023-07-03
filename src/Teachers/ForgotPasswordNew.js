@@ -124,7 +124,7 @@ const ForgotPasswordNew = () => {
                                 xs={12}
                                 sm={12}
                                 md={12}
-                                xl={11}
+                                xl={12}
                                 className="my-auto"
                             >
                                 <h4>Did you forgot your password?</h4>

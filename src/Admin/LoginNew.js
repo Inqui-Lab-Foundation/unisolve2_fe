@@ -161,8 +161,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -194,8 +194,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -225,8 +225,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Row className="keepme_login">
                                                 
@@ -247,8 +247,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}

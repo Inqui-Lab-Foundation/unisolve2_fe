@@ -103,7 +103,7 @@ const LoginNew = (props) => {
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
-                <div className="col-md-4 aside mobile-header">
+                    <div className="col-md-4 aside mobile-header">
                         <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
@@ -196,8 +196,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label 
                                                 className="mb-2"
@@ -229,8 +229,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -267,8 +267,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}
