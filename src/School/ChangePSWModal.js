@@ -22,7 +22,7 @@ const ChangePSWModal = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
     const [error, SetError] = useState('');
-    const [responce, SetResponce] = useState('');
+    const [res, SetRes] = useState('');
     // eslint-disable-next-line no-unused-vars
 
     const formik = useFormik({
@@ -33,18 +33,18 @@ const ChangePSWModal = (props) => {
         },
 
         validationSchema: Yup.object({
-            oldPassword: Yup.string().required(t('login.error_required')),
-            newPassword: Yup.string().required(t('login.error_required')),
-            confirmPassword: Yup.string().required(t('login.error_required'))
+            oldPassword: Yup.string().required('Required'),
+            newPassword: Yup.string().required('Required'),
+            confirmPassword: Yup.string().required('Required')
         }),
 
         onSubmit: (values) => {
             if (values.newPassword.length < 8) {
-                SetError('New Password must be 8-character minimum');
+                SetError('New Password must be 8-character minimum .');
             } else if (values.oldPassword === values.newPassword) {
-                SetError('Old Password and New Password are same');
+                SetError('Old Password and New Password are same .');
             } else if (values.newPassword !== values.confirmPassword) {
-                SetError('New Password and Confirm Password not same');
+                SetError('New Password and Confirm Password not same .');
             } else {
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
@@ -81,10 +81,9 @@ const ChangePSWModal = (props) => {
                 };
                 axios(config)
                     .then(function (response) {
-                        console.log('response', response);
-                        SetResponce('Password updated successfully');
+                        SetRes('Password updated successfully');
                         setTimeout(() => {
-                            SetResponce('');
+                            SetRes('');
                             history.push('/school/dashboard');
                         }, 1000);
                     })
@@ -96,46 +95,44 @@ const ChangePSWModal = (props) => {
     });
     useEffect(() => {
         SetError('');
-        // setErrorText('');
-        // console.log(setErrorText, 'setErrorText');
     }, [formik.values]);
     const [oldPassType, setOldPassType] = useState('password');
     const [newPassType, setNewPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
     const oldPassword = {
         type: oldPassType,
-        placeholder: t('changepswd.Enter_current_password_here'),
+        placeholder: t('schoolpswd.Enter_current_password_here'),
         className: 'defaultInput'
     };
 
     const newPassword = {
         type: newPassType,
-        placeholder: t('changepswd.Create_new_password_here'),
+        placeholder: t('schoolpswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
         type: confirmPassType,
-        placeholder: t('changepswd.Verify_New_password'),
+        placeholder: t('schoolpswd.Verify_New_password'),
         className: 'defaultInput'
     };
-    const handleOnCancel = () => {
+    const handleOnCancelPassword = () => {
         history.push('/school/dashboard');
     };
-    const handleShowPassword = (name) => {
-        switch (name) {
+    const handleShowPassword = (show) => {
+        switch (show) {
             case oldPassword:
-                name?.type === 'password'
+                show?.type === 'password'
                     ? setOldPassType('text')
                     : setOldPassType('password');
                 break;
             case newPassword:
-                name?.type === 'password'
+                show?.type === 'password'
                     ? setNewPassType('text')
                     : setNewPassType('password');
                 break;
             case confirmPassword:
-                name?.type === 'password'
+                show?.type === 'password'
                     ? setConfirmPassType('text')
                     : setConfirmPassType('password');
                 break;
@@ -146,10 +143,10 @@ const ChangePSWModal = (props) => {
             <div className="container ChangePSWModal mb-5">
                 <Row className="mt-5 change-password">
                     <Col md={12}>
-                        <h2>{t('changepswd.Change your password')}</h2>
+                        <h2>{t('schoolpswd.Change your password')}</h2>
                         <p>
                             {t(
-                                'changepswd.password_helps_prevent_unauthorized'
+                                'schoolpswd.password_helps_prevent_unauthorized'
                             )}
                         </p>
                     </Col>
@@ -163,7 +160,7 @@ const ChangePSWModal = (props) => {
                                 >
                                     <Label className="mb-2" htmlFor="Password">
                                         <h3>
-                                            {t('changepswd.Current_password')}
+                                            {t('schoolpswd.Current_password')}
                                         </h3>
                                     </Label>
                                     <InputBox
@@ -205,7 +202,7 @@ const ChangePSWModal = (props) => {
                                         className="mb-2"
                                         htmlFor="newPassword"
                                     >
-                                        <h3>{t('changepswd.New_password')}</h3>
+                                        <h3>{t('schoolpswd.New_password')}</h3>
                                     </Label>
                                     <InputBox
                                         {...newPassword}
@@ -230,7 +227,7 @@ const ChangePSWModal = (props) => {
                                     </div>
                                     <small className="mt-2">
                                         {t(
-                                            'changepswd.8-charac_minimum_case_sensitive'
+                                            'schoolpswd.8-charac_minimum_case_sensitive'
                                         )}
                                     </small>
                                     {formik.touched.newPassword &&
@@ -251,7 +248,7 @@ const ChangePSWModal = (props) => {
                                     >
                                         <h3>
                                             {t(
-                                                'changepswd.Verify_New_password'
+                                                'schoolpswd.Verify_New_password'
                                             )}
                                         </h3>
                                     </Label>
@@ -285,7 +282,7 @@ const ChangePSWModal = (props) => {
                                 </Col>
                             </div>
                             <b style={{ color: 'red' }}>{error}</b>
-                            <b style={{ color: '#3BB143' }}>{responce}</b>
+                            <b style={{ color: '#3BB143' }}>{res}</b>
                             <div
                                 className="swal2-actions"
                                 style={{
@@ -295,16 +292,16 @@ const ChangePSWModal = (props) => {
                                 }}
                             >
                                 <button
-                                    onClick={handleOnCancel}
+                                    onClick={handleOnCancelPassword}
                                     className="btn btn-outline-secondary rounded-pill sweet-btn-max"
                                 >
-                                    {t('changepswd.Cancel')}
+                                    {t('schoolpswd.Cancel')}
                                 </button>
                                 <button
                                     type="submit"
                                     className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
                                 >
-                                    {t('changepswd.Change_password')}
+                                    {t('schoolpswd.Change_password')}
                                 </button>
                             </div>
                         </Form>

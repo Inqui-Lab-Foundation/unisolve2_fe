@@ -16,7 +16,7 @@ import CryptoJS from 'crypto-js';
 
 function LoginSchool(props) {
     const history = useHistory();
-    const [password, handlePassword] = useState('password');
+    const [password, handleSetPassword] = useState('password');
 
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
@@ -46,11 +46,11 @@ function LoginSchool(props) {
     const inputPassword = {
         placeholder: 'Enter password'
     };
-    const handleShow = (e, type) => {
+    const handleShowPassword = (e, type) => {
         if (type === 'password') {
-            handlePassword('text');
+            handleSetPassword('text');
         } else {
-            handlePassword('password');
+            handleSetPassword('password');
         }
     };
     const logInBtn = {
@@ -222,7 +222,7 @@ function LoginSchool(props) {
                                                         name="acceptedTerms"
                                                         className="my-auto"
                                                         onClick={(e) =>
-                                                            handleShow(
+                                                            handleShowPassword(
                                                                 e,
                                                                 password
                                                             )
