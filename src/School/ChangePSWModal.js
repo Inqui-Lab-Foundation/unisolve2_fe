@@ -96,23 +96,24 @@ const ChangePSWModal = (props) => {
     useEffect(() => {
         SetError('');
     }, [formik.values]);
-    const [oldPassType, setOldPassType] = useState('password');
-    const [newPassType, setNewPassType] = useState('password');
-    const [confirmPassType, setConfirmPassType] = useState('password');
-    const oldPassword = {
-        type: oldPassType,
+    const [oldPassTypeValue, setOldPassTypeValue] = useState('password');
+    const [newPassTypeValue, setNewPassTypeValue] = useState('password');
+    const [confirmPassTypeValue, setConfirmPassTypeValue] =
+        useState('password');
+    const oldPasswordData = {
+        type: oldPassTypeValue,
         placeholder: t('schoolpswd.Enter_current_password_here'),
         className: 'defaultInput'
     };
 
-    const newPassword = {
-        type: newPassType,
+    const newPasswordData = {
+        type: newPassTypeValue,
         placeholder: t('schoolpswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
-    const confirmPassword = {
-        type: confirmPassType,
+    const confirmPasswordData = {
+        type: confirmPassTypeValue,
         placeholder: t('schoolpswd.Verify_New_password'),
         className: 'defaultInput'
     };
@@ -121,20 +122,20 @@ const ChangePSWModal = (props) => {
     };
     const handleShowPassword = (show) => {
         switch (show) {
-            case oldPassword:
+            case oldPasswordData:
                 show?.type === 'password'
-                    ? setOldPassType('text')
-                    : setOldPassType('password');
+                    ? setOldPassTypeValue('text')
+                    : setOldPassTypeValue('password');
                 break;
-            case newPassword:
+            case newPasswordData:
                 show?.type === 'password'
-                    ? setNewPassType('text')
-                    : setNewPassType('password');
+                    ? setNewPassTypeValue('text')
+                    : setNewPassTypeValue('password');
                 break;
-            case confirmPassword:
+            case confirmPasswordData:
                 show?.type === 'password'
-                    ? setConfirmPassType('text')
-                    : setConfirmPassType('password');
+                    ? setConfirmPassTypeValue('text')
+                    : setConfirmPassTypeValue('password');
                 break;
         }
     };
@@ -164,7 +165,7 @@ const ChangePSWModal = (props) => {
                                         </h3>
                                     </Label>
                                     <InputBox
-                                        {...oldPassword}
+                                        {...oldPasswordData}
                                         id="oldPassword"
                                         name="oldPassword"
                                         onChange={formik.handleChange}
@@ -174,10 +175,11 @@ const ChangePSWModal = (props) => {
                                     <div
                                         className="pointer position-absolute top-50 end-0 me-4 mt-1"
                                         onClick={() => {
-                                            handleShowPassword(oldPassword);
+                                            handleShowPassword(oldPasswordData);
                                         }}
                                     >
-                                        {oldPassword?.type === 'password' ? (
+                                        {oldPasswordData?.type ===
+                                        'password' ? (
                                             <FaEyeSlash size={18} />
                                         ) : (
                                             <FaEye size={18} />
@@ -205,7 +207,7 @@ const ChangePSWModal = (props) => {
                                         <h3>{t('schoolpswd.New_password')}</h3>
                                     </Label>
                                     <InputBox
-                                        {...newPassword}
+                                        {...newPasswordData}
                                         id="newPassword"
                                         name="newPassword"
                                         onChange={formik.handleChange}
@@ -216,10 +218,11 @@ const ChangePSWModal = (props) => {
                                         className="pointer position-absolute end-0 me-4"
                                         style={{ bottom: '4rem' }}
                                         onClick={() => {
-                                            handleShowPassword(newPassword);
+                                            handleShowPassword(newPasswordData);
                                         }}
                                     >
-                                        {newPassword?.type === 'password' ? (
+                                        {newPasswordData?.type ===
+                                        'password' ? (
                                             <FaEyeSlash size={18} />
                                         ) : (
                                             <FaEye size={18} />
@@ -253,7 +256,7 @@ const ChangePSWModal = (props) => {
                                         </h3>
                                     </Label>
                                     <InputBox
-                                        {...confirmPassword}
+                                        {...confirmPasswordData}
                                         id="confirmPassword"
                                         name="confirmPassword"
                                         onChange={formik.handleChange}
@@ -263,10 +266,12 @@ const ChangePSWModal = (props) => {
                                     <div
                                         className="pointer position-absolute top-50 end-0 me-4 mt-1"
                                         onClick={() => {
-                                            handleShowPassword(confirmPassword);
+                                            handleShowPassword(
+                                                confirmPasswordData
+                                            );
                                         }}
                                     >
-                                        {confirmPassword?.type ===
+                                        {confirmPasswordData?.type ===
                                         'password' ? (
                                             <FaEyeSlash size={18} />
                                         ) : (
