@@ -24,7 +24,6 @@ const ChangePSWModal = (props) => {
     const [error, SetError] = useState('');
     const [responce, SetResponce] = useState('');
     // eslint-disable-next-line no-unused-vars
-    const [errorText, setErrorText] = useState('');
 
     const formik = useFormik({
         initialValues: {
@@ -97,7 +96,8 @@ const ChangePSWModal = (props) => {
     });
     useEffect(() => {
         SetError('');
-        setErrorText('');
+        // setErrorText('');
+        // console.log(setErrorText, 'setErrorText');
     }, [formik.values]);
     const [oldPassType, setOldPassType] = useState('password');
     const [newPassType, setNewPassType] = useState('password');
