@@ -99,7 +99,6 @@ import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
-import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
