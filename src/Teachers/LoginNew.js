@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
-import image_1 from '../assets/media/unisolve_slider1.png';
-import image_2 from '../assets/media/unisolve_slider2.png';
+import image_5 from '../assets/media/unisolve_slider1.png';
+import image_6 from '../assets/media/unisolve_slider2.png';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 // import ForgotPassword from './ForgotPassword';
@@ -123,8 +123,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_1}
-                                    alt="image_1"
+                                    src={image_5}
+                                    alt="image_5"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -134,8 +134,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_2}
-                                    alt="image_2"
+                                    src={image_6}
+                                    alt="image_6"
                                     className="img-fluid img-2"
                                 />
                             </figure>

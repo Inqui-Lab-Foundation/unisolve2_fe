@@ -14,8 +14,8 @@ import { useTranslation } from 'react-i18next';
 import logo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
-import image_1 from '../../assets/media/unisolve_slider1.png';
-import image_2 from '../../assets/media/unisolve_slider2.png';
+import image_9 from '../../assets/media/unisolve_slider1.png';
+import image_10 from '../../assets/media/unisolve_slider2.png';
 import { loginUser } from '../../redux/actions.js';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../../helpers/Utils';
@@ -114,8 +114,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_1}
-                                    alt="image_1"
+                                    src={image_9}
+                                    alt="image_9"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -125,8 +125,8 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_2}
-                                    alt="image_2"
+                                    src={image_10}
+                                    alt="image_10"
                                     className="img-fluid img-2"
                                 />
                             </figure>

@@ -11,8 +11,8 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import image_1 from '../assets/media/unisolve_slider1.png';
-import image_2 from '../assets/media/unisolve_slider2.png';
+import image_7 from '../assets/media/unisolve_slider1.png';
+import image_8 from '../assets/media/unisolve_slider2.png';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 
@@ -83,8 +83,8 @@ const ForgotPasswordNew = () => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_1}
-                                    alt="image_1"
+                                    src={image_7}
+                                    alt="image_7"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -94,8 +94,8 @@ const ForgotPasswordNew = () => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={image_2}
-                                    alt="image_2"
+                                    src={image_8}
+                                    alt="image_8"
                                     className="img-fluid img-2"
                                 />
                             </figure>

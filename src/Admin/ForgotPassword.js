@@ -10,8 +10,8 @@ import { useFormik } from "formik";
 // import { useTranslation } from 'react-i18next';
 import * as Yup from "yup";
 // import signuplogo from "../assets/media/logo-rect.svg";
-import image_1 from "../assets/media/unisolve_slider1.png";
-import image_2 from "../assets/media/unisolve_slider2.png";
+import iname_3 from "../assets/media/unisolve_slider1.png";
+import image_4 from "../assets/media/unisolve_slider2.png";
 
 const ForgotPassword = () => {
     // const { t } = useTranslation();
@@ -57,8 +57,8 @@ const ForgotPassword = () => {
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
-                                            src={image_1}
-                                            alt="image_1"
+                                            src={iname_3}
+                                            alt="iname_3"
                                             className="img-fluid img-1"
                                         />
                                     </figure>
@@ -68,8 +68,8 @@ const ForgotPassword = () => {
                                 <div className="mobile_tab-hide">
                                     <figure>
                                         <img
-                                            src={image_2}
-                                            alt="image_2"
+                                            src={image_4}
+                                            alt="image_4"
                                             className="img-fluid img-2"
                                         />
                                     </figure>
