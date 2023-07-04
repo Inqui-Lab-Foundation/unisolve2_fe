@@ -124,6 +124,7 @@ function RegisterNew() {
         }),
 
         onSubmit: async (values) => {
+            // alert('hi');
             if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
@@ -170,7 +171,7 @@ function RegisterNew() {
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             setBtn(true);
-                            // setRegBtn(true);
+                            history.push('/success');
                         }
                     })
                     .catch((err) => {
@@ -903,11 +904,6 @@ function RegisterNew() {
                                                         label={
                                                             ' Click Here To Register'
                                                         }
-                                                        onClick={() => {
-                                                            history.push(
-                                                                '/success'
-                                                            );
-                                                        }}
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&

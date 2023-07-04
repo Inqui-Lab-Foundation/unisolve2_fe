@@ -107,6 +107,18 @@
         "Cancel": "రద్దు చేయండి",
         "Change_password": "పాస్వర్డ్ మార్చండి"
     },
+    "schoolpswd": {
+        "Change your password": "Change your password",
+        "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your unisolve account.",
+        "Current_password": "Current password",
+        "Enter_current_password_here": "Enter current password here",
+        "New_password": "New password",
+        "Create_new_password_here": "Create new password here",
+        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
+        "Verify_New_password": "Verify New password",
+        "Cancel": "రద్దు చేయండి",
+        "Change_password": "పాస్వర్డ్ మార్చండి"
+    },
     "home": {
         "pre_survey": "ముందస్తు సర్వే",
         "dashboard": "డాష్బోర్డ్",

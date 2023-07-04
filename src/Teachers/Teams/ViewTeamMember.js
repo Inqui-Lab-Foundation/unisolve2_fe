@@ -112,7 +112,8 @@ const ViewTeamMember = (props) => {
     const handleChangeStudent = (name) => {
         console.log(name, selectedstudent);
         const body = {
-            team_id: teamchangeobj[name].toString()
+            team_id: teamchangeobj[name].toString(),
+            full_name: selectedstudent.full_name
         };
         var config = {
             method: 'PUT',
@@ -350,7 +351,8 @@ const ViewTeamMember = (props) => {
                     teamlistobj[item.team_name] = item.team_id;
                     return item.team_name;
                 }
-            }).filter(Boolean);
+            })
+            .filter(Boolean);
         if (Object.keys(teamlistobj).length > 0) {
             let index = listofteams.indexOf(teamID.team_name);
 
@@ -468,6 +470,6 @@ const mapStateToProps = ({ teams }) => {
 };
 
 export default connect(mapStateToProps, {
-    getAdminTeamMembersListAction:getAdminTeamMembersList,
-    getAdminTeamsListAction:getAdminTeamsList
+    getAdminTeamMembersListAction: getAdminTeamMembersList,
+    getAdminTeamsListAction: getAdminTeamsList
 })(ViewTeamMember);

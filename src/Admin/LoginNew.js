@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect} from 'react';
-import { Row, Col, Form,  Label,  } from 'reactstrap';
+import React, { useLayoutEffect } from 'react';
+import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
@@ -107,45 +107,52 @@ const LoginNew = (props) => {
                         <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                         <Carousel>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={ellipse_2}
-                                    alt="ellipse_2"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_2}
+                                            alt="ellipse_2"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={ellipse_2}
-                                    alt="ellipse_2"
-                                    className="img-fluid img-2"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_2}
+                                            alt="ellipse_2"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={ellipse_2}
-                                    alt="ellipse_2"
-                                    className="img-fluid img-3"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={ellipse_2}
+                                            alt="ellipse_2"
+                                            className="img-fluid img-3"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                         </Carousel>
                     </div>
 
-                    <Col xs={12} sm={12} md={8} xl={8} className="article">                        
+                    <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <Col md={12} className="d-flex justify-content-center align-items-center">
-                                <img src={logo} alt="Logo" className="logo-image" />
+                            <Col
+                                md={12}
+                                className="d-flex justify-content-center align-items-center"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="Logo"
+                                    className="logo-image"
+                                />
                             </Col>
                         </Row>
                         <Row className=" article-header mb-4">
@@ -207,7 +214,7 @@ const LoginNew = (props) => {
                                                 {...inputPassword}
                                                 id="password"
                                                 name="password"
-                                                type='password'
+                                                type="password"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
@@ -229,7 +236,6 @@ const LoginNew = (props) => {
                                             xl={11}
                                         >
                                             <Row className="keepme_login">
-                                                
                                                 <Col className="col-sm-8 ">
                                                     <Link
                                                         exact="true"
