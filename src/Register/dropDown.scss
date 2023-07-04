@@ -7,11 +7,11 @@
         // padding: 15px;
         background-color: lightblue;
     }
-    font-size: 1.9rem;
+    font-size: 14px;
     box-sizing: border-box;
     font-style: normal;
     font-weight: 600;
-    padding: 1.3rem 2rem;
+    padding: 1.3rem 1rem;
     border-radius: 0.7rem;
     border: 0.1rem solid var(--color-grey-light-3);
     background-color: var(--color-white-3);
@@ -20,10 +20,10 @@
     background-color: var(--color-white-3);
 }
 .name-req-create-member {
-    font-size: 1.4rem;
+    font-size: 14px;
     font-weight: 600 !important;
     @media screen and (max-width: 575px) {
-        font-size: 1.4rem;
+        font-size: 14px;
     }
     color: var(--color-black-1);
 }

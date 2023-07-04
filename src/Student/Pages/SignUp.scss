@@ -170,6 +170,7 @@
 .mobile-header {
   @media screen and (max-width: 767px) {
     padding: 2rem !important;
+    display: none;
     .storybook-button {
       &--small {
         padding: 2px 10px;

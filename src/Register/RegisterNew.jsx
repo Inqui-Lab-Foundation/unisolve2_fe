@@ -8,7 +8,8 @@ import { Input, Radio } from 'antd';
 
 import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import image_1 from '../assets/media/unisolve_slider1.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
 import { useFormik } from 'formik';
 import { Carousel } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -41,7 +42,7 @@ function RegisterNew() {
     const [diceBtn, setDiceBtn] = useState(true);
     const [btn, setBtn] = useState(false);
     const [checkBox, setCheckBox] = useState(false);
-    const [change, setChange] = useState('Send Otp');
+    const [change, setChange] = useState('Send OTP');
     const [wtsNum, setWtsNum] = useState('');
     const [sendOtp, setSendOtp] = useState('');
     const [time] = useState('00');
@@ -242,7 +243,7 @@ function RegisterNew() {
         setTimer(timer + 1);
         setSec(59);
         setCounter(59);
-        if (change == 'Resend Otp') {
+        if (change == 'Resend OTP') {
             if (!sec) {
                 setSec(sec - 1);
             }
@@ -250,7 +251,7 @@ function RegisterNew() {
             setSec(sec - 1);
         }
         setTimeout(() => {
-            setChange('Resend Otp');
+            setChange('Resend OTP');
             setDisable(true);
             setTimer(0);
         }, 60000);
@@ -344,24 +345,24 @@ function RegisterNew() {
                     <div className="mobile_tab-hide">
                         <figure>
                             <img
-                                src={ellipse_1}
-                                alt="ellipse_1"
+                                src={image_1}
+                                alt="image_1"
                                 className="img-fluid img-1"
                             />
                         </figure>
                     </div> */}
-                    <h1 className="text-left pb-5 mobile_tab-hide">
+                    {/* <h1 className="text-left pb-5 mobile_tab-hide">
                         {t('login.Title')}
                     </h1>
-                    <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                    <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                     <Carousel>
                         <Carousel.Item>
                             
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
-                                        src={ellipse_1}
-                                        alt="ellipse_1"
+                                        src={image_1}
+                                        alt="image_1"
                                         className="img-fluid img-1"
                                     />
                                 </figure>
@@ -372,14 +373,14 @@ function RegisterNew() {
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
-                                        src={ellipse_1}
-                                        alt="ellipse_1"
-                                        className="img-fluid img-1"
+                                        src={image_2}
+                                        alt="image_2"
+                                        className="img-fluid img-2"
                                     />
                                 </figure>
                             </div>
                         </Carousel.Item>
-                        <Carousel.Item>
+                        {/* <Carousel.Item>
                             
                             <div className="mobile_tab-hide">
                                 <figure>
@@ -390,7 +391,7 @@ function RegisterNew() {
                                     />
                                 </figure>
                             </div>
-                        </Carousel.Item>
+                        </Carousel.Item> */}
                     </Carousel>
                 </div>
             
@@ -409,7 +410,7 @@ function RegisterNew() {
 
                     <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
-                            <span className="color-black">Register Here</span>
+                            <span className="color-black">TEACHER REGISTRATION</span>
                         </h4>
                     </Row>
 
@@ -489,7 +490,7 @@ function RegisterNew() {
                                                 xl={12}
                                             >
                                                 <Label className="mb-3 w-100 mt-4">
-                                                    <UncontrolledAlert color="primary ">
+                                                    <UncontrolledAlert color="primary" toggle={false}>
                                                         {t(
                                                             'teacehr_red.school'
                                                         )}
@@ -517,17 +518,17 @@ function RegisterNew() {
                                             </Col>
                                             <Row
                                                 className="form-group"
-                                                xs={6}
+                                                xs={12}
                                                 sm={12}
                                                 md={12}
                                                 xl={12}
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
-                                                    sm={4}
-                                                    md={4}
-                                                    xl={4}
+                                                    xs={2}
+                                                    sm={2}
+                                                    md={2}
+                                                    xl={2}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -592,10 +593,10 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={8}
-                                                    sm={8}
-                                                    md={8}
-                                                    xl={8}
+                                                    xs={7}
+                                                    sm={7}
+                                                    md={7}
+                                                    xl={7}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -605,9 +606,7 @@ function RegisterNew() {
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        {t(
-                                                            'teacehr_red.faculty_name'
-                                                        )}
+                                                        Teacher Name
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}
@@ -635,27 +634,19 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                            </Row>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
-                                                    sm={4}
-                                                    md={4}
-                                                    xl={4}
+                                                    xs={3}
+                                                    sm={3}
+                                                    md={3}
+                                                    xl={3}
                                                     // xs={12}
                                                     // sm={12}
                                                     // md={10}
                                                     // xl={7}
                                                 >
                                                     <Label
-                                                        className="mb-2 mt-2"
+                                                        className="mb-2"
                                                         htmlFor="gender"
                                                     >
                                                         {t(
@@ -703,12 +694,21 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                            </Row>
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                
                                                 <Col
                                                     className="form-group"
-                                                    xs={8}
-                                                    sm={8}
-                                                    md={8}
-                                                    xl={8}
+                                                    xs={6}
+                                                    sm={6}
+                                                    md={6}
+                                                    xl={6}
                                                     // xs={12}
                                                     // sm={12}
                                                     // md={10}
@@ -718,9 +718,7 @@ function RegisterNew() {
                                                         className="mb-2 mt-2"
                                                         htmlFor="mobile"
                                                     >
-                                                        {t(
-                                                            'teacehr_red.faculty_ph'
-                                                        )}
+                                                        Mobile Number
                                                     </Label>
                                                     <InputBox
                                                         {...inputUsername}
@@ -748,7 +746,61 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Row
+                                                <Col
+                                                        className="form-group"
+                                                        xs={6}
+                                                        sm={6}
+                                                        md={6}
+                                                        xl={6}
+                                                        // xs={6}
+                                                        // sm={6}
+                                                        // md={5}
+                                                        // xl={4}
+                                                    >
+                                                    <div className="d-flex align-items-center justify-content-between">
+                                                        <Label className="mb-2 mt-2" htmlFor="phone">
+                                                        {t('teacehr_red.faculty_mobile')}
+                                                        </Label>
+                                                        <div className="my-10 checkbox-right">
+                                                            <Input
+                                                                type="checkbox"
+                                                                className="mt-3 mb-8 my-10 pb-4 pt-3"
+                                                                name="click"
+                                                                id="click"
+                                                                onClick={(e) => handleCheckbox(e, !checkBox)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                        <InputBox
+                                                            {...inputMobile}
+                                                            id="whatapp_mobile"
+                                                            name="whatapp_mobile"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .whatapp_mobile
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .whatapp_mobile &&
+                                                        formik.errors
+                                                            .whatapp_mobile ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .whatapp_mobile
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                </Col>
+                                                {/* <Row
                                                     className="form-group mt-3"
                                                     xs={12}
                                                     sm={12}
@@ -794,65 +846,10 @@ function RegisterNew() {
                                                             />
                                                         </div>
                                                     </Col>
-                                                </Row>
-                                                <Row
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={12}
-                                                >
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={12}
-                                                        md={12}
-                                                        xl={12}
-                                                        // xs={6}
-                                                        // sm={6}
-                                                        // md={5}
-                                                        // xl={4}
-                                                    >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="phone"
-                                                        >
-                                                            {t(
-                                                                'teacehr_red.faculty_mobile'
-                                                            )}
-                                                        </Label>
-                                                        <InputBox
-                                                            {...inputMobile}
-                                                            id="whatapp_mobile"
-                                                            name="whatapp_mobile"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .whatapp_mobile
-                                                            }
-                                                        />
-
-                                                        {formik.touched
-                                                            .whatapp_mobile &&
-                                                        formik.errors
-                                                            .whatapp_mobile ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .whatapp_mobile
-                                                                }
-                                                            </small>
-                                                        ) : null}
-                                                    </Col>
-                                                </Row>
+                                                    
+                                                </Row> */}
                                             </Row>
-                                            <div className="mt-5">
+                                            <div className="mt-5 d-flex align-items-center">
                                                 <Button
                                                     label={change}
                                                     btnClass={
@@ -883,19 +880,19 @@ function RegisterNew() {
                                                 
                                                 
                                                 <div
-                                                    className="w-100 d-block text-center"
+                                                    className="w-100 d-block text-left"
                                                     // className="form-row row mb-5 col-md-3 text-centered"
                                                 >
                                                     
                                                     <Label
-                                                        className="mb-2 mt-4  text-center "
+                                                        className="mb-2 mt-4  text-left"
                                                         htmlFor="otp"
                                                     >
-                                                        Enter Otp
+                                                        Enter OTP
                                                     </Label>
                                                     <div
                                                         // className="form-row row mb-6"
-                                                        className="d-flex justify-content-center mt-5"
+                                                        className="d-flex justify-content-left "
                                                     >
                                                         <OtpInput
                                                             numInputs={6}
@@ -962,7 +959,7 @@ function RegisterNew() {
                                                 <div className="mt-5">
                                                     <Button
                                                         label={
-                                                            ' Click Here To Register'
+                                                            'VERIFY & REGISTER'
                                                         }
                                                         onClick={() => {
                                                             history.push(
