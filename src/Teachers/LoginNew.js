@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
-
-import ellipse_3 from '../assets/media/ellipse.svg';
+import image_1 from '../assets/media/unisolve_slider1.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 // import ForgotPassword from './ForgotPassword';
@@ -114,17 +114,17 @@ const LoginNew = (props) => {
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <h1 className="text-left pb-5 mobile_tab-hide">
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_3}
-                                    alt="ellipse_3"
+                                    src={image_1}
+                                    alt="image_1"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -134,14 +134,14 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_3}
-                                    alt="ellipse_3"
+                                    src={image_2}
+                                    alt="image_2"
                                     className="img-fluid img-2"
                                 />
                             </figure>
                         </div>
                             </Carousel.Item>
-                            <Carousel.Item>
+                            {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
@@ -151,7 +151,7 @@ const LoginNew = (props) => {
                                 />
                             </figure>
                         </div>
-                            </Carousel.Item>
+                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
