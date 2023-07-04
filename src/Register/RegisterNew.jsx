@@ -8,8 +8,10 @@ import { Input, Radio } from 'antd';
 
 import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import image_1 from '../assets/media/unisolve_slider1.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
 import { useFormik } from 'formik';
+import { Carousel } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -40,7 +42,7 @@ function RegisterNew() {
     const [diceBtn, setDiceBtn] = useState(true);
     const [btn, setBtn] = useState(false);
     const [checkBox, setCheckBox] = useState(false);
-    const [change, setChange] = useState('Send Otp');
+    const [change, setChange] = useState('Send OTP');
     const [wtsNum, setWtsNum] = useState('');
     const [sendOtp, setSendOtp] = useState('');
     const [time] = useState('00');
@@ -124,6 +126,7 @@ function RegisterNew() {
         }),
 
         onSubmit: async (values) => {
+            // alert('hi');
             if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
@@ -170,7 +173,7 @@ function RegisterNew() {
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             setBtn(true);
-                            // setRegBtn(true);
+                            history.push('/success');
                         }
                     })
                     .catch((err) => {
@@ -241,7 +244,7 @@ function RegisterNew() {
         setTimer(timer + 1);
         setSec(59);
         setCounter(59);
-        if (change == 'Resend Otp') {
+        if (change == 'Resend OTP') {
             if (!sec) {
                 setSec(sec - 1);
             }
@@ -249,7 +252,7 @@ function RegisterNew() {
             setSec(sec - 1);
         }
         setTimeout(() => {
-            setChange('Resend Otp');
+            setChange('Resend OTP');
             setDisable(true);
             setTimer(0);
         }, 60000);
@@ -320,8 +323,8 @@ function RegisterNew() {
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
-                <div className="col-md-4 aside mobile-header">
-                    <div className="row">
+                <div className="col-md-6 aside mobile-header">
+                    {/* <div className="row">
                         <Link to={'/'} exact>
                             <Col md={12} className=" mr-auto mobile_tab-hide">
                                 {' '}
@@ -334,28 +337,81 @@ function RegisterNew() {
                                 </h2>
                             </Col>
                         </Link>
-                    </div>
+                    </div> */}
 
-                    <h1 className="text-left pb-5 mobile_tab-hide">
-                        Together let’s learn and build something amazing.
+                    {/* <h1 className="text-left pb-5 mobile_tab-hide">
+                        {t('login.Title')}
                     </h1>
-                    <p className="mobile_tab-hide">
-                        Creating change makers of tomorrow
-                    </p>
+                    <p className="mobile_tab-hide">{t('login.subtitle')}</p>
                     <div className="mobile_tab-hide">
                         <figure>
                             <img
-                                src={ellipse_1}
-                                alt="ellipse_1"
+                                src={image_1}
+                                alt="image_1"
                                 className="img-fluid img-1"
                             />
                         </figure>
-                    </div>
+                    </div> */}
+                    {/* <h1 className="text-left pb-5 mobile_tab-hide">
+                        {t('login.Title')}
+                    </h1>
+                    <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
+                    <Carousel>
+                        <Carousel.Item>
+                            
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={image_1}
+                                        alt="image_1"
+                                        className="img-fluid img-1"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={image_2}
+                                        alt="image_2"
+                                        className="img-fluid img-2"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item>
+                        {/* <Carousel.Item>
+                            
+                            <div className="mobile_tab-hide">
+                                <figure>
+                                    <img
+                                        src={ellipse_1}
+                                        alt="ellipse_1"
+                                        className="img-fluid img-1"
+                                    />
+                                </figure>
+                            </div>
+                        </Carousel.Item> */}
+                    </Carousel>
                 </div>
-                <Col xs={12} sm={12} md={8} xl={8} className="article">
-                    <Row className=" article-header mb-4">
+            
+                <Col xs={12} sm={12} md={6} xl={6} className="article">
+                    <div className="row">
+                        <Col md={12} className="mr-auto text-center">
+                            <h2 className="text-white">
+                            <img
+                                src={signuplogo}
+                                alt="Signup logo"
+                                className="img-fluid w-50"
+                            />
+                            </h2>
+                        </Col>
+                    </div>
+
+                    <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
-                            <span className="color-green">Register</span>
+                            <span className="color-black">TEACHER REGISTRATION</span>
                         </h4>
                     </Row>
 
@@ -368,8 +424,8 @@ function RegisterNew() {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -388,7 +444,7 @@ function RegisterNew() {
                                                 placeholder="Enter UDISE Code"
                                                 className="w-100 mb-3 mb-md-0"
                                                 style={{
-                                                    borderRadius: '60px',
+                                                    borderRadius: '0px',
                                                     padding: '9px 11px'
                                                 }}
                                             />
@@ -402,8 +458,7 @@ function RegisterNew() {
                                                         )}
                                                         btnClass={
                                                             !diesCode.length
-                                                                ? 'default '
-                                                                : 'primary'
+                                                                ? 'default rounded-0' : 'primary rounded-0'
                                                         }
                                                         size="small"
                                                         onClick={(e) =>
@@ -432,11 +487,11 @@ function RegisterNew() {
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
-                                                md={10}
-                                                xl={7}
+                                                md={12}
+                                                xl={12}
                                             >
                                                 <Label className="mb-3 w-100 mt-4">
-                                                    <UncontrolledAlert color="primary ">
+                                                    <UncontrolledAlert color="primary" toggle={false}>
                                                         {t(
                                                             'teacehr_red.school'
                                                         )}
@@ -464,17 +519,17 @@ function RegisterNew() {
                                             </Col>
                                             <Row
                                                 className="form-group"
-                                                xs={6}
+                                                xs={12}
                                                 sm={12}
-                                                md={10}
-                                                xl={7}
+                                                md={12}
+                                                xl={12}
                                             >
                                                 <Col
                                                     className="form-group"
                                                     xs={2}
-                                                    sm={4}
-                                                    md={4}
-                                                    xl={3}
+                                                    sm={2}
+                                                    md={2}
+                                                    xl={2}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -490,6 +545,7 @@ function RegisterNew() {
                                                         name="title"
                                                         // id="gender"
                                                         className=" col-8 form-control custom-registerdropdown "
+                                                        style={{ borderRadius: '0' }}
                                                         value={
                                                             formik.values.title
                                                         }
@@ -538,10 +594,10 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
-                                                    sm={8}
-                                                    md={6}
-                                                    xl={4}
+                                                    xs={7}
+                                                    sm={7}
+                                                    md={7}
+                                                    xl={7}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -551,9 +607,7 @@ function RegisterNew() {
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        {t(
-                                                            'teacehr_red.faculty_name'
-                                                        )}
+                                                        Teacher Name
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}
@@ -581,19 +635,11 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                            </Row>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={10}
-                                                xl={7}
-                                            >
                                                 <Col
                                                     className="form-group"
-                                                    xs={2}
-                                                    sm={4}
-                                                    md={4}
+                                                    xs={3}
+                                                    sm={3}
+                                                    md={3}
                                                     xl={3}
                                                     // xs={12}
                                                     // sm={12}
@@ -612,6 +658,7 @@ function RegisterNew() {
                                                         name="gender"
                                                         // id="gender"
                                                         className=" col-8 SelectBox form-control custom-registerdropdown "
+                                                        style={{ borderRadius: '0' }}
                                                         value={
                                                             formik.values.gender
                                                         }
@@ -648,24 +695,31 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                            </Row>
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                
                                                 <Col
                                                     className="form-group"
-                                                    xs={4}
-                                                    sm={8}
+                                                    xs={6}
+                                                    sm={6}
                                                     md={6}
-                                                    xl={4}
+                                                    xl={6}
                                                     // xs={12}
                                                     // sm={12}
                                                     // md={10}
                                                     // xl={7}
                                                 >
                                                     <Label
-                                                        className="mb-2"
+                                                        className="mb-2 mt-2"
                                                         htmlFor="mobile"
                                                     >
-                                                        {t(
-                                                            'teacehr_red.faculty_ph'
-                                                        )}
+                                                        Mobile Number
                                                     </Label>
                                                     <InputBox
                                                         {...inputUsername}
@@ -693,7 +747,61 @@ function RegisterNew() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Row
+                                                <Col
+                                                        className="form-group"
+                                                        xs={6}
+                                                        sm={6}
+                                                        md={6}
+                                                        xl={6}
+                                                        // xs={6}
+                                                        // sm={6}
+                                                        // md={5}
+                                                        // xl={4}
+                                                    >
+                                                    <div className="d-flex align-items-center justify-content-between">
+                                                        <Label className="mb-2 mt-2" htmlFor="phone">
+                                                        {t('teacehr_red.faculty_mobile')}
+                                                        </Label>
+                                                        <div className="my-10 checkbox-right">
+                                                            <Input
+                                                                type="checkbox"
+                                                                className="mt-3 mb-8 my-10 pb-4 pt-3"
+                                                                name="click"
+                                                                id="click"
+                                                                onClick={(e) => handleCheckbox(e, !checkBox)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                        <InputBox
+                                                            {...inputMobile}
+                                                            id="whatapp_mobile"
+                                                            name="whatapp_mobile"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .whatapp_mobile
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .whatapp_mobile &&
+                                                        formik.errors
+                                                            .whatapp_mobile ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .whatapp_mobile
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                </Col>
+                                                {/* <Row
                                                     className="form-group mt-3"
                                                     xs={12}
                                                     sm={12}
@@ -739,71 +847,16 @@ function RegisterNew() {
                                                             />
                                                         </div>
                                                     </Col>
-                                                </Row>
-                                                <Row
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={10}
-                                                    xl={7}
-                                                >
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={12}
-                                                        md={10}
-                                                        xl={7}
-                                                        // xs={6}
-                                                        // sm={6}
-                                                        // md={5}
-                                                        // xl={4}
-                                                    >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="phone"
-                                                        >
-                                                            {t(
-                                                                'teacehr_red.faculty_mobile'
-                                                            )}
-                                                        </Label>
-                                                        <InputBox
-                                                            {...inputMobile}
-                                                            id="whatapp_mobile"
-                                                            name="whatapp_mobile"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .whatapp_mobile
-                                                            }
-                                                        />
-
-                                                        {formik.touched
-                                                            .whatapp_mobile &&
-                                                        formik.errors
-                                                            .whatapp_mobile ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .whatapp_mobile
-                                                                }
-                                                            </small>
-                                                        ) : null}
-                                                    </Col>
-                                                </Row>
+                                                    
+                                                </Row> */}
                                             </Row>
-                                            <div className="mt-5">
+                                            <div className="mt-5 d-flex align-items-center">
                                                 <Button
                                                     label={change}
                                                     btnClass={
                                                         !disable
-                                                            ? 'default'
-                                                            : 'primary'
+                                                            ? 'default rounded-0'
+                                                            : 'primary rounded-0 '
                                                     }
                                                     onClick={(e) =>
                                                         handleSendOtp(e)
@@ -815,27 +868,32 @@ function RegisterNew() {
                                                             : true
                                                     }
                                                 />
+                                                
                                             </div>
                                             {btnOtp && (
-                                                <div
-                                                    className="w-50 d-block text-center"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
-                                                >
-                                                    <h3>
+                                                <div>
+                                                   <h3>
                                                         {time}:
                                                         {counter < 59
                                                             ? counter - '0'
                                                             : counter}
-                                                    </h3>
+                                                    </h3> 
+                                                
+                                                
+                                                <div
+                                                    className="w-100 d-block text-left"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                >
+                                                    
                                                     <Label
-                                                        className="mb-2 mt-4  text-center "
+                                                        className="mb-2 mt-4  text-left"
                                                         htmlFor="otp"
                                                     >
-                                                        Enter Otp
+                                                        Enter OTP
                                                     </Label>
                                                     <div
                                                         // className="form-row row mb-6"
-                                                        className="d-flex justify-content-center mt-5"
+                                                        className="d-flex justify-content-left "
                                                     >
                                                         <OtpInput
                                                             numInputs={6}
@@ -880,6 +938,7 @@ function RegisterNew() {
                                                         />
                                                     </div>
                                                 </div>
+                                                </div>
                                             )}
                                             {formik.values.otp.length > 5 &&
                                                 otpRes != formik.values.otp && (
@@ -888,7 +947,7 @@ function RegisterNew() {
                                                         // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
-                                                            className=" w-50 mt-3 d-flex justify-content-center"
+                                                            className=" w-100 mt-3 d-flex justify-content-center"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -901,21 +960,16 @@ function RegisterNew() {
                                                 <div className="mt-5">
                                                     <Button
                                                         label={
-                                                            ' Click Here To Register'
+                                                            'VERIFY & REGISTER'
                                                         }
-                                                        onClick={() => {
-                                                            history.push(
-                                                                '/admin/success'
-                                                            );
-                                                        }}
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
                                                             otpRes ==
                                                                 formik.values
                                                                     .otp
-                                                                ? 'primary '
-                                                                : 'default'
+                                                                ? 'primary rounded-0'
+                                                                : 'default rounded-0'
                                                         }
                                                         size="small w-50"
                                                         type="submit"
