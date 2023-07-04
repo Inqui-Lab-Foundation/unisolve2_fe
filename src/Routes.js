@@ -72,7 +72,7 @@ import ChangePSWModal from './Teachers/ChangePSWModal';
 import Translation from './Admin/Translation/Translation';
 import EditTranslation from './Admin/Translation/EditTranslation';
 import CreateTranslation from './Admin/Translation/CreateTranslation';
-
+import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 import EditSchool from './Admin/Schools/EditSchool';
 import TeacherEditProfile from './Teachers/EditTeacherProfile';
 
