@@ -338,7 +338,7 @@ const LoginNew = (props) => {
                                             exact
                                             className="w-100 d-block text-center"
                                         >
-                                            Click Here To Register
+                                            <strong>Click Here To Register</strong>
                                         </Link>
                                     </div>
                                 </Form>
