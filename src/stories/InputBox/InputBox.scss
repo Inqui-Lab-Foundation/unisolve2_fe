@@ -6,7 +6,8 @@
         font-size: 14px;
         border: 0.1rem solid var(--color-grey-light-3);
         box-sizing: border-box;
-        border-radius: 0rem;
+        border-radius: 0;
+        font-family: "Roboto", sans-serif;
         font-style: normal;
         font-weight: 600;
         // font-family: "Roboto", sans-serif;
@@ -35,6 +36,13 @@
         // font-size: 16px;
         // padding: 12px 24px;
         // width: 466px;
+    }
+    .eye-icon {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
     }
 }
 .defaultInput > input {

@@ -963,7 +963,7 @@ function RegisterNew() {
                                                         }
                                                         onClick={() => {
                                                             history.push(
-                                                                '/admin/success'
+                                                                '/success'
                                                             );
                                                         }}
                                                         btnClass={
