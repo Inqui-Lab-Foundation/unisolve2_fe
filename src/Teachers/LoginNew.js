@@ -1,30 +1,32 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useLayoutEffect } from 'react';
+import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
+import { Carousel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import image_5 from '../assets/media/unisolve_slider1.png';
+import image_6 from '../assets/media/unisolve_slider2.png';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
-import ForgotPassword from './ForgotPassword';
+// import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import i18next from 'i18next';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
-    const [password, handlePassword] = useState('password');
-    const [showPopUp, setShowPopUp] = useState(false);
+    // const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
@@ -51,7 +53,10 @@ const LoginNew = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('Required email id'),
+            email: Yup.string().required('required').trim(),
+            // .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+            // .min(10, 'Please enter valid number')
+            // .max(10, 'Please enter valid number'),
             password: Yup.string().required('Required password')
         }),
         // TEACHER ROLE
@@ -88,73 +93,85 @@ const LoginNew = (props) => {
     });
 
     const inputUserId = {
-        type: 'text',
-        placeholder: t('loginPage.Enter_your_email')
+        type: 'mobile',
+        // placeholder: t('loginPage.Enter_your_email')
+        placeholder: 'Enter your Mobile number'
     };
 
     const inputPassword = {
-        placeholder: t('loginPage.Password')
+        placeholder: t('loginPage.Password'),
+        showEyeIcon: true
     };
 
     const logInBtn = {
         label: t('login.logIn'),
         size: 'large'
     };
-    const handleShow = (e, type) => {
-        if (type === 'password') {
-            handlePassword('text');
-        } else {
-            handlePassword('password');
-        }
-    };
-    const handleOnClick = () => {
-        setShowPopUp(true);
-    };
+
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                <Col
-                                    md={12}
-                                    className=" mr-auto mobile_tab-hide"
-                                >
-                                    {' '}
-                                    <h2 className="text-white">
-                                        <img
-                                            src={signuplogo}
-                                            alt="Signup logo"
-                                            className="img-fluid w-50"
-                                        />
-                                    </h2>
-                                </Col>
-                            </a>
-                        </div>
-
-                        <h1 className="text-left pb-5 mobile_tab-hide">
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
+                        <Carousel>
+                            <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={image_5}
+                                    alt="image_5"
                                     className="img-fluid img-1"
                                 />
                             </figure>
                         </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={image_6}
+                                    alt="image_6"
+                                    className="img-fluid img-2"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item>
+                            {/* <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_3}
+                                    alt="ellipse_3"
+                                    className="img-fluid img-3"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item> */}
+                        </Carousel>
                     </div>
-
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
+                        <Row className="logo">
+                            <Col
+                                md={12}
+                                className="d-flex justify-content-center align-items-center"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="Logo"
+                                    className="logo-image"
+                                />
+                            </Col>
+                        </Row>
                         <Row className="login-options">
                             <Col md={12} className="text-right"></Col>
                         </Row>
                         <Row className=" article-header mb-4">
-                            <div className="d-flex mt-4 login-div">
+                            <div className="d-flex mt-4 login-div justify-content-center align-items-center">
                                 <Link
                                     className="landing-page-actions "
                                     exact="true"
@@ -194,14 +211,15 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                {t('loginPage.User_ID_Teacher')}
+                                                Mobile Number
+                                                {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -227,8 +245,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -238,7 +256,7 @@ const LoginNew = (props) => {
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
-                                                type={password}
+                                                type="password"
                                                 id="password"
                                                 name="password"
                                                 onChange={formik.handleChange}
@@ -254,47 +272,35 @@ const LoginNew = (props) => {
                                             ) : null}
                                         </Col>
 
-                                        <Col
+                                        <div
                                             className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            xl={12}
+                                            // xs={12}
+                                            // sm={12}
+                                            // md={12}
+                                            // xl={12}
                                         >
                                             <Row className="keepme_login">
-                                                <Col className="col-sm-4">
-                                                    <FormGroup check>
-                                                        <Input
-                                                            type="checkbox"
-                                                            name="acceptedTerms"
-                                                            className="my-auto"
-                                                            onClick={(e) =>
-                                                                handleShow(
-                                                                    e,
-                                                                    password
-                                                                )
-                                                            }
-                                                        />
-                                                        <small className="text-bold ">
-                                                            {' '}
-                                                            {t(
-                                                                'loginPage.Show_Password'
-                                                            )}
-                                                        </small>
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col className="col-sm-2 text-right">
+                                                <Col className="forgotp d-flex ">
                                                     <div
-                                                        onClick={handleOnClick}
+                                                        // onClick={handleOnClick}
                                                         className="text-link pt-1 text-primary"
                                                     >
-                                                        {t(
+                                                        {/* {t(
                                                             'loginPage.Forgot_password'
-                                                        )}
+                                                        )} */}
+                                                        <Link
+                                                            exact="true"
+                                                            to="/teacher/forgotpassword"
+                                                            className="text-link pt-1"
+                                                        >
+                                                            {t(
+                                                                'loginPage.Forgot_password'
+                                                            )}
+                                                        </Link>
                                                     </div>
                                                 </Col>
                                             </Row>
-                                        </Col>
+                                        </div>
                                     </div>
 
                                     <div className="form-row row mb-5">
@@ -302,8 +308,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}
@@ -322,8 +328,18 @@ const LoginNew = (props) => {
                                                         formik.isValid
                                                     )
                                                 }
+                                                style={{ borderRadius: '0' }}
                                             />
                                         </Col>
+                                    </div>
+                                    <div className="form-row row mb-5">
+                                        <Link
+                                            to={'/register'}
+                                            exact
+                                            className="w-100 d-block text-center"
+                                        >
+                                            <strong>Click Here To Register</strong>
+                                        </Link>
                                     </div>
                                 </Form>
                             </Col>
@@ -331,13 +347,13 @@ const LoginNew = (props) => {
                     </Col>
                 </Row>
             </div>
-            {showPopUp && (
+            {/* {showPopUp && (
                 <ForgotPassword
                     show={showPopUp}
                     setShow={setShowPopUp}
                     onHide={() => setShowPopUp(false)}
                 />
-            )}
+            )} */}
         </React.Fragment>
     );
 };

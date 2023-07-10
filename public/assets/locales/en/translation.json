@@ -118,6 +118,18 @@
         "Cancel": "Cancel",
         "Change_password": "Change password"
     },
+    "schoolpswd": {
+        "Change your password": "Change your password",
+        "password_helps_prevent_unauthorized": "A strong password helps prevent unauthorized access to your unisolve account.",
+        "Current_password": "Current password",
+        "Enter_current_password_here": "Enter current password here",
+        "New_password": "New password",
+        "Create_new_password_here": "Create new password here",
+        "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
+        "Verify_New_password": "Verify New password",
+        "Cancel": "Cancel",
+        "Change_password": "Change password"
+    },
     "home": {
         "pre_survey": "Pre Survey",
         "dashboard": "Dashboard",
@@ -234,6 +246,7 @@
         "age": "Age",
         "grade": "Grade",
         "gender": "Gender",
+
         "create": "Add",
         "view": "View",
         "edit": "Edit",
@@ -296,8 +309,23 @@
         "city": "City",
         "district": "District",
         "faculty_name": "Faculty Name",
+        "gender": "Gender",
+        "teacher_gender": "Select Gender",
+        "teacher_gender_male": "Male",
+        "teacher_gender_female": "Female",
+        "teacher_gender_others": "Others",
+
+        "title": "Title",
+        "teacher_title": "Select Title",
+        "teacher_title_dr": "Dr",
+        "teacher_title_mr": "Mr",
+        "teacher_title_miss": "Miss",
+        "teacher_title_mrs": "Mrs",
+
         "faculty_name_pl": "Enter full name",
         "faculty_email": "Faculty Email Address",
+        "faculty_ph": "Faculty Phone Number",
+        "faculty_mobile": " WhatsApp Number",
         "faculty_email_pl": "Faculty email address",
         "otp_me": "OTP has been sent to",
         "otp_err": "Did't recieve OTP",

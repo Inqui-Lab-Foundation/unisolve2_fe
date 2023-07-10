@@ -86,6 +86,7 @@ function ForgotPassword(props) {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
+                            style={{ borderRadius: '0'}}
                         />
                         {formik.touched.email && formik.errors.email ? (
                             <small className="error-cls">
@@ -109,6 +110,7 @@ function ForgotPassword(props) {
                             size="large "
                             type="submit"
                             disabled={!(formik.dirty && formik.isValid)}
+                            style={{ borderRadius: '0' }}
                         />
                     </div>
                 </Form>

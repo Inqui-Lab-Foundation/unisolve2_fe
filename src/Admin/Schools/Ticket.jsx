@@ -166,7 +166,7 @@ const TicketsPage = (props) => {
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-    const handleNewSchoolsList = async() => {
+    const handleNewSchoolsList = async () => {
         // here we can see  list of  new institutions //
         setReqList(false);
         await newListApi();
@@ -223,9 +223,9 @@ const TicketsPage = (props) => {
                 console.log(error);
             });
     }
-    const handleReqSchoolsList = async(e) => {
+    const handleReqSchoolsList = async (e) => {
         // here we can see  list of inActive institutions //
-       await listApi();
+        await listApi();
     };
 
     const handleBack = (e) => {
@@ -328,7 +328,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success btn-lg">NEW</div>
+                            <div className="btn btn-success btn-lg">TEST</div>
                         </div>
                         <div
                             key={record}
@@ -413,7 +413,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleStatusUpdate(record, 'NEW')}
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success btn-lg">NEW</div>
+                            <div className="btn btn-success btn-lg">TEST</div>
                         </div>
                     </>
                 ]
@@ -452,7 +452,7 @@ const TicketsPage = (props) => {
                         key={row.organization_id}
                         bg={`${row.status === 'NEW' ? 'secondary' : 'success'}`}
                     >
-                        {row.status}
+                        {row.status === 'NEW' ? 'TEST' : ''}
                     </Badge>
                 ],
                 width: '10%'
@@ -503,7 +503,7 @@ const TicketsPage = (props) => {
                             {reqList ? (
                                 <h2>List of inactive institutions</h2>
                             ) : newList ? (
-                                <h2>List of new institutions</h2>
+                                <h2>List of test institutions</h2>
                             ) : (
                                 <h2>List of active institutions</h2>
                             )}
@@ -533,8 +533,8 @@ const TicketsPage = (props) => {
                             ) : (
                                 <div className="d-flex justify-content-end">
                                     <Button
-                                        label="Add Institutions"
-                                        btnClass="primary mx-3"
+                                        label="Add New Institutions"
+                                        btnClass=" btn btn-success"
                                         size="small"
                                         shape="btn-square"
                                         Icon={BsPlusLg}
@@ -545,14 +545,14 @@ const TicketsPage = (props) => {
                                         }
                                     />
                                     <Button
-                                        label="InActive Institutions"
+                                        label="InActive List"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
                                         onClick={(e) => handleReqSchoolsList(e)}
                                     />
                                     <Button
-                                        label="New Institutions"
+                                        label="Test List"
                                         btnClass="primary"
                                         size="small"
                                         shape="btn-square"
