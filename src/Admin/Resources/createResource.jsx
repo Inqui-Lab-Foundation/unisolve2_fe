@@ -1,235 +1,3 @@
-// /* eslint-disable indent */
-// import React from 'react';
-// import Layout from '../../Admin/Layout';
-// import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import { useFormik } from 'formik';
-// import * as Yup from 'yup';
-// import { Button } from '../../stories/Button';
-// import { InputBox } from '../../stories/InputBox/InputBox';
-// import {
-//     getNormalHeaders,
-//     openNotificationWithIcon
-// } from '../../helpers/Utils';
-// import axios from 'axios';
-// import { URL, KEY } from '../../constants/defaultValues';
-
-// const createResource = (props) => {
-//     const inputDICE = {
-//         type: 'text',
-//         className: 'defaultInput'
-//     };
-//     const headingDetails = {
-//         title: 'Add New Resource Details',
-
-//         options: [
-//             {
-//                 title: 'Resources',
-//                 path: '/admin/Resources'
-//             },
-//             {
-//                 title: 'Add Resource',
-//                 path: '/admin/Resources/createResource'
-//             }
-//         ]
-//     };
-//     // const phoneRegExp =
-//     //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-//     const formik = useFormik({
-//         initialValues: {
-//             role: '',
-//             details: '',
-//             type: '',
-//             file: '',
-//             link: ''
-//         },
-//         validationSchema: Yup.object({
-//             role: Yup.string()
-//                 .optional()
-//                 .required('Role is Required'),
-//             details: Yup.string()
-//                 .optional()
-//                 .required('Details is Required'),
-//             type: Yup.string()
-//                 .optional()
-//                 .required(' Submission type is Required')
-//         }),
-//         onSubmit: async (values) => {
-//             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-//             await axios
-//                 .post(
-//                     `${URL.createEvalProcess}`,
-//                     JSON.stringify(values, null, 2),
-//                     axiosConfig
-//                 )
-//                 .then((response) => {
-//                     if (response.status == 201) {
-//                         openNotificationWithIcon(
-//                             'success',
-//                             'Resource Created Successfully'
-//                         );
-//                         props.history.push('/admin/Resources');
-//                     }
-//                 })
-//                 .catch((err) => {
-//                     openNotificationWithIcon(
-//                         'error',
-//                         err.response.data.message
-//                     );
-//                     return err.response;
-//                 });
-//         }
-//     });
-//     return (
-//         <Layout>
-//             <div className="EditPersonalDetails new-member-page">
-//                 <Row>
-//                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-//                         <BreadcrumbTwo {...headingDetails} />
-
-//                         <div>
-//                             <Form onSubmit={formik.handleSubmit} isSubmitting>
-//                                 <div className="create-ticket register-block">
-//                                     <FormGroup className="form-group" md={12}>
-//                                         <Label
-//                                             className="mb-2"
-//                                             htmlFor="role"
-//                                             // style={{ fontSize: 15 }}
-//                                         >
-//                                             Role
-//                                         </Label>
-//                                         <InputBox
-//                                             {...inputDICE}
-//                                             id="role"
-//                                             name="Role"
-//                                             placeholder="Please enter your Role "
-//                                             onChange={formik.handleChange}
-//                                             onBlur={formik.handleBlur}
-//                                             value={formik.values.role}
-//                                         />
-//                                         {formik.touched.role &&
-//                                         formik.errors.role ? (
-//                                             <small className="error-cls">
-//                                                 {formik.errors.role}
-//                                             </small>
-//                                         ) : null}
-//                                         <Label
-//                                             className="mb-2"
-//                                             htmlFor="details"
-//                                         >
-//                                             Details
-//                                         </Label>
-//                                         <InputBox
-//                                             {...inputDICE}
-//                                             id="details"
-//                                             name="Details"
-//                                             // type="number"
-//                                             placeholder="Please enter your details"
-//                                             onChange={formik.handleChange}
-//                                             onBlur={formik.handleBlur}
-//                                             value={
-//                                                 formik.values.details
-//                                             }
-//                                         />
-//                                         {formik.touched.details &&
-//                                         formik.errors.details ? (
-//                                             <small className="error-cls">
-//                                                 {formik.errors.details}
-//                                             </small>
-//                                         ) : null}
-//                                         <Label
-//                                             className="mb-2"
-//                                             htmlFor="type"
-//                                         >
-//                                             Type
-//                                         </Label>
-//                                         {/* <InputBox
-//                                             {...inputDICE}
-//                                             id="no_of_evaluation"
-//                                             name="no_of_evaluation"
-//                                             type="number"
-//                                             placeholder="Please enter no of Evaluation"
-//                                             onChange={formik.handleChange}
-//                                             onBlur={formik.handleBlur}
-//                                             value={
-//                                                 formik.values.no_of_evaluation
-//                                             }
-//                                         />
-//                                         {formik.touched.no_of_evaluation &&
-//                                         formik.errors.no_of_evaluation ? (
-//                                             <small className="error-cls">
-//                                                 {formik.errors.no_of_evaluation}
-//                                             </small> */}
-//                                         <select
-//                                             name="Type"
-//                                             id="type"
-//                                             placeholder="Please select submission type"
-//                                             className="form-control custom-dropdown"
-//                                             value={formik.values.type}
-//                                             onChange={formik.handleChange}
-//                                         >
-//                                             <option disabled={true} value="">
-//                                                 {' '}
-//                                                 Select type
-//                                             </option>
-//                                             <option value="file">
-//                                                 File
-//                                             </option>
-//                                             <option value="link">
-//                                                 Link
-//                                             </option>
-//                                         </select>
-
-//                                         {formik.touched.type &&
-//                                         formik.errors.type ? (
-//                                             <small className="error-cls">
-//                                                 {formik.errors.type}
-//                                             </small>
-//                                         ) : null}
-//                                     </FormGroup>
-//                                 </div>
-
-//                                 <hr className="mt-4 mb-4"></hr>
-//                                 <Row>
-//                                     <Col className="col-xs-12 col-sm-6">
-//                                         <Button
-//                                             label="Discard"
-//                                             btnClass="secondary"
-//                                             size="small"
-//                                             onClick={() =>
-//                                                 props.history.push(
-//                                                     '/admin/Resources'
-//                                                 )
-//                                             }
-//                                         />
-//                                     </Col>
-//                                     <Col className="submit-btn col-xs-12 col-sm-6">
-//                                         <Button
-//                                             label="Submit details"
-//                                             type="submit"
-//                                             btnClass={
-//                                                 !(
-//                                                     formik.dirty &&
-//                                                     formik.isValid
-//                                                 )
-//                                                     ? 'default'
-//                                                     : 'primary'
-//                                             }
-//                                             size="small"
-//                                         />
-//                                     </Col>
-//                                 </Row>
-//                             </Form>
-//                         </div>
-//                     </Col>
-//                 </Row>
-//             </div>
-//         </Layout>
-//     );
-// };
-// export default createResource;
-
-
 /* eslint-disable indent */
 import React from 'react';
 import Layout from '../../Admin/Layout';
@@ -240,16 +8,21 @@ import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import {
-  getNormalHeaders,
+  getCurrentUser,
   openNotificationWithIcon
 } from '../../helpers/Utils';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { URL, KEY } from '../../constants/defaultValues';
+// import { URL, KEY } from '../../constants/defaultValues';
 // import { staticData } from './index';
 
 
 
 const createResource = (props) => {
+  const { t } = useTranslation();
+  const currentUser = getCurrentUser('current_user');
+  const history = useHistory();
   const inputDICE = {
     type: 'text',
     className: 'defaultInput'
@@ -268,87 +41,165 @@ const createResource = (props) => {
     ]
   };
 
-  const [selectedType, setSelectedType] = React.useState('');
-  const fileInputRef = React.useRef(null);
+  // const [selectedType, setSelectedType] = React.useState('');
+  // const fileInputRef = React.useRef(null);
 
+  const fileHandler = (e) => {
+    let file = e.target.files[0];
+  
+    if (!file) {
+      return;
+    }
+  
+    let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
+    const fileName = file.name.split('.').slice(0, -1).join('.');
+    const isValidFileName = pattern.test(fileName);
+
+    const maxFileSize = 20000000;
+    const isOverMaxSize = file.size > maxFileSize;
+  
+    if (isOverMaxSize) {
+      openNotificationWithIcon('error', t('student.less_20MB'));
+      return;
+    }
+  
+    if (!isValidFileName) {
+      openNotificationWithIcon('error', "Only alphanumeric and '_' are allowed");
+      return;
+    }
+  
+    
+  
+    formik.setFieldValue('attachments', file);
+  };
 
   const formik = useFormik({
     initialValues: {
       role: '',
-      details: '',
+      description: '',
       type: '',
-      link: '',
-      file: null
+      attachments: '',
     },
     validationSchema: Yup.object({
       role: Yup.string()
         .optional()
-        .required('Role is Required'),
-      details: Yup.string()
+        .oneOf(['mentor', 'student'], 'Role is Required'),
+      description: Yup.string()
         .optional()
-        .required('Details is Required'),
+        .required('details is Required'),
       type: Yup.string()
         .optional()
         .oneOf(['file', 'link'], 'Submission type is Required'),
-      link: Yup.string().when('type', {
-        is: 'link',
-        then: Yup.string().required('Link is Required')
-      }),
-      file: Yup.mixed().when('type', {
+      attachments: Yup.mixed().when('type', {
         is: 'file',
-        then: Yup.mixed().required('File is Required')
-      })
+        then: Yup.mixed().required('File is Required'),
+        otherwise: Yup.string().required('Link is Required'),
+        }),
     }),
     onSubmit: async (values) => {
-      const payload = {
-        ...formik.values,
-        link: selectedType === 'link' ? values.link : '',
-        file: selectedType === 'file' ? values.file : null
-      };
-    //   await axios
-    //   .then((response)=>{
-    //     const newRow = {
-    //         id: response.data.id,
-    //         role: payload.role,
-    //         details: payload.details,
-    //         type: payload.type,
-    //         link: payload.link,
-    //         file: payload.file
-    //       };
-    //       props.staticData.push(newRow);
-    //   });
+      try {
+        if (values.type === 'file') {
+          const fileData = new FormData();
+          fileData.append('file', values.attachments);
+
+          const response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/resource/resourceFileUpload`,
+            fileData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+              }
+            }
+          );
+          values.attachments = response?.data?.data[0].attachments[0].toString();
+          console.log(response.data);
+        // if (response.status === 200) {
+        //     openNotificationWithIcon(
+        //       'success',
+        //       'File Uploaded Successfully'
+        //     );
+        //   } else {
+        //     openNotificationWithIcon('error', 'Opps! Something Wrong');
+        //   }
+          
+        }
+
+        const body = {
+          role: values.role,
+          type: values.type,
+          description: values.description,
+          attachments: values.attachments
+        };
+
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/resource`,
+          body,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+          }
+        );
+
+        if (response.status === 201) {
+          props.history.push('/admin/Resources/index');
+          openNotificationWithIcon(
+            'success',
+            'Resource Updated Successfully'
+          );
+        } else {
+          openNotificationWithIcon('error', 'Opps! Something Wrong');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  //   onSubmit: (values) => {
+
       
 
-      const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-      const formData = new FormData();
+  //     const body = JSON.stringify({
+  //         role: values.role,
+  //         description: values.description,
+  //         type: values.type,
+  //         attachments: values.attachments
+  //     });
 
-      formData.append('role', payload.role);
-      formData.append('details', payload.details);
-      formData.append('type', payload.type);
-      formData.append('link', payload.link);
-      formData.append('file', payload.file);
-
-      await axios
-        .post(`${URL.createResources}`, formData, axiosConfig)
-        .then((response) => {
-          if (response.status === 201) {
-            openNotificationWithIcon(
-              'success',
-              'Resource Created Successfully'
-            );
-            props.history.push('/admin/Resources');
-          }
-        })
-        .catch((err) => {
-          openNotificationWithIcon('error', err.response.data.message);
-          return err.response;
-        });
-    }
+  //     var config = {
+  //         method: 'post',
+  //         url: process.env.REACT_APP_API_BASE_URL + '/resource',
+  //         headers: {
+  //             'Content-Type': 'application/json',
+  //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+  //         },
+  //         data: body
+  //     };
+  //     axios(config)
+  //         .then(function (response) {
+  //             if (response.status === 201) {
+  //                 props.history.push('/admin/Resources/index');
+  //                 openNotificationWithIcon(
+  //                     'success',
+  //                     'Resource Created Successfully'
+  //                 );
+  //             } else {
+  //                 openNotificationWithIcon(
+  //                     'error',
+  //                     'Opps! Something Wrong'
+  //                 );
+  //             }
+  //         })
+  //         .catch(function (error) {
+  //             console.log(error);
+  //         });
+  // }
   });
 
-  const handleFileChange = (e) => {
-    formik.setFieldValue('file', e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   formik.setFieldValue('file', e.target.files[0]);
+  // };
 
   return (
     <Layout>
@@ -364,34 +215,37 @@ const createResource = (props) => {
                     <Label className="mb-2" htmlFor="role">
                       Role
                     </Label>
-                    <InputBox
-                      {...inputDICE}
-                      id="role"
+                    <select
                       name="role"
-                      placeholder="Please enter your Role"
+                      id="role"
+                      className="form-control custom-dropdown"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.role}
-                    />
+                    >
+                      <option value="">Select role</option>
+                      <option value="mentor">mentor</option>
+                      <option value="student">student</option>
+                    </select>
                     {formik.touched.role && formik.errors.role && (
                       <small className="error-cls">{formik.errors.role}</small>
                     )}
 
-                    <Label className="mb-2" htmlFor="details">
+                    <Label className="mb-2" htmlFor="description">
                       Details
                     </Label>
                     <InputBox
                       {...inputDICE}
-                      id="details"
-                      name="details"
-                      placeholder="Please enter your details"
+                      id="description"
+                      name="description"
+                      placeholder="Please enter details"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.details}
+                      value={formik.values.description}
                     />
-                    {formik.touched.details && formik.errors.details && (
+                    {formik.touched.description && formik.errors.description && (
                       <small className="error-cls">
-                        {formik.errors.details}
+                        {formik.errors.description}
                       </small>
                     )}
 
@@ -399,65 +253,84 @@ const createResource = (props) => {
                       Type
                     </Label>
                     <select
-                      name="type"
-                      id="type"
-                      placeholder="Please select submission type"
-                      className="form-control custom-dropdown"
-                      value={selectedType}
-                      onChange={(e) => setSelectedType(e.target.value.toLowerCase())}
-                    >
-                      <option disabled={true} value="">
-                        Select type
-                      </option>
-                      <option value="file">File</option>
-                      <option value="link">Link</option>
-                    </select>
-                    {formik.touched.type && formik.errors.type && (
-                      <small className="error-cls">{formik.errors.type}</small>
-                    )}
+  name="type"
+  id="type"
+  placeholder="Please select submission type"
+  className="form-control custom-dropdown"
+  onChange={formik.handleChange}
+  onBlur={formik.handleBlur}
+  value={formik.values.type}
+>
+  <option disabled={true} value="">
+    Select type
+  </option>
+  <option value="file">File</option>
+  <option value="link">Link</option>
+</select>
+{formik.touched.type && formik.errors.type && (
+  <small className="error-cls">{formik.errors.type}</small>
+)}
 
-                    {selectedType === 'file' && (
-                    <>
-                        <input
-                        type="file"
-                        name="file"
-                        id="file"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                        ref={fileInputRef}
-                        />
-                        <div className="mt-2">
-                            <Button
-                                label="Upload File"
-                                btnClass="primary"
-                                size="small"
-                                onClick={() => fileInputRef.current.click()}
-                            />
-                            {formik.values.file && formik.values.file.name && (
-                                <span className="ml-2">{formik.values.file.name}</span>
-                            )}
-                        </div>
-                    </>
-                    )}
+{formik.values.type === 'file' && (
+    <>
+      <Label className="mb-2" htmlFor="attachments">
+        File
+      </Label>
+      <div className="d-flex align-items-center">
+        <InputBox
+          type="file"
+          id="attachments"
+          name="attachments"
+          style={{ display: 'none' }}
+          accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
+          onChange={(
+            e
+        ) =>
+            fileHandler(
+                e
+            )
+        }
+          onBlur={formik.handleBlur}
+        />
+        <Button
+          label="Upload File"
+          onClick={() => {
+            document.getElementById('attachments').click();
+          }}
+        />
+        {formik.values.attachments && formik.values.attachments.name ? (
+          <span className="ml-2">{formik.values.attachments.name}</span>
+        ) : (
+          <span className="ml-2">
+            {formik.initialValues.attachments &&
+              formik.initialValues.attachments.name}
+          </span>
+        )}
+      </div>
+      {formik.touched.attachments && formik.errors.attachments && (
+        <small className="error-cls">{formik.errors.attachments}</small>
+      )}
+    </>
+  )}
 
 
-                    {selectedType === 'link' && (
+                    {formik.values.type === 'link' && (
                       <FormGroup className="form-group" md={12}>
-                        <Label className="mb-2" htmlFor="link">
+                        <Label className="mb-2" htmlFor="attachments">
                           Link
                         </Label>
                         <Input
                           type="text"
-                          name="link"
-                          id="link"
+                          name="attachments"
+                          id="attachments"
                           placeholder="Please enter the link"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.link}
+                          value={formik.values.attachments}
                         />
-                        {formik.touched.link && formik.errors.link && (
+                        {formik.touched.attachments && formik.errors.attachments && (
                           <small className="error-cls">
-                            {formik.errors.link}
+                            {formik.errors.attachments}
                           </small>
                         )}
                       </FormGroup>
@@ -468,12 +341,15 @@ const createResource = (props) => {
                 <hr className="mt-4 mb-4" />
                 <Row>
                   <Col className="col-xs-12 col-sm-6">
-                    <Button
-                      label="Discard"
-                      btnClass="secondary"
-                      size="small"
-                      onClick={() => props.history.push('/admin/Resources')}
-                    />
+                  <div className="col-6">
+                                <Button
+                                    label="Discard"
+                                    size="small"
+                                    btnClass="primary"
+                                    type="cancel"
+                                    onClick={() => history.goBack()}
+                                />
+                            </div>
                   </Col>
                   <Col className="submit-btn col-xs-12 col-sm-6">
                     <Button

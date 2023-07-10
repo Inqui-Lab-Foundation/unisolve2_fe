@@ -1,391 +1,334 @@
 /* eslint-disable indent */
 import React from 'react';
-// import { Select } from 'antd';
 import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
-import { useFormik} from 'formik';
+import { useFormik } from 'formik';
 import { InputBox } from '../../stories/InputBox/InputBox';
-// import { Select } from 'antd';
 import {
-    getNormalHeaders,
-    openNotificationWithIcon
+  getCurrentUser,
+  openNotificationWithIcon
 } from '../../helpers/Utils';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { URL, KEY } from '../../constants/defaultValues';
 
 const EditResource = (props) => {
-    const resID = JSON.parse(localStorage.getItem('resID'));
-    // resID = evaluation_process_id //
-    const inputDICE = {
-        type: 'text',
-        className: 'defaultInput'
-    };
+  const { t } = useTranslation();
+  const resID = JSON.parse(localStorage.getItem('resID'));
+  const currentUser = getCurrentUser('current_user');
+  const inputDICE = {
+    type: 'text',
+    className: 'defaultInput'
+  };
 
-    // const typeOptions = [
-    //     { value: 'file', label: 'File' },
-    //     { value: 'link', label: 'Link' },
-    // ];
+  const headingDetails = {
+    title: 'Edit Resource Details',
+    options: [
+      {
+        title: 'Resource',
+        path: '/admin/Resources'
+      },
+      {
+        title: 'Edit Resource',
+        path: '/admin/Resources/editResource'
+      }
+    ]
+  };
+  
+  const fileHandler = (e) => {
+    let file = e.target.files[0];
+  
+    if (!file) {
+      return;
+    }
+  
+    let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
+    const fileName = file.name.split('.').slice(0, -1).join('.');
+    const isValidFileName = pattern.test(fileName);
 
-    const headingDetails = {
-        title: 'Edit Resource Details',
+    const maxFileSize = 20000000;
+    const isOverMaxSize = file.size > maxFileSize;
+  
+    if (isOverMaxSize) {
+      openNotificationWithIcon('error', t('student.less_20MB'));
+      return;
+    }
+  
+    if (!isValidFileName) {
+      openNotificationWithIcon('error', "Only alphanumeric and '_' are allowed");
+      return;
+    }
+  
+    
+  
+    formik.setFieldValue('attachments', file);
+  };
+  
+  
+  
+  
 
-        options: [
+  const formik = useFormik({
+    initialValues: {
+      role: resID && resID.role,
+      description: resID && resID.description,
+      type: resID && resID.type,
+      attachments: resID && resID.attachments || ''
+    },
+    validationSchema: Yup.object({
+      role: Yup.string()
+        .optional()
+        .oneOf(['mentor', 'student'], 'Role is Required'),
+      description: Yup.string()
+        .optional()
+        .required('Details is Required'),
+      type: Yup.string()
+        .optional()
+        .oneOf(['file', 'link'], 'Submission type is Required'),
+      attachments: Yup.mixed().when('type', {
+        is: 'file',
+        then: Yup.mixed().required('File is Required'),
+        otherwise: Yup.string().required('Link is Required')
+      })
+    }),
+    onSubmit: async (values) => {
+      try {
+        if (values.type === 'file') {
+          const fileData = new FormData();
+          fileData.append('file', values.attachments);
+
+          const response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/resource/resourceFileUpload`,
+            fileData,
             {
-                title: 'Resource',
-                path: '/admin/Resources'
-            },
-            {
-                title: 'Edit Resource',
-                path: '/admin/Resources/editResource'
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+              }
             }
-        ]
-    };
-    const formik = useFormik({
-        initialValues: {
-            role: resID && resID.role,
-            details: resID && resID.details,
-            type: resID && resID.type,
-            file: resID && resID.file && resID.file.name,
-            link: resID && resID.link
-            // status: 'ACTIVE'
-        },
-        validationSchema: Yup.object({
-            role: Yup.string()
-                .optional()
-                .required('Role is Required'),
-            details: Yup.string()
-                .optional()
-                // .matches(phoneRegExp, 'Enter only numeric Values')
-                // .positive()
-                // .integer()
-                // .max(2)
-                .required('Details is Required'),
-            type: Yup.string()
-                .optional()
-                .oneOf(['file', 'link'], 'Submission type is Required'),
-            file: Yup.mixed().when('type', {
-                is: 'file',
-                then: Yup.mixed().required('File is Required'),
-                otherwise: Yup.mixed().nullable()
-            }),
-            link: Yup.string().when('type', {
-                is: 'link',
-                then: Yup.string().required('Link is Required'),
-                otherwise: Yup.string().nullable()
-            })
-        }),
-        onSubmit: async (values) => {
-            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-            await axios
-                .put(
-                    `${URL.updateResource + resID.Resource_id}`,
-                    JSON.stringify(values, null, 2),
-                    axiosConfig
-                )
-                .then((response) => {
-                    if (response.status == 200) {
-                        openNotificationWithIcon(
-                            'success',
-                            'Resource Updated Successfully'
-                        );
-                        props.history.push('/admin/Resources');
-                    }
-                })
-                .catch((err) => {
-                    return err.response;
-                });
+          );
+          values.attachments = response?.data?.data[0].attachments[0].toString();
+        // if (response.status === 200) {
+        //     openNotificationWithIcon(
+        //       'success',
+        //       'File Updated Successfully'
+        //     );
+        //   } else {
+        //     openNotificationWithIcon('error', 'Opps! Something Wrong');
+        //   }
+          
         }
-    });
 
-    // const [selectedType, setSelectedType] = React.useState('');
-    // const fileInputRef = React.useRef(null);
+        const body = {
+          status: 'ACTIVE',
+          role: values.role,
+          type: values.type,
+          description: values.description,
+          attachments: values.attachments
+        };
 
-    // const handleFileChange = (e) => {
-    //     formik.setFieldValue('file', e.target.files[0]);
-    //   };
+        const response = await axios.put(
+          `${process.env.REACT_APP_API_BASE_URL}/resource/${resID.resource_id}`,
+          body,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+          }
+        );
 
-    return (
-        <Layout>
-            <div className="EditPersonalDetails new-member-page">
-                <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
-                        <div>
-                            <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
-                                    <FormGroup className="form-group" md={12}>
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="role"
-                                            // style={{ fontSize: 15 }}
-                                        >
-                                            Role
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="role"
-                                            name="role"
-                                            placeholder="Please enter Role "
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.role}
-                                        />
-                                        {formik.touched.role &&
-                                        formik.errors.role ? (
-                                            <small className="error-cls">
-                                                {formik.errors.role}
-                                            </small>
-                                        ) : // eslint-disable-next-line indent
-                                        null}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="details" 
-                                        >
-                                            Details
-                                        </Label>
-                                        <InputBox
-                                            {...inputDICE}
-                                            id="details"
-                                            name="Details"
-                                            placeholder="Please enter details "
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.details}
-                                        />
-                                        {formik.touched.details &&
-                                        formik.errors.details ? (
-                                            <small className="error-cls">
-                                                {formik.errors.details}
-                                            </small>
-                                        ) : null}
-                                        
-                                        {/* <Label className="mb-2" htmlFor="type">
-                                            Type
-                                        </Label>
-                                        <div>
-                                            <Select
-                                                id="type"
-                                                name="type"
-                                                options={typeOptions}
-                                                value={formik.values.type}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                            />
-                                        </div>
-                                        
-                                        {formik.touched.type && formik.errors.type ? (
-                                            <small className="error-cls">{formik.errors.type}</small>
-                                        ) : null} */}
+        if (response.status === 200) {
+          props.history.push('/admin/Resources/index');
+          openNotificationWithIcon(
+            'success',
+            'Resource Updated Successfully'
+          );
+        } else {
+          openNotificationWithIcon('error', 'Opps! Something Wrong');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
 
-                                        {/* <Label className="mb-2" htmlFor="type">
-                                            Type
-                                        </Label>
-                                        <div>
-                                            <Select
-                                            id="type"
-                                            name="type"
-                                            options={typeOptions}
-                                            value={formik.values.type}
-                                            onChange={(selectedOption) => {
-                                                const selectedType = selectedOption.value;
-                                                formik.setFieldValue("type", selectedType);
-                                                formik.setFieldValue("file", ""); // Clear the file field when type changes
-                                                formik.setFieldValue("link", ""); // Clear the link field when type changes
-                                                // Reset the input values based on the selected type
-                                                if (selectedType === "file") {
-                                                formik.setFieldValue("link", "");
-                                                } else if (selectedType === "link") {
-                                                formik.setFieldValue("file", "");
-                                                }
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                            />
-                                        </div>
-                                        {formik.touched.type && formik.errors.type && (
-                                            <small className="error-cls">{formik.errors.type}</small>
-                                        )}
+  return (
+    <Layout>
+      <div className="EditPersonalDetails new-member-page">
+        <Row>
+          <Col className="col-xl-10 offset-xl-1 offset-md-0">
+            <BreadcrumbTwo {...headingDetails} />
+            <div>
+              <Form onSubmit={formik.handleSubmit} isSubmitting>
+                <div className="create-ticket register-block">
+                  <FormGroup className="form-group" md={12}>
+                    <Label className="mb-2" htmlFor="role">
+                      Role
+                    </Label>
+                    <select
+                      name="role"
+                      id="role"
+                      className="form-control custom-dropdown"
+                      value={formik.values.role}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    >
+                      <option value="mentor">mentor</option>
+                      <option value="student">student</option>
+                    </select>
+                    {formik.touched.role && formik.errors.role && (
+                      <small className="error-cls">
+                        {formik.errors.role}
+                      </small>
+                    )}
 
-                                        {formik.values.type === "file" && (
-                                            <>
-                                            
+                    <Label className="mb-2" htmlFor="description">
+                      Description
+                    </Label>
+                    <InputBox
+                      {...inputDICE}
+                      id="description"
+                      name="description"
+                      placeholder="Please enter details"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.description}
+                    />
+                    {formik.touched.description &&
+                      formik.errors.description && (
+                        <small className="error-cls">
+                          {formik.errors.description}
+                        </small>
+                      )}
 
-                                            <Label className="mb-2" htmlFor="file">
-                                                File
-                                            </Label>
-                                            <div className="d-flex align-items-center">
-                                                <InputBox
-                                                type="file"
-                                                id="file"
-                                                name="file"
-                                                accept=".pdf,.doc,.docx" // Specify the file formats allowed
-                                                style={{ display: "none" }}
-                                                onChange={(event) => {
-                                                    formik.setFieldValue("file", event.target.files[0]);
-                                                }}
-                                                onBlur={formik.handleBlur}
-                                                />
-                                                <Button
-                                                label="Upload File"
-                                                onClick={() => {
-                                                    document.getElementById("file").click();
-                                                }}
-                                                />
-                                                {formik.values.file && (
-                                                <span className="ml-2">{formik.values.file.name}</span>
-                                                )}
-                                            </div>
-                                            {formik.touched.file && formik.errors.file && (
-                                                <small className="error-cls">{formik.errors.file}</small>
-                                            )}
+                    <Label className="mb-2" htmlFor="type">
+                      Type
+                    </Label>
+                    <select
+                      name="type"
+                      id="type"
+                      className="form-control custom-dropdown"
+                      value={formik.values.type}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    >
+                      <option value="file">File</option>
+                      <option value="link">Link</option>
+                    </select>
+                    {formik.touched.type && formik.errors.type && (
+                      <small className="error-cls">
+                        {formik.errors.type}
+                      </small>
+                    )}
 
-                                            
-                                            </>
-                                        )}
-                                        {formik.values.type === "link" && (
-                                            <>
-                                            
+                    {formik.values.type === 'file' && (
+                      <>
+                        <Label className="mb-2" htmlFor="attachments">
+                          File
+                        </Label>
+                        <div className="d-flex align-items-center">
+                          <input
+                            type="file"
+                            id="attachments"
+                            name="attachments"
+                            style={{ display: 'none' }}
+                            accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
+                            onChange={(
+                              e
+                          ) =>
+                              fileHandler(
+                                  e
+                              )
+                          }
 
-                                            <Label className="mb-2" htmlFor="link">
-                                                Link
-                                            </Label>
-                                            <InputBox
-                                                type="text"
-                                                id="link"
-                                                name="link"
-                                                placeholder="Enter link"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.link}
-                                            />
-                                            {formik.touched.link && formik.errors.link && (
-                                                <small className="error-cls">{formik.errors.link}</small>
-                                            )}
-
-                                            
-                                            </>
-                                        )} */}
-
-                                        <Label className="mb-2" htmlFor="type">
-                                            Type
-                                        </Label>
-                                        <select
-    name="type"
-    id="type"
-    className="form-control custom-dropdown"
-    value={formik.values.type}
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
->
-    {/* <option value="">Select type</option> */}
-    <option value="file">File</option>
-    <option value="link">Link</option>
-</select>
-                                        {formik.touched.type && formik.errors.type && (
-                                        <small className="error-cls">{formik.errors.type}</small>
-                                        )}
-
-{formik.values.type === "file" && (
-    <>
-        <Label className="mb-2" htmlFor="file">
-            File
-        </Label>
-        <div className="d-flex align-items-center">
-            <InputBox
-                type="file"
-                id="file"
-                name="file"
-                // accept=".pdf,.doc,.docx" // Specify the file formats allowed
-                style={{ display: "none" }}
-                onChange={(event) => {
-                    formik.setFieldValue("file", event.target.files[0]);
-                }}
-                onBlur={formik.handleBlur}
-            />
-            <Button
-                label="Upload File"
-                onClick={() => {
-                    document.getElementById("file").click();
-                }}
-            />
-            {formik.values.file && formik.values.file.name ? (
-                <span className="ml-2">
-                    {formik.values.file.name}
-                </span>
-            ) : (
-                <span className="ml-2">
-                    {formik.initialValues.file && formik.initialValues.file.name}
-                </span>
-            )}
-        </div>
-        {formik.touched.file && formik.errors.file && (
-            <small className="error-cls">{formik.errors.file}</small>
-        )}
-    </>
-)}
-
-
-{formik.values.type === "link" && (
-    <FormGroup className="form-group" md={12}>
-        <Label className="mb-2" htmlFor="link">
-            Link
-        </Label>
-        <InputBox
-            type="text"
-            id="link"
-            name="link"
-            placeholder="Enter link"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.link}
-        />
-        {formik.touched.link && formik.errors.link && (
-            <small className="error-cls">{formik.errors.link}</small>
-        )}
-    </FormGroup>
-)}
-
-                                    </FormGroup>
-                                </div>
-
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    '/admin/Resources'
-                                                )
-                                            }
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form>
+                            onBlur={formik.handleBlur}
+                          />
+                          <Button
+                            label="Upload File"
+                            onClick={() => {
+                              document.getElementById('attachments').click();
+                            }}
+                          />
+                          {formik.values.attachments &&
+                          formik.values.attachments.name ? (
+                            <span className="ml-2">
+                              {formik.values.attachments.name}
+                            </span>
+                          ) : (
+                            <span className="ml-2">
+                              {formik.initialValues.attachments &&
+                                formik.initialValues.attachments.name}
+                            </span>
+                          )}
                         </div>
-                    </Col>
+                        {formik.touched.attachments &&
+                          formik.errors.attachments && (
+                            <small className="error-cls">
+                              {formik.errors.attachments}
+                            </small>
+                          )}
+                      </>
+                    )}
+
+                    {formik.values.type === 'link' && (
+                      <FormGroup className="form-group" md={12}>
+                        <Label className="mb-2" htmlFor="attachments">
+                          Link
+                        </Label>
+                        <InputBox
+                          {...inputDICE}
+                          type="text"
+                          id="attachments"
+                          name="attachments"
+                          placeholder="Enter link"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.attachments}
+                        />
+                        {formik.touched.attachments &&
+                          formik.errors.attachments && (
+                            <small className="error-cls">
+                              {formik.errors.attachments}
+                            </small>
+                          )}
+                      </FormGroup>
+                    )}
+                  </FormGroup>
+                </div>
+
+                <hr className="mt-4 mb-4"></hr>
+                <Row>
+                  <Col className="col-xs-12 col-sm-6">
+                    <Button
+                      label="Discard"
+                      btnClass="secondary"
+                      size="small"
+                      onClick={() =>
+                        props.history.push('/admin/Resources/index')
+                      }
+                    />
+                  </Col>
+                  <Col className="submit-btn col-xs-12 col-sm-6">
+                    <Button
+                      label="Submit details"
+                      type="submit"
+                      btnClass={
+                        !formik.dirty || !formik.isValid ? 'default' : 'primary'
+                      }
+                      size="small"
+                    />
+                  </Col>
                 </Row>
+              </Form>
             </div>
-        </Layout>
-    );
+          </Col>
+        </Row>
+      </div>
+    </Layout>
+  );
 };
+
 export default EditResource;
