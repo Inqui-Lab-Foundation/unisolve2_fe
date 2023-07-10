@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { React, useEffect, useState } from 'react';
+import React,{useEffect, useState } from 'react';
 import { Card, Row, Col } from 'reactstrap';
 import { Fragment } from 'react';
 import Question from './Question';
@@ -48,7 +48,19 @@ const DetaledQuiz = (props) => {
     const handleSelectType = (answer) => {
         SetType(answer);
     };
+
+    const [totalQuestions, setTotalQuestions] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+
     const handleSubmit = () => {
+        // if (
+        //     props.adminQstResponce 
+        //     // && props.adminQstResponce.data 
+        //     //&& props.adminQstResponce.data.is_correct===true
+        // ) {
+        //     setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
+        // }
+
         if (type == 'DRAW') {
             const quiz_id = adminQst[0].quiz_id;
             const data = new FormData();
@@ -58,6 +70,9 @@ const DetaledQuiz = (props) => {
             props.getAdminQuizResponceAction(quiz_id, data, language);
             SetSelectOption();
             SetType();
+            // if (qst[totalQuestions].is_correct) {
+            //     setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
+            // }
         } else {
             const quiz_id = adminQst[0].quiz_id;
             const body = JSON.stringify({
@@ -67,7 +82,13 @@ const DetaledQuiz = (props) => {
             props.getAdminQuizResponceAction(quiz_id, body, language);
             SetSelectOption();
             SetType();
+            
         }
+        //Increment correctAnswers if the selected answer is correct
+        
+
+        // Increment totalQuestions
+        setTotalQuestions((prevTotalQuestions) => prevTotalQuestions + 1);
     };
     const goToTop = () => {
         window.scrollTo(0, 0);
@@ -90,6 +111,12 @@ const DetaledQuiz = (props) => {
         props.setHideQuiz(false);
         props.setQuizTopic(id?.title);
     };
+    const handleQuizResponseSubmission = (response) => {
+        // Check if the response is correct and increment the count if true
+        if (response.is_correct) {
+          setCorrectAnswers((prevCount) => prevCount + 1);
+        }
+      };
 
     return (
         <Fragment>
@@ -130,6 +157,11 @@ const DetaledQuiz = (props) => {
                                 </div>
                                 <div className="results-heading mt-4">
                                     <img src={ResultStar} alt="star" />
+                                </div>
+                                <div className="score">
+                                    <p>
+                                        {t('Score')}: {correctAnswers/2}/{totalQuestions}
+                                    </p>
                                 </div>
                                 <div className="row py-3 mb-3 ">
                                     <div className="text-right">
@@ -189,14 +221,15 @@ const DetaledQuiz = (props) => {
                                         {props.adminQstResponce &&
                                             props.adminQstResponce.data[0] &&
                                             props.adminQstResponce.data[0]
-                                                .is_correct === true && (
-                                                <div className="w-100">
+                                                .is_correct === true && (                                            
+                                                <div className="w-100">                                                    
                                                     <QuizResponse
                                                         response={
                                                             props
                                                                 .adminQstResponce
                                                                 .data[0]
                                                         }
+                                                        onQuizResponseSubmission={handleQuizResponseSubmission}
                                                     />
                                                 </div>
                                             )}
