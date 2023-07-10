@@ -23,7 +23,7 @@ const AdminResources = () => {
     }, []);
     async function handleResList() {
         //  handleResList Api where we can see list of all resource //
-        var config = {
+        let config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
