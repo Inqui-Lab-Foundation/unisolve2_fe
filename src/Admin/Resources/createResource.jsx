@@ -19,7 +19,7 @@ import axios from 'axios';
 
 
 
-const createResource = (props) => {
+const CreateResource = (props) => {
   const { t } = useTranslation();
   const currentUser = getCurrentUser('current_user');
   const history = useHistory();
@@ -371,4 +371,4 @@ const createResource = (props) => {
   );
 };
 
-export default createResource;
+export default CreateResource;
