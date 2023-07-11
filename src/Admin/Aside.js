@@ -111,7 +111,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             to={'/admin/dashboard'}
-                            style={{-
+                            style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
                             }}
