@@ -18,7 +18,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaHotel } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -111,7 +111,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             to={'/admin/dashboard'}
-                            style={{
+                            style={{-
                                 color: 'black !important',
                                 '--override-color': 'black'
                             }}
@@ -229,6 +229,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             <span style={{ color: 'var(--override-color)' }}>
                                 Institutions
                             </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaHotel />}
+                        className={
+                            location.pathname === '/admin/Resources/index' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/admin/Resources/index'}>
+                            Resources
                         </NavLink>
                     </MenuItem>
                     <MenuItem
