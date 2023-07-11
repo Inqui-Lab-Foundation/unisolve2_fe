@@ -8,7 +8,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,9 @@ import image_5 from '../assets/media/unisolve_slider1.png';
 import image_6 from '../assets/media/unisolve_slider2.png';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
+import {
+    getMentorGlobalLanguage
+} from '../redux/actions';
 // import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import i18next from 'i18next';
@@ -26,10 +29,12 @@ import i18next from 'i18next';
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
+    const dispatch = useDispatch();
     // const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
+        const forMentor = {code:'en',name:'English'};
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')
@@ -44,6 +49,7 @@ const LoginNew = (props) => {
                 ? history.push('/eadmin/dashboard')
                 : history.push('/dashboard');
         }
+        dispatch(getMentorGlobalLanguage(forMentor));
     }, []);
 
     const formik = useFormik({
