@@ -7,8 +7,6 @@ import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
 import TeacherCertificate from '../../assets/media/img/certificates/TN-SIDP-Certificates-signed-1-1.png';
 import { useTranslation } from 'react-i18next';
 import { KEY, URL } from '../../constants/defaultValues';
-import { useSelector } from 'react-redux';
-import { getLanguage } from '../../constants/languageOptions';
 import Congo from '../../assets/media/survey-success.jpg';
 import axios from 'axios';
 
@@ -16,7 +14,6 @@ const MyCertificate = () => {
     const { t } = useTranslation();
     const pdfRef = useRef(null);
     const currentUser = getCurrentUser('current_user');
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
     //let tempVar = postSurveyStatus ==="COMPLETED";
     let tempVar = false ;
@@ -33,7 +30,7 @@ const MyCertificate = () => {
 
     useLayoutEffect(() => {
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const lang = getLanguage(language);
+        const lang = 'local=en';
         const final = lang.split('=');
         axiosConfig['params'] = {
             role: 'MENTOR',
@@ -51,7 +48,7 @@ const MyCertificate = () => {
             .catch((err) => {
                 return err.response;
             });
-    }, [language]);
+    }, []);
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">

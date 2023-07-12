@@ -26,9 +26,9 @@ import Congo from '../../assets/media/survey-success.jpg';
 import { useHistory } from 'react-router-dom';
 import getStart from '../../assets/media/getStart.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLanguage } from '../../constants/languageOptions';
 import { useTranslation } from 'react-i18next';
 import { getTeacherPresurveyStatus } from '../store/mentors/actions';
+import { getLanguage } from '../../constants/languageOptions';
 
 const PreSurvey = () => {
     // here we can start the presurvey journey //
@@ -36,6 +36,9 @@ const PreSurvey = () => {
     const { t } = useTranslation();
     const preSurveyStatus = useSelector(
         (state) => state?.mentors.teacherPresurveyStatus
+    );
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
     );
     const quizSurveyId = useSelector((state) => state?.mentors.quizSurveyId);
     const preSurveyList = useSelector((state) => state?.mentors.preSurveyList);
@@ -46,7 +49,6 @@ const PreSurvey = () => {
     const [answerResponses, setAnswerResponses] = useState([]);
 
     const dispatch = useDispatch();
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
     const filterAnswer = (questionId) => {
