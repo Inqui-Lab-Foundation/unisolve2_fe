@@ -209,6 +209,7 @@ const IdeasPageNew = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
+        console.log(newItems);
         let obj = {
             challenge_question_id: e.target.name,
             selected_option:
@@ -290,7 +291,7 @@ const IdeasPageNew = () => {
                 cancelButtonText: t('general_req.btn_cancel'),
                 reverseButtons: false
             })
-            .then(async(result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
                         await handleSubmit(e, type);

@@ -101,7 +101,11 @@ import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
+import DashboardCoordinator from './Coordinators/Dashboard';
+import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
+
 import SchoolChangePSWModal from './School/ChangePSWModal';
+import LogInNew from './Coordinators/LogInNew';
 
 const Routers = () => {
     return (
@@ -125,6 +129,22 @@ const Routers = () => {
                         path="/success"
                         render={() => <SuccessPage />}
                     />
+                    <Route
+                        exact={true}
+                        path="/coordinator"
+                        render={() => <LogInNew />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/coordinator/dashboard"
+                        component={DashboardCoordinator}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/coordinator-changePassword"
+                        component={CoordinatorChangePswModal}
+                    />
+
                     <Route
                         exact={true}
                         path="/school"
