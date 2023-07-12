@@ -11,6 +11,7 @@ function LatestNewsNew({ usersdata }) {
 
     const [newsRes, setNewRes] = useState({});
     const [news, setNews] = useState([]);
+    console.log(news);
     const containerRef = useRef(null);
     useEffect(() => {
         const container = containerRef.current;
