@@ -87,6 +87,39 @@ export default function DoughnutChart({ user }) {
                 setChangeShow(false);
             });
     };
+    const handleRevoke = async (id, type) => {
+        let submitData = {
+            status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
+        };
+        var config = {
+            method: 'put',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                JSON.stringify(id),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: submitData
+        };
+        axios(config)
+            .then(function (response) {
+                console.log(response);
+                if (response.status === 200) {
+                    openNotificationWithIcon(
+                        'success',
+                        'Idea Submission Status Successfully Update!',
+                        ''
+                    );
+                    dispatch(getTeamMemberStatus(teamId, setshowDefault));
+                    dispatch(getStudentChallengeSubmittedResponse(teamId));
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     const columns = [
         {
             title: 'Name',
@@ -233,6 +266,24 @@ export default function DoughnutChart({ user }) {
                                     ? challengesSubmittedResponse[0]?.status
                                     : 'NOT STARTED'}{' '}
                             </span>
+                            {challengesSubmittedResponse[0]?.status ==
+                            'SUBMITTED' ? (
+                                <Button
+                                    className="btn btn-success btn-lg mr-5 mx-2"
+                                    label={'REVOKE'}
+                                    size="small "
+                                    onClick={() =>
+                                        handleRevoke(
+                                            challengesSubmittedResponse[0]
+                                                .challenge_response_id,
+                                            challengesSubmittedResponse[0]
+                                                .status
+                                        )
+                                    }
+                                />
+                            ) : (
+                                ''
+                            )}
                         </Card>
 
                         <Button
@@ -256,6 +307,12 @@ export default function DoughnutChart({ user }) {
                         <div className="m-3">
                             <Button
                                 label={'Change'}
+                                disabled={
+                                    teamsMembersStatus.length > 0 &&
+                                    challengesSubmittedResponse[0]?.status
+                                        ? false
+                                        : true
+                                }
                                 btnClass={`${
                                     teamsMembersStatus.length > 0 &&
                                     challengesSubmittedResponse[0]?.status

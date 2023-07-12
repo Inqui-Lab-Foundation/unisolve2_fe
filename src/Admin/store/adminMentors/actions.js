@@ -55,7 +55,8 @@ export const getAdminMentorsList = (status, district) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            console.log(datamodify);
             const totalData =
                 result.data &&
                 result.data.data[0] &&

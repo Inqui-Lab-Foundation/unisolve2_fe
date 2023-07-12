@@ -50,11 +50,11 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleclickcall = () => {
+    const handleclickcall = async() => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
-        handleideaList();
+        await handleideaList();
     };
 
     async function handleideaList() {
@@ -79,7 +79,7 @@ const ViewSelectedIdea = () => {
                             upd['key'] = i + 1;
                             return upd;
                         });
-                    settableData(updatedWithKey && updatedWithKey);
+                    settableData(updatedWithKey);
                     setshowspin(false);
                 }
             })

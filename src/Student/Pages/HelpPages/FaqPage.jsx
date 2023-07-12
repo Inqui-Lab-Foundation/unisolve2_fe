@@ -34,8 +34,8 @@ const FaqPage = () => {
     };
     const catId = 2;
 
-    useEffect(() => {
-        getFaqByCategory(catId);
+    useEffect(async() => {
+        await getFaqByCategory(catId);
     }, [language]);
     return (
         <Layout>

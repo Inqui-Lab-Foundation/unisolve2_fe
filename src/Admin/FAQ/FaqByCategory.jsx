@@ -47,8 +47,8 @@ const FaqByCategory = () => {
             });
     };
 
-    useEffect(() => {
-        getFaqByCategory(1);
+    useEffect(async() => {
+        await getFaqByCategory(1);
     }, []);
     const deleteFaq = async (faqID) => {
         Swal.fire({
@@ -64,14 +64,14 @@ const FaqByCategory = () => {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
                 axios
                     .delete(`${URL.getFaqList}/${faqID}`, axiosConfig)
-                    .then((faqDeleteRes) => {
+                    .then(async(faqDeleteRes) => {
                         if (faqDeleteRes?.status == 200) {
                             Swal.fire(
                                 'Faq Deleted Successfully..!!',
                                 '',
                                 'success'
                             );
-                            getFaqByCategory(faqID);
+                            await getFaqByCategory(faqID);
                         }
                     })
                     .catch((err) => {

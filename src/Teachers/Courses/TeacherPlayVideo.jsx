@@ -47,7 +47,6 @@ import { useTranslation } from 'react-i18next';
 
 const TeacherPlayVideo = (props) => {
     const { t } = useTranslation();
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
     const pdfRef = useRef(null);
     const course_id = props.match.params.id ? props.match.params.id : 1;
     const currentUser = getCurrentUser('current_user');
@@ -107,12 +106,12 @@ const TeacherPlayVideo = (props) => {
         return false;
     };
     useEffect(() => {
-        props.getTeacherCourseDetailsActions(course_id, language);
-    }, [course_id, language]);
+        props.getTeacherCourseDetailsActions(course_id);
+    }, [course_id]);
 
-    useLayoutEffect(() => {
-        props.getMentorCourseAttachmentsActions();
-    }, []);
+    // useLayoutEffect(() => {
+    //     props.getMentorCourseAttachmentsActions();
+    // }, []);
 
     useEffect(() => {
         var topicArrays = [];
@@ -142,7 +141,7 @@ const TeacherPlayVideo = (props) => {
             );
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
-            topicArrays.map((item, i) => {
+            topicArrays.forEach((item, i) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }
@@ -236,7 +235,7 @@ const TeacherPlayVideo = (props) => {
                     setUpdateModuleResponce(
                         response.data && response.data.data[0]
                     );
-                    props.getTeacherCourseDetailsActions(course_id, language);
+                    props.getTeacherCourseDetailsActions(course_id);
                 }
             })
             .catch(function (error) {

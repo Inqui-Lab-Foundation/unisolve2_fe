@@ -193,13 +193,13 @@ const AddNewFaq = (props) => {
     const toggleFaqCatModal = () => {
         setShowFaqCatModal((showFaqCatModal) => !showFaqCatModal);
     };
-    useEffect(() => {
-        getFaqCategoryList();
-        getFaqList();
+    useEffect(async() => {
+        await getFaqCategoryList();
+        await getFaqList();
     }, [language]);
 
-    const updateFaqCatList = () => {
-        getFaqCategoryList();
+    const updateFaqCatList = async() => {
+        await getFaqCategoryList();
         toggleFaqCatModal();
     };
 

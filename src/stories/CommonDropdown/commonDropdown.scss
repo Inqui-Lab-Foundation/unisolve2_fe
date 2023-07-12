@@ -5,12 +5,11 @@
     background-color: var(--color-white-1) !important;
     font-size: 1.4rem;
     line-height: 2.5rem;
-    background-color: #ffffff;
     border: 1px solid #dde2e4;
     box-sizing: border-box;
     border-radius: 6px;
     margin-right: 0.5rem;
-    &::last-child {
+    &:last-child {
       margin-right: 0rem !important;
     }
     &:focus {

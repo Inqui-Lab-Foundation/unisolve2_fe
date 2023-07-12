@@ -24,8 +24,6 @@ import {
 } from '../../helpers/Utils';
 import axios from 'axios';
 import Congo from '../../assets/media/survey-success.jpg';
-
-import { getLanguage } from '../../constants/languageOptions';
 import { useDispatch, useSelector } from 'react-redux';
 import { UncontrolledAlert } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +39,6 @@ const PostSurvey = () => {
     const [quizSurveyId, setQuizSurveyId] = useState(0);
     const [count, setCount] = useState(0);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
     const dashboardStates = useSelector(
         (state) => state.teacherDashBoard.dashboardStates
     );
@@ -76,7 +73,7 @@ const PostSurvey = () => {
                     .post(
                         `${
                             URL.getPostSurveyList
-                        }/${quizSurveyId}/responses?${getLanguage(language)}`,
+                        }/${quizSurveyId}/responses?locale=en`,
                         JSON.stringify(submitData, null, 2),
                         axiosConfig
                     )
@@ -101,7 +98,7 @@ const PostSurvey = () => {
 
     useEffect(() => {
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const lang = getLanguage(language);
+        const lang = 'locale=en';
         const final = lang.split('=');
         axiosConfig['params'] = {
             role: 'MENTOR',
@@ -120,7 +117,7 @@ const PostSurvey = () => {
             .catch((err) => {
                 return err.response;
             });
-    }, [language, count]);
+    }, [count]);
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">

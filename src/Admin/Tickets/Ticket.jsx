@@ -20,8 +20,8 @@ const TicketsPage = () => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
 
-    useEffect(() => {
-        listApi();
+    useEffect(async() => {
+        await listApi();
     }, []);
 
     async function listApi() {
@@ -217,17 +217,17 @@ const TicketsPage = () => {
         return () => clearTimeout(timeout);
     }, []);
 
-    const changeTab = (e) => {
+    const changeTab = async(e) => {
         if (e === '1') {
-            listApi();
+            await listApi();
         } else if (e === '2') {
-            openListApi();
+            await openListApi();
         } else if (e === '3') {
-            inProgressApi();
+            await inProgressApi();
         } else if (e === '4') {
-            resolvedApi();
+            await resolvedApi();
         } else {
-            invalidApi();
+            await invalidApi();
         }
     };
 

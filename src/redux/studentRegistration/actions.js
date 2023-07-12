@@ -81,7 +81,8 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
         }
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            console.log(datamodify);
             dispatch(getStudentListSuccess(data));
         } else {
             dispatch(getStudentListError(result.statusText));
@@ -214,6 +215,7 @@ export const getStudentChallengeSubmittedResponseSuccess =
 export const getStudentChallengeSubmittedResponse =
     (id, language) => async (dispatch) => {
         try {
+            console.log(language,"-----student------");
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const result = await axios
                 .get(

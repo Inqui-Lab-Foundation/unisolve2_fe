@@ -9,11 +9,11 @@ import { KEY, URL } from '../../../constants/defaultValues';
 import { getNormalHeaders } from '../../../helpers/Utils';
 import axios from 'axios';
 
-const eadmindashboard = () => {
+const Eadmindashboard = () => {
     const [dateCount, setdateCount] = useState({});
 
-    useEffect(() => {
-        handlecountvalue();
+    useEffect(async() => {
+        await handlecountvalue();
     }, []);
 
     async function handlecountvalue() {
@@ -165,4 +165,4 @@ const eadmindashboard = () => {
     );
 };
 
-export default eadmindashboard;
+export default Eadmindashboard;

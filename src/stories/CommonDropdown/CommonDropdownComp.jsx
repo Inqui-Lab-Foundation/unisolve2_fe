@@ -67,7 +67,7 @@ export const CommonDropDownComp = ({
                             to={{ pathname: item.path, state: { item: item.data } }}
                             // data={item.data}
                             // state={item.data}
-                            onClick={item.onClick && item.onClick}
+                            onClick={item.onClick}
                         >
                             {item.Icon ? <item.Icon /> : ""} {item.name}
                         </Link>

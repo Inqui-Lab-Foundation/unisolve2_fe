@@ -6,7 +6,7 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import moment from 'moment';
 import ViewDetail from './ViewDetail';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { Button } from '../../../stories/Button';
@@ -95,8 +95,8 @@ const ViewSelectedIdea = () => {
         dispatch(getAdminList());
     }, []);
 
-    const handlePromotel2processed = (item) => {
-        promoteapi(item.challenge_response_id);
+    const handlePromotel2processed = async(item) => {
+        await promoteapi(item.challenge_response_id);
     };
 
     async function promoteapi(id) {
@@ -115,9 +115,9 @@ const ViewSelectedIdea = () => {
             data: body
         };
         await axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
-                    handleclickcall();
+                    await handleclickcall();
                 }
             })
             .catch(function (error) {
@@ -125,9 +125,9 @@ const ViewSelectedIdea = () => {
             });
     }
 
-    const handleclickcall = () => {
+    const handleclickcall = async() => {
         setshowspin(true);
-        handleideaList();
+        await handleideaList();
     };
 
     async function handleideaList() {
@@ -150,7 +150,7 @@ const ViewSelectedIdea = () => {
                             upd['key'] = i + 1;
                             return upd;
                         });
-                    settableData(updatedWithKey && updatedWithKey);
+                    settableData(updatedWithKey);
                     setshowspin(false);
                 }
             })
@@ -418,8 +418,8 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={() => {
-                                            downloadPDF(params);
+                                        onClick={async() => {
+                                            await downloadPDF(params);
                                         }}
                                         className="text-danger"
                                     />
@@ -431,7 +431,7 @@ const ViewSelectedIdea = () => {
                                 )}
                             </div>
                             {!params.final_result && (
-                                <Link
+                                <div
                                     //exact="true"
                                     // key={record}
                                     onClick={() =>
@@ -442,7 +442,7 @@ const ViewSelectedIdea = () => {
                                     <div className="btn btn-info btn-lg mx-2">
                                         Promote
                                     </div>
-                                </Link>
+                                </div>
                             )}
                         </>
                     ];
@@ -507,8 +507,8 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={() => {
-                                            downloadPDF(params);
+                                        onClick={async() => {
+                                            await downloadPDF(params);
                                         }}
                                         className="text-danger"
                                     />

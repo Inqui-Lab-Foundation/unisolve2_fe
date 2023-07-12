@@ -98,7 +98,7 @@ const downloadPDF = async() => {
                                     <div className='mx-2 pointer d-flex align-items-center'>
                                         {
                                             !pdfLoader?
-                                            <FaDownload size={22} onClick={()=>{downloadPDF();}}/>:
+                                            <FaDownload size={22} onClick={async()=>{await downloadPDF();}}/>:
                                             <FaHourglassHalf size={22}/>
                                         }
                                     </div>

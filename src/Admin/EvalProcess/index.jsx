@@ -6,16 +6,15 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { openNotificationWithIcon } from '../../helpers/Utils';
 import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
-const evalprocess = () => {
+const Evalprocess = () => {
     const history = useHistory();
     const [evalList, setEvalList] = useState([]);
     const currentUser = getCurrentUser('current_user');
-    useEffect(() => {
-        handleEvalList();
+    useEffect(async () => {
+        await handleEvalList();
     }, []);
     async function handleEvalList() {
         //  handleEvalList Api where we can see list of all evaluationProcess //
@@ -83,9 +82,9 @@ const evalprocess = () => {
             data: body
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
-                    handleEvalList();
+                    await handleEvalList();
 
                     openNotificationWithIcon(
                         'success',
@@ -146,8 +145,7 @@ const evalprocess = () => {
                 width: '40%',
                 cell: (record) => [
                     <>
-                        <Link
-                            exact="true"
+                        <div
                             key={record}
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '12px' }}
@@ -155,10 +153,9 @@ const evalprocess = () => {
                             <div className="btn btn-primary btn-lg mx-2">
                                 EDIT
                             </div>
-                        </Link>
+                        </div>
 
-                        <Link
-                            exact="true"
+                        <div
                             key={record}
                             onClick={() => handleDic(record)}
                             style={{ marginRight: '12px' }}
@@ -166,10 +163,9 @@ const evalprocess = () => {
                             <div className="btn btn-success btn-lg mx-2">
                                 DISTRICTS
                             </div>
-                        </Link>
+                        </div>
                         {record.status == 'ACTIVE' ? (
-                            <Link
-                                exact="true"
+                            <div
                                 key={record}
                                 onClick={() =>
                                     handleActiveStatusUpdate(record, 'INACTIVE')
@@ -179,10 +175,9 @@ const evalprocess = () => {
                                 <div className="btn btn-danger btn-lg  mx-2">
                                     INACTIVE
                                 </div>
-                            </Link>
+                            </div>
                         ) : (
-                            <Link
-                                exact="true"
+                            <div
                                 key={record}
                                 onClick={() =>
                                     handleActiveStatusUpdate(record, 'ACTIVE')
@@ -192,7 +187,7 @@ const evalprocess = () => {
                                 <div className="btn btn-warning btn-lg  mx-2">
                                     ACTIVE
                                 </div>
-                            </Link>
+                            </div>
                         )}
                     </>
                 ]
@@ -241,4 +236,4 @@ const evalprocess = () => {
     );
 };
 
-export default evalprocess;
+export default Evalprocess;

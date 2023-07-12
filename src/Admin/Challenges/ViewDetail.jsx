@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useRef } from 'react';
 import './ViewSelectedChallenges.scss';
 import { Button } from '../../stories/Button';
 import LinkComponent from './pages/LinkComponent';
@@ -9,12 +10,17 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import Select from './pages/Select';
+//import { useHistory } from 'react-router-dom';
+//import { useDispatch } from 'react-redux';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
+import { useReactToPrint } from 'react-to-print';
+
 import DetailToDownload from '../Evaluation/ViewSelectedIdea/DetailToDownload';
 import html2canvas from 'html2canvas';
 
 const ViewDetail = (props) => {
+    const componentRef = useRef();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [isReject, setIsreject] = React.useState(false);
@@ -51,6 +57,7 @@ const ViewDetail = (props) => {
                         ? 'You are attempting to accept this Idea'
                         : 'You are attempting to reject this Idea',
                 text: 'Are you sure?',
+                // imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
                 showCancelButton: true,
@@ -96,6 +103,9 @@ const ViewDetail = (props) => {
                         : response?.data?.message
                 );
                 props?.setIsDetail(false);
+                // props?.settableData([]);
+                // props?.setdistrict('');
+                // props?.setsdg('');
             })
             .catch(function (error) {
                 openNotificationWithIcon(
@@ -113,38 +123,56 @@ const ViewDetail = (props) => {
     };
 
     const [pdfLoader, setPdfLoader] = React.useState(false);
-    const downloadPDF = async () => {
-        setPdfLoader(true);
-        const domElement = document.getElementById('pdfId');
-        await html2canvas(domElement, {
-            onclone: (document) => {
-                document.getElementById('pdfId').style.display = 'block';
-            },
-            scale: 1.13
-        }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'px', [2580, 3508]);
-            pdf.addImage(
-                imgData,
-                'JPEG',
-                20,
-                20,
-                2540,
-                pdf.internal.pageSize.height,
-                undefined,
-                'FAST'
-            );
-            pdf.save(`${new Date().toISOString()}.pdf`);
-        });
-        setPdfLoader(false);
-    };
+
+    // const downloadPDF = async () => {
+    //     setPdfLoader(true);
+    //     const domElement = document.getElementById('pdfId');
+    //     await html2canvas(domElement, {
+    //         onclone: (document) => {
+    //             document.getElementById('pdfId').style.display = 'block';
+    //         },
+    //         scale: 1.13
+    //     }).then((canvas) => {
+    //         const imgData = canvas.toDataURL('image/png');
+    //         const pdf = new jsPDF('p', 'px', [2580, 3508]);
+    //         pdf.addImage(
+    //             imgData,
+    //             'JPEG',
+    //             20,
+    //             20,
+    //             2540,
+    //             pdf.internal.pageSize.height,
+    //             undefined,
+    //             'FAST'
+    //         );
+    //         pdf.save(`${new Date().toISOString()}.pdf`);
+    //     });
+    //     setPdfLoader(false);
+    // };
+
+    // const downloadPDF = () => {
+    //     setPdfLoader(true);
+    //     const input = document.getElementById('divToPrint');
+    //     html2canvas(input).then((canvas) => {
+    //         const imgData = canvas.toDataURL('image/png');
+    //         const pdf = new jsPDF();
+    //         pdf.addImage(imgData, 'JPEG', 0, 0);
+    //         // pdf.output('dataurlnewwindow');
+    //         pdf.save(`${new Date().toISOString()}.pdf`);
+    //     });
+    //     setPdfLoader(false);
+    // };
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
 
     return (
         <div>
             {teamResponse && teamResponse?.length > 0 ? (
                 <>
-                    <div id="pdfId" style={{ display: 'none' }}>
+                    <div style={{ display: 'none' }}>
                         <DetailToDownload
+                            ref={componentRef}
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={'Draft'}
@@ -203,7 +231,17 @@ const ViewDetail = (props) => {
                                             }
                                         />
                                     </div>
-                                    <div className="mx-2 pointer d-flex align-items-center">
+                                    <div>
+                                        <FaDownload
+                                            size={22}
+                                            onClick={handlePrint}
+                                        />
+                                        {/* <Button
+                                            onClick={handlePrint}
+                                            label={'Download'}
+                                        /> */}
+                                    </div>
+                                    {/* <div className="mx-2 pointer d-flex align-items-center">
                                         {!pdfLoader ? (
                                             <FaDownload
                                                 size={22}
@@ -215,6 +253,18 @@ const ViewDetail = (props) => {
                                             <FaHourglassHalf size={22} />
                                         )}
                                     </div>
+                                    <div>
+                                        <ReactToPrint
+                                            trigger={() => (
+                                                <Button
+                                                    btnClass="btn btn-secondary"
+                                                    size="small"
+                                                    label="Download"
+                                                />
+                                            )}
+                                            content={() => componentRef.current}
+                                        />
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -342,6 +392,7 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
                                                 onClick={() => {
+                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                 }}
@@ -368,6 +419,7 @@ const ViewDetail = (props) => {
                                             <button
                                                 className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill m-2"
                                                 onClick={() => {
+                                                    // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
                                                 }}

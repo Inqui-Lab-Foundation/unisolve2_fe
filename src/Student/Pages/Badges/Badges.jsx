@@ -32,13 +32,11 @@ const BadgesComp = () => {
         <Layout>
             <div className="badges-page mt-5 mb-50">
                 <Container className=" mt-2 ">
-                   
                     <Row>
                         <Col md={12} className="w-100 d-block">
                             <h2 className="title mb-4">My Badges</h2>
                         </Col>
                     </Row>
-
                     <Row
                         className="myBadges equal mt-0 mb-50"
                         style={{ gap: '1.5rem' }}

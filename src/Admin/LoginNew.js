@@ -1,24 +1,26 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useLayoutEffect } from 'react';
+import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
+import { Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import image_1 from '../assets/media/unisolve_slider1.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
 import { adminLoginUser } from '../redux/actions';
-
+// import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../helpers/Utils';
 
 const LoginNew = (props) => {
+    // const { t } = useTranslation();
     const history = useHistory();
-    const [password, handlePassword] = useState('password');
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
         if (
@@ -85,19 +87,13 @@ const LoginNew = (props) => {
     };
 
     const inputPassword = {
-        placeholder: 'Enter password'
+        placeholder: 'Enter password',
+        showEyeIcon: true
     };
 
     const logInBtn = {
         label: 'Login',
         size: 'large'
-    };
-    const handleShow = (e, type) => {
-        if (type === 'password') {
-            handlePassword('text');
-        } else {
-            handlePassword('password');
-        }
     };
 
     return (
@@ -106,48 +102,65 @@ const LoginNew = (props) => {
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <div className="row">
-                            <Link to={'/'} exact>
-                                <Col
-                                    md={12}
-                                    className=" mr-auto mobile_tab-hide"
-                                >
-                                    {' '}
-                                    <h2 className="text-white">
-                                        <img
-                                            src={signuplogo}
-                                            alt="Signup logo"
-                                            className="img-fluid w-50"
-                                        />
-                                    </h2>
-                                </Col>
-                            </Link>
-                        </div>
-
-                        <h1 className="text-left pb-5 mobile_tab-hide">
-                            Together let’s learn and build something amazing.
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
+                            {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">
-                            Creating change makers of tomorrow
-                        </p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
+                        <Carousel>
+                            <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={image_1}
+                                    alt="image_1"
                                     className="img-fluid img-1"
                                 />
                             </figure>
                         </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={image_2}
+                                    alt="image_2"
+                                    className="img-fluid img-2"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item>
+                            {/* <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_2}
+                                    alt="ellipse_2"
+                                    className="img-fluid img-3"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item> */}
+                        </Carousel>
                     </div>
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
+                        <Row className="logo">
+                            <Col
+                                md={12}
+                                className="d-flex justify-content-center align-items-center"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="Logo"
+                                    className="logo-image"
+                                />
+                            </Col>
+                        </Row>
                         <Row className=" article-header mb-4">
-                            <h4 className="mb-4">
-                                <span className="color-green">Admin</span> Login
+                            <h4 className="mb-4 d-flex justify-content-center align-elements-center">
+                                Admin Login
                             </h4>
                         </Row>
-
                         <Row className="mt-5">
                             <Col md={12}>
                                 <Form onSubmit={formik.handleSubmit}>
@@ -156,8 +169,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -189,8 +202,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -202,7 +215,7 @@ const LoginNew = (props) => {
                                                 {...inputPassword}
                                                 id="password"
                                                 name="password"
-                                                type={password}
+                                                type="password"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
@@ -220,36 +233,17 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Row className="keepme_login">
-                                                <Col className="col-sm-4">
-                                                    <FormGroup check>
-                                                        <Input
-                                                            type="checkbox"
-                                                            name="acceptedTerms"
-                                                            className="my-auto"
-                                                            onClick={(e) =>
-                                                                handleShow(
-                                                                    e,
-                                                                    password
-                                                                )
-                                                            }
-                                                        />
-                                                        <small className="text-bold ">
-                                                            {' '}
-                                                            Show Password
-                                                        </small>
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col className="col-sm-8 text-right">
+                                                <Col className="col-sm-8 ">
                                                     <Link
                                                         exact="true"
                                                         to="/admin/forgotpassword"
                                                         className="text-link pt-1"
                                                     >
-                                                        Forgot your password
+                                                        Forgot password
                                                     </Link>
                                                 </Col>
                                             </Row>
@@ -260,8 +254,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}
@@ -280,6 +274,7 @@ const LoginNew = (props) => {
                                                         formik.isValid
                                                     )
                                                 }
+                                                style={{ borderRadius: '0' }}
                                             />
                                         </Col>
                                     </div>

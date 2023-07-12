@@ -56,7 +56,6 @@
         background-color: var(--color-white-1) !important;
         font-size: 1.4rem;
         line-height: 2.5rem;
-        background: #ffffff;
         border: 1px solid #dde2e4;
         box-sizing: border-box;
         border-radius: 6px;
@@ -294,7 +293,7 @@
         text-decoration: none;
       }
       .videoTime {
-        font-family: Inter;
+        font-family: Inter,sans-serif;
         font-size: 1.4rem;
         line-height: 2.4rem;
         color: var(--color-grey-light-3);
@@ -311,7 +310,7 @@
             color: var(--color-grey-light-1);
           }
           .assement-link {
-            font-family: Inter;
+            font-family: Inter,sans-serif;
             font-weight: 500;
             font-size: 1.4rem;
             color: #cccccc;

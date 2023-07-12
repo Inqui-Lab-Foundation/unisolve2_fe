@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
 import { Tabs } from 'antd';
 import Layout from '../../Admin/Layout';
-import { Link } from 'react-router-dom';
-
 import { BsUpload } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
 import { connect } from 'react-redux';
@@ -317,7 +315,7 @@ const TicketsPage = (props) => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     if (type && type === 'student') {
                         props.studentStatusUpdate({ status }, id);
@@ -337,7 +335,7 @@ const TicketsPage = (props) => {
                             // mobile: all.mobile,
                             status
                         };
-                        handleStatusUpdateInAdmin({ obj }, id);
+                        await handleStatusUpdateInAdmin({ obj }, id);
 
                         setTimeout(() => {
                             props.getAdminListAction();
@@ -426,32 +424,30 @@ const TicketsPage = (props) => {
                 selector: 'action',
                 width: '35%',
                 cell: (record) => [
-                    // <Link
-                    //     exact="true"
+                    // <div
+                    //
                     //     key={record.id}
                     //     onClick={() => handleReset(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
                     //     <div className="btn btn-success btn-lg">RESET</div>
-                    // </Link>,
-                    <Link
-                        exact="true"
+                    // </div>,
+                    <div
                         key={record.id}
                         onClick={() => handleSelect(record, '2')}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg">VIEW</div>
-                    </Link>,
-                    // <Link
-                    //     exact="true"
+                    </div>,
+                    // <div
+                    //
                     //     key={record.id}
                     //     onClick={() => handleEdit(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
                     //     <div className="btn btn-warning btn-lg">EDIT</div>
-                    // </Link>,
-                    <Link
-                        exact="true"
+                    // </div>,
+                    <div
                         key={record.id}
                         className="mr-5"
                         onClick={() => {
@@ -474,7 +470,7 @@ const TicketsPage = (props) => {
                         ) : (
                             <div className="btn btn-success btn-lg">ACTIVE</div>
                         )}
-                    </Link>
+                    </div>
                 ]
             }
         ]
@@ -533,17 +529,15 @@ const TicketsPage = (props) => {
                 selector: 'null',
                 width: '19%',
                 cell: (record) => [
-                    <Link
+                    <div
                         key={record.id}
-                        exact="true"
                         onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg mr-5">VIEW</div>
-                    </Link>,
-                    <Link
+                    </div>,
+                    <div
                         key={record.id}
-                        exact="true"
                         style={{ marginRight: '10px' }}
                         onClick={() => {
                             let status =
@@ -560,7 +554,7 @@ const TicketsPage = (props) => {
                         ) : (
                             <div className="btn btn-warning btn-lg">ACTIVE</div>
                         )}
-                    </Link>
+                    </div>
                 ]
             }
         ]
@@ -613,24 +607,22 @@ const TicketsPage = (props) => {
                 selector: 'null',
                 width: '15%',
                 cell: (record) => [
-                    // <Link
+                    // <div
                     //     key={record.id}
-                    //     exact="true"
+                    //
                     //     onClick={() => handleSelect(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
                     //     <div className="btn btn-primary btn-lg mr-5">View</div>
-                    // </Link>,
-                    <Link
-                        exact="true"
+                    // </div>,
+                    <div
                         key={record.id}
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg">EDIT</div>
-                    </Link>,
-                    <Link
-                        exact="true"
+                    </div>,
+                    <div
                         key={record.id}
                         className="mr-5"
                         onClick={() => {
@@ -652,7 +644,7 @@ const TicketsPage = (props) => {
                         ) : (
                             <div className="btn btn-warning btn-lg">ACTIVE</div>
                         )}
-                    </Link>
+                    </div>
                 ]
             }
         ]
@@ -721,17 +713,15 @@ const TicketsPage = (props) => {
 
                 width: '25%',
                 cell: (record) => [
-                    <Link
-                        exact="true"
+                    <div
                         className="mr-5"
                         key={record?.id}
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg">EDIT</div>
-                    </Link>,
-                    <Link
-                        exact="true"
+                    </div>,
+                    <div
                         key={record.id}
                         style={{ marginRight: '10px' }}
                         onClick={() => {
@@ -756,15 +746,15 @@ const TicketsPage = (props) => {
                                 ACTIVE
                             </div>
                         )}
-                    </Link>
-                    // <Link
+                    </div>
+                    // <div
                     //     key={record?.id}
-                    //     exact="true"
+                    //
                     //     onClick={() => handleSelect(record)}
                     //     style={{ marginRight: '10px' }}
                     // >
                     //     <div className="btn btn-primary btn-lg mr-5">View</div>
-                    // </Link>,
+                    // </div>,
                 ]
             }
         ]
