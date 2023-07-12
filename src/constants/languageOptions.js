@@ -13,6 +13,6 @@ export const languageOptions = [
 ];
 
 export const getLanguage = (lang) => {
-    if (lang?.code == 'en') return `locale=${lang?.code}`;
+    if (lang?.code == 'en' || lang?.code == '' || lang?.code == undefined) return `locale=en`;
     else return `locale=tn`;
 };

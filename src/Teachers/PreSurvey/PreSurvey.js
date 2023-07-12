@@ -25,7 +25,6 @@ import Congo from '../../assets/media/survey-success.jpg';
 import { useHistory } from 'react-router-dom';
 import getStart from '../../assets/media/getStart.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLanguage } from '../../constants/languageOptions';
 import { useTranslation } from 'react-i18next';
 import { getTeacherPresurveyStatus } from '../store/mentors/actions';
 
@@ -40,7 +39,6 @@ const PreSurvey = () => {
     const preSurveyList = useSelector((state) => state?.mentors.preSurveyList);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
 
@@ -71,7 +69,7 @@ const PreSurvey = () => {
                     .post(
                         `${
                             URL.getPreSurveyList
-                        }/${quizSurveyId}/responses?${getLanguage(language)}`,
+                        }/${quizSurveyId}/responses?locale=en`,
                         JSON.stringify(submitData, null, 2),
                         axiosConfig
                     )
