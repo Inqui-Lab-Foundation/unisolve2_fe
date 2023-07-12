@@ -4,20 +4,17 @@ import { getNormalHeaders } from '../../helpers/Utils';
 import { Row, Col } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
 import Layout from '../Layout';
-import { useSelector } from 'react-redux';
-import { getLanguage } from '../../constants/languageOptions';
 import { KEY, URL } from '../../constants/defaultValues';
 
 const FaqPage = () => {
     const [queryId] = useState('Idea Submission');
     const [response, SetResponse] = useState([]);
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const getFaqByCategory = async (id) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`,
+                `${URL.getFaqByCategoryId}/${id}?locale=en`,
                 axiosConfig
             )
             .then((res) => {
@@ -32,7 +29,7 @@ const FaqPage = () => {
     // changed
     useEffect(async() => {
         await getFaqByCategory(1);
-    }, [language]);
+    }, []);
     return (
         <Layout>
             <div className="faq-page">

@@ -24,7 +24,6 @@ import {
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
 import { getNormalHeaders, openNotificationWithIcon } from '../../../helpers/Utils.js';
-import { getLanguage } from '../../../constants/languageOptions.js';
 
 export const mentorCreateSuccess = (user) => async (dispatch) => {
     dispatch({
@@ -206,11 +205,11 @@ export const getSupportTicketsSuccess = (tickets) => async (dispatch) => {
         payload: tickets
     });
 };
-export const getSupportTickets = (lang,user) => async (dispatch) => {
+export const getSupportTickets = (user) => async (dispatch) => {
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getMentorSupportTickets}?user_id=${user.user_id}&${getLanguage(lang)}`, axiosConfig)
+            .get(`${URL.getMentorSupportTickets}?user_id=${user.user_id}&locale=en`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
@@ -276,12 +275,12 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
     });
 };
 
-export const getSupportTicketById = (id,lang) => async (dispatch) => {
+export const getSupportTicketById = (id) => async (dispatch) => {
     try {
        
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getMentorSupportTicketsById}${id}?${getLanguage(lang)}`,  axiosConfig)
+            .get(`${URL.getMentorSupportTicketsById}${id}?locale=en`,  axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
