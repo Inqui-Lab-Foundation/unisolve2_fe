@@ -109,9 +109,9 @@ const TeacherPlayVideo = (props) => {
         props.getTeacherCourseDetailsActions(course_id);
     }, [course_id]);
 
-    // useLayoutEffect(() => {
-    //     props.getMentorCourseAttachmentsActions();
-    // }, []);
+    useLayoutEffect(() => {
+        props.getMentorCourseAttachmentsActions();
+    }, []);
 
     useEffect(() => {
         var topicArrays = [];
@@ -317,6 +317,7 @@ const TeacherPlayVideo = (props) => {
         );
         handlePlayerPlay();
         setHandbook(true);
+        setCourseData(topicObj);
     };
 
     const handleSelect = (topicId, couseId, type) => {
@@ -465,7 +466,7 @@ const TeacherPlayVideo = (props) => {
 
     const startFirstCourse = (e) => {
         // here we can start the course //
-        setCourseData(null);
+        setCourseData(firstObj[0]);
         modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
             firstObj[0].topic_type_id,
@@ -476,13 +477,26 @@ const TeacherPlayVideo = (props) => {
 
     const startContinueCourse = (e) => {
         // here we can continue the course //
-        setCourseData(null);
-        modulesListUpdateApi(continueObj[0].course_topic_id);
+        setCourseData(continueObj[0]);
+        modulesListUpdateApi(continueObj[0].mentor_course_topic_id);
         handleSelect(
             continueObj[0].topic_type_id,
-            continueObj[0].course_topic_id,
+            continueObj[0].mentor_course_topic_id,
             continueObj[0].topic_type
         );
+        if (
+            continueObj[0].title.toLowerCase() ===
+                'handbook' ||
+                continueObj[0].title ===
+                'கையேடு'
+        ) {
+            setHandbook(
+                true
+            );
+            setInstructions(
+                false
+            );
+        }
         // toggle(continueObj[0].course_module_id);
     };
 
@@ -665,7 +679,7 @@ const TeacherPlayVideo = (props) => {
                                                 Test your course skills in a
                                                 short test challenge!
                                             </p>
-                                            <div className="row justify-content-center text-center">
+                                            {/* <div className="row justify-content-center text-center">
                                                 <div className="col col-lg-3">
                                                     <p>
                                                         <VscCircleFilled
@@ -686,7 +700,7 @@ const TeacherPlayVideo = (props) => {
                                                         Minutes
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </Modal.Header>
 
                                         <Modal.Body>
@@ -873,9 +887,9 @@ const TeacherPlayVideo = (props) => {
                             ) : item === 'VIDEO' && condition === 'Video1' ? (
                                 <Card className="embed-container">
                                     <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
-                                        {/* <h3>
-                                                {topic?.title + " " + quizTopic}
-                                            </h3> */}
+                                        <h3>
+                                                {courseData.title}
+                                            </h3>
                                         {backToQuiz && (
                                             <Button
                                                 label="Back to Quiz"
@@ -909,59 +923,72 @@ const TeacherPlayVideo = (props) => {
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
                                             <CardBody>
-                                                <text
-                                                // style={{
-                                                //     whiteSpace: 'pre-wrap'
-                                                // }}
-                                                >
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html:
-                                                                teacherCourse &&
-                                                                teacherCourse.description
-                                                        }}
-                                                    ></div>
-                                                </text>
-                                                {firstObj[0] &&
-                                                firstObj[0].progress ==
-                                                    'INCOMPLETE' ? (
-                                                    <div>
-                                                        <Button
-                                                            label="START COURSE"
-                                                            btnClass="primary mt-4"
-                                                            size="small"
-                                                            onClick={(e) =>
-                                                                startFirstCourse(
-                                                                    e
-                                                                )
-                                                            }
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        {getLastCourseStatus(
+                                           {getLastCourseStatus(
                                                             teacherCourseDetails
-                                                        ) ? (
-                                                            <h2 className="text-success text-center">
-                                                                Congratulations
-                                                                ! your course
-                                                                completed
-                                                                successfully !
-                                                            </h2>
+                                                        ) ? <div><h2 className="text-success text-center">
+                                                        Congratulations
+                                                        ! your course
+                                                        completed
+                                                        successfully !
+                                                    </h2></div>: <div><text
+                                                        // style={{
+                                                        //     whiteSpace: 'pre-wrap'
+                                                        // }}
+                                                        >
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        teacherCourse &&
+                                                                        teacherCourse.description
+                                                                }}
+                                                            ></div>
+                                                        </text>
+                                                        {firstObj[0] &&
+                                                        firstObj[0].progress ==
+                                                            'INCOMPLETE' ? (
+                                                            <div>
+                                                                <Button
+                                                                    label="START COURSE"
+                                                                    btnClass="primary mt-4"
+                                                                    size="small"
+                                                                    onClick={(e) =>
+                                                                        startFirstCourse(
+                                                                            e
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </div>
                                                         ) : (
-                                                            <Button
-                                                                label={`CONTINUE COURSE`}
-                                                                btnClass={`primary mt-4`}
-                                                                size="small"
-                                                                onClick={(e) =>
-                                                                    startContinueCourse(
-                                                                        e
-                                                                    )
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                )}
+                                                            <div>
+                                                                {getLastCourseStatus(
+                                                                    teacherCourseDetails
+                                                                ) ?  (
+                                                                    <Button
+                                                                        label={'CONTINUE QUIZ'}
+                                                                        btnClass={`primary mt-4`}
+                                                                        size="small"
+                                                                        onClick={(e) =>
+                                                                            startContinueCourse(
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                ):(
+                                                                    <Button
+                                                                        label={`CONTINUE COURSE`}
+                                                                        btnClass={`primary mt-4`}
+                                                                        size="small"
+                                                                        onClick={(e) =>
+                                                                            startContinueCourse(
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )
+                                                               }
+                                                            </div>
+                                                        )}</div>} 
+                                                
                                             </CardBody>
                                         </Card>
                                     </Fragment>
