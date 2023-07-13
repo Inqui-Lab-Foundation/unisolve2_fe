@@ -113,7 +113,6 @@ const CreateResource = (props) => {
             }
           );
           values.attachments = response?.data?.data[0].attachments[0].toString();
-          console.log(response.data);
         // if (response.status === 200) {
         //     openNotificationWithIcon(
         //       'success',

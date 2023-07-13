@@ -215,7 +215,6 @@ export const getStudentChallengeSubmittedResponseSuccess =
 export const getStudentChallengeSubmittedResponse =
     (id, language) => async (dispatch) => {
         try {
-            console.log(language,"-----student------");
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const result = await axios
                 .get(

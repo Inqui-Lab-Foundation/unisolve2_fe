@@ -134,19 +134,20 @@ const DetaledQuiz = (props) => {
                                 <div className="row py-3 mb-3 ">
                                     <div className="text-right">
                                         {props.instructions === 'yes' ? (
-                                            <Button
-                                                label={t('student.continue')}
-                                                btnClass="primary w-auto"
-                                                size="small"
-                                                type="submit"
-                                                onClick={() => {
-                                                    props.handleQuiz();
-                                                    props.setInstructions(
-                                                        false
-                                                    );
-                                                    props.setHandbook(true);
-                                                }}
-                                            />
+                                            <></>
+                                            // <Button
+                                            //     label={t('student.continue')}
+                                            //     btnClass="primary w-auto"
+                                            //     size="small"
+                                            //     type="submit"
+                                            //     onClick={() => {
+                                            //         props.handleQuiz();
+                                            //         props.setInstructions(
+                                            //             false
+                                            //         );
+                                            //         props.setHandbook(true);
+                                            //     }}
+                                            // />
                                         ) : (
                                             <Button
                                                 label={t('student.continue')}
