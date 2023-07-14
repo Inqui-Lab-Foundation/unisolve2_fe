@@ -53,13 +53,13 @@ const PostSurvey = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const [postSurveyList, setPostSurveyList] = useState([]);
+    const [postSurveysList, setPostSurveysList] = useState([]);
     const [quizSurveyId, setQuizSurveyId] = useState(0);
-    const [count, setCount] = useState(0);
-    const [postSurveyStatus, setPostSurveyStatus] = useState('COMPLETED');
+    const [counts, setCounts] = useState(0);
+    const [postSurveyStatuS, setPostSurveyStatuS] = useState('COMPLETED');
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const [answerResponses, setAnswerResponses] = useState([]);
+    const [answerReSponses, setAnswerReSponses] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
@@ -67,25 +67,25 @@ const PostSurvey = () => {
         ideaSubmissionStatus &&
         ideaSubmissionStatus !== 'DRAFT' &&
         topicTotalCount === topicCompletedCount;
-    const handleClick = () => {
+    const handleOnClick = () => {
         ///here postsurvey is completed then only enable the student certificates //
         // here we can see the certificates of students  //
         history.push('/student/my-certificate');
     };
-    const filterAnswer = (questionId) => {
+    const filterAnswers = (questionId) => {
         // console.log(questionId);
         const data =
-            answerResponses &&
-            answerResponses.length > 0 &&
-            answerResponses.filter(
+            answerReSponses &&
+            answerReSponses.length > 0 &&
+            answerReSponses.filter(
                 (item) => item.quiz_survey_question_id == questionId
             );
         return data && data.length > 0 && data[0].selected_option
             ? data[0].selected_option
             : '';
     };
-    const handleChange = (e) => {
-        let newItems = [...answerResponses];
+    const handleOnChange = (e) => {
+        let newItems = [...answerReSponses];
         console.log(newItems);
         let obj = {
             quiz_survey_question_id: e.target.name,
@@ -125,17 +125,17 @@ const PostSurvey = () => {
                 }
             }
         }
-        setAnswerResponses(newItems);
+        setAnswerReSponses(newItems);
     };
-    const handleSubmit = async (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
 
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
         let submitData = {
-            responses: answerResponses
+            responses: answerReSponses
         };
-        if (postSurveyList.length != submitData.responses.length) {
+        if (postSurveysList.length != submitData.responses.length) {
             openNotificationWithIcon(
                 'warning',
                 t('student.attempt_all_questions'),
@@ -174,7 +174,7 @@ const PostSurvey = () => {
                                 t('student.postsurver_scc_sub'),
                                 ''
                             );
-                            setCount(count + 1);
+                            setCounts(counts + 1);
                             // formik.resetForm();
                         }, 300);
                     }
@@ -281,15 +281,15 @@ const PostSurvey = () => {
             .then((postSurveyRes) => {
                 if (postSurveyRes?.status == 200) {
                     setQuizSurveyId(postSurveyRes.data.data[0].quiz_survey_id);
-                    setPostSurveyStatus(postSurveyRes.data.data[0].progress);
+                    setPostSurveyStatuS(postSurveyRes.data.data[0].progress);
                     let allQuestions = postSurveyRes.data.data[0];
-                    setPostSurveyList(allQuestions.quiz_survey_questions);
+                    setPostSurveysList(allQuestions.quiz_survey_questions);
                 }
             })
             .catch((err) => {
                 return err.response;
             });
-    }, [language, count]);
+    }, [language, counts]);
     const comingSoonText = t('dummytext.student_post_survey');
     return (
         <Layout>
@@ -300,7 +300,7 @@ const PostSurvey = () => {
                     <Col>
                         <Row className=" justify-content-center">
                             <div className="aside  p-4 bg-transparent">
-                                {postSurveyStatus != 'COMPLETED' && (
+                                {postSurveyStatuS != 'COMPLETED' && (
                                     <UncontrolledAlert
                                         color="danger"
                                         className="mb-5"
@@ -312,13 +312,13 @@ const PostSurvey = () => {
                                 )}
                                 <h2>{t('student.post_survey')}</h2>
                                 <CardBody>
-                                    {postSurveyStatus != 'COMPLETED' && (
+                                    {postSurveyStatuS != 'COMPLETED' && (
                                         <Form
                                             className="form-row"
                                             // onSubmit={formik.handleSubmit}
                                             //isSubmitting
                                         >
-                                            {postSurveyList.map(
+                                            {postSurveysList.map(
                                                 (eachQuestion, i) => (
                                                     <Row key={i}>
                                                         <Card className="card mb-4 my-3 comment-card px-0 px-5 py-3">
@@ -445,7 +445,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -462,10 +462,10 @@ const PostSurvey = () => {
                                                                                                         isDisabled
                                                                                                     }
                                                                                                     checked={
-                                                                                                        filterAnswer(
+                                                                                                        filterAnswers(
                                                                                                             eachQuestion.quiz_survey_question_id
                                                                                                         ) &&
-                                                                                                        filterAnswer(
+                                                                                                        filterAnswers(
                                                                                                             eachQuestion.quiz_survey_question_id
                                                                                                         ).includes(
                                                                                                             eachQuestion.option_a
@@ -474,7 +474,7 @@ const PostSurvey = () => {
                                                                                                     onChange={(
                                                                                                         e
                                                                                                     ) =>
-                                                                                                        handleChange(
+                                                                                                        handleOnChange(
                                                                                                             e
                                                                                                         )
                                                                                                     }
@@ -491,7 +491,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -508,10 +508,10 @@ const PostSurvey = () => {
                                                                                                         isDisabled
                                                                                                     }
                                                                                                     checked={
-                                                                                                        filterAnswer(
+                                                                                                        filterAnswers(
                                                                                                             eachQuestion.quiz_survey_question_id
                                                                                                         ) &&
-                                                                                                        filterAnswer(
+                                                                                                        filterAnswers(
                                                                                                             eachQuestion.quiz_survey_question_id
                                                                                                         ).includes(
                                                                                                             eachQuestion.option_b
@@ -520,7 +520,7 @@ const PostSurvey = () => {
                                                                                                     onChange={(
                                                                                                         e
                                                                                                     ) =>
-                                                                                                        handleChange(
+                                                                                                        handleOnChange(
                                                                                                             e
                                                                                                         )
                                                                                                     }
@@ -537,7 +537,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -551,7 +551,7 @@ const PostSurvey = () => {
                                                                                                     onChange={(
                                                                                                         e
                                                                                                     ) =>
-                                                                                                        handleChange(
+                                                                                                        handleOnChange(
                                                                                                             e
                                                                                                         )
                                                                                                     }
@@ -574,7 +574,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -588,7 +588,7 @@ const PostSurvey = () => {
                                                                                                     onChange={(
                                                                                                         e
                                                                                                     ) =>
-                                                                                                        handleChange(
+                                                                                                        handleOnChange(
                                                                                                             e
                                                                                                         )
                                                                                                     }
@@ -612,7 +612,7 @@ const PostSurvey = () => {
                                                                             <>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -628,10 +628,10 @@ const PostSurvey = () => {
                                                                                                 isDisabled
                                                                                             }
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_a
@@ -643,7 +643,7 @@ const PostSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -656,7 +656,7 @@ const PostSurvey = () => {
                                                                                 </FormGroup>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -672,10 +672,10 @@ const PostSurvey = () => {
                                                                                                 isDisabled
                                                                                             }
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_b
@@ -687,7 +687,7 @@ const PostSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -700,7 +700,7 @@ const PostSurvey = () => {
                                                                                 </FormGroup>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -716,10 +716,10 @@ const PostSurvey = () => {
                                                                                             }
                                                                                             name={`${eachQuestion.quiz_survey_question_id}`}
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_c
@@ -731,7 +731,7 @@ const PostSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -745,7 +745,7 @@ const PostSurvey = () => {
 
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -761,10 +761,10 @@ const PostSurvey = () => {
                                                                                                 isDisabled
                                                                                             }
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_d
@@ -776,7 +776,7 @@ const PostSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -819,14 +819,14 @@ const PostSurvey = () => {
                                                         'student_presurvey.submit'
                                                     )}
                                                     onClick={(e) =>
-                                                        handleSubmit(e)
+                                                        handleOnSubmit(e)
                                                     }
                                                 />
                                             </div>
                                         </Form>
                                     )}
 
-                                    {postSurveyStatus == 'COMPLETED' && (
+                                    {postSurveyStatuS == 'COMPLETED' && (
                                         <Card>
                                             <div
                                                 style={{ textAlign: 'center' }}
@@ -855,7 +855,7 @@ const PostSurvey = () => {
                                                         btnClass="primary mt-4 mx-4 mb-5"
                                                         size="small"
                                                         onClick={() =>
-                                                            handleClick()
+                                                            handleOnClick()
                                                         }
                                                     />
                                                 </div>

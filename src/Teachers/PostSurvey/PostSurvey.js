@@ -369,7 +369,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -415,7 +415,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -461,7 +461,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -498,7 +498,7 @@ const PostSurvey = () => {
                                                                                         '' && (
                                                                                         <FormGroup
                                                                                             check
-                                                                                            className="mx-5"
+                                                                                            className="mx-1"
                                                                                         >
                                                                                             <Label
                                                                                                 check
@@ -536,7 +536,7 @@ const PostSurvey = () => {
                                                                             <>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -580,7 +580,7 @@ const PostSurvey = () => {
                                                                                 </FormGroup>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -624,7 +624,7 @@ const PostSurvey = () => {
                                                                                 </FormGroup>
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
@@ -669,7 +669,7 @@ const PostSurvey = () => {
 
                                                                                 <FormGroup
                                                                                     check
-                                                                                    className="mx-5"
+                                                                                    className="mx-1"
                                                                                 >
                                                                                     <Label
                                                                                         check
