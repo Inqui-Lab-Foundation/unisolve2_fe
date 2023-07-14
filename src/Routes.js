@@ -12,6 +12,7 @@ import BadgesComp from './Student/Pages/Badges/Badges';
 import StudenetChangePSWModal from './Student/Pages/ChangePS';
 import './i18n';
 import LoginNew from './Student/Pages/LoginNew';
+
 // import StudentResources from './Student/Resources';
 import MyProfile from './Student/Pages/MyProfile';
 import PlayVideoCourses from './Student/Pages/Courses/PlayVideo';
@@ -49,6 +50,7 @@ import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
+import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 
 import TeacherFaqPage from './Teachers/HelpPages/FaqPage';
 // import TeacherResources from './Teachers/Resources/index';
@@ -96,6 +98,9 @@ import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
+import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
+import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
+//import CourseStatus from './Admin/Reports/Helpers/CourseStatus';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
@@ -308,6 +313,21 @@ const Routers = () => {
                         path="/admin/reports-view"
                         component={ReportsView}
                     />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/reports-registration"
+                        component={ReportsRegistration}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/SurveyStatus"
+                        component={SurveyStatus}
+                    />
+                    {/*<ProtectedRoute
+                        exact={true}
+                        path="/admin/CourseStatus"
+                        component={CourseStatus}
+                />*/}
 
                     {/* <ProtectedRoute
                         exact={true}
