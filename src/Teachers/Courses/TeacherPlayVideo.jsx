@@ -96,6 +96,7 @@ const TeacherPlayVideo = (props) => {
     const [instructions, setInstructions] = useState(false);
     const [continueObj, setContinueObj] = useState([]);
     const [courseData, setCourseData] = useState(null);
+    const [isquizcompleted ,setisquizcompleted] = useState(false);
     const scrollRef = React.createRef();
 
     const getLastCourseStatus = (data = []) => {
@@ -199,6 +200,32 @@ const TeacherPlayVideo = (props) => {
                         response.data.data[0]?.attachments.split('{{}}');
                     SetWorksheetResponce(worksheet);
                     setWorksheetByWorkSheetId(worksheet[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    useEffect(()=>{
+        getisquizcompleted();
+    },[]);
+    async function getisquizcompleted() {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/quiz/8/nextQuestion?locale=en',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data === "Quiz has been completed no more questions to display"){
+                        setisquizcompleted(true);
+                    }
                 }
             })
             .catch(function (error) {
@@ -925,7 +952,7 @@ const TeacherPlayVideo = (props) => {
                                             <CardBody>
                                            {getLastCourseStatus(
                                                             teacherCourseDetails
-                                                        ) ? <div><h2 className="text-success text-center">
+                                                        ) && isquizcompleted ? <div><h2 className="text-success text-center">
                                                         Congratulations
                                                         ! your course
                                                         completed
