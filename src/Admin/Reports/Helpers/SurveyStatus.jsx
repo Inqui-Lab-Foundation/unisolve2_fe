@@ -139,10 +139,7 @@ const SurveyStatus = () => {
                                         }}
                                     />
                                     <Button
-                                        onClick={() => {
-                                            const val = 'Teachers Pre Survey Completed List';
-                                            handleDownload(val,TeacherPredistrict);
-                                        }}
+                                        onClick={() => {handleDownload('Teachers Pre Survey Completed List');}}
                                         label={'Download'}
                                         btnClass="primary"
                                         size={'small'}
@@ -230,9 +227,7 @@ const SurveyStatus = () => {
                                         }}
                                     />
                                     <Button
-                                        onClick={() => {
-                                            const val = 'Teachers Post Survey Completed List';
-                                            handleDownload(val,TeacherPostdistrict);
+                                        onClick={() => {handleDownload('Teachers Post Survey Completed List');
                                         }}
                                         label={'Download Report'}
                                         btnClass="primary"
