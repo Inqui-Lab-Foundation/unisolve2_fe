@@ -8,15 +8,15 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect} from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
-
-import ellipse_3 from '../assets/media/ellipse.svg';
+import image_5 from '../assets/media/unisolve_slider1.png';
+import image_6 from '../assets/media/unisolve_slider2.png';
 import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 // import ForgotPassword from './ForgotPassword';
@@ -114,44 +114,44 @@ const LoginNew = (props) => {
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <h1 className="text-left pb-5 mobile_tab-hide">
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_3}
-                                            alt="ellipse_3"
-                                            className="img-fluid img-1"
-                                        />
-                                    </figure>
-                                </div>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={image_5}
+                                    alt="image_5"
+                                    className="img-fluid img-1"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_3}
-                                            alt="ellipse_3"
-                                            className="img-fluid img-2"
-                                        />
-                                    </figure>
-                                </div>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={image_6}
+                                    alt="image_6"
+                                    className="img-fluid img-2"
+                                />
+                            </figure>
+                        </div>
                             </Carousel.Item>
-                            <Carousel.Item>
-                                <div className="mobile_tab-hide">
-                                    <figure>
-                                        <img
-                                            src={ellipse_3}
-                                            alt="ellipse_3"
-                                            className="img-fluid img-3"
-                                        />
-                                    </figure>
-                                </div>
-                            </Carousel.Item>
+                            {/* <Carousel.Item>
+                        <div className="mobile_tab-hide">
+                            <figure>
+                                <img
+                                    src={ellipse_3}
+                                    alt="ellipse_3"
+                                    className="img-fluid img-3"
+                                />
+                            </figure>
+                        </div>
+                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
@@ -211,8 +211,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -245,8 +245,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -308,8 +308,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}

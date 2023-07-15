@@ -14,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 import logo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
-import ellipse_1 from '../../assets/media/ellipse.svg';
+import image_9 from '../../assets/media/unisolve_slider1.png';
+import image_10 from '../../assets/media/unisolve_slider2.png';
 import { loginUser } from '../../redux/actions.js';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../../helpers/Utils';
@@ -103,18 +104,18 @@ const LoginNew = (props) => {
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
-                <div className="col-md-4 aside mobile-header">
-                        <h1 className="text-left pb-5 mobile_tab-hide">
+                    <div className="col-md-4 aside mobile-header">
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={image_9}
+                                    alt="image_9"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -124,14 +125,14 @@ const LoginNew = (props) => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={image_10}
+                                    alt="image_10"
                                     className="img-fluid img-2"
                                 />
                             </figure>
                         </div>
                             </Carousel.Item>
-                            <Carousel.Item>
+                            {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
@@ -141,7 +142,7 @@ const LoginNew = (props) => {
                                 />
                             </figure>
                         </div>
-                            </Carousel.Item>
+                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                     
@@ -196,8 +197,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label 
                                                 className="mb-2"
@@ -229,8 +230,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -267,8 +268,8 @@ const LoginNew = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={11}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}

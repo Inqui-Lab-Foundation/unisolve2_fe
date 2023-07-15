@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useLayoutEffect } from 'react';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Card, CardBody, CardText } from 'reactstrap';
 import { getCurrentUser } from '../../helpers/Utils';
 import institutions from '../../assets/media/img/university.png';
 import districtImg from '../../assets/media/img/building.png';
@@ -14,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { getDashboardStates } from '../store/dashboard/actions';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import DoughnutChart from './DoughnutChart';
+import LatestNewsNew from './LatestNewsNew';
 
 const Dashboard = () => {
     // here we can see teacher details //
@@ -129,6 +131,13 @@ const Dashboard = () => {
                             </div>
                         )}
                     </Row>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <LatestNewsNew usersdata={currentUser?.data} />
+                        </div>
+                    </Col>
                 </Row>
                 <Row className="teacher-statistics bg-white p-5">
                     <Row className="">

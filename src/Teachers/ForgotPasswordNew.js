@@ -11,7 +11,8 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import ellipse_1 from '../assets/media/ellipse.svg';
+import image_7 from '../assets/media/unisolve_slider1.png';
+import image_8 from '../assets/media/unisolve_slider2.png';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 
@@ -73,17 +74,17 @@ const ForgotPasswordNew = () => {
             <div className="container-fluid  SignUp Login vh-100">
                 <Row>
                     <div className="col-md-4 aside mobile-header">
-                        <h1 className="text-left pb-5 mobile_tab-hide">
+                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p>
+                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
+                                    src={image_7}
+                                    alt="image_7"
                                     className="img-fluid img-1"
                                 />
                             </figure>
@@ -93,14 +94,14 @@ const ForgotPasswordNew = () => {
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
-                                    className="img-fluid img-1"
+                                    src={image_8}
+                                    alt="image_8"
+                                    className="img-fluid img-2"
                                 />
                             </figure>
                         </div>
                             </Carousel.Item>
-                            <Carousel.Item>
+                            {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
@@ -110,7 +111,7 @@ const ForgotPasswordNew = () => {
                                 />
                             </figure>
                         </div>
-                            </Carousel.Item>
+                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                     <Col xs={12} sm={12} md={12} xl={12} className="article">
@@ -124,7 +125,7 @@ const ForgotPasswordNew = () => {
                                 xs={12}
                                 sm={12}
                                 md={12}
-                                xl={11}
+                                xl={12}
                                 className="my-auto"
                             >
                                 <h4>Did you forgot your password?</h4>

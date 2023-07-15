@@ -7,6 +7,9 @@ export const UserRole = {
 export const URL = {
     // Post //
     schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
+    coordinatorLogin:
+        process.env.REACT_APP_API_BASE_URL + '/district_coordinators/login',
+
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
     eadminLogin:
@@ -71,6 +74,9 @@ export const URL = {
     //Get//
     logOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     schoolLogOut: process.env.REACT_APP_API_BASE_URL + '/organizations/logout',
+    coordinatorLogOut:
+        process.env.REACT_APP_API_BASE_URL + '/district_coordinators/logout',
+
     adminLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     teacherLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',

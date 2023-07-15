@@ -25,7 +25,6 @@ const EditTeacherProfileDetails = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
-    console.log(mentorData);
 
     const getValidationSchema = () => {
         // where data = mentorData //
