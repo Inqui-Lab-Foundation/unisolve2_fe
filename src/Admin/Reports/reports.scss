@@ -25,3 +25,42 @@
         min-height: 68vh;
     }
 }
+.card-effect:hover {
+    box-shadow:5px 10px 8px #440df72a;
+}
+
+.reg_wrapper{
+    .rdt_TableRow{
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+      }
+      .rdt_TableRow:hover {
+        background-color: rgba(255, 203, 52, 0.2);
+    }
+    .status_info_col{
+      @media (min-width:992px) {
+        
+        position: sticky;
+        top: 8rem;
+      }
+    }    
+}
+
+.view{
+    margin-left: 10rem;
+    margin-top: 0rem;
+}
+
+.table-wrapper {
+    display:block;
+    max-height:250px;
+    overflow-y:auto;
+}
+.table-wrapper table {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+.table-wrapper thead {
+    width: calc( 100% - 1em );
+} 
