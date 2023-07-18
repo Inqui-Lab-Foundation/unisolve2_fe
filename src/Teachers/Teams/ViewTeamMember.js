@@ -41,7 +41,12 @@ const ViewTeamMember = (props) => {
             history.location.item &&
             history.location.item.team_id) ||
         teamID.team_id;
-
+    const IdeaStatus =
+        (history &&
+            history.location &&
+            history.location.item &&
+            history.location.item.ideaStatus) ||
+        teamID.ideaStatus;
     const headingDetails = {
         title: teamID?.team_name + t('teacher_teams.view_team_member_details'),
         options: [
@@ -65,7 +70,6 @@ const ViewTeamMember = (props) => {
     const [value, setvalue] = useState('');
     const [teamchangeobj, setteamchangeObj] = useState({});
     const [selectedstudent, setselectedstudent] = useState();
-
     useEffect(async () => {
         await handleteamMembersAPI(teamId);
         // here teamId = team id //
@@ -104,13 +108,14 @@ const ViewTeamMember = (props) => {
             });
     }
     const handleSwitchTeam = (item) => {
-        //here we can switch the teams
-        setShow(true);
-        setselectedstudent(item);
+        if (teamsMembersList.length > 2) {
+            setShow(true);
+            setselectedstudent(item);
+        } else {
+            openNotificationWithIcon('error', 'Opps! Something Wrong');
+        }
     };
-
     const handleChangeStudent = (name) => {
-        console.log(name, selectedstudent);
         const body = {
             team_id: teamchangeobj[name].toString(),
             full_name: selectedstudent.full_name
@@ -237,9 +242,11 @@ const ViewTeamMember = (props) => {
                                 style={{ marginRight: '10px' }}
                             />
                         </a>,
+
                         <a onClick={() => handleDeleteTeamMember(params)}>
                             {teamsMembersList &&
-                                teamsMembersList.length > 2 && (
+                                teamsMembersList.length > 2 &&
+                                IdeaStatus === null && (
                                     <i
                                         key={params.team_id}
                                         className="fa fa-trash"
@@ -250,13 +257,16 @@ const ViewTeamMember = (props) => {
                         <a onClick={() => handleResetPassword(params)}>
                             <i key={params.team_id} className="fa fa-key" />
                         </a>,
-                        <a onClick={() => handleSwitchTeam(params)}>
-                            <i
-                                key={params.team_id}
-                                className="fa fa-user-circle"
-                                style={{ paddingLeft: '10px' }}
-                            />
-                        </a>
+                        teamsMembersList.length > 2 &&
+                            IdeaStatus === null && ( // <-- Updated condition
+                                <a onClick={() => handleSwitchTeam(params)}>
+                                    <i
+                                        key={params.team_id}
+                                        className="fa fa-user-circle"
+                                        style={{ paddingLeft: '10px' }}
+                                    />
+                                </a>
+                            )
                     ];
                 },
                 width: '12%',
