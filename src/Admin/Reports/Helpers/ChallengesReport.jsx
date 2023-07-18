@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import Layout from '../../Layout';
-import { Container, Row, Col, Table } from 'reactstrap';
+import { Container, Row, Col} from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import {openNotificationWithIcon,getCurrentUser} from '../../../helpers/Utils';
@@ -14,18 +12,11 @@ import axios from 'axios';
 import '../reports.scss';
 
 const ChallengesReport = () => {
-    const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
-    const [NotRegTeachersdistrict, setNotRegTeachersdistrict] =
-        React.useState('');
+    const [district, setdistrict] = React.useState('');
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
-    const [RegTeachersreportsData, setRegTeachersReportsData] = useState([]);
-    const [NotRegTeachersreportsData, setNotRegTeachersReportsData] = useState(
-        []
-    );
+    const [reportsData, setReportsData] = useState([]);
     const [msg, setMsg] = useState('');
-    const [RegshowTable, setRegShowTable] = useState(false);
-    const [NotRegshowTable, setNotRegShowTable] = useState(false);
     const dispatch = useDispatch();
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
@@ -37,14 +28,30 @@ const ChallengesReport = () => {
 
     const handleDownload = (item) => {
         setMsg(item);
-        let url = '';
-        if (item === 'Registered Teachers List') {
-            url = `/reports/mentorRegList?district=${RegTeachersdistrict}`;
-        } else if (item === 'Not Registered Teachers List') {
-            url = `/reports/notRegistered?district=${NotRegTeachersdistrict}`;
+        var url = '';
+        if (item === 'Submitted Challenges') {
+            url = `/reports/challengesDistrictCount?level=SUBMITTED`;
+        } else if (item == 'Draft Challenges') {
+            url = `/reports/challengesDistrictCount?level=DRAFT`;
+        } else if (item == 'Accepted Challenges') {
+            url = `/reports/challengesDistrictCount?level=SELECTEDROUND1`;
+        } else if (item == 'Rejected Challenges') {
+            url = `/reports/challengesDistrictCount?level=REJECTEDROUND1`;
+        } else if (item == 'L1 - Yet to Processed Challenges') {
+            url = `/reports/challengesDistrictCount?level=L1YETPROCESSED`;
+        } else if (item == 'L2 - Processed Challenges') {
+            url = `/reports/challengesDistrictCount?level=L2PROCESSED`;
+        } else if (item == 'L2 - Yet to  Processed Challenges') {
+            url = `/reports/challengesDistrictCount?level=L2YETPROCESSED`;
+        } else if (item == 'Final Evaluation Challenges') {
+            url = `/reports/challengesDistrictCount?level=FINALCHALLENGES`;
+        } else if (item == 'Final Winner Challenges') {
+            url = `/reports/challengesDistrictCount?level=FINALACCEPTED`;
+        }else{
+            return;
         }
 
-        const config = {
+        var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + url,
             headers: {
@@ -55,21 +62,35 @@ const ChallengesReport = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    const msg =
-                        item === 'Registered Teachers List'
-                            ? 'Registered Teachers List Download Successfully'
-                            : item === 'Not Registered Teachers List'
-                            ? 'Not Registered Teachers List Download Successfully'
-                            : '';
-
-                    if (item === 'Registered Teachers List') {
-                        setRegTeachersReportsData(response?.data?.data);
-                        setRegShowTable(true);
-                    } else if (item === 'Not Registered Teachers List') {
-                        setNotRegTeachersReportsData(response?.data?.data);
-                        setNotRegShowTable(true);
+                    var msg ='';
+                    
+                    if (item == 'Submitted Challenges') {
+                        msg = 'Submitted Challenges  Download Successfully';
+                    } else if (item == 'Draft Challenges') {
+                        msg = 'Draft Challenges Download Successfully';
+                    } else if (item == 'Accepted Challenges') {
+                        msg = 'Accepted Challenges  Download Successfully';
+                    } else if (item == 'Rejected Challenges') {
+                        msg = 'Rejected Challenges  Download Successfully';
+                    } else if (item == 'L1 - Yet to Processed Challenges') {
+                        msg =
+                            'L1 - Yet to Processed Challenges  Download Successfully';
+                    } else if (item == 'L2 - Processed Challenges') {
+                        msg =
+                            'L2 - Processed Challenges  Download Successfully';
+                    } else if (item == 'L2 - Yet to  Processed Challenges') {
+                        msg =
+                            'L2 - Yet to  Processed Challenges  Download Successfully';
+                    } else if (item == 'Final Evaluation Challenges') {
+                        msg =
+                            'Final Evaluation Challenges  Download Successfully';
+                    } else if (item == 'Final Winner Challenges') {
+                        msg = 'Final Winner Challenges  Download Successfully';
                     }
                     openNotificationWithIcon('success', msg);
+                    setReportsData(
+                        response && response.data && response.data.data
+                    );
                 }
                 const element = document.getElementById('CSVBtn');
                 element.click();
@@ -78,39 +99,11 @@ const ChallengesReport = () => {
                 console.log(error);
             });
     };
-
-    const fetchData = (item, district, setData, setShowTable) => {
-        const url =
-            item === 'Registered Teachers List'
-                ? `/reports/mentorRegList?district=${RegTeachersdistrict}`
-                : item === 'Not Registered Teachers List'
-                ? `/reports/notRegistered?district=${NotRegTeachersdistrict}`
-                : '';
-
-        const config = {
-            method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + url,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setData(response?.data?.data);
-                    setShowTable(true);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-
+    
     return (
         <>
             <Layout>
-                <Container className="RegReports mt-5 mb-30 userlist">
+                <Container className="Reports mt-5 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <h2>Challenges Reports</h2>
                         <Col className="text-right mb-2">
@@ -129,9 +122,9 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={RegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
@@ -144,14 +137,6 @@ const ChallengesReport = () => {
                                         btnClass="primary mx-6"
                                         size="small"
                                         shape="btn-square"
-                                        onClick={() =>
-                                            fetchData(
-                                                'Registered Teachers List',
-                                                RegTeachersdistrict,
-                                                setRegTeachersReportsData,
-                                                setRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -159,14 +144,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                RegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Submitted Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -181,79 +159,9 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-
-                    {RegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '20px',
-                                        maxHeight: '300px',
-                                        overflowY: 'auto'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead
-                                            style={{
-                                                position: 'sticky',
-                                                top: '0',
-                                                zIndex: '1',
-                                                background: 'white'
-                                            }}
-                                        >
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Phone Number</th>
-                                                <th>Organization Code</th>
-                                                <th>Organization District</th>
-                                                <th>Organization Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {RegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {item.full_name}
-                                                        </td>
-                                                        <td>{item.mobile}</td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
 
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -264,9 +172,9 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
@@ -279,20 +187,6 @@ const ChallengesReport = () => {
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -300,14 +194,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Draft Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -322,84 +209,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -410,50 +221,25 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
                                     />
-
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Accepted Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -468,84 +254,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -556,35 +266,18 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -592,14 +285,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Rejected Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -614,84 +300,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -702,35 +312,18 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -738,14 +331,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('L1 - Yet to Processed Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -760,84 +346,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -848,35 +358,18 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -884,14 +377,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('L2 - Processed Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -906,84 +392,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -994,35 +404,18 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -1030,14 +423,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('L2 - Yet to  Processed Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -1052,84 +438,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -1140,35 +450,18 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -1176,14 +469,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Final Evaluation Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -1198,84 +484,8 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -1286,9 +496,9 @@ const ChallengesReport = () => {
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
-                                            setValue={setNotRegTeachersdistrict}
+                                            setValue={setdistrict}
                                             placeHolder={'Select District'}
-                                            value={NotRegTeachersdistrict}
+                                            value={district}
                                         />
                                     </div>
                                 </Col>
@@ -1301,20 +511,6 @@ const ChallengesReport = () => {
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
-                                        //onClick={() => history.push('/admin/reports')}
-                                        //onClick={() => setNotRegShowTable(true)}
-                                        //onClick={() => {
-                                        //    setNotRegShowTable(true);
-                                        //    setNotRegTeachersReportsData(NotRegTeachersreportsData);
-                                        //}}
-                                        onClick={() =>
-                                            fetchData(
-                                                'Not Registered Teachers List',
-                                                NotRegTeachersdistrict,
-                                                setNotRegTeachersReportsData,
-                                                setNotRegShowTable
-                                            )
-                                        }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
@@ -1322,14 +518,7 @@ const ChallengesReport = () => {
                                     />
 
                                     <Button
-                                        onClick={() => {
-                                            const val =
-                                                'Not Registered Teachers List';
-                                            handleDownload(
-                                                val,
-                                                NotRegTeachersdistrict
-                                            );
-                                        }}
+                                        onClick={() => {handleDownload('Final Winner Challenges');}}
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -1344,82 +533,6 @@ const ChallengesReport = () => {
                             </Row>
                         </div>
                     </Row>
-                    {NotRegshowTable && (
-                        <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
-                                <div
-                                    className="table-wrapper my-0"
-                                    style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px'
-                                    }}
-                                >
-                                    <Table className="table table-striped table-bordered responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Organization ID</th>
-                                                <th>Organization Name</th>
-                                                <th>Organization Code</th>
-                                                <th>District</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Principal Name</th>
-                                                <th>Principal Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {NotRegTeachersreportsData.map(
-                                                (item, index) => (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                item.organization_id
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.organization_code
-                                                            }
-                                                        </td>
-                                                        <td>{item.district}</td>
-                                                        <td>{item.city}</td>
-                                                        <td>{item.state}</td>
-                                                        <td>
-                                                            {
-                                                                item.principal_name
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                item.principal_mobile
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            )}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Col>
-                        </Row>
-                    )}
                 </Container>
             </Layout>
             <div className="m-3 common-flex">
@@ -1427,16 +540,30 @@ const ChallengesReport = () => {
                     style={{ display: 'none' }}
                     id="CSVBtn"
                     data={
-                        RegTeachersreportsData.length > 0
-                            ? RegTeachersreportsData
-                            : NotRegTeachersreportsData
+                        reportsData.length > 0
+                            ? reportsData
+                            : []
                     }
                     filename={
-                        msg === 'Registered Teachers List'
-                            ? 'Registered Teachers List.csv'
-                            : msg === 'Not Registered Teachers List'
-                            ? 'Not Registered Teachers List.csv'
-                            : 'Report.csv'
+                        msg === 'Submitted Challenges'
+                            ? 'Submitted Challenges.csv'
+                            : msg === 'Draft Challenges'
+                                ? 'Draft Challenges.csv'
+                                : msg === 'Accepted Challenges'
+                                    ? 'Accepted Challenges.csv'
+                                    : msg === 'Rejected Challenges'
+                                        ? 'Rejected Challenges.csv'
+                                        : msg === 'L1 - Yet to Processed Challenges'
+                                            ? 'L1 - Yet to Processed Challenges.csv'
+                                            : msg === 'L2 - Processed Challenges'
+                                                ? 'L2 - Processed Challenges.csv'
+                                                : msg === 'L2 - Yet to  Processed Challenges'
+                                                    ? 'L2 - Yet to  Processed Challenges.csv'
+                                                    : msg === 'Final Evaluation Challenges'
+                                                        ? 'Final Evaluation Challenges.csv'
+                                                        : msg === 'Final Winner Challenges'
+                                                            ? 'Final Winner Challenges.csv'
+                                                            : 'Report.csv'
                     }
                 />
             </div>
