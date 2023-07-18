@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
@@ -44,6 +45,8 @@ function RegisterNew() {
     const [checkBox, setCheckBox] = useState(false);
     const [change, setChange] = useState('Send OTP');
     const [wtsNum, setWtsNum] = useState('');
+    const [mobNum, setMobNum] = useState('');
+    const [holdKey, setHoldKey] = useState(false);
     const [sendOtp, setSendOtp] = useState('');
     const [time] = useState('00');
     const [counter, setCounter] = useState(59);
@@ -239,6 +242,7 @@ function RegisterNew() {
         e.preventDefault();
     };
     const handleSendOtp = async (e) => {
+        setHoldKey(true);
         setDisable(false);
         formik.setFieldValue('mobile', formik.values.username);
         setTimer(timer + 1);
@@ -254,6 +258,7 @@ function RegisterNew() {
         setTimeout(() => {
             setChange('Resend OTP');
             setDisable(true);
+            setHoldKey(false);
             setTimer(0);
         }, 60000);
         const body = JSON.stringify({
@@ -307,6 +312,18 @@ function RegisterNew() {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
+    console.log(holdKey);
+    // const handleCheckbox = (e, click) => {
+    //     if (click) {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('whatapp_mobile', formik.values.username);
+
+    //         setWtsNum(formik.values.username);
+    //     } else {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('whatapp_mobile', '');
+    //     }
+    // };
 
     const handleCheckbox = (e, click) => {
         if (click) {
@@ -319,7 +336,6 @@ function RegisterNew() {
             formik.setFieldValue('whatapp_mobile', '');
         }
     };
-
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
@@ -358,7 +374,6 @@ function RegisterNew() {
                     <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                     <Carousel>
                         <Carousel.Item>
-                            
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -370,7 +385,6 @@ function RegisterNew() {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -395,23 +409,25 @@ function RegisterNew() {
                         </Carousel.Item> */}
                     </Carousel>
                 </div>
-            
+
                 <Col xs={12} sm={12} md={6} xl={6} className="article">
                     <div className="row">
                         <Col md={12} className="mr-auto text-center">
                             <h2 className="text-white">
-                            <img
-                                src={signuplogo}
-                                alt="Signup logo"
-                                className="img-fluid w-50"
-                            />
+                                <img
+                                    src={signuplogo}
+                                    alt="Signup logo"
+                                    className="img-fluid w-50"
+                                />
                             </h2>
                         </Col>
                     </div>
 
                     <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
-                            <span className="color-black">TEACHER REGISTRATION</span>
+                            <span className="color-black">
+                                TEACHER REGISTRATION
+                            </span>
                         </h4>
                     </Row>
 
@@ -458,7 +474,8 @@ function RegisterNew() {
                                                         )}
                                                         btnClass={
                                                             !diesCode.length
-                                                                ? 'default rounded-0' : 'primary rounded-0'
+                                                                ? 'default rounded-0'
+                                                                : 'primary rounded-0'
                                                         }
                                                         size="small"
                                                         onClick={(e) =>
@@ -491,7 +508,10 @@ function RegisterNew() {
                                                 xl={12}
                                             >
                                                 <Label className="mb-3 w-100 mt-4">
-                                                    <UncontrolledAlert color="primary" toggle={false}>
+                                                    <UncontrolledAlert
+                                                        color="primary"
+                                                        toggle={false}
+                                                    >
                                                         {t(
                                                             'teacehr_red.school'
                                                         )}
@@ -542,10 +562,17 @@ function RegisterNew() {
                                                         {t('teacehr_red.title')}
                                                     </Label>
                                                     <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
                                                         name="title"
                                                         // id="gender"
                                                         className=" col-8 form-control custom-registerdropdown "
-                                                        style={{ borderRadius: '0' }}
+                                                        style={{
+                                                            borderRadius: '0'
+                                                        }}
                                                         value={
                                                             formik.values.title
                                                         }
@@ -612,6 +639,11 @@ function RegisterNew() {
                                                     <InputBox
                                                         {...inputName}
                                                         id="full_name"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
                                                         name="full_name"
                                                         onChange={
                                                             formik.handleChange
@@ -655,10 +687,17 @@ function RegisterNew() {
                                                         )}
                                                     </Label>
                                                     <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
                                                         name="gender"
                                                         // id="gender"
                                                         className=" col-8 SelectBox form-control custom-registerdropdown "
-                                                        style={{ borderRadius: '0' }}
+                                                        style={{
+                                                            borderRadius: '0'
+                                                        }}
                                                         value={
                                                             formik.values.gender
                                                         }
@@ -703,7 +742,6 @@ function RegisterNew() {
                                                 md={12}
                                                 xl={12}
                                             >
-                                                
                                                 <Col
                                                     className="form-group"
                                                     xs={6}
@@ -724,6 +762,11 @@ function RegisterNew() {
                                                     <InputBox
                                                         {...inputUsername}
                                                         id="username"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
                                                         name="username"
                                                         onChange={
                                                             formik.handleChange
@@ -748,58 +791,77 @@ function RegisterNew() {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                        className="form-group"
-                                                        xs={6}
-                                                        sm={6}
-                                                        md={6}
-                                                        xl={6}
-                                                        // xs={6}
-                                                        // sm={6}
-                                                        // md={5}
-                                                        // xl={4}
-                                                    >
+                                                    className="form-group"
+                                                    xs={6}
+                                                    sm={6}
+                                                    md={6}
+                                                    xl={6}
+                                                    // xs={6}
+                                                    // sm={6}
+                                                    // md={5}
+                                                    // xl={4}
+                                                >
                                                     <div className="d-flex align-items-center justify-content-between">
-                                                        <Label className="mb-2 mt-2" htmlFor="phone">
-                                                        {t('teacehr_red.faculty_mobile')}
+                                                        <Label
+                                                            className="mb-2 mt-2"
+                                                            htmlFor="phone"
+                                                        >
+                                                            {t(
+                                                                'teacehr_red.faculty_mobile'
+                                                            )}
                                                         </Label>
                                                         <div className="my-10 checkbox-right">
                                                             <Input
                                                                 type="checkbox"
                                                                 className="mt-3 mb-8 my-10 pb-4 pt-3"
                                                                 name="click"
+                                                                disabled={
+                                                                    holdKey
+                                                                        ? true
+                                                                        : false
+                                                                }
                                                                 id="click"
-                                                                onClick={(e) => handleCheckbox(e, !checkBox)}
+                                                                onClick={(e) =>
+                                                                    handleCheckbox(
+                                                                        e,
+                                                                        !checkBox
+                                                                    )
+                                                                }
                                                             />
                                                         </div>
                                                     </div>
-                                                        <InputBox
-                                                            {...inputMobile}
-                                                            id="whatapp_mobile"
-                                                            name="whatapp_mobile"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
+                                                    <InputBox
+                                                        {...inputMobile}
+                                                        id="whatapp_mobile"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="whatapp_mobile"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .whatapp_mobile
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .whatapp_mobile &&
+                                                    formik.errors
+                                                        .whatapp_mobile ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
                                                                     .whatapp_mobile
                                                             }
-                                                        />
-
-                                                        {formik.touched
-                                                            .whatapp_mobile &&
-                                                        formik.errors
-                                                            .whatapp_mobile ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .whatapp_mobile
-                                                                }
-                                                            </small>
-                                                        ) : null}
+                                                        </small>
+                                                    ) : null}
                                                 </Col>
                                                 {/* <Row
                                                     className="form-group mt-3"
@@ -868,76 +930,79 @@ function RegisterNew() {
                                                             : true
                                                     }
                                                 />
-                                                
                                             </div>
                                             {btnOtp && (
                                                 <div>
-                                                   <h3>
+                                                    <h3>
                                                         {time}:
                                                         {counter < 59
                                                             ? counter - '0'
                                                             : counter}
-                                                    </h3> 
-                                                
-                                                
-                                                <div
-                                                    className="w-100 d-block text-left"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
-                                                >
-                                                    
-                                                    <Label
-                                                        className="mb-2 mt-4  text-left"
-                                                        htmlFor="otp"
-                                                    >
-                                                        Enter OTP
-                                                    </Label>
+                                                    </h3>
+
                                                     <div
-                                                        // className="form-row row mb-6"
-                                                        className="d-flex justify-content-left "
+                                                        className="w-100 d-block text-left"
+                                                        // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
-                                                        <OtpInput
-                                                            numInputs={6}
-                                                            isDisabled={false}
-                                                            errorStyle="error"
-                                                            onChange={
-                                                                handleOtpChange
-                                                            }
-                                                            separator={
-                                                                <span>
-                                                                    {'-'}
-                                                                </span>
-                                                            }
-                                                            isInputNum={true}
-                                                            isInputSecure={
-                                                                false
-                                                            }
-                                                            shouldAutoFocus
-                                                            value={
-                                                                formik.values
-                                                                    .otp
-                                                            }
-                                                            placeholder={''}
-                                                            inputStyle={{
-                                                                border: '1px solid var(--color-grey-light-3)',
-                                                                borderRadius:
-                                                                    '8px',
-                                                                width: '5.4rem',
-                                                                height: '5.4rem',
-                                                                fontSize:
-                                                                    '2.2rem',
-                                                                color: '#000',
-                                                                fontWeight:
-                                                                    '400',
-                                                                caretColor:
-                                                                    'blue'
-                                                            }}
-                                                            focusStyle={{
-                                                                border: '1px solid #CFD3DB',
-                                                                outline: 'none'
-                                                            }}
-                                                        />
+                                                        <Label
+                                                            className="mb-2 mt-4  text-left"
+                                                            htmlFor="otp"
+                                                        >
+                                                            Enter OTP
+                                                        </Label>
+                                                        <div
+                                                            // className="form-row row mb-6"
+                                                            className="d-flex justify-content-left "
+                                                        >
+                                                            <OtpInput
+                                                                numInputs={6}
+                                                                isDisabled={
+                                                                    false
+                                                                }
+                                                                errorStyle="error"
+                                                                onChange={
+                                                                    handleOtpChange
+                                                                }
+                                                                separator={
+                                                                    <span>
+                                                                        {'-'}
+                                                                    </span>
+                                                                }
+                                                                isInputNum={
+                                                                    true
+                                                                }
+                                                                isInputSecure={
+                                                                    false
+                                                                }
+                                                                shouldAutoFocus
+                                                                value={
+                                                                    formik
+                                                                        .values
+                                                                        .otp
+                                                                }
+                                                                placeholder={''}
+                                                                inputStyle={{
+                                                                    border: '1px solid var(--color-grey-light-3)',
+                                                                    borderRadius:
+                                                                        '8px',
+                                                                    width: '5.4rem',
+                                                                    height: '5.4rem',
+                                                                    fontSize:
+                                                                        '2.2rem',
+                                                                    color: '#000',
+                                                                    fontWeight:
+                                                                        '400',
+                                                                    caretColor:
+                                                                        'blue'
+                                                                }}
+                                                                focusStyle={{
+                                                                    border: '1px solid #CFD3DB',
+                                                                    outline:
+                                                                        'none'
+                                                                }}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </div>
                                             )}
                                             {formik.values.otp.length > 5 &&

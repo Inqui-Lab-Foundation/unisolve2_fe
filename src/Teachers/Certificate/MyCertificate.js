@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Fragment, useLayoutEffect, useRef, useState } from 'react';
 import { Card, CardBody, CardTitle, Container } from 'reactstrap';
 import { Button } from '../../stories/Button';
@@ -14,13 +15,14 @@ const MyCertificate = () => {
     const { t } = useTranslation();
     const pdfRef = useRef(null);
     const currentUser = getCurrentUser('current_user');
+    // console.log(currentUser, 'currentUser');
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
     //let tempVar = postSurveyStatus ==="COMPLETED";
-    let tempVar = false ;
+    let tempVar = false;
     const handleCertificateDownload = () => {
         // here we can download the certificates //
         const content = pdfRef.current;
-        const doc = new jsPDF('l', 'px', [211,298]);
+        const doc = new jsPDF('l', 'px', [211, 298]);
         doc.html(content, {
             callback: function (doc) {
                 doc.save('certificate.pdf');
@@ -77,9 +79,10 @@ const MyCertificate = () => {
                                             top: '7.2rem',
                                             left: '10rem',
                                             fontSize: '1rem',
-                                            fontFamily:"Times New Roman"
+                                            fontFamily: 'Times New Roman'
                                         }}
                                     >
+                                        {currentUser?.data[0]?.title}{' '}
                                         {currentUser?.data[0]?.full_name}
                                     </span>
                                     <span
@@ -89,10 +92,13 @@ const MyCertificate = () => {
                                             top: '8.6rem',
                                             left: '5rem',
                                             fontSize: '1rem',
-                                            fontFamily:"Times New Roman"
+                                            fontFamily: 'Times New Roman'
                                         }}
                                     >
-                                        {currentUser?.data[0]?.organization_name}
+                                        {
+                                            currentUser?.data[0]
+                                                ?.organization_name
+                                        }
                                     </span>
                                     <img
                                         src={TeacherCertificate}
@@ -118,7 +124,7 @@ const MyCertificate = () => {
                                 </div>
                             </CardBody>
                         ) : (
-                            <div className='text-center'>
+                            <div className="text-center">
                                 <div>
                                     <img
                                         className="img-fluid w-25"
@@ -127,7 +133,13 @@ const MyCertificate = () => {
                                 </div>
                                 <div>
                                     <h2>
-                                        {postSurveyStatus =="COMPLETED" ? t('teacher_certificate.complete_post_survey_default') :t('teacher_certificate.complete_postsurvey')}
+                                        {postSurveyStatus == 'COMPLETED'
+                                            ? t(
+                                                  'teacher_certificate.complete_post_survey_default'
+                                              )
+                                            : t(
+                                                  'teacher_certificate.complete_postsurvey'
+                                              )}
                                     </h2>
                                 </div>
                             </div>
