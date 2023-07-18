@@ -21,7 +21,7 @@ const EditTeacherProfileDetails = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
-
+    console.log(currentUser);
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
@@ -38,10 +38,15 @@ const EditTeacherProfileDetails = (props) => {
             gender: Yup.string().required('Please select valid gender'),
             title: Yup.string().required('Please select Title'),
             name: Yup.string()
-                .matches(/^[A-Za-z]*$/, 'Invalid name ')
-                .min(2, 'Enter a valid name')
-                .required('Name is Required'),
+                // .matches(/^[A-Za-z]*$/, 'Invalid name ')
+                // .min(2, 'Enter a valid name')
+                // .required('Name is Required'),
+                .trim()
+                .min(2, 'Enter Name')
+                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .required('Required'),
             phone: Yup.string()
+                .trim()
                 .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Mobile number must be 10 Digit')
