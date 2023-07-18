@@ -28,7 +28,8 @@ const ChallengesReport = () => {
 
     const handleDownload = (item) => {
         setMsg(item);
-        var url = '';
+        let url = '';
+        
         if (item === 'Submitted Challenges') {
             url = `/reports/challengesDistrictCount?level=SUBMITTED`;
         } else if (item == 'Draft Challenges') {
@@ -47,11 +48,11 @@ const ChallengesReport = () => {
             url = `/reports/challengesDistrictCount?level=FINALCHALLENGES`;
         } else if (item == 'Final Winner Challenges') {
             url = `/reports/challengesDistrictCount?level=FINALACCEPTED`;
-        }else{
+        } else{
             return;
         }
 
-        var config = {
+        const config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + url,
             headers: {
@@ -62,7 +63,7 @@ const ChallengesReport = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    var msg ='';
+                    let msg ='';
                     
                     if (item == 'Submitted Challenges') {
                         msg = 'Submitted Challenges  Download Successfully';
@@ -544,26 +545,16 @@ const ChallengesReport = () => {
                             ? reportsData
                             : []
                     }
-                    filename={
-                        msg === 'Submitted Challenges'
-                            ? 'Submitted Challenges.csv'
-                            : msg === 'Draft Challenges'
-                                ? 'Draft Challenges.csv'
-                                : msg === 'Accepted Challenges'
-                                    ? 'Accepted Challenges.csv'
-                                    : msg === 'Rejected Challenges'
-                                        ? 'Rejected Challenges.csv'
-                                        : msg === 'L1 - Yet to Processed Challenges'
-                                            ? 'L1 - Yet to Processed Challenges.csv'
-                                            : msg === 'L2 - Processed Challenges'
-                                                ? 'L2 - Processed Challenges.csv'
-                                                : msg === 'L2 - Yet to  Processed Challenges'
-                                                    ? 'L2 - Yet to  Processed Challenges.csv'
-                                                    : msg === 'Final Evaluation Challenges'
-                                                        ? 'Final Evaluation Challenges.csv'
-                                                        : msg === 'Final Winner Challenges'
-                                                            ? 'Final Winner Challenges.csv'
-                                                            : 'Report.csv'
+                    filename={msg === 'Submitted Challenges' ? 'Submitted Challenges.csv'
+                        : msg === 'Draft Challenges' ? 'Draft Challenges.csv'
+                            : msg === 'Accepted Challenges' ? 'Accepted Challenges.csv'
+                                : msg === 'Rejected Challenges' ? 'Rejected Challenges.csv'
+                                    : msg === 'L1 - Yet to Processed Challenges' ? 'L1 - Yet to Processed Challenges.csv'
+                                        : msg === 'L2 - Processed Challenges' ? 'L2 - Processed Challenges.csv'
+                                            : msg === 'L2 - Yet to  Processed Challenges' ? 'L2 - Yet to  Processed Challenges.csv'
+                                                : msg === 'Final Evaluation Challenges' ? 'Final Evaluation Challenges.csv'
+                                                    : msg === 'Final Winner Challenges' ? 'Final Winner Challenges.csv'
+                                                        : 'Report.csv'
                     }
                 />
             </div>

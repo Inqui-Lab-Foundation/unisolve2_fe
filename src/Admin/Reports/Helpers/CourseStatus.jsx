@@ -8,8 +8,6 @@ import { useHistory } from 'react-router-dom';
 import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch,useSelector} from 'react-redux';
 import Select from '../Helpers/Select';
-//import { MENTORS_COUNT } from '../Helpers/reportConstants';
-//import { MENTORS_COUNT } from '../../../../environments/env.dev';
 import axios from 'axios';
 import '../reports.scss';
 
@@ -23,8 +21,6 @@ const CourseStatus = () => {
     const [msg, setMsg] = useState('');
     const dispatch = useDispatch();
     const fullDistrictsNames = useSelector((state) => state?.studentRegistration?.dists);
-
-    //const REACT_APP_MCOURSE_COUNT = 8;
 
     useEffect(() => {
         dispatch(getDistrictData());
@@ -84,16 +80,6 @@ const CourseStatus = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    //const data = response?.data?.data;
-
-                    // Override the count value with the global variable
-                    //const modifiedData = data.map((item) => ({
-                    //    ...item,
-                    //    count: 8, // Set the desired count value here
-                    //}));
-
-                    //const filteredData = data.filter((item) => item.count == 8);
-
                     setTeacherCourseReportsData(response?.data?.data);
                     setTeacherCourseShowTable(true);
                 }
