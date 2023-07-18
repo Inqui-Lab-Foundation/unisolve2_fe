@@ -11,8 +11,8 @@ import Select from './Select';
 import axios from 'axios';
 import '../reports.scss';
 
-const ChallengesReport = () => {
-    const [district, setdistrict] = React.useState('');
+function ChallengesReport(){
+    const [district, setdistrict] = useState('');
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const [reportsData, setReportsData] = useState([]);
@@ -26,27 +26,27 @@ const ChallengesReport = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleDownload = (item) => {
+    function handleDownload(item){
         setMsg(item);
         let url = '';
         
         if (item === 'Submitted Challenges') {
             url = `/reports/challengesDistrictCount?level=SUBMITTED`;
-        } else if (item == 'Draft Challenges') {
+        } else if (item === 'Draft Challenges') {
             url = `/reports/challengesDistrictCount?level=DRAFT`;
-        } else if (item == 'Accepted Challenges') {
+        } else if (item === 'Accepted Challenges') {
             url = `/reports/challengesDistrictCount?level=SELECTEDROUND1`;
-        } else if (item == 'Rejected Challenges') {
+        } else if (item === 'Rejected Challenges') {
             url = `/reports/challengesDistrictCount?level=REJECTEDROUND1`;
-        } else if (item == 'L1 - Yet to Processed Challenges') {
+        } else if (item === 'L1 - Yet to Processed Challenges') {
             url = `/reports/challengesDistrictCount?level=L1YETPROCESSED`;
-        } else if (item == 'L2 - Processed Challenges') {
+        } else if (item === 'L2 - Processed Challenges') {
             url = `/reports/challengesDistrictCount?level=L2PROCESSED`;
-        } else if (item == 'L2 - Yet to  Processed Challenges') {
+        } else if (item === 'L2 - Yet to  Processed Challenges') {
             url = `/reports/challengesDistrictCount?level=L2YETPROCESSED`;
-        } else if (item == 'Final Evaluation Challenges') {
+        } else if (item === 'Final Evaluation Challenges') {
             url = `/reports/challengesDistrictCount?level=FINALCHALLENGES`;
-        } else if (item == 'Final Winner Challenges') {
+        } else if (item === 'Final Winner Challenges') {
             url = `/reports/challengesDistrictCount?level=FINALACCEPTED`;
         } else{
             return;
@@ -65,33 +65,31 @@ const ChallengesReport = () => {
                 if (response.status === 200) {
                     let msg ='';
                     
-                    if (item == 'Submitted Challenges') {
+                    if (item === 'Submitted Challenges') {
                         msg = 'Submitted Challenges  Download Successfully';
-                    } else if (item == 'Draft Challenges') {
+                    } else if (item === 'Draft Challenges') {
                         msg = 'Draft Challenges Download Successfully';
-                    } else if (item == 'Accepted Challenges') {
+                    } else if (item === 'Accepted Challenges') {
                         msg = 'Accepted Challenges  Download Successfully';
-                    } else if (item == 'Rejected Challenges') {
+                    } else if (item === 'Rejected Challenges') {
                         msg = 'Rejected Challenges  Download Successfully';
-                    } else if (item == 'L1 - Yet to Processed Challenges') {
+                    } else if (item === 'L1 - Yet to Processed Challenges') {
                         msg =
                             'L1 - Yet to Processed Challenges  Download Successfully';
-                    } else if (item == 'L2 - Processed Challenges') {
+                    } else if (item === 'L2 - Processed Challenges') {
                         msg =
                             'L2 - Processed Challenges  Download Successfully';
-                    } else if (item == 'L2 - Yet to  Processed Challenges') {
+                    } else if (item === 'L2 - Yet to  Processed Challenges') {
                         msg =
                             'L2 - Yet to  Processed Challenges  Download Successfully';
-                    } else if (item == 'Final Evaluation Challenges') {
+                    } else if (item === 'Final Evaluation Challenges') {
                         msg =
                             'Final Evaluation Challenges  Download Successfully';
-                    } else if (item == 'Final Winner Challenges') {
+                    } else if (item === 'Final Winner Challenges') {
                         msg = 'Final Winner Challenges  Download Successfully';
                     }
                     openNotificationWithIcon('success', msg);
-                    setReportsData(
-                        response && response.data && response.data.data
-                    );
+                    setReportsData(response && response.data && response.data.data);
                 }
                 const element = document.getElementById('CSVBtn');
                 element.click();
@@ -99,7 +97,7 @@ const ChallengesReport = () => {
             .catch(function (error) {
                 console.log(error);
             });
-    };
+    }
     
     return (
         <>
@@ -119,7 +117,7 @@ const ChallengesReport = () => {
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Submitted Challenges List</h2>
-                                <Col md={3}>
+                                <Col md={3}> 
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullDistrictsNames}
@@ -143,7 +141,6 @@ const ChallengesReport = () => {
                                             whiteSpace: 'nowrap'
                                         }}
                                     />
-
                                     <Button
                                         onClick={() => {handleDownload('Submitted Challenges');}}
                                         label={'Download Report'}
@@ -161,11 +158,8 @@ const ChallengesReport = () => {
                         </div>
                     </Row>
                 </Container>
-
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Draft Challenges List</h2>
@@ -179,10 +173,7 @@ const ChallengesReport = () => {
                                         />
                                     </div>
                                 </Col>
-                                <Col
-                                    md={3}
-                                    className="d-flex align-items-center justify-content-center"
-                                >
+                                <Col md={3} className="d-flex align-items-center justify-content-center">
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
@@ -213,8 +204,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Accepted Challenges List</h2>
@@ -258,8 +247,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Rejected Challenges List</h2>
@@ -304,8 +291,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>L1- Yet to Processed Challenges List</h2>
@@ -350,8 +335,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>L2-Processed Challenges List</h2>
@@ -396,8 +379,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>L2- Yet to Processed Challenges List</h2>
@@ -442,8 +423,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Final Evaluation Challenges List</h2>
@@ -488,8 +467,6 @@ const ChallengesReport = () => {
                 </Container>
                 <Container className="Reports mt-3 mb-50 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col className="text-right mb-2"></Col>
-
                         <div className="reports-data p-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Final Winner Challenges List</h2>
@@ -540,26 +517,14 @@ const ChallengesReport = () => {
                 <CSVLink
                     style={{ display: 'none' }}
                     id="CSVBtn"
-                    data={
-                        reportsData.length > 0
-                            ? reportsData
-                            : []
-                    }
-                    filename={msg === 'Submitted Challenges' ? 'Submitted Challenges.csv'
-                        : msg === 'Draft Challenges' ? 'Draft Challenges.csv'
-                            : msg === 'Accepted Challenges' ? 'Accepted Challenges.csv'
-                                : msg === 'Rejected Challenges' ? 'Rejected Challenges.csv'
-                                    : msg === 'L1 - Yet to Processed Challenges' ? 'L1 - Yet to Processed Challenges.csv'
-                                        : msg === 'L2 - Processed Challenges' ? 'L2 - Processed Challenges.csv'
-                                            : msg === 'L2 - Yet to  Processed Challenges' ? 'L2 - Yet to  Processed Challenges.csv'
-                                                : msg === 'Final Evaluation Challenges' ? 'Final Evaluation Challenges.csv'
-                                                    : msg === 'Final Winner Challenges' ? 'Final Winner Challenges.csv'
-                                                        : 'Report.csv'
+                    data={reportsData}
+                    filename={msg === 'Submitted Challenges' ? 'Submitted Challenges.csv': msg === 'Draft Challenges' ? 'Draft Challenges.csv': msg === 'Accepted Challenges' ? 'Accepted Challenges.csv': msg === 'Rejected Challenges' ? 'Rejected Challenges.csv': msg === 'L1 - Yet to Processed Challenges' ? 'L1 - Yet to Processed Challenges.csv': msg === 'L2 - Processed Challenges' ? 'L2 - Processed Challenges.csv': msg === 'L2 - Yet to  Processed Challenges' ? 'L2 - Yet to  Processed Challenges.csv': msg === 'Final Evaluation Challenges' ? 'Final Evaluation Challenges.csv': msg === 'Final Winner Challenges' ? 'Final Winner Challenges.csv'
+                        : 'Report.csv'
                     }
                 />
             </div>
         </>
     );
-};
+}
 
 export default ChallengesReport;
