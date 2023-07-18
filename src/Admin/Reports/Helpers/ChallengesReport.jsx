@@ -11,7 +11,7 @@ import Select from './Select';
 import axios from 'axios';
 import '../reports.scss';
 
-function ChallengesReport(){
+function challengesReport(){
     const [district, setdistrict] = useState('');
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
@@ -74,17 +74,13 @@ function ChallengesReport(){
                     } else if (item === 'Rejected Challenges') {
                         msg = 'Rejected Challenges  Download Successfully';
                     } else if (item === 'L1 - Yet to Processed Challenges') {
-                        msg =
-                            'L1 - Yet to Processed Challenges  Download Successfully';
+                        msg = 'L1 - Yet to Processed Challenges  Download Successfully';
                     } else if (item === 'L2 - Processed Challenges') {
-                        msg =
-                            'L2 - Processed Challenges  Download Successfully';
+                        msg = 'L2 - Processed Challenges  Download Successfully';
                     } else if (item === 'L2 - Yet to  Processed Challenges') {
-                        msg =
-                            'L2 - Yet to  Processed Challenges  Download Successfully';
+                        msg = 'L2 - Yet to  Processed Challenges  Download Successfully';
                     } else if (item === 'Final Evaluation Challenges') {
-                        msg =
-                            'Final Evaluation Challenges  Download Successfully';
+                        msg = 'Final Evaluation Challenges  Download Successfully';
                     } else if (item === 'Final Winner Challenges') {
                         msg = 'Final Winner Challenges  Download Successfully';
                     }
@@ -98,7 +94,29 @@ function ChallengesReport(){
                 console.log(error);
             });
     }
-    
+    let filename;
+
+    if (msg === 'Submitted Challenges') {
+        filename = 'Submitted Challenges.csv';
+    } else if (msg === 'Draft Challenges') {
+        filename = 'Draft Challenges.csv';
+    } else if (msg === 'Accepted Challenges') {
+        filename = 'Accepted Challenges.csv';
+    } else if (msg === 'Rejected Challenges') {
+        filename = 'Rejected Challenges.csv';
+    } else if (msg === 'L1 - Yet to Processed Challenges') {
+        filename = 'L1 - Yet to Processed Challenges.csv';
+    } else if (msg === 'L2 - Processed Challenges') {
+        filename = 'L2 - Processed Challenges.csv';
+    } else if (msg === 'L2 - Yet to  Processed Challenges') {
+        filename = 'L2 - Yet to  Processed Challenges.csv';
+    } else if (msg === 'Final Evaluation Challenges') {
+        filename = 'Final Evaluation Challenges.csv';
+    } else if (msg === 'Final Winner Challenges') {
+        filename = 'Final Winner Challenges.csv';
+    } else {
+        filename = 'Report.csv';
+    }
     return (
         <>
             <Layout>
@@ -518,13 +536,11 @@ function ChallengesReport(){
                     style={{ display: 'none' }}
                     id="CSVBtn"
                     data={reportsData}
-                    filename={msg === 'Submitted Challenges' ? 'Submitted Challenges.csv': msg === 'Draft Challenges' ? 'Draft Challenges.csv': msg === 'Accepted Challenges' ? 'Accepted Challenges.csv': msg === 'Rejected Challenges' ? 'Rejected Challenges.csv': msg === 'L1 - Yet to Processed Challenges' ? 'L1 - Yet to Processed Challenges.csv': msg === 'L2 - Processed Challenges' ? 'L2 - Processed Challenges.csv': msg === 'L2 - Yet to  Processed Challenges' ? 'L2 - Yet to  Processed Challenges.csv': msg === 'Final Evaluation Challenges' ? 'Final Evaluation Challenges.csv': msg === 'Final Winner Challenges' ? 'Final Winner Challenges.csv'
-                        : 'Report.csv'
-                    }
+                    filename={filename}
                 />
             </div>
         </>
     );
 }
 
-export default ChallengesReport;
+export default challengesReport;
