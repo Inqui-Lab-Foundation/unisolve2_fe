@@ -84,10 +84,22 @@ const Reports = () => {
                     </Row>
                     <Row className="mb-3">
                         <Col lg={6} md={6}>
-                            <Link to="/admin/">
+                            <Link to="/admin/CourseStatus">
                                 <Card className="p-4 text-center card-effect mb-3">
                                     <b className="text-secondary">
                                         COURSE STATUS
+                                    </b>
+                                </Card>
+                            </Link>
+                        </Col>
+                    </Row>
+                    
+                    <Row className="mb-3">
+                        <Col lg={6} md={6}>
+                            <Link to="/admin/ChallengesReport">
+                                <Card className="p-4 text-center card-effect mb-3">
+                                    <b className="text-secondary">
+                                        CHALLENGES REPORTS
                                     </b>
                                 </Card>
                             </Link>
@@ -104,28 +116,7 @@ const Reports = () => {
                             </Link>
                         </Col>
                     </Row>
-                    <Row className="mb-3">
-                        <Col lg={6} md={6}>
-                            <Link to="/admin/">
-                                <Card className="p-4 text-center card-effect mb-3">
-                                    <b className="text-secondary">
-                                        CHALLENGES REPORTS
-                                    </b>
-                                </Card>
-                            </Link>
-                        </Col>
-                    </Row>
-                    <Row className="mb-3">
-                        <Col lg={6} md={6}>
-                            <Link to="/admin/">
-                                <Card className="p-4 text-center card-effect mb-3">
-                                    <b className="text-secondary">
-                                        IDEA STATUS REPORTS
-                                    </b>
-                                </Card>
-                            </Link>
-                        </Col>
-                    </Row>
+                    
                     <Row className="mb-3">
                         <Col lg={6} md={6}>
                             <Link to="/admin/">

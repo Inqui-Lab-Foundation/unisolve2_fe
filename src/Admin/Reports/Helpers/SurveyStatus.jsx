@@ -143,6 +143,7 @@ const SurveyStatus = () => {
                                         label={'Download'}
                                         btnClass="primary"
                                         size={'small'}
+                                        shape="btn-square"
                                         type="submit"
                                         style={{
                                             width: '150px',
@@ -232,6 +233,7 @@ const SurveyStatus = () => {
                                         label={'Download Report'}
                                         btnClass="primary"
                                         size={'small'}
+                                        shape="btn-square"
                                         type="submit"
                                         style={{
                                             width: '150px',
