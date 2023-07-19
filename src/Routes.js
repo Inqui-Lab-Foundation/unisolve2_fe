@@ -12,7 +12,7 @@ import BadgesComp from './Student/Pages/Badges/Badges';
 import StudenetChangePSWModal from './Student/Pages/ChangePS';
 import './i18n';
 import LoginNew from './Student/Pages/LoginNew';
-// import StudentResources from './Student/Resources';
+import StudentResources from './Student/Resources';
 import MyProfile from './Student/Pages/MyProfile';
 import PlayVideoCourses from './Student/Pages/Courses/PlayVideo';
 import FaqPage from './Student/Pages/HelpPages/FaqPage';
@@ -26,9 +26,9 @@ import AdminMyProfile from './Admin/MyProfile';
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
 import AdminEvaluationProcess from './Admin/EvalProcess/index';
-// import AdminResources from './Admin/Resources/index';
-// import AdminCreateResource from './Admin/Resources/createResource';
-// import AdminEditResource from './Admin/Resources/editResource';
+import AdminResources from './Admin/Resources/index';
+import AdminCreateResource from './Admin/Resources/createResource';
+import AdminEditResource from './Admin/Resources/editResource';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
@@ -49,9 +49,10 @@ import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
+import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 
 import TeacherFaqPage from './Teachers/HelpPages/FaqPage';
-// import TeacherResources from './Teachers/Resources/index';
+import TeacherResources from './Teachers/Resources/index';
 import TeacherTeamList from './Teachers/Teams/Ticket';
 import TeacherCreateTeam from './Teachers/Teams/CreateTeam';
 import TeacherPreservey from './Teachers/PreSurvey/PreSurvey';
@@ -72,7 +73,6 @@ import ChangePSWModal from './Teachers/ChangePSWModal';
 import Translation from './Admin/Translation/Translation';
 import EditTranslation from './Admin/Translation/EditTranslation';
 import CreateTranslation from './Admin/Translation/CreateTranslation';
-import ForgotPasswordNew from './Teachers/ForgotPasswordNew';
 import EditSchool from './Admin/Schools/EditSchool';
 import TeacherEditProfile from './Teachers/EditTeacherProfile';
 
@@ -96,12 +96,20 @@ import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
+import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
+import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
+import CourseStatus from './Admin/Reports/Helpers/CourseStatus';
+import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
+import DashboardCoordinator from './Coordinators/Dashboard';
+import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
+
 import SchoolChangePSWModal from './School/ChangePSWModal';
+import LogInNew from './Coordinators/LogInNew';
 
 const Routers = () => {
     return (
@@ -125,6 +133,22 @@ const Routers = () => {
                         path="/success"
                         render={() => <SuccessPage />}
                     />
+                    <Route
+                        exact={true}
+                        path="/coordinator"
+                        render={() => <LogInNew />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/coordinator/dashboard"
+                        component={DashboardCoordinator}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/coordinator-changePassword"
+                        component={CoordinatorChangePswModal}
+                    />
+
                     <Route
                         exact={true}
                         path="/school"
@@ -172,11 +196,11 @@ const Routers = () => {
                         path="/notification"
                         component={Notification}
                     />
-                    {/* <ProtectedRoute
+                    <ProtectedRoute
                         exact
                         path="/student/Resources/index"
                         component={StudentResources}
-                    /> */}
+                    />
                     <ProtectedRoute exact path="/faq" component={FaqPage} />
                     <ProtectedRoute
                         exact
@@ -308,8 +332,28 @@ const Routers = () => {
                         path="/admin/reports-view"
                         component={ReportsView}
                     />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/reports-registration"
+                        component={ReportsRegistration}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/SurveyStatus"
+                        component={SurveyStatus}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/CourseStatus"
+                        component={CourseStatus}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/ChallengesReport"
+                        component={ChallengesReport}
+                    />
 
-                    {/* <ProtectedRoute
+                    <ProtectedRoute
                         exact={true}
                         path="/admin/Resources/index"
                         component={AdminResources}
@@ -323,7 +367,7 @@ const Routers = () => {
                         exact={true}
                         path="/admin/Resources/editResource"
                         component={AdminEditResource}
-                    /> */}
+                    />
 
                     <ProtectedRoute
                         exact={true}
@@ -348,17 +392,18 @@ const Routers = () => {
                         path="/teacher/faq"
                         component={TeacherFaqPage}
                     />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/teacher/Resources/index"
+                        component={TeacherResources}
+                    />
                     <Route
                         exact={true}
                         path="/teacher/forgotpassword"
                         component={ForgotPasswordNew}
                     />
 
-                    {/* <ProtectedRoute
-                        exact={true}
-                        path="/teacher/Resources/index"
-                        component={TeacherResources}
-                    /> */}
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/teamlist"

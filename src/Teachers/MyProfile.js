@@ -13,7 +13,6 @@ const MyProfile = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
-    console.log(teacher);
     const dispatch = useDispatch();
     // console.log(currentUser);
     useLayoutEffect(() => {
