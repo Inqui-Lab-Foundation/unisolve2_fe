@@ -18,8 +18,15 @@ import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
+import { useHistory } from 'react-router-dom';
+
 const SuccessPage = () => {
+    const history = useHistory();
     const { t } = useTranslation();
+
+    const successData = (
+        history && history.location && history.location.data
+    );
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login ">
@@ -109,13 +116,58 @@ const SuccessPage = () => {
                                     Congratulations
                                 </p>
 
-                                <p style={{ marginBottom: '2rem' }}>
-                                    Your account has been successfully created
+                                <p style={{ fontWeight: 'bold', marginBottom: '2rem' }}>
+                                    Your school has been successfully registered.
                                 </p>
 
-                                <p style={{ color: 'gray', marginBottom: '2rem' }}>
-                                    Login ID and default password will be your registered Mobile Number only
+
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+                                    
+                                    UDICE Code: {successData && successData.organization_code}                                    
+                                    
                                 </p>
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+                                    
+                                    School Name: {successData && successData.school}
+                                    
+                                </p>
+                                <p style={{ color: 'gray', marginBottom: '4rem' }}>
+                                    
+                                    District: {successData && successData.district}
+                    
+                                    
+                                </p>
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+
+                                    Faculty Name: {successData && successData.title}. {successData && successData.full_name}
+                                </p>
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+                                    
+                                    Mobile Number: {successData && successData.mobile}
+                                    
+                                </p> 
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+                                    
+                                    Whatsapp Number: {successData && successData.whatapp_mobile}
+                                    
+                                </p>
+                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
+                                    
+                                    Password: {successData && successData.mobile}
+                                    
+                                </p>                      
+                                <p style={{ color: 'gray', marginBottom: '2rem' }}>
+                                    
+                                    Gender: {successData && successData.gender}
+                                    
+                                </p>
+                                <p style={{ color: 'gray', marginBottom: '2rem' }}>
+                                    
+                                    Take a screenshot for future reference.
+                                    
+                                </p>
+                                                             
+                                
                                 <h3>
                                     To login into Teacher account 
                                     <Link
@@ -123,6 +175,7 @@ const SuccessPage = () => {
                                         to="/teacher"
                                         className="p-0 blue text-link w-100 mt-3"
                                     >
+                                      
                                         {t(
                                             ' click here'
                                         )}
