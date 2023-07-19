@@ -20,12 +20,11 @@ const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { supportTickets } = useSelector((state) => state.mentors);
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
     useEffect(() => {
-        dispatch(getSupportTickets(language, currentUser?.data[0]));
-    }, [language]);
+        dispatch(getSupportTickets(currentUser?.data[0]));
+    }, []);
     // here  we can also rise the tickets as well as we can give the replies to tickets //
     const SchoolsData = {
         data: supportTickets,

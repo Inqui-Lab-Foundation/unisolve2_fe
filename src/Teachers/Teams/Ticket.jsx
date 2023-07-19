@@ -105,6 +105,7 @@ const TicketsPage = (props) => {
             {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
+
                     return [
                         <div
                             key={params}
@@ -139,7 +140,8 @@ const TicketsPage = (props) => {
                             onClick={() => handleDelete(params)}
                             // style={{marginRight:"20px"}}
                         >
-                            {params.student_count <= 2 && (
+                            
+                            {params.student_count <= 2 && params.ideaStatus === null && (
                                 <div className="btn btn-danger btn-lg mx-2">
                                     {t('teacher_teams.delete')}
                                 </div>
@@ -152,6 +154,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
+
     const handleCreate = (item) => {
         // where item = team name //
         // where we can add team member details //

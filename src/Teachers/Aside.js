@@ -13,6 +13,7 @@ import {
 import {
     FaBars,
     FaTh,
+    FaLandmark,
     FaQuestionCircle,
     FaCaretSquareRight,
     FaCertificate,
@@ -189,6 +190,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             to={'/teacher/teamlist'}
                         >
                             {t('teacher.team')}
+                        </NavLink>
+                    </MenuItem>
+
+                    <MenuItem
+                        icon={<FaLandmark/>}
+                        className={
+                            (location.pathname === '/teacher/Resources' ) && 
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            onClick={(e) => handleClick(e)}
+                            // onClick={(e) => handleClick(e, 'Resources')}
+                            to={'/teacher/Resources/index'}
+                        >
+                            {t('Resources')}
                         </NavLink>
                     </MenuItem>
 

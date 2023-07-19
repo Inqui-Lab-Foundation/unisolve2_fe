@@ -8,7 +8,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect} from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';

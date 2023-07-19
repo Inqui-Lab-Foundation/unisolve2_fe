@@ -374,7 +374,7 @@ const Dashboard = () => {
                 <div className="dashboard p-5 mb-5">
                     <div className="row">
                         <div style={{ flex: 1 }} className="col-lg-12">
-                            Data
+                            Data__
                         </div>
                         <div
                             style={{ flex: 1 }}

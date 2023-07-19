@@ -26,6 +26,7 @@ import {
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
 import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
+import LatestNews from './LatestNews.js';
 
 const Dashboard = () => {
     // here we can see all the details of student //
@@ -327,6 +328,13 @@ const Dashboard = () => {
                         }
                         image={vector}
                     />
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <LatestNews usersdata={currentUser?.data} />
+                        </div>
+                    </Col>
                 </Row>
                 <Row
                     className="course-team flex-start mb-5"
