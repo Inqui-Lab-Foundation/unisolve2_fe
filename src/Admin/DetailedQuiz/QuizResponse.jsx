@@ -1,22 +1,9 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 var parse = require('html-react-parser');
 
-const QuizResponse = ({ response, onQuizResponseSubmission }) => {
-    const { accimg, msg, ar_image, ar_link, is_correct } = response;
+const QuizResponse = ({ response }) => {
+    const { accimg, msg, ar_image, ar_link } = response;
     const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
-
-    const handleResponseSubmission = () => {
-        if (is_correct) {
-            onQuizResponseSubmission(response);
-        } else {
-            // Handle error for incorrect answer
-            console.log('Incorrect answer!'); // You can customize the error handling here
-        }
-    };
-    useEffect(() => {
-        handleResponseSubmission();
-    }, [response]); // Run the submission function on component mount
-
     return (
         <div className="w-100">
             <div className="row" style={{ fontSize: '1.4rem' }}>
