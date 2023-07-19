@@ -2,11 +2,11 @@ import React,{useEffect} from 'react';
 var parse = require('html-react-parser');
 
 const QuizResponse = ({ response, onQuizResponseSubmission }) => {
-    const { accimg, msg, ar_image, ar_link } = response;
+    const { accimg, msg, ar_image, ar_link, is_correct } = response;
     const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
 
     const handleResponseSubmission = () => {
-        if (response.is_correct) {
+        if (is_correct) {
             onQuizResponseSubmission(response);
         } else {
             // Handle error for incorrect answer

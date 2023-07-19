@@ -74,6 +74,7 @@ const PlayVideoCourses = (props) => {
     const [condition, setCondition] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [showQuiz, setHideQuiz] = useState(false);
+    const [quizAttempted, setQuizAttempted] = useState(false); 
     const [backToQuiz, setBackToQuiz] = useState(false);
     const [quizId, setQizId] = useState('');
     const [worksheetId, setWorksheetId] = useState('');
@@ -132,6 +133,13 @@ const PlayVideoCourses = (props) => {
             a_link = item.split('/');
             count = a_link.length - 1;
         }
+        // useEffect(() => {
+        //     // Retrieve the stored quizAttempted value from localStorage on component mount
+        //     const storedQuizAttempted = localStorage.getItem('quizAttempted');
+        //     if (storedQuizAttempted) {
+        //       setQuizAttempted(JSON.parse(storedQuizAttempted));
+        //     }
+        //   }, []);
         return (
             <>
                 {original ? (
@@ -1130,16 +1138,13 @@ const PlayVideoCourses = (props) => {
                                                             />
                                                         </figure>
                                                         <Button
-                                                            label={t(
-                                                                'student.lets_start'
-                                                            )}
+                                                            label={quizAttempted ? t("Lets Continue") : t('student.lets_start')}
                                                             btnClass="primary mt-4"
                                                             size="small"
-                                                            onClick={() =>
-                                                                setHideQuiz(
-                                                                    true
-                                                                )
-                                                            }
+                                                            onClick={() => {
+                                                                setHideQuiz(true);
+                                                                setQuizAttempted(true);
+                                                            }}
                                                         />
                                                     </Modal.Body>
                                                 </div>
