@@ -233,6 +233,12 @@ const TicketResponse = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
 
                                                 <Col
