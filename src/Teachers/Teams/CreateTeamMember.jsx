@@ -309,7 +309,7 @@ const CreateMultipleMembers = ({ id }) => {
                 );
             })}
             <Row>
-                <Col className="" xs={12} sm={6} md={6} xl={6}>
+                <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
                     <Button
                         label={t('teacher_teams.discard')}
                         btnClass="secondary "
@@ -317,7 +317,7 @@ const CreateMultipleMembers = ({ id }) => {
                         onClick={() => history.push('/teacher/teamlist')}
                     />
                 </Col>
-                <Col className="" xs={12} sm={6} md={6} xl={6}>
+                <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
                     {!isClicked ? (
                         <Button
                             label={t('teacher_teams.submit')}
@@ -695,7 +695,7 @@ const CreateTeamMember = (props) => {
 
                                     <hr className="mt-4 mb-4"></hr>
                                     <Row>
-                                        <Col className="" xs={12} sm={6} md={6} xl={6}>
+                                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
                                             <Button
                                                 label={t(
                                                     'teacher_teams.discard'
@@ -709,7 +709,7 @@ const CreateTeamMember = (props) => {
                                                 }
                                             />
                                         </Col>
-                                        <Col className="" xs={12} sm={6} md={6} xl={6}>
+                                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
                                             {!isClicked ? (
                                                 <Button
                                                     label={t(
