@@ -140,7 +140,7 @@ const TicketsPage = (props) => {
                         </div>
                     ];
                 },
-                width: '40%',
+                width: '50%',
                 left: true
             }
         ]
@@ -237,12 +237,18 @@ const TicketsPage = (props) => {
             });
     };
 
+    const centerTitleMobile = {
+        '@media (max-width: 768px)': {
+            marginLeft: '2rem'
+        }
+    };
+
     return (
         <Layout>
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
+                        <Col className="col-auto" style={centerTitleMobile}>
                             <h2>{t('teacher_teams.team_heading')}</h2>
                         </Col>
 
