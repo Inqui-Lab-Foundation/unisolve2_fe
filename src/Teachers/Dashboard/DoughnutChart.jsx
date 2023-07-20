@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import 'antd/dist/antd.css';
-import { Card, Col, Progress } from 'reactstrap';
+import { Card, Progress } from 'reactstrap';
 import { Table } from 'antd';
 import { getAdminTeamsList, getTeamMemberStatus } from '../store/teams/actions';
 import { useSelector } from 'react-redux';
@@ -11,14 +11,12 @@ import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { Button } from '../../stories/Button';
 import IdeaSubmissionCard from '../../components/IdeaSubmissionCard';
 import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistration/actions';
-import { useTranslation } from 'react-i18next';
 import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 
 export default function DoughnutChart({ user }) {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { teamsList, teamsMembersStatus, teamsMembersStatusErr } =
@@ -233,12 +231,15 @@ export default function DoughnutChart({ user }) {
     }, [teamsMembersStatus, ChangeShow]);
     return (
         <>
-            <div className="select-team w-100">
+            <Card
+                className="select-team p-5 w-100"
+                style={{ overflowX: 'auto' }}
+            >
                 <label htmlFor="teams" className="">
                     Team Progress:
                 </label>
-                <div className="d-flex align-items-center">
-                    <Col className="row p-4">
+                <div className="d-flex align-items-center teamProgreess">
+                    <div className="row p-4 singlediv">
                         <select
                             onChange={(e) => setTeamId(e.target.value)}
                             name="teams"
@@ -256,39 +257,21 @@ export default function DoughnutChart({ user }) {
                                 <option value="">There are no teams</option>
                             )}
                         </select>
-                    </Col>
-                    <Col className="d-flex justify-content-end align-items-center">
+                    </div>
+                    <div className='singlediv'>
                         <Card className="p-3 mx-4 d-flex flex-row">
                             <span className="fw-bold">IDEA STATUS :</span>
-                            <span>
-                                {' '}
+                            <span style={{paddingLeft:'1rem'}}>
                                 {challengesSubmittedResponse[0]?.status
-                                    ? challengesSubmittedResponse[0]?.status
-                                    : 'NOT STARTED'}{' '}
+                                    ? ` ${challengesSubmittedResponse[0]?.status}`
+                                    : 'NOT STARTED'}
                             </span>
-                            {challengesSubmittedResponse[0]?.status ==
-                            'SUBMITTED' ? (
-                                <Button
-                                    className="btn btn-success btn-lg mr-5 mx-2"
-                                    label={'REVOKE'}
-                                    size="small "
-                                    onClick={() =>
-                                        handleRevoke(
-                                            challengesSubmittedResponse[0]
-                                                .challenge_response_id,
-                                            challengesSubmittedResponse[0]
-                                                .status
-                                        )
-                                    }
-                                />
-                            ) : (
-                                ''
-                            )}
                         </Card>
-
+                    </div>
+                    <div>
                         <Button
                             button="button"
-                            label={t('student.view_idea')}
+                            label="View Idea"
                             disabled={
                                 teamsMembersStatus.length > 0 &&
                                 challengesSubmittedResponse[0]?.status
@@ -302,28 +285,50 @@ export default function DoughnutChart({ user }) {
                                     : 'default'
                             }`}
                             size="small"
+                            shape="btn-square"
                             onClick={() => setIdeaShow(true)}
                         />
-                        <div className="m-3">
+                    </div>
+                    <div className="m-3">
+                        <Button
+                            label={'Change'}
+                            disabled={
+                                teamsMembersStatus.length > 0 &&
+                                challengesSubmittedResponse[0]?.status
+                                    ? false
+                                    : true
+                            }
+                            btnClass={`${
+                                teamsMembersStatus.length > 0 &&
+                                challengesSubmittedResponse[0]?.status
+                                    ? 'primary'
+                                    : 'default'
+                            }`}
+                            size="small"
+                            shape="btn-square"
+                            onClick={() => setChangeShow(true)}
+                        />
+                    </div>
+                    <div>
+                        {challengesSubmittedResponse[0]?.status ==
+                        'SUBMITTED' ? (
                             <Button
-                                label={'Change'}
-                                disabled={
-                                    teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                        ? false
-                                        : true
-                                }
-                                btnClass={`${
-                                    teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                        ? 'primary'
-                                        : 'default'
-                                }`}
+                                className="btn btn-success btn-lg mr-5 mx-2"
+                                label={'REVOKE'}
                                 size="small"
-                                onClick={() => setChangeShow(true)}
+                                shape="btn-square"
+                                onClick={() =>
+                                    handleRevoke(
+                                        challengesSubmittedResponse[0]
+                                            .challenge_response_id,
+                                        challengesSubmittedResponse[0].status
+                                    )
+                                }
                             />
-                        </div>
-                    </Col>
+                        ) : (
+                            ''
+                        )}
+                    </div>
                 </div>
                 {showDefault && (
                     <div
@@ -350,7 +355,7 @@ export default function DoughnutChart({ user }) {
                         </p>
                     </div>
                 ) : null}
-            </div>
+            </Card>
             {ideaShow && (
                 <IdeaSubmissionCard
                     show={ideaShow}
