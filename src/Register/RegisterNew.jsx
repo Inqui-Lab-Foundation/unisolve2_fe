@@ -53,6 +53,7 @@ function RegisterNew() {
     const [sec, setSec] = useState(59);
     const [disable, setDisable] = useState(false);
     const [timer, setTimer] = useState(0);
+    const [or, setOr] = useState('');
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
@@ -312,30 +313,121 @@ function RegisterNew() {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-    console.log(holdKey);
+
+    // useEffect(() => {
+    //     if (checkBox) {
+    //         if (
+    //             formik.values.username.length < 10 ||
+    //             formik.values.whatapp_mobile.length < 10
+    //         ) {
+    //             formik.setFieldValue(
+    //                 'whatapp_mobile',
+    //                 formik.values.username.length > 9
+    //                     ? formik.values.username
+    //                     : formik.values.whatapp_mobile
+    //             );
+    //             formik.setFieldValue(
+    //                 'username',
+    //                 formik.values.whatapp_mobile.length > 9
+    //                     ? formik.values.whatapp_mobile
+    //                     : formik.values.username
+    //             );
+    //             // formik.setFieldValue('username', formik.values.username);
+    //             // } else if (formik.values.whatapp_mobile.length < 10) {
+    //             //     formik.setFieldValue(
+    //             //         'whatapp_mobile',
+    //             //         formik.values.whatapp_mobile
+    //             //     );
+    //         } else if (formik.values.username.length == 10) {
+    //             console.log('1');
+    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
+    //         } else if (formik.values.whatapp_mobile.length == 10) {
+    //             console.log('2');
+    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //         }
+    //     }
+    //     // oo code comment karko bakik tu kar mi vaha se try kartu
+    // }, [
+    //     formik.values.username.length > 9,
+    //     formik.values.whatapp_mobile.length > 9
+    // ]);
+
+    // useEffect(() => {
+    //     if (checkBox) {
+    //         if (
+    //             formik.values.username.length < 10 ||
+    //             formik.values.whatapp_mobile.length < 10
+    //         ) {
+    //             formik.setFieldValue(
+    //                 'whatapp_mobile',
+    //                 formik.values.username.length > 9
+    //                     ? formik.values.username
+    //                     : formik.values.whatapp_mobile
+    //             );
+    //             formik.setFieldValue(
+    //                 'username',
+    //                 formik.values.whatapp_mobile.length > 9
+    //                     ? formik.values.whatapp_mobile
+    //                     : formik.values.username
+    //             );
+    //             // formik.setFieldValue('username', formik.values.username);
+    //             // } else if (formik.values.whatapp_mobile.length < 10) {
+    //             //     formik.setFieldValue(
+    //             //         'whatapp_mobile',
+    //             //         formik.values.whatapp_mobile
+    //             //     );
+    //         } else if (formik.values.username.length == 10) {
+    //             console.log('1');
+    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
+    //             // setWtsNum(formik.values.username);
+    //         } else if (formik.values.whatapp_mobile.length == 10) {
+    //             console.log('2');
+    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //             // setMobNum(formik.values.whatapp_mobile);
+    //         }
+    //     } else {
+    //         // formik.setFieldValue('whatapp_mobile', '');
+    //         // formik.setFieldValue('username', '');
+    //     }
+    //     // oo code comment karko bakik tu kar mi vaha se try kartu
+    // }, [
+    //     formik.values.username.length > 9,
+    //     formik.values.whatapp_mobile.length > 9
+    // ]);
     // const handleCheckbox = (e, click) => {
     //     if (click) {
     //         setCheckBox(click);
     //         formik.setFieldValue('whatapp_mobile', formik.values.username);
-
     //         setWtsNum(formik.values.username);
     //     } else {
     //         setCheckBox(click);
     //         formik.setFieldValue('whatapp_mobile', '');
     //     }
+    //     if (click) {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //         setWtsNum(formik.values.whatapp_mobile);
+    //     } else {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('username', '');
+    //     }
     // };
-
     const handleCheckbox = (e, click) => {
         if (click) {
             setCheckBox(click);
             formik.setFieldValue('whatapp_mobile', formik.values.username);
-
             setWtsNum(formik.values.username);
         } else {
             setCheckBox(click);
             formik.setFieldValue('whatapp_mobile', '');
         }
     };
+
+    useEffect(() => {
+        setCheckBox(false);
+        formik.setFieldValue('whatapp_mobile', '');
+    }, [formik.values.username.length == 0]);
+
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
@@ -816,11 +908,21 @@ function RegisterNew() {
                                                                 className="mt-3 mb-8 my-10 pb-4 pt-3"
                                                                 name="click"
                                                                 disabled={
-                                                                    holdKey
+                                                                    (formik
+                                                                        .values
+                                                                        .username
+                                                                        .length >
+                                                                    0
+                                                                        ? false
+                                                                        : true) ||
+                                                                    (holdKey
                                                                         ? true
-                                                                        : false
+                                                                        : false)
                                                                 }
                                                                 id="click"
+                                                                checked={
+                                                                    checkBox
+                                                                }
                                                                 onClick={(e) =>
                                                                     handleCheckbox(
                                                                         e,
@@ -834,9 +936,14 @@ function RegisterNew() {
                                                         {...inputMobile}
                                                         id="whatapp_mobile"
                                                         isDisabled={
-                                                            holdKey
+                                                            (formik.values
+                                                                .username
+                                                                .length > 0
+                                                                ? false
+                                                                : true) ||
+                                                            (holdKey
                                                                 ? true
-                                                                : false
+                                                                : false)
                                                         }
                                                         name="whatapp_mobile"
                                                         onChange={
