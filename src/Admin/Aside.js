@@ -18,7 +18,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaHotel } from 'react-icons/fa';
+import { FaBars, FaHotel, FaClipboard } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -240,6 +240,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink exact={true} to={'/admin/Resources/index'}>
                             Resources
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaClipboard />}
+                        className={
+                            location.pathname === '/admin/LatestNews/index' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/admin/LatestNews/index'}>
+                            LatestNews
                         </NavLink>
                     </MenuItem>
                     <MenuItem

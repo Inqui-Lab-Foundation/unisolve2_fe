@@ -29,6 +29,9 @@ import AdminEvaluationProcess from './Admin/EvalProcess/index';
 import AdminResources from './Admin/Resources/index';
 import AdminCreateResource from './Admin/Resources/createResource';
 import AdminEditResource from './Admin/Resources/editResource';
+import AdminLatestNews from './Admin/LatestNews/index';
+import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
+import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
@@ -367,6 +370,22 @@ const Routers = () => {
                         exact={true}
                         path="/admin/Resources/editResource"
                         component={AdminEditResource}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/index"
+                        component={AdminLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/createLatestNews"
+                        component={AdminCreateLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/editLatestNews"
+                        component={AdminEditLatestNews}
                     />
 
                     <ProtectedRoute
