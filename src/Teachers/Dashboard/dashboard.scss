@@ -45,13 +45,6 @@
         margin-bottom: 4rem;
     }
 
-    @media (max-width: 768px) {
-        /* Styles for mobile view */
-
-        .d-flex {
-            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
-        }
-    }
 }
 .border-left {
     border-left: 5px solid #067de1;
