@@ -99,7 +99,7 @@ import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
 import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
 import CourseStatus from './Admin/Reports/Helpers/CourseStatus';
-//import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
+import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
@@ -347,11 +347,11 @@ const Routers = () => {
                         path="/admin/CourseStatus"
                         component={CourseStatus}
                     />
-                    {/*<ProtectedRoute
+                    <ProtectedRoute
                         exact={true}
                         path="/admin/ChallengesReport"
                         component={ChallengesReport}
-                />*/}
+                    />
 
                     <ProtectedRoute
                         exact={true}

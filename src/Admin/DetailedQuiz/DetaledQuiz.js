@@ -1,6 +1,6 @@
 /* eslint-disable indent */
-import { React, useEffect, useState } from 'react';
-import { Card, Row, Col } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Row, Col, Table } from 'reactstrap';
 import { Fragment } from 'react';
 import Question from './Question';
 import { Button } from '../../stories/Button';
@@ -10,6 +10,8 @@ import ResultStar from '../../assets/media/quiz-result-star.png';
 import { connect, useSelector } from 'react-redux';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import { getCurrentUser } from '../../helpers/Utils';
 
 import {
     getAdminQuizQuestions,
@@ -20,22 +22,93 @@ import QuizResponse from './QuizResponse';
 import succesImg from '../../assets/media/success1.jpeg';
 
 const DetaledQuiz = (props) => {
+    const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
     const quizId = props.quizId;
     const [adminQst, SetAdminQst] = useState({});
     const [type, SetType] = useState('');
     const [loading, Setloading] = useState(false);
     const [selectOption, SetSelectOption] = useState('');
+    const [correctAnswer, setCorrectAnswer] = useState('');
     const [condition, SetCondition] = useState(true);
     const [video, SetVideo] = useState(true);
     const [qst, SetQst] = useState({});
+    const [quizdata, setQuizData] = useState(0);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
+    const [isSubmitted, setSubmitted] = useState(false);
+    const [attemptNumber, setAttemptNumber] = useState(0);
+    const [currentScore, setCurrentScore] = useState({});
+    const [currentRole, setCurrentRole] = useState('');
+    const [totalQstCount, setTotalQstCount] = useState(0);
+    const [ currentPercentage,setCurrentPercentage] = useState(0);
 
     useEffect(() => {
-        props.getAdminQuizQuestionsActions(quizId, language);
-    }, [props.quizId, language]);
+        setCurrentRole(currentUser?.data[0]?.role);
+    }, [currentUser]);
+
+    function resultdata() {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/quiz/result?user_id=${currentUser.data[0].user_id}&quiz_id=${quizId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.count === null) {
+                        setAttemptNumber(1);
+                        props.getAdminQuizQuestionsActions(quizId, language, 1);
+                    } else {
+                        setAttemptNumber(
+                            response?.data?.data[0].data[
+                                response?.data?.data[0].data.length - 1
+                            ].attempts
+                        );
+                        props.getAdminQuizQuestionsActions(
+                            quizId,
+                            language,
+                            response?.data?.data[0].data[
+                                response?.data?.data[0].data.length - 1
+                            ].attempts
+                        );
+                        setCurrentScore(
+                            response?.data?.data[0].data[
+                                response?.data?.data[0].data.length - 1
+                            ]
+                        );
+                        setCurrentPercentage(
+                            Math.round(
+                                (response?.data?.data[0].data[
+                                    response?.data?.data[0].data.length - 1
+                                ]?.score /
+                                    response?.data?.data[0]?.all[0]
+                                        ?.allquestions) *
+                                    100
+                            )
+                        );
+                    }
+                    setTotalQstCount(
+                        response?.data?.data[0]?.all[0]?.allquestions
+                    );
+                    setQuizData(response?.data?.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        resultdata();
+    }, []);
 
     useEffect(() => {
         SetAdminQst(props.adminCourseQst.data);
@@ -48,25 +121,32 @@ const DetaledQuiz = (props) => {
     const handleSelectType = (answer) => {
         SetType(answer);
     };
+
     const handleSubmit = () => {
-        if (type == 'DRAW') {
+        if (type === 'DRAW') {
             const quiz_id = adminQst[0].quiz_id;
             const data = new FormData();
             data.append('quiz_question_id', adminQst[0].quiz_question_id);
             data.append('selected_option', 'ok');
             data.append('attachment', selectOption);
             props.getAdminQuizResponceAction(quiz_id, data, language);
-            SetSelectOption();
-            SetType();
+            SetSelectOption('');
+            SetType('');
         } else {
             const quiz_id = adminQst[0].quiz_id;
             const body = JSON.stringify({
                 quiz_question_id: adminQst[0].quiz_question_id,
-                selected_option: selectOption
+                selected_option: selectOption,
+                attempts: attemptNumber
             });
+            const correctAnswer = adminQst[0].options.find(
+                (option) => option === adminQst[0].correct_ans
+            );
+            setCorrectAnswer(correctAnswer);
             props.getAdminQuizResponceAction(quiz_id, body, language);
-            SetSelectOption();
-            SetType();
+            SetSelectOption('');
+            SetType('');
+            setSubmitted(true);
         }
     };
     const goToTop = () => {
@@ -77,10 +157,16 @@ const DetaledQuiz = (props) => {
         setTimeout(() => {
             Setloading(false);
             SetCondition(true);
-            props.getAdminQuizQuestionsActions(props.quizId, language);
-            SetSelectOption();
-            SetType();
+            props.getAdminQuizQuestionsActions(
+                props.quizId,
+                language,
+                attemptNumber
+            );
+            SetSelectOption('');
+            SetType('');
             goToTop();
+            setSubmitted(false);
+            resultdata();
         }, 500);
     };
     const handlevideo = (id) => {
@@ -91,15 +177,30 @@ const DetaledQuiz = (props) => {
         props.setQuizTopic(id?.title);
     };
 
+    const handleRetest = () => {
+        setAttemptNumber(attemptNumber + 1);
+        props.getAdminQuizQuestionsActions(
+            props.quizId,
+            language,
+            attemptNumber + 1
+        );
+    };
+
     return (
         <Fragment>
-            {video == true &&
+            {video === true &&
                 props.adminCourseQst &&
                 props.adminCourseQst.count === null && (
-                    <Confetti className="w-100" />
+                    <div>
+                        {currentRole === 'MENTOR' ? (
+                            <Confetti className="w-100" />
+                        ) : (
+                            currentPercentage >= 60 && <Confetti className="w-100" />
+                        )}
+                    </div>
                 )}
 
-            {condition == true &&
+            {condition === true &&
             props.adminCourseQst &&
             props.adminCourseQst.status === 200 ? (
                 <Fragment>
@@ -115,7 +216,7 @@ const DetaledQuiz = (props) => {
             ) : null}
 
             <Card className="quiz">
-                {video == true &&
+                {video === true &&
                 props.adminCourseQst &&
                 props.adminCourseQst.count === null ? (
                     <div className="container new-result">
@@ -126,43 +227,123 @@ const DetaledQuiz = (props) => {
                                         <img src={succesImg} alt=".." />
                                         <br />
                                     </div>
-                                    <p>{t('student.quiz_completed')}</p>
+                                    {currentRole === 'MENTOR' && (
+                                        <>
+                                            <h2>
+                                                Score:{currentScore?.score}/
+                                                {totalQstCount}
+                                            </h2>
+                                            <h2 style={{ color: 'green' }}>
+                                                {t('student.quiz_completed')}
+                                            </h2>
+                                        </>
+                                    )}
                                 </div>
+                                {currentRole === 'STUDENT' && (
+                                    <>
+                                        <Table>
+                                            <thead>
+                                                <tr>
+                                                    <th>{t('Attempts')}</th>
+                                                    <th>
+                                                        {t('Correct Answers')}
+                                                    </th>
+                                                    <th>
+                                                        {t('Wrong Answers')}
+                                                    </th>
+                                                    <th>{t('Result')}</th>
+                                                </tr>
+                                            </thead>
+                                            {quizdata?.data?.map(
+                                                (item, index) => {
+                                                    return (
+                                                        <tbody key={index}>
+                                                            <tr>
+                                                                <td>
+                                                                    {
+                                                                        item.attempts
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {item.score
+                                                                        ? item.score
+                                                                        : '0'}
+                                                                </td>
+                                                                <td>
+                                                                    {totalQstCount -
+                                                                        item.score}
+                                                                </td>
+                                                                <td>
+                                                                    {Math.round(
+                                                                        (item.score /
+                                                                            totalQstCount) *
+                                                                            100
+                                                                    )}
+                                                                    %
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    );
+                                                }
+                                            )}
+                                        </Table>
+                                        <div
+                                            style={{
+                                                textAlign: 'center',
+                                                marginTop: '2rem'
+                                            }}
+                                        >
+                                            {currentPercentage < 60 ? (
+                                                <h2 style={{ color: 'red' }}>
+                                                    {t(
+                                                        'You scored less than the cutoff'
+                                                    )}
+                                                </h2>
+                                            ) : (
+                                                <h2 style={{ color: 'green' }}>
+                                                    {t(
+                                                        'student.quiz_completed'
+                                                    )}
+                                                </h2>
+                                            )}
+                                        </div>
+                                    </>
+                                )}
+
                                 <div className="results-heading mt-4">
                                     <img src={ResultStar} alt="star" />
                                 </div>
-                                <div className="row py-3 mb-3 ">
-                                    <div className="text-right">
-                                        {props.instructions === 'yes' ? (
-                                            <></>
-                                            // <Button
-                                            //     label={t('student.continue')}
-                                            //     btnClass="primary w-auto"
-                                            //     size="small"
-                                            //     type="submit"
-                                            //     onClick={() => {
-                                            //         props.handleQuiz();
-                                            //         props.setInstructions(
-                                            //             false
-                                            //         );
-                                            //         props.setHandbook(true);
-                                            //     }}
-                                            // />
+                                {currentRole === 'STUDENT' && (
+                                    <div className="row py-3 mb-3 d-flex justify-content-end">
+                                        {currentPercentage < 60 ? (
+                                            <div className="text-right">
+                                                <Button
+                                                    label={t('Retest')}
+                                                    btnClass="primary w-auto"
+                                                    size="small"
+                                                    type="submit"
+                                                    onClick={handleRetest}
+                                                />
+                                            </div>
                                         ) : (
-                                            <Button
-                                                label={t('student.continue')}
-                                                btnClass="primary w-auto"
-                                                size="small"
-                                                type="submit"
-                                                onClick={props.handleQuiz}
-                                            />
+                                            <div className="text-right">
+                                                <Button
+                                                    label={t(
+                                                        'student.continue'
+                                                    )}
+                                                    btnClass="primary w-auto"
+                                                    size="small"
+                                                    type="submit"
+                                                    onClick={props.handleQuiz}
+                                                />
+                                            </div>
                                         )}
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                ) : loading == true ? (
+                ) : loading === true ? (
                     <DoubleBounce />
                 ) : (
                     <Fragment>
@@ -175,14 +356,16 @@ const DetaledQuiz = (props) => {
                             </Row>
 
                             <Question
+                                isSubmitted={isSubmitted}
                                 responceData={props.adminQstResponce}
                                 adminQuizDetails={qst}
                                 quizId={quizId}
                                 onSelectAnswer={handleSelect}
                                 onSelectType={handleSelectType}
+                                correctAnswer={correctAnswer}
                             />
 
-                            {video == true &&
+                            {video === true &&
                             props.adminQstResponce &&
                             props.adminQstResponce.status === 200 ? (
                                 <div className="question-section">
@@ -231,9 +414,7 @@ const DetaledQuiz = (props) => {
                                                         label={t(
                                                             'student.continue'
                                                         )}
-                                                        onClick={() =>
-                                                            handleNxtQst()
-                                                        }
+                                                        onClick={handleNxtQst}
                                                     />
                                                 </Col>
                                             )}
@@ -278,9 +459,7 @@ const DetaledQuiz = (props) => {
                                                         label={t(
                                                             'teacher.continue'
                                                         )}
-                                                        onClick={() =>
-                                                            handleNxtQst()
-                                                        }
+                                                        onClick={handleNxtQst}
                                                     />
                                                 </Col>
                                             )}
@@ -295,7 +474,7 @@ const DetaledQuiz = (props) => {
                                         <Button
                                             size="small"
                                             label={t('teacher.submit')}
-                                            onClick={() => handleSubmit()}
+                                            onClick={handleSubmit}
                                             btnClass={
                                                 !selectOption
                                                     ? 'default'

@@ -176,8 +176,22 @@ function RegisterNew() {
                         console.log(mentorRegRes);
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
+                            const successData = {
+                                full_name: mentorRegRes?.data?.data[0].full_name ,
+                                district: orgData?.district,
+                                school: orgData?.organization_name,
+                                organization_code: mentorRegRes?.data?.data[0].organization_code,
+                                gender: mentorRegRes?.data?.data[0].gender,
+                                title: mentorRegRes?.data?.data[0].title,
+                                mobile: mentorRegRes?.data?.data[0].mobile,
+                                whatapp_mobile: mentorRegRes?.data?.data[0].whatapp_mobile
+                            };
                             setBtn(true);
-                            history.push('/success');
+                            history.push({
+                                pathname: '/success',
+                                data: successData
+                            });
+
                         }
                     })
                     .catch((err) => {
@@ -195,6 +209,8 @@ function RegisterNew() {
         }
     });
 
+    console.log(mentorData, "Hi mentor");
+    console.log(orgData, "Hi org");
     const handleRegister = (e) => {
         const body = JSON.stringify({
             organization_code: diesCode
@@ -638,10 +654,10 @@ function RegisterNew() {
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={2}
-                                                    sm={2}
-                                                    md={2}
-                                                    xl={2}
+                                                    xs={formik.values.title ? 2 : 5}
+                                                    sm={formik.values.title ? 2 : 5}
+                                                    md={formik.values.title ? 2 : 3}
+                                                    xl={formik.values.title ? 2 : 3}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -713,10 +729,10 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={7}
-                                                    sm={7}
-                                                    md={7}
-                                                    xl={7}
+                                                    xs={formik.values.title ? 10 : 7}
+                                                    sm={formik.values.title ? 10 : 7}
+                                                    md={formik.values.title ? 7 : 6}
+                                                    xl={formik.values.title ? 7 : 6}
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -761,8 +777,8 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={3}
-                                                    sm={3}
+                                                    xs={12}
+                                                    sm={12}
                                                     md={3}
                                                     xl={3}
                                                     // xs={12}
@@ -836,8 +852,8 @@ function RegisterNew() {
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={6}
-                                                    sm={6}
+                                                    xs={12}
+                                                    sm={12}
                                                     md={6}
                                                     xl={6}
                                                     // xs={12}
@@ -846,7 +862,7 @@ function RegisterNew() {
                                                     // xl={7}
                                                 >
                                                     <Label
-                                                        className="mb-2 mt-2"
+                                                        className="mb-2 mt-3"
                                                         htmlFor="mobile"
                                                     >
                                                         Mobile Number
@@ -883,16 +899,17 @@ function RegisterNew() {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                    className="form-group"
-                                                    xs={6}
-                                                    sm={6}
-                                                    md={6}
-                                                    xl={6}
-                                                    // xs={6}
-                                                    // sm={6}
-                                                    // md={5}
-                                                    // xl={4}
-                                                >
+
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={6}
+                                                        xl={6}
+                                                        // xs={6}
+                                                        // sm={6}
+                                                        // md={5}
+                                                        // xl={4}
+                                                    >
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <Label
                                                             className="mb-2 mt-2"
@@ -1145,6 +1162,12 @@ function RegisterNew() {
                                                         }
                                                         size="small w-50"
                                                         type="submit"
+                                                        disabled={!(formik.values.otp
+                                                            .length > 5 &&
+                                                            otpRes ==
+                                                                formik.values
+                                                                    .otp
+                                                        )}
                                                     />
                                                 </div>
                                             )}

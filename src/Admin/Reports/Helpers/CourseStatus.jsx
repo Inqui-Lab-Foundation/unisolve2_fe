@@ -94,8 +94,8 @@ const CourseStatus = () => {
             <Layout>
                 <Container className="RegReports mt-5 mb-30 userlist">
                     <Row className="mt-0 pt-2">
-                        <h2>Course Completion Reports </h2>
-                        <Col className="text-right mb-2">
+                        <Col><h2>Course Completion Reports </h2></Col>
+                        <Col className="text-right mb-1">
                             <Button
                                 label="Back"
                                 btnClass="primary mx-3"
@@ -104,7 +104,7 @@ const CourseStatus = () => {
                                 onClick={() => history.push('/admin/reports')}
                             />
                         </Col>
-                        <div className="reports-data p-5 bg-white">
+                        <div className="reports-data p-5 mt-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Course Completed Teachers List</h2>
                                 <Col md={3}>
@@ -121,7 +121,7 @@ const CourseStatus = () => {
                                         
                                     <Button
                                         label="View Details"
-                                        btnClass="primary mx-6"
+                                        btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
                                         onClick={() =>
