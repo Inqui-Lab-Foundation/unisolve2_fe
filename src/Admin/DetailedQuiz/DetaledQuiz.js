@@ -368,7 +368,7 @@ const DetaledQuiz = (props) => {
                             {video === true &&
                             props.adminQstResponce &&
                             props.adminQstResponce.status === 200 ? (
-                                <div className="question-section">
+                                <div>
                                     <div className="score">
                                         {props.adminQstResponce &&
                                             props.adminQstResponce.data[0] &&
@@ -409,7 +409,7 @@ const DetaledQuiz = (props) => {
                                                     className="text-right"
                                                 >
                                                     <Button
-                                                        btnClass="primary px-5"
+                                                        btnClass="primary"
                                                         size="small"
                                                         label={t(
                                                             'student.continue'
