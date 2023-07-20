@@ -59,7 +59,7 @@ const Dashboard = () => {
                                                 className="mx-4"
                                             />
                                             <div className="common-flex flex-column">
-                                                <p className="color-blue fs-600 my-0 text-wrapped">
+                                                <p className="color-blue fs-600">
                                                     {dashboardStates &&
                                                     dashboardStates?.organization
                                                         ? dashboardStates
@@ -139,7 +139,7 @@ const Dashboard = () => {
                         </div>
                     </Col>
                 </Row>
-                <Row className="teacher-statistics bg-white p-5">
+                <Row className="teacher-statistics">
                     <Row className="">
                         <Col>
                             <div className="d-flex flex-wrap">

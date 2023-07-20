@@ -101,3 +101,12 @@
         text-overflow: ellipsis;
         text-align: center;
 }
+
+@media only screen and (max-width: 600px) {
+    .teamProgreess {
+      flex-direction: column;
+    }
+    .singlediv{
+        width: 100%;
+    }
+  }
