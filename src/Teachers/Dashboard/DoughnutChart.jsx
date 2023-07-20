@@ -257,8 +257,10 @@ export default function DoughnutChart({ user }) {
                             )}
                         </select>
                     </Col>
-                    <Col className="d-flex justify-content-end align-items-center">
-                        <Card className="p-3 mx-4 d-flex flex-row">
+                </div>
+                <div className="d-flex align-items-center">
+                    <Col className="d-flex align-items-center">
+                        <Card className="mx-4 my-4 d-flex flex-row">
                             <span className="fw-bold">IDEA STATUS :</span>
                             <span>
                                 {' '}
@@ -286,9 +288,29 @@ export default function DoughnutChart({ user }) {
                             )}
                         </Card>
 
+                        <div className="m-3">
                         <Button
                             button="button"
                             label={t('student.view_idea')}
+                            disabled={
+                                teamsMembersStatus.length > 0 &&
+                                challengesSubmittedResponse[0]?.status
+                                    ? false
+                                    : true
+                                
+                            }
+                            btnClass={`${
+                                teamsMembersStatus.length > 0 &&
+                                challengesSubmittedResponse[0]?.status
+                                    ? 'primary'
+                                    : 'default'
+                            }`}
+                            size="small"
+                            onClick={() => setIdeaShow(true)}
+                        />
+                        
+                        <Button
+                            label={'Change'}
                             disabled={
                                 teamsMembersStatus.length > 0 &&
                                 challengesSubmittedResponse[0]?.status
@@ -302,26 +324,8 @@ export default function DoughnutChart({ user }) {
                                     : 'default'
                             }`}
                             size="small"
-                            onClick={() => setIdeaShow(true)}
+                            onClick={() => setChangeShow(true)}
                         />
-                        <div className="m-3">
-                            <Button
-                                label={'Change'}
-                                disabled={
-                                    teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                        ? false
-                                        : true
-                                }
-                                btnClass={`${
-                                    teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                        ? 'primary'
-                                        : 'default'
-                                }`}
-                                size="small"
-                                onClick={() => setChangeShow(true)}
-                            />
                         </div>
                     </Col>
                 </div>
