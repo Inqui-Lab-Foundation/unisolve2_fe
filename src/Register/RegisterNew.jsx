@@ -53,6 +53,7 @@ function RegisterNew() {
     const [sec, setSec] = useState(59);
     const [disable, setDisable] = useState(false);
     const [timer, setTimer] = useState(0);
+    const [or, setOr] = useState('');
     useEffect(() => {
         console.log(
             '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
@@ -328,30 +329,121 @@ function RegisterNew() {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-    console.log(holdKey);
+
+    // useEffect(() => {
+    //     if (checkBox) {
+    //         if (
+    //             formik.values.username.length < 10 ||
+    //             formik.values.whatapp_mobile.length < 10
+    //         ) {
+    //             formik.setFieldValue(
+    //                 'whatapp_mobile',
+    //                 formik.values.username.length > 9
+    //                     ? formik.values.username
+    //                     : formik.values.whatapp_mobile
+    //             );
+    //             formik.setFieldValue(
+    //                 'username',
+    //                 formik.values.whatapp_mobile.length > 9
+    //                     ? formik.values.whatapp_mobile
+    //                     : formik.values.username
+    //             );
+    //             // formik.setFieldValue('username', formik.values.username);
+    //             // } else if (formik.values.whatapp_mobile.length < 10) {
+    //             //     formik.setFieldValue(
+    //             //         'whatapp_mobile',
+    //             //         formik.values.whatapp_mobile
+    //             //     );
+    //         } else if (formik.values.username.length == 10) {
+    //             console.log('1');
+    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
+    //         } else if (formik.values.whatapp_mobile.length == 10) {
+    //             console.log('2');
+    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //         }
+    //     }
+    //     // oo code comment karko bakik tu kar mi vaha se try kartu
+    // }, [
+    //     formik.values.username.length > 9,
+    //     formik.values.whatapp_mobile.length > 9
+    // ]);
+
+    // useEffect(() => {
+    //     if (checkBox) {
+    //         if (
+    //             formik.values.username.length < 10 ||
+    //             formik.values.whatapp_mobile.length < 10
+    //         ) {
+    //             formik.setFieldValue(
+    //                 'whatapp_mobile',
+    //                 formik.values.username.length > 9
+    //                     ? formik.values.username
+    //                     : formik.values.whatapp_mobile
+    //             );
+    //             formik.setFieldValue(
+    //                 'username',
+    //                 formik.values.whatapp_mobile.length > 9
+    //                     ? formik.values.whatapp_mobile
+    //                     : formik.values.username
+    //             );
+    //             // formik.setFieldValue('username', formik.values.username);
+    //             // } else if (formik.values.whatapp_mobile.length < 10) {
+    //             //     formik.setFieldValue(
+    //             //         'whatapp_mobile',
+    //             //         formik.values.whatapp_mobile
+    //             //     );
+    //         } else if (formik.values.username.length == 10) {
+    //             console.log('1');
+    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
+    //             // setWtsNum(formik.values.username);
+    //         } else if (formik.values.whatapp_mobile.length == 10) {
+    //             console.log('2');
+    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //             // setMobNum(formik.values.whatapp_mobile);
+    //         }
+    //     } else {
+    //         // formik.setFieldValue('whatapp_mobile', '');
+    //         // formik.setFieldValue('username', '');
+    //     }
+    //     // oo code comment karko bakik tu kar mi vaha se try kartu
+    // }, [
+    //     formik.values.username.length > 9,
+    //     formik.values.whatapp_mobile.length > 9
+    // ]);
     // const handleCheckbox = (e, click) => {
     //     if (click) {
     //         setCheckBox(click);
     //         formik.setFieldValue('whatapp_mobile', formik.values.username);
-
     //         setWtsNum(formik.values.username);
     //     } else {
     //         setCheckBox(click);
     //         formik.setFieldValue('whatapp_mobile', '');
     //     }
+    //     if (click) {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('username', formik.values.whatapp_mobile);
+    //         setWtsNum(formik.values.whatapp_mobile);
+    //     } else {
+    //         setCheckBox(click);
+    //         formik.setFieldValue('username', '');
+    //     }
     // };
-
     const handleCheckbox = (e, click) => {
         if (click) {
             setCheckBox(click);
             formik.setFieldValue('whatapp_mobile', formik.values.username);
-
             setWtsNum(formik.values.username);
         } else {
             setCheckBox(click);
             formik.setFieldValue('whatapp_mobile', '');
         }
     };
+
+    useEffect(() => {
+        setCheckBox(false);
+        formik.setFieldValue('whatapp_mobile', '');
+    }, [formik.values.username.length == 0]);
+
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
@@ -819,43 +911,69 @@ function RegisterNew() {
                                                         // xl={4}
                                                     >
                                                     <div className="d-flex align-items-center justify-content-between">
-  <div className="d-flex align-items-center">
-    <Label className="mb-2 mt-3" htmlFor="phone">
-      {t('teacehr_red.faculty_mobile')}
-    </Label>
-  </div>
-  <div className="d-flex align-items-center">
-    <Label className="mb-2 mt-3 text-right" htmlFor="phone">
-      same
-    </Label>
-    <div className="my-10 checkbox-right">
-      <Input
-        type="checkbox"
-        className="mt-3 mb-8 my-10 pb-4 pt-3"
-        name="click"
-        id="click"
-        onClick={(e) => handleCheckbox(e, !checkBox)}
-      />
-    </div>
-  </div>
-</div>
-
-
-                                                        <InputBox
-                                                            {...inputMobile}
-                                                            id="whatapp_mobile"
-                                                            name="whatapp_mobile"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                  .whatapp_mobile
-                                                            }
-                                                        />
+                                                        <Label
+                                                            className="mb-2 mt-2"
+                                                            htmlFor="phone"
+                                                        >
+                                                            {t(
+                                                                'teacehr_red.faculty_mobile'
+                                                            )}
+                                                        </Label>
+                                                        <div className="my-10 checkbox-right">
+                                                            <Input
+                                                                type="checkbox"
+                                                                className="mt-3 mb-8 my-10 pb-4 pt-3"
+                                                                name="click"
+                                                                disabled={
+                                                                    (formik
+                                                                        .values
+                                                                        .username
+                                                                        .length >
+                                                                    0
+                                                                        ? false
+                                                                        : true) ||
+                                                                    (holdKey
+                                                                        ? true
+                                                                        : false)
+                                                                }
+                                                                id="click"
+                                                                checked={
+                                                                    checkBox
+                                                                }
+                                                                onClick={(e) =>
+                                                                    handleCheckbox(
+                                                                        e,
+                                                                        !checkBox
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <InputBox
+                                                        {...inputMobile}
+                                                        id="whatapp_mobile"
+                                                        isDisabled={
+                                                            (formik.values
+                                                                .username
+                                                                .length > 0
+                                                                ? false
+                                                                : true) ||
+                                                            (holdKey
+                                                                ? true
+                                                                : false)
+                                                        }
+                                                        name="whatapp_mobile"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .whatapp_mobile
+                                                        }
+                                                    />
 
                                                     {formik.touched
                                                         .whatapp_mobile &&

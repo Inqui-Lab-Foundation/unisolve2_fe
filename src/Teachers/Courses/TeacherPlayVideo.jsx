@@ -96,9 +96,10 @@ const TeacherPlayVideo = (props) => {
     const [instructions, setInstructions] = useState(false);
     const [continueObj, setContinueObj] = useState([]);
     const [courseData, setCourseData] = useState(null);
-    const [isquizcompleted ,setisquizcompleted] = useState(false);
+    const [isquizcompleted, setisquizcompleted] = useState(false);
     const scrollRef = React.createRef();
-
+    const [quizStart ,setQuizStart]=useState(false);
+    
     const getLastCourseStatus = (data = []) => {
         const length = data && data.length > 0 ? data.length - 1 : 0;
         if (length) {
@@ -206,15 +207,15 @@ const TeacherPlayVideo = (props) => {
                 console.log(error);
             });
     }
-    useEffect(()=>{
+    useEffect(() => {
         getisquizcompleted();
-    },[]);
+    }, []);
     async function getisquizcompleted() {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                '/quiz/8/nextQuestion?locale=en',
+                '/quiz/8/nextQuestion?locale=en&attempts=1',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -223,8 +224,17 @@ const TeacherPlayVideo = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    if (response.data.data === "Quiz has been completed no more questions to display"){
+                    if (
+                        response.data.data ===
+                        'Quiz has been completed no more questions to display'
+                    ) {
                         setisquizcompleted(true);
+                        setQuizStart(false);
+
+                    }
+                    if(response?.data?.data[0]?.question_no === 1){
+                        setQuizStart(true);
+                        setisquizcompleted(false);
                     }
                 }
             })
@@ -512,17 +522,11 @@ const TeacherPlayVideo = (props) => {
             continueObj[0].topic_type
         );
         if (
-            continueObj[0].title.toLowerCase() ===
-                'handbook' ||
-                continueObj[0].title ===
-                'கையேடு'
+            continueObj[0].title.toLowerCase() === 'handbook' ||
+            continueObj[0].title === 'கையேடு'
         ) {
-            setHandbook(
-                true
-            );
-            setInstructions(
-                false
-            );
+            setHandbook(true);
+            setInstructions(false);
         }
         // toggle(continueObj[0].course_module_id);
     };
@@ -739,7 +743,7 @@ const TeacherPlayVideo = (props) => {
                                                 />
                                             </figure>
                                             <Button
-                                                label="Let's Start"
+                                                label= {quizStart ? "Let's Start" : isquizcompleted ? 'See Score' : 'Resume Quiz'}
                                                 btnClass="primary mt-4"
                                                 size="small"
                                                 onClick={() =>
@@ -914,9 +918,7 @@ const TeacherPlayVideo = (props) => {
                             ) : item === 'VIDEO' && condition === 'Video1' ? (
                                 <Card className="embed-container">
                                     <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
-                                        <h3>
-                                                {courseData.title}
-                                            </h3>
+                                        <h3>{courseData.title}</h3>
                                         {backToQuiz && (
                                             <Button
                                                 label="Back to Quiz"
@@ -950,14 +952,20 @@ const TeacherPlayVideo = (props) => {
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
                                             <CardBody>
-                                           {getLastCourseStatus(
-                                                            teacherCourseDetails
-                                                        ) && isquizcompleted ? <div><h2 className="text-success text-center">
-                                                        Congratulations
-                                                        ! your course
-                                                        completed
-                                                        successfully !
-                                                    </h2></div>: <div><text
+                                                {getLastCourseStatus(
+                                                    teacherCourseDetails
+                                                ) && isquizcompleted ? (
+                                                    <div>
+                                                        <h2 className="text-success text-center">
+                                                            Congratulations !
+                                                            your course
+                                                            completed
+                                                            successfully !
+                                                        </h2>
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <text
                                                         // style={{
                                                         //     whiteSpace: 'pre-wrap'
                                                         // }}
@@ -978,7 +986,9 @@ const TeacherPlayVideo = (props) => {
                                                                     label="START COURSE"
                                                                     btnClass="primary mt-4"
                                                                     size="small"
-                                                                    onClick={(e) =>
+                                                                    onClick={(
+                                                                        e
+                                                                    ) =>
                                                                         startFirstCourse(
                                                                             e
                                                                         )
@@ -989,33 +999,39 @@ const TeacherPlayVideo = (props) => {
                                                             <div>
                                                                 {getLastCourseStatus(
                                                                     teacherCourseDetails
-                                                                ) ?  (
+                                                                ) ? (
                                                                     <Button
-                                                                        label={'CONTINUE QUIZ'}
+                                                                        label={
+                                                                            'CONTINUE QUIZ'
+                                                                        }
                                                                         btnClass={`primary mt-4`}
                                                                         size="small"
-                                                                        onClick={(e) =>
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
                                                                             startContinueCourse(
                                                                                 e
                                                                             )
                                                                         }
                                                                     />
-                                                                ):(
+                                                                ) : (
                                                                     <Button
                                                                         label={`CONTINUE COURSE`}
                                                                         btnClass={`primary mt-4`}
                                                                         size="small"
-                                                                        onClick={(e) =>
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
                                                                             startContinueCourse(
                                                                                 e
                                                                             )
                                                                         }
                                                                     />
-                                                                )
-                                                               }
+                                                                )}
                                                             </div>
-                                                        )}</div>} 
-                                                
+                                                        )}
+                                                    </div>
+                                                )}
                                             </CardBody>
                                         </Card>
                                     </Fragment>

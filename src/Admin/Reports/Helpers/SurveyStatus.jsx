@@ -102,8 +102,8 @@ const SurveyStatus = () => {
             <Layout>
                 <Container className="RegReports mt-5 mb-30 userlist">
                     <Row className="mt-0 pt-2">
-                        <h2>Survey Status Reports</h2>
-                        <Col className="text-right mb-2">
+                        <Col><h2>Survey Status Reports</h2></Col>
+                        <Col className="text-right mb-1">
                             <Button
                                 label="Back"
                                 btnClass="primary mx-3"
@@ -113,7 +113,7 @@ const SurveyStatus = () => {
                             />
                         </Col>
 
-                        <div className="reports-data p-5 bg-white">
+                        <div className="reports-data p-5 mt-5 bg-white">
                             <Row className="align-items-center">
                                 <h2>Teachers Pre-Survey Report</h2>
                                 <Col md={3}>
@@ -140,8 +140,8 @@ const SurveyStatus = () => {
                                     />
                                     <Button
                                         onClick={() => {handleDownload('Teachers Pre Survey Completed List');}}
-                                        label={'Download'}
-                                        btnClass="primary"
+                                        label={'Download Report'}
+                                        btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
                                         type="submit"
@@ -198,7 +198,7 @@ const SurveyStatus = () => {
                     )}
                 </Container>
 
-                <Container className="RegReports mt-3 mb-50 userlist">
+                <Container className="RegReports mt-3 mb-40 userlist">
                     <Row className="mt-0 pt-2">
                         <Col className="text-right mb-2"></Col>
 
@@ -231,7 +231,7 @@ const SurveyStatus = () => {
                                         onClick={() => {handleDownload('Teachers Post Survey Completed List');
                                         }}
                                         label={'Download Report'}
-                                        btnClass="primary"
+                                        btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
                                         type="submit"
@@ -287,21 +287,21 @@ const SurveyStatus = () => {
                         </Row>
                     )}
                 </Container>
-                <div className="m-3 common-flex">
-                    <CSVLink
-                        style={{ display: 'none' }}
-                        id="CSVBtn"
-                        data={TeacherPrereportsData.length > 0 ? TeacherPrereportsData : TeacherPostreportsData}
-                        filename={
-                            msg === 'Teachers Pre Survey Completed List'
-                                ? 'Teachers Pre Survey List.csv'
-                                : msg === 'Teachers Post Survey Completed List'
-                                    ? 'Teachers Post Survey List.csv'
-                                    : 'Report.csv'
-                        }
-                    />
-                </div>
             </Layout>
+            <div className="m-3 common-flex">
+                <CSVLink
+                    style={{ display: 'none' }}
+                    id="CSVBtn"
+                    data={TeacherPrereportsData.length > 0 ? TeacherPrereportsData : TeacherPostreportsData}
+                    filename={
+                        msg === 'Teachers Pre Survey Completed List'
+                            ? 'Teachers Pre Survey List.csv'
+                            : msg === 'Teachers Post Survey Completed List'
+                                ? 'Teachers Post Survey List.csv'
+                                : 'Report.csv'
+                    }
+                />
+            </div>
         </>
     );
 };

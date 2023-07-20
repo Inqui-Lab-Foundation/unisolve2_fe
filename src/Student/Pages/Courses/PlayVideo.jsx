@@ -55,8 +55,6 @@ const PlayVideoCourses = (props) => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-
-    // console.log(props);
     const course_id = props.match.params.id;
     const description = props.location.data
         ? props.location.data.description
@@ -124,7 +122,8 @@ const PlayVideoCourses = (props) => {
     const [showPage, setshowPage] = useState(true);
     const [showCompleteMessage, setShowCompleteMessage] = useState(false);
     const [userUploadedlist, setuserUploadedlist] = useState([]);
-
+    const [quizCompleted,setQuizCompleted] = useState(false);
+    const [quizStart,setQuizStart] = useState(false);
     // linkComponent
     const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
         let a_link;
@@ -572,6 +571,46 @@ const PlayVideoCourses = (props) => {
         // handlePlayerPlay();
     };
 
+    function resultdata(id) {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/quiz/result?user_id=${currentUser.data[0].user_id}&quiz_id=${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.count === null) {
+                        setQuizStart(true);
+                        setQuizCompleted(false);
+                    } else {
+                        const cuttOff =
+                            Math.round(
+                                (response?.data?.data[0].data[
+                                    response?.data?.data[0].data.length - 1
+                                ]?.score /
+                                    response?.data?.data[0]?.all[0]
+                                        ?.allquestions) *
+                                    100
+                            ) < 60;
+                        if (!cuttOff) {
+                            setQuizStart(false);
+                            setQuizCompleted(true);
+                        }
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     const handleSelect = (topicId, couseId, type) => {
         // here topicId = topicId ; couseId = couseId //
         // type = worksheet ,video, quiz //
@@ -598,6 +637,7 @@ const PlayVideoCourses = (props) => {
         } else if (type === 'QUIZ') {
             setItem('QUIZ');
             setQizId(topicId);
+            resultdata(topicId);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
             fetchData(topicId);
@@ -1138,7 +1178,7 @@ const PlayVideoCourses = (props) => {
                                                             />
                                                         </figure>
                                                         <Button
-                                                            label={quizAttempted ? t("Lets Continue") : t('student.lets_start')}
+                                                            label={quizStart ? t('student.lets_start') : quizCompleted ? ' See Result' : 'Resume Quiz'}
                                                             btnClass="primary mt-4"
                                                             size="small"
                                                             onClick={() => {

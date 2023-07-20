@@ -182,6 +182,9 @@ const CreateMultipleMembers = ({ id }) => {
                                     htmlFor="fullName"
                                 >
                                     {t('teacher_teams.student_name')}
+                                    <span required className="p-1">
+                                        *
+                                    </span>
                                 </Label>
                                 <InputBox
                                     className={'defaultInput'}
@@ -207,6 +210,9 @@ const CreateMultipleMembers = ({ id }) => {
                                     htmlFor="age"
                                 >
                                     {t('teacher_teams.age')}
+                                    <span required className="p-1">
+                                        *
+                                    </span>
                                 </Label>
                                 <div className="dropdown CalendarDropdownComp ">
                                     <select
@@ -235,6 +241,9 @@ const CreateMultipleMembers = ({ id }) => {
                                     htmlFor="grade"
                                 >
                                     Class
+                                    <span required className="p-1">
+                                        *
+                                    </span>
                                 </Label>
                                 <div className="dropdown CalendarDropdownComp ">
                                     <select
@@ -263,6 +272,9 @@ const CreateMultipleMembers = ({ id }) => {
                                     htmlFor="gender"
                                 >
                                     {t('teacher_teams.gender')}
+                                    <span required className="p-1">
+                                        *
+                                    </span>
                                 </Label>
 
                                 <select
@@ -324,11 +336,13 @@ const CreateMultipleMembers = ({ id }) => {
                         />
                     )}
                     {studentData.length < 5 && (
-                        <div className="mx-5">
+                        <div className="">
                             <Button
                                 label={'Add More'}
                                 onClick={addItem}
-                                btnClass={'primary me-3 float-end'}
+                                btnClass={
+                                    'primary d-flex justify-content-center'
+                                }
                                 size="small"
                             />
                         </div>

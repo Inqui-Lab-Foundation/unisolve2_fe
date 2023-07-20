@@ -217,8 +217,14 @@ const TicketResView = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
-
                                                 <Col
                                                     className="form-group"
                                                     md={12}

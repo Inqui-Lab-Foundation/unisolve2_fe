@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Row, Col, Form, Label, FormGroup, Card, CardBody } from 'reactstrap';
@@ -13,12 +14,16 @@ import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch } from 'react-redux';
 import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
+import logout from '../../assets/media/logout.svg';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { useTranslation } from 'react-i18next';
 
 const AddNewTicket = (props) => {
     // here we can add new support tickets //
+    // console.log(props);
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const { t } = useTranslation();
     const headingDetails = {
         title: 'Query Details',
 
@@ -69,7 +74,40 @@ const AddNewTicket = (props) => {
             dispatch(createSupportTickets(body, history));
         }
     });
+    const handleDiscard = () => {
+        // alert('hii');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to Discard the Support Ticket',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: t('general_req.btn_cancel'),
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(props.history.push('/teacher/support-journey'));
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ' Discard the Support Ticket is cancelled',
+                        'error'
+                    );
+                }
+            })
+            .catch((err) => console.log(err.response));
+    };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -88,6 +126,13 @@ const AddNewTicket = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Category
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
 
                                                 <Col
@@ -167,11 +212,12 @@ const AddNewTicket = (props) => {
                                             label="Discard"
                                             btnClass="secondary"
                                             size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    '/teacher/support-journey'
-                                                )
-                                            }
+                                            onClick={handleDiscard}
+                                            // onClick={() =>
+                                            //     props.history.push(
+                                            //         '/teacher/support-journey'
+                                            //     )
+                                            // }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">

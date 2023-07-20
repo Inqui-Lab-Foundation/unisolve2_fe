@@ -32,19 +32,19 @@ const TicketsPage = (props) => {
             {
                 name: 'No.',
                 selector: 'id',
-                width: '8%'
+                width: '10%'
             },
             {
                 name: 'Category',
                 selector: 'query_category',
                 sortable: true,
-                width: '13%'
+                width: '18%'
             },
             {
                 name: 'Query',
                 selector: 'query_details',
                 sortable: true,
-                width: '64%',
+                width: '33%',
 
                 cell: (params) => [
                     <Link
@@ -59,9 +59,10 @@ const TicketsPage = (props) => {
 
             {
                 name: 'Status',
-                width: '15%',
+                width: '39%',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
+                        
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
                             Open
                         </span>

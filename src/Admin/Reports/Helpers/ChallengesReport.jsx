@@ -150,7 +150,7 @@ const ChallengesReport = () => {
       return (
         <>
           <Layout>
-            <Container className="Reports mt-5">
+            <Container className="challenges-report mt-5 mb-30 userlist">
               <Row className="mt-0 pt-2 align-items-center">
                 <Col><h2>Challenges Reports</h2></Col>
                 <Col className="text-right mb-1">
@@ -162,11 +162,11 @@ const ChallengesReport = () => {
                     onClick={() => history.push('/admin/reports')}
                   />
                 </Col>
+                <div className="reports-list mt-5">
+                  {levels.map((level) => generateReportSection(level.label))}
+                </div>
               </Row>
             </Container>
-            <div className="reports-list">
-              {levels.map((level) => generateReportSection(level.label))}
-            </div>
           </Layout>
           <div className="m-3 common-flex">
             <CSVLink

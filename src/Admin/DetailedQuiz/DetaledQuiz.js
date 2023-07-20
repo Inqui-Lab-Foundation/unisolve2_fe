@@ -39,8 +39,16 @@ const DetaledQuiz = (props) => {
     );
     const [isSubmitted, setSubmitted] = useState(false);
     const [attemptNumber, setAttemptNumber] = useState(0);
+    const [currentScore, setCurrentScore] = useState({});
+    const [currentRole, setCurrentRole] = useState('');
+    const [totalQstCount, setTotalQstCount] = useState(0);
+    const [ currentPercentage,setCurrentPercentage] = useState(0);
 
     useEffect(() => {
+        setCurrentRole(currentUser?.data[0]?.role);
+    }, [currentUser]);
+
+    function resultdata() {
         var config = {
             method: 'get',
             url:
@@ -71,13 +79,35 @@ const DetaledQuiz = (props) => {
                                 response?.data?.data[0].data.length - 1
                             ].attempts
                         );
+                        setCurrentScore(
+                            response?.data?.data[0].data[
+                                response?.data?.data[0].data.length - 1
+                            ]
+                        );
+                        setCurrentPercentage(
+                            Math.round(
+                                (response?.data?.data[0].data[
+                                    response?.data?.data[0].data.length - 1
+                                ]?.score /
+                                    response?.data?.data[0]?.all[0]
+                                        ?.allquestions) *
+                                    100
+                            )
+                        );
                     }
-                    setQuizData(response.data.data[0]);
+                    setTotalQstCount(
+                        response?.data?.data[0]?.all[0]?.allquestions
+                    );
+                    setQuizData(response?.data?.data[0]);
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    useEffect(() => {
+        resultdata();
     }, []);
 
     useEffect(() => {
@@ -136,6 +166,7 @@ const DetaledQuiz = (props) => {
             SetType('');
             goToTop();
             setSubmitted(false);
+            resultdata();
         }, 500);
     };
     const handlevideo = (id) => {
@@ -154,13 +185,19 @@ const DetaledQuiz = (props) => {
             attemptNumber + 1
         );
     };
-    console.log(currentUser.data[0].role, 'cujfggi');
+
     return (
         <Fragment>
             {video === true &&
                 props.adminCourseQst &&
                 props.adminCourseQst.count === null && (
-                    <Confetti className="w-100" />
+                    <div>
+                        {currentRole === 'MENTOR' ? (
+                            <Confetti className="w-100" />
+                        ) : (
+                            currentPercentage >= 60 && <Confetti className="w-100" />
+                        )}
+                    </div>
                 )}
 
             {condition === true &&
@@ -190,80 +227,117 @@ const DetaledQuiz = (props) => {
                                         <img src={succesImg} alt=".." />
                                         <br />
                                     </div>
-                                    {currentUser?.data[0].role === 'MENTOR' && (
-                                        <p>{t('student.quiz_completed')}</p>
+                                    {currentRole === 'MENTOR' && (
+                                        <>
+                                            <h2>
+                                                Score:{currentScore?.score}/
+                                                {totalQstCount}
+                                            </h2>
+                                            <h2 style={{ color: 'green' }}>
+                                                {t('student.quiz_completed')}
+                                            </h2>
+                                        </>
                                     )}
                                 </div>
-
-                                {/* <div className="score">
-                  <p>
-                    {t('Score')}: {correctAnswers/2}/{totalQuestions}
-                  </p>
-                  {scorePercentage < 60 && (
-                    <p>{t('You scored less than the cutoff')}</p>
-                  )}
-                </div> */}
-                                {currentUser?.data[0].role === 'STUDENT' && (
-                                    <Table>
-                                        <thead>
-                                            <tr>
-                                                <th>{t('attempts')}</th>
-                                                <th>{t('Correct Answers')}</th>
-                                                <th>{t('Wrong Answers')}</th>
-                                            </tr>
-                                        </thead>
-                                        {quizdata?.data?.map((item, index) => {
-                                            return (
-                                                <tbody key={index}>
-                                                    <tr>
-                                                        <td>{item.attempts}</td>
-                                                        <td>{item.score}</td>
-                                                        <td>
-                                                            {quizdata.all[0]
-                                                                .allquestions -
-                                                                item.score}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            );
-                                        })}
-                                    </Table>
+                                {currentRole === 'STUDENT' && (
+                                    <>
+                                        <Table>
+                                            <thead>
+                                                <tr>
+                                                    <th>{t('Attempts')}</th>
+                                                    <th>
+                                                        {t('Correct Answers')}
+                                                    </th>
+                                                    <th>
+                                                        {t('Wrong Answers')}
+                                                    </th>
+                                                    <th>{t('Result')}</th>
+                                                </tr>
+                                            </thead>
+                                            {quizdata?.data?.map(
+                                                (item, index) => {
+                                                    return (
+                                                        <tbody key={index}>
+                                                            <tr>
+                                                                <td>
+                                                                    {
+                                                                        item.attempts
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {item.score
+                                                                        ? item.score
+                                                                        : '0'}
+                                                                </td>
+                                                                <td>
+                                                                    {totalQstCount -
+                                                                        item.score}
+                                                                </td>
+                                                                <td>
+                                                                    {Math.round(
+                                                                        (item.score /
+                                                                            totalQstCount) *
+                                                                            100
+                                                                    )}
+                                                                    %
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    );
+                                                }
+                                            )}
+                                        </Table>
+                                        <div
+                                            style={{
+                                                textAlign: 'center',
+                                                marginTop: '2rem'
+                                            }}
+                                        >
+                                            {currentPercentage < 60 ? (
+                                                <h2 style={{ color: 'red' }}>
+                                                    {t(
+                                                        'You scored less than the cutoff'
+                                                    )}
+                                                </h2>
+                                            ) : (
+                                                <h2 style={{ color: 'green' }}>
+                                                    {t(
+                                                        'student.quiz_completed'
+                                                    )}
+                                                </h2>
+                                            )}
+                                        </div>
+                                    </>
                                 )}
 
                                 <div className="results-heading mt-4">
                                     <img src={ResultStar} alt="star" />
                                 </div>
-                                {currentUser?.data[0].role === 'STUDENT' && (
-                                    <div className="row py-3 mb-3 d-flex justify-content-between">
-                                        <div>
-                                            <Button
-                                                label={t('student.continue')}
-                                                btnClass="primary w-auto"
-                                                size="small"
-                                                type="submit"
-                                                onClick={props.handleQuiz}
-                                            />
-                                        </div>
-                                        {/* {scorePercentage < 60 && (
-      <div>
-        <Button
-          label={t('Retest')}
-          btnClass="primary w-auto"
-          size="small"
-          type="submit"
-          onClick={handleRetest}
-        />
-      </div>
-    )} */}
-                                        <div>
-                                            <Button
-                                                label={t('Retest')}
-                                                btnClass="primary w-auto"
-                                                size="small"
-                                                type="submit"
-                                                onClick={handleRetest}
-                                            />
-                                        </div>
+                                {currentRole === 'STUDENT' && (
+                                    <div className="row py-3 mb-3 d-flex justify-content-end">
+                                        {currentPercentage < 60 ? (
+                                            <div className="text-right">
+                                                <Button
+                                                    label={t('Retest')}
+                                                    btnClass="primary w-auto"
+                                                    size="small"
+                                                    type="submit"
+                                                    onClick={handleRetest}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="text-right">
+                                                <Button
+                                                    label={t(
+                                                        'student.continue'
+                                                    )}
+                                                    btnClass="primary w-auto"
+                                                    size="small"
+                                                    type="submit"
+                                                    onClick={props.handleQuiz}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
@@ -294,7 +368,7 @@ const DetaledQuiz = (props) => {
                             {video === true &&
                             props.adminQstResponce &&
                             props.adminQstResponce.status === 200 ? (
-                                <div className="question-section">
+                                <div>
                                     <div className="score">
                                         {props.adminQstResponce &&
                                             props.adminQstResponce.data[0] &&
@@ -335,7 +409,7 @@ const DetaledQuiz = (props) => {
                                                     className="text-right"
                                                 >
                                                     <Button
-                                                        btnClass="primary px-5"
+                                                        btnClass="primary"
                                                         size="small"
                                                         label={t(
                                                             'student.continue'
