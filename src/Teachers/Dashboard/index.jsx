@@ -34,7 +34,9 @@ const Dashboard = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        if(currentUser?.data[0]?.user_id){
+            dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        }
     }, [dispatch, currentUser?.data[0]?.user_id]);
     // here in  Dashboard we can see all details of teacher //
     // like  school name , district , no of ideas , no of teams //

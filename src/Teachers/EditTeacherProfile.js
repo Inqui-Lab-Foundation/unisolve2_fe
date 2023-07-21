@@ -21,7 +21,6 @@ const EditTeacherProfileDetails = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
-    console.log(currentUser);
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};

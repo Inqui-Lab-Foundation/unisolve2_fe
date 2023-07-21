@@ -14,9 +14,11 @@ const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
-    // console.log(currentUser);
+
     useLayoutEffect(() => {
-        dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
+        if(currentUser?.data[0]?.mentor_id){
+            dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
+        }
     }, [currentUser?.data[0]?.mentor_id]);
     const handleEdit = () => {
         history.push({

@@ -102,8 +102,9 @@ const PostSurvey = () => {
         setAnswerResponses(newItems);
     };
     useEffect(() => {
-        //if(!dashboardStates)
-        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        if(currentUser?.data[0]?.user_id){
+            dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        }
     }, [dispatch, currentUser?.data[0]?.user_id]);
 
     const handleSubmit = async (e) => {
@@ -752,7 +753,7 @@ const PostSurvey = () => {
                                     <div style={{ textAlign: 'center' }}>
                                         <div>
                                             <img
-                                                className="img-fluid w-25"
+                                                className="img-fluid imgWidthSize"
                                                 src={Congo}
                                             ></img>
                                         </div>

@@ -761,10 +761,10 @@ const PreSurvey = () => {
                                     )}
 
                                     {preSurveyStatus == 'COMPLETED' && (
-                                        <div style={{ textAlign: 'center' }}>
+                                        <div style={{ textAlign: 'center' }} >
                                             <figure>
                                                 <img
-                                                    className="img-fluid w-25"
+                                                    className="img-fluid imgWidthSize"
                                                     src={Congo}
                                                 ></img>
                                             </figure>

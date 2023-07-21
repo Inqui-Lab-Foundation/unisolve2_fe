@@ -225,9 +225,9 @@ const MyCertificate = () => {
                     ) : (
                         <Card className="course-sec-basic p-5">
                             <div className="text-left">
-                                <div>
+                                <div className="text-center"> 
                                     <img
-                                        className={`${'w-25'} img-fluid `}
+                                        className={`img-fluid imgWidthSize`}
                                         src={Congo}
                                     ></img>
                                 </div>
