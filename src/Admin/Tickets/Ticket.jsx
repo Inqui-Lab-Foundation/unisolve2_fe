@@ -20,7 +20,7 @@ const TicketsPage = () => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
 
-    useEffect(async() => {
+    useEffect(async () => {
         await listApi();
     }, []);
 
@@ -152,22 +152,22 @@ const TicketsPage = () => {
         data: allTicketResponse,
         columns: [
             {
-                name: 'No.',
+                name: 'No',
                 selector: (row, key) => key + 1,
 
-                width: '7%'
+                width: '10rem'
             },
             {
                 name: 'Category',
                 selector: (row) => row.query_category,
                 sortable: true,
-                width: '15%'
+                width: '25rem'
             },
 
             {
                 name: ' Query Details',
                 selector: (row) => row.query_details,
-                width: '55%',
+                width: '45rem',
                 // center: true,
                 cell: (params) => [
                     <Link
@@ -183,7 +183,7 @@ const TicketsPage = () => {
             {
                 name: 'Status',
                 selector: (row) => row.status,
-                width: '23%',
+                width: '20rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
@@ -217,7 +217,7 @@ const TicketsPage = () => {
         return () => clearTimeout(timeout);
     }, []);
 
-    const changeTab = async(e) => {
+    const changeTab = async (e) => {
         if (e === '1') {
             await listApi();
         } else if (e === '2') {
