@@ -87,18 +87,19 @@ const TicketsPage = (props) => {
             {
                 name: t('teacher_teams.s_no'),
                 selector: 'key',
-                width: '10%'
+                width: '12rem'
             },
             {
                 name: t('teacher_teams.team_name'),
                 selector: 'team_name',
                 sortable: true,
-                width: '20%'
+                // maxlength: '5',
+                width: '43rem'
             },
             {
                 name: t('teacher_teams.team_members_count'),
                 selector: 'student_count',
-                width: '20%'
+                width: '23rem'
             },
             {
                 name: t('teacher_teams.actions'),
@@ -140,7 +141,7 @@ const TicketsPage = (props) => {
                         </div>
                     ];
                 },
-                width: '50%',
+                width: '22rem',
                 left: true
             }
         ]
