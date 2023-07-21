@@ -480,6 +480,7 @@ const DetaledQuiz = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
+                                            disabled = {!selectOption}
                                         />
                                     </Col>
                                 </Row>

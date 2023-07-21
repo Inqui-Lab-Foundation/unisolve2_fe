@@ -98,8 +98,8 @@ const TeacherPlayVideo = (props) => {
     const [courseData, setCourseData] = useState(null);
     const [isquizcompleted, setisquizcompleted] = useState(false);
     const scrollRef = React.createRef();
-    const [quizStart ,setQuizStart]=useState(false);
-    
+    const [quizStart, setQuizStart] = useState(false);
+
     const getLastCourseStatus = (data = []) => {
         const length = data && data.length > 0 ? data.length - 1 : 0;
         if (length) {
@@ -230,9 +230,8 @@ const TeacherPlayVideo = (props) => {
                     ) {
                         setisquizcompleted(true);
                         setQuizStart(false);
-
                     }
-                    if(response?.data?.data[0]?.question_no === 1){
+                    if (response?.data?.data[0]?.question_no === 1) {
                         setQuizStart(true);
                         setisquizcompleted(false);
                     }
@@ -702,37 +701,36 @@ const TeacherPlayVideo = (props) => {
                                     className="modal-popup text-screen text-center  modal-popup"
                                 >
                                     <div className="modal-content">
-                                        <Modal.Header>
-                                            <Modal.Title className="w-100 d-block mb-2">
-                                                Ready for a quick test?
-                                            </Modal.Title>
-                                            <p className="w-100 d-block">
-                                                Test your course skills in a
-                                                short test challenge!
-                                            </p>
-                                            {/* <div className="row justify-content-center text-center">
-                                                <div className="col col-lg-3">
-                                                    <p>
-                                                        <VscCircleFilled
-                                                            style={{
-                                                                color: '#067DE1'
-                                                            }}
-                                                        />
-                                                        Questions
-                                                    </p>
-                                                </div>
-                                                <div className="col col-lg-3">
-                                                    <p>
-                                                        <VscCircleFilled
-                                                            style={{
-                                                                color: '#067DE1'
-                                                            }}
-                                                        />{' '}
-                                                        Minutes
-                                                    </p>
-                                                </div>
-                                            </div> */}
-                                        </Modal.Header>
+                                        {quizStart ? (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Ready for a quick test?
+                                                </Modal.Title>
+                                                <p className="w-100 d-block">
+                                                    Test your course skills in a
+                                                    short test challenge!
+                                                </p>
+                                            </Modal.Header>
+                                        ) : isquizcompleted ? (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Quick test Completed successfully
+                                                </Modal.Title>
+                                                <p className="w-100 d-block">
+                                                    Check your score.
+                                                </p>
+                                            </Modal.Header>
+                                        ) : (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Continue your quick test
+                                                </Modal.Title>
+                                                <p className="w-100 d-block">
+                                                    Test your course skills in a
+                                                    short test challenge!
+                                                </p>
+                                            </Modal.Header>
+                                        )}
 
                                         <Modal.Body>
                                             <figure>
@@ -743,7 +741,13 @@ const TeacherPlayVideo = (props) => {
                                                 />
                                             </figure>
                                             <Button
-                                                label= {quizStart ? "Let's Start" : isquizcompleted ? 'See Score' : 'Resume Quiz'}
+                                                label={
+                                                    quizStart
+                                                        ? "Let's Start"
+                                                        : isquizcompleted
+                                                        ? 'See Score'
+                                                        : 'Resume Quiz'
+                                                }
                                                 btnClass="primary mt-4"
                                                 size="small"
                                                 onClick={() =>

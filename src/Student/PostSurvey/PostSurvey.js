@@ -833,7 +833,7 @@ const PostSurvey = () => {
                                             >
                                                 <div>
                                                     <img
-                                                        className="img-fluid w-25"
+                                                        className="img-fluid imgWidthSize"
                                                         src={Congo}
                                                     ></img>
                                                 </div>
