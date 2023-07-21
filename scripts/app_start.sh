@@ -5,7 +5,7 @@ export NVM_DIR="$HOME/.nvm"
 #!/bin/bash
 echo "Server type"
 ec2Type=$(curl http://169.254.169.254/latest/meta-data/instance-type 2>/dev/null)
-if [ $ec2Type="c5a.large" ]
+if [ $ec2Type="t3.medium" ]
 then
   npm run start:staging
 else
