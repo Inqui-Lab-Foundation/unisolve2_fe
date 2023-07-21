@@ -341,7 +341,7 @@ const CreateMultipleMembers = ({ id }) => {
                                 label={'Add More'}
                                 onClick={addItem}
                                 btnClass={
-                                    'primary d-flex justify-content-center'
+                                    'primary d-flex justify-content-center mt-2'
                                 }
                                 size="small"
                             />
