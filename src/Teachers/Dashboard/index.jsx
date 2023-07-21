@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useLayoutEffect } from 'react';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Card, CardBody, CardText } from 'reactstrap';
 import { getCurrentUser } from '../../helpers/Utils';
 import institutions from '../../assets/media/img/university.png';
 import districtImg from '../../assets/media/img/building.png';
@@ -14,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { getDashboardStates } from '../store/dashboard/actions';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import DoughnutChart from './DoughnutChart';
+import LatestNewsNew from './LatestNewsNew';
 
 const Dashboard = () => {
     // here we can see teacher details //
@@ -32,7 +34,9 @@ const Dashboard = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        if(currentUser?.data[0]?.user_id){
+            dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        }
     }, [dispatch, currentUser?.data[0]?.user_id]);
     // here in  Dashboard we can see all details of teacher //
     // like  school name , district , no of ideas , no of teams //
@@ -57,7 +61,7 @@ const Dashboard = () => {
                                                 className="mx-4"
                                             />
                                             <div className="common-flex flex-column">
-                                                <p className="color-blue fs-600 my-0 text-wrapped">
+                                                <p className="color-blue fs-600">
                                                     {dashboardStates &&
                                                     dashboardStates?.organization
                                                         ? dashboardStates
@@ -130,7 +134,14 @@ const Dashboard = () => {
                         )}
                     </Row>
                 </Row>
-                <Row className="teacher-statistics bg-white p-5">
+                <Row>
+                    <Col>
+                        <div>
+                            <LatestNewsNew usersdata={currentUser?.data} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row className="teacher-statistics">
                     <Row className="">
                         <Col>
                             <div className="d-flex flex-wrap">

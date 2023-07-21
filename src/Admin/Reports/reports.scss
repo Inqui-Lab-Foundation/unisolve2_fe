@@ -1,27 +1,35 @@
 .report-wrapper {
     min-height: 80vh;
+    margin-bottom: -30px;
 }
-.individual-report-wrapper {
-    .card {
-        min-height: 50vh;
-    }
-    select {
-        padding: 1rem;
-        box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
-        border-color: #f8f1f1;
-        border-radius: 0.5rem;
-        width: 100%;
-    }
-    label {
-        font-size: 1.6rem;
-        font-weight: 400;
-    }
-    .check-flex {
-        display: flex;
-        justify-content: center;
-        align-items: end;
-    }
-    .filter-card{
-        min-height: 68vh;
-    }
+
+.card-effect:hover {
+    box-shadow:5px 10px 8px #440df72a;
 }
+
+.view{
+    margin-left: 10rem;
+    margin-top: 0rem;
+}
+
+.table-wrapper {
+    display:block;
+    max-height:280px;
+    overflow-y:auto;
+}
+.table-wrapper table {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+.table-wrapper thead {
+    width: calc( 100% - 1em );
+} 
+
+.rep{
+    margin-top: 0;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    margin-bottom: 10px;
+}
+

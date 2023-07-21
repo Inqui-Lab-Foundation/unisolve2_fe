@@ -111,7 +111,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{paddingRight: '1.5rem'}}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
