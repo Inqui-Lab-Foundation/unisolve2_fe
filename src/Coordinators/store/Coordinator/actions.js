@@ -25,7 +25,6 @@ export const coordinatorLoginUserError = (message) => async (dispatch) => {
 };
 export const coordinatorLoginUser =
     (data, history, module) => async (dispatch) => {
-        console.log('1');
         try {
             const loginData = {
                 ...data
@@ -39,7 +38,6 @@ export const coordinatorLoginUser =
                 .catch((err) => {
                     return err.response;
                 });
-            console.log(result);
             if (result && result.status === 200) {
                 const item = result.data;
                 setCurrentUser(item);
