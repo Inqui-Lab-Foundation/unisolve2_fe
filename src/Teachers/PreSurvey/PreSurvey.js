@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../PostSurvey/style.scss';
 import {
     Container,
@@ -29,6 +29,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getTeacherPresurveyStatus } from '../store/mentors/actions';
 import { getLanguage } from '../../constants/languageOptions';
+import { Modal } from 'react-bootstrap';
+import { getCurrentUser } from '../../helpers/Utils';
+
+const GreetingModal = (props) => {
+    return (
+        <Modal
+            show={props.show}
+            size="lg"
+            centered
+            className="modal-popup text-center"
+            onHide={props.handleClose}
+            backdrop={true}
+        >
+            <Modal.Header closeButton></Modal.Header>
+
+            <Modal.Body>
+                <figure>
+                    <img
+                        src={props.imgUrl}
+                        alt="popup image"
+                        className="img-fluid"
+                    />
+                </figure>
+            </Modal.Body>
+        </Modal>
+    );
+};
+
 
 const PreSurvey = () => {
     // here we can start the presurvey journey //
@@ -47,6 +75,9 @@ const PreSurvey = () => {
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [answerResponses, setAnswerResponses] = useState([]);
+    const [showPopup ,setShowPopup] = useState(false);
+    const currentUser = getCurrentUser('current_user');
+    const [imgUrl,setImgUrl] = useState('');
 
     const dispatch = useDispatch();
 
@@ -63,15 +94,41 @@ const PreSurvey = () => {
             ? data[0].selected_option
             : '';
     };
+
+    useEffect(()=>{
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/popup/1`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (
+                    response.status === 200 &&
+                    response.data.data[0]?.on_off === '1'
+                ) {
+                    setShowPopup(true);
+                    setImgUrl(response?.data?.data[0]?.url);
+                }
+            })
+            .catch(function (error) {
+                setShowPopup(false);
+                console.log(error);
+            });
+    },[]);
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-        console.log(newItems);
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
                 e.target.type === 'checkbox' ? [e.target.value] : e.target.value
         };
-        console.log(obj);
         const findExistanceIndex = newItems.findIndex(
             (item) =>
                 parseInt(item?.quiz_survey_question_id) ===
@@ -207,9 +264,17 @@ const PreSurvey = () => {
         // here we can see  22 questions  we can attempt all the Questions then  your pre survey is completed //
         setShow(true);
     };
+    const handleClose = () => {
+        setShowPopup(false);
+    };
 
     return (
         <Layout>
+             <GreetingModal
+                handleClose={handleClose}
+                show={showPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
             <Container className="presuervey mb-50 mt-5 ">
                 <Col>
                     <Row className=" justify-content-center">
