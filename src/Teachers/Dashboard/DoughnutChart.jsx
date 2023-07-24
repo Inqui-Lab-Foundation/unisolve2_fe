@@ -15,7 +15,7 @@ import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-
+import { Row,Col } from 'reactstrap';
 export default function DoughnutChart({ user }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
@@ -239,12 +239,15 @@ export default function DoughnutChart({ user }) {
                     Team Progress:
                 </label>
                 <div className="d-flex align-items-center teamProgreess">
-                    <div className="row p-4 singlediv">
+                <Col md="3" xs="12">
+                    <div className="singlediv">
                         <select
                             onChange={(e) => setTeamId(e.target.value)}
                             name="teams"
                             id="teams"
-                            style={{ backgroundColor: 'lavender' }}
+                            style={{ backgroundColor: 'lavender',
+                            height: '40px', // Set the desired height
+                            fontSize: '16px',}}
                         >
                             <option value="">Select Team</option>
                             {teamsList && teamsList.length > 0 ? (
@@ -258,16 +261,21 @@ export default function DoughnutChart({ user }) {
                             )}
                         </select>
                     </div>
-                    <div className='singlediv'>
+                    </Col>
+                    {teamId && (
+    <>
+    <Row>
+                    <div className="singlediv">
                         <Card className="p-3 mx-4 d-flex flex-row">
                             <span className="fw-bold">IDEA STATUS :</span>
-                            <span style={{paddingLeft:'1rem'}}>
+                            <span style={{ paddingLeft: '1rem' }}>
                                 {challengesSubmittedResponse[0]?.status
                                     ? ` ${challengesSubmittedResponse[0]?.status}`
                                     : 'NOT STARTED'}
                             </span>
                         </Card>
                     </div>
+                    </Row>
                     <div>
                         <Button
                             button="button"
@@ -286,12 +294,13 @@ export default function DoughnutChart({ user }) {
                             }`}
                             size="small"
                             shape="btn-square"
+                            style={{padding:'1rem 2.4rem'}}
                             onClick={() => setIdeaShow(true)}
                         />
                     </div>
                     <div className="m-3">
                         <Button
-                            label={'Change'}
+                            label={' Change  '}
                             disabled={
                                 teamsMembersStatus.length > 0 &&
                                 challengesSubmittedResponse[0]?.status
@@ -306,10 +315,13 @@ export default function DoughnutChart({ user }) {
                             }`}
                             size="small"
                             shape="btn-square"
+                            style={{padding:'1rem 3rem'}}
                             onClick={() => setChangeShow(true)}
                         />
                     </div>
-                    <div>
+                    
+                    
+                    <div >
                         {challengesSubmittedResponse[0]?.status ==
                         'SUBMITTED' ? (
                             <Button
@@ -317,6 +329,7 @@ export default function DoughnutChart({ user }) {
                                 label={'REVOKE'}
                                 size="small"
                                 shape="btn-square"
+                                style={{padding:'1rem 3rem',fontSize:'14px'}}
                                 onClick={() =>
                                     handleRevoke(
                                         challengesSubmittedResponse[0]
@@ -329,6 +342,9 @@ export default function DoughnutChart({ user }) {
                             ''
                         )}
                     </div>
+                    </>
+                    
+                    )}
                 </div>
                 {showDefault && (
                     <div

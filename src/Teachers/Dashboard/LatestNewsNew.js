@@ -72,23 +72,19 @@ function LatestNewsNew({ usersdata }) {
     }, []);
 
     return (
-        <div>
+        <div className="latest-news-container">
             <Row>
                 <Col md={12}>
                     <Row>
                         <Col md={8} className="border-right my-auto">
-                            <Row>
-                                <h2 style={{ color: 'blue' }}>
-                                    Latest News ....
-                                </h2>
-                            </Row>
+                            <h2 style={{ color: 'black' }}>Latest News</h2>
                             <div
                                 id="boxflow"
                                 ref={containerRef}
                                 style={{
-                                    height: '300px'
-
-                                    // overflow: 'auto'
+                                    height: '200px',
+                                    width: '500px'
+                                    //overflow: 'auto'
                                 }}
                             >
                                 <ul>
