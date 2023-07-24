@@ -54,12 +54,6 @@ function RegisterNew() {
     const [disable, setDisable] = useState(false);
     const [timer, setTimer] = useState(0);
     const [or, setOr] = useState('');
-    useEffect(() => {
-        console.log(
-            '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
-            orgData
-        );
-    }, [orgData]);
     const handleOnChange = (e) => {
         setDiesCode(e.target.value);
         setOrgData();
@@ -173,7 +167,6 @@ function RegisterNew() {
                 };
                 await axios(config)
                     .then((mentorRegRes) => {
-                        console.log(mentorRegRes);
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
@@ -209,8 +202,6 @@ function RegisterNew() {
         }
     });
 
-    console.log(mentorData, "Hi mentor");
-    console.log(orgData, "Hi org");
     const handleRegister = (e) => {
         const body = JSON.stringify({
             organization_code: diesCode
@@ -226,7 +217,6 @@ function RegisterNew() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
-                    console.log(response);
                     if (
                         response?.data?.data[0].mentor != null &&
                         process.env.REACT_APP_USEDICECODE == 1
@@ -290,7 +280,6 @@ function RegisterNew() {
             data: body
         };
         axios(config).then(function (response) {
-            console.log(response);
             if (response.status === 202) {
                 setOtpRes(response?.data?.data);
                 openNotificationWithIcon('success', 'Otp send to mobile');

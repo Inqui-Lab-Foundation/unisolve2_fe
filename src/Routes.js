@@ -46,6 +46,7 @@ import IndividualReport from './Admin/Reports/ReportFilter';
 import AdminChallengesComp from './Admin/Badges/Badges';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
 import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
+import Popup from './Admin/Popup/popup';
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
@@ -228,6 +229,11 @@ const Routers = () => {
                         exact={true}
                         path="/admin/badges"
                         component={AdminChallengesComp}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/popup"
+                        component={Popup}
                     />
                     <Route
                         exact={true}
