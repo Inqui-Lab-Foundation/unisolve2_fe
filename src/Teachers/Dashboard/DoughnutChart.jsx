@@ -122,13 +122,13 @@ export default function DoughnutChart({ user }) {
         {
             title: 'Name',
             dataIndex: 'full_name',
-            width: '20%'
+            width: '15rem'
         },
         {
             title: 'Pre Survey',
             dataIndex: 'pre_survey_status',
             align: 'center',
-            width: '10%',
+            width: '15rem',
             render: (_, record) =>
                 record?.pre_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -140,7 +140,7 @@ export default function DoughnutChart({ user }) {
             title: 'Lesson Progress',
             dataIndex: 'address',
             align: 'center',
-            width: '30%',
+            width: '30rem',
             render: (_, record) => {
                 let percent =
                     100 -
@@ -180,7 +180,7 @@ export default function DoughnutChart({ user }) {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
             align: 'center',
-            width: '20%',
+            width: '20rem',
             render: (_, record) =>
                 record?.idea_submission ? (
                     <FaCheckCircle size={20} color="green" />
@@ -192,7 +192,7 @@ export default function DoughnutChart({ user }) {
             title: 'Post Survey',
             dataIndex: 'post_survey_status',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.post_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -204,7 +204,7 @@ export default function DoughnutChart({ user }) {
             title: 'Certificate',
             dataIndex: 'certificate',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.certificate ? (
                     <FaCheckCircle size={20} color="green" />
@@ -258,10 +258,10 @@ export default function DoughnutChart({ user }) {
                             )}
                         </select>
                     </div>
-                    <div className='singlediv'>
+                    <div className="singlediv">
                         <Card className="p-3 mx-4 d-flex flex-row">
                             <span className="fw-bold">IDEA STATUS :</span>
-                            <span style={{paddingLeft:'1rem'}}>
+                            <span style={{ paddingLeft: '1rem' }}>
                                 {challengesSubmittedResponse[0]?.status
                                     ? ` ${challengesSubmittedResponse[0]?.status}`
                                     : 'NOT STARTED'}
