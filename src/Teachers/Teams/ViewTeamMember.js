@@ -357,7 +357,7 @@ const ViewTeamMember = (props) => {
         const teamlistobj = {};
         const listofteams = props.teamsList
             .map((item) => {
-                if (item.student_count < 5) {
+                if (item.student_count < 5 && item.ideaStatus === null) {
                     teamlistobj[item.team_name] = item.team_id;
                     return item.team_name;
                 }
