@@ -24,9 +24,7 @@ const SuccessPage = () => {
     const history = useHistory();
     const { t } = useTranslation();
 
-    const successData = (
-        history && history.location && history.location.data
-    );
+    const successData = history && history.location && history.location.data;
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login ">
@@ -90,9 +88,15 @@ const SuccessPage = () => {
                                 </div>
                             </CarouselItem> */}
                         </Carousel>
-                        
                     </div>
-                    <Col xs={12} sm={12} md={6} xl={6} className="article" style={{ padding: '8rem 8rem' }}>
+                    <Col
+                        xs={12}
+                        sm={12}
+                        md={6}
+                        xl={6}
+                        className="article"
+                        style={{ padding: '8rem 8rem' }}
+                    >
                         <Row className="mb-0">
                             <Col
                                 xs={12}
@@ -112,73 +116,116 @@ const SuccessPage = () => {
                                     />
                                 </figure>
 
-                                <p style={{ fontSize: '4rem', fontWeight: 'bold', color: 'lightgreen' }}>
+                                <p
+                                    style={{
+                                        fontSize: '3.4rem',
+                                        fontWeight: 'bold',
+                                        color: 'lightgreen'
+                                    }}
+                                >
                                     Congratulations
                                 </p>
 
-                                <p style={{ fontWeight: 'bold', marginBottom: '2rem' }}>
-                                    Your school has been successfully registered.
+                                <p
+                                    style={{
+                                        fontWeight: 'bold',
+                                        marginBottom: '2rem'
+                                    }}
+                                >
+                                    Your school has been successfully
+                                    registered.
                                 </p>
 
-
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-                                    
-                                    UDICE Code: {successData && successData.organization_code}                                    
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    UDICE Code:{' '}
+                                    {successData &&
+                                        successData.organization_code}
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-                                    
-                                    School Name: {successData && successData.school}
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    School Name:{' '}
+                                    {successData && successData.school}
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '4rem' }}>
-                                    
-                                    District: {successData && successData.district}
-                    
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '4rem'
+                                    }}
+                                >
+                                    District:{' '}
+                                    {successData && successData.district}
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-
-                                    Faculty Name: {successData && successData.title}. {successData && successData.full_name}
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Faculty Name:{' '}
+                                    {successData && successData.title}.{' '}
+                                    {successData && successData.full_name}
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-                                    
-                                    Mobile Number: {successData && successData.mobile}
-                                    
-                                </p> 
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-                                    
-                                    Whatsapp Number: {successData && successData.whatapp_mobile}
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Mobile Number:{' '}
+                                    {successData && successData.mobile}
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '1rem' }}>
-                                    
-                                    Password: {successData && successData.mobile}
-                                    
-                                </p>                      
-                                <p style={{ color: 'gray', marginBottom: '2rem' }}>
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Whatsapp Number:{' '}
+                                    {successData && successData.whatapp_mobile}
+                                </p>
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Password:{' '}
+                                    {successData && successData.mobile}
+                                </p>
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '2rem'
+                                    }}
+                                >
                                     Gender: {successData && successData.gender}
-                                    
                                 </p>
-                                <p style={{ color: 'gray', marginBottom: '2rem' }}>
-                                    
+                                <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '2rem'
+                                    }}
+                                >
                                     Take a screenshot for future reference.
-                                    
                                 </p>
-                                                             
-                                
+
                                 <h3>
-                                    To login into Teacher account 
+                                    To login into Teacher account
                                     <Link
                                         exact="true"
                                         to="/teacher"
                                         className="p-0 blue text-link w-100 mt-3"
                                     >
-                                      
-                                        {t(
-                                            ' click here'
-                                        )}
+                                        {t(' click here')}
                                     </Link>
                                 </h3>
                             </Col>

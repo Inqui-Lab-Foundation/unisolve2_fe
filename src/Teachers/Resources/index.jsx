@@ -42,12 +42,12 @@ const TeacherResources = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '26%'
+                width: '15%'
             },
             {
                 name: 'Details',
                 selector: 'description',
-                width: '38%'
+                width: '45%'
             },
             // {
             //     name: 'Type',
@@ -57,7 +57,7 @@ const TeacherResources = () => {
             {
                 name: 'File/Link',
                 selector: 'attachments',
-                width: '36%',
+                width: '40%',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (

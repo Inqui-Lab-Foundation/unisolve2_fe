@@ -303,13 +303,13 @@ const ChangePSW = (props) => {
                             >
                                 <button
                                     onClick={handleOnCancel}
-                                    className="btn btn-outline-secondary rounded-pill sweet-btn-max"
+                                    className="btn btn-outline-secondary rounded-pill sweet-btn-min"
                                 >
                                     {t('changepswd.Cancel')}
                                 </button>
                                 <button
                                     type="submit"
-                                    className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
+                                    className="storybook-button storybook-button--small storybook-button--primary sweet-btn-min"
                                 >
                                     {t('changepswd.Change_password')}
                                 </button>
