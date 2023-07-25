@@ -114,11 +114,14 @@ const Popup = () => {
         const fileName = file.name.split('.').slice(0, -1).join('.');
         const isValidFileName = pattern.test(fileName);
 
-        const maxFileSize = 20000000;
+        const maxFileSize = 3000000;
         const isOverMaxSize = file.size > maxFileSize;
-
+        if (!(file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg')){
+            openNotificationWithIcon('error', 'file type should be PNG JPG JPEG');
+            return;
+        }
         if (isOverMaxSize) {
-            openNotificationWithIcon('error', 'less_20MB');
+            openNotificationWithIcon('error', 'less_3MB');
             return;
         }
 
@@ -154,8 +157,8 @@ const Popup = () => {
                                         }
                                     >
                                         {popupList.on_off === '1'
-                                            ? 'ON'
-                                            : 'OFF'}
+                                            ? 'Enabled'
+                                            : 'Disabled'}
                                     </span>
                                 </h2>
                                 <div className="wrapper my-3 m-3">
@@ -168,13 +171,14 @@ const Popup = () => {
                                     <input
                                         type="file"
                                         name="file"
+                                        accept='.png, .jpg, .jpeg'
                                         multiple
                                         onChange={(e) => fileHandler(e)}
                                     />
                                 </div>
                                 {popupList.on_off === '1' ? (
                                     <Button
-                                        label="OFF"
+                                        label="Disable"
                                         btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
@@ -183,7 +187,7 @@ const Popup = () => {
                                     />
                                 ) : (
                                     <Button
-                                        label="ON"
+                                        label="Enable"
                                         btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
@@ -191,6 +195,10 @@ const Popup = () => {
                                         onClick={() => handleStatus('1')}
                                     />
                                 )}
+                                <ul className='p-2'>
+                                    <li>File size should be less than 3MB</li>
+                                    <li>File type should be following format PNG JPG JPEG</li>
+                                </ul>
                             </Col>
                             <Col md={6}>
                                 {showspin ? (
