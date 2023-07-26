@@ -3,13 +3,15 @@
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Col, Row } from 'reactstrap';
+// import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import {
     deleteTempMentorById,
     teacherResetPassword
 } from '../store/admin/actions';
+import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
+
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
@@ -27,6 +29,8 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
+import { Card } from 'react-bootstrap';
+
 const Dashboard = () => {
     // here we can see the registration details //
     const history = useHistory();
@@ -372,207 +376,354 @@ const Dashboard = () => {
             <div className="dashboard-wrapper pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
                 <div className="dashboard p-5 mb-5">
-                    <div className="row">
-                        <div style={{ flex: 1 }} className="col-lg-12">
-                            Data__
-                        </div>
-                        <div
-                            style={{ flex: 1 }}
-                            className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search"
-                        >
-                            <h2 className="mt-3">
-                                Search Registration Details
-                            </h2>
-                            <Row className="text-center justify-content-md-center my-4">
-                                <Col md={9} lg={12}>
-                                    <Row>
-                                        <Col md={9} className="my-auto">
-                                            <Input
-                                                {...inputField}
-                                                id="organization_code"
-                                                onChange={(e) =>
-                                                    handleOnChange(e)
-                                                }
-                                                value={diesCode}
-                                                name="organization_code"
-                                                placeholder="Enter Unique Code"
-                                                className="w-100 mb-3 mb-md-0"
+                    <div className="row " style={{ overflow: 'auto' }}>
+                        <div className=" row col-6">
+                            <Col
+                                style={{
+                                    paddingRight: '20px'
+                                }}
+                            >
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg. Teachers
+                                            </label>
+
+                                            <Card.Text
                                                 style={{
-                                                    borderRadius: '60px',
-                                                    padding: '9px 11px'
+                                                    fontSize: '20px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
                                                 }}
-                                            />
-                                        </Col>
-                                        <Col md={3} className="partner-btn">
-                                            <Button
-                                                label={'Search'}
-                                                btnClass="primary mx-3 w-100"
-                                                size="small"
-                                                onClick={(e) => handleSearch(e)}
-                                            />
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
+                                            >
+                                                950
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.teams_count
+                                                ? dashboardStates?.teams_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '20px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                2,004
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.course_completed_count !==
+                                                undefined
+                                                ? `${
+                                                      (dashboardStates?.course_completed_count /
+                                                          dashboardStates?.Total_course_count) *
+                                                      100
+                                                  }%`
+                                                : '-'} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            <Col style={{ paddingRight: '20px' }}>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Students
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '20px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,10,000
+                                                {/* {dashboardStates &&
+                                            dashboardStates.students_count
+                                                ? dashboardStates.students_count
+                                                : '-'} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Submitted Ideas
+                                            </label>
 
-                            {orgData &&
-                            orgData?.organization_name &&
-                            orgData?.mentor !== null ? (
-                                <>
-                                    <div className="mb-5 p-3" ref={pdfRef}>
-                                        <div className="container-fluid card shadow border">
-                                            <div className="row">
-                                                <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
-                                                        Registration Detail
-                                                    </h2>
-                                                    <hr />
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '20px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            {/* <div style={{ flex: 1 }} className="col-lg-12">
+                            Data__
+                        </div> */}
+                        </div>
+                        <div className=" row col-6 ">
+                            <div
+                                style={{ flex: 1, overflow: 'auto' }}
+                                className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
+                            >
+                                <h2 className="mt-3">
+                                    Search Registration Details
+                                </h2>
+                                <Row className="text-center justify-content-md-center my-4">
+                                    <Col md={9} lg={12}>
+                                        <Row>
+                                            <Col md={9} className="my-auto">
+                                                <Input
+                                                    {...inputField}
+                                                    id="organization_code"
+                                                    onChange={(e) =>
+                                                        handleOnChange(e)
+                                                    }
+                                                    value={diesCode}
+                                                    name="organization_code"
+                                                    placeholder="Enter Unique Code"
+                                                    className="w-100 mb-3 mb-md-0"
+                                                    style={{
+                                                        borderRadius: '60px',
+                                                        padding: '9px 11px'
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col md={3} className="partner-btn">
+                                                <Button
+                                                    label={'Search'}
+                                                    btnClass="primary tex-center my-0 py-0 mx-3 px-3"
+                                                    style={{
+                                                        fontSize: '15px',
+                                                        height: '35px'
+                                                    }}
+                                                    size="small"
+                                                    onClick={(e) =>
+                                                        handleSearch(e)
+                                                    }
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+
+                                {orgData &&
+                                orgData?.organization_name &&
+                                orgData?.mentor !== null ? (
+                                    <>
+                                        <div className="mb-5 p-3" ref={pdfRef}>
+                                            <div className="container-fluid card shadow border">
+                                                <div className="row">
+                                                    <div className="col">
+                                                        <h2 className="text-center m-3 text-primary ">
+                                                            Registration Details
+                                                        </h2>
+                                                        <hr />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <ul className="p-0">
-                                                        <li className="d-flex justify-content-between">
-                                                            School:
-                                                            <p>
-                                                                {
-                                                                    orgData.organization_name
-                                                                }
-                                                            </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            City:{' '}
-                                                            <p>
-                                                                {orgData.city}
-                                                            </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            District:{' '}
-                                                            <p>
-                                                                {
-                                                                    orgData.district
-                                                                }
-                                                            </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            Mentor Name:{' '}
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.full_name
-                                                                }
-                                                            </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            Mentor email:{' '}
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.user
-                                                                        ?.username
-                                                                }
-                                                            </p>
-                                                        </li>
-                                                    </ul>
+                                                <div className="row">
+                                                    <div className="col">
+                                                        <ul className="p-0">
+                                                            <li className="d-flex justify-content-between">
+                                                                School:
+                                                                <p>
+                                                                    {
+                                                                        orgData.organization_name
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                City:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData.city
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                District:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData.district
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                Mentor Name:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData
+                                                                            .mentor
+                                                                            ?.full_name
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                Mentor Mobile No
+                                                                :{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData
+                                                                            .mentor
+                                                                            ?.user
+                                                                            ?.username
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-between">
-                                        <button
-                                            onClick={handleEdit}
-                                            className="btn btn-warning btn-lg"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                handleresetpassword({
-                                                    mentor_id:
-                                                        orgData.mentor
-                                                            .mentor_id,
-                                                    organization_code:
-                                                        orgData.organization_code
-                                                })
-                                            }
-                                            className="btn btn-info rounded-pill px-4 btn-lg text-white"
-                                        >
-                                            Reset
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                downloadPDF();
-                                            }}
-                                            className="btn btn-primary rounded-pill px-4 btn-lg"
-                                        >
-                                            Download
-                                        </button>
-                                        <button
-                                            onClick={viewDetails}
-                                            className="btn btn-success rounded-pill px-4 btn-lg"
-                                        >
-                                            View Details
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                handleAlert(
-                                                    orgData.mentor?.user_id
-                                                );
-                                            }}
-                                            className="btn btn-danger btn-lg"
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
+                                        <div className="d-flex justify-content-between">
+                                            <button
+                                                onClick={handleEdit}
+                                                className="btn btn-warning btn-lg"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleresetpassword({
+                                                        mentor_id:
+                                                            orgData.mentor
+                                                                .mentor_id,
+                                                        organization_code:
+                                                            orgData.organization_code
+                                                    })
+                                                }
+                                                className="btn btn-info rounded-pill px-4 btn-lg text-white"
+                                            >
+                                                Reset
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    downloadPDF();
+                                                }}
+                                                className="btn btn-primary rounded-pill px-4 btn-lg"
+                                            >
+                                                Download
+                                            </button>
+                                            <button
+                                                onClick={viewDetails}
+                                                className="btn btn-success rounded-pill px-4 btn-lg"
+                                            >
+                                                View Details
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    handleAlert(
+                                                        orgData.mentor?.user_id
+                                                    );
+                                                }}
+                                                className="btn btn-danger btn-lg"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
 
-                                    <div className="mb-5 p-3">
-                                        <div className="container-fluid card shadow border">
-                                            <div className="row">
-                                                <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
-                                                        Mentor Details
-                                                    </h2>
-                                                    <hr />
+                                        <div className="mb-5 p-3">
+                                            <div className="container-fluid card shadow border">
+                                                <div className="row">
+                                                    <div className="col">
+                                                        <h2 className="text-center m-3 text-primary">
+                                                            Mentor Details
+                                                        </h2>
+                                                        <hr />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <DataTableExtensions
+                                                        print={false}
+                                                        export={false}
+                                                        {...MentorsData}
+                                                    >
+                                                        <DataTable
+                                                            noHeader
+                                                            defaultSortField="id"
+                                                            defaultSortAsc={
+                                                                false
+                                                            }
+                                                            highlightOnHover
+                                                        />
+                                                    </DataTableExtensions>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <DataTableExtensions
-                                                    print={false}
-                                                    export={false}
-                                                    {...MentorsData}
-                                                >
-                                                    <DataTable
-                                                        noHeader
-                                                        defaultSortField="id"
-                                                        defaultSortAsc={false}
-                                                        highlightOnHover
-                                                    />
-                                                </DataTableExtensions>
-                                            </div>
                                         </div>
+                                    </>
+                                ) : (
+                                    count != 0 && (
+                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                            <span>
+                                                Still No Teacher Registered
+                                            </span>
+                                        </div>
+                                    )
+                                )}
+                                {error && diesCode && (
+                                    <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
+                                        <span>{error}</span>
                                     </div>
-                                </>
-                            ) : (
-                                count != 0 && (
-                                    <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                        <span>Still No Teacher Registered</span>
+                                )}
+                                {!diesCode && (
+                                    <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                        <span className="text-primary fs-highlight">
+                                            Enter Unique Code
+                                        </span>
                                     </div>
-                                )
-                            )}
-                            {error && diesCode && (
-                                <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-                                    <span>{error}</span>
-                                </div>
-                            )}
-                            {!diesCode && (
-                                <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-                                    <span className="text-primary fs-highlight">
-                                        Enter Unique Code
-                                    </span>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
