@@ -261,12 +261,12 @@ const Dashboard = () => {
                                             {dashboardStates &&
                                             dashboardStates?.course_completed_count !==
                                                 undefined
-                                                ? `${
-                                                      (dashboardStates?.course_completed_count /
-                                                      dashboardStates?.Total_course_count) *
-                                                      100
-                                                  }%`
-                                                : '-'}
+                                                ? `${Math.round(
+                                                    (dashboardStates?.course_completed_count /
+                                                    dashboardStates?.Total_course_count) *
+                                                    100
+                                                    ) + ' %' }`
+                                              : '-'}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
