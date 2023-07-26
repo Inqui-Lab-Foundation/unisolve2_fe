@@ -5,11 +5,11 @@
             display: flex;
             .card {
                 display: flex;
-                border-radius: 0;
+                border-radius: 1;
                 width: max-content;
                 min-width: 24rem !important;
                 flex-direction: column;
-                justify-content: center !important;
+                justify-content: cen !important;
                 height: 12rem !important;
                 padding: 1rem;
                 font-size: 1.6rem;
@@ -112,4 +112,10 @@
     .singlediv{
         width: 100%;
     }
+  }
+
+  .cards{
+    padding: .5rem !important;
+    justify-content: left !important;
+    border-radius: 1 !important;
   }
