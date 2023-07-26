@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -108,7 +107,6 @@ import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
 import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
-
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
 
@@ -191,11 +189,6 @@ const Routers = () => {
                         exact
                         path="/playCourse/:id"
                         component={PlayVideoCourses}
-                    />
-                    <ProtectedRoute
-                        exact
-                        path="/notification"
-                        component={Notification}
                     />
                     <ProtectedRoute
                         exact
