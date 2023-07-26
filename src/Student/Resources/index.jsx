@@ -41,12 +41,12 @@ const StudentResources = () => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '10%'
+                width: '20rem'
             },
             {
                 name: 'Details',
                 selector: 'description',
-                width: '65%'
+                width: '50rem'
             },
             // {
             //     name: 'Type',
@@ -56,20 +56,30 @@ const StudentResources = () => {
             {
                 name: 'File/Link',
                 selector: 'attachments',
-                width: '25%',
+                width: '30rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
-                            <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
+                            <button className="btn btn-warning  mx-2">
+                                <a
+                                    href={record.attachments}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black' }}
+                                >
                                     Navigate
                                 </a>
                             </button>
                         );
                     } else if (record.type === 'link') {
                         return (
-                            <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
+                            <button className="btn btn-warning  mx-2">
+                                <a
+                                    href={record.attachments}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black' }}
+                                >
                                     Navigate
                                 </a>
                             </button>
@@ -92,10 +102,10 @@ const StudentResources = () => {
                     </Row>
 
                     <div className="my-2">
-                        <DataTableExtensions 
+                        <DataTableExtensions
                             print={false}
                             export={false}
-                            {...resData} 
+                            {...resData}
                             exportHeaders
                         >
                             <DataTable

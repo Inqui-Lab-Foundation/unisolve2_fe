@@ -15,7 +15,7 @@ import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-
+import { Row,Col } from 'reactstrap';
 export default function DoughnutChart({ user }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
@@ -122,13 +122,13 @@ export default function DoughnutChart({ user }) {
         {
             title: 'Name',
             dataIndex: 'full_name',
-            width: '20%'
+            width: '15rem'
         },
         {
             title: 'Pre Survey',
             dataIndex: 'pre_survey_status',
             align: 'center',
-            width: '10%',
+            width: '15rem',
             render: (_, record) =>
                 record?.pre_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -140,7 +140,7 @@ export default function DoughnutChart({ user }) {
             title: 'Lesson Progress',
             dataIndex: 'address',
             align: 'center',
-            width: '30%',
+            width: '30rem',
             render: (_, record) => {
                 let percent =
                     100 -
@@ -180,7 +180,7 @@ export default function DoughnutChart({ user }) {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
             align: 'center',
-            width: '20%',
+            width: '20rem',
             render: (_, record) =>
                 record?.idea_submission ? (
                     <FaCheckCircle size={20} color="green" />
@@ -192,7 +192,7 @@ export default function DoughnutChart({ user }) {
             title: 'Post Survey',
             dataIndex: 'post_survey_status',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.post_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -204,7 +204,7 @@ export default function DoughnutChart({ user }) {
             title: 'Certificate',
             dataIndex: 'certificate',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.certificate ? (
                     <FaCheckCircle size={20} color="green" />
@@ -239,12 +239,15 @@ export default function DoughnutChart({ user }) {
                     Team Progress:
                 </label>
                 <div className="d-flex align-items-center teamProgreess">
-                    <div className="row p-4 singlediv">
+                <Col md="3" xs="12">
+                    <div className="singlediv">
                         <select
                             onChange={(e) => setTeamId(e.target.value)}
                             name="teams"
                             id="teams"
-                            style={{ backgroundColor: 'lavender' }}
+                            style={{ backgroundColor: 'lavender',
+                            height: '40px', // Set the desired height
+                            fontSize: '16px',}}
                         >
                             <option value="">Select Team</option>
                             {teamsList && teamsList.length > 0 ? (
@@ -258,77 +261,73 @@ export default function DoughnutChart({ user }) {
                             )}
                         </select>
                     </div>
-                    <div className='singlediv'>
+                    </Col>
+                    {teamId && (
+    <>
+    <Row>
+                    <div className="singlediv">
                         <Card className="p-3 mx-4 d-flex flex-row">
                             <span className="fw-bold">IDEA STATUS :</span>
-                            <span style={{paddingLeft:'1rem'}}>
+                            <span style={{ paddingLeft: '1rem' }}>
                                 {challengesSubmittedResponse[0]?.status
                                     ? ` ${challengesSubmittedResponse[0]?.status}`
                                     : 'NOT STARTED'}
                             </span>
                         </Card>
                     </div>
-                    <div>
-                        <Button
-                            button="button"
-                            label="View Idea"
-                            disabled={
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? false
-                                    : true
-                            }
-                            btnClass={`${
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? 'primary'
-                                    : 'default'
-                            }`}
-                            size="small"
-                            shape="btn-square"
-                            onClick={() => setIdeaShow(true)}
-                        />
-                    </div>
-                    <div className="m-3">
-                        <Button
-                            label={'Change'}
-                            disabled={
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? false
-                                    : true
-                            }
-                            btnClass={`${
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? 'primary'
-                                    : 'default'
-                            }`}
-                            size="small"
-                            shape="btn-square"
-                            onClick={() => setChangeShow(true)}
-                        />
-                    </div>
-                    <div>
-                        {challengesSubmittedResponse[0]?.status ==
-                        'SUBMITTED' ? (
+                    </Row>
+                    <><div>
                             <Button
-                                className="btn btn-success btn-lg mr-5 mx-2"
-                                label={'REVOKE'}
+                                button="button"
+                                label="View Idea"
+                                disabled={teamsMembersStatus.length > 0 &&
+                                    challengesSubmittedResponse[0]?.status
+                                    ? false
+                                    : true}
+                                btnClass={`${teamsMembersStatus.length > 0 &&
+                                        challengesSubmittedResponse[0]?.status
+                                        ? 'primary'
+                                        : 'default'}`}
                                 size="small"
                                 shape="btn-square"
-                                onClick={() =>
-                                    handleRevoke(
-                                        challengesSubmittedResponse[0]
-                                            .challenge_response_id,
-                                        challengesSubmittedResponse[0].status
-                                    )
-                                }
-                            />
-                        ) : (
-                            ''
-                        )}
-                    </div>
+                                style={{ padding: '1rem 2.4rem' }}
+                                onClick={() => setIdeaShow(true)} />
+                        </div><div className="m-3">
+                                <Button
+                                    label={' Change  '}
+                                    disabled={teamsMembersStatus.length > 0 &&
+                                        challengesSubmittedResponse[0]?.status
+                                        ? false
+                                        : true}
+                                    btnClass={`${teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]?.status
+                                            ? 'primary'
+                                            : 'default'}`}
+                                    size="small"
+                                    shape="btn-square"
+                                    style={{ padding: '1rem 3rem' }}
+                                    onClick={() => setChangeShow(true)} />
+                            </div><div>
+                                {challengesSubmittedResponse[0]?.status ==
+                                    'SUBMITTED' ? (
+                                    <Button
+                                        className="btn btn-success btn-lg mr-5 mx-2"
+                                        label={'REVOKE'}
+                                        size="small"
+                                        shape="btn-square"
+                                        style={{ padding: '1rem 3rem', fontSize: '14px' }}
+                                        onClick={() => handleRevoke(
+                                            challengesSubmittedResponse[0]
+                                                .challenge_response_id,
+                                            challengesSubmittedResponse[0].status
+                                        )} />
+                                ) : (
+                                    ''
+                                )}
+                            </div></>
+                    </>
+                    
+                    )}
                 </div>
                 {showDefault && (
                     <div

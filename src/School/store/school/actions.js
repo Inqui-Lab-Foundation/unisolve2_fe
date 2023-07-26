@@ -24,7 +24,6 @@ export const schoolLoginUserError = (message) => async (dispatch) => {
     });
 };
 export const schoolLoginUser = (data, history, module) => async (dispatch) => {
-    console.log('1');
     try {
         const loginData = {
             ...data
@@ -38,7 +37,6 @@ export const schoolLoginUser = (data, history, module) => async (dispatch) => {
             .catch((err) => {
                 return err.response;
             });
-        console.log(result);
         if (result && result.status === 200) {
             const item = result.data;
             setCurrentUser(item);

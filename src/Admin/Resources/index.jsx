@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import {useState} from 'react';
-import React, {useEffect} from 'react';
+import { useState } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../Layout';
-import { Container, Row, Col} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -25,9 +25,7 @@ const AdminResources = () => {
         //  handleResList Api where we can see list of all resource //
         let config = {
             method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/resource',
+            url: process.env.REACT_APP_API_BASE_URL + '/resource',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -57,32 +55,34 @@ const AdminResources = () => {
     };
 
     const handleDelete = async (item) => {
-        const resourceID = item.resource_id; 
-        const confirmed = window.confirm('Are you sure you want to delete this resource?');
+        const resourceID = item.resource_id;
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this resource?'
+        );
         if (!confirmed) {
             return;
         }
         try {
-          const response = await axios.delete(
-            `${process.env.REACT_APP_API_BASE_URL}/resource/${resourceID}`,
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-              }
-            }
-          );
-          if (response.status === 200) {
-            openNotificationWithIcon(
-                'success',
-                'Resource succesfully deleted'
+            const response = await axios.delete(
+                `${process.env.REACT_APP_API_BASE_URL}/resource/${resourceID}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                    }
+                }
             );
-            handleResList();
-          }
+            if (response.status === 200) {
+                openNotificationWithIcon(
+                    'success',
+                    'Resource succesfully deleted'
+                );
+                handleResList();
+            }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+    };
 
     // const handleDic = (item) => {
     //     // where we can select district //
@@ -159,8 +159,7 @@ const AdminResources = () => {
     //     <createResource staticData={staticData} />,
     //     document.getElementById('root')
     // );
-      
-    
+
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
         // data: staticData,
@@ -184,13 +183,13 @@ const AdminResources = () => {
             {
                 name: 'Role',
                 selector: 'role',
-                width: '10%'
+                width: '10rem'
                 // center: true,
             },
             {
                 name: 'Details',
                 selector: 'description',
-                width: '35%'
+                width: '35rem'
             },
             // {
             //     name: 'Type',
@@ -216,20 +215,30 @@ const AdminResources = () => {
             {
                 name: 'File/Link',
                 selector: 'attachments',
-                width: '15%',
+                width: '15rem',
                 cell: (record) => {
                     if (record.type === 'file') {
                         return (
-                            <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
+                            <button className="btn btn-warning  mx-2">
+                                <a
+                                    href={record.attachments}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black' }}
+                                >
                                     Navigate
                                 </a>
                             </button>
                         );
                     } else if (record.type === 'link') {
                         return (
-                            <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
+                            <button className="btn btn-warning  mx-2">
+                                <a
+                                    href={record.attachments}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black' }}
+                                >
                                     Navigate
                                 </a>
                             </button>
@@ -242,7 +251,7 @@ const AdminResources = () => {
                 name: 'Actions',
                 selector: 'action',
                 center: true,
-                width: '30%',
+                width: '30rem',
                 cell: (record) => [
                     <>
                         <div

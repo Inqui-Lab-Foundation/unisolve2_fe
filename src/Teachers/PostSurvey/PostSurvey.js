@@ -60,13 +60,11 @@ const PostSurvey = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-        console.log(newItems);
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
                 e.target.type === 'checkbox' ? [e.target.value] : e.target.value
         };
-        console.log(obj);
         const findExistanceIndex = newItems.findIndex(
             (item) =>
                 parseInt(item?.quiz_survey_question_id) ===
