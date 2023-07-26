@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import {useState} from 'react';
-import React, {useEffect} from 'react';
+import { useState } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../Layout';
-import { Container, Row, Col} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -24,9 +24,7 @@ const AdminLatestNews = () => {
     async function handleResList() {
         let config = {
             method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/latest_news',
+            url: process.env.REACT_APP_API_BASE_URL + '/latest_news',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -47,6 +45,39 @@ const AdminLatestNews = () => {
             });
     }
 
+    async function handleNewStatus(data,value) {
+        const body ={
+            status:data.status,
+            category:data.category,
+            details:data.details,
+            new_status:value
+        };
+        let config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + `/latest_news/${data.latest_news_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data:JSON.stringify(body)
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if(value === '0'){
+                        openNotificationWithIcon('success', 'New Status Disabled successfully');
+                    }
+                    else if(value === '1'){
+                        openNotificationWithIcon('success', 'New Status Enabled successfully');
+                    }
+                    handleResList();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     const handleEdit = (item) => {
         // where we can edit level name, no of evaluation //
         history.push({
@@ -56,192 +87,117 @@ const AdminLatestNews = () => {
     };
 
     const handleDelete = async (item) => {
-        const newsID = item.latest_news_id; 
-        const confirmed = window.confirm('Are you sure you want to delete this news?');
+        const newsID = item.latest_news_id;
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this news?'
+        );
         if (!confirmed) {
             return;
         }
         try {
-          const response = await axios.delete(
-            `${process.env.REACT_APP_API_BASE_URL}/resource/${newsID}`,
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-              }
-            }
-          );
-          if (response.status === 200) {
-            openNotificationWithIcon(
-                'success',
-                'News succesfully deleted'
+            const response = await axios.delete(
+                `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsID}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                    }
+                }
             );
-            handleResList();
-          }
+            if (response.status === 200) {
+                openNotificationWithIcon('success', 'News succesfully deleted');
+                handleResList();
+            }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+    };
 
-    // const handleDic = (item) => {
-    //     // where we can select district //
-    //     // where item = district //
-    //     history.push({
-    //         pathname: '/admin/selectingDistricts-evaluationProcess'
-    //     });
-    //     localStorage.setItem('eavlId', JSON.stringify(item));
-    // };
-
-    // const handleActiveStatusUpdate = (item, itemA) => {
-    //     // where we can update the evaluation status //
-    //     // where item = evaluation process id //
-    //     // where itemA = status //
-    //     const body = {
-    //         status: itemA,
-    //         role: item.role,
-    //         details: item.details,
-    //         type: item.type
-    //     };
-    //     var config = {
-    //         method: 'put',
-    //         url:
-    //             process.env.REACT_APP_API_BASE_URL +
-    //             '/resource/' +
-    //             item.evaluation_process_id,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             // console.log(response);
-    //             if (response.status === 200) {
-    //                 handleResList();
-
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Status update successfully'
-    //                 );
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //             openNotificationWithIcon('error', 'Something went wrong');
-    //         });
-    // };
-
-    // let staticData = [
-    //     {
-    //       id: 1,
-    //       role: 'Schema 1',
-    //       details: 'd1',
-    //       type: 'file',
-    //       file: 'f1.pdf',
-    //       link: ''
-    //       // other properties...
-    //     },
-    //     {
-    //       id: 2,
-    //       role: 'Schema 2',
-    //       details: 'd2',
-    //       type: 'link',
-    //       file: '',
-    //       link: 'https://drive.google.com/file/d/1X_VjJzR1RpGdpPotYNknpCNPm4DZgmzt/view?usp=sharing'
-    //       // other properties...
-    //     },
-    //     // Add more objects as needed
-    //   ];
-
-    //   ReactDOM.render(
-    //     <createResource staticData={staticData} />,
-    //     document.getElementById('root')
-    // );
-      
-    
+   
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
-        // data: staticData,
         columns: [
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 sortable: true,
-                width: '10%'
-                // center: true,
+                width: '10rem'
             },
-            // {
-            //     name: 'Evaluation Id',
-            //     selector: 'evaluation_process_id',
-            //     // cellExport: (row) => row.evaluation_process_id,
-
-            //     sortable: true,
-            //     width: '12%'
-            //     // center: true,
-            // },
             {
                 name: 'Role',
-                selector: 'role',
-                width: '10%'
-                // center: true,
+                selector: 'category',
+                width: '12rem'
+            },
+            {
+                name: 'New_status',
+                width: '12rem',
+                cell: (record) => {
+                    if(record.new_status === '1'){
+                        return (
+                            <button className="btn btn-danger btn-lg mx-2" onClick={()=>{handleNewStatus(record,'0');}}>
+                                Disable
+                            </button>
+                        );
+                    }else if (record.new_status === '0'){
+                        return (
+                            <button className="btn btn-success btn-lg mx-2" onClick={()=>{handleNewStatus(record,'1');}}>
+                                Enable
+                            </button>
+                        );
+                    }  
+                }
             },
             {
                 name: 'Details',
-                selector: 'description',
-                width: '35%'
+                selector: 'details',
+                width: '40rem'
             },
-            // {
-            //     name: 'Type',
-            //     selector: 'type',
-            //     width: '15%',
-            //     // cell: (record) => {
-            //     //     if (record.type === 'file') {
-            //     //         return (
-            //     //             <a href={record.file} download>
-            //     //                 <button className="btn btn-primary">Download</button>
-            //     //             </a>
-            //     //         );
-            //     //     } else if (record.type === 'link') {
-            //     //         return (
-            //     //             <a href={record.navigation}>
-            //     //                 <button className="btn btn-primary">Navigate</button>
-            //     //             </a>
-            //     //         );
-            //     //     }
-            //     //     return null;
-            //     // },
-            // },
             {
-                name: 'File/Link',
-                selector: 'attachments',
-                width: '15%',
+                name: 'File',
+                width: '13rem',
                 cell: (record) => {
-                    if (record.type === 'file') {
+                    if (record.file_name === null) {
+                        return <p>No file</p>;
+                    } else {
                         return (
                             <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
-                                    Navigate
-                                </a>
-                            </button>
-                        );
-                    } else if (record.type === 'link') {
-                        return (
-                            <button className="btn btn-warning btn-lg mx-2">
-                                <a href={record.attachments} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
-                                    Navigate
+                                <a
+                                    href={record.file_name}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'black' }}
+                                >
+                                    Download
                                 </a>
                             </button>
                         );
                     }
-                    return null;
+                }
+            },
+            {
+                name: 'Link',
+                width: '13rem',
+                cell: (record) => {
+                    if (record.url === null) {
+                        return <p>No link</p>;
+                    } else {
+                        return (
+                            <a
+                                href={record.url}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Navigate
+                            </a>
+                        );
+                    }
                 }
             },
             {
                 name: 'Actions',
+                width: '20rem',
                 selector: 'action',
                 center: true,
-                width: '30%',
                 cell: (record) => [
                     <>
                         <div
@@ -263,43 +219,6 @@ const AdminLatestNews = () => {
                                 DELETE
                             </div>
                         </div>
-                        {/* <Link
-                            exact="true"
-                            key={record}
-                            onClick={() => handleDic(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-success btn-lg mx-2">
-                                DISTRICTS
-                            </div>
-                        </Link> */}
-                        {/* {record.status == 'ACTIVE' ? (
-                            <Link
-                                exact="true"
-                                key={record}
-                                onClick={() =>
-                                    handleActiveStatusUpdate(record, 'INACTIVE')
-                                }
-                                style={{ marginRight: '5px' }}
-                            >
-                                <div className="btn btn-danger btn-lg  mx-2">
-                                    INACTIVE
-                                </div>
-                            </Link>
-                        ) : (
-                            <Link
-                                exact="true"
-                                key={record}
-                                onClick={() =>
-                                    handleActiveStatusUpdate(record, 'ACTIVE')
-                                }
-                                style={{ marginRight: '12px' }}
-                            >
-                                <div className="btn btn-warning btn-lg  mx-2">
-                                    ACTIVE
-                                </div>
-                            </Link>
-                        )} */}
                     </>
                 ]
             }
