@@ -5,16 +5,16 @@ import { useHistory } from 'react-router-dom';
 import { getCurrentUser } from '../../../helpers/Utils.js';
 import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
-import AvatarImg from '../../../assets/media/img/Avatar.png';
-import topCard1 from '../../../assets/media/img/admin-card-1.png';
-import topCard2 from '../../../assets/media/img/admin-card-2.png';
-import vector from '../../../assets/media/img/vector.png';
-import vector1 from '../../../assets/media/img/Vector-1.png';
-import vector2 from '../../../assets/media/img/Vector-2.png';
-import vector3 from '../../../assets/media/img/Vector-3.png';
+// import AvatarImg from '../../../assets/media/img/Avatar.png';
+// import topCard1 from '../../../assets/media/img/admin-card-1.png';
+// import topCard2 from '../../../assets/media/img/admin-card-2.png';
+// import vector from '../../../assets/media/img/vector.png';
+// import vector1 from '../../../assets/media/img/Vector-1.png';
+// import vector2 from '../../../assets/media/img/Vector-2.png';
+// import vector3 from '../../../assets/media/img/Vector-3.png';
 import './dashboard.scss';
-import TopSectionCard from './sections/TopSectionCard.jsx';
-import DashboardOverviewCard from './DashboardOverviewCard.jsx';
+// import TopSectionCard from './sections/TopSectionCard.jsx';
+// import DashboardOverviewCard from './DashboardOverviewCard.jsx';
 import { Table } from 'antd';
 import { Progress } from 'reactstrap';
 import { useDispatch } from 'react-redux';
@@ -25,8 +25,9 @@ import {
     getStudentDashboardTeamProgressStatus,
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
-import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
+//import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
 import LatestNews from './LatestNews.js';
+import { Card } from 'react-bootstrap';
 
 const Dashboard = () => {
     // here we can see all the details of student //
@@ -38,15 +39,15 @@ const Dashboard = () => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
-    const dashboardChallengesStatus = useSelector(
-        (state) => state?.studentRegistration.dashboardChallengesStatus
-    );
+    // const dashboardChallengesStatus = useSelector(
+    //     (state) => state?.studentRegistration.dashboardChallengesStatus
+    // );
     const dashboardTeamProgressStatus = useSelector(
         (state) => state?.studentRegistration.dashboardTeamProgressStatus
     );
-    const teamMember = useSelector(
-        (state) => state?.studentRegistration.teamMember
-    );
+    // const teamMember = useSelector(
+    //     (state) => state?.studentRegistration.teamMember
+    // );
 
     const presuveyStatusGl = useSelector(
         (state) => state?.studentRegistration.presuveyStatusGl
@@ -83,42 +84,42 @@ const Dashboard = () => {
             history.push('/student/pre-survey');
     }, [presuveyStatusGl]);
 
-    const cardData = {
-        idea: {
-            heading: 'Notice Board',
-            deadline: `${
-                dashboardChallengesStatus
-                    ? dashboardChallengesStatus?.end_date
-                    : '-'
-            }`,
-            subHeading: 'Idea  Submission',
-            footerText: 'With Team Members',
-            teamImages: [AvatarImg, AvatarImg, AvatarImg],
-            rightImage: topCard1,
-            position: 1
-        },
-        profile: {
-            heading: 'User Profile',
-            rightImage: topCard2,
-            position: 2,
-            footerLabels: {
-                heading: 'Badges',
-                value:
-                    dashboardStatus && dashboardStatus?.badges_earned_count
-                        ? dashboardStatus?.badges_earned_count
-                        : 0
-            }
-        },
-        teacher: {
-            heading: 'Institute Details',
-            rightImage: topCard2,
-            position: 2,
-            footerLabels: {
-                heading: 'Team Count',
-                value: 5
-            }
-        }
-    };
+    // const cardData = {
+    //     idea: {
+    //         heading: 'Notice Board',
+    //         deadline: `${
+    //             dashboardChallengesStatus
+    //                 ? dashboardChallengesStatus?.end_date
+    //                 : '-'
+    //         }`,
+    //         subHeading: 'Idea  Submission',
+    //         footerText: 'With Team Members',
+    //         teamImages: [AvatarImg, AvatarImg, AvatarImg],
+    //         rightImage: topCard1,
+    //         position: 1
+    //     },
+    //     profile: {
+    //         heading: 'User Profile',
+    //         rightImage: topCard2,
+    //         position: 2,
+    //         footerLabels: {
+    //             heading: 'Badges',
+    //             value:
+    //                 dashboardStatus && dashboardStatus?.badges_earned_count
+    //                     ? dashboardStatus?.badges_earned_count
+    //                     : 0
+    //         }
+    //     },
+    //     teacher: {
+    //         heading: 'Institute Details',
+    //         rightImage: topCard2,
+    //         position: 2,
+    //         footerLabels: {
+    //             heading: 'Team Count',
+    //             value: 5
+    //         }
+    //     }
+    // };
 
     const percentageBWNumbers = (a, b) => {
         // here a = all_topics_count ; b= topics_completed_count //
@@ -226,123 +227,277 @@ const Dashboard = () => {
         }
     ];
 
+    // return (
+    //         <Layout>
+    //             <Container className="dashboard-wrapper">
+    //                 <div className="d-flex justify-content-between align-items-center">
+    //                     <h2>Dashboard</h2>
+    //                     <div
+    //                         className="bg-white rounded p-3 d-flex align-items-center"
+    //                         style={{ width: 'max-content' }}
+    //                     >
+    //                         <p>Preferred Language : </p>
+    //                         <LanguageSelectorComp module="student" />
+    //                     </div>
+    //                 </div>
+    //                 <hr />
+    //                 <Row className="d-flex flex-start mb-5" style={{ gap: '1rem' }}>
+    //                     <TopSectionCard
+    //                         heading={cardData.idea.heading}
+    //                         deadline={cardData.idea.deadline}
+    //                         subHeading={cardData.idea.subHeading}
+    //                         footerText={cardData.idea.footerText}
+    //                         rightImage={cardData.idea.rightImage}
+    //                         position={cardData.idea.position}
+    //                     />
+    //                     <TopSectionCard
+    //                         heading={cardData.profile.heading}
+    //                         footerLabels={cardData.profile.footerLabels}
+    //                         rightImage={cardData.profile.rightImage}
+    //                         position={cardData.profile.position}
+    //                         name={
+    //                             currentUser && currentUser?.data[0]?.full_name
+    //                                 ? currentUser?.data[0]?.full_name
+    //                                 : '-'
+    //                         }
+    //                         email={
+    //                             currentUser && currentUser?.data[0]?.team_name
+    //                                 ? currentUser?.data[0]?.team_name
+    //                                 : '-'
+    //                         }
+    //                         mentorData={
+    //                             teamMember && teamMember?.team?.mentor
+    //                                 ? teamMember?.team?.mentor
+    //                                 : null
+    //                         }
+    //                     />
+    //                     <TopSectionCard
+    //                         heading={cardData.teacher.heading}
+    //                         footerLabels={cardData.teacher.footerLabels}
+    //                         rightImage={cardData.teacher.rightImage}
+    //                         position={cardData.teacher.position}
+    //                         type="teacher"
+    //                         organiZation={
+    //                             teamMember && teamMember?.team?.mentor
+    //                                 ? teamMember?.team?.mentor?.organization
+    //                                 : null
+    //                         }
+    //                     />
+    //                 </Row>
+    //                 <Row className="flex-start mb-5" style={{ gap: '1rem' }}>
+    //                     <DashboardOverviewCard
+    //                         title={'Completed Videos'}
+    //                         count={
+    //                             dashboardStatus &&
+    //                             dashboardStatus?.videos_completed_count
+    //                                 ? dashboardStatus?.videos_completed_count
+    //                                 : 0
+    //                         }
+    //                         image={vector2}
+    //                     />
+    //                     <DashboardOverviewCard
+    //                         title={'Completed Quiz'}
+    //                         count={
+    //                             dashboardStatus &&
+    //                             dashboardStatus?.quiz_completed_count
+    //                                 ? dashboardStatus?.quiz_completed_count
+    //                                 : 0
+    //                         }
+    //                         image={vector1}
+    //                     />
+
+    //                     <DashboardOverviewCard
+    //                         title={'Completed Worksheets'}
+    //                         count={
+    //                             dashboardStatus &&
+    //                             dashboardStatus?.worksheet_completed_count
+    //                                 ? dashboardStatus?.worksheet_completed_count
+    //                                 : 0
+    //                         }
+    //                         image={vector3}
+    //                     />
+    //                     <DashboardOverviewCard
+    //                         title={'Overall Progress'}
+    //                         count={
+    //                             Math.round(
+    //                                 100 -
+    //                                     percentageBWNumbers(
+    //                                         dashboardStatus?.all_topics_count,
+    //                                         dashboardStatus?.topics_completed_count
+    //                                     )
+    //                             ) + ' %'
+    //                         }
+    //                         image={vector}
+    //                     />
+    //                 </Row>
+    //                 <Row>
+    //                     <Col>
+    //                         <div>
+    //                             <LatestNews usersdata={currentUser?.data} />
+    //                         </div>
+    //                     </Col>
+    //                 </Row>
+    //                 <Row
+    //                     className="course-team flex-start mb-5"
+    //                     style={{ gap: '1rem' }}
+    //                 >
+    //                     <Col md={12} className="flex-2 team-progress">
+    //                         <h2>Team Progress</h2>
+    //                         <div className="bg-white team-progress rounded  p-3">
+    //                             <div className="row flex-column p-2">
+    //                                 <label
+    //                                     htmlFor="teams"
+    //                                     className="mb-3 text-capitalize"
+    //                                 >
+    //                                     <span>
+    //                                         {currentUser?.data[0]?.team_name}
+    //                                     </span>
+    //                                 </label>
+    //                             </div>
+    //                             <Table
+    //                                 bordered
+    //                                 pagination={false}
+    //                                 dataSource={dashboardTeamProgressStatus}
+    //                                 columns={columns}
+    //                             />
+    //                         </div>
+    //                     </Col>
+    //                 </Row>
+    //             </Container>
+    //         </Layout>
+    //    );
+    // };
+    //export default Dashboard;
     return (
         <Layout>
-            <Container className="dashboard-wrapper">
-                <div className="d-flex justify-content-between align-items-center">
-                    <h2>Dashboard</h2>
-                    <div
-                        className="bg-white rounded p-3 d-flex align-items-center"
-                        style={{ width: 'max-content' }}
-                    >
-                        <p>Preferred Language : </p>
-                        <LanguageSelectorComp module="student" />
-                    </div>
+            <Container>
+                <h2>Dashboard</h2>
+                {/* {!dashboardStates ? (
+                <div style={{ width: '10rem', margin: 'auto' }}>
+                     <DoubleBounce /> 
                 </div>
-                <hr />
-                <Row className="d-flex flex-start mb-5" style={{ gap: '1rem' }}>
-                    <TopSectionCard
-                        heading={cardData.idea.heading}
-                        deadline={cardData.idea.deadline}
-                        subHeading={cardData.idea.subHeading}
-                        footerText={cardData.idea.footerText}
-                        rightImage={cardData.idea.rightImage}
-                        position={cardData.idea.position}
-                    />
-                    <TopSectionCard
-                        heading={cardData.profile.heading}
-                        footerLabels={cardData.profile.footerLabels}
-                        rightImage={cardData.profile.rightImage}
-                        position={cardData.profile.position}
-                        name={
-                            currentUser && currentUser?.data[0]?.full_name
-                                ? currentUser?.data[0]?.full_name
-                                : '-'
-                        }
-                        email={
-                            currentUser && currentUser?.data[0]?.team_name
-                                ? currentUser?.data[0]?.team_name
-                                : '-'
-                        }
-                        mentorData={
-                            teamMember && teamMember?.team?.mentor
-                                ? teamMember?.team?.mentor
-                                : null
-                        }
-                    />
-                    <TopSectionCard
-                        heading={cardData.teacher.heading}
-                        footerLabels={cardData.teacher.footerLabels}
-                        rightImage={cardData.teacher.rightImage}
-                        position={cardData.teacher.position}
-                        type="teacher"
-                        organiZation={
-                            teamMember && teamMember?.team?.mentor
-                                ? teamMember?.team?.mentor?.organization
-                                : null
-                        }
-                    />
-                </Row>
-                <Row className="flex-start mb-5" style={{ gap: '1rem' }}>
-                    <DashboardOverviewCard
-                        title={'Completed Videos'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.videos_completed_count
-                                ? dashboardStatus?.videos_completed_count
-                                : 0
-                        }
-                        image={vector2}
-                    />
-                    <DashboardOverviewCard
-                        title={'Completed Quiz'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.quiz_completed_count
-                                ? dashboardStatus?.quiz_completed_count
-                                : 0
-                        }
-                        image={vector1}
-                    />
-
-                    <DashboardOverviewCard
-                        title={'Completed Worksheets'}
-                        count={
-                            dashboardStatus &&
-                            dashboardStatus?.worksheet_completed_count
-                                ? dashboardStatus?.worksheet_completed_count
-                                : 0
-                        }
-                        image={vector3}
-                    />
-                    <DashboardOverviewCard
-                        title={'Overall Progress'}
-                        count={
-                            Math.round(
-                                100 -
-                                    percentageBWNumbers(
-                                        dashboardStatus?.all_topics_count,
-                                        dashboardStatus?.topics_completed_count
-                                    )
-                            ) + ' %'
-                        }
-                        image={vector}
-                    />
-                </Row>
+                ) : ( */}
                 <Row>
+                    <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
+                        <Row>
+                            <Card bg="light" text="dark" className="mb-2">
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Completed Videos
+                                    </label>
+
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.videos_completed_count
+                                            ? dashboardStatus?.videos_completed_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row>
+                            <Card bg="light" text="dark" className="mb-2">
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Course Completion
+                                    </label>
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {Math.round(
+                                            100 -
+                                                percentageBWNumbers(
+                                                    dashboardStatus?.all_topics_count,
+                                                    dashboardStatus?.topics_completed_count
+                                                )
+                                        ) + ' %'}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Col>
+                    <Col style={{paddingRight: '15px', marginBottom: '20px'}}>
+                        <Row>
+                            <Card bg="light" text="dark" className="mb-2">
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Completed Quiz
+                                    </label>
+                                    <Card.Text
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.quiz_completed_count
+                                            ? dashboardStatus?.quiz_completed_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row>
+                            <Card bg="light" text="dark" className="mb-2">
+                                <Card.Body>
+                                    <label htmlFor="teams" className="">
+                                        Earned Badges
+                                    </label>
+
+                                    <Card.Text
+                                        className="left-aligned"
+                                        style={{
+                                            fontSize: '48px',
+                                            fontWeight: 'bold',
+                                            marginTop: '10px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        {dashboardStatus &&
+                                        dashboardStatus?.badges_earned_count
+                                            ? dashboardStatus?.badges_earned_count
+                                            : 0}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Col>
+
                     <Col>
-                        <div>
-                            <LatestNews usersdata={currentUser?.data} />
-                        </div>
+                        <Card bg="light" text="dark" className=" md-3 xs-12 ">
+                            <Card.Body style={{ overflowX: 'auto' }}>
+                                <LatestNews usersdata={currentUser?.data} />
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
+
                 <Row
                     className="course-team flex-start mb-5"
                     style={{ gap: '1rem' }}
                 >
                     <Col md={12} className="flex-2 team-progress">
-                        <h2>Team Progress</h2>
-                        <div className="bg-white team-progress rounded  p-3">
+                    <label htmlFor="teams" className="">
+                    Team Progress:
+                </label>
+                        <div
+                            className="bg-white team-progress rounded  p-3"
+                            style={{ overflowX: 'auto' }}
+                        >
                             <div className="row flex-column p-2">
                                 <label
                                     htmlFor="teams"
@@ -366,5 +521,4 @@ const Dashboard = () => {
         </Layout>
     );
 };
-
 export default Dashboard;
