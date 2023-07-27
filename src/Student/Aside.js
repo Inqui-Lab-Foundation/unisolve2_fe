@@ -84,7 +84,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 <img
                                     src={Logo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
@@ -156,9 +156,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<FaLandmark/>}
+                        icon={<FaLandmark />}
                         className={
-                            (location.pathname === '/Student/Resources' ) && 
+                            location.pathname === '/Student/Resources' &&
                             'sidebar-active'
                         }
                     >
