@@ -271,7 +271,7 @@ const ViewTeamMember = (props) => {
                             )
                     ];
                 },
-                width: '12%',
+                width: '12rem',
                 center: true
             }
         ]
