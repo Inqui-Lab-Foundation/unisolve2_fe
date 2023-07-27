@@ -11,8 +11,6 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import { URL, KEY } from '../../constants/defaultValues';
-// import { staticData } from './index';
 
 const CreateLatestNews = (props) => {
     const { t } = useTranslation();
@@ -36,8 +34,6 @@ const CreateLatestNews = (props) => {
         ]
     };
 
-    // const [selectedType, setSelectedType] = React.useState('');
-    // const fileInputRef = React.useRef(null);
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -67,7 +63,6 @@ const CreateLatestNews = (props) => {
         }
 
         formik.setFieldValue('file_name', file);
-        console.log(file,"-----");
     };
 
     const formik = useFormik({
@@ -75,24 +70,22 @@ const CreateLatestNews = (props) => {
             role: '',
             details: '',
             file_name: '',
-            url:'',
-            new_status:''
+            url: '',
+            new_status: ''
         },
         validationSchema: Yup.object({
             role: Yup.string()
                 .optional()
                 .oneOf(['mentor', 'student'], 'Role is Required'),
-            details: Yup.string()
-                .optional()
-                .required('details is Required'),
+            details: Yup.string().optional().required('details is Required'),
             new_status: Yup.string()
                 .optional()
-                .oneOf(['0','1'], 'New Status type is Required'),
-            file_name: Yup.string(),
-            url:Yup.string()
+                .oneOf(['0', '1'], 'New Status type is Required'),
+            file_name: Yup.mixed(),
+            url: Yup.string()
         }),
         onSubmit: async (values) => {
-          console.log(values.file_name);
+            console.log(values.file_name,"-----kugiuiug---" ,values.file_name !== '');
             try {
                 if (values.file_name !== '') {
                     const fileData = new FormData();
@@ -109,14 +102,14 @@ const CreateLatestNews = (props) => {
                         }
                     );
                     values.file_name =
-                        response?.data?.data[0].file_name.toString();
+                        response?.data?.data[0].attachments[0].toString();
                 }
                 const body = {
-                  category: values.role,
-                  details: values.details,
-                  new_status:values.new_status,
-                  file_name: values.file_name,
-                  url:values.url
+                    category: values.role,
+                    details: values.details,
+                    new_status: values.new_status,
+                    file_name: values.file_name,
+                    url: values.url
                 };
 
                 const response = await axios.post(
@@ -183,7 +176,10 @@ const CreateLatestNews = (props) => {
                                                     {formik.errors.role}
                                                 </small>
                                             )}
-                                         <Label className="mb-2" htmlFor="new_status">
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="new_status"
+                                        >
                                             New Status
                                         </Label>
                                         <select
@@ -197,12 +193,8 @@ const CreateLatestNews = (props) => {
                                             <option value="">
                                                 Select New Status
                                             </option>
-                                            <option value="0">
-                                            Disable
-                                            </option>
-                                            <option value="1">
-                                            Enable
-                                            </option>
+                                            <option value="0">Disable</option>
+                                            <option value="1">Enable</option>
                                         </select>
                                         {formik.touched.new_status &&
                                             formik.errors.new_status && (
@@ -264,8 +256,8 @@ const CreateLatestNews = (props) => {
                                             formik.values.file_name.name ? (
                                                 <span className="ml-2">
                                                     {
-                                                        formik.values
-                                                            .file_name.name
+                                                        formik.values.file_name
+                                                            .name
                                                     }
                                                 </span>
                                             ) : (
@@ -284,10 +276,7 @@ const CreateLatestNews = (props) => {
                                                 </small>
                                             )}
 
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="url"
-                                        >
+                                        <Label className="mb-2" htmlFor="url">
                                             Link
                                         </Label>
                                         <Input

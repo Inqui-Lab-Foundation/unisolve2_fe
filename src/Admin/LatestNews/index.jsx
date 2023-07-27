@@ -83,7 +83,7 @@ const AdminLatestNews = () => {
         history.push({
             pathname: '/admin/LatestNews/editLatestNews'
         });
-        localStorage.setItem('resID', JSON.stringify(item));
+        localStorage.setItem('newsID', JSON.stringify(item));
     };
 
     const handleDelete = async (item) => {
