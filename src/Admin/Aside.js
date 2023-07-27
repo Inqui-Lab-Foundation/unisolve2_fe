@@ -11,8 +11,8 @@ import FAQICON from '../assets/media/FAQICON.png';
 import InstituionsIcon from '../assets/media/InstitutionsIcon.jpg';
 import ProfileIcon from '../assets/media/ProfileIcon.png';
 import logoutIcon from '../assets/media/logoutIcon.png';
-import ResourceIcon from'../assets/media/resourceIcon.png';
-import PopupIcon from'../assets/media/popupIcon.png';
+import ResourceIcon from '../assets/media/resourceIcon.png';
+import PopupIcon from '../assets/media/popupIcon.png';
 import EvalConifIcon from '../assets/media/EvalConifIcon.png';
 
 import {
@@ -74,7 +74,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 <img
                                     src={Logo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
@@ -237,10 +237,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     </MenuItem>
                     <MenuItem
                         icon={
-                            <img
-                                src={ResourceIcon}
-                                style={{ width: '20px' }}
-                            />
+                            <img src={ResourceIcon} style={{ width: '20px' }} />
                         }
                         className={
                             location.pathname === '/admin/Resources/index' &&
@@ -252,12 +249,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={
-                            <img
-                                src={PopupIcon}
-                                style={{ width: '20px' }}
-                            />
-                        }
+                        icon={<img src={PopupIcon} style={{ width: '20px' }} />}
                         className={
                             location.pathname === '/admin/popup' &&
                             'sidebar-active'

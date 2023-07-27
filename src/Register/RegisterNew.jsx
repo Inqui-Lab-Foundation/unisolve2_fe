@@ -170,21 +170,24 @@ function RegisterNew() {
                         if (mentorRegRes?.data?.status == 201) {
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
-                                full_name: mentorRegRes?.data?.data[0].full_name ,
+                                full_name:
+                                    mentorRegRes?.data?.data[0].full_name,
                                 district: orgData?.district,
                                 school: orgData?.organization_name,
-                                organization_code: mentorRegRes?.data?.data[0].organization_code,
+                                organization_code:
+                                    mentorRegRes?.data?.data[0]
+                                        .organization_code,
                                 gender: mentorRegRes?.data?.data[0].gender,
                                 title: mentorRegRes?.data?.data[0].title,
                                 mobile: mentorRegRes?.data?.data[0].mobile,
-                                whatapp_mobile: mentorRegRes?.data?.data[0].whatapp_mobile
+                                whatapp_mobile:
+                                    mentorRegRes?.data?.data[0].whatapp_mobile
                             };
                             setBtn(true);
                             history.push({
                                 pathname: '/success',
                                 data: successData
                             });
-
                         }
                     })
                     .catch((err) => {
@@ -248,6 +251,7 @@ function RegisterNew() {
 
         e.preventDefault();
     };
+
     const handleSendOtp = async (e) => {
         setHoldKey(true);
         setDisable(false);
@@ -319,104 +323,6 @@ function RegisterNew() {
         setErrorMsg(false);
     };
 
-    // useEffect(() => {
-    //     if (checkBox) {
-    //         if (
-    //             formik.values.username.length < 10 ||
-    //             formik.values.whatapp_mobile.length < 10
-    //         ) {
-    //             formik.setFieldValue(
-    //                 'whatapp_mobile',
-    //                 formik.values.username.length > 9
-    //                     ? formik.values.username
-    //                     : formik.values.whatapp_mobile
-    //             );
-    //             formik.setFieldValue(
-    //                 'username',
-    //                 formik.values.whatapp_mobile.length > 9
-    //                     ? formik.values.whatapp_mobile
-    //                     : formik.values.username
-    //             );
-    //             // formik.setFieldValue('username', formik.values.username);
-    //             // } else if (formik.values.whatapp_mobile.length < 10) {
-    //             //     formik.setFieldValue(
-    //             //         'whatapp_mobile',
-    //             //         formik.values.whatapp_mobile
-    //             //     );
-    //         } else if (formik.values.username.length == 10) {
-    //             console.log('1');
-    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
-    //         } else if (formik.values.whatapp_mobile.length == 10) {
-    //             console.log('2');
-    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
-    //         }
-    //     }
-    //     // oo code comment karko bakik tu kar mi vaha se try kartu
-    // }, [
-    //     formik.values.username.length > 9,
-    //     formik.values.whatapp_mobile.length > 9
-    // ]);
-
-    // useEffect(() => {
-    //     if (checkBox) {
-    //         if (
-    //             formik.values.username.length < 10 ||
-    //             formik.values.whatapp_mobile.length < 10
-    //         ) {
-    //             formik.setFieldValue(
-    //                 'whatapp_mobile',
-    //                 formik.values.username.length > 9
-    //                     ? formik.values.username
-    //                     : formik.values.whatapp_mobile
-    //             );
-    //             formik.setFieldValue(
-    //                 'username',
-    //                 formik.values.whatapp_mobile.length > 9
-    //                     ? formik.values.whatapp_mobile
-    //                     : formik.values.username
-    //             );
-    //             // formik.setFieldValue('username', formik.values.username);
-    //             // } else if (formik.values.whatapp_mobile.length < 10) {
-    //             //     formik.setFieldValue(
-    //             //         'whatapp_mobile',
-    //             //         formik.values.whatapp_mobile
-    //             //     );
-    //         } else if (formik.values.username.length == 10) {
-    //             console.log('1');
-    //             formik.setFieldValue('whatapp_mobile', formik.values.username);
-    //             // setWtsNum(formik.values.username);
-    //         } else if (formik.values.whatapp_mobile.length == 10) {
-    //             console.log('2');
-    //             formik.setFieldValue('username', formik.values.whatapp_mobile);
-    //             // setMobNum(formik.values.whatapp_mobile);
-    //         }
-    //     } else {
-    //         // formik.setFieldValue('whatapp_mobile', '');
-    //         // formik.setFieldValue('username', '');
-    //     }
-    //     // oo code comment karko bakik tu kar mi vaha se try kartu
-    // }, [
-    //     formik.values.username.length > 9,
-    //     formik.values.whatapp_mobile.length > 9
-    // ]);
-    // const handleCheckbox = (e, click) => {
-    //     if (click) {
-    //         setCheckBox(click);
-    //         formik.setFieldValue('whatapp_mobile', formik.values.username);
-    //         setWtsNum(formik.values.username);
-    //     } else {
-    //         setCheckBox(click);
-    //         formik.setFieldValue('whatapp_mobile', '');
-    //     }
-    //     if (click) {
-    //         setCheckBox(click);
-    //         formik.setFieldValue('username', formik.values.whatapp_mobile);
-    //         setWtsNum(formik.values.whatapp_mobile);
-    //     } else {
-    //         setCheckBox(click);
-    //         formik.setFieldValue('username', '');
-    //     }
-    // };
     const handleCheckbox = (e, click) => {
         if (click) {
             setCheckBox(click);
@@ -643,10 +549,26 @@ function RegisterNew() {
                                             >
                                                 <Col
                                                     className="form-group"
-                                                    xs={formik.values.title ? 2 : 5}
-                                                    sm={formik.values.title ? 2 : 5}
-                                                    md={formik.values.title ? 2 : 3}
-                                                    xl={formik.values.title ? 2 : 3}
+                                                    xs={
+                                                        formik.values.title
+                                                            ? 2
+                                                            : 5
+                                                    }
+                                                    sm={
+                                                        formik.values.title
+                                                            ? 2
+                                                            : 5
+                                                    }
+                                                    md={
+                                                        formik.values.title
+                                                            ? 2
+                                                            : 3
+                                                    }
+                                                    xl={
+                                                        formik.values.title
+                                                            ? 2
+                                                            : 3
+                                                    }
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -718,10 +640,26 @@ function RegisterNew() {
                                                 </Col>
                                                 <Col
                                                     className="form-group"
-                                                    xs={formik.values.title ? 10 : 7}
-                                                    sm={formik.values.title ? 10 : 7}
-                                                    md={formik.values.title ? 7 : 6}
-                                                    xl={formik.values.title ? 7 : 6}
+                                                    xs={
+                                                        formik.values.title
+                                                            ? 10
+                                                            : 7
+                                                    }
+                                                    sm={
+                                                        formik.values.title
+                                                            ? 10
+                                                            : 7
+                                                    }
+                                                    md={
+                                                        formik.values.title
+                                                            ? 7
+                                                            : 6
+                                                    }
+                                                    xl={
+                                                        formik.values.title
+                                                            ? 7
+                                                            : 6
+                                                    }
                                                     // xs={6}
                                                     // sm={12}
                                                     // md={10}
@@ -888,17 +826,16 @@ function RegisterNew() {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={12}
-                                                        md={6}
-                                                        xl={6}
-                                                        // xs={6}
-                                                        // sm={6}
-                                                        // md={5}
-                                                        // xl={4}
-                                                    >
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={6}
+                                                    xl={6}
+                                                    // xs={6}
+                                                    // sm={6}
+                                                    // md={5}
+                                                    // xl={4}
+                                                >
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <Label
                                                             className="mb-2 mt-2"
@@ -1151,12 +1088,18 @@ function RegisterNew() {
                                                         }
                                                         size="small w-50"
                                                         type="submit"
-                                                        disabled={!(formik.values.otp
-                                                            .length > 5 &&
-                                                            otpRes ==
+                                                        disabled={
+                                                            !(
                                                                 formik.values
                                                                     .otp
-                                                        )}
+                                                                    .length >
+                                                                    5 &&
+                                                                otpRes ==
+                                                                    formik
+                                                                        .values
+                                                                        .otp
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                             )}

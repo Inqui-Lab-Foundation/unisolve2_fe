@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
@@ -135,6 +136,7 @@ const ViewTeamMember = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    setvalue('');
                     openNotificationWithIcon(
                         'success',
                         t('student Team switch success')
@@ -196,40 +198,40 @@ const ViewTeamMember = (props) => {
         data: teamsMembersList.length > 0 && teamsMembersList,
         columns: [
             {
-                name: 'S.No',
+                name: 'No',
                 selector: 'key',
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'User Id',
                 selector: 'user.username',
-                width: '16%'
+                width: '16rem'
             },
             {
                 name: 'Default Password',
                 selector: 'UUID',
-                width: '20%'
+                width: '20rem'
             },
             {
                 name: t('teacher_teams.student_name'),
                 selector: 'full_name',
-                width: '16%'
+                width: '16rem'
             },
             {
                 name: 'Class',
                 selector: 'Grade',
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: t('teacher_teams.age'),
                 selector: 'Age',
-                width: '10%'
+                width: '10rem'
             },
 
             {
                 name: t('teacher_teams.gender'),
                 selector: 'Gender',
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: t('teacher_teams.actions'),
@@ -356,6 +358,7 @@ const ViewTeamMember = (props) => {
     useEffect(() => {
         const teamlistobj = {};
         const listofteams = props.teamsList
+
             .map((item) => {
                 if (item.student_count < 5 && item.ideaStatus === null) {
                     teamlistobj[item.team_name] = item.team_id;
@@ -370,6 +373,7 @@ const ViewTeamMember = (props) => {
                 listofteams.splice(index, 1);
             }
         }
+
         setteamlist(listofteams);
         setteamchangeObj(teamlistobj);
     }, [props.teamsList, show]);
@@ -451,13 +455,44 @@ const ViewTeamMember = (props) => {
                             <h3 className="mb-sm-4 mb-3">
                                 Please select Team to switch student
                             </h3>
-                            <Select
+                            <div>
+                                <input
+                                    type="radio"
+                                    checked={!value}
+                                    onChange={(e) => setvalue('')}
+                                />
+
+                                <label>Select Below Team </label>
+
+                                {teamlist.length > 0 &&
+                                    teamlist.map((item) => (
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                value={item}
+                                                checked={value == item}
+                                                onChange={(e) => setvalue(item)}
+                                            />
+                                            <label>{item}</label>
+                                        </div>
+                                    ))}
+                            </div>
+
+                            {/* <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
-                            />
+                            /> */}
+
+                            {/* <input
+                                type="radio"
+                                name="value"
+                                value="teamlist"
+                                onChange={(e) => setvalue(e.target.value)}
+                            /> */}
                         </div>
+
                         <div className="text-center">
                             <Button
                                 label={'Submit'}

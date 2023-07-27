@@ -324,6 +324,7 @@ const CreateMultipleMembers = ({ id }) => {
                             type="submit"
                             onClick={handleSumbit}
                             btnClass={'primary float-end'}
+                            // btnClass={'btn btn-warning text-right'}
                             size="small"
                         />
                     ) : (
@@ -331,19 +332,24 @@ const CreateMultipleMembers = ({ id }) => {
                             label={t('teacher_teams.submit')}
                             type="button"
                             btnClass={'default float-end'}
+                            // btnClass={'btn btn-default'}
                             size="small"
                             disabled={true}
                         />
                     )}
-                    {studentData.length < 5 && (
+                    {studentData.length < 6 && (
                         <div className="">
                             <Button
                                 label={'Add More'}
                                 onClick={addItem}
                                 btnClass={
-                                    'primary d-flex justify-content-center mt-2'
+                                    // 'primary d-flex justify-content-center mt-2'
+                                    studentData.length != 5
+                                        ? 'primary'
+                                        : 'default'
                                 }
                                 size="small"
+                                disabled={studentData.length === 5}
                             />
                         </div>
                     )}
@@ -523,6 +529,12 @@ const CreateTeamMember = (props) => {
                                                     {t(
                                                         'teacher_teams.student_name'
                                                     )}
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <InputBox
                                                     className={'defaultInput'}
@@ -546,15 +558,18 @@ const CreateTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Col
-                                                md={2}
-                                                className="mb-0"
-                                            >
+                                            <Col md={2} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
                                                     htmlFor="age"
                                                 >
                                                     {t('teacher_teams.age')}
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <div className="dropdown CalendarDropdownComp ">
                                                     <select
@@ -599,6 +614,12 @@ const CreateTeamMember = (props) => {
                                                     htmlFor="grade"
                                                 >
                                                     Class
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <div className="dropdown CalendarDropdownComp ">
                                                     <select
@@ -653,6 +674,12 @@ const CreateTeamMember = (props) => {
                                                     htmlFor="gender"
                                                 >
                                                     {t('teacher_teams.gender')}
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
 
                                                 <select
@@ -695,7 +722,13 @@ const CreateTeamMember = (props) => {
 
                                     <hr className="mt-4 mb-4"></hr>
                                     <Row>
-                                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
+                                        <Col
+                                            className="mt-2"
+                                            xs={12}
+                                            sm={6}
+                                            md={6}
+                                            xl={6}
+                                        >
                                             <Button
                                                 label={t(
                                                     'teacher_teams.discard'
@@ -709,7 +742,13 @@ const CreateTeamMember = (props) => {
                                                 }
                                             />
                                         </Col>
-                                        <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
+                                        <Col
+                                            className="mt-2"
+                                            xs={12}
+                                            sm={6}
+                                            md={6}
+                                            xl={6}
+                                        >
                                             {!isClicked ? (
                                                 <Button
                                                     label={t(
@@ -721,8 +760,8 @@ const CreateTeamMember = (props) => {
                                                             formik.dirty &&
                                                             formik.isValid
                                                         )
-                                                            ? 'default'
-                                                            : 'primary'
+                                                            ? 'default float-end'
+                                                            : 'primary float-end'
                                                     }
                                                     size="small"
                                                     disabled={

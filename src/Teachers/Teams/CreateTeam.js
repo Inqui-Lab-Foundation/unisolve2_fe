@@ -104,6 +104,9 @@ const CreateTeam = (props) => {
                                                 htmlFor="firstName"
                                             >
                                                 {t('teacher_teams.team_name')}
+                                                <span required className="p-1">
+                                                    *
+                                                </span>
                                             </Label>
 
                                             <InputBox
@@ -142,7 +145,7 @@ const CreateTeam = (props) => {
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">
                                         <Button
-                                            label="Submit details"
+                                            label="Submit"
                                             type="submit"
                                             btnClass={
                                                 !(
