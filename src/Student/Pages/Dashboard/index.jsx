@@ -25,7 +25,7 @@ import {
     getStudentDashboardTeamProgressStatus,
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
-//import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
+import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
 import LatestNews from './LatestNews.js';
 import { Card } from 'react-bootstrap';
 
@@ -371,12 +371,16 @@ const Dashboard = () => {
     return (
         <Layout>
             <Container>
-                <h2>Dashboard</h2>
-                {/* {!dashboardStates ? (
-                <div style={{ width: '10rem', margin: 'auto' }}>
-                     <DoubleBounce /> 
+                <div className="d-flex justify-content-between align-items-center" style={{margin:'1rem 0'}}>
+                    <h2>Dashboard</h2>
+                    <div
+                        className="bg-white rounded p-3 d-flex align-items-center"
+                        style={{ width: 'max-content' }}
+                    >
+                        <p style={{marginBottom:'0'}}>Preferred Language : </p>
+                        <LanguageSelectorComp module="student" />
+                    </div>
                 </div>
-                ) : ( */}
                 <Row>
                     <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>
@@ -428,7 +432,7 @@ const Dashboard = () => {
                             </Card>
                         </Row>
                     </Col>
-                    <Col style={{paddingRight: '15px', marginBottom: '20px'}}>
+                    <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>
                             <Card bg="light" text="dark" className="mb-2">
                                 <Card.Body>
@@ -491,9 +495,9 @@ const Dashboard = () => {
                     style={{ gap: '1rem' }}
                 >
                     <Col md={12} className="flex-2 team-progress">
-                    <label htmlFor="teams" className="">
-                    Team Progress:
-                </label>
+                        <label htmlFor="teams" className="">
+                            Team Progress:
+                        </label>
                         <div
                             className="bg-white team-progress rounded  p-3"
                             style={{ overflowX: 'auto' }}
