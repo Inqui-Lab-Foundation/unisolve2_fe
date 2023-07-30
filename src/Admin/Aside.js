@@ -11,10 +11,10 @@ import FAQICON from '../assets/media/FAQICON.png';
 import InstituionsIcon from '../assets/media/InstitutionsIcon.jpg';
 import ProfileIcon from '../assets/media/ProfileIcon.png';
 import logoutIcon from '../assets/media/logoutIcon.png';
+import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import ResourceIcon from '../assets/media/resourceIcon.png';
 import PopupIcon from '../assets/media/popupIcon.png';
 import EvalConifIcon from '../assets/media/EvalConifIcon.png';
-
 import {
     ProSidebar,
     Menu,
@@ -244,8 +244,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/Resources/index'}>
-                            Resources
+                        <NavLink
+                            exact={true}
+                            to={'/admin/Resources/index'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Resources
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -255,8 +264,44 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/popup'}>
-                            PopUp
+                        <NavLink
+                            exact={true}
+                            to={'/admin/popup'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                PopUp
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={LatestNewsIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="school"
+                            />
+                        }
+                        className={
+                            location.pathname === '/admin/LatestNews/index' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/LatestNews/index'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                LatestNews
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
