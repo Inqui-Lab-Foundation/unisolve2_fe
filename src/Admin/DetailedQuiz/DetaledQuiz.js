@@ -7,7 +7,7 @@ import { Button } from '../../stories/Button';
 import './quiz.scss';
 import Confetti from 'react-confetti';
 import ResultStar from '../../assets/media/quiz-result-star.png';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -20,10 +20,12 @@ import {
 } from '../../redux/actions';
 import QuizResponse from './QuizResponse';
 import succesImg from '../../assets/media/success1.jpeg';
+import { updateStudentBadges } from '../../redux/studentRegistration/actions';
 
 const DetaledQuiz = (props) => {
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const quizId = props.quizId;
     const [adminQst, SetAdminQst] = useState({});
     const [type, SetType] = useState('');
@@ -42,7 +44,7 @@ const DetaledQuiz = (props) => {
     const [currentScore, setCurrentScore] = useState({});
     const [currentRole, setCurrentRole] = useState('');
     const [totalQstCount, setTotalQstCount] = useState(0);
-    const [ currentPercentage,setCurrentPercentage] = useState(0);
+    const [currentPercentage, setCurrentPercentage] = useState(0);
 
     useEffect(() => {
         setCurrentRole(currentUser?.data[0]?.role);
@@ -195,7 +197,9 @@ const DetaledQuiz = (props) => {
                         {currentRole === 'MENTOR' ? (
                             <Confetti className="w-100" />
                         ) : (
-                            currentPercentage >= 60 && <Confetti className="w-100" />
+                            currentPercentage >= 60 && (
+                                <Confetti className="w-100" />
+                            )
                         )}
                     </div>
                 )}
@@ -334,7 +338,24 @@ const DetaledQuiz = (props) => {
                                                     btnClass="primary w-auto"
                                                     size="small"
                                                     type="submit"
-                                                    onClick={props.handleQuiz}
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            updateStudentBadges(
+                                                                {
+                                                                    badge_slugs:
+                                                                        [
+                                                                            props.badge
+                                                                        ]
+                                                                },
+                                                                currentUser
+                                                                    .data[0]
+                                                                    .user_id,
+                                                                language,
+                                                                t
+                                                            )
+                                                        );
+                                                        props.handleQuiz();
+                                                    }}
                                                 />
                                             </div>
                                         )}
@@ -480,7 +501,7 @@ const DetaledQuiz = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
-                                            disabled = {!selectOption}
+                                            disabled={!selectOption}
                                         />
                                     </Col>
                                 </Row>
