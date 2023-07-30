@@ -84,12 +84,12 @@ const EditLatestNews = (props) => {
                 .optional()
                 .oneOf(['0', '1'], 'New Status type is Required'),
             file_name: Yup.mixed(),
-            url: Yup.string()
+            //url: Yup.string()
         }),
         onSubmit: async (values) => {
-            
+            console.log(values,'----');
             try {
-                if (values.file_name !== '') {
+                if (values.file_name !== null && values.file_name !== '') {
                     const fileData = new FormData();
                     fileData.append('file', values.file_name);
 
@@ -107,12 +107,17 @@ const EditLatestNews = (props) => {
                         response?.data?.data[0].attachments[0].toString();
                 }
                 const body = {
+                    status: 'ACTIVE',
                     category: values.role,
                     details: values.details,
-                    new_status: values.new_status,
-                    file_name: values.file_name,
-                    url: values.url
+                    new_status: values.new_status
                 };
+                if(values.file_name!== '' && values.file_name !== null){
+                    body['file_name']=values.file_name;
+                }
+                if(values.url!=='' && values.url!== null){
+                    body['url']=values.url;
+                }
 
                 const response = await axios.put(
                     `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsID.latest_news_id}`,

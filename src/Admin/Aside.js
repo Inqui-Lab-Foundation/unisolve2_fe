@@ -11,6 +11,7 @@ import FAQICON from '../assets/media/FAQICON.png';
 import InstituionsIcon from '../assets/media/InstitutionsIcon.jpg';
 import ProfileIcon from '../assets/media/ProfileIcon.png';
 import logoutIcon from '../assets/media/logoutIcon.png';
+import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import {
     ProSidebar,
     Menu,
@@ -18,7 +19,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaHotel, FaClipboard } from 'react-icons/fa';
+import { FaBars, FaHotel } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -243,14 +244,30 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<FaClipboard />}
+                        icon={
+                            <img
+                                src={LatestNewsIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="school"
+                            />
+                        }
                         className={
                             location.pathname === '/admin/LatestNews/index' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/LatestNews/index'}>
-                            LatestNews
+                        <NavLink
+                            exact={true}
+                            to={'/admin/LatestNews/index'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                LatestNews
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem

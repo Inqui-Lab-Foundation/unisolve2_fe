@@ -85,7 +85,6 @@ const CreateLatestNews = (props) => {
             url: Yup.string()
         }),
         onSubmit: async (values) => {
-            console.log(values.file_name,"-----kugiuiug---" ,values.file_name !== '');
             try {
                 if (values.file_name !== '') {
                     const fileData = new FormData();
@@ -107,10 +106,14 @@ const CreateLatestNews = (props) => {
                 const body = {
                     category: values.role,
                     details: values.details,
-                    new_status: values.new_status,
-                    file_name: values.file_name,
-                    url: values.url
+                    new_status: values.new_status
                 };
+                if(values.file_name!== ''){
+                    body['file_name']=values.file_name;
+                }
+                if(values.url!==''){
+                    body['url']=values.url;
+                }
 
                 const response = await axios.post(
                     `${process.env.REACT_APP_API_BASE_URL}/latest_news`,
