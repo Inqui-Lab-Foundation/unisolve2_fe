@@ -209,7 +209,6 @@ const IdeasPageNew = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-        console.log(newItems);
         let obj = {
             challenge_question_id: e.target.name,
             selected_option:

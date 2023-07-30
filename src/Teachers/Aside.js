@@ -97,21 +97,21 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 <img
                                     src={Logo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
                                     <img
                                         src={Logo}
                                         alt="logo"
-                                        className="img-fluid img-open w-100"
+                                        className="img-fluid img-open w-100 "
                                     />
                                 </>
                             )}
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1.5rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -194,9 +194,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     </MenuItem>
 
                     <MenuItem
-                        icon={<FaLandmark/>}
+                        icon={<FaLandmark />}
                         className={
-                            (location.pathname === '/teacher/Resources' ) && 
+                            location.pathname === '/teacher/Resources' &&
                             'sidebar-active'
                         }
                     >

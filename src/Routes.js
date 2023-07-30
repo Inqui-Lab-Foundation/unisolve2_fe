@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -49,6 +48,7 @@ import IndividualReport from './Admin/Reports/ReportFilter';
 import AdminChallengesComp from './Admin/Badges/Badges';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
 import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
+import Popup from './Admin/Popup/popup';
 // TEACHER ROUTES
 import TeacherLogin from './Teachers/LoginNew';
 import TeacherDashboard from './Teachers/Dashboard/index';
@@ -110,7 +110,6 @@ import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
 import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
-
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
 
@@ -196,11 +195,6 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact
-                        path="/notification"
-                        component={Notification}
-                    />
-                    <ProtectedRoute
-                        exact
                         path="/student/Resources/index"
                         component={StudentResources}
                     />
@@ -231,6 +225,11 @@ const Routers = () => {
                         exact={true}
                         path="/admin/badges"
                         component={AdminChallengesComp}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/popup"
+                        component={Popup}
                     />
                     <Route
                         exact={true}

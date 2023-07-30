@@ -185,6 +185,13 @@ const TicketResView = (props) => {
                                                     htmlFor="ticketDetails"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}
@@ -217,8 +224,14 @@ const TicketResView = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
-
                                                 <Col
                                                     className="form-group"
                                                     md={12}
@@ -290,7 +303,7 @@ const TicketResView = (props) => {
                                     {supportTicket.status != 'INVALID' ? (
                                         <Col className="submit-btn col-xs-12 col-sm-6">
                                             <Button
-                                                label="Submit details"
+                                                label="Submit"
                                                 type="submit"
                                                 btnClass={
                                                     !(

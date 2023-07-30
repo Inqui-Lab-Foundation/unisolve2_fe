@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, Row, Card, CardBody, CardText } from 'reactstrap';
@@ -27,7 +29,7 @@ function LatestNews({ usersdata }) {
                 } else {
                     container.scrollTop += 1; // Adjust scrolling speed as desired
                 }
-            }, 5); // Adjust scrolling interval as desired
+            }, 20); // Adjust scrolling interval as desired
         };
 
         const stopScrolling = () => {
@@ -60,7 +62,6 @@ function LatestNews({ usersdata }) {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
                     setNews(response.data.data);
                 }
             })
@@ -76,18 +77,18 @@ function LatestNews({ usersdata }) {
                     <Row>
                         <Col md={8} className="border-right my-auto">
                             <Row>
-                                <h2 style={{ color: 'blue' }}>
-                                    Latest News ....
+                                <h2 style={{ color: 'black' }}>
+                                    Latest News
                                 </h2>
                             </Row>
                             <div
                                 id="boxflow"
                                 ref={containerRef}
                                 style={{
-                                    height: '300px'
-
-                                    // overflow: 'auto'
-                                }}
+                                    height: '200px',
+                                    width: '500px'
+                                    //overflow: 'auto'
+                                }}                                
                             >
                                 <ul>
                                     {news?.map((item, index) => (
@@ -109,10 +110,11 @@ function LatestNews({ usersdata }) {
                                                     {/* <Col
                                                    
                                                 > */}
-                                                    {item?.file_name != null ? (
+                                                    {item?.file_name != null &&
+                                                    item?.file_name != '' ? (
                                                         <a
-                                                            className="link-item"
-                                                            rel="noopener noreferrer"
+                                                            className="link-item  m-2 p-2"
+                                                            // rel="noopener noreferrer"
                                                             href={
                                                                 item?.file_name
                                                             }
@@ -129,13 +131,9 @@ function LatestNews({ usersdata }) {
                                                     {/* <Col
                                                    
                                                 > */}
-                                                    {item?.url != null ? (
-                                                        <a
-                                                            className="link-item"
-                                                            rel="noopener noreferrer"
-                                                            href={item?.url}
-                                                            target="_blank"
-                                                        >
+                                                    {item?.url != null &&
+                                                    item?.url != '' ? (
+                                                        <a target="_blank">
                                                             <button className="btn btn-success ">
                                                                 Url
                                                             </button>
@@ -147,8 +145,9 @@ function LatestNews({ usersdata }) {
                                                     {/* <Col
                                                   
                                                 > */}
-                                                    {item?.new_status != 0 ? (
+                                                    {item?.new_status == 1 ? (
                                                         <img
+                                                            className="m-2 p-2"
                                                             src={newIcon}
                                                             style={{
                                                                 width: '30px'

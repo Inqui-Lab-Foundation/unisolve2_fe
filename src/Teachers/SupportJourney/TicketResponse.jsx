@@ -201,6 +201,12 @@ const TicketResponse = (props) => {
                                                     htmlFor="ticketDetails"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}
@@ -233,6 +239,12 @@ const TicketResponse = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
 
                                                 <Col
@@ -308,7 +320,7 @@ const TicketResponse = (props) => {
                                         {supportTicket.status != 'INVALID' ? (
                                             <Col className="submit-btn col-xs-12 col-sm-6">
                                                 <Button
-                                                    label="Submit details"
+                                                    label="Submit"
                                                     type="submit"
                                                     btnClass={
                                                         !(

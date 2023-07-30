@@ -60,13 +60,11 @@ const PostSurvey = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-        console.log(newItems);
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
                 e.target.type === 'checkbox' ? [e.target.value] : e.target.value
         };
-        console.log(obj);
         const findExistanceIndex = newItems.findIndex(
             (item) =>
                 parseInt(item?.quiz_survey_question_id) ===
@@ -102,8 +100,9 @@ const PostSurvey = () => {
         setAnswerResponses(newItems);
     };
     useEffect(() => {
-        //if(!dashboardStates)
-        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        if(currentUser?.data[0]?.user_id){
+            dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+        }
     }, [dispatch, currentUser?.data[0]?.user_id]);
 
     const handleSubmit = async (e) => {
@@ -752,7 +751,7 @@ const PostSurvey = () => {
                                     <div style={{ textAlign: 'center' }}>
                                         <div>
                                             <img
-                                                className="img-fluid w-25"
+                                                className="img-fluid imgWidthSize"
                                                 src={Congo}
                                             ></img>
                                         </div>

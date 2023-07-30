@@ -10,6 +10,7 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
 import { getAdminCourseDetails } from '../../../redux/actions';
 import TakeAssesmentPopup from './TakeAssesmentPopup';
+import VideoPopup from './VideoPopup';
 import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import { VscCheck } from 'react-icons/vsc';
@@ -46,6 +47,9 @@ import { useDispatch } from 'react-redux';
 import CommonPage from '../../../components/CommonPage';
 import { useTranslation } from 'react-i18next';
 import { getStudentDashboardStatus } from '../../../redux/studentRegistration/actions';
+import Confetti from 'react-confetti';
+import ResultStar from '../../../assets/media/quiz-result-star.png';
+import succesImg from '../../../assets/media/success1.jpeg';
 //VIMEO REFERENCE
 //https://github.com/u-wave/react-vimeo/blob/default/test/util/createVimeo.js
 
@@ -55,8 +59,6 @@ const PlayVideoCourses = (props) => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-
-    // console.log(props);
     const course_id = props.match.params.id;
     const description = props.location.data
         ? props.location.data.description
@@ -74,7 +76,7 @@ const PlayVideoCourses = (props) => {
     const [condition, setCondition] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [showQuiz, setHideQuiz] = useState(false);
-    const [quizAttempted, setQuizAttempted] = useState(false); 
+    const [quizAttempted, setQuizAttempted] = useState(false);
     const [backToQuiz, setBackToQuiz] = useState(false);
     const [quizId, setQizId] = useState('');
     const [worksheetId, setWorksheetId] = useState('');
@@ -124,7 +126,8 @@ const PlayVideoCourses = (props) => {
     const [showPage, setshowPage] = useState(true);
     const [showCompleteMessage, setShowCompleteMessage] = useState(false);
     const [userUploadedlist, setuserUploadedlist] = useState([]);
-
+    const [quizCompleted, setQuizCompleted] = useState(false);
+    const [quizStart, setQuizStart] = useState(false);
     // linkComponent
     const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
         let a_link;
@@ -572,6 +575,46 @@ const PlayVideoCourses = (props) => {
         // handlePlayerPlay();
     };
 
+    function resultdata(id) {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/quiz/result?user_id=${currentUser.data[0].user_id}&quiz_id=${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.count === null) {
+                        setQuizStart(true);
+                        setQuizCompleted(false);
+                    } else {
+                        const cuttOff =
+                            Math.round(
+                                (response?.data?.data[0].data[
+                                    response?.data?.data[0].data.length - 1
+                                ]?.score /
+                                    response?.data?.data[0]?.all[0]
+                                        ?.allquestions) *
+                                    100
+                            ) < 60;
+                        if (!cuttOff) {
+                            setQuizStart(false);
+                            setQuizCompleted(true);
+                        }
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     const handleSelect = (topicId, couseId, type) => {
         // here topicId = topicId ; couseId = couseId //
         // type = worksheet ,video, quiz //
@@ -598,6 +641,7 @@ const PlayVideoCourses = (props) => {
         } else if (type === 'QUIZ') {
             setItem('QUIZ');
             setQizId(topicId);
+            resultdata(topicId);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
             fetchData(topicId);
@@ -1088,44 +1132,45 @@ const PlayVideoCourses = (props) => {
                                                 className="modal-popup text-screen text-center  modal-popup"
                                             >
                                                 <div className="modal-content">
-                                                    <Modal.Header>
-                                                        <Modal.Title className="w-100 d-block mb-2">
-                                                            {t(
-                                                                'student.quiz_heading'
-                                                            )}
-                                                        </Modal.Title>
-                                                        <p className="w-100 d-block">
-                                                            {t(
-                                                                'student.take_challenge'
-                                                            )}
-                                                        </p>
-                                                        <div className="row justify-content-center text-center">
-                                                            <div className="col col-lg-3">
-                                                                <p>
-                                                                    <VscCircleFilled
-                                                                        style={{
-                                                                            color: '#067DE1'
-                                                                        }}
-                                                                    />
-                                                                    {t(
-                                                                        'student.questions'
-                                                                    )}
-                                                                </p>
-                                                            </div>
-                                                            <div className="col col-lg-3">
-                                                                <p>
-                                                                    <VscCircleFilled
-                                                                        style={{
-                                                                            color: '#067DE1'
-                                                                        }}
-                                                                    />{' '}
-                                                                    {t(
-                                                                        'student.minutes'
-                                                                    )}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </Modal.Header>
+                                                    {quizStart ? (
+                                                        <Modal.Header>
+                                                            <Modal.Title className="w-100 d-block mb-2">
+                                                                Ready for a
+                                                                quick test?
+                                                            </Modal.Title>
+                                                            <p className="w-100 d-block">
+                                                                Test your course
+                                                                skills in a
+                                                                short test
+                                                                challenge!
+                                                            </p>
+                                                        </Modal.Header>
+                                                    ) : quizCompleted ? (
+                                                        <Modal.Header>
+                                                            <Modal.Title className="w-100 d-block mb-2">
+                                                                Quick test
+                                                                Completed
+                                                                successfully
+                                                            </Modal.Title>
+                                                            <p className="w-100 d-block">
+                                                                Check your
+                                                                score.
+                                                            </p>
+                                                        </Modal.Header>
+                                                    ) : (
+                                                        <Modal.Header>
+                                                            <Modal.Title className="w-100 d-block mb-2">
+                                                                Continue your
+                                                                quick test
+                                                            </Modal.Title>
+                                                            <p className="w-100 d-block">
+                                                                Test your course
+                                                                skills in a
+                                                                short test
+                                                                challenge!
+                                                            </p>
+                                                        </Modal.Header>
+                                                    )}
 
                                                     <Modal.Body>
                                                         <figure>
@@ -1138,281 +1183,216 @@ const PlayVideoCourses = (props) => {
                                                             />
                                                         </figure>
                                                         <Button
-                                                            label={quizAttempted ? t("Lets Continue") : t('student.lets_start')}
+                                                            label={
+                                                                quizStart
+                                                                    ? t(
+                                                                          'student.lets_start'
+                                                                      )
+                                                                    : quizCompleted
+                                                                    ? ' See Result'
+                                                                    : 'Resume Quiz'
+                                                            }
                                                             btnClass="primary mt-4"
                                                             size="small"
                                                             onClick={() => {
-                                                                setHideQuiz(true);
-                                                                setQuizAttempted(true);
+                                                                setHideQuiz(
+                                                                    true
+                                                                );
+                                                                setQuizAttempted(
+                                                                    true
+                                                                );
                                                             }}
                                                         />
                                                     </Modal.Body>
                                                 </div>
                                             </div>
                                         ) : item === 'WORKSHEET' ? (
-                                            <Fragment>
-                                                <Card className="course-sec-basic p-5">
-                                                    <CardBody>
-                                                        <div>
-                                                            <CardTitle
-                                                                className=" text-left pt-4 pb-4"
-                                                                tag="h2"
-                                                            >
-                                                                Unisolve{' '}
-                                                                {t(
-                                                                    'student.w_sheet'
-                                                                )}
-                                                            </CardTitle>
-                                                            <text>
-                                                                <div
-                                                                    dangerouslySetInnerHTML={{
-                                                                        __html: t(
-                                                                            'student.worksheet'
-                                                                        )
-                                                                    }}
-                                                                ></div>
-                                                            </text>
-                                                            <div className="text-left">
-                                                                <div className="wrapper my-3 m-3">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="btn btn-outline-primary btn-lg"
+                                            <>
+                                                {worksheetId === 2 ? (
+                                                    <>
+                                                        <Card className="course-sec-basic p-5">
+                                                            <div className="container new-result">
+                                                                <Confetti className="w-100" />
+                                                                <div className="row justify-content-md-center ">
+                                                                    <div className="col col-lg-9">
+                                                                        <div className="results-heading">
+                                                                            <img
+                                                                                src={
+                                                                                    ResultStar
+                                                                                }
+                                                                                alt="star"
+                                                                            />
+                                                                        </div>
+                                                                        <div className="congratulations text-center">
+                                                                            <div className="success_img text-center w-100">
+                                                                                <img
+                                                                                    src={
+                                                                                        succesImg
+                                                                                    }
+                                                                                    alt=".."
+                                                                                />
+                                                                                <br />
+                                                                            </div>
+                                                                            <h2>
+                                                                                {t(
+                                                                                    'student_course.course_completed_succ'
+                                                                                )}
+                                                                            </h2>
+                                                                        </div>
+                                                                        <div className="text-center">
+                                                                            <Button
+                                                                                label={t(
+                                                                                    'student.continue'
+                                                                                )}
+                                                                                btnClass=" mx-4"
+                                                                                size="small"
+                                                                                type="submit"
+                                                                                style={{
+                                                                                    background:
+                                                                                        '#00ced1',
+                                                                                    color: '#fff'
+                                                                                }}
+                                                                                onClick={() => {
+                                                                                    handleNextCourse();
+                                                                                    dispatch(
+                                                                                        updateStudentBadges(
+                                                                                            {
+                                                                                                badge_slugs:
+                                                                                                    [
+                                                                                                        badge
+                                                                                                    ]
+                                                                                            },
+                                                                                            currentUser
+                                                                                                .data[0]
+                                                                                                .user_id,
+                                                                                            language,
+                                                                                            t
+                                                                                        )
+                                                                                    );
+                                                                                }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </Card>
+                                                    </>
+                                                ) : (
+                                                    <Fragment>
+                                                        <Card className="course-sec-basic p-5">
+                                                            <CardBody>
+                                                                <div>
+                                                                    <CardTitle
+                                                                        className=" text-left pt-4 pb-4"
+                                                                        tag="h2"
                                                                     >
-                                                                        upload
-                                                                        file
-                                                                    </button>
-                                                                    <input
-                                                                        type="file"
-                                                                        name="file"
-                                                                        multiple
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            fileHandler(
-                                                                                e
-                                                                                
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                                <Button
-                                                                    type="button"
-                                                                    btnClass={
-                                                                        files.length >
-                                                                        0
-                                                                            ? 'primary'
-                                                                            : 'default'
-                                                                    }
-                                                                    size="small"
-                                                                    disabled={
-                                                                        !files.length >
-                                                                        0
-                                                                    }
-                                                                    label={
-                                                                        'Submit'
-                                                                    }
-                                                                    onClick={() =>
-                                                                        handleSubmit()
-                                                                    }
-                                                                />
-                                                                <div className="mx-4">
-                                                                    {immediateLink &&
-                                                                        immediateLink.length >
-                                                                            0 &&
-                                                                        immediateLink.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    url={
-                                                                                        true
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                />
-                                                                            )
+                                                                        Unisolve{' '}
+                                                                        {t(
+                                                                            'student.w_sheet'
                                                                         )}
-                                                                    {!immediateLink &&
-                                                                        files.length >
-                                                                            0 &&
-                                                                        files.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    original={
-                                                                                        true
-                                                                                    }
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    i={
-                                                                                        i
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                    removeFileHandler={
-                                                                                        removeFileHandler
-                                                                                    }
-                                                                                />
-                                                                            )
-                                                                        )}
-                                                                    {!immediateLink &&
-                                                                        files.length ===
-                                                                            0 &&
-                                                                        userUploadedlist.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    url={
-                                                                                        true
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                />
-                                                                            )
-                                                                        )}
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="text-right">
-                                                                {/* {worksheetResponce.response ===
-                                                                                    null ? (
-                                                                                        <a
-                                                                                            // href={
-                                                                                            //     process
-                                                                                            //         .env
-                                                                                            //         .REACT_APP_API_IMAGE_BASE_URL +
-                                                                                            //     worksheetResponce?.attachments
-                                                                                            // }
-                                                                                            href = {worksheetResponce?.attachments}
-                                                                                            target="_blank"
-                                                                                            rel="noreferrer"
-                                                                                            className="primary"
-                                                                                        >
-                                                                                            <Button
-                                                                                                button="submit"
-                                                                                                label='new'
-                                                                                                btnClass="primary mt-4 mb-2"
-                                                                                                size="small"
-                                                                                                style={{
-                                                                                                    marginRight:
-                                                                                                        '2rem'
-                                                                                                }}
-                                                                                            />
-                                                                                        </a>
-                                                                                    ) : ( */}
-                                                                <a
-                                                                    // href={
-                                                                    //     process
-                                                                    //         .env
-                                                                    //         .REACT_APP_API_IMAGE_BASE_URL +
-                                                                    //     worksheet
-                                                                    // }
-                                                                    href={
-                                                                        worksheet
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noreferrer"
-                                                                    className="primary m-3"
-                                                                >
-                                                                    <Button
-                                                                        button="submit"
-                                                                        label={t(
-                                                                            'student.download_worksheet'
-                                                                        )}
-                                                                        btnClass="primary mt-4 mb-2"
-                                                                        size="small"
-                                                                    />
-                                                                </a>
-                                                                {/* )} */}
-                                                                {/* <Button
-                                                                                        label={t(
-                                                                                            'student.continue'
-                                                                                        )}
-                                                                                        btnClass=" mx-4"
-                                                                                        size="small"
-                                                                                        type="submit"
-                                                                                        style={{
-                                                                                            background:
-                                                                                                '#00ced1',
-                                                                                            color: '#fff'
-                                                                                        }}
-                                                                                        onClick={() => {
-                                                                                            handleNextCourse();
-                                                                                            dispatch(
-                                                                                                updateStudentBadges(
-                                                                                                    {
-                                                                                                        badge_slugs:
-                                                                                                            [
-                                                                                                                badge
-                                                                                                            ]
-                                                                                                    },
-                                                                                                    currentUser
-                                                                                                        .data[0]
-                                                                                                        .user_id,
-                                                                                                    language,t
-                                                                                                )
-                                                                                            );
-                                                                                        }}
-                                                                                    /> */}
-
-                                                                {worksheetResponce.response !=
-                                                                    null && (
-                                                                    // worksheetResponce.worksheet_id !==
-                                                                    //     setTopicArrays[
-                                                                    //         setTopicArrays?.length -
-                                                                    //         1
-                                                                    //     ]
-                                                                    //         ?.topic_type_id ? (
-                                                                    <Button
-                                                                        label="Go to Next Course"
-                                                                        btnClass="primary w-auto"
-                                                                        size="small"
-                                                                        type="submit"
-                                                                        style={{
-                                                                            background:
-                                                                                '#00ced1',
-                                                                            color: '#fff'
-                                                                        }}
-                                                                        onClick={() => {
-                                                                            handleNextCourse();
-                                                                            dispatch(
-                                                                                updateStudentBadges(
-                                                                                    {
-                                                                                        badge_slugs:
-                                                                                            [
-                                                                                                badge
-                                                                                            ]
-                                                                                    },
-                                                                                    currentUser
-                                                                                        .data[0]
-                                                                                        .user_id,
-                                                                                    language,
-                                                                                    t
+                                                                    </CardTitle>
+                                                                    <text>
+                                                                        <div
+                                                                            dangerouslySetInnerHTML={{
+                                                                                __html: t(
+                                                                                    'student.worksheet'
                                                                                 )
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            </Fragment>
+                                                                            }}
+                                                                        ></div>
+                                                                    </text>
+                                                                    <div className="text-right">
+                                                                        {worksheetResponce.response ===
+                                                                        null ? (
+                                                                            <a
+                                                                                // href={
+                                                                                //     process
+                                                                                //         .env
+                                                                                //         .REACT_APP_API_IMAGE_BASE_URL +
+                                                                                //     worksheetResponce?.attachments
+                                                                                // }
+                                                                                href={
+                                                                                    worksheetResponce?.attachments
+                                                                                }
+                                                                                target="_blank"
+                                                                                rel="noreferrer"
+                                                                                className="primary"
+                                                                            >
+                                                                                <Button
+                                                                                    button="submit"
+                                                                                    label={t(
+                                                                                        'student.download_worksheet'
+                                                                                    )}
+                                                                                    btnClass="primary mt-4 mb-2"
+                                                                                    size="small"
+                                                                                    style={{
+                                                                                        marginRight:
+                                                                                            '2rem'
+                                                                                    }}
+                                                                                />
+                                                                            </a>
+                                                                        ) : (
+                                                                            <a
+                                                                                // href={
+                                                                                //     process
+                                                                                //         .env
+                                                                                //         .REACT_APP_API_IMAGE_BASE_URL +
+                                                                                //     worksheet
+                                                                                // }
+                                                                                href={
+                                                                                    worksheet
+                                                                                }
+                                                                                target="_blank"
+                                                                                rel="noreferrer"
+                                                                                className="primary"
+                                                                            >
+                                                                                <Button
+                                                                                    button="submit"
+                                                                                    label={t(
+                                                                                        'student.download_worksheet'
+                                                                                    )}
+                                                                                    btnClass="primary mt-4 mb-2"
+                                                                                    size="small"
+                                                                                />
+                                                                            </a>
+                                                                        )}
+                                                                        <Button
+                                                                            label={t(
+                                                                                'student.continue'
+                                                                            )}
+                                                                            btnClass=" mx-4"
+                                                                            size="small"
+                                                                            type="submit"
+                                                                            style={{
+                                                                                background:
+                                                                                    '#00ced1',
+                                                                                color: '#fff'
+                                                                            }}
+                                                                            onClick={() => {
+                                                                                handleNextCourse();
+                                                                                dispatch(
+                                                                                    updateStudentBadges(
+                                                                                        {
+                                                                                            badge_slugs:
+                                                                                                [
+                                                                                                    badge
+                                                                                                ]
+                                                                                        },
+                                                                                        currentUser
+                                                                                            .data[0]
+                                                                                            .user_id,
+                                                                                        language,
+                                                                                        t
+                                                                                    )
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </CardBody>
+                                                        </Card>
+                                                    </Fragment>
+                                                )}
+                                            </>
                                         ) : courseData !== null && !showQuiz ? (
                                             <Fragment>
                                                 <Card
@@ -1603,6 +1583,7 @@ const PlayVideoCourses = (props) => {
                                                 setHideQuiz={setHideQuiz}
                                                 quiz="true"
                                                 setQuizTopic={setQuizTopic}
+                                                badge={badge}
                                             />
                                         ) : (
                                             ''
@@ -1614,7 +1595,15 @@ const PlayVideoCourses = (props) => {
                     </div>
                 </div>
             )}
-            <TakeAssesmentPopup
+            {/* <TakeAssesmentPopup
+                quiz="true"
+                refQst={id && id.reflective_quiz_questions}
+                videoId={videoId}
+                show={modalShow}
+                handleClose={() => handleAssesmentClose()}
+                onHide={() => setModalShow(false)}
+            /> */}
+            <VideoPopup
                 quiz="true"
                 refQst={id && id.reflective_quiz_questions}
                 videoId={videoId}

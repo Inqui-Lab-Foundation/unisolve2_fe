@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, List, Label, Card } from 'reactstrap';
@@ -32,12 +33,11 @@ const TicketsPage = (props) => {
 
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
-    
 
     const [teamsArray, setTeamsArray] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [teamMembersListArray, setTeamMembersArray] = useState([]);
-    
+
     // eslint-disable-next-line no-unused-vars
     const [teamId, setTeamId] = useState('');
 
@@ -71,8 +71,6 @@ const TicketsPage = (props) => {
         setLoading(false);
     }, [props.teamsList]);
 
-
-
     useEffect(() => {
         var teamsMembersArrays = [];
         props.teamsMembersList.length > 0 &&
@@ -89,41 +87,35 @@ const TicketsPage = (props) => {
             {
                 name: t('teacher_teams.s_no'),
                 selector: 'key',
-                width: '10%'
+                width: '12rem'
             },
             {
                 name: t('teacher_teams.team_name'),
                 selector: 'team_name',
                 sortable: true,
-                width: '20%'
+                // maxlength: '5',
+                width: '43rem'
             },
             {
                 name: t('teacher_teams.team_members_count'),
                 selector: 'student_count',
-                width: '20%'
+                width: '23rem'
             },
             {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
-
                     return [
-                        <div
-                            key={params}
-                            onClick={() => handleCreate(params)}
-                        >
+                        <div key={params} onClick={() => handleCreate(params)}>
                             {process.env.REACT_APP_TEAM_LENGTH >
                                 params.student_count && (
-                                <div className="btn btn-success btn-lg mr-5 mx-2">
+                                <div className="btn btn-success  mr-5 mx-2">
                                     {t('teacher_teams.create')}
                                 </div>
                             )}
                         </div>,
-                        <div
-                            key={params}
-                            onClick={() => handleView(params)}
-                        >
+                        <div key={params} onClick={() => handleView(params)}>
                             {!params.student_count < 1 && (
-                                <div className="btn btn-primary btn-lg mr-5">
+                                <div className="btn btn-primary  mr-5">
                                     {t('teacher_teams.view')}
                                 </div>
                             )}
@@ -140,16 +132,16 @@ const TicketsPage = (props) => {
                             onClick={() => handleDelete(params)}
                             // style={{marginRight:"20px"}}
                         >
-                            
-                            {params.student_count <= 2 && params.ideaStatus === null && (
-                                <div className="btn btn-danger btn-lg mx-2">
-                                    {t('teacher_teams.delete')}
-                                </div>
-                            )}
+                            {params.student_count <= 2 &&
+                                params.ideaStatus === null && (
+                                    <div className="btn btn-danger  mx-2">
+                                        {t('teacher_teams.delete')}
+                                    </div>
+                                )}
                         </div>
                     ];
                 },
-                width: '40%',
+                width: '22rem',
                 left: true
             }
         ]
@@ -246,12 +238,18 @@ const TicketsPage = (props) => {
             });
     };
 
+    const centerTitleMobile = {
+        '@media (max-width: 768px)': {
+            marginLeft: '2rem'
+        }
+    };
+
     return (
         <Layout>
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
+                        <Col className="col-auto" style={centerTitleMobile}>
                             <h2>{t('teacher_teams.team_heading')}</h2>
                         </Col>
 

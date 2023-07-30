@@ -33,6 +33,32 @@ import {
     getStudentDashboardStatus,
     updateStudentBadges
 } from '../../redux/studentRegistration/actions';
+import { Modal } from 'react-bootstrap';
+
+const GreetingModal = (props) => {
+    return (
+        <Modal
+            show={props.show}
+            size="lg"
+            centered
+            className="modal-popup text-center"
+            onHide={props.handleClose}
+            backdrop={true}
+        >
+            <Modal.Header closeButton></Modal.Header>
+
+            <Modal.Body>
+                <figure>
+                    <img
+                        src={props.imgUrl}
+                        alt="popup image"
+                        className="img-fluid"
+                    />
+                </figure>
+            </Modal.Body>
+        </Modal>
+    );
+};
 
 const PreSurvey = () => {
     // here student can attempt all the questions //
@@ -57,6 +83,35 @@ const PreSurvey = () => {
 
     const [answerResponses, setAnswerResponses] = useState([]);
 
+    const [showPopup, setShowPopup] = useState(false);
+    const [imgUrl, setImgUrl] = useState('');
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/1`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (
+                    response.status === 200 &&
+                    response.data.data[0]?.on_off === '1'
+                ) {
+                    setShowPopup(true);
+                    setImgUrl(response?.data?.data[0]?.url);
+                }
+            })
+            .catch(function (error) {
+                setShowPopup(false);
+                console.log(error);
+            });
+    }, []);
+
     const filterAnswer = (questionId) => {
         // console.log(questionId);
         const data =
@@ -71,13 +126,13 @@ const PreSurvey = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-        console.log(newItems);
+      
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
                 e.target.type === 'checkbox' ? [e.target.value] : e.target.value
         };
-        console.log(obj);
+    
         const findExistanceIndex = newItems.findIndex(
             (item) =>
                 parseInt(item?.quiz_survey_question_id) ===
@@ -257,17 +312,21 @@ const PreSurvey = () => {
         setShow(true);
     };
 
-    useEffect(() => {
-        if (!localStorage.getItem('greetingChildren')) {
-            localStorage.setItem('greetingChildren', true);
-        }
-    }, []);
+    const handleClose = () => {
+        setShowPopup(false);
+    };
+
     useEffect(() => {
         dispatch(getPresurveyData(language));
     }, [language]);
 
     return (
         <Layout>
+            <GreetingModal
+                handleClose={handleClose}
+                show={showPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
             <Container className="presuervey mb-50 mt-5 ">
                 <Row className="justify-content-center aside p-0 p-md-4 bg-transparent">
                     {!show && preSurveyStatus != 'COMPLETED' ? (
@@ -825,7 +884,7 @@ const PreSurvey = () => {
                                     <div style={{ textAlign: 'center' }}>
                                         <div>
                                             <img
-                                                className="img-fluid w-25"
+                                                className="img-fluid imgWidthSize"
                                                 src={Congo}
                                             ></img>
                                         </div>
