@@ -112,6 +112,7 @@ import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
+import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
 
 const Routers = () => {
     return (
@@ -173,6 +174,11 @@ const Routers = () => {
                         component={Dashboard}
                     />
                     <ProtectedRoute exact path="/about" component={Dashboard} />
+                    <ProtectedRoute
+                        exact
+                        path="/instructions"
+                        component={InstructionsPage}
+                    />
                     <ProtectedRoute
                         exact
                         path="/challenges"

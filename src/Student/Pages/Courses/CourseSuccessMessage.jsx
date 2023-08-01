@@ -2,7 +2,7 @@ import Confetti from 'react-confetti';
 import { useHistory } from 'react-router-dom';
 import ResultStar from '../../../assets/media/quiz-result-star.png';
 import { Button } from '../../../stories/Button';
-import succesImg from "../../../assets/media/success1.jpeg";
+import succesImg from '../../../assets/media/success1.jpeg';
 import { useTranslation } from 'react-i18next';
 import { getStudentDashboardStatus } from '../../../redux/studentRegistration/actions';
 import { getCurrentUser } from '../../../helpers/Utils';
@@ -17,10 +17,14 @@ const CourseSuccessMessage = () => {
         (state) => state?.studentRegistration?.studentLanguage
     );
 
-    const handleClick =(type)=>{
-        dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
+    const handleClick = (type) => {
+        dispatch(
+            getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
+        );
         setTimeout(() => {
-            type ? history.push("/challenges") : history.push("/student/my-certificate");
+            type
+                ? history.push('/instructions')
+                : history.push('/student/my-certificate');
         }, 300);
     };
     return (
@@ -33,12 +37,13 @@ const CourseSuccessMessage = () => {
                     </div>
                     <div className="congratulations text-center">
                         <div className="success_img text-center w-100">
-                            <img src={succesImg} alt=".." /><br />
+                            <img src={succesImg} alt=".." />
+                            <br />
                         </div>
                         <h2>{t('student_course.course_completed_succ')}</h2>
                         <p>{t('student_course.continue_to_idea')}</p>
                     </div>
-                    <div className='d-sm-flex justify-content-center mb-3 text-center'>
+                    <div className="d-sm-flex justify-content-center mb-3 text-center">
                         <Button
                             label={t('student_course.go_idea_submission')}
                             btnClass="primary mt-4 mx-4"

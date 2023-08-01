@@ -48,18 +48,19 @@ const ViewTeamMember = (props) => {
             history.location.item &&
             history.location.item.ideaStatus) ||
         teamID.ideaStatus;
-    const headingDetails = {
-        title: teamID?.team_name + t('teacher_teams.view_team_member_details'),
-        options: [
-            {
-                title: t('teacher_teams.teamslist'),
-                path: '/teacher/teamlist'
-            },
-            {
-                title: t('teacher_teams.view_team_member')
-            }
-        ]
-    };
+    // const headingDetails = {
+    //     title: teamID?.team_name + t('teacher_teams.view_team_member_details')
+    //     // options: [
+    //     //     {
+    //     //         title: t('teacher_teams.teamslist'),
+    //     //         path: '/teacher/teamlist'
+    //     //     },
+    //     //     {
+    //     //         title: t('teacher_teams.view_team_member')
+    //     //     }
+    //     // ]
+    // };
+
     const [count, setCount] = useState(0);
     // eslint-disable-next-line no-unused-vars
     const [teamsMembersList, setTeamsMemers] = useState([]);
@@ -271,7 +272,7 @@ const ViewTeamMember = (props) => {
                             )
                     ];
                 },
-                width: '12%',
+                width: '12rem',
                 center: true
             }
         ]
@@ -384,7 +385,8 @@ const ViewTeamMember = (props) => {
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
-                            <BreadcrumbTwo {...headingDetails} />
+                            {/* <BreadcrumbTwo {...headingDetails} /> */}
+                            <h3>Team Members Details</h3>
                         </Col>
 
                         <Col className="ticket-btn col ml-auto ">
@@ -434,7 +436,7 @@ const ViewTeamMember = (props) => {
                     show={show}
                     onHide={() => setShow(false)}
                     //{...props}
-                    size="lg"
+                    size="small"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="assign-evaluator ChangePSWModal teacher-register-modal"
@@ -451,29 +453,34 @@ const ViewTeamMember = (props) => {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <div className="my-3 text-center">
-                            <h3 className="mb-sm-4 mb-3">
+                        <div className="my-3 text-center w-50%">
+                            {/* <h3 className="mb-sm-4 mb-3">
                                 Please select Team to switch student
-                            </h3>
-                            <div>
+                            </h3> */}
+                            <div className="text-left">
                                 <input
                                     type="radio"
                                     checked={!value}
                                     onChange={(e) => setvalue('')}
                                 />
 
-                                <label>Select Below Team </label>
-
+                                <label className="text-left">
+                                    Select Team{' '}
+                                </label>
+                                <hr />
                                 {teamlist.length > 0 &&
                                     teamlist.map((item) => (
-                                        <div>
+                                        <div className="text-left">
                                             <input
                                                 type="radio"
                                                 value={item}
                                                 checked={value == item}
                                                 onChange={(e) => setvalue(item)}
                                             />
-                                            <label>{item}</label>
+                                            <label className="text-left">
+                                                {item}
+                                            </label>
+                                            <hr />
                                         </div>
                                     ))}
                             </div>
