@@ -266,7 +266,7 @@ export default function DoughnutChart({ user }) {
     <>
     <Row>
                     <div className="singlediv">
-                        <Card className="p-3 mx-4 d-flex flex-row">
+                        <Card className="p-3 mx-4 d-flex flex-row" style={{marginTop:'.5rem',marginBottom:'1rem'}}>
                             <span className="fw-bold">IDEA STATUS :</span>
                             <span style={{ paddingLeft: '1rem' }}>
                                 {challengesSubmittedResponse[0]?.status
@@ -315,7 +315,7 @@ export default function DoughnutChart({ user }) {
                                         label={'REVOKE'}
                                         size="small"
                                         shape="btn-square"
-                                        style={{ padding: '1rem 3rem', fontSize: '14px' }}
+                                        style={{ padding: '1rem 3rem', fontSize: '14px',marginBottom:'.8rem' }}
                                         onClick={() => handleRevoke(
                                             challengesSubmittedResponse[0]
                                                 .challenge_response_id,
