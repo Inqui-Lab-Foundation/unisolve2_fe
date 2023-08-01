@@ -64,7 +64,7 @@ const TicketResponse = (props) => {
 
         validationSchema: Yup.object({
             ansDetails: Yup.string().required('Required'),
-            selectStatus: Yup.string().required('Required')
+            selectStatus: Yup.string()
         }),
 
         onSubmit: (values) => {
@@ -239,12 +239,12 @@ const TicketResponse = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
-                                                    <span
+                                                    {/* <span
                                                         required
                                                         className="p-1"
                                                     >
                                                         *
-                                                    </span>
+                                                    </span> */}
                                                 </Label>
 
                                                 <Col
