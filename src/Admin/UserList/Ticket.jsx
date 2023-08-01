@@ -765,17 +765,7 @@ const TicketsPage = (props) => {
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>
-
-                    <div className="ticket-data">
-                        <Tabs
-                            defaultActiveKey={
-                                localStorage.getItem('tab')
-                                    ? localStorage.getItem('tab')
-                                    : '1'
-                            }
-                            onChange={(key) => changeTab(key)}
-                        >
-                            <Row className="mt-0">
+                    <Row className="mt-0">
                                 <Col className="ticket-btn col ml-auto  ">
                                     <div
                                         className={`d-flex ${
@@ -847,6 +837,17 @@ const TicketsPage = (props) => {
                                     </div>
                                 </Col>
                             </Row>
+
+                    <div className="ticket-data">
+                        <Tabs
+                            defaultActiveKey={
+                                localStorage.getItem('tab')
+                                    ? localStorage.getItem('tab')
+                                    : '1'
+                            }
+                            onChange={(key) => changeTab(key)}
+                        >
+                            <Row></Row>
                             <TabPane
                                 tab="Students"
                                 key="1"

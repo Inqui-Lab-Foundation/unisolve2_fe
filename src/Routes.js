@@ -30,7 +30,7 @@ import AdminCreateResource from './Admin/Resources/createResource';
 import AdminEditResource from './Admin/Resources/editResource';
 import AdminLatestNews from './Admin/LatestNews/index';
 import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
-//import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
+import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
@@ -387,11 +387,11 @@ const Routers = () => {
                         path="/admin/LatestNews/createLatestNews"
                         component={AdminCreateLatestNews}
                     />
-                    {/* <ProtectedRoute
+                    <ProtectedRoute
                         exact={true}
                         path="/admin/LatestNews/editLatestNews"
                         component={AdminEditLatestNews}
-                    /> */}
+                    />
 
                     <ProtectedRoute
                         exact={true}
