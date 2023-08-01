@@ -1214,8 +1214,8 @@ const Dashboard = () => {
                                                         orgData.mentor?.user_id
                                                     );
                                                 }}
-                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
-                                                style={{backgroundColor:'#dc3545' }}
+                                                className="btn  btn-lg  rounded-pill text-white mt-2 mt-md-0 ml-md-2"
+                                                style={{backgroundColor:'#dc3545', }}
                                             >
                                                 Delete
                                             </button>
