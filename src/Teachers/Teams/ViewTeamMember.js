@@ -436,7 +436,7 @@ const ViewTeamMember = (props) => {
                     show={show}
                     onHide={() => setShow(false)}
                     //{...props}
-                    size="small"
+                    size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="assign-evaluator ChangePSWModal teacher-register-modal"
@@ -454,10 +454,10 @@ const ViewTeamMember = (props) => {
 
                     <Modal.Body>
                         <div className="my-3 text-center w-50%">
-                            {/* <h3 className="mb-sm-4 mb-3">
+                            <h3 className="mb-sm-4 mb-3">
                                 Please select Team to switch student
-                            </h3> */}
-                            <div className="text-left">
+                            </h3>
+                            {/* <div className="text-left">
                                 <input
                                     type="radio"
                                     checked={!value}
@@ -468,7 +468,7 @@ const ViewTeamMember = (props) => {
                                     Select Team{' '}
                                 </label>
                                 <hr />
-                                {teamlist.length > 0 &&
+                                {/* {teamlist.length > 0 &&
                                     teamlist.map((item) => (
                                         <div className="text-left">
                                             <input
@@ -480,17 +480,16 @@ const ViewTeamMember = (props) => {
                                             <label className="text-left">
                                                 {item}
                                             </label>
-                                            <hr />
+                                            
                                         </div>
-                                    ))}
-                            </div>
+                                    ))} */}
 
-                            {/* <Select
+                            <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
-                            /> */}
+                            />
 
                             {/* <input
                                 type="radio"
