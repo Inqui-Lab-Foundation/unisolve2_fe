@@ -45,41 +45,10 @@ const InstructionsPage = (props) => {
                                                 ....
                                             </b>
                                         </p>
-                                        {/* <p>Dear Guide Teachers,</p>
-                                        <p>
-                                            This handbook is an important
-                                            document which will help you
-                                            understand the program objectives
-                                            and enable you to support your
-                                            Unisolve student teams better.
-                                        </p>
-                                        <p>
-                                            STEP 1 : Go through pages 1 - 28, to
-                                            understand about the program before
-                                            giving the Quiz.
-                                        </p> */}
-                                        <div className="congratulations text-center">
-                                            <div className="success_img text-center w-100">
-                                                {/* <img src={succesImg} alt=".." /> */}
-                                                <br />
-                                            </div>
-                                            <h2>
-                                                {t(
-                                                    'student_course.course_completed_succ'
-                                                )}
-                                            </h2>
-                                            <p>
-                                                {t(
-                                                    'student_course.continue_to_idea'
-                                                )}
-                                            </p>
-                                        </div>
-                                        <div className="d-sm-flex justify-content-center mb-3 text-center">
+            
+                                        <div className="text-right">
                                             <Button
-                                                // label={t(
-                                                //     'student_course.go_idea_submission'
-                                                // )}
-                                                label="Click Here to Continue"
+                                                label="next"
                                                 btnClass="primary mt-4 mx-4"
                                                 size="small"
                                                 onClick={handleNext}
