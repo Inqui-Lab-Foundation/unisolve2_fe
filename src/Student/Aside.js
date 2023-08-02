@@ -158,7 +158,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<FaLandmark />}
                         className={
-                            location.pathname === '/Student/Resources' &&
+                            location.pathname === '/Student/Resources/index' &&
                             'sidebar-active'
                         }
                     >
@@ -189,15 +189,15 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         icon={<FaLightbulb />}
                         className={
                             (location.pathname === '/challenges' ||
-                                location.pathname ===
-                                    '/challenge-initiation') &&
+                                location.pathname === '/challenge-initiation' ||
+                                location.pathname === '/instructions') &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
                             onClick={handleClick}
-                            to={'/challenges'}
+                            to={'/instructions'}
                         >
                             {t('home.idea_submission')}
                         </NavLink>
