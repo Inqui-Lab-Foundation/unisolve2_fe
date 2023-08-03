@@ -4,7 +4,8 @@ const Select = ({ list, setValue, placeHolder, value }) => {
             onChange={(e) => setValue(e.target.value)}
             value={value}
             className="border rounded-3 px-4 pointer w-75"
-            style={{ height: '4rem', outline: 'none' }}
+            style={{ 
+                height: '4rem', outline: 'none' }}
         >
             <option value={''} disabled>
                 {placeHolder}
