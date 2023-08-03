@@ -108,26 +108,26 @@ const LoginNew = (props) => {
                         <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_1}
-                                    alt="image_1"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_1}
+                                            alt="image_1"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_2}
-                                    alt="image_2"
-                                    className="img-fluid img-2"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_2}
+                                            alt="image_2"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
