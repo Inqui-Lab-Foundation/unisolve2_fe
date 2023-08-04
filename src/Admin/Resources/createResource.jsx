@@ -218,8 +218,16 @@ const CreateResource = (props) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.role}
+                                            style={{
+                                                color: formik.values.role
+                                                    ? 'black'
+                                                    : 'initial',
+                                                fontWeight: formik.values.role
+                                                    ? 'bold'
+                                                    : 'normal'
+                                            }}
                                         >
-                                            <option value="">
+                                            <option value="" disabled={true}>
                                                 Select role
                                             </option>
                                             <option value="mentor">
@@ -269,6 +277,14 @@ const CreateResource = (props) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.type}
+                                            style={{
+                                                color: formik.values.type
+                                                    ? 'black'
+                                                    : 'initial',
+                                                fontWeight: formik.values.type
+                                                    ? 'bold'
+                                                    : 'normal'
+                                            }}
                                         >
                                             <option disabled={true} value="">
                                                 Select type
@@ -309,6 +325,8 @@ const CreateResource = (props) => {
                                                     />
                                                     <Button
                                                         label="Upload File "
+                                                        btnClass="primary"
+                                                        size="small"
                                                         onClick={() => {
                                                             document
                                                                 .getElementById(

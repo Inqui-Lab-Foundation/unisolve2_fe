@@ -265,30 +265,28 @@ export default function DoughnutChart({ user }) {
                     Team Progress:
                 </label>
                 <div className="d-flex align-items-center teamProgreess">
-                    <Col md="3" xs="12">
-                        <div className="singlediv">
-                            <select
-                                onChange={(e) => setTeamId(e.target.value)}
-                                name="teams"
-                                id="teams"
-                                style={{
-                                    backgroundColor: 'lavender',
-                                    height: '40px', // Set the desired height
-                                    fontSize: '16px'
-                                }}
-                            >
-                                <option value="">Select Team</option>
-                                {teamsList && teamsList.length > 0 ? (
-                                    teamsList.map((item, i) => (
-                                        <option key={i} value={item.team_id}>
-                                            {item.team_name}
-                                        </option>
-                                    ))
-                                ) : (
-                                    <option value="">There are no teams</option>
-                                )}
-                            </select>
-                        </div>
+                <Col md="3" xs="12">
+                    <div className="singlediv">
+                        <select
+                            onChange={(e) => setTeamId(e.target.value)}
+                            name="teams"
+                            id="teams"
+                            style={{ backgroundColor: 'lavender',
+                            height: '40px', // Set the desired height
+                            fontSize: '16px',}}
+                        >
+                            <option value="" disabled={true}>Select Team</option>
+                            {teamsList && teamsList.length > 0 ? (
+                                teamsList.map((item, i) => (
+                                    <option key={i} value={item.team_id}>
+                                        {item.team_name}
+                                    </option>
+                                ))
+                            ) : (
+                                <option value="">There are no teams</option>
+                            )}
+                        </select>
+                    </div>
                     </Col>
                     {teamId && (
                         <>
