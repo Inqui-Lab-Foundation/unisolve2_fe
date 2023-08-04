@@ -249,7 +249,7 @@ export default function DoughnutChart({ user }) {
                             height: '40px', // Set the desired height
                             fontSize: '16px',}}
                         >
-                            <option value="">Select Team</option>
+                            <option value="" disabled={true}>Select Team</option>
                             {teamsList && teamsList.length > 0 ? (
                                 teamsList.map((item, i) => (
                                     <option key={i} value={item.team_id}>
