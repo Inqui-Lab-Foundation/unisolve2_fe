@@ -355,6 +355,7 @@ const DetaledQuiz = (props) => {
                                                             )
                                                         );
                                                         props.handleQuiz();
+                                                        props.handleNextCourse();
                                                     }}
                                                 />
                                             </div>
