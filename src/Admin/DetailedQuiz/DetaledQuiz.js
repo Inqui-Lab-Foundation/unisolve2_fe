@@ -187,12 +187,12 @@ const DetaledQuiz = (props) => {
             attemptNumber + 1
         );
     };
-
+    
     return (
         <Fragment>
             {video === true &&
                 props.adminCourseQst &&
-                props.adminCourseQst.count === null && (
+                props.adminCourseQst.data === "Quiz has been completed no more questions to display" && (
                     <div>
                         {currentRole === 'MENTOR' ? (
                             <Confetti className="w-100" />
@@ -222,7 +222,7 @@ const DetaledQuiz = (props) => {
             <Card className="quiz">
                 {video === true &&
                 props.adminCourseQst &&
-                props.adminCourseQst.count === null ? (
+                props.adminCourseQst.data === "Quiz has been completed no more questions to display" ? (
                     <div className="container new-result">
                         <div className="row justify-content-md-center ">
                             <div className="col col-lg-9">
@@ -355,6 +355,7 @@ const DetaledQuiz = (props) => {
                                                             )
                                                         );
                                                         props.handleQuiz();
+                                                        props.handleNextCourse();
                                                     }}
                                                 />
                                             </div>

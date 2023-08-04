@@ -606,6 +606,9 @@ const PlayVideoCourses = (props) => {
                         if (!cuttOff) {
                             setQuizStart(false);
                             setQuizCompleted(true);
+                        } else {
+                            setQuizStart(false);
+                            setQuizCompleted(false);
                         }
                     }
                 }
@@ -639,9 +642,9 @@ const PlayVideoCourses = (props) => {
             setItem('WORKSHEET');
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
+            resultdata(topicId);
             setItem('QUIZ');
             setQizId(topicId);
-            resultdata(topicId);
         } else if (type === 'VIDEO') {
             setItem('VIDEO');
             fetchData(topicId);
@@ -1576,6 +1579,9 @@ const PlayVideoCourses = (props) => {
                                             <DetaledQuiz
                                                 course_id={course_id}
                                                 quizId={quizId}
+                                                handleNextCourse={
+                                                    handleNextCourse
+                                                }
                                                 handleQuiz={handleQuiz}
                                                 handleClose={handleClose}
                                                 handleNxtVideo={handleNxtVideo}
