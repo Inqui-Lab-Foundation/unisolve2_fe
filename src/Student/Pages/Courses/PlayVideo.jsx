@@ -606,6 +606,9 @@ const PlayVideoCourses = (props) => {
                         if (!cuttOff) {
                             setQuizStart(false);
                             setQuizCompleted(true);
+                        } else {
+                            setQuizStart(false);
+                            setQuizCompleted(false);
                         }
                     }
                 }
@@ -1576,7 +1579,9 @@ const PlayVideoCourses = (props) => {
                                             <DetaledQuiz
                                                 course_id={course_id}
                                                 quizId={quizId}
-                                                handleNextCourse={handleNextCourse}
+                                                handleNextCourse={
+                                                    handleNextCourse
+                                                }
                                                 handleQuiz={handleQuiz}
                                                 handleClose={handleClose}
                                                 handleNxtVideo={handleNxtVideo}
