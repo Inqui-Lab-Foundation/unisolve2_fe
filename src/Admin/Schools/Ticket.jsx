@@ -261,7 +261,7 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: (row) => row.index,
                 cellExport: (row) => row.index,
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'UDISE Code ',
@@ -269,19 +269,19 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.organization_code,
                 sortable: true,
 
-                width: '15%'
+                width: '15rem'
             },
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
                 cellExport: (row) => row.organization_name,
-                width: '27%'
+                width: '27rem'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
                 cellExport: (row) => row.principal_name,
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'Mobile',
@@ -302,12 +302,12 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '27%',
+                width: '27rem',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -317,9 +317,7 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary btn-lg mx-2">
-                                EDIT
-                            </div>
+                            <div className="btn btn-primary  mx-2">EDIT</div>
                         </div>
                         <div
                             key={record}
@@ -328,7 +326,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success btn-lg">TEST</div>
+                            <div className="btn btn-success ">TEST</div>
                         </div>
                         <div
                             key={record}
@@ -337,9 +335,7 @@ const TicketsPage = (props) => {
                             }
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-danger btn-lg">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger ">INACTIVE</div>
                         </div>
                     </>
                 ]
@@ -352,24 +348,24 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                sortable: true,
-                width: '6%'
+                // sortable: true,
+                width: '6rem'
             },
             {
                 name: 'Unique Code',
                 selector: (row) => row.organization_code,
                 sortable: true,
-                width: '15%'
+                width: '15rem'
             },
             {
                 name: 'Institution Name',
                 selector: (row) => row.organization_name,
-                width: '27%'
+                width: '27rem'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'Mobile',
@@ -383,13 +379,13 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
                 selector: 'action',
                 center: true,
-                width: '20%',
+                width: '20rem',
                 cell: (record) => [
                     <>
                         <div
@@ -397,23 +393,21 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary btn-lg mx-2">
-                                EDIT
-                            </div>
+                            <div className="btn btn-primary  mx-2">EDIT</div>
                         </div>
                         <div
                             key={record}
                             onClick={() => handleStatusUpdate(record, 'ACTIVE')}
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                            <div className="btn btn-warning ">ACTIVE</div>
                         </div>
                         <div
                             key={record}
                             onClick={() => handleStatusUpdate(record, 'NEW')}
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-success btn-lg">TEST</div>
+                            <div className="btn btn-success">TEST</div>
                         </div>
                     </>
                 ]
@@ -426,23 +420,23 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'Unique Code',
                 selector: 'organization_code',
                 sortable: true,
-                width: '15%'
+                width: '15rem'
             },
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                width: '25%'
+                width: '25rem'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
-                width: '13%'
+                width: '13rem'
             },
 
             {
@@ -455,12 +449,12 @@ const TicketsPage = (props) => {
                         {row.status === 'NEW' ? 'TEST' : ''}
                     </Badge>
                 ],
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '24%',
+                width: '24rem',
                 center: true,
                 cell: (record) => [
                     <>
@@ -469,25 +463,21 @@ const TicketsPage = (props) => {
                             onClick={() => handleEdit(record)}
                             style={{ marginRight: '7px' }}
                         >
-                            <div className="btn btn-primary btn-lg mx-2">
-                                EDIT
-                            </div>
+                            <div className="btn btn-primary  mx-2">EDIT</div>
                         </div>
                         <div
                             key={record}
                             onClick={() => handleNewUpdate(record, 'ACTIVE')}
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                            <div className="btn btn-warning ">ACTIVE</div>
                         </div>
                         <div
                             key={record}
                             onClick={() => handleNewUpdate(record, 'INACTIVE')}
                             style={{ marginRight: '10px' }}
                         >
-                            <div className="btn btn-danger btn-lg">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger">INACTIVE</div>
                         </div>
                     </>
                 ]
