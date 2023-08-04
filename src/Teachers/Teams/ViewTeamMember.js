@@ -486,14 +486,12 @@ const ViewTeamMember = (props) => {
                                             
                                         </div>
                                     ))} */}
-
                             <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
                             />
-
                             {/* <input
                                 type="radio"
                                 name="value"

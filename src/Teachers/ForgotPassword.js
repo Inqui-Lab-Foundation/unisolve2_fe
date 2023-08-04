@@ -86,19 +86,42 @@ function ForgotPassword(props) {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
-                            style={{ borderRadius: '0'}}
+                            style={{ borderRadius: '0' }}
                         />
                         {formik.touched.email && formik.errors.email ? (
                             <small className="error-cls">
                                 {formik.errors.email}
                             </small>
                         ) : null}
+                        {errorMsg === 'User not found' ? (
+                            <span
+                                className=" w-100 mt-3 d-flex justify-content-center"
+                                style={{
+                                    color: 'red'
+                                }}
+                            >
+                                Please enter registered email ID
+                            </span>
+                        ) : (
+                            // <b className="text-danger m-3">
+                            //     Please enter registered email ID
+                            // </b>
+                            ''
+                        )}
                     </FormGroup>
-                    {errorMsg === 'User not found' && (
-                        <b className="text-danger m-3">
+                    {/* {errorMsg === 'User not found' && (
+                        <span
+                            className=" w-100 mt-3 d-flex justify-content-center"
+                            style={{
+                                color: 'red'
+                            }}
+                        >
                             Please enter registered email ID
-                        </b>
-                    )}
+                        </span>
+                        // <b className="text-danger m-3">
+                        //     Please enter registered email ID
+                        // </b>
+                    )} */}
                     <div className="mt-3">
                         <Button
                             label="Generate Password"

@@ -60,6 +60,7 @@ const ForgotPasswordNew = () => {
                             'success',
                             'Temporary Password Sent Successfully'
                         );
+                        seterrorMsg('');
                     }
                 })
                 .catch((err) => {
@@ -80,26 +81,26 @@ const ForgotPasswordNew = () => {
                         <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_7}
-                                    alt="image_7"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_7}
+                                            alt="image_7"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_8}
-                                    alt="image_8"
-                                    className="img-fluid img-2"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_8}
+                                            alt="image_8"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
@@ -116,8 +117,15 @@ const ForgotPasswordNew = () => {
                     </div>
                     <Col xs={12} sm={12} md={12} xl={12} className="article">
                         <Row className="logo">
-                            <Col md={12} className="d-flex justify-content-center align-items-center">
-                                <img src={logo} alt="Logo" className="logo-image" />
+                            <Col
+                                md={12}
+                                className="d-flex justify-content-center align-items-center"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="Logo"
+                                    className="logo-image"
+                                />
                             </Col>
                         </Row>
                         <Row className="mb-0">
