@@ -48,6 +48,7 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
+    const [isideadisable, setIsideadisable] = useState(false);
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
@@ -248,6 +249,30 @@ const Dashboard = () => {
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -279,21 +304,28 @@ const Dashboard = () => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <div
-                            key={params}
-                            onClick={() =>
-                                handleRevoke(
-                                    params.challenge_response_id,
-                                    params.ideaStatus
-                                )
-                            }
-                        >
+                        <>
                             {params.ideaStatus == 'SUBMITTED' && (
-                                <div className="btn btn-success btn-lg mr-5 mx-2">
-                                    Revoke
-                                </div>
+                                <Button
+                                    key={params}
+                                    className={
+                                        isideadisable
+                                            ? `btn btn-success btn-lg mr-5 mx-2`
+                                            : `btn btn-lg mr-5 mx-2`
+                                    }
+                                    label={'REVOKE'}
+                                    size="small"
+                                    shape="btn-square"
+                                    onClick={() =>
+                                        handleRevoke(
+                                            params.challenge_response_id,
+                                            params.ideaStatus
+                                        )
+                                    }
+                                    disabled={!isideadisable}
+                                />
                             )}
-                        </div>
+                        </>
                     ];
                 },
                 width: '20%',
@@ -744,10 +776,12 @@ const Dashboard = () => {
                 <h2 className="mb-5">Dashboard </h2>
                 <div className="dashboard p-5 mb-5">
                     <div className="row " style={{ overflow: 'auto' }}>
-                        <div className=" row col-xs-12 col-md-6">
+                        <div className=" row col-xs-12 col-md-7">
                             <Col
                                 style={{
-                                    paddingRight: '20px'
+                                    paddingRight: '20px',
+                                    paddingTop:'1rem',
+                                    paddingLeft:'2rem'
                                 }}
                             >
                                 <Row>
@@ -759,7 +793,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg. Teachers
+                                                Total Eligible Schools
                                             </label>
 
                                             <Card.Text
@@ -770,7 +804,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                950
+                                                99999
                                                 {/* {dashboardStates &&
                                             dashboardStates?.teams_count
                                                 ? dashboardStates?.teams_count
@@ -779,6 +813,108 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg Schools
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.course_completed_count !==
+                                                undefined
+                                                ? `${
+                                                      (dashboardStates?.course_completed_count /
+                                                          dashboardStates?.Total_course_count) *
+                                                      100
+                                                  }%`
+                                                : '-'} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg Teachers
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.course_completed_count !==
+                                                undefined
+                                                ? `${
+                                                      (dashboardStates?.course_completed_count /
+                                                          dashboardStates?.Total_course_count) *
+                                                      100
+                                                  }%`
+                                                : '-'} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '120px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                 Teachers Course Completed
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.course_completed_count !==
+                                                undefined
+                                                ? `${
+                                                      (dashboardStates?.course_completed_count /
+                                                          dashboardStates?.Total_course_count) *
+                                                      100
+                                                  }%`
+                                                : '-'} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            <Col style={{ paddingRight: '20px',
+                        paddingTop:'1rem' }}>
                                 <Row>
                                     <Card
                                         bg="light"
@@ -798,22 +934,114 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                2,004
+                                               99999
                                                 {/* {dashboardStates &&
-                                            dashboardStates?.course_completed_count !==
-                                                undefined
-                                                ? `${
-                                                      (dashboardStates?.course_completed_count /
-                                                          dashboardStates?.Total_course_count) *
-                                                      100
-                                                  }%`
+                                            dashboardStates.students_count
+                                                ? dashboardStates.students_count
                                                 : '-'} */}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
                                 </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Submitted Ideas
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Ideas in Draft
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Not initiated Ideas
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                99999
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
                             </Col>
-                            <Col style={{ paddingRight: '20px' }}>
+                            <Col style={{ paddingRight: '20px',
+                        paddingTop:'1rem' }}>
                                 <Row>
                                     <Card
                                         bg="light"
@@ -853,7 +1081,72 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Submitted Ideas
+                                                 Students course completed
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                 Students course in
+                                                progress
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+                                            dashboardStates?.ideas_count
+                                                ? dashboardStates?.ideas_count
+                                                : 0} */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '120px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                 Students Course not started
                                             </label>
 
                                             <Card.Text
@@ -875,11 +1168,100 @@ const Dashboard = () => {
                                     </Card>
                                 </Row>
                             </Col>
+                            <div>
+                            <Card bg="light" text="dark" className="mb-4" >
+                                <Card.Body>
+                                    <Row style={{marginRight:'3rem'}}>
+                                        <Col md={3} style={{}}>
+                                            <label htmlFor="teams">
+                                                Total Male Teachers
+                                            </label>
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+              dashboardStates?.ideas_count
+                ? dashboardStates?.ideas_count
+                : 0} */}
+                                            </Card.Text>
+                                        </Col>
+                                        <Col md={3}>
+                                            <label htmlFor="teams">
+                                                Total Female Teachers
+                                            </label>
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+              dashboardStates?.ideas_count
+                ? dashboardStates?.ideas_count
+                : 0} */}
+                                            </Card.Text>
+                                        </Col>
+                                        
+                                        <Col md={3}>
+                                            <label htmlFor="teams">
+                                                Total Male Students
+                                            </label>
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+              dashboardStates?.ideas_count
+                ? dashboardStates?.ideas_count
+                : 0} */}
+                                            </Card.Text>
+                                        </Col>
+                                        <Col md={3}>
+                                            <label htmlFor="teams">
+                                                Total Female Students
+                                            </label>
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                1,940
+                                                {/* {dashboardStates &&
+              dashboardStates?.ideas_count
+                ? dashboardStates?.ideas_count
+                : 0} */}
+                                            </Card.Text>
+                                        </Col>
+                                    </Row>
+                                </Card.Body>
+                            </Card>
+</div>
                             {/* <div style={{ flex: 1 }} className="col-lg-12">
                             Data__
                         </div> */}
                         </div>
-                        <div className=" row  col-xs-12 col-md-6">
+                        <div className=" row  col-xs-12 col-md-5">
                             <div
                                 style={{ flex: 1, overflow: 'auto' }}
                                 className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
@@ -1168,11 +1550,10 @@ const Dashboard = () => {
                                         {/* <div className="d-flex justify-content-between"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
                                             <button
-                
                                                 className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                              
-                                               style={{
-                                                backgroundColor: '#ffcb34'}}
+                                                style={{
+                                                    backgroundColor: '#ffcb34'
+                                                }}
                                                 onClick={handleEdit}
                                                 //className="btn btn-warning btn-lg  px-4"
                                             >
@@ -1214,8 +1595,10 @@ const Dashboard = () => {
                                                         orgData.mentor?.user_id
                                                     );
                                                 }}
-                                                className="btn  btn-lg  rounded-pill text-white mt-2 mt-md-0 ml-md-2"
-                                                style={{backgroundColor:'#dc3545', }}
+                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
+                                                style={{
+                                                    backgroundColor: '#dc3545'
+                                                }}
                                             >
                                                 Delete
                                             </button>

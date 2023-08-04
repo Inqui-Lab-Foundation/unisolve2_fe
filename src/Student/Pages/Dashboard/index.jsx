@@ -371,20 +371,30 @@ const Dashboard = () => {
     return (
         <Layout>
             <Container>
-                <div className="d-flex justify-content-between align-items-center" style={{margin:'1rem 0'}}>
+                <div
+                    className="d-flex justify-content-between align-items-center"
+                    style={{ margin: '1rem 0' }}
+                >
                     <h2>Dashboard</h2>
                     <div
                         className="bg-white rounded p-3 d-flex align-items-center"
                         style={{ width: 'max-content' }}
                     >
-                        <p style={{marginBottom:'0'}}>Preferred Language : </p>
+                        <p style={{ marginBottom: '0' }}>
+                            Preferred Language :{' '}
+                        </p>
                         <LanguageSelectorComp module="student" />
                     </div>
                 </div>
                 <Row>
                     <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>
-                            <Card bg="light" text="dark" className="mb-2">
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '100px' }}
+                            >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
                                         Completed Videos
@@ -407,14 +417,19 @@ const Dashboard = () => {
                             </Card>
                         </Row>
                         <Row>
-                            <Card bg="light" text="dark" className="mb-2">
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '100px' }}
+                            >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
                                         Course Completion
                                     </label>
                                     <Card.Text
                                         style={{
-                                            fontSize: '48px',
+                                            fontSize: '40px',
                                             fontWeight: 'bold',
                                             marginTop: '10px',
                                             marginBottom: '20px'
@@ -426,7 +441,7 @@ const Dashboard = () => {
                                                     dashboardStatus?.all_topics_count,
                                                     dashboardStatus?.topics_completed_count
                                                 )
-                                        ) + ' %'}
+                                        ) + '%'}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -434,7 +449,12 @@ const Dashboard = () => {
                     </Col>
                     <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>
-                            <Card bg="light" text="dark" className="mb-2">
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '100px' }}
+                            >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
                                         Completed Quiz
@@ -456,7 +476,12 @@ const Dashboard = () => {
                             </Card>
                         </Row>
                         <Row>
-                            <Card bg="light" text="dark" className="mb-2">
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className="mb-2"
+                                style={{ height: '100px' }}
+                            >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
                                         Earned Badges

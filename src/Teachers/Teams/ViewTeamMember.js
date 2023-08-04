@@ -152,6 +152,9 @@ const ViewTeamMember = (props) => {
 
             .catch(function (error) {
                 console.log(error);
+                if(error.message === "Request failed with status code 400"){
+                    openNotificationWithIcon('error', 'Same Name student already existed in seleted team');
+                }
             });
         setShow(false);
     };
@@ -483,14 +486,12 @@ const ViewTeamMember = (props) => {
                                             
                                         </div>
                                     ))} */}
-
                             <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
                             />
-
                             {/* <input
                                 type="radio"
                                 name="value"
