@@ -315,6 +315,7 @@ const EditTeacherProfileDetails = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
+                                            disabled={!formik.dirty}
                                         />
                                     </Col>
                                 </Row>

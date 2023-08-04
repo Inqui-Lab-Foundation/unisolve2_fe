@@ -69,26 +69,39 @@ const EditSchool = (props) => {
             //     .matches(phoneRegExp, 'Mobile number is not valid')
             //     .min(10, 'Enter a valid mobile number')
             //     .max(10, 'Enter a valid mobile number'),
-            principal_email: Yup.string().email('Invalid email address format'),
-            principal_name: Yup.string().matches(
-                /^[aA-zZ\s]+$/,
-                'Invalid Name'
-            ),
-            organization_name: Yup.string().required(
-                'Organization  Name is Required'
-            ),
+            principal_email: Yup.string()
+                .email('Invalid email address format')
+                .trim(),
+            // .required('required'),
+            principal_name: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid Name')
+                .trim()
+                .required('required'),
+            organization_name: Yup.string()
+                .required('Organization  Name is Required')
+                .trim()
+                .required('required'),
             organization_code: Yup.string()
                 .matches(
                     /^[A-Za-z0-9 ]*$/,
                     'Please enter only alphanumeric characters'
                 )
+                .trim()
                 .required('UDISE  Code is Required'),
-            city: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid City'),
+            city: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid City')
+                .trim()
+                .required('required'),
 
             district: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-                .required('District is Required'),
-            state: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid State')
+                .trim()
+                .required('required'),
+            // .required('District is Required'),
+            state: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid State')
+                .trim()
+                .required('required')
         }),
 
         onSubmit: async (values) => {
@@ -130,7 +143,7 @@ const EditSchool = (props) => {
                                             htmlFor="organization_code"
                                         >
                                             Unique Code
-                                            <span required>*</span>
+                                            {/* <span required>*</span> */}
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -157,7 +170,7 @@ const EditSchool = (props) => {
                                             htmlFor="organization_name"
                                         >
                                             Institute/School Name
-                                            <span required>*</span>
+                                            {/* <span required>*</span> */}
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -202,7 +215,7 @@ const EditSchool = (props) => {
                                             htmlFor="district"
                                         >
                                             District
-                                            <span required>*</span>
+                                            {/* <span required>*</span> */}
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -334,6 +347,7 @@ const EditSchool = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
+                                            disabled={!formik.dirty}
                                         />
                                     </Col>
                                 </Row>
