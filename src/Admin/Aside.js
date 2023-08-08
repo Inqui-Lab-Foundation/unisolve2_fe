@@ -15,6 +15,7 @@ import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import ResourceIcon from '../assets/media/resourceIcon.png';
 import PopupIcon from '../assets/media/popupIcon.png';
 import EvalConifIcon from '../assets/media/EvalConifIcon.png';
+import SmallLogo from '../assets/media/logo192.png';
 import {
     ProSidebar,
     Menu,
@@ -72,7 +73,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <Link to={'/admin/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
                                     className="img-fluid img-close p-2"
                                 />
@@ -88,7 +89,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu"  style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />

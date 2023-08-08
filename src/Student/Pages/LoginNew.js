@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import './SignUp.scss';
-import React, { useLayoutEffect} from 'react';
-import { Row, Col, Form, Label} from 'reactstrap';
+import React, { useLayoutEffect } from 'react';
+import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../../stories/InputBox/InputBox.jsx';
 import { Carousel } from 'react-bootstrap';
@@ -111,26 +111,26 @@ const LoginNew = (props) => {
                         <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_9}
-                                    alt="image_9"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_9}
+                                            alt="image_9"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_10}
-                                    alt="image_10"
-                                    className="img-fluid img-2"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_10}
+                                            alt="image_10"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
@@ -145,13 +145,21 @@ const LoginNew = (props) => {
                             </Carousel.Item> */}
                         </Carousel>
                     </div>
-                    
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <Col md={12} className="d-flex justify-content-center align-items-center">
-                                <img src={logo} alt="Logo" className="logo-image" />
-                            </Col>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                    />
+                                </Col>
+                            </a>
                         </Row>
                         <Row className="login-options d-flex ">
                             <Col md={12} className="text-right"></Col>
@@ -200,13 +208,13 @@ const LoginNew = (props) => {
                                             md={12}
                                             xl={12}
                                         >
-                                            <Label 
+                                            <Label
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
                                                 {t('loginPage.User_ID_Email')}
                                             </Label>
-                                            <InputBox 
+                                            <InputBox
                                                 {...inputUserId}
                                                 id="email"
                                                 name="email"
@@ -241,7 +249,7 @@ const LoginNew = (props) => {
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
-                                                type='password'
+                                                type="password"
                                                 id="password"
                                                 name="password"
                                                 onChange={formik.handleChange}
@@ -256,9 +264,7 @@ const LoginNew = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Row className="keepme_login">
-                                            
-                                        </Row>
+                                        <Row className="keepme_login"></Row>
                                     </div>
 
                                     <div className="form-row row mb-5">
@@ -292,7 +298,6 @@ const LoginNew = (props) => {
                                             />
                                         </Col>
                                     </div>
-                                  
                                 </Form>
                             </Col>
                         </Row>

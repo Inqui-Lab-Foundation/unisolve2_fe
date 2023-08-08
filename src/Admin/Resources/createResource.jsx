@@ -68,6 +68,9 @@ const CreateResource = (props) => {
 
         formik.setFieldValue('attachments', file);
     };
+    const handleTypeChnage = () => {
+        formik.setFieldValue('attachments', '');
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -274,7 +277,10 @@ const CreateResource = (props) => {
                                             id="type"
                                             placeholder="Please select submission type"
                                             className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                formik.handleChange(e);
+                                                handleTypeChnage();
+                                            }}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.type}
                                             style={{

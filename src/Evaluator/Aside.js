@@ -8,6 +8,7 @@ import {
     SidebarContent
 } from 'react-pro-sidebar';
 import { FaBars, FaLightbulb, FaInfo } from 'react-icons/fa';
+import SmallLogo from '../assets/media/logo192.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
@@ -60,7 +61,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
                                     className="img-fluid img-close"
                                 />
@@ -76,7 +77,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />

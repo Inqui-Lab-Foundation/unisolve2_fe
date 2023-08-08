@@ -63,7 +63,9 @@ const EditResource = (props) => {
 
         formik.setFieldValue('attachments', file);
     };
-
+    const handleTypeChnage = () => {
+        formik.setFieldValue('attachments', '');
+    };
     const formik = useFormik({
         initialValues: {
             role: resID && resID.role,
@@ -214,7 +216,10 @@ const EditResource = (props) => {
                                             id="type"
                                             className="form-control custom-dropdown"
                                             value={formik.values.type}
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                formik.handleChange(e);
+                                                handleTypeChnage();
+                                            }}
                                             onBlur={formik.handleBlur}
                                         >
                                             <option value="file">File</option>
