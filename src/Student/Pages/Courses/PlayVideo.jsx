@@ -192,7 +192,7 @@ const PlayVideoCourses = (props) => {
         setFiles(fileAdded);
     };
 
-    let maxFileSize = 20000000;
+    let maxFileSize = 10000000;
     const fileHandler = (e) => {
         let choosenFiles = Array.prototype.slice.call(e.target.files);
         e.target.files = null;
@@ -210,7 +210,7 @@ const PlayVideoCourses = (props) => {
             return;
         }
         if (choosenFiles.filter((item) => item.size > maxFileSize).length > 0) {
-            openNotificationWithIcon('error', t('student.less_20MB'));
+            openNotificationWithIcon('error', t('student.less_10MB'));
             return;
         }
         handleUploadFiles(choosenFiles);
