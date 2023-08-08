@@ -263,8 +263,7 @@ const PreSurvey = () => {
         const section = document.querySelector('#start');
         section.scrollIntoView({
             behavior: 'smooth',
-            block: 'start',
-            inline: 'start'
+            block: 'start'
         });
     };
     const handleClose = () => {
