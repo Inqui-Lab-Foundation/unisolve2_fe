@@ -81,7 +81,7 @@ const PreSurvey = () => {
     const [show, setShow] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const [answerResponse, setAnswerResponse] = useState([]);
+    const [answerSResponse, setAnswerSResponse] = useState([]);
 
     const [showPopup, setShowPopup] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
@@ -112,9 +112,9 @@ const PreSurvey = () => {
     const filterAnswers = (questionId) => {
         // console.log(questionId);
         const data =
-            answerResponse &&
-            answerResponse.length > 0 &&
-            answerResponse.filter(
+            answerSResponse &&
+            answerSResponse.length > 0 &&
+            answerSResponse.filter(
                 (item) => item.quiz_survey_question_id == questionId
             );
         return data && data.length > 0 && data[0].selected_option
@@ -122,7 +122,7 @@ const PreSurvey = () => {
             : '';
     };
     const handleOnChange = (e) => {
-        let newItems = [...answerResponse];
+        let newItems = [...answerSResponse];
 
         let obj = {
             quiz_survey_question_id: e.target.name,
@@ -162,7 +162,7 @@ const PreSurvey = () => {
                 }
             }
         }
-        setAnswerResponse(newItems);
+        setAnswerSResponse(newItems);
     };
 
     const handleOnSubmit = async (e) => {
@@ -171,7 +171,7 @@ const PreSurvey = () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
         let submittedData = {
-            responses: answerResponse
+            responses: answerSResponse
         };
         if (preSurveyList.length != submittedData.responses.length) {
             openNotificationWithIcon(
@@ -304,7 +304,7 @@ const PreSurvey = () => {
     //     }
     // });
 
-    const handleStart = () => {
+    const handleOnStart = () => {
         // here student  can start journey //
         setShow(true);
         scroll();
@@ -373,7 +373,7 @@ const PreSurvey = () => {
                                         label={t('student_get_started.btn')}
                                         btnClass="primary my-3"
                                         size="small"
-                                        onClick={handleStart}
+                                        onClick={handleOnStart}
                                     />
                                 </Col>
                             </Row>
@@ -890,7 +890,7 @@ const PreSurvey = () => {
                                             // }
                                             size="small"
                                             label={t(
-                                                'student_presurvey.submit'
+                                                'student_presurvey.submmit'
                                             )}
                                             onClick={(e) => handleOnSubmit(e)}
                                         />
