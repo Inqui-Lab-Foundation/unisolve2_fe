@@ -11,7 +11,7 @@ import { FaBars } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
-
+import SmallLogo from '../assets/media/logo192.png';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import logoutIcon from '../assets/media/logoutIcon.png';
@@ -54,7 +54,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <Link to={'/school/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
                                     className="img-fluid img-close"
                                 />
@@ -70,7 +70,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />

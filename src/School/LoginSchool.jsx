@@ -186,16 +186,18 @@ function LoginSchool(props) {
                             </h4>
                         </Row> */}
                         <Row className="logo">
-                            <Col
-                                md={12}
-                                className="d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Logo"
-                                    className="logo-image"
-                                />
-                            </Col>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                    />
+                                </Col>
+                            </a>
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
