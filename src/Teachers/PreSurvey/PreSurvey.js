@@ -74,7 +74,7 @@ const PreSurvey = () => {
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [answerResponse, setAnswerResponse] = useState([]);
-    const [showPopup, setShowPopup] = useState(false);
+    const [showsPopup, setShowsPopup] = useState(false);
     const currentUser = getCurrentUser('current_user');
     const [imgUrl, setImgUrl] = useState('');
 
@@ -107,12 +107,12 @@ const PreSurvey = () => {
         axios(config)
             .then(function (res) {
                 if (res.status === 200 && res.data.data[0]?.on_off === '1') {
-                    setShowPopup(true);
+                    setShowsPopup(true);
                     setImgUrl(res?.data?.data[0]?.url);
                 }
             })
             .catch(function (error) {
-                setShowPopup(false);
+                setShowsPopup(false);
                 console.log(error);
             });
     }, []);
@@ -268,14 +268,14 @@ const PreSurvey = () => {
         });
     };
     const handleClose = () => {
-        setShowPopup(false);
+        setShowsPopup(false);
     };
 
     return (
         <Layout>
             <GreetingModal
                 handleClose={handleClose}
-                show={showPopup}
+                show={showsPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
             <Container className="presuervey mb-50 mt-5 " id="start">
