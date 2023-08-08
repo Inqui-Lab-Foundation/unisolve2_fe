@@ -73,7 +73,7 @@ const PreSurvey = () => {
     const [show, setShow] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const [answerResponses, setAnswerResponses] = useState([]);
+    const [answerResponse, setAnswerResponse] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const currentUser = getCurrentUser('current_user');
     const [imgUrl, setImgUrl] = useState('');
@@ -81,12 +81,12 @@ const PreSurvey = () => {
     const dispatch = useDispatch();
 
     const history = useHistory();
-    const filterAnswer = (questionId) => {
+    const filterAnswers = (questionId) => {
         // console.log(questionId);
         const data =
-            answerResponses &&
-            answerResponses.length > 0 &&
-            answerResponses.filter(
+            answerResponse &&
+            answerResponse.length > 0 &&
+            answerResponse.filter(
                 (item) => item.quiz_survey_question_id == questionId
             );
         return data && data.length > 0 && data[0].selected_option
@@ -105,13 +105,10 @@ const PreSurvey = () => {
             }
         };
         axios(config)
-            .then(function (response) {
-                if (
-                    response.status === 200 &&
-                    response.data.data[0]?.on_off === '1'
-                ) {
+            .then(function (res) {
+                if (res.status === 200 && res.data.data[0]?.on_off === '1') {
                     setShowPopup(true);
-                    setImgUrl(response?.data?.data[0]?.url);
+                    setImgUrl(res?.data?.data[0]?.url);
                 }
             })
             .catch(function (error) {
@@ -119,8 +116,8 @@ const PreSurvey = () => {
                 console.log(error);
             });
     }, []);
-    const handleChange = (e) => {
-        let newItems = [...answerResponses];
+    const handleOnChange = (e) => {
+        let newItems = [...answerResponse];
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
@@ -158,7 +155,7 @@ const PreSurvey = () => {
                 }
             }
         }
-        setAnswerResponses(newItems);
+        setAnswerResponse(newItems);
     };
     // const formik = useFormik({
     //     initialValues: {},
@@ -213,15 +210,15 @@ const PreSurvey = () => {
     //     }
     // });
 
-    const handleSubmit = async (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
 
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-        let submitData = {
-            responses: answerResponses
+        let submittedData = {
+            responses: answerResponse
         };
-        if (preSurveyList.length != submitData.responses.length) {
+        if (preSurveyList.length != submittedData.responses.length) {
             openNotificationWithIcon(
                 'warning',
                 'Please Attempt All Questions..!!',
@@ -233,11 +230,11 @@ const PreSurvey = () => {
                     `${
                         URL.getPreSurveyList
                     }/${quizSurveyId}/responses?${getLanguage(language)}`,
-                    JSON.stringify(submitData, null, 2),
+                    JSON.stringify(submittedData, null, 2),
                     axiosConfig
                 )
-                .then((preSurveyRes) => {
-                    if (preSurveyRes?.status == 200) {
+                .then((res) => {
+                    if (res?.status == 200) {
                         dispatch(getTeacherPresurveyStatus());
                         openNotificationWithIcon(
                             'success',
@@ -476,10 +473,10 @@ const PreSurvey = () => {
                                                                                                             isDisabled
                                                                                                         }
                                                                                                         checked={
-                                                                                                            filterAnswer(
+                                                                                                            filterAnswers(
                                                                                                                 eachQuestion.quiz_survey_question_id
                                                                                                             ) &&
-                                                                                                            filterAnswer(
+                                                                                                            filterAnswers(
                                                                                                                 eachQuestion.quiz_survey_question_id
                                                                                                             ).includes(
                                                                                                                 eachQuestion.option_a
@@ -488,7 +485,7 @@ const PreSurvey = () => {
                                                                                                         onChange={(
                                                                                                             e
                                                                                                         ) =>
-                                                                                                            handleChange(
+                                                                                                            handleOnChange(
                                                                                                                 e
                                                                                                             )
                                                                                                         }
@@ -522,10 +519,10 @@ const PreSurvey = () => {
                                                                                                             isDisabled
                                                                                                         }
                                                                                                         checked={
-                                                                                                            filterAnswer(
+                                                                                                            filterAnswers(
                                                                                                                 eachQuestion.quiz_survey_question_id
                                                                                                             ) &&
-                                                                                                            filterAnswer(
+                                                                                                            filterAnswers(
                                                                                                                 eachQuestion.quiz_survey_question_id
                                                                                                             ).includes(
                                                                                                                 eachQuestion.option_b
@@ -534,7 +531,7 @@ const PreSurvey = () => {
                                                                                                         onChange={(
                                                                                                             e
                                                                                                         ) =>
-                                                                                                            handleChange(
+                                                                                                            handleOnChange(
                                                                                                                 e
                                                                                                             )
                                                                                                         }
@@ -565,7 +562,7 @@ const PreSurvey = () => {
                                                                                                         onChange={(
                                                                                                             e
                                                                                                         ) =>
-                                                                                                            handleChange(
+                                                                                                            handleOnChange(
                                                                                                                 e
                                                                                                             )
                                                                                                         }
@@ -602,7 +599,7 @@ const PreSurvey = () => {
                                                                                                         onChange={(
                                                                                                             e
                                                                                                         ) =>
-                                                                                                            handleChange(
+                                                                                                            handleOnChange(
                                                                                                                 e
                                                                                                             )
                                                                                                         }
@@ -642,10 +639,10 @@ const PreSurvey = () => {
                                                                                                     isDisabled
                                                                                                 }
                                                                                                 checked={
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ) &&
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ).includes(
                                                                                                         eachQuestion.option_a
@@ -657,7 +654,7 @@ const PreSurvey = () => {
                                                                                                 onChange={(
                                                                                                     e
                                                                                                 ) =>
-                                                                                                    handleChange(
+                                                                                                    handleOnChange(
                                                                                                         e
                                                                                                     )
                                                                                                 }
@@ -686,10 +683,10 @@ const PreSurvey = () => {
                                                                                                     isDisabled
                                                                                                 }
                                                                                                 checked={
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ) &&
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ).includes(
                                                                                                         eachQuestion.option_b
@@ -701,7 +698,7 @@ const PreSurvey = () => {
                                                                                                 onChange={(
                                                                                                     e
                                                                                                 ) =>
-                                                                                                    handleChange(
+                                                                                                    handleOnChange(
                                                                                                         e
                                                                                                     )
                                                                                                 }
@@ -730,10 +727,10 @@ const PreSurvey = () => {
                                                                                                 }
                                                                                                 name={`${eachQuestion.quiz_survey_question_id}`}
                                                                                                 checked={
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ) &&
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ).includes(
                                                                                                         eachQuestion.option_c
@@ -745,7 +742,7 @@ const PreSurvey = () => {
                                                                                                 onChange={(
                                                                                                     e
                                                                                                 ) =>
-                                                                                                    handleChange(
+                                                                                                    handleOnChange(
                                                                                                         e
                                                                                                     )
                                                                                                 }
@@ -775,10 +772,10 @@ const PreSurvey = () => {
                                                                                                     isDisabled
                                                                                                 }
                                                                                                 checked={
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ) &&
-                                                                                                    filterAnswer(
+                                                                                                    filterAnswers(
                                                                                                         eachQuestion.quiz_survey_question_id
                                                                                                     ).includes(
                                                                                                         eachQuestion.option_d
@@ -790,7 +787,7 @@ const PreSurvey = () => {
                                                                                                 onChange={(
                                                                                                     e
                                                                                                 ) =>
-                                                                                                    handleChange(
+                                                                                                    handleOnChange(
                                                                                                         e
                                                                                                     )
                                                                                                 }
@@ -824,7 +821,7 @@ const PreSurvey = () => {
                                                     size="small"
                                                     label="SUBMIT"
                                                     onClick={(e) =>
-                                                        handleSubmit(e)
+                                                        handleOnSubmit(e)
                                                     }
                                                 />
                                             </div>

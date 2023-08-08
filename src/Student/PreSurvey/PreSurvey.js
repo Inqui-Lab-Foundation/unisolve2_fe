@@ -97,13 +97,10 @@ const PreSurvey = () => {
             }
         };
         axios(config)
-            .then(function (response) {
-                if (
-                    response.status === 200 &&
-                    response.data.data[0]?.on_off === '1'
-                ) {
+            .then(function (res) {
+                if (res.status === 200 && res.data.data[0]?.on_off === '1') {
                     setShowPopup(true);
-                    setImgUrl(response?.data?.data[0]?.url);
+                    setImgUrl(res?.data?.data[0]?.url);
                 }
             })
             .catch(function (error) {
@@ -124,7 +121,7 @@ const PreSurvey = () => {
             ? data[0].selected_option
             : '';
     };
-    const handleChange = (e) => {
+    const handleOnChange = (e) => {
         let newItems = [...answerResponse];
 
         let obj = {
@@ -173,10 +170,10 @@ const PreSurvey = () => {
 
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-        let submitData = {
+        let submittedData = {
             responses: answerResponse
         };
-        if (preSurveyList.length != submitData.responses.length) {
+        if (preSurveyList.length != submittedData.responses.length) {
             openNotificationWithIcon(
                 'warning',
                 'Please Attempt All Questions..!!',
@@ -188,11 +185,11 @@ const PreSurvey = () => {
                     `${
                         URL.getPreSurveyList
                     }/${quizSurveyId}/responses?${getLanguage(language)}`,
-                    JSON.stringify(submitData, null, 2),
+                    JSON.stringify(submittedData, null, 2),
                     axiosConfig
                 )
-                .then((preSurveyRes) => {
-                    if (preSurveyRes?.status == 200) {
+                .then((res) => {
+                    if (res?.status == 200) {
                         openNotificationWithIcon(
                             'success',
                             t('student.presurver_scc_sub'),
@@ -550,7 +547,7 @@ const PreSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -596,7 +593,7 @@ const PreSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -627,7 +624,7 @@ const PreSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -664,7 +661,7 @@ const PreSurvey = () => {
                                                                                             onChange={(
                                                                                                 e
                                                                                             ) =>
-                                                                                                handleChange(
+                                                                                                handleOnChange(
                                                                                                     e
                                                                                                 )
                                                                                             }
@@ -719,7 +716,7 @@ const PreSurvey = () => {
                                                                                     onChange={(
                                                                                         e
                                                                                     ) =>
-                                                                                        handleChange(
+                                                                                        handleOnChange(
                                                                                             e
                                                                                         )
                                                                                     }
@@ -763,7 +760,7 @@ const PreSurvey = () => {
                                                                                     onChange={(
                                                                                         e
                                                                                     ) =>
-                                                                                        handleChange(
+                                                                                        handleOnChange(
                                                                                             e
                                                                                         )
                                                                                     }
@@ -807,7 +804,7 @@ const PreSurvey = () => {
                                                                                     onChange={(
                                                                                         e
                                                                                     ) =>
-                                                                                        handleChange(
+                                                                                        handleOnChange(
                                                                                             e
                                                                                         )
                                                                                     }
@@ -852,7 +849,7 @@ const PreSurvey = () => {
                                                                                     onChange={(
                                                                                         e
                                                                                     ) =>
-                                                                                        handleChange(
+                                                                                        handleOnChange(
                                                                                             e
                                                                                         )
                                                                                     }
