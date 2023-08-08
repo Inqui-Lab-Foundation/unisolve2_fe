@@ -126,13 +126,13 @@ const PreSurvey = () => {
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
-      
+
         let obj = {
             quiz_survey_question_id: e.target.name,
             selected_option:
                 e.target.type === 'checkbox' ? [e.target.value] : e.target.value
         };
-    
+
         const findExistanceIndex = newItems.findIndex(
             (item) =>
                 parseInt(item?.quiz_survey_question_id) ===
@@ -310,7 +310,28 @@ const PreSurvey = () => {
     const handleStart = () => {
         // here student  can start journey //
         setShow(true);
+        scroll();
     };
+    const scroll = () => {
+        const section = document.querySelector('#start');
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'start'
+        });
+    };
+
+    // useEffect(() => {
+    //     alert('1');
+    //     window.scrollTo(0, 0);
+    // }, [show]);
+
+    // const scroll = () => {
+    //     window.scrollTo(0, 0);
+    //     // const section = document.querySelector('#start');
+    //     // section &&
+    //     //     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // };
 
     const handleClose = () => {
         setShowPopup(false);
@@ -327,7 +348,7 @@ const PreSurvey = () => {
                 show={showPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
-            <Container className="presuervey mb-50 mt-5 ">
+            <Container className="presuervey mb-50 mt-5  " id="start">
                 <Row className="justify-content-center aside p-0 p-md-4 bg-transparent">
                     {!show && preSurveyStatus != 'COMPLETED' ? (
                         <Card className="p-5">

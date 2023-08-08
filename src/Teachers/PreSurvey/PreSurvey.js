@@ -57,7 +57,6 @@ const GreetingModal = (props) => {
     );
 };
 
-
 const PreSurvey = () => {
     // here we can start the presurvey journey //
     // here we can attempt all the questions //
@@ -75,9 +74,9 @@ const PreSurvey = () => {
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [answerResponses, setAnswerResponses] = useState([]);
-    const [showPopup ,setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const currentUser = getCurrentUser('current_user');
-    const [imgUrl,setImgUrl] = useState('');
+    const [imgUrl, setImgUrl] = useState('');
 
     const dispatch = useDispatch();
 
@@ -95,12 +94,10 @@ const PreSurvey = () => {
             : '';
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         var config = {
             method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/popup/1`,
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/1`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -121,7 +118,7 @@ const PreSurvey = () => {
                 setShowPopup(false);
                 console.log(error);
             });
-    },[]);
+    }, []);
     const handleChange = (e) => {
         let newItems = [...answerResponses];
         let obj = {
@@ -263,6 +260,15 @@ const PreSurvey = () => {
         // here we can start the teacher journey //
         // here we can see  22 questions  we can attempt all the Questions then  your pre survey is completed //
         setShow(true);
+        scroll();
+    };
+    const scroll = () => {
+        const section = document.querySelector('#start');
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'start'
+        });
     };
     const handleClose = () => {
         setShowPopup(false);
@@ -270,12 +276,12 @@ const PreSurvey = () => {
 
     return (
         <Layout>
-             <GreetingModal
+            <GreetingModal
                 handleClose={handleClose}
                 show={showPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
-            <Container className="presuervey mb-50 mt-5 ">
+            <Container className="presuervey mb-50 mt-5 " id="start">
                 <Col>
                     <Row className=" justify-content-center">
                         <div className="aside  p-4 bg-white">
@@ -826,7 +832,7 @@ const PreSurvey = () => {
                                     )}
 
                                     {preSurveyStatus == 'COMPLETED' && (
-                                        <div style={{ textAlign: 'center' }} >
+                                        <div style={{ textAlign: 'center' }}>
                                             <figure>
                                                 <img
                                                     className="img-fluid imgWidthSize"
