@@ -28,6 +28,7 @@ import {
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import SmallLogo from '../assets/media/logo192.png';
 import { compareDates, logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -95,7 +96,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
                                     className="img-fluid img-close p-2"
                                 />
@@ -111,7 +112,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu" style={{ paddingRight: '1.5rem' }}>
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />

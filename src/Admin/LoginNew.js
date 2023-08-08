@@ -145,16 +145,18 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <Col
-                                md={12}
-                                className="d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Logo"
-                                    className="logo-image"
-                                />
-                            </Col>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                    />
+                                </Col>
+                            </a>
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
