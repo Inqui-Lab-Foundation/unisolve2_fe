@@ -246,28 +246,28 @@ const PlayVideoCourses = (props) => {
     const toggle = (id) => {
         if (id === 1) {
             setOpen('1');
-            setBadge('the_inspirer');
         } else if (open === id) {
             setOpen();
             // } else if (open === '0') {
             //     setOpen('1');
         } else if (id === 2) {
             setOpen('2');
-            setBadge('the_team_player');
+            setBadge('the_inspirer');
         } else if (id === 3) {
             setOpen('3');
-            setBadge('the_finder');
+            //setBadge('the_team_player');
         } else if (id === 4) {
             setOpen('4');
-            setBadge('the_explorer');
+            setBadge('the_finder');
         } else if (id === 5) {
             setOpen('5');
-            setBadge('the_ideator');
+            setBadge('the_explorer');
         } else if (id === 6) {
             setOpen('6');
-            setBadge('the_solver');
+            setBadge('the_ideator');
         } else if (id === 7) {
             setOpen('7');
+            setBadge('the_solver');
         } else {
             setOpen(id);
         }
@@ -1257,21 +1257,21 @@ const PlayVideoCourses = (props) => {
                                                                                 }}
                                                                                 onClick={() => {
                                                                                     handleNextCourse();
-                                                                                    dispatch(
-                                                                                        updateStudentBadges(
-                                                                                            {
-                                                                                                badge_slugs:
-                                                                                                    [
-                                                                                                        badge
-                                                                                                    ]
-                                                                                            },
-                                                                                            currentUser
-                                                                                                .data[0]
-                                                                                                .user_id,
-                                                                                            language,
-                                                                                            t
-                                                                                        )
-                                                                                    );
+                                                                                    // dispatch(
+                                                                                    //     updateStudentBadges(
+                                                                                    //         {
+                                                                                    //             badge_slugs:
+                                                                                    //                 [
+                                                                                    //                     badge
+                                                                                    //                 ]
+                                                                                    //         },
+                                                                                    //         currentUser
+                                                                                    //             .data[0]
+                                                                                    //             .user_id,
+                                                                                    //         language,
+                                                                                    //         t
+                                                                                    //     )
+                                                                                    // );
                                                                                 }}
                                                                             />
                                                                         </div>
@@ -1372,21 +1372,21 @@ const PlayVideoCourses = (props) => {
                                                                             }}
                                                                             onClick={() => {
                                                                                 handleNextCourse();
-                                                                                dispatch(
-                                                                                    updateStudentBadges(
-                                                                                        {
-                                                                                            badge_slugs:
-                                                                                                [
-                                                                                                    badge
-                                                                                                ]
-                                                                                        },
-                                                                                        currentUser
-                                                                                            .data[0]
-                                                                                            .user_id,
-                                                                                        language,
-                                                                                        t
-                                                                                    )
-                                                                                );
+                                                                                // dispatch(
+                                                                                //     updateStudentBadges(
+                                                                                //         {
+                                                                                //             badge_slugs:
+                                                                                //                 [
+                                                                                //                     badge
+                                                                                //                 ]
+                                                                                //         },
+                                                                                //         currentUser
+                                                                                //             .data[0]
+                                                                                //             .user_id,
+                                                                                //         language,
+                                                                                //         t
+                                                                                //     )
+                                                                                // );
                                                                             }}
                                                                         />
                                                                     </div>
