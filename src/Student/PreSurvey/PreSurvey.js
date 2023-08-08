@@ -81,7 +81,7 @@ const PreSurvey = () => {
     const [show, setShow] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const [answerResponses, setAnswerResponses] = useState([]);
+    const [answerResponse, setAnswerResponse] = useState([]);
 
     const [showPopup, setShowPopup] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
@@ -112,12 +112,12 @@ const PreSurvey = () => {
             });
     }, []);
 
-    const filterAnswer = (questionId) => {
+    const filterAnswers = (questionId) => {
         // console.log(questionId);
         const data =
-            answerResponses &&
-            answerResponses.length > 0 &&
-            answerResponses.filter(
+            answerResponse &&
+            answerResponse.length > 0 &&
+            answerResponse.filter(
                 (item) => item.quiz_survey_question_id == questionId
             );
         return data && data.length > 0 && data[0].selected_option
@@ -125,7 +125,7 @@ const PreSurvey = () => {
             : '';
     };
     const handleChange = (e) => {
-        let newItems = [...answerResponses];
+        let newItems = [...answerResponse];
 
         let obj = {
             quiz_survey_question_id: e.target.name,
@@ -165,16 +165,16 @@ const PreSurvey = () => {
                 }
             }
         }
-        setAnswerResponses(newItems);
+        setAnswerResponse(newItems);
     };
 
-    const handleSubmit = async (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
 
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
         let submitData = {
-            responses: answerResponses
+            responses: answerResponse
         };
         if (preSurveyList.length != submitData.responses.length) {
             openNotificationWithIcon(
@@ -538,10 +538,10 @@ const PreSurvey = () => {
                                                                                                 isDisabled
                                                                                             }
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_a
@@ -584,10 +584,10 @@ const PreSurvey = () => {
                                                                                                 isDisabled
                                                                                             }
                                                                                             checked={
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ) &&
-                                                                                                filterAnswer(
+                                                                                                filterAnswers(
                                                                                                     eachQuestion.quiz_survey_question_id
                                                                                                 ).includes(
                                                                                                     eachQuestion.option_b
@@ -704,10 +704,10 @@ const PreSurvey = () => {
                                                                                         isDisabled
                                                                                     }
                                                                                     checked={
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ) &&
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ).includes(
                                                                                             eachQuestion.option_a
@@ -748,10 +748,10 @@ const PreSurvey = () => {
                                                                                         isDisabled
                                                                                     }
                                                                                     checked={
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ) &&
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ).includes(
                                                                                             eachQuestion.option_b
@@ -792,10 +792,10 @@ const PreSurvey = () => {
                                                                                     }
                                                                                     name={`${eachQuestion.quiz_survey_question_id}`}
                                                                                     checked={
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ) &&
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ).includes(
                                                                                             eachQuestion.option_c
@@ -837,10 +837,10 @@ const PreSurvey = () => {
                                                                                         isDisabled
                                                                                     }
                                                                                     checked={
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ) &&
-                                                                                        filterAnswer(
+                                                                                        filterAnswers(
                                                                                             eachQuestion.quiz_survey_question_id
                                                                                         ).includes(
                                                                                             eachQuestion.option_d
@@ -895,7 +895,7 @@ const PreSurvey = () => {
                                             label={t(
                                                 'student_presurvey.submit'
                                             )}
-                                            onClick={(e) => handleSubmit(e)}
+                                            onClick={(e) => handleOnSubmit(e)}
                                         />
                                     </div>
                                 </Form>
