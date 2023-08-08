@@ -217,7 +217,7 @@
         "save_draft": "Save as Draft",
         "discard": "Discard",
         "upload_file": "Upload File",
-        "less_20MB": "Please upload file less than 20MB",
+        "less_10MB": "Please upload file less than 10MB",
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",

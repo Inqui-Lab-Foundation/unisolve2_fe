@@ -47,11 +47,11 @@ const EditLatestNews = (props) => {
         const fileName = file.name.split('.').slice(0, -1).join('.');
         const isValidFileName = pattern.test(fileName);
 
-        const maxFileSize = 20000000;
+        const maxFileSize = 10000000;
         const isOverMaxSize = file.size > maxFileSize;
 
         if (isOverMaxSize) {
-            openNotificationWithIcon('error', t('student.less_20MB'));
+            openNotificationWithIcon('error', t('student.less_10MB'));
             return;
         }
 

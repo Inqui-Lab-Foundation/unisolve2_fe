@@ -394,7 +394,7 @@ const IdeasPageNew = () => {
         fileAdded.splice(i, 1);
         setFiles(fileAdded);
     };
-    let maxFileSize = 20000000;
+    let maxFileSize = 10000000;
     const fileHandler = (e, id) => {
         let choosenFiles = Array.prototype.slice.call(e.target.files);
         e.target.files = null;
@@ -412,7 +412,7 @@ const IdeasPageNew = () => {
             return;
         }
         if (choosenFiles.filter((item) => item.size > maxFileSize).length > 0) {
-            openNotificationWithIcon('error', t('student.less_20MB'));
+            openNotificationWithIcon('error', t('student.less_10MB'));
             return;
         }
         handleUploadFiles(choosenFiles);
@@ -548,7 +548,7 @@ const IdeasPageNew = () => {
     };
     const comingSoonText = t('dummytext.student_idea_sub');
     const acceptedParamfileTypes =
-        'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 20MB';
+        'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
     return (
         <Layout>
             {showPage ? (
