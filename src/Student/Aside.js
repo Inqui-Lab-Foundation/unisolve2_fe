@@ -30,6 +30,7 @@ import { RiLogoutBoxRFill } from 'react-icons/ri';
 import { logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import SmallLogo from '../assets/media/logo192.png';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const { t } = useTranslation();
@@ -82,9 +83,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <Link to={'/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
@@ -98,7 +99,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -156,9 +157,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<FaLandmark/>}
+                        icon={<FaLandmark />}
                         className={
-                            (location.pathname === '/Student/Resources' ) && 
+                            location.pathname === '/Student/Resources/index' &&
                             'sidebar-active'
                         }
                     >
@@ -189,15 +190,15 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         icon={<FaLightbulb />}
                         className={
                             (location.pathname === '/challenges' ||
-                                location.pathname ===
-                                    '/challenge-initiation') &&
+                                location.pathname === '/challenge-initiation' ||
+                                location.pathname === '/instructions') &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
                             onClick={handleClick}
-                            to={'/challenges'}
+                            to={'/instructions'}
                         >
                             {t('home.idea_submission')}
                         </NavLink>

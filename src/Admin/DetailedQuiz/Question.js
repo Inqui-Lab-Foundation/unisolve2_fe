@@ -5,7 +5,7 @@ import { InputBox } from '../../stories/InputBox/InputBox';
 import Csv from '../../assets/media/csv1.png';
 import Pdf from '../../assets/media/pdf.png';
 import { Button } from '../../stories/Button';
-const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
+//const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
 
 const Question = (props) => {
     const quiz = props.adminQuizDetails ? props.adminQuizDetails : [];
@@ -95,8 +95,8 @@ const Question = (props) => {
                             return (
                                 <img
                                     key={i}
-                                    src={config + x}
-                                    alt={config + x}
+                                    src={x}
+                                    alt={x}
                                     className="img-fluid"
                                     style={{ height: '43rem' }}
                                 />
@@ -107,8 +107,8 @@ const Question = (props) => {
             <div className="question quiz align-items-center">
                 {quiz[0] && quiz[0].question_icon && (
                     <img
-                        src={config + quiz[0].question_icon}
-                        alt={config + quiz[0].question_icon}
+                        src={quiz[0].question_icon}
+                        alt={quiz[0].question_icon}
                         className="img-fluid"
                         style={{ marginRight: '2rem', marginLeft: '2rem', width: '15%' }}
                     />
@@ -305,7 +305,7 @@ const Question = (props) => {
                                                 {file[1] === 'png' ? (
                                                     <figure htmlFor={answer} className="text-center my-auto mx-3">
                                                         <img
-                                                            src={config + answer}
+                                                            src={answer}
                                                             alt={answer}
                                                             className="img-fluid"
                                                             style={{ width: '50px' }}

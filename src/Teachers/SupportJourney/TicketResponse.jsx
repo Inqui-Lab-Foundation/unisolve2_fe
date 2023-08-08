@@ -64,7 +64,7 @@ const TicketResponse = (props) => {
 
         validationSchema: Yup.object({
             ansDetails: Yup.string().required('Required'),
-            selectStatus: Yup.string().required('Required')
+            selectStatus: Yup.string()
         }),
 
         onSubmit: (values) => {
@@ -201,6 +201,12 @@ const TicketResponse = (props) => {
                                                     htmlFor="ticketDetails"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}
@@ -233,12 +239,12 @@ const TicketResponse = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
-                                                    <span
+                                                    {/* <span
                                                         required
                                                         className="p-1"
                                                     >
                                                         *
-                                                    </span>
+                                                    </span> */}
                                                 </Label>
 
                                                 <Col
@@ -314,7 +320,7 @@ const TicketResponse = (props) => {
                                         {supportTicket.status != 'INVALID' ? (
                                             <Col className="submit-btn col-xs-12 col-sm-6">
                                                 <Button
-                                                    label="Submit details"
+                                                    label="Submit"
                                                     type="submit"
                                                     btnClass={
                                                         !(

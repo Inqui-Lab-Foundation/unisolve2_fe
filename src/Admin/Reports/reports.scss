@@ -14,7 +14,7 @@
 
 .table-wrapper {
     display:block;
-    max-height:280px;
+    max-height:300px;
     overflow-y:auto;
 }
 .table-wrapper table {
@@ -32,4 +32,6 @@
     padding-right: 1.2rem;
     margin-bottom: 10px;
 }
-
+.hidden {
+    display: none;
+}

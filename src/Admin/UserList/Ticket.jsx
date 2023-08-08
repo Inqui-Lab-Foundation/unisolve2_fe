@@ -381,24 +381,24 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: 'id',
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'UDISE',
                 selector: 'organization_code',
-                width: '13%'
+                width: '13rem'
             },
 
             {
                 name: 'Teacher Name',
                 selector: 'full_name',
-                width: '21%'
+                width: '21rem'
             },
 
             {
                 name: 'Email',
                 selector: 'username',
-                width: '22%'
+                width: '22rem'
             },
             // {
             //     name: 'Phone',
@@ -417,12 +417,12 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '9%'
+                width: '9rem'
             },
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '35%',
+                width: '35rem',
                 cell: (record) => [
                     // <div
                     //
@@ -437,7 +437,7 @@ const TicketsPage = (props) => {
                         onClick={() => handleSelect(record, '2')}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary btn-lg">VIEW</div>
+                        <div className="btn btn-primary ">VIEW</div>
                     </div>,
                     // <div
                     //
@@ -464,11 +464,9 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger btn-lg">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger">INACTIVE</div>
                         ) : (
-                            <div className="btn btn-success btn-lg">ACTIVE</div>
+                            <div className="btn btn-success">ACTIVE</div>
                         )}
                     </div>
                 ]
@@ -481,33 +479,33 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: 'id',
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'Team Name',
                 selector: 'team.team_name',
 
-                width: '17%'
+                width: '17rem'
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
-                width: '20%'
+                width: '20rem'
             },
             {
                 name: 'Grade',
                 selector: 'Grade',
-                width: '9%'
+                width: '9rem'
             },
             {
                 name: 'Age',
                 selector: 'Age',
-                width: '8%'
+                width: '8rem'
             },
             {
                 name: 'Gender',
                 selector: 'Gender',
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Status',
@@ -521,20 +519,20 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '8%'
+                width: '8rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 selector: 'null',
-                width: '19%',
+                width: '19rem',
                 cell: (record) => [
                     <div
                         key={record.id}
                         onClick={() => handleSelect(record, '1')}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary btn-lg mr-5">VIEW</div>
+                        <div className="btn btn-primary  mr-5">VIEW</div>
                     </div>,
                     <div
                         key={record.id}
@@ -548,11 +546,11 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger btn-lg">
+                            <div className="btn btn-danger ">
                                 INACTIVE
                             </div>
                         ) : (
-                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                            <div className="btn btn-warning ">ACTIVE</div>
                         )}
                     </div>
                 ]
@@ -565,17 +563,17 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: 'id',
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'Evaluator Name',
                 selector: 'user.full_name',
-                width: '20%'
+                width: '20rem'
             },
             {
                 name: 'Email',
                 selector: 'user.username',
-                width: '25%'
+                width: '25rem'
             },
             // {
             //     name: 'Mobile',
@@ -585,7 +583,7 @@ const TicketsPage = (props) => {
             {
                 name: 'District',
                 selector: 'district',
-                width: '11%'
+                width: '11rem'
             },
             {
                 name: 'Status',
@@ -599,13 +597,13 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 selector: 'null',
-                width: '15%',
+                width: '15rem',
                 cell: (record) => [
                     // <div
                     //     key={record.id}
@@ -638,11 +636,11 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger btn-lg">
+                            <div className="btn btn-danger ">
                                 INACTIVE
                             </div>
                         ) : (
-                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                            <div className="btn btn-warning ">ACTIVE</div>
                         )}
                     </div>
                 ]
@@ -658,22 +656,22 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row?.id,
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
-                width: '17%'
+                width: '17rem'
             },
             {
                 name: 'Email',
                 selector: (row) => row?.user?.username,
-                width: '27%'
+                width: '27rem'
             },
             {
                 name: 'Role',
                 selector: (row) => row?.user?.role,
-                width: '15%',
+                width: '15rem',
                 cell: (params) => [
                     params.user.role === 'ADMIN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
@@ -704,14 +702,14 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 selector: 'null',
 
-                width: '25%',
+                width: '25rem',
                 cell: (record) => [
                     <div
                         className="mr-5"
@@ -719,7 +717,7 @@ const TicketsPage = (props) => {
                         onClick={() => handleEdit(record)}
                         style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary btn-lg">EDIT</div>
+                        <div className="btn btn-primary ">EDIT</div>
                     </div>,
                     <div
                         key={record.id}
@@ -738,11 +736,11 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger btn-lg">
+                            <div className="btn btn-danger">
                                 INACTIVE
                             </div>
                         ) : (
-                            <div className="btn btn-secondary btn-lg">
+                            <div className="btn btn-secondary ">
                                 ACTIVE
                             </div>
                         )}
@@ -765,6 +763,72 @@ const TicketsPage = (props) => {
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>
+                    <Row className="mt-0">
+                        <Col className="ticket-btn col ml-auto  ">
+                            <div
+                                className={`d-flex ${
+                                    tab == 1 || tab == 2
+                                        ? ''
+                                        : 'justify-content-end'
+                                }`}
+                            >
+                                {tab && tab == 1 && (
+                                    <>
+                                        <SelectDists
+                                            getDistrictsListAction={
+                                                props.getDistrictsListAction
+                                            }
+                                            setDist={setstudentDist}
+                                            newDist={newDist}
+                                            dists={props.dists}
+                                            tab={tab}
+                                        />
+                                        {studentDist && (
+                                            <Card className="ms-3 p-3">
+                                                Total Students :{' '}
+                                                {props.studentList.length}
+                                            </Card>
+                                        )}
+                                    </>
+                                )}
+                                {tab && tab == 2 && (
+                                    <>
+                                        <SelectDists
+                                            getDistrictsListAction={
+                                                props.getDistrictsListAction
+                                            }
+                                            setDist={setmentorDist}
+                                            newDist={newDist}
+                                            dists={props.dists}
+                                            tab={tab}
+                                        />
+                                        {mentorDist && (
+                                            <Card className="ms-3 p-3">
+                                                Total Teachers :{' '}
+                                                {props.mentorsList.length}
+                                            </Card>
+                                        )}
+                                    </>
+                                )}
+                                {tab && (tab == 3 || tab == 4) && (
+                                    <Button
+                                        label={
+                                            tab == 3
+                                                ? 'Add New Evaluator'
+                                                : 'Add New Admin'
+                                        }
+                                        btnClass="primary"
+                                        size="small"
+                                        shape="btn-square"
+                                        Icon={BsUpload}
+                                        onClick={() =>
+                                            setRegisterModalShow(true)
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </Col>
+                    </Row>
 
                     <div className="ticket-data">
                         <Tabs
@@ -775,78 +839,7 @@ const TicketsPage = (props) => {
                             }
                             onChange={(key) => changeTab(key)}
                         >
-                            <Row className="mt-0">
-                                <Col className="ticket-btn col ml-auto  ">
-                                    <div
-                                        className={`d-flex ${
-                                            tab == 1 || tab == 2
-                                                ? ''
-                                                : 'justify-content-end'
-                                        }`}
-                                    >
-                                        {tab && tab == 1 && (
-                                            <>
-                                                <SelectDists
-                                                    getDistrictsListAction={
-                                                        props.getDistrictsListAction
-                                                    }
-                                                    setDist={setstudentDist}
-                                                    newDist={newDist}
-                                                    dists={props.dists}
-                                                    tab={tab}
-                                                />
-                                                {studentDist && (
-                                                    <Card className="ms-3 p-3">
-                                                        Total Students :{' '}
-                                                        {
-                                                            props.studentList
-                                                                .length
-                                                        }
-                                                    </Card>
-                                                )}
-                                            </>
-                                        )}
-                                        {tab && tab == 2 && (
-                                            <>
-                                                <SelectDists
-                                                    getDistrictsListAction={
-                                                        props.getDistrictsListAction
-                                                    }
-                                                    setDist={setmentorDist}
-                                                    newDist={newDist}
-                                                    dists={props.dists}
-                                                    tab={tab}
-                                                />
-                                                {mentorDist && (
-                                                    <Card className="ms-3 p-3">
-                                                        Total Teachers :{' '}
-                                                        {
-                                                            props.mentorsList
-                                                                .length
-                                                        }
-                                                    </Card>
-                                                )}
-                                            </>
-                                        )}
-                                        {tab && (tab == 3 || tab == 4) && (
-                                            <Button
-                                                label={
-                                                    tab == 3
-                                                        ? 'Add New Evaluator'
-                                                        : 'Add New Admin'
-                                                }
-                                                btnClass="primary"
-                                                size="small"
-                                                shape="btn-square"
-                                                Icon={BsUpload}
-                                                onClick={() =>
-                                                    setRegisterModalShow(true)
-                                                }
-                                            />
-                                        )}
-                                    </div>
-                                </Col>
-                            </Row>
+                            <Row></Row>
                             <TabPane
                                 tab="Students"
                                 key="1"

@@ -15,7 +15,7 @@ import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-import { Row,Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 export default function DoughnutChart({ user }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
@@ -29,6 +29,7 @@ export default function DoughnutChart({ user }) {
     const [mentorid, setmentorid] = useState('');
     const [studentchangelist, setstudentchangelist] = useState([]);
     const [studentchangeObj, setstudentchangeObj] = useState({});
+    const [isideadisable, setIsideadisable] = useState(false);
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
@@ -50,6 +51,31 @@ export default function DoughnutChart({ user }) {
             dispatch(getAdminTeamsList(mentorid));
         }
     }, [mentorid]);
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    }else{
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     const handleChangeStudent = async (id, name) => {
         //  handleChangeStudent Api we can update the initiate student //
@@ -249,7 +275,7 @@ export default function DoughnutChart({ user }) {
                             height: '40px', // Set the desired height
                             fontSize: '16px',}}
                         >
-                            <option value="">Select Team</option>
+                            <option value="" disabled={true}>Select Team</option>
                             {teamsList && teamsList.length > 0 ? (
                                 teamsList.map((item, i) => (
                                     <option key={i} value={item.team_id}>
@@ -263,70 +289,105 @@ export default function DoughnutChart({ user }) {
                     </div>
                     </Col>
                     {teamId && (
-    <>
-    <Row>
-                    <div className="singlediv">
-                        <Card className="p-3 mx-4 d-flex flex-row">
-                            <span className="fw-bold">IDEA STATUS :</span>
-                            <span style={{ paddingLeft: '1rem' }}>
-                                {challengesSubmittedResponse[0]?.status
-                                    ? ` ${challengesSubmittedResponse[0]?.status}`
-                                    : 'NOT STARTED'}
-                            </span>
-                        </Card>
-                    </div>
-                    </Row>
-                    <><div>
-                            <Button
-                                button="button"
-                                label="View Idea"
-                                disabled={teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                    ? false
-                                    : true}
-                                btnClass={`${teamsMembersStatus.length > 0 &&
-                                        challengesSubmittedResponse[0]?.status
-                                        ? 'primary'
-                                        : 'default'}`}
-                                size="small"
-                                shape="btn-square"
-                                style={{ padding: '1rem 2.4rem' }}
-                                onClick={() => setIdeaShow(true)} />
-                        </div><div className="m-3">
-                                <Button
-                                    label={' Change  '}
-                                    disabled={teamsMembersStatus.length > 0 &&
-                                        challengesSubmittedResponse[0]?.status
-                                        ? false
-                                        : true}
-                                    btnClass={`${teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]?.status
-                                            ? 'primary'
-                                            : 'default'}`}
-                                    size="small"
-                                    shape="btn-square"
-                                    style={{ padding: '1rem 3rem' }}
-                                    onClick={() => setChangeShow(true)} />
-                            </div><div>
-                                {challengesSubmittedResponse[0]?.status ==
-                                    'SUBMITTED' ? (
+                        <>
+                            <Row>
+                                <div className="singlediv">
+                                    <Card
+                                        className="p-3 mx-4 d-flex flex-row"
+                                        style={{
+                                            marginTop: '.5rem',
+                                            marginBottom: '1rem'
+                                        }}
+                                    >
+                                        <span className="fw-bold">
+                                            IDEA STATUS :
+                                        </span>
+                                        <span style={{ paddingLeft: '1rem' }}>
+                                            {challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? ` ${challengesSubmittedResponse[0]?.status}`
+                                                : 'NOT STARTED'}
+                                        </span>
+                                    </Card>
+                                </div>
+                            </Row>
+                            <>
+                                <div>
                                     <Button
-                                        className="btn btn-success btn-lg mr-5 mx-2"
-                                        label={'REVOKE'}
+                                        button="button"
+                                        label="View Idea"
+                                        disabled={
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? false
+                                                : true
+                                        }
+                                        btnClass={`${
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? 'primary'
+                                                : 'default'
+                                        }`}
                                         size="small"
                                         shape="btn-square"
-                                        style={{ padding: '1rem 3rem', fontSize: '14px' }}
-                                        onClick={() => handleRevoke(
+                                        style={{ padding: '1rem 2.4rem' }}
+                                        onClick={() => setIdeaShow(true)}
+                                    />
+                                </div>
+                                <div className="m-3">
+                                    <Button
+                                        label={' Change  '}
+                                        disabled={
+                                            teamsMembersStatus.length > 0 &&
                                             challengesSubmittedResponse[0]
-                                                .challenge_response_id,
-                                            challengesSubmittedResponse[0].status
-                                        )} />
-                                ) : (
-                                    ''
-                                )}
-                            </div></>
-                    </>
-                    
+                                                ?.status
+                                                ? false
+                                                : true
+                                        }
+                                        btnClass={`${
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? 'primary'
+                                                : 'default'
+                                        }`}
+                                        size="small"
+                                        shape="btn-square"
+                                        style={{ padding: '1rem 3rem' }}
+                                        onClick={() => setChangeShow(true)}
+                                    />
+                                </div>
+                                <div>
+                                    {challengesSubmittedResponse[0]?.status ==
+                                    'SUBMITTED' ? (
+                                        <Button
+                                            className ={ isideadisable ? `btn btn-success btn-lg mr-5 mx-2`: `btn btn-lg mr-5 mx-2`}
+                                            label={'REVOKE'}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{
+                                                padding: '1rem 3rem',
+                                                fontSize: '14px',
+                                                marginBottom: '.8rem'
+                                            }}
+                                            onClick={() =>
+                                                handleRevoke(
+                                                    challengesSubmittedResponse[0]
+                                                        .challenge_response_id,
+                                                    challengesSubmittedResponse[0]
+                                                        .status
+                                                )
+                                            }
+                                            disabled = {!isideadisable}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </>
+                        </>
                     )}
                 </div>
                 {showDefault && (

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
@@ -47,18 +48,19 @@ const ViewTeamMember = (props) => {
             history.location.item &&
             history.location.item.ideaStatus) ||
         teamID.ideaStatus;
-    const headingDetails = {
-        title: teamID?.team_name + t('teacher_teams.view_team_member_details'),
-        options: [
-            {
-                title: t('teacher_teams.teamslist'),
-                path: '/teacher/teamlist'
-            },
-            {
-                title: t('teacher_teams.view_team_member')
-            }
-        ]
-    };
+    // const headingDetails = {
+    //     title: teamID?.team_name + t('teacher_teams.view_team_member_details')
+    //     // options: [
+    //     //     {
+    //     //         title: t('teacher_teams.teamslist'),
+    //     //         path: '/teacher/teamlist'
+    //     //     },
+    //     //     {
+    //     //         title: t('teacher_teams.view_team_member')
+    //     //     }
+    //     // ]
+    // };
+
     const [count, setCount] = useState(0);
     // eslint-disable-next-line no-unused-vars
     const [teamsMembersList, setTeamsMemers] = useState([]);
@@ -135,6 +137,7 @@ const ViewTeamMember = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    setvalue('');
                     openNotificationWithIcon(
                         'success',
                         t('student Team switch success')
@@ -149,6 +152,9 @@ const ViewTeamMember = (props) => {
 
             .catch(function (error) {
                 console.log(error);
+                if(error.message === "Request failed with status code 400"){
+                    openNotificationWithIcon('error', 'Same Name student already existed in seleted team');
+                }
             });
         setShow(false);
     };
@@ -196,40 +202,40 @@ const ViewTeamMember = (props) => {
         data: teamsMembersList.length > 0 && teamsMembersList,
         columns: [
             {
-                name: 'S.No',
+                name: 'No',
                 selector: 'key',
-                width: '6%'
+                width: '6rem'
             },
             {
                 name: 'User Id',
                 selector: 'user.username',
-                width: '16%'
+                width: '16rem'
             },
             {
                 name: 'Default Password',
                 selector: 'UUID',
-                width: '20%'
+                width: '20rem'
             },
             {
                 name: t('teacher_teams.student_name'),
                 selector: 'full_name',
-                width: '16%'
+                width: '16rem'
             },
             {
                 name: 'Class',
                 selector: 'Grade',
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: t('teacher_teams.age'),
                 selector: 'Age',
-                width: '10%'
+                width: '10rem'
             },
 
             {
                 name: t('teacher_teams.gender'),
                 selector: 'Gender',
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: t('teacher_teams.actions'),
@@ -269,7 +275,7 @@ const ViewTeamMember = (props) => {
                             )
                     ];
                 },
-                width: '12%',
+                width: '12rem',
                 center: true
             }
         ]
@@ -356,6 +362,7 @@ const ViewTeamMember = (props) => {
     useEffect(() => {
         const teamlistobj = {};
         const listofteams = props.teamsList
+
             .map((item) => {
                 if (item.student_count < 5 && item.ideaStatus === null) {
                     teamlistobj[item.team_name] = item.team_id;
@@ -370,6 +377,7 @@ const ViewTeamMember = (props) => {
                 listofteams.splice(index, 1);
             }
         }
+
         setteamlist(listofteams);
         setteamchangeObj(teamlistobj);
     }, [props.teamsList, show]);
@@ -380,7 +388,8 @@ const ViewTeamMember = (props) => {
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
-                            <BreadcrumbTwo {...headingDetails} />
+                            {/* <BreadcrumbTwo {...headingDetails} /> */}
+                            <h3>Team Members Details</h3>
                         </Col>
 
                         <Col className="ticket-btn col ml-auto ">
@@ -447,17 +456,50 @@ const ViewTeamMember = (props) => {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <div className="my-3 text-center">
+                        <div className="my-3 text-center w-50%">
                             <h3 className="mb-sm-4 mb-3">
                                 Please select Team to switch student
                             </h3>
+                            {/* <div className="text-left">
+                                <input
+                                    type="radio"
+                                    checked={!value}
+                                    onChange={(e) => setvalue('')}
+                                />
+
+                                <label className="text-left">
+                                    Select Team{' '}
+                                </label>
+                                <hr />
+                                {/* {teamlist.length > 0 &&
+                                    teamlist.map((item) => (
+                                        <div className="text-left">
+                                            <input
+                                                type="radio"
+                                                value={item}
+                                                checked={value == item}
+                                                onChange={(e) => setvalue(item)}
+                                            />
+                                            <label className="text-left">
+                                                {item}
+                                            </label>
+                                            
+                                        </div>
+                                    ))} */}
                             <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
                             />
+                            {/* <input
+                                type="radio"
+                                name="value"
+                                value="teamlist"
+                                onChange={(e) => setvalue(e.target.value)}
+                            /> */}
                         </div>
+
                         <div className="text-center">
                             <Button
                                 label={'Submit'}

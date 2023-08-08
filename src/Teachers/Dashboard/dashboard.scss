@@ -5,11 +5,11 @@
             display: flex;
             .card {
                 display: flex;
-                border-radius: 0;
+                border-radius: 1;
                 width: max-content;
                 min-width: 24rem !important;
                 flex-direction: column;
-                justify-content: center !important;
+                justify-content: cen !important;
                 height: 12rem !important;
                 padding: 1rem;
                 font-size: 1.6rem;
@@ -111,5 +111,39 @@
     }
     .singlediv{
         width: 100%;
+        display: flex;
+        justify-content: center;
     }
+    .select-team select{
+        display: flex;
+  justify-content: center;
+    
+    }
+  }
+
+  .cards{
+    padding: .5rem !important;
+    justify-content: left !important;
+    border-radius: 1 !important;
+  }
+  @media only screen and  (max-width: 991px) and (orientation: landscape) {
+    .teamProgreess {
+      flex-direction: column;
+    }
+    .singlediv{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .select-team select{
+        display: flex;
+  justify-content: center;
+    }
+    .buttons-container.mobile-landscape {
+        display: flex;
+    flex-direction: row; /* Set to row to arrange buttons in a single line */
+    justify-content: space-between; /* Add spacing between buttons */
+    align-items: center; /* Center buttons vertically */
+  
+      }
   }

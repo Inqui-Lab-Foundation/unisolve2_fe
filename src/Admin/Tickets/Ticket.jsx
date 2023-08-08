@@ -158,7 +158,7 @@ const TicketsPage = () => {
                 width: '10rem'
             },
             {
-                name: 'Category',
+                name: ' Query Category',
                 selector: (row) => row.query_category,
                 sortable: true,
                 width: '25rem'

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -29,6 +28,9 @@ import AdminEvaluationProcess from './Admin/EvalProcess/index';
 import AdminResources from './Admin/Resources/index';
 import AdminCreateResource from './Admin/Resources/createResource';
 import AdminEditResource from './Admin/Resources/editResource';
+import AdminLatestNews from './Admin/LatestNews/index';
+import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
+import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
@@ -108,9 +110,9 @@ import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
 import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
-
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
+import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
 
 const Routers = () => {
     return (
@@ -174,6 +176,11 @@ const Routers = () => {
                     <ProtectedRoute exact path="/about" component={Dashboard} />
                     <ProtectedRoute
                         exact
+                        path="/instructions"
+                        component={InstructionsPage}
+                    />
+                    <ProtectedRoute
+                        exact
                         path="/challenges"
                         component={IdeasPageNew}
                     />
@@ -191,11 +198,6 @@ const Routers = () => {
                         exact
                         path="/playCourse/:id"
                         component={PlayVideoCourses}
-                    />
-                    <ProtectedRoute
-                        exact
-                        path="/notification"
-                        component={Notification}
                     />
                     <ProtectedRoute
                         exact
@@ -373,6 +375,22 @@ const Routers = () => {
                         exact={true}
                         path="/admin/Resources/editResource"
                         component={AdminEditResource}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/index"
+                        component={AdminLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/createLatestNews"
+                        component={AdminCreateLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/LatestNews/editLatestNews"
+                        component={AdminEditLatestNews}
                     />
 
                     <ProtectedRoute

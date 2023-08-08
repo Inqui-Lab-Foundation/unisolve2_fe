@@ -8,7 +8,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
@@ -120,26 +120,26 @@ const LoginNew = (props) => {
                         <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_5}
-                                    alt="image_5"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_5}
+                                            alt="image_5"
+                                            className="img-fluid img-1"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                        <div className="mobile_tab-hide">
-                            <figure>
-                                <img
-                                    src={image_6}
-                                    alt="image_6"
-                                    className="img-fluid img-2"
-                                />
-                            </figure>
-                        </div>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_6}
+                                            alt="image_6"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
                             </Carousel.Item>
                             {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
@@ -156,16 +156,18 @@ const LoginNew = (props) => {
                     </div>
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <Col
-                                md={12}
-                                className="d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Logo"
-                                    className="logo-image"
-                                />
-                            </Col>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                    />
+                                </Col>
+                            </a>
                         </Row>
                         <Row className="login-options">
                             <Col md={12} className="text-right"></Col>
@@ -338,7 +340,9 @@ const LoginNew = (props) => {
                                             exact
                                             className="w-100 d-block text-center"
                                         >
-                                            <strong>Click Here To Register</strong>
+                                            <strong>
+                                                Click Here To Register
+                                            </strong>
                                         </Link>
                                     </div>
                                 </Form>

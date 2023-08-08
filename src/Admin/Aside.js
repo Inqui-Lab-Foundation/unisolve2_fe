@@ -11,10 +11,11 @@ import FAQICON from '../assets/media/FAQICON.png';
 import InstituionsIcon from '../assets/media/InstitutionsIcon.jpg';
 import ProfileIcon from '../assets/media/ProfileIcon.png';
 import logoutIcon from '../assets/media/logoutIcon.png';
-import ResourceIcon from'../assets/media/resourceIcon.png';
-import PopupIcon from'../assets/media/popupIcon.png';
+import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
+import ResourceIcon from '../assets/media/resourceIcon.png';
+import PopupIcon from '../assets/media/popupIcon.png';
 import EvalConifIcon from '../assets/media/EvalConifIcon.png';
-
+import SmallLogo from '../assets/media/logo192.png';
 import {
     ProSidebar,
     Menu,
@@ -72,9 +73,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <Link to={'/admin/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
@@ -88,7 +89,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu"  style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -237,34 +238,71 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     </MenuItem>
                     <MenuItem
                         icon={
-                            <img
-                                src={ResourceIcon}
-                                style={{ width: '20px' }}
-                            />
+                            <img src={ResourceIcon} style={{ width: '20px' }} />
                         }
                         className={
                             location.pathname === '/admin/Resources/index' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/Resources/index'}>
-                            Resources
+                        <NavLink
+                            exact={true}
+                            to={'/admin/Resources/index'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Resources
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={
-                            <img
-                                src={PopupIcon}
-                                style={{ width: '20px' }}
-                            />
-                        }
+                        icon={<img src={PopupIcon} style={{ width: '20px' }} />}
                         className={
                             location.pathname === '/admin/popup' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/admin/popup'}>
-                            PopUp
+                        <NavLink
+                            exact={true}
+                            to={'/admin/popup'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                PopUp
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={LatestNewsIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="school"
+                            />
+                        }
+                        className={
+                            location.pathname === '/admin/LatestNews/index' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/LatestNews/index'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                LatestNews
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem

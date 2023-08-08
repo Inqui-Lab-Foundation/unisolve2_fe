@@ -175,6 +175,13 @@ const AddNewTicket = (props) => {
                                                     htmlFor="ticketDetails"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}

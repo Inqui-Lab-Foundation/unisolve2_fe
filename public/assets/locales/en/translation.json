@@ -189,7 +189,7 @@
         "pre": "Pre survey has been submitted"
     },
     "student_presurvey": {
-        "submit": "Submit"
+        "submmit": "Submit"
     },
     "student": {
         "profile": "My Profile",
@@ -217,7 +217,7 @@
         "save_draft": "Save as Draft",
         "discard": "Discard",
         "upload_file": "Upload File",
-        "less_20MB": "Please upload file less than 20MB",
+        "less_10MB": "Please upload file less than 10MB",
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
@@ -307,7 +307,7 @@
         "btn_ok": "ok",
         "cancelled": "Cancelled",
         "logged_in": "You are Logged in",
-        "submit_idea": "You are attempting to submit your idea Which is not revertable",
+        "submit_idea": "Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
         "idea_sub_cancelled": "Idea Submission Cancelled"
     },
     "teacehr_red": {
