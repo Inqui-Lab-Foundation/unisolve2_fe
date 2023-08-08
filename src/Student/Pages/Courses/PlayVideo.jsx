@@ -255,7 +255,6 @@ const PlayVideoCourses = (props) => {
             setBadge('the_inspirer');
         } else if (id === 3) {
             setOpen('3');
-            //setBadge('the_team_player');
         } else if (id === 4) {
             setOpen('4');
             setBadge('the_finder');
@@ -1257,21 +1256,6 @@ const PlayVideoCourses = (props) => {
                                                                                 }}
                                                                                 onClick={() => {
                                                                                     handleNextCourse();
-                                                                                    // dispatch(
-                                                                                    //     updateStudentBadges(
-                                                                                    //         {
-                                                                                    //             badge_slugs:
-                                                                                    //                 [
-                                                                                    //                     badge
-                                                                                    //                 ]
-                                                                                    //         },
-                                                                                    //         currentUser
-                                                                                    //             .data[0]
-                                                                                    //             .user_id,
-                                                                                    //         language,
-                                                                                    //         t
-                                                                                    //     )
-                                                                                    // );
                                                                                 }}
                                                                             />
                                                                         </div>
@@ -1372,21 +1356,6 @@ const PlayVideoCourses = (props) => {
                                                                             }}
                                                                             onClick={() => {
                                                                                 handleNextCourse();
-                                                                                // dispatch(
-                                                                                //     updateStudentBadges(
-                                                                                //         {
-                                                                                //             badge_slugs:
-                                                                                //                 [
-                                                                                //                     badge
-                                                                                //                 ]
-                                                                                //         },
-                                                                                //         currentUser
-                                                                                //             .data[0]
-                                                                                //             .user_id,
-                                                                                //         language,
-                                                                                //         t
-                                                                                //     )
-                                                                                // );
                                                                             }}
                                                                         />
                                                                     </div>
