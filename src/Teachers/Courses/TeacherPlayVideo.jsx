@@ -230,9 +230,11 @@ const TeacherPlayVideo = (props) => {
                     ) {
                         setisquizcompleted(true);
                         setQuizStart(false);
-                    }
-                    if (response?.data?.data[0]?.question_no === 1) {
+                    } else if (response?.data?.data[0]?.question_no === 1) {
                         setQuizStart(true);
+                        setisquizcompleted(false);
+                    } else {
+                        setQuizStart(false);
                         setisquizcompleted(false);
                     }
                 }
@@ -381,6 +383,7 @@ const TeacherPlayVideo = (props) => {
             fetchData(topicId);
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
+            getisquizcompleted();
             setItem('QUIZ');
             setQizId(topicId);
         } else {
@@ -636,7 +639,7 @@ const TeacherPlayVideo = (props) => {
                                                                         );
                                                                     } else if (
                                                                         course.title.toLowerCase() ===
-                                                                            'instructions' ||
+                                                                            'congratulations' ||
                                                                         course.title ===
                                                                             'வழிமுறைகள்'
                                                                     ) {
@@ -714,7 +717,8 @@ const TeacherPlayVideo = (props) => {
                                         ) : isquizcompleted ? (
                                             <Modal.Header>
                                                 <Modal.Title className="w-100 d-block mb-2">
-                                                    Quick test Completed successfully
+                                                    Quick test Completed
+                                                    successfully
                                                 </Modal.Title>
                                                 <p className="w-100 d-block">
                                                     Check your score.
@@ -1068,185 +1072,46 @@ const TeacherPlayVideo = (props) => {
                                 ).length > 2 && (
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
-                                            <CardBody>
-                                                <CardTitle
-                                                    className=" text-left pt-4 pb-4"
-                                                    tag="h2"
-                                                >
-                                                    Unisolve Worksheets
+                                            <CardBody className="text-center p-5">
+                                                <CardTitle>
+                                                    <h2>
+                                                        🎉 Congratulations on
+                                                        completing the course!
+                                                        🎉
+                                                    </h2>
                                                 </CardTitle>
-                                                <CardBody>
-                                                    {/* <p className="text-primary">
-                                                        <b>
-                                                            Additional Resources
-                                                        </b>
-                                                    </p> */}
-                                                    <p>Dear Guide Teachers,</p>
-                                                    <p>
-                                                        In addition to the
-                                                        teacher handbook there
-                                                        are worksheets and
-                                                        additional readings for
-                                                        your student teams which
-                                                        will aid in this
-                                                        Unisolve learning
-                                                        journey:
-                                                    </p>
-                                                    {/* <p className="mb-0">
-                                                        A. Worksheets
-                                                    </p>
-                                                    <p className="mb-3">
-                                                        B. Additional Readings
-                                                    </p>
 
-                                                    <p className="text-decoration-underline">
-                                                        <b>A.Worksheets </b>
-                                                    </p> */}
-                                                    <h3>WORKSHEETS</h3>
-                                                    <p className="mb-0">
-                                                        1. This document had one
-                                                        set of Worksheet per
-                                                        Module.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        2. Respective worksheets
-                                                        are required to be
-                                                        completed/filled by the
-                                                        Unisolve Students (as a
-                                                        TEAM) after they watch
-                                                        each lesson from lesson
-                                                        1 to lesson 6.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        3. Download, Print/Xerox
-                                                        this worksheets and hand
-                                                        over one set per team.{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        4. Support/Mentor/Guide
-                                                        Unisolve students to
-                                                        complete the worksheets
-                                                        if they need help.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        5. Guide the teams to
-                                                        upload their worksheets
-                                                        on the portal after they
-                                                        complete it.
-                                                    </p>
-                                                    <br></br>
-                                                    <h3>ADDITIONAL READINGS</h3>
+                                                <CardBody>
                                                     <p>
-                                                        Print and provide the
-                                                        related pages from the
-                                                        Additional Reading
-                                                        document to each student
-                                                        while they watch the
-                                                        respective video to
-                                                        support their learning.
+                                                        You did it! Your
+                                                        dedication and hard work
+                                                        have brought you to this
+                                                        exciting milestone. We
+                                                        are incredibly proud of
+                                                        your achievement and the
+                                                        effort you
+                                                        <span>&#8217;</span>ve
+                                                        put into UNISOLVE.{' '}
+                                                        <br /><br />
+                                                        This accomplishment
+                                                        marks just the beginning
+                                                        of your journey as a
+                                                        Teacher. The knowledge
+                                                        you<span>&#8217;</span>
+                                                        ve gained will be a
+                                                        valuable asset as you
+                                                        move forward in
+                                                        UNISOLVE. <br /><br />
+                                                        We can
+                                                        <span>&#8217;</span>t
+                                                        wait to see your school
+                                                        students enrolling to
+                                                        UNISOLVE and starting
+                                                        off their journey with
+                                                        your support as a guide
+                                                        teacher.
                                                     </p>
                                                 </CardBody>
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i > 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
-
-                                                {/* <p className="text-decoration-underline">
-                                                    <b>
-                                                        B. Additional Readings{' '}
-                                                    </b>
-                                                </p>
-                                                <p>
-                                                    These are additional reading
-                                                    material for the students
-                                                    after each lesson. This
-                                                    document contains more
-                                                    information and examples on
-                                                    the topics covered in each
-                                                    lesson.
-                                                </p>
-                                                <p>
-                                                    This can be shared with Unisolve
-                                                    students. We recommend to
-                                                    share the soft copy or print
-                                                    it for future reference.
-                                                </p> */}
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i <= 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
                                             </CardBody>
                                         </Card>
                                     </Fragment>

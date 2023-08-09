@@ -18,7 +18,7 @@ const QuizResponse = ({ response }) => {
                 )}
                 <div className={`${!accimg ? 'col-12' : 'col-9'}`}>
                     <div className="row">
-                        {parse("<p className = 'text-left'>" + msg + '</p>')}
+                        {parse(`<p className = 'text-left'>${msg?msg:'No Data'}</p>`)}
                     </div>
                     {ar_image && (
                         <div className="row">

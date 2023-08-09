@@ -349,6 +349,11 @@
         "idea_submission_msg3":" அன்று ",
         "idea_submission_date_com_desc":"அன்புள்ள மாணவர்களே, யோசனை சமர்ப்பிப்பதற்கான இறுதி தேதி முடிந்தது. தயவு செய்து உங்கள் படிப்பை முடித்து, கருத்துக்கணிப்பைப் பின்தொடரவும்.",
         "go_to_course_button":"பாடநெறிக்குச் செல்லுங்கள்",
-        "go_to_post_survey_button":"இடுகை கணக்கெடுப்புக்குச் செல்லவும்"
+        "go_to_post_survey_button":"இடுகை கணக்கெடுப்புக்குச் செல்லவும்",
+        "cong_msg_menu":"<p><b>🎉 Congratulations on completing the course! 🎉</b><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p>We can't wait to see all the amazing Ideas you & your team going to submit.</p></p>"
+    },
+    "translation": {
+        "tamil": "Tamil Content :-",
+        "tamil_to": "tn"
     }
 }

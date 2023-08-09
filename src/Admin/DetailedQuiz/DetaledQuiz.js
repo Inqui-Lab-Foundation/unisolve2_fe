@@ -45,6 +45,7 @@ const DetaledQuiz = (props) => {
     const [currentRole, setCurrentRole] = useState('');
     const [totalQstCount, setTotalQstCount] = useState(0);
     const [currentPercentage, setCurrentPercentage] = useState(0);
+    const [startloader, setStartloader] = useState(false);
 
     useEffect(() => {
         setCurrentRole(currentUser?.data[0]?.role);
@@ -110,6 +111,7 @@ const DetaledQuiz = (props) => {
 
     useEffect(() => {
         resultdata();
+        setStartloader(true);
     }, []);
 
     useEffect(() => {
@@ -153,6 +155,11 @@ const DetaledQuiz = (props) => {
     };
     const goToTop = () => {
         window.scrollTo(0, 0);
+        const section = document.querySelector('#start');
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     };
     const handleNxtQst = () => {
         Setloading(true);
@@ -187,28 +194,34 @@ const DetaledQuiz = (props) => {
             attemptNumber + 1
         );
     };
-    
-    return (
-        <Fragment>
-            {video === true &&
-                props.adminCourseQst &&
-                props.adminCourseQst.data === "Quiz has been completed no more questions to display" && (
-                    <div>
-                        {currentRole === 'MENTOR' ? (
-                            <Confetti className="w-100" />
-                        ) : (
-                            currentPercentage >= 60 && (
-                                <Confetti className="w-100" />
-                            )
-                        )}
-                    </div>
-                )}
+    setTimeout(()=>{setStartloader(false);},500);
 
-            {condition === true &&
-            props.adminCourseQst &&
-            props.adminCourseQst.status === 200 ? (
+    return (
+        <>
+            {startloader ? (
+                <DoubleBounce />
+            ) : (
                 <Fragment>
-                    {/* <ProgressComp
+                    {video === true &&
+                        props.adminCourseQst &&
+                        props.adminCourseQst.data ===
+                            'Quiz has been completed no more questions to display' && (
+                            <div>
+                                {currentRole === 'MENTOR' ? (
+                                    <Confetti className="w-100" />
+                                ) : (
+                                    currentPercentage >= 60 && (
+                                        <Confetti className="w-100" />
+                                    )
+                                )}
+                            </div>
+                        )}
+
+                    {condition === true &&
+                    props.adminCourseQst &&
+                    props.adminCourseQst.status === 200 ? (
+                        <Fragment>
+                            {/* <ProgressComp
                         level={
                             props.adminCourseQst.data &&
                             props.adminCourseQst.data[0] &&
@@ -216,302 +229,361 @@ const DetaledQuiz = (props) => {
                         }
                         {...progressBar}
                     /> */}
-                </Fragment>
-            ) : null}
+                        </Fragment>
+                    ) : null}
 
-            <Card className="quiz">
-                {video === true &&
-                props.adminCourseQst &&
-                props.adminCourseQst.data === "Quiz has been completed no more questions to display" ? (
-                    <div className="container new-result">
-                        <div className="row justify-content-md-center ">
-                            <div className="col col-lg-9">
-                                <div className="mt-4 text-center">
-                                    <div className="success_img text-center w-100">
-                                        <img src={succesImg} alt=".." />
-                                        <br />
-                                    </div>
-                                    {currentRole === 'MENTOR' && (
-                                        <>
-                                            <h2>
-                                                Score:{currentScore?.score}/
-                                                {totalQstCount}
-                                            </h2>
-                                            <h2 style={{ color: 'green' }}>
-                                                {t('student.quiz_completed')}
-                                            </h2>
-                                        </>
-                                    )}
-                                </div>
-                                {currentRole === 'STUDENT' && (
-                                    <>
-                                        <Table>
-                                            <thead>
-                                                <tr>
-                                                    <th>{t('Attempts')}</th>
-                                                    <th>
-                                                        {t('Correct Answers')}
-                                                    </th>
-                                                    <th>
-                                                        {t('Wrong Answers')}
-                                                    </th>
-                                                    <th>{t('Result')}</th>
-                                                </tr>
-                                            </thead>
-                                            {quizdata?.data?.map(
-                                                (item, index) => {
-                                                    return (
-                                                        <tbody key={index}>
-                                                            <tr>
-                                                                <td>
-                                                                    {
-                                                                        item.attempts
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {item.score
-                                                                        ? item.score
-                                                                        : '0'}
-                                                                </td>
-                                                                <td>
-                                                                    {totalQstCount -
-                                                                        item.score}
-                                                                </td>
-                                                                <td>
-                                                                    {Math.round(
-                                                                        (item.score /
-                                                                            totalQstCount) *
-                                                                            100
-                                                                    )}
-                                                                    %
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    );
-                                                }
-                                            )}
-                                        </Table>
-                                        <div
-                                            style={{
-                                                textAlign: 'center',
-                                                marginTop: '2rem'
-                                            }}
-                                        >
-                                            {currentPercentage < 60 ? (
-                                                <h2 style={{ color: 'red' }}>
-                                                    {t(
-                                                        'You scored less than the cutoff'
-                                                    )}
-                                                </h2>
-                                            ) : (
-                                                <h2 style={{ color: 'green' }}>
-                                                    {t(
-                                                        'student.quiz_completed'
-                                                    )}
-                                                </h2>
+                    <Card className="quiz">
+                        {video === true &&
+                        props.adminCourseQst &&
+                        props.adminCourseQst.data ===
+                            'Quiz has been completed no more questions to display' ? (
+                            <div className="container new-result">
+                                <div className="row justify-content-md-center ">
+                                    <div className="col col-lg-9">
+                                        <div className="mt-4 text-center">
+                                            <div className="success_img text-center w-100">
+                                                <img src={succesImg} alt=".." />
+                                                <br />
+                                            </div>
+                                            {currentRole === 'MENTOR' && (
+                                                <>
+                                                    <h2>
+                                                        Score:
+                                                        {currentScore?.score}/
+                                                        {totalQstCount}
+                                                    </h2>
+                                                    <h2
+                                                        style={{
+                                                            color: 'green'
+                                                        }}
+                                                    >
+                                                        {t(
+                                                            'student.quiz_completed'
+                                                        )}
+                                                    </h2>
+                                                    <Button
+                                                        label="continue"
+                                                        btnClass="primary w-auto"
+                                                        size="small"
+                                                        type="submit"
+                                                        onClick={() => {
+                                                            props.handleQuiz();
+                                                            props.setInstructions(
+                                                                true
+                                                            );
+                                                            props.setHandbook(false);
+                                                        }}
+                                                    />
+                                                </>
                                             )}
                                         </div>
-                                    </>
-                                )}
-
-                                <div className="results-heading mt-4">
-                                    <img src={ResultStar} alt="star" />
-                                </div>
-                                {currentRole === 'STUDENT' && (
-                                    <div className="row py-3 mb-3 d-flex justify-content-end">
-                                        {currentPercentage < 60 ? (
-                                            <div className="text-right">
-                                                <Button
-                                                    label={t('Retest')}
-                                                    btnClass="primary w-auto"
-                                                    size="small"
-                                                    type="submit"
-                                                    onClick={handleRetest}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="text-right">
-                                                <Button
-                                                    label={t(
-                                                        'student.continue'
+                                        {currentRole === 'STUDENT' && (
+                                            <>
+                                                <Table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                {t('Attempts')}
+                                                            </th>
+                                                            <th>
+                                                                {t(
+                                                                    'Correct Answers'
+                                                                )}
+                                                            </th>
+                                                            <th>
+                                                                {t(
+                                                                    'Wrong Answers'
+                                                                )}
+                                                            </th>
+                                                            <th>
+                                                                {t('Result')}
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    {quizdata?.data?.map(
+                                                        (item, index) => {
+                                                            return (
+                                                                <tbody
+                                                                    key={index}
+                                                                >
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                item.attempts
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {item.score
+                                                                                ? item.score
+                                                                                : '0'}
+                                                                        </td>
+                                                                        <td>
+                                                                            {totalQstCount -
+                                                                                item.score}
+                                                                        </td>
+                                                                        <td>
+                                                                            {Math.round(
+                                                                                (item.score /
+                                                                                    totalQstCount) *
+                                                                                    100
+                                                                            )}
+                                                                            %
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            );
+                                                        }
                                                     )}
-                                                    btnClass="primary w-auto"
-                                                    size="small"
-                                                    type="submit"
-                                                    onClick={() => {
-                                                        dispatch(
-                                                            updateStudentBadges(
-                                                                {
-                                                                    badge_slugs:
-                                                                        [
-                                                                            props.badge
-                                                                        ]
-                                                                },
-                                                                currentUser
-                                                                    .data[0]
-                                                                    .user_id,
-                                                                language,
-                                                                t
-                                                            )
-                                                        );
-                                                        props.handleQuiz();
-                                                        props.handleNextCourse();
+                                                </Table>
+                                                <div
+                                                    style={{
+                                                        textAlign: 'center',
+                                                        marginTop: '2rem'
                                                     }}
-                                                />
+                                                >
+                                                    {currentPercentage >= 60 ? (
+                                                        <h2
+                                                            style={{
+                                                                color: 'green'
+                                                            }}
+                                                        >
+                                                            {t(
+                                                                'student.quiz_completed'
+                                                            )}
+                                                        </h2>
+                                                    ) : (
+                                                        <h2
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                        >
+                                                            {t(
+                                                                'You scored less than the cutoff'
+                                                            )}
+                                                        </h2>
+                                                    )}
+                                                </div>
+                                            </>
+                                        )}
+
+                                        <div className="results-heading mt-4">
+                                            <img src={ResultStar} alt="star" />
+                                        </div>
+                                        {currentRole === 'STUDENT' && (
+                                            <div className="row py-3 mb-3 d-flex justify-content-end">
+                                                {currentPercentage < 60 ? (
+                                                    <div className="text-right">
+                                                        <Button
+                                                            label={t('Retest')}
+                                                            btnClass="primary w-auto"
+                                                            size="small"
+                                                            type="submit"
+                                                            onClick={
+                                                                handleRetest
+                                                            }
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="text-right">
+                                                        <Button
+                                                            label={t(
+                                                                'student.continue'
+                                                            )}
+                                                            btnClass="primary w-auto"
+                                                            size="small"
+                                                            type="submit"
+                                                            onClick={() => {
+                                                                dispatch(
+                                                                    updateStudentBadges(
+                                                                        {
+                                                                            badge_slugs:
+                                                                                [
+                                                                                    props.badge
+                                                                                ]
+                                                                        },
+                                                                        currentUser
+                                                                            .data[0]
+                                                                            .user_id,
+                                                                        language,
+                                                                        t
+                                                                    )
+                                                                );
+                                                                props.handleQuiz();
+                                                                props.handleNextCourse();
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
-                                )}
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                ) : loading === true ? (
-                    <DoubleBounce />
-                ) : (
-                    <Fragment>
-                        <div className="question-section">
-                            <div className="score"></div>
-                            <Row>
-                                <Col xs={10}>
-                                    <p>{t('teacher.question')}</p>
-                                </Col>
-                            </Row>
+                        ) : loading === true ? (
+                            <DoubleBounce />
+                        ) : (
+                            <Fragment>
+                                <div className="question-section" id="start">
+                                    <div className="score"></div>
+                                    <Row>
+                                        <Col xs={10}>
+                                            <p>{t('teacher.question')}</p>
+                                        </Col>
+                                    </Row>
 
-                            <Question
-                                isSubmitted={isSubmitted}
-                                responceData={props.adminQstResponce}
-                                adminQuizDetails={qst}
-                                quizId={quizId}
-                                onSelectAnswer={handleSelect}
-                                onSelectType={handleSelectType}
-                                correctAnswer={correctAnswer}
-                            />
+                                    <Question
+                                        isSubmitted={isSubmitted}
+                                        responceData={props.adminQstResponce}
+                                        adminQuizDetails={qst}
+                                        quizId={quizId}
+                                        onSelectAnswer={handleSelect}
+                                        onSelectType={handleSelectType}
+                                        correctAnswer={correctAnswer}
+                                    />
 
-                            {video === true &&
-                            props.adminQstResponce &&
-                            props.adminQstResponce.status === 200 ? (
-                                <div>
-                                    <div className="score">
-                                        {props.adminQstResponce &&
-                                            props.adminQstResponce.data[0] &&
-                                            props.adminQstResponce.data[0]
-                                                .is_correct === true && (
-                                                <div className="w-100">
-                                                    <QuizResponse
-                                                        response={
-                                                            props
-                                                                .adminQstResponce
-                                                                .data[0]
-                                                        }
-                                                    />
-                                                </div>
-                                            )}
-                                        <br />
-                                        {props.adminQstResponce &&
-                                            props.adminQstResponce.data[0] &&
-                                            props.adminQstResponce.data[0]
-                                                .is_correct === false && (
-                                                <QuizResponse
-                                                    response={
-                                                        props.adminQstResponce
-                                                            .data[0]
-                                                    }
-                                                />
-                                            )}
-                                        <br />
-                                    </div>
-
-                                    <Row className="justify-content-between mt-5">
-                                        {props.adminQstResponce &&
-                                            props.adminQstResponce.data[0] &&
-                                            props.adminQstResponce.data[0]
-                                                .is_correct === true && (
-                                                <Col
-                                                    md={12}
-                                                    className="text-right"
-                                                >
-                                                    <Button
-                                                        btnClass="primary"
-                                                        size="small"
-                                                        label={t(
-                                                            'student.continue'
-                                                        )}
-                                                        onClick={handleNxtQst}
-                                                    />
-                                                </Col>
-                                            )}
-                                        {props.adminQstResponce &&
-                                            props.adminQstResponce.data[0] &&
-                                            props.adminQstResponce.data[0]
-                                                .is_correct === false && (
-                                                <Col
-                                                    md={12}
-                                                    className="text-right"
-                                                >
-                                                    {props.adminQstResponce &&
-                                                        props.adminQstResponce
-                                                            .data[0] &&
-                                                        props.adminQstResponce
-                                                            .data[0]
-                                                            .redirect_to !=
-                                                            null && (
-                                                            <Button
-                                                                btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
-                                                                size="small"
-                                                                label={t(
-                                                                    'teacher.refer_video'
-                                                                )}
-                                                                onClick={() =>
-                                                                    handlevideo(
-                                                                        props.adminQstResponce &&
-                                                                            props
-                                                                                .adminQstResponce
-                                                                                .data[0] &&
-                                                                            props
-                                                                                .adminQstResponce
-                                                                                .data[0]
-                                                                                .redirect_to
-                                                                    )
+                                    {video === true &&
+                                    props.adminQstResponce &&
+                                    props.adminQstResponce.status === 200 ? (
+                                        <div>
+                                            <div className="score">
+                                                {props.adminQstResponce &&
+                                                    props.adminQstResponce
+                                                        .data[0] &&
+                                                    props.adminQstResponce
+                                                        .data[0].is_correct ===
+                                                        true && (
+                                                        <div className="w-100">
+                                                            <QuizResponse
+                                                                response={
+                                                                    props
+                                                                        .adminQstResponce
+                                                                        .data[0]
                                                                 }
                                                             />
-                                                        )}
-                                                    <Button
-                                                        btnClass="primary px-5"
-                                                        size="small"
-                                                        label={t(
-                                                            'teacher.continue'
-                                                        )}
-                                                        onClick={handleNxtQst}
-                                                    />
-                                                </Col>
-                                            )}
-                                    </Row>
-                                </div>
-                            ) : null}
+                                                        </div>
+                                                    )}
+                                                <br />
+                                                {props.adminQstResponce &&
+                                                    props.adminQstResponce
+                                                        .data[0] &&
+                                                    props.adminQstResponce
+                                                        .data[0].is_correct ===
+                                                        false && (
+                                                        <QuizResponse
+                                                            response={
+                                                                props
+                                                                    .adminQstResponce
+                                                                    .data[0]
+                                                            }
+                                                        />
+                                                    )}
+                                                <br />
+                                            </div>
 
-                            {props.adminQstResponce &&
-                            props.adminQstResponce.status === 200 ? null : (
-                                <Row className="justify-content-between mt-5">
-                                    <Col md={12} className="text-right">
-                                        <Button
-                                            size="small"
-                                            label={t('teacher.submit')}
-                                            onClick={handleSubmit}
-                                            btnClass={
-                                                !selectOption
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            disabled={!selectOption}
-                                        />
-                                    </Col>
-                                </Row>
-                            )}
-                        </div>
-                    </Fragment>
-                )}
-            </Card>
-        </Fragment>
+                                            <Row className="justify-content-between mt-5">
+                                                {props.adminQstResponce &&
+                                                    props.adminQstResponce
+                                                        .data[0] &&
+                                                    props.adminQstResponce
+                                                        .data[0].is_correct ===
+                                                        true && (
+                                                        <Col
+                                                            md={12}
+                                                            className="text-right"
+                                                        >
+                                                            <Button
+                                                                btnClass="primary"
+                                                                size="small"
+                                                                label={t(
+                                                                    'student.continue'
+                                                                )}
+                                                                onClick={
+                                                                    handleNxtQst
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    )}
+                                                {props.adminQstResponce &&
+                                                    props.adminQstResponce
+                                                        .data[0] &&
+                                                    props.adminQstResponce
+                                                        .data[0].is_correct ===
+                                                        false && (
+                                                        <Col
+                                                            md={12}
+                                                            className="text-right"
+                                                        >
+                                                            {props.adminQstResponce &&
+                                                                props
+                                                                    .adminQstResponce
+                                                                    .data[0] &&
+                                                                props
+                                                                    .adminQstResponce
+                                                                    .data[0]
+                                                                    .redirect_to !=
+                                                                    null && (
+                                                                    <Button
+                                                                        btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
+                                                                        size="small"
+                                                                        label={t(
+                                                                            'teacher.refer_video'
+                                                                        )}
+                                                                        onClick={() =>
+                                                                            handlevideo(
+                                                                                props.adminQstResponce &&
+                                                                                    props
+                                                                                        .adminQstResponce
+                                                                                        .data[0] &&
+                                                                                    props
+                                                                                        .adminQstResponce
+                                                                                        .data[0]
+                                                                                        .redirect_to
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            <Button
+                                                                btnClass="primary px-5"
+                                                                size="small"
+                                                                label={t(
+                                                                    'teacher.continue'
+                                                                )}
+                                                                onClick={
+                                                                    handleNxtQst
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    )}
+                                            </Row>
+                                        </div>
+                                    ) : null}
+
+                                    {props.adminQstResponce &&
+                                    props.adminQstResponce.status ===
+                                        200 ? null : (
+                                        <Row className="justify-content-between mt-5">
+                                            <Col md={12} className="text-right">
+                                                <Button
+                                                    size="small"
+                                                    label={t('teacher.submit')}
+                                                    onClick={handleSubmit}
+                                                    btnClass={
+                                                        !selectOption
+                                                            ? 'default'
+                                                            : 'primary'
+                                                    }
+                                                    disabled={!selectOption}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    )}
+                                </div>
+                            </Fragment>
+                        )}
+                    </Card>
+                </Fragment>
+            )}
+        </>
     );
 };
 
