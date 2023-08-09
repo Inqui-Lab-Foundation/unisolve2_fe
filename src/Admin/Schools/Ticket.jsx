@@ -557,7 +557,7 @@ const TicketsPage = (props) => {
                         <div className="my-2">
                             <DataTableExtensions
                                 print={false}
-                                export={false}
+                                // export={true}
                                 {...reqSchoolsData}
                                 exportHeaders
                             >
@@ -575,6 +575,8 @@ const TicketsPage = (props) => {
                     ) : newList ? (
                         <div className="my-2">
                             <DataTableExtensions
+                                print={false}
+                                // export={true}
                                 {...newSchoolsData}
                                 exportHeaders
                             >
@@ -592,7 +594,8 @@ const TicketsPage = (props) => {
                         <div className="my-2">
                             <DataTableExtensions
                                 {...SchoolsData}
-                                export={true}
+                                // export={true}
+                                print={false}
                                 exportHeaders
                             >
                                 <DataTable

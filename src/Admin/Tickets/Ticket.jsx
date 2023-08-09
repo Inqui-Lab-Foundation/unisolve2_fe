@@ -246,7 +246,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        export={false}
+                                        // export={false}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -266,7 +266,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        export={false}
+                                        // export={false}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -286,7 +286,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        export={false}
+                                        // export={false}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -306,7 +306,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        export={false}
+                                        // export={false}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -326,7 +326,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        export={false}
+                                        // export={false}
                                         {...allData}
                                         exportHeaders
                                     >

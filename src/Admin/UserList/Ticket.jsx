@@ -38,32 +38,63 @@ import { useDispatch } from 'react-redux';
 import Register from '../../Evaluator/Register';
 import dist from 'react-data-table-component-extensions';
 import AddADmins from './AddAdmins';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const { TabPane } = Tabs;
 
-const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
-    const [dsts, setNewDist] = useState('');
+const SelectDists = ({
+    getDistrictsListAction,
+    dists,
+    tab,
+    setDist,
+    newDist
+}) => {
+    console.log(newDist);
+    // const [dsts, setNewDist] = useState('');
+    // useEffect(async () => {
+    //     const dist = localStorage.getItem('dist');
+    //     await setDist(dist);
+    // }, [localStorage.getItem('dist')]);
 
-    useEffect(async () => {
-        const dist = localStorage.getItem('dist');
-        await setNewDist(dist);
-    }, [localStorage.getItem('dist')]);
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
     }, [tab]);
+
     const handleDists = (e) => {
-        setNewDist(e.target.value);
+        // setNewDist(e.target.value);
         setDist(e.target.value);
+        localStorage.setItem('dist', e.target.value);
     };
+
+    // useEffect(() => {
+    //     setLoading(true);
+    // }, []);
+    console.log(newDist);
     return (
         <select
             onChange={handleDists}
             name="districts"
             id="districts"
-            value={dsts}
+            value={newDist}
             className="text-capitalize"
         >
             <option value="">Select District</option>
+            {/* {loading ? (
+                <ClipLoader loading={loading} color={color} size={100} />
+            ) : (
+                <div>
+                    {dists && dists.length > 0 ? (
+                        dists.map((item, i) => (
+                            <option key={i} value={item}>
+                                {item}
+                            </option>
+                        ))
+                    ) : (
+                        <option value="">There are no Districts</option>
+                    )}
+                </div>
+            )} */}
+
             {dists && dists.length > 0 ? (
                 dists.map((item, i) => (
                     <option key={i} value={item}>
@@ -78,11 +109,14 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
 };
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
+    const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
+    const [loading, setLoading] = useState(false);
+    // let [color, setColor] = useState('#ffffff');
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
-    const [studentDist, setstudentDist] = useState('');
+    const [studentDist, setstudentDist] = useState(district ? district : '');
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -104,7 +138,11 @@ const TicketsPage = (props) => {
             props.getAdminMentorsListAction('ALL', mentorDist);
         }
     }, [tab, mentorDist]);
-
+    useEffect(() => {
+        return () => {
+            localStorage.removeItem('dist');
+        };
+    }, []);
     const [rows, setRows] = React.useState([]);
     const [mentorRows, setMentorRows] = React.useState([]);
 
@@ -115,7 +153,9 @@ const TicketsPage = (props) => {
         return () => clearTimeout(mentorTimeout);
     }, []);
     useEffect(() => {
+        setLoading(true);
         const timeout = setTimeout(() => {
+            setLoading(false);
             setRows(StudentsData.data);
         }, 2000);
         return () => clearTimeout(timeout);
@@ -161,12 +201,12 @@ const TicketsPage = (props) => {
             if (number == '2') {
                 let dist = localStorage.getItem('dist');
                 setmentorDist(dist);
-                setNewDists(dist);
+                // setNewDists(dist);
                 props.getAdminMentorsListAction('ALL', mentorDist);
             } else {
                 let dist = localStorage.getItem('dist');
                 setstudentDist(dist);
-                setNewDists(dist);
+                // setstudentDist(dist);
                 props.getStudentListAction(studentDist);
             }
         }
@@ -374,6 +414,7 @@ const TicketsPage = (props) => {
                 }
             });
     };
+
     const TableMentorsProps = {
         data: props.mentorsList,
         totalItems: props.totalItems,
@@ -546,9 +587,7 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger ">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger ">INACTIVE</div>
                         ) : (
                             <div className="btn btn-warning ">ACTIVE</div>
                         )}
@@ -636,9 +675,7 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger ">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger ">INACTIVE</div>
                         ) : (
                             <div className="btn btn-warning ">ACTIVE</div>
                         )}
@@ -736,13 +773,9 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger">
-                                INACTIVE
-                            </div>
+                            <div className="btn btn-danger">INACTIVE</div>
                         ) : (
-                            <div className="btn btn-secondary ">
-                                ACTIVE
-                            </div>
+                            <div className="btn btn-secondary ">ACTIVE</div>
                         )}
                     </div>
                     // <div
@@ -779,7 +812,7 @@ const TicketsPage = (props) => {
                                                 props.getDistrictsListAction
                                             }
                                             setDist={setstudentDist}
-                                            newDist={newDist}
+                                            newDist={studentDist}
                                             dists={props.dists}
                                             tab={tab}
                                         />
@@ -848,11 +881,18 @@ const TicketsPage = (props) => {
                             >
                                 {studentDist === '' ? (
                                     <CommonPage text="Please select a district" />
+                                ) : loading ? (
+                                    <ClipLoader
+                                        loading={loading}
+                                        // color={color}
+                                        size={20}
+                                    />
                                 ) : (
                                     <div className="my-5">
                                         <DataTableExtensions
                                             {...StudentsData}
                                             exportHeaders
+                                            print={false}
                                         >
                                             <DataTable
                                                 data={rows}
@@ -878,10 +918,17 @@ const TicketsPage = (props) => {
                                 {mentorDist === '' ? (
                                     <CommonPage text="Please select a district" />
                                 ) : (
+                                    // ) : loading ? (
+                                    //     <ClipLoader
+                                    //         loading={loading}
+                                    //         // color={color}
+                                    //         size={20}
+                                    //     />
                                     <div className="my-5">
                                         <DataTableExtensions
                                             {...TableMentorsProps}
                                             exportHeaders
+                                            print={false}
                                         >
                                             <DataTable
                                                 data={mentorRows}
@@ -908,6 +955,7 @@ const TicketsPage = (props) => {
                                     <DataTableExtensions
                                         {...evaluatorsData}
                                         exportHeaders
+                                        print={false}
                                     >
                                         <DataTable
                                             responsive={true}
@@ -932,6 +980,7 @@ const TicketsPage = (props) => {
                                     <DataTableExtensions
                                         {...adminData}
                                         exportHeaders
+                                        print={false}
                                     >
                                         <DataTable
                                             data={props.adminData}
