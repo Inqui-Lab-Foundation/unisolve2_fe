@@ -31,7 +31,7 @@ const CommonUserProfile = (props) => {
         history.push({
             pathname: '/admin/userlist'
         });
-        localStorage.setItem('dist', JSON.stringify(props.location.dist));
+        localStorage.setItem('dist', props.location.dist);
         localStorage.setItem('num', JSON.stringify(props.location.num));
     };
     const handleReset = () => {
