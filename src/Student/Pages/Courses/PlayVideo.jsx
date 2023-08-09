@@ -589,7 +589,7 @@ const PlayVideoCourses = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    if (response.data.count === null) {
+                    if (response.data.data === "user not stared") {
                         setQuizStart(true);
                         setQuizCompleted(false);
                     } else {
@@ -1214,32 +1214,16 @@ const PlayVideoCourses = (props) => {
                                                     <>
                                                         <Card className="course-sec-basic p-5">
                                                             <div className="container new-result">
-                                                                <Confetti className="w-100" />
                                                                 <div className="row justify-content-md-center ">
                                                                     <div className="col col-lg-9">
-                                                                        <div className="results-heading">
-                                                                            <img
-                                                                                src={
-                                                                                    ResultStar
-                                                                                }
-                                                                                alt="star"
-                                                                            />
-                                                                        </div>
                                                                         <div className="congratulations text-center">
-                                                                            <div className="success_img text-center w-100">
-                                                                                <img
-                                                                                    src={
-                                                                                        succesImg
-                                                                                    }
-                                                                                    alt=".."
-                                                                                />
-                                                                                <br />
+                                                                            
+                                                                            <div dangerouslySetInnerHTML={{
+                                                                                __html: t(
+                                                                                    'student_course.cong_msg_menu'
+                                                                                )
+                                                                            }}>
                                                                             </div>
-                                                                            <h2>
-                                                                                {t(
-                                                                                    'student_course.course_completed_succ'
-                                                                                )}
-                                                                            </h2>
                                                                         </div>
                                                                         <div className="text-center">
                                                                             <Button
