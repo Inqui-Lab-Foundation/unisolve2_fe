@@ -2,7 +2,6 @@
 import React from 'react';
 import Layout from '../Layout';
 import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
@@ -21,20 +20,6 @@ const EditLatestNews = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const headingDetails = {
-        title: 'Edit LatestNews Details',
-        options: [
-            {
-                title: 'LatestNews',
-                path: '/admin/LatestNews'
-            },
-            {
-                title: 'Edit LatestNews',
-                path: '/admin/LatestNews/editLatestNews'
-            }
-        ]
-    };
-
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -64,7 +49,6 @@ const EditLatestNews = (props) => {
         }
 
         formik.setFieldValue('file_name', file);
-
     };
 
     const formik = useFormik({
@@ -83,11 +67,11 @@ const EditLatestNews = (props) => {
             new_status: Yup.string()
                 .optional()
                 .oneOf(['0', '1'], 'New Status type is Required'),
-            file_name: Yup.mixed(),
+            file_name: Yup.mixed()
             //url: Yup.string()
         }),
         onSubmit: async (values) => {
-            console.log(values,'----');
+            console.log(values, '----');
             try {
                 if (values.file_name !== null && values.file_name !== '') {
                     const fileData = new FormData();
@@ -112,11 +96,11 @@ const EditLatestNews = (props) => {
                     details: values.details,
                     new_status: values.new_status
                 };
-                if(values.file_name!== '' && values.file_name !== null){
-                    body['file_name']=values.file_name;
+                if (values.file_name !== '' && values.file_name !== null) {
+                    body['file_name'] = values.file_name;
                 }
-                if(values.url!=='' && values.url!== null){
-                    body['url']=values.url;
+                if (values.url !== '' && values.url !== null) {
+                    body['url'] = values.url;
                 }
 
                 const response = await axios.put(
@@ -150,7 +134,7 @@ const EditLatestNews = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">Edit LatestNews Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

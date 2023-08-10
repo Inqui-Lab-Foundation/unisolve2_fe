@@ -15,7 +15,6 @@ import withReactContent from 'sweetalert2-react-content';
 import { IoIosArrowBack } from 'react-icons/io';
 import ChangePSWModal from './ChangePSWModal';
 import { Link } from 'react-router-dom';
-import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import Layout from './Layout';
 const MySwal = withReactContent(Swal);
@@ -71,20 +70,6 @@ const MyProfile = () => {
             setProfileAction(false);
         }
     });
-    const headingDetails = {
-        title: 'My Profile',
-
-        options: [
-            {
-                title: 'Home',
-                path: '/admin/dashboard'
-            },
-            {
-                title: 'My Profile',
-                path: '/my-profile'
-            }
-        ]
-    };
 
     return (
         <Layout>
@@ -93,7 +78,7 @@ const MyProfile = () => {
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         {profileAction ? (
-                            <BreadcrumbTwo {...headingDetails} />
+                            <h3 className="mb-5">My Profile</h3>
                         ) : (
                             <Link
                                 to="/teams"

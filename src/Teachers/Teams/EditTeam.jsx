@@ -7,7 +7,6 @@ import { Button } from '../../stories/Button';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -20,19 +19,6 @@ const EditTeam = (props) => {
     const data = (history && history.location && history.location.item) || {};
     const teamId = data && data.team_id;
     const teamsName = data.team_name;
-    const headingDetails = {
-        title: t('teacher_teams.edit_team_details'),
-
-        options: [
-            {
-                title: t('teacher_teams.teamslist'),
-                path: '/teacher/teamlist'
-            },
-            {
-                title: t('teacher_teams.edit_team')
-            }
-        ]
-    };
 
     const formik = useFormik({
         initialValues: {
@@ -90,8 +76,7 @@ const EditTeam = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
-
+                        <h3 className="mb-5"> Edit Team Details </h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-blockt">

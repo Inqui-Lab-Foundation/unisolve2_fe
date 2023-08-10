@@ -2,7 +2,6 @@
 import React from 'react';
 import Layout from '../Layout';
 import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
@@ -20,20 +19,6 @@ const CreateLatestNews = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const headingDetails = {
-        title: 'Add New LatestNews Details',
-        options: [
-            {
-                title: 'LatestNews',
-                path: '/admin/LatestNews'
-            },
-            {
-                title: 'Add LatestNews',
-                path: '/admin/LatestNews/createLatestNews'
-            }
-        ]
-    };
-
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -108,11 +93,11 @@ const CreateLatestNews = (props) => {
                     details: values.details,
                     new_status: values.new_status
                 };
-                if(values.file_name!== ''){
-                    body['file_name']=values.file_name;
+                if (values.file_name !== '') {
+                    body['file_name'] = values.file_name;
                 }
-                if(values.url!==''){
-                    body['url']=values.url;
+                if (values.url !== '') {
+                    body['url'] = values.url;
                 }
 
                 const response = await axios.post(
@@ -146,7 +131,7 @@ const CreateLatestNews = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">Add New LatestNews Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

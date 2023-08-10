@@ -13,7 +13,7 @@ import axios from 'axios';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import { URL, KEY } from '../../constants/defaultValues';
 import {
@@ -36,20 +36,20 @@ const EditSchool = (props) => {
         className: 'defaultInput'
     };
     // const phoneRegExp = /^[0-9\s]+$/;
-    const headingDetails = {
-        title: 'Edit Institutions Details',
+    // const headingDetails = {
+    //     title: 'Edit Institutions Details',
 
-        options: [
-            {
-                title: 'Institutions',
-                path: '/admin/registered-schools'
-            },
-            {
-                title: 'Edit Institutions',
-                path: '/admin/register-edit-schools'
-            }
-        ]
-    };
+    //     options: [
+    //         {
+    //             title: 'Institutions',
+    //             path: '/admin/registered-schools'
+    //         },
+    //         {
+    //             title: 'Edit Institutions',
+    //             path: '/admin/register-edit-schools'
+    //         }
+    //     ]
+    // };
 
     const formik = useFormik({
         initialValues: {
@@ -132,7 +132,8 @@ const EditSchool = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
+                        <h3 className="mb-5">Edit Institutions Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
