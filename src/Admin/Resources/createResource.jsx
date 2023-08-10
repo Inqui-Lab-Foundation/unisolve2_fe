@@ -2,7 +2,6 @@
 import React from 'react';
 import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
@@ -22,22 +21,6 @@ const CreateResource = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    // const headingDetails = {
-    //     title: 'Add New Resource Details',
-    //     options: [
-    //         {
-    //             title: 'Resources'
-    //             // path: '/admin/Resources'
-    //         },
-    //         {
-    //             title: 'Add Resource',
-    //             path: '/admin/Resources/createResource'
-    //         }
-    //     ]
-    // };
-
-    // const [selectedType, setSelectedType] = React.useState('');
-    // const fileInputRef = React.useRef(null);
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
@@ -202,7 +185,6 @@ const CreateResource = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mt-5 mb-5 ">
                             {' '}
                             Add New Resources Details{' '}

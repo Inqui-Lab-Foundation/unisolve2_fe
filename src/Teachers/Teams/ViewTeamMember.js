@@ -22,7 +22,6 @@ import logout from '../../assets/media/logout.svg';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useTranslation } from 'react-i18next';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import Select from '../../Admin/Challenges/pages/Select';
@@ -48,18 +47,6 @@ const ViewTeamMember = (props) => {
             history.location.item &&
             history.location.item.ideaStatus) ||
         teamID.ideaStatus;
-    // const headingDetails = {
-    //     title: teamID?.team_name + t('teacher_teams.view_team_member_details')
-    //     // options: [
-    //     //     {
-    //     //         title: t('teacher_teams.teamslist'),
-    //     //         path: '/teacher/teamlist'
-    //     //     },
-    //     //     {
-    //     //         title: t('teacher_teams.view_team_member')
-    //     //     }
-    //     // ]
-    // };
 
     const [count, setCount] = useState(0);
     // eslint-disable-next-line no-unused-vars
@@ -140,7 +127,7 @@ const ViewTeamMember = (props) => {
                     setvalue('');
                     openNotificationWithIcon(
                         'success',
-                        t('student Team switch success')
+                        t('student team switch success')
                     );
                     history.push({
                         pathname: '/teacher/teamlist'
@@ -152,8 +139,11 @@ const ViewTeamMember = (props) => {
 
             .catch(function (error) {
                 console.log(error);
-                if(error.message === "Request failed with status code 400"){
-                    openNotificationWithIcon('error', 'Same Name student already existed in seleted team');
+                if (error.message === 'Request failed with status code 400') {
+                    openNotificationWithIcon(
+                        'error',
+                        'Same Name student already existed in seleted team'
+                    );
                 }
             });
         setShow(false);
@@ -388,7 +378,6 @@ const ViewTeamMember = (props) => {
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
-                            {/* <BreadcrumbTwo {...headingDetails} /> */}
                             <h3>Team Members Details</h3>
                         </Col>
 

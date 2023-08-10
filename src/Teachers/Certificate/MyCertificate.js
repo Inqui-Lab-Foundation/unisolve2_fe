@@ -62,12 +62,24 @@ const MyCertificate = () => {
                                     className=" text-left pt-4 pb-4"
                                     tag="h2"
                                 >
-                                    {t('teacher_certificate.certificate')}
+                                    Teacher Certificate
                                 </CardTitle>
                                 <p>
-                                    {t('teacher_certificate.certificate_desc')}
+                                    🎉 Congratulations on successfully guiding
+                                    the students and completing the program for
+                                    2023-24. We sincerely appreciate your
+                                    valuable contributions to the student
+                                    learning and the program 👏🏻 We wish all the
+                                    best to your student teams and are hopeful
+                                    that with your guidance they will continue
+                                    to learn new things, innovate and make this
+                                    world a better place.
                                 </p>
-
+                                <p>
+                                    🥳 Thank you for being part of this program
+                                    and sincere appreciation to all your
+                                    efforts. 😃
+                                </p>
                                 <div
                                     ref={pdfRef}
                                     style={{ position: 'relative' }}

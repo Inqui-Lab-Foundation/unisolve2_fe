@@ -10,7 +10,7 @@ import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWit
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch } from 'react-redux';
 import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
@@ -24,20 +24,6 @@ const AddNewTicket = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { t } = useTranslation();
-    const headingDetails = {
-        title: 'Query Details',
-
-        options: [
-            {
-                title: 'Support',
-                path: '/teacher/support-journey/'
-            },
-            {
-                title: 'Add New',
-                path: '/teacher/support-journey/add-ticket'
-            }
-        ]
-    };
 
     const selectCategory = {
         // here we can select the category of support tickets //
@@ -113,7 +99,7 @@ const AddNewTicket = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5"> Add New Query Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

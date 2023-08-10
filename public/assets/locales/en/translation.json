@@ -177,14 +177,14 @@
         "refer_video": "Refer Video"
     },
     "teacher_get_started": {
-        "heading": "Welcome Teachers and Mentors! ",
-        "desc": "<p>We are glad that you have signed-up to this program and joined us in this exciting journey of nurturing an experience of learning, skilling and innovation for the young people. As you are aware you will be playing a role of guide and mentor for the participants in their learning journey.</p><p>This portal gives you an experience of learning modules and important resources for supporting the participants. You can also register and track progress of your teams using the dashboard.</p><p>Your journey as a teacher/mentor will involve the following key milestones:</p><ul><li><p class='my-0'>Step-1: Take Pre-Survey.</p></li><li><p class='my-0'>Step-2: Complete the course and reading material.</p></li><li><p class='my-0'>Step-3: Register the teams</p></li><li><p class='my-0'>Step-4: Support the participants in completing the learning journey.</p></li><li><p class='my-0'>Step-5: Support the participants in challenge/idea submission.</p></li><li><p class='my-0'>Step-6: Complete the post survey.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
+        "heading": "Welcome Guide Teachers",
+        "desc": "<p>We are glad that you have signed-up to this program and joined us in this exciting journey of nurturing an experience of learning, skilling and innovation for the young participants. As you are aware you will be playing a role of guide and mentor for the participants in their learning journey.</p><p>This portal gives you an experience of learning modules and important resources for supporting the participants. You can also register student teams and track progress of your students using the dashboard.</p><p><b>Your journey as a teacher will involve the following key milestones:</b></p><ul><li><p class='my-0'><b>Step 1:</b> Take Pre-Survey.</p></li><li><p class='my-0'><b>Step 2:</b> Complete the course and reading material.</p></li><li><p class='my-0'><b>Step 3:</b>  Registration of the student teams</p></li><li><p class='my-0'><b>Step 4:</b> Support the participants in completing the learning journey.</p></li><li><p class='my-0'><b>Step 5:</b> Support the participants in challenge/idea submission.</p></li><li><p class='my-0'><b>Step 6:</b> Complete the post survey.</p></li><li><p class='my-0'><b>Step 7:</b> Download the certificate</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
         "btn": "START JOURNEY",
         "pre": "Pre survey has been submitted"
     },
     "student_get_started": {
         "heading": "Welcome Students!",
-        "desc": "<p>We are glad that you are part of this program and have joined us in this exciting journey of learning, skilling and innovation. There are many exciting things awaiting you in this journey.</p><p>You will learn through this platform, work with your team and be supported by your teachers as well.</p><p>Your journey as a participant will involve the following key steps:</p><ul><li><p>Step 1: Take Pre-Survey</p></li><li><p>Step 2: Start the course by watching the video.</p></li><li><p>Step 3: Complete each module and attempt the Quiz.</p></li><li><p>Step 4: Work with your team on the worksheets in each module to complete your own problem solving journey.</p></li><li><p>Step 5: Submit your team’s final idea.</p></li><li><p>Step 6: Complete the post survey.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
+        "desc": "<p>We are glad that you are part of this program and have joined us in this exciting journey of learning, skilling and innovation. There are many exciting things awaiting you in this journey.</p><p>You will learn through this platform, work with your team and be supported by your teachers as well.</p><p><b>Your journey as a participant will involve the following key steps:</b></p><ul><li><p><b>Step 1:</b> Take Pre-Survey</p></li><li><p><b>Step 2:</b> Start the course by watching the video.</p></li><li><p><b>Step 3:</b> Complete each module and attempt the Quiz.</p></li><li><p><b>Step 4:</b> Work with your team on the worksheets in each module to complete your own problem solving journey.</p></li><li><p><b>Step 5:</b> Submit your team’s final idea.</p></li><li><p><b>Step 6:</b> Complete the post survey.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
         "btn": "START JOURNEY",
         "pre": "Pre survey has been submitted"
     },
@@ -193,10 +193,10 @@
     },
     "student": {
         "profile": "My Profile",
-        "worksheet": "<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your Unisolve guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Upload the worksheets onto the portal using the 'Upload File' button. You can upload multiple documents as images or documents. Only one team member from the team needs to upload the Worksheet. If needed, you can ask for your Guide teachers support in doing this.</p><p>Step-4: Continue to next lessons only after your team has completed and uploaded the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
+        "worksheet": "<p><b>Dear Student,</b></p><p>Workbook will help you to apply your learning in the videos and work together as a team to come up with innovative ideas and projects to solve problems that you see around. Please follow the following steps to effectively use the workbook.</p><p><b>Step-1:</b> Download and print this worksheet or get a copy from your guide teacher. If there is no print available you can refer to the workbook on your phone/computer and complete it in your notebook as a team.</p><p>It is suggested to keep a separate small notebook for your team for this program.</p><p><b>Step-2:</b> Complete this workbook along with your team members.</p><p><b>Step-3:</b> Please keep your completed workbook or notebook safely and hand it over to your guide teacher after the completion of your course.</p><p><b>Step-4:</b> Continue to next lessons only after your team has completed  the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
         "download_worksheet": "Download Worksheet",
         "continue": "Continue",
-        "w_sheet": "Worksheet",
+        "w_sheet": "Workbook",
         "quiz_heading": "Ready for a quick test?",
         "take_challenge": "Test your course skills in a short test challenge!",
         "questions": "Questions",
@@ -222,7 +222,7 @@
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
         "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
-        "post_survey_desc": "Congratulations! your Unisolve journey for 2022-23 is complete.",
+        "post_survey_desc": "Congratulations! your Unisolve journey for 2023-24 is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of characters is ",
         "max_length_msg2": " only..."
@@ -346,17 +346,18 @@
         "enter_c_pass": "Confirm Password",
         "success": "Successfully Registered",
         "dice_place": "Please enter your Unique Code to continue",
-        "hand_book": "UNISOLVE Hand Book",
+        "hand_book": "UNISOLVE HandBook",
         "please_download": "Please Download Handbook..."
     },
     "dummytext": {
         "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
-        "student_my_cer": "<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
+        "student_my_cer": "<p>Your certificate will be available once you complete the course, submit ideas and complete the post survey.If you have completed these, your certificate will be ready shortly.</p>",
         "student_post_survey": "Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",
         "student_course": "Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey.",
-        "certificate_msg": "Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
+        "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your guide teacher to update the name in the Teams Page of Teacher login.<p>",
         "name": "Name : ",
-        "school": "</br>School : "
+        "school": "</br>School : ",
+        "dear":"Dear Student,"
     },
     "badges": {
         "congratulations": "Congratulations",
@@ -388,10 +389,19 @@
         "idea_submission_msg3": " on ",
         "idea_submission_date_com_desc": "Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
         "go_to_course_button": "Go to course",
-        "go_to_post_survey_button": "Go to Post Survey"
+        "go_to_post_survey_button": "Go to Post Survey",
+        "cong_msg_menu":"<p class='text-success'><b>🎉 Congratulations on completing the course! 🎉</b></p><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p><b>We can't wait to see all the amazing Ideas you & your team are going to submit.</b></p>",
+        "quiz_inst_msg":"<p class='text-center' style='font-size:1.5rem'>Congratulations on finishing the module! Here is a short quiz to check for your learning from the videos you watched.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
+        "quiz_start_title":"Ready for a quick test?",
+        "quiz_con_title":" Continue your quick test",
+        "idea_ins_note":"<p class='text-success'><b>Congratulations to you and your team!</b></p><p>For successfully completing the course and starting the idea submission. As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b> Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Choose the Sustainable Development Goal (SDG) as per the selected problem which will appear in the nest screen.</li><li>Write down the Current State, Desired State, Effects and Causes of the selected problem.</li><li>Write down Idea Name & its descriptions clearly. Idea name should convey the uniqueness of your solution.</li><li>Make note of user feedback to your idea which helped improve your solution.</li><li>List materials you’ll need to make a working model & gather images & videos related to your prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
+        "my_cer_note":"<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>"
+    },
+    "comm_tech_stu":{
+        "resources_note":"Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
     },
     "translation": {
-        "tamil": "ml Content :-",
+        "tamil": "English Content :-",
         "tamil_to": "tn"
     }
 }

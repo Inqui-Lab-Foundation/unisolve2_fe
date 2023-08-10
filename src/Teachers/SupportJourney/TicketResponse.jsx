@@ -11,7 +11,6 @@ import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWit
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {
@@ -39,27 +38,10 @@ const TicketResponse = (props) => {
         // here id = support_ticket_id //
     }, [dispatch, id]);
 
-    const headingDetails = {
-        title: 'Support Details',
-
-        options: [
-            {
-                title: 'Support',
-                path: '/teacher/support-journey/'
-            },
-            {
-                title: 'Add New',
-                path: '/teacher/support-journey/add-ticket'
-            },
-            {
-                title: 'Support View'
-            }
-        ]
-    };
     const formik = useFormik({
         initialValues: {
             ansDetails: '',
-            selectStatus: ''
+            selectStatus: supportTicket.status
         },
 
         validationSchema: Yup.object({
@@ -69,12 +51,15 @@ const TicketResponse = (props) => {
 
         onSubmit: (values) => {
             const ansDetails = values.ansDetails;
+            // const tatus = values.selectStatus;
             const body = JSON.stringify({
                 support_ticket_id: id,
+                // status: values.selectStatus,
                 reply_details: ansDetails
             });
 
             dispatch(createSupportTicketResponse(body));
+            console.log(body);
             dispatch(
                 SupportTicketStatusChange(id, { status: values.selectStatus })
             );
@@ -85,7 +70,6 @@ const TicketResponse = (props) => {
             }, 500);
         }
     });
-
     const selectProgress = {
         // here we can select the support tickets //
         // here we can give the replies to tickets //
@@ -107,7 +91,7 @@ const TicketResponse = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">Support Details</h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <Card className="aside p-4 py-5">

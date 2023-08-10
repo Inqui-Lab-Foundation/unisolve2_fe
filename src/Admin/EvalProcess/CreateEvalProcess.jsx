@@ -2,7 +2,6 @@
 import React from 'react';
 import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
@@ -19,20 +18,7 @@ const CreateEvalProcess = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const headingDetails = {
-        title: 'Add New Evaluation Process Details',
 
-        options: [
-            {
-                title: 'Evaluation Process',
-                path: '/admin/evaluationProcess'
-            },
-            {
-                title: 'Add Evaluation Process',
-                path: '/admin/create-evaluationProcess'
-            }
-        ]
-    };
     const formik = useFormik({
         initialValues: {
             level_name: '',
@@ -85,7 +71,7 @@ const CreateEvalProcess = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3>Add New Evaluation Process Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

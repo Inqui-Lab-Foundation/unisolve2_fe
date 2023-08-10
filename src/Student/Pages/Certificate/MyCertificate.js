@@ -203,6 +203,13 @@ const MyCertificate = () => {
                 <Fragment>
                     {showDummypage ? (
                         <Row>
+                            <Row>
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('student_course.my_cer_note')
+                                    }}
+                                ></div>
+                            </Row>
                             <Col className="d-lg-flex justify-content-center">
                                 <Certificate
                                     type={'participate'}
@@ -225,7 +232,7 @@ const MyCertificate = () => {
                     ) : (
                         <Card className="course-sec-basic p-5">
                             <div className="text-left">
-                                <div className="text-center"> 
+                                <div className="text-center">
                                     <img
                                         className={`img-fluid imgWidthSize`}
                                         src={Congo}
@@ -233,18 +240,26 @@ const MyCertificate = () => {
                                 </div>
                                 <h6
                                     dangerouslySetInnerHTML={{
+                                        __html: t('dummytext.dear')
+                                    }}
+                                ></h6>
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('dummytext.student_my_cer')
+                                    }}
+                                ></div>
+                                <h6
+                                    dangerouslySetInnerHTML={{
                                         __html:
                                             t('dummytext.name') +
                                             currentUser?.data[0].full_name
                                     }}
                                 ></h6>
-                                <p
+                                <div
                                     dangerouslySetInnerHTML={{
-                                        __html:
-                                            t('dummytext.certificate_msg') +
-                                            t('dummytext.student_my_cer')
+                                        __html: t('dummytext.certificate_msg')
                                     }}
-                                ></p>
+                                ></div>
                             </div>
                         </Card>
                     )}

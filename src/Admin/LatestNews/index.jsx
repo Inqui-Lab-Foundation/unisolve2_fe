@@ -13,7 +13,10 @@ import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
 // import { ReactDOM } from 'react-dom';
 // import * as ReactDOM from 'react-dom';
+// import Swal from 'sweetalert2/dist/sweetalert2';
+// import logout from '../../assets/media/logout.svg';
 
+import 'sweetalert2/src/sweetalert2.scss';
 const AdminLatestNews = () => {
     const history = useHistory();
     const [resList, setResList] = useState([]);
@@ -45,30 +48,37 @@ const AdminLatestNews = () => {
             });
     }
 
-    async function handleNewStatus(data,value) {
-        const body ={
-            status:data.status,
-            category:data.category,
-            details:data.details,
-            new_status:value
+    async function handleNewStatus(data, value) {
+        const body = {
+            status: data.status,
+            category: data.category,
+            details: data.details,
+            new_status: value
         };
         let config = {
             method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + `/latest_news/${data.latest_news_id}`,
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/latest_news/${data.latest_news_id}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
-            data:JSON.stringify(body)
+            data: JSON.stringify(body)
         };
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    if(value === '0'){
-                        openNotificationWithIcon('success', 'New Status Disabled successfully');
-                    }
-                    else if(value === '1'){
-                        openNotificationWithIcon('success', 'New Status Enabled successfully');
+                    if (value === '0') {
+                        openNotificationWithIcon(
+                            'success',
+                            'New Status Disabled successfully'
+                        );
+                    } else if (value === '1') {
+                        openNotificationWithIcon(
+                            'success',
+                            'New Status Enabled successfully'
+                        );
                     }
                     handleResList();
                 }
@@ -113,7 +123,70 @@ const AdminLatestNews = () => {
         }
     };
 
-   
+    // const handleDelete = (item) => {
+    //     // here we can delete the team //
+    //     const swalWithBootstrapButtons = Swal.mixin({
+    //         customClass: {
+    //             confirmButton: 'btn btn-success',
+    //             cancelButton: 'btn btn-danger'
+    //         },
+    //         buttonsStyling: false
+    //     });
+
+    //     swalWithBootstrapButtons
+    //         .fire({
+    //             title: 'You are attempting to delete Team.',
+    //             text: 'Are you sure?',
+    //             imageUrl: `${logout}`,
+    //             showCloseButton: true,
+    //             confirmButtonText: 'Delete',
+    //             showCancelButton: true,
+    //             cancelButtonText: 'Cancel',
+    //             reverseButtons: false
+    //         })
+    //         .then((result) => {
+    //             if (result.isConfirmed) {
+    //                 var config = {
+    //                     method: 'delete',
+    //                     url:
+    //                         process.env.REACT_APP_API_BASE_URL +
+    //                         '/teams/' +
+    //                         item.team_id,
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         // Accept: "application/json",
+    //                         Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //                     }
+    //                 };
+    //                 axios(config)
+    //                     .then(function (response) {
+    //                         if (response.status === 200) {
+    //                             setCount(count + 1);
+    //                             openNotificationWithIcon(
+    //                                 'success',
+    //                                 'Team Delete Successfully'
+    //                             );
+    //                             props.history.push('/teacher/teamlist');
+    //                         } else {
+    //                             openNotificationWithIcon(
+    //                                 'error',
+    //                                 'Opps! Something Wrong'
+    //                             );
+    //                         }
+    //                     })
+    //                     .catch(function (error) {
+    //                         console.log(error);
+    //                     });
+    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //                 swalWithBootstrapButtons.fire(
+    //                     'Cancelled',
+    //                     'Team not Deleted',
+    //                     'error'
+    //                 );
+    //             }
+    //         });
+    // };
+
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
         columns: [
@@ -132,19 +205,29 @@ const AdminLatestNews = () => {
                 name: 'New_status',
                 width: '12rem',
                 cell: (record) => {
-                    if(record.new_status === '1'){
+                    if (record.new_status === '1') {
                         return (
-                            <button className="btn btn-danger btn-lg mx-2" onClick={()=>{handleNewStatus(record,'0');}}>
+                            <button
+                                className="btn btn-danger btn-lg mx-2"
+                                onClick={() => {
+                                    handleNewStatus(record, '0');
+                                }}
+                            >
                                 Disable
                             </button>
                         );
-                    }else if (record.new_status === '0'){
+                    } else if (record.new_status === '0') {
                         return (
-                            <button className="btn btn-success btn-lg mx-2" onClick={()=>{handleNewStatus(record,'1');}}>
+                            <button
+                                className="btn btn-success btn-lg mx-2"
+                                onClick={() => {
+                                    handleNewStatus(record, '1');
+                                }}
+                            >
                                 Enable
                             </button>
                         );
-                    }  
+                    }
                 }
             },
             {

@@ -2,7 +2,7 @@
 import React from 'react';
 import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import { InputBox } from '../../stories/InputBox/InputBox';
@@ -18,20 +18,6 @@ const EditResource = (props) => {
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
-    };
-
-    const headingDetails = {
-        title: 'Edit Resource Details',
-        options: [
-            {
-                title: 'Resource',
-                path: '/admin/Resources'
-            },
-            {
-                title: 'Edit Resource',
-                path: '/admin/Resources/editResource'
-            }
-        ]
     };
 
     const fileHandler = (e) => {
@@ -156,7 +142,7 @@ const EditResource = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">Edit Resource Details</h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">

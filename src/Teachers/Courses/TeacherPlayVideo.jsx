@@ -230,9 +230,11 @@ const TeacherPlayVideo = (props) => {
                     ) {
                         setisquizcompleted(true);
                         setQuizStart(false);
-                    }
-                    if (response?.data?.data[0]?.question_no === 1) {
+                    } else if (response?.data?.data[0]?.question_no === 1) {
                         setQuizStart(true);
+                        setisquizcompleted(false);
+                    } else {
+                        setQuizStart(false);
                         setisquizcompleted(false);
                     }
                 }
@@ -381,6 +383,7 @@ const TeacherPlayVideo = (props) => {
             fetchData(topicId);
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
+            getisquizcompleted();
             setItem('QUIZ');
             setQizId(topicId);
         } else {
@@ -636,7 +639,7 @@ const TeacherPlayVideo = (props) => {
                                                                         );
                                                                     } else if (
                                                                         course.title.toLowerCase() ===
-                                                                            'instructions' ||
+                                                                            'congratulations' ||
                                                                         course.title ===
                                                                             'வழிமுறைகள்'
                                                                     ) {
@@ -706,15 +709,51 @@ const TeacherPlayVideo = (props) => {
                                                 <Modal.Title className="w-100 d-block mb-2">
                                                     Ready for a quick test?
                                                 </Modal.Title>
-                                                <p className="w-100 d-block">
-                                                    Test your course skills in a
-                                                    short test challenge!
-                                                </p>
+                                                <div className="w-100 d-block text-left">
+                                                    <p
+                                                        className="text-center"
+                                                        style={{
+                                                            fontSize: '1.5rem'
+                                                        }}
+                                                    >
+                                                        Here is a short quiz (15
+                                                        Questions) to check for
+                                                        understanding about the
+                                                        program and teachers
+                                                        role.
+                                                    </p>
+                                                    <b>Instructions:</b>
+                                                    <ol>
+                                                        <li>
+                                                            Read the Teacher
+                                                            Handbook completely
+                                                            before taking the
+                                                            quiz.
+                                                        </li>
+                                                        <li>
+                                                            Quiz will consist of
+                                                            15 questions and
+                                                            will take 5-10
+                                                            minutes to complete.
+                                                        </li>
+                                                        <li>
+                                                            Score will be
+                                                            displayed at the end
+                                                            of the quiz for your
+                                                            reference.
+                                                        </li>
+                                                        <li>
+                                                            You can attempt the
+                                                            quiz only once.
+                                                        </li>
+                                                    </ol>
+                                                </div>
                                             </Modal.Header>
                                         ) : isquizcompleted ? (
                                             <Modal.Header>
                                                 <Modal.Title className="w-100 d-block mb-2">
-                                                    Quick test Completed successfully
+                                                    Quick test Completed
+                                                    successfully
                                                 </Modal.Title>
                                                 <p className="w-100 d-block">
                                                     Check your score.
@@ -725,10 +764,45 @@ const TeacherPlayVideo = (props) => {
                                                 <Modal.Title className="w-100 d-block mb-2">
                                                     Continue your quick test
                                                 </Modal.Title>
-                                                <p className="w-100 d-block">
-                                                    Test your course skills in a
-                                                    short test challenge!
-                                                </p>
+                                                <div className="w-100 d-block text-left">
+                                                    <p
+                                                        className="text-center"
+                                                        style={{
+                                                            fontSize: '1.5rem'
+                                                        }}
+                                                    >
+                                                        Here is a short quiz (15
+                                                        Questions) to check for
+                                                        understanding about the
+                                                        program and teachers
+                                                        role.
+                                                    </p>
+                                                    <b>Instructions:</b>
+                                                    <ol>
+                                                        <li>
+                                                            Read the Teacher
+                                                            Handbook completely
+                                                            before taking the
+                                                            quiz.
+                                                        </li>
+                                                        <li>
+                                                            Quiz will consist of
+                                                            15 questions and
+                                                            will take 5-10
+                                                            minutes to complete.
+                                                        </li>
+                                                        <li>
+                                                            Score will be
+                                                            displayed at the end
+                                                            of the quiz for your
+                                                            reference.
+                                                        </li>
+                                                        <li>
+                                                            You can attempt the
+                                                            quiz only once.
+                                                        </li>
+                                                    </ol>
+                                                </div>
                                             </Modal.Header>
                                         )}
 
@@ -771,7 +845,7 @@ const TeacherPlayVideo = (props) => {
                                                 className="text-left"
                                                 tag="h2"
                                             >
-                                                {t('teacehr_red.hand_book')}
+                                                Teacher Handbook
                                             </CardTitle>
                                             <CardBody>
                                                 <p className="text-primary">
@@ -786,84 +860,48 @@ const TeacherPlayVideo = (props) => {
                                                     will help you understand the
                                                     program objectives and
                                                     enable you to support your
-                                                    Unisolve student teams
-                                                    better.
+                                                    student teams better.
                                                 </p>
                                                 <p>
-                                                    STEP 1 : Go through pages 1
-                                                    - 28, to understand about
-                                                    the program before giving
-                                                    the Quiz.
+                                                    <b>
+                                                        We request you to follow
+                                                        the following
+                                                        instructions for steps
+                                                        as a next step:
+                                                    </b>
                                                 </p>
                                                 <p>
-                                                    STEP 2 : Refer to pages 29 -
-                                                    38 to roll out the program
+                                                    <b>STEP 1 : </b>Go through
+                                                    the Teacher Handbook
+                                                    completely before taking the
+                                                    quiz. The Teacher Handbook
+                                                    will guide you to prepare
+                                                    for roll out of the program
                                                     in your schools and
-                                                    familiarise all the studetns
+                                                    familiarize all the students
                                                     about the program and the
                                                     course components.
                                                 </p>
                                                 <p>
-                                                    STEP 3 : Register the
+                                                    <b>STEP 2 : </b>Register the
                                                     students on the platform and
-                                                    guide then through the
+                                                    guide them through the
                                                     journey.
                                                 </p>
-                                                <p className="text-primary text-left">
-                                                    <b>
-                                                        Instructions on Idea
-                                                        Submission
-                                                    </b>
+                                                <p>
+                                                    <b>STEP 3 : </b> Guide the
+                                                    student teams in accessing
+                                                    the platform to complete the
+                                                    learning videos and
+                                                    workbook.
                                                 </p>
                                                 <p>
-                                                    Final IDEA SUBMISSION by the
-                                                    team should happen only
-                                                    after all the students in
-                                                    the team complete the
-                                                    following activities:
+                                                    <b>STEP 4 : </b>Guide all
+                                                    the student teams in
+                                                    submission of ideas and
+                                                    downloading of the
+                                                    certificates.{' '}
                                                 </p>
-                                                <div>
-                                                    <p className="mb-0">
-                                                        A. Watching the videos
-                                                        as team/individually
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        B. Complete the quiz
-                                                        individually{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        C. Complete the
-                                                        worksheet (as a team)
-                                                    </p>
-                                                </div>
-                                                {/* <br />
-                                                <p>
-                                                    Initial Idea Submission{' '}
-                                                    <b>DOES NOT</b> require a
-                                                    Model or Prototype. Idea
-                                                    submission process includes
-                                                    submission of form with the
-                                                    following details:
-                                                </p>
-                                                <div>
-                                                    <p className="mb-0">
-                                                        1.Real life problem that
-                                                        team has identified{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        2. Solution details for
-                                                        the identified problem{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        3. Details about how was
-                                                        the solution arrived
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        4. Upload relevant photo
-                                                        or a document (If
-                                                        applicable)
-                                                    </p>
-                                                </div> */}
                                             </CardBody>
                                             <div className="text-left mb-2">
                                                 <div>
@@ -959,13 +997,56 @@ const TeacherPlayVideo = (props) => {
                                                 {getLastCourseStatus(
                                                     teacherCourseDetails
                                                 ) && isquizcompleted ? (
-                                                    <div>
-                                                        <h2 className="text-success text-center">
-                                                            Congratulations !
-                                                            your course
-                                                            completed
-                                                            successfully !
+                                                    <div className="text-center">
+                                                        <h2 className="text-success">
+                                                            🎉 Congratulations
+                                                            on completing the
+                                                            course! 🎉
                                                         </h2>
+                                                        <br />
+                                                        <p>
+                                                            You did it! Your
+                                                            dedication and hard
+                                                            work have brought
+                                                            you to this exciting
+                                                            milestone. We are
+                                                            incredibly proud of
+                                                            your achievement and
+                                                            the effort you
+                                                            <span>&#8217;</span>
+                                                            ve put into the
+                                                            project.
+                                                        </p>
+                                                        <p>
+                                                            This accomplishment
+                                                            marks just the
+                                                            beginning of your
+                                                            journey as a Guide
+                                                            Teacher. The
+                                                            knowledge you
+                                                            <span>&#8217;</span>
+                                                            ve gained will be a
+                                                            valuable asset as
+                                                            you move forward in
+                                                            UNISOLVE.
+                                                        </p>
+                                                        <p>
+                                                            We can
+                                                            <span>&#8217;</span>
+                                                            t wait to see your
+                                                            school students
+                                                            enrolling in the
+                                                            program and starting
+                                                            their journey with
+                                                            your support as a
+                                                            guide teacher.
+                                                        </p>
+                                                        <p>
+                                                            Once again,
+                                                            congratulations and
+                                                            all the best to you
+                                                            and your students!
+                                                        </p>
                                                     </div>
                                                 ) : (
                                                     <div>
@@ -1068,185 +1149,56 @@ const TeacherPlayVideo = (props) => {
                                 ).length > 2 && (
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
-                                            <CardBody>
-                                                <CardTitle
-                                                    className=" text-left pt-4 pb-4"
-                                                    tag="h2"
-                                                >
-                                                    Unisolve Worksheets
+                                            <CardBody className="text-center p-5">
+                                                <CardTitle>
+                                                    <h2 className="text-success">
+                                                        🎉 Congratulations on
+                                                        completing the course!
+                                                        🎉
+                                                    </h2>
                                                 </CardTitle>
-                                                <CardBody>
-                                                    {/* <p className="text-primary">
-                                                        <b>
-                                                            Additional Resources
-                                                        </b>
-                                                    </p> */}
-                                                    <p>Dear Guide Teachers,</p>
-                                                    <p>
-                                                        In addition to the
-                                                        teacher handbook there
-                                                        are worksheets and
-                                                        additional readings for
-                                                        your student teams which
-                                                        will aid in this
-                                                        Unisolve learning
-                                                        journey:
-                                                    </p>
-                                                    {/* <p className="mb-0">
-                                                        A. Worksheets
-                                                    </p>
-                                                    <p className="mb-3">
-                                                        B. Additional Readings
-                                                    </p>
 
-                                                    <p className="text-decoration-underline">
-                                                        <b>A.Worksheets </b>
-                                                    </p> */}
-                                                    <h3>WORKSHEETS</h3>
-                                                    <p className="mb-0">
-                                                        1. This document had one
-                                                        set of Worksheet per
-                                                        Module.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        2. Respective worksheets
-                                                        are required to be
-                                                        completed/filled by the
-                                                        Unisolve Students (as a
-                                                        TEAM) after they watch
-                                                        each lesson from lesson
-                                                        1 to lesson 6.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        3. Download, Print/Xerox
-                                                        this worksheets and hand
-                                                        over one set per team.{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        4. Support/Mentor/Guide
-                                                        Unisolve students to
-                                                        complete the worksheets
-                                                        if they need help.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        5. Guide the teams to
-                                                        upload their worksheets
-                                                        on the portal after they
-                                                        complete it.
-                                                    </p>
-                                                    <br></br>
-                                                    <h3>ADDITIONAL READINGS</h3>
+                                                <CardBody>
                                                     <p>
-                                                        Print and provide the
-                                                        related pages from the
-                                                        Additional Reading
-                                                        document to each student
-                                                        while they watch the
-                                                        respective video to
-                                                        support their learning.
+                                                        You did it! Your
+                                                        dedication and hard work
+                                                        have brought you to this
+                                                        exciting milestone. We
+                                                        are incredibly proud of
+                                                        your achievement and the
+                                                        effort you
+                                                        <span>&#8217;</span>ve
+                                                        put into the project.
+                                                    </p>
+                                                    <p>
+                                                        This accomplishment
+                                                        marks just the beginning
+                                                        of your journey as a
+                                                        Guide Teacher. The
+                                                        knowledge you
+                                                        <span>&#8217;</span>ve
+                                                        gained will be a
+                                                        valuable asset as you
+                                                        move forward in
+                                                        UNISOLVE.
+                                                    </p>
+                                                    <p>
+                                                        We can
+                                                        <span>&#8217;</span>t
+                                                        wait to see your school
+                                                        students enrolling in
+                                                        the program and starting
+                                                        their journey with your
+                                                        support as a guide
+                                                        teacher.
+                                                    </p>
+                                                    <p>
+                                                        Once again,
+                                                        congratulations and all
+                                                        the best to you and your
+                                                        students!
                                                     </p>
                                                 </CardBody>
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i > 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
-
-                                                {/* <p className="text-decoration-underline">
-                                                    <b>
-                                                        B. Additional Readings{' '}
-                                                    </b>
-                                                </p>
-                                                <p>
-                                                    These are additional reading
-                                                    material for the students
-                                                    after each lesson. This
-                                                    document contains more
-                                                    information and examples on
-                                                    the topics covered in each
-                                                    lesson.
-                                                </p>
-                                                <p>
-                                                    This can be shared with Unisolve
-                                                    students. We recommend to
-                                                    share the soft copy or print
-                                                    it for future reference.
-                                                </p> */}
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i <= 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
                                             </CardBody>
                                         </Card>
                                     </Fragment>

@@ -38,20 +38,6 @@ const TicketResView = (props) => {
         dispatch(getSupportTicketById(id, language));
     }, [dispatch, id]);
 
-    const headingDetails = {
-        title: 'Support Details',
-
-        options: [
-            {
-                title: 'Support',
-                path: '/admin/tickets'
-            },
-
-            {
-                title: 'Support View'
-            }
-        ]
-    };
     const formik = useFormik({
         initialValues: {
             ansDetails: '',
@@ -100,7 +86,7 @@ const TicketResView = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5"></h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">

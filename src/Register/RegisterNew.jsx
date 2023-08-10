@@ -413,7 +413,7 @@ function RegisterNew() {
                     </Carousel>
                 </div>
 
-                <Col xs={12} sm={12} md={6} xl={6} className="article">
+                <Col xs={12} sm={12} md={12} xl={6} className="article">
                     <div className="row">
                         <Col md={12} className="mr-auto text-center">
                             <h2 className="text-white">
