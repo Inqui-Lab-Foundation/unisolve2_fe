@@ -7,7 +7,6 @@ import { Button } from '../../stories/Button';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -15,20 +14,6 @@ import { useTranslation } from 'react-i18next';
 const CreateTeam = (props) => {
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
-
-    // const headingDetails = {
-    //     title: t('teacher_teams.add_new_team'),
-
-    //     options: [
-    //         {
-    //             title: 'TeamsList',
-    //             path: '/teacher/teamlist'
-    //         },
-    //         {
-    //             title: 'Create Team'
-    //         }
-    //     ]
-    // };
 
     const formik = useFormik({
         initialValues: {
@@ -92,7 +77,6 @@ const CreateTeam = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3> Add New Team Details </h3>
 
                         <div>

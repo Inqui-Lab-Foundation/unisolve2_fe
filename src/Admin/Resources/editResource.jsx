@@ -20,20 +20,6 @@ const EditResource = (props) => {
         className: 'defaultInput'
     };
 
-    // const headingDetails = {
-    //     title: 'Edit Resource Details',
-    //     options: [
-    //         {
-    //             title: 'Resource',
-    //             path: '/admin/Resources'
-    //         },
-    //         {
-    //             title: 'Edit Resource',
-    //             path: '/admin/Resources/editResource'
-    //         }
-    //     ]
-    // };
-
     const fileHandler = (e) => {
         let file = e.target.files[0];
 
@@ -156,7 +142,6 @@ const EditResource = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Edit Resource Details</h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

@@ -11,7 +11,6 @@ import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWit
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {
@@ -26,9 +25,6 @@ import moment from 'moment';
 import { useLayoutEffect } from 'react';
 
 const TicketResponse = (props) => {
-    const schoolDaTa = JSON.parse(localStorage.getItem('SchoolsData'));
-    console.log(schoolDaTa);
-    // console.log(props);
     const { search } = useLocation();
     const id = new URLSearchParams(search).get('id');
     const { supportTicket } = useSelector((state) => state.mentors);
@@ -42,23 +38,6 @@ const TicketResponse = (props) => {
         // here id = support_ticket_id //
     }, [dispatch, id]);
 
-    // const headingDetails = {
-    //     title: 'Support Details',
-
-    //     options: [
-    //         {
-    //             title: 'Support',
-    //             path: '/teacher/support-journey/'
-    //         },
-    //         {
-    //             title: 'Add New',
-    //             path: '/teacher/support-journey/add-ticket'
-    //         },
-    //         {
-    //             title: 'Support View'
-    //         }
-    //     ]
-    // };
     const formik = useFormik({
         initialValues: {
             ansDetails: '',
@@ -75,7 +54,7 @@ const TicketResponse = (props) => {
             // const tatus = values.selectStatus;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                status: values.selectStatus,
+                // status: values.selectStatus,
                 reply_details: ansDetails
             });
 
@@ -91,7 +70,6 @@ const TicketResponse = (props) => {
             }, 500);
         }
     });
-    // console.log();
     const selectProgress = {
         // here we can select the support tickets //
         // here we can give the replies to tickets //
@@ -113,7 +91,6 @@ const TicketResponse = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Support Details</h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>

@@ -40,20 +40,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import './style.scss';
 
 const EditFaq = (props) => {
-    // const headingDetails = {
-    //     title: 'Edit FAQ',
-
-    //     options: [
-    //         {
-    //             title: 'FAQ’s',
-    //             path: '/admin/faq'
-    //         },
-    //         {
-    //             title: 'Edit FAQ',
-    //             path: '/admin/faq'
-    //         }
-    //     ]
-    // };
+   
 
     const [categoriesList, setCategoriesList] = useState([]);
     const [faqData, setFaqData] = useState({});
@@ -221,7 +208,6 @@ const EditFaq = (props) => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Edit FAQ</h3>
                         <Row className=" article-header mb-50">
                             <Col

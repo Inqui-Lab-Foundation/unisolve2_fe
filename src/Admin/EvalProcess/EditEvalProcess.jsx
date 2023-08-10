@@ -21,20 +21,7 @@ const EditEvalProcess = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    // const headingDetails = {
-    //     title: 'Edit Evaluation Process Details',
 
-    //     options: [
-    //         {
-    //             title: 'Evaluation Process',
-    //             path: '/admin/evaluationProcess'
-    //         },
-    //         {
-    //             title: 'Edit Evaluation  Process',
-    //             path: '/admin/edit-evaluationProcess'
-    //         }
-    //     ]
-    // };
     const formik = useFormik({
         initialValues: {
             level_name: evalID && evalID.level_name,
@@ -79,7 +66,6 @@ const EditEvalProcess = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">
                             {' '}
                             Edit Evaluation Process Details

@@ -84,8 +84,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    // console.log(SchoolsData);
-    localStorage.setItem('SchoolsData', JSON.stringify(SchoolsData));
 
     return (
         <Layout>

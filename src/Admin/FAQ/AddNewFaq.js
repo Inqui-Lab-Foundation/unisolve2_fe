@@ -37,21 +37,7 @@ import { useSelector } from 'react-redux';
 
 const AddNewFaq = (props) => {
     const language = useSelector((state) => state?.admin?.adminLanguage);
-    // const headingDetails = {
-    //     title: 'Create a new FAQ',
-
-    //     options: [
-    //         {
-    //             title: 'FAQ’s',
-    //             path: '/admin/faq'
-    //         },
-    //         {
-    //             title: 'Add New FAQ',
-    //             path: '/admin/New-faq'
-    //         }
-    //     ]
-    // };
-
+   
     const [categoriesList, setCategoriesList] = useState([]);
     const [faqData, setFaqData] = useState({});
     const [showFaqCatModal, setShowFaqCatModal] = useState(false);
@@ -222,7 +208,6 @@ const AddNewFaq = (props) => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Create a new FAQ</h3>
                         <Row className=" article-header mb-50">
                             <Col
