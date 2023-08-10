@@ -6,11 +6,13 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 // import { Link } from 'react-router-dom';
 
 const TeacherResources = () => {
     const [resList, setResList] = useState([]);
     const currentUser = getCurrentUser('current_user');
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchResourceList();
@@ -100,6 +102,9 @@ const TeacherResources = () => {
                         <Col className="col-auto">
                             <h2>Resources</h2>
                         </Col>
+                    </Row>
+                    <Row>
+                        <p>{t('comm_tech_stu.resources_note')}</p>
                     </Row>
 
                     <div className="my-2">

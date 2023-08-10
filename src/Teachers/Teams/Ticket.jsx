@@ -300,28 +300,43 @@ const TicketsPage = (props) => {
                 </Row>
                 <Row className="pt-5">
                     <Card className="w-100 p-5">
-                        <Label>Instructions</Label>
+                        <Label>Instructions for adding teams :</Label>
+                        <p>
+                            Adding student teams is the first and most important
+                            step as part of the project. Please ensure you are
+                            ready with the list of students and their details
+                            (Team Name, Full Name, Class, Age, Gender) before
+                            you start creating teams. Please ensure you are
+                            selecting students who are interested and will
+                            benefit out of this program irrespective of their
+                            communication skills or academic performance.
+                        </p>
                         <List>
                             <li>
-                                Each team needs to have a minimum of 2 members.
+                                Go through the Team creation process video
+                                available in the resource section before
+                                creating teams.
                             </li>
                             <li>
-                                Only 5 students in total can be added per team.
+                                Each team should have a minimum of 2 and maximum
+                                of 5 students.
                             </li>
                             <li>
-                                Delete team members will be active only once you
-                                add 3 members to the team.
+                                Team name cannot be edited whereas student
+                                details can be edited and they allow only
+                                alphanumeric characters.
                             </li>
                             <li>
-                                You can edit details of the team member by using
-                                edit option.
+                                Special characters (!,@,#,$...etc) are not
+                                allowed in team name & student name.
                             </li>
                             <li>
-                                You can delete the team by using Delete Option
+                                Student delete button will be active only if the
+                                team has min of 3 students.
                             </li>
                             <li>
-                                Special characters are not allowed in team name
-                                & Student name
+                                Change team option can be used only before
+                                initiating an idea.
                             </li>
                             {/* <li>
                                 25 to 30 students to be enrolled in Project per School

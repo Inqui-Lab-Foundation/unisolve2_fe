@@ -358,7 +358,7 @@ const DetaledQuiz = (props) => {
                                                             }}
                                                         >
                                                             {t(
-                                                                'You scored less than the cutoff'
+                                                                'You scored less than the cutoff (60%)'
                                                             )}
                                                         </h2>
                                                     )}

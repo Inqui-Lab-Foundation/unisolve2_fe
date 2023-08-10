@@ -345,7 +345,7 @@
         "enter_c_pass": "Confirm Password",
         "success": "Successfully Registered",
         "dice_place": "Please enter your UDISE code to continue",
-        "hand_book": "UNISOLVE Hand Book",
+        "hand_book": "UNISOLVE HandBook",
         "please_download": "Please Download Handbook..."
     },
     "dummytext": {
@@ -355,7 +355,8 @@
         "student_course": "Dear Student, your SIC learning journey will begin soon. Please discuss with your School SIC Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂",
         "certificate_msg": "మీ సర్టిఫికేట్ పై వివరాలతో ముద్రించబడుతుంది. పైన పేర్కొన్న వాటికి ఏవైనా మార్పులు ఉంటే క్రింది దశలను అనుసరించండి:</br>1. ఏదైనా స్పెల్లింగ్ పొరపాటు ఉంటే, టీచర్ లాగిన్</br>2లోని బృందాల పేజీలో స్పెల్లింగ్‌ని సరిచేయమని మీ గైడ్ టీచర్‌ని అభ్యర్థించండి. మీ ప్రారంభ, పూర్తి పేరు లేకుంటే లేదా తప్పుగా ఉన్నట్లయితే లేదా ఉపాధ్యాయుల లాగిన్ యొక్క బృందాల పేజీ</br>లో పేరును నవీకరించమని మీ గైడ్ ఉపాధ్యాయుడిని అభ్యర్థించండి (పేరులో '.' ఏదీ ఉండకూడదు. ఉదాహరణ: మీ పూర్తి పేరు K అయితే. విజయ్ కుమార్ ఇది ఏదైనా .(డాట్) లేదా ప్రత్యేక అక్షరాలు లేకుండా K విజయ్ కుమార్‌గా జోడించబడాలి)</br></br>గమనిక:",
         "name": "పేరు : ",
-        "school": "</br>పాఠశాల : "
+        "school": "</br>పాఠశాల : ",
+        "dear":"Dear Student,"
     },
     "badges": {
         "congratulations": "అభినందనలు",
@@ -390,7 +391,15 @@
         "idea_submission_date_com_desc": "ప్రియమైన విద్యార్థులారా, ఆలోచన సమర్పణకు చివరి తేదీ పూర్తయింది. దయచేసి మీ కోర్సును పూర్తి చేయండి మరియు సర్వేను పోస్ట్ చేయండి.",
         "go_to_course_button": "కోర్సుకు వెళ్లండి",
         "go_to_post_survey_button": "పోస్ట్ సర్వేకి వెళ్లండి",
-        "cong_msg_menu":"<p><b>🎉 Congratulations on completing the course! 🎉</b><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p>We can't wait to see all the amazing Ideas you & your team going to submit.</p></p>"
+        "cong_msg_menu":"<p><b>🎉 Congratulations on completing the course! 🎉</b><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p>We can't wait to see all the amazing Ideas you & your team going to submit.</p></p>",
+        "quiz_inst_msg":"<p class='text-center' style='font-size:1.5rem'>Congratulations on finishing the module! Here is a short quiz to check for your learning from the videos you watched.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
+        "quiz_start_title":"Ready for a quick test?",
+        "quiz_con_title":" Continue your quick test",
+        "idea_ins_note":"<p clsse='text-success'><b>Congratulations to you and your team!</b></p><p>For successfully completing the course and starting the idea submission. As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b> Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Sep-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Choose the Sustainable Development Goal (SDG) as per the selected problem which will appear in the nest screen.</li><li>Write down the Current State, Desired State, Effects and Causes of the selected problem.</li><li>Write down Idea Name & its descriptions clearly. Idea name should convey the uniqueness of your solution.</li><li>Make note of user feedback to your idea which helped improve your solution.</li><li>List materials you’ll need to make a working model & gather images & videos related to your prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you all the best :)</b></p>",
+        "my_cer_note":""
+    },
+    "comm_tech_stu":{
+        "resources_note":"Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
     },
     "translation": {
         "tamil": "Telugu Content :-",
