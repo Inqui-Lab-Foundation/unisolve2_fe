@@ -140,7 +140,7 @@ const ViewTeamMember = (props) => {
                     setvalue('');
                     openNotificationWithIcon(
                         'success',
-                        t('student Team switch success')
+                        t('student team switch success')
                     );
                     history.push({
                         pathname: '/teacher/teamlist'

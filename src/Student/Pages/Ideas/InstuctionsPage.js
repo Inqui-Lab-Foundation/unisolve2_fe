@@ -35,17 +35,17 @@ const InstructionsPage = (props) => {
                             <Fragment>
                                 <Card className="course-sec-basic p-5">
                                     <CardTitle className="text-left" tag="h2">
-                                        {/* {t('teacehr_red.hand_book')} */}
-                                        <h3> Idea Instructions Page </h3>
+                                        <p style={{color:'blue',fontSize:'2.5rem',fontWeight:'bold'}}> Idea Submission Guidelines </p>
                                     </CardTitle>
                                     <CardBody>
-                                        <p className="text-primary">
-                                            <b>
-                                                Guidelines for Idea Submission
-                                                ....
-                                            </b>
-                                        </p>
-            
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: t(
+                                                    'student_course.idea_ins_note'
+                                                )
+                                            }}
+                                        ></div>
+
                                         <div className="text-right">
                                             <Button
                                                 label="next"
@@ -54,43 +54,6 @@ const InstructionsPage = (props) => {
                                                 onClick={handleNext}
                                             />
                                         </div>
-                                        {/* <p>
-                                            STEP 2 : Refer to pages 29 - 38 to
-                                            roll out the program in your schools
-                                            and familiarise all the studetns
-                                            about the program and the course
-                                            components.
-                                        </p>
-                                        <p>
-                                            STEP 3 : Register the students on
-                                            the platform and guide then through
-                                            the journey.
-                                        </p>
-                                        <p className="text-primary text-left">
-                                            <b>
-                                                Instructions on Idea Submission
-                                            </b>
-                                        </p>
-                                        <p>
-                                            Final IDEA SUBMISSION by the team
-                                            should happen only after all the
-                                            students in the team complete the
-                                            following activities:
-                                        </p>
-                                        <div>
-                                            <p className="mb-0">
-                                                A. Watching the videos as
-                                                team/individually
-                                            </p>
-                                            <p className="mb-0">
-                                                B. Complete the quiz
-                                                individually{' '}
-                                            </p>
-                                            <p className="mb-0">
-                                                C. Complete the worksheet (as a
-                                                team)
-                                            </p>
-                                        </div> */}
                                     </CardBody>
                                 </Card>
                             </Fragment>

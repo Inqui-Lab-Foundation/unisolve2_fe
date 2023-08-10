@@ -589,7 +589,7 @@ const PlayVideoCourses = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    if (response.data.data === "user not stared") {
+                    if (response.data.data === 'user not stared') {
                         setQuizStart(true);
                         setQuizCompleted(false);
                     } else {
@@ -1137,15 +1137,22 @@ const PlayVideoCourses = (props) => {
                                                     {quizStart ? (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                                Ready for a
-                                                                quick test?
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_start_title'
+                                                                    )
+                                                                }}
+                                                            ></div>
                                                             </Modal.Title>
-                                                            <p className="w-100 d-block">
-                                                                Test your course
-                                                                skills in a
-                                                                short test
-                                                                challenge!
-                                                            </p>
+                                                            <div
+                                                                className="w-100 d-block text-left"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_inst_msg'
+                                                                    )
+                                                                }}
+                                                            ></div>
                                                         </Modal.Header>
                                                     ) : quizCompleted ? (
                                                         <Modal.Header>
@@ -1162,15 +1169,22 @@ const PlayVideoCourses = (props) => {
                                                     ) : (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                                Continue your
-                                                                quick test
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_con_title'
+                                                                    )
+                                                                }}
+                                                            ></div>  
                                                             </Modal.Title>
-                                                            <p className="w-100 d-block">
-                                                                Test your course
-                                                                skills in a
-                                                                short test
-                                                                challenge!
-                                                            </p>
+                                                            <div
+                                                                className="w-100 d-block text-left"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_inst_msg'
+                                                                    )
+                                                                }}
+                                                            ></div>
                                                         </Modal.Header>
                                                     )}
 
@@ -1217,13 +1231,13 @@ const PlayVideoCourses = (props) => {
                                                                 <div className="row justify-content-md-center ">
                                                                     <div className="col col-lg-9">
                                                                         <div className="congratulations text-center">
-                                                                            
-                                                                            <div dangerouslySetInnerHTML={{
-                                                                                __html: t(
-                                                                                    'student_course.cong_msg_menu'
-                                                                                )
-                                                                            }}>
-                                                                            </div>
+                                                                            <div
+                                                                                dangerouslySetInnerHTML={{
+                                                                                    __html: t(
+                                                                                        'student_course.cong_msg_menu'
+                                                                                    )
+                                                                                }}
+                                                                            ></div>
                                                                         </div>
                                                                         <div className="text-center">
                                                                             <Button
