@@ -130,7 +130,7 @@ const PostSurvey = () => {
                     if (preSurveyRes?.status == 200) {
                         openNotificationWithIcon(
                             'success',
-                            'PostSurvey is been submitted successfully..!!',
+                            'Post Survey is been submitted successfully..!!',
                             ''
                         );
                         setCount(count + 1);
