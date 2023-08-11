@@ -40,26 +40,28 @@ const TicketResponse = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            ansDetails: '',
-            selectStatus: supportTicket.status
+            ansTicket: '',
+            selectStatusTicket: supportTicket.status
         },
 
         validationSchema: Yup.object({
-            ansDetails: Yup.string().required('Required'),
-            selectStatus: Yup.string()
+            ansTicket: Yup.string().required('Required'),
+            selectStatusTicket: Yup.string()
         }),
 
         onSubmit: (values) => {
-            const ansDetails = values.ansDetails;
+            const ansTicket = values.ansTicket;
             const body = JSON.stringify({
                 support_ticket_id: id,
                 // status: values.selectStatus,
-                reply_details: ansDetails
+                reply_details: ansTicket
             });
 
             dispatch(createSupportTicketResponse(body));
             dispatch(
-                SupportTicketStatusChange(id, { status: values.selectStatus })
+                SupportTicketStatusChange(id, {
+                    status: values.selectStatusTicket
+                })
             );
             props.history.push('/teacher/support-journey/');
 
@@ -193,23 +195,23 @@ const TicketResponse = (props) => {
                                                 <TextArea
                                                     className={'defaultInput'}
                                                     placeholder="Enter reply comments"
-                                                    id="ansDetails"
-                                                    name="ansDetails"
+                                                    id="ansTicket"
+                                                    name="ansTicket"
                                                     onChange={
                                                         formik.handleChange
                                                     }
                                                     onBlur={formik.handleBlur}
                                                     value={
-                                                        formik.values.ansDetails
+                                                        formik.values.ansTicket
                                                     }
                                                 />
 
-                                                {formik.touched.ansDetails &&
-                                                formik.errors.ansDetails ? (
+                                                {formik.touched.ansTicket &&
+                                                formik.errors.ansTicket ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                .ansDetails
+                                                                .ansTicket
                                                         }
                                                     </small>
                                                 ) : null}
@@ -248,8 +250,8 @@ const TicketResponse = (props) => {
                                                         id="selectStatus"
                                                     /> */}
                                                     <select
-                                                        name="selectStatus"
-                                                        id="selectStatus"
+                                                        name=" selectStatusTicket"
+                                                        id=" selectStatusTicket"
                                                         className="form-control custom-dropdown"
                                                         onChange={
                                                             formik.handleChange
@@ -265,7 +267,7 @@ const TicketResponse = (props) => {
                                                         }
                                                         value={
                                                             formik.values
-                                                                .selectStatus
+                                                                .selectStatusTicket
                                                         }
                                                     >
                                                         <option
@@ -291,26 +293,17 @@ const TicketResponse = (props) => {
                                                         </option>
                                                     </select>
                                                     {formik.touched
-                                                        .selectStatus &&
+                                                        .selectStatusTicket &&
                                                         formik.errors
-                                                            .selectStatus && (
+                                                            .selectStatusTicket && (
                                                             <small className="error-cls">
                                                                 {
                                                                     formik
                                                                         .errors
-                                                                        .selectStatus
+                                                                        .selectStatusTicket
                                                                 }
                                                             </small>
                                                         )}
-                                                    {/* {formik.errors
-                                                        .selectStatus ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .selectStatus
-                                                            }
-                                                        </small>
-                                                    ) : null} */}
                                                 </Col>
 
                                                 <Col

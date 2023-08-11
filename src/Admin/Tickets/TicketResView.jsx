@@ -41,25 +41,27 @@ const TicketResView = (props) => {
     const formik = useFormik({
         initialValues: {
             ansTicket: '',
-            selectStatus: ''
+            selectStatusTicket: ''
         },
 
         validationSchema: Yup.object({
             ansTicket: Yup.string().required('Required'),
-            selectStatus: Yup.string()
+            selectStatusTicket: Yup.string()
         }),
 
         onSubmit: (values) => {
-            const ansTicket = values. ansTicket;
+            const ansTicket = values.ansTicket;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                reply_details:  ansTicket,
-                selectStatus: values.selectStatus
+                reply_details: ansTicket,
+                selectStatusTicket: values.selectStatusTicket
             });
 
             dispatch(createSupportTicketResponse(body));
             dispatch(
-                SupportTicketStatusChange(id, { status: values.selectStatus })
+                SupportTicketStatusChange(id, {
+                    status: values.selectStatusTicket
+                })
             );
             props.history.push('/admin/tickets');
 
@@ -169,7 +171,7 @@ const TicketResView = (props) => {
                                             <Col md={12}>
                                                 <Label
                                                     className="name-req mt-5"
-                                                    htmlFor="ticketDetails"
+                                                    htmlFor="ticket"
                                                 >
                                                     Details
                                                     <span
@@ -183,23 +185,23 @@ const TicketResView = (props) => {
                                                 <TextArea
                                                     className={'defaultInput'}
                                                     placeholder="Enter reply comments"
-                                                    id=" ansTicket"
-                                                    name=" ansTicket"
+                                                    id="ansTicket"
+                                                    name="ansTicket"
                                                     onChange={
                                                         formik.handleChange
                                                     }
                                                     onBlur={formik.handleBlur}
                                                     value={
-                                                        formik.values. ansTicket
+                                                        formik.values.ansTicket
                                                     }
                                                 />
 
-                                                {formik.touched. ansTicket &&
-                                                formik.errors. ansTicket ? (
+                                                {formik.touched.ansTicket &&
+                                                formik.errors.ansTicket ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                . ansTicket
+                                                                .ansTicket
                                                         }
                                                     </small>
                                                 ) : null}
@@ -209,7 +211,10 @@ const TicketResView = (props) => {
                                                 className="form-group my-5  mb-md-0"
                                                 md={12}
                                             >
-                                                <Label className="mb-2">
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="select status"
+                                                >
                                                     Select Status
                                                 </Label>
                                                 <Col
@@ -231,8 +236,8 @@ const TicketResView = (props) => {
                                                         id="selectStatus"
                                                     /> */}
                                                     <select
-                                                        name="selectStatus"
-                                                        id="selectStatus"
+                                                        name=" selectStatusTicket"
+                                                        id=" selectStatusTicket"
                                                         className="form-control custom-dropdown"
                                                         onChange={
                                                             formik.handleChange
@@ -248,7 +253,7 @@ const TicketResView = (props) => {
                                                         }
                                                         value={
                                                             formik.values
-                                                                .selectStatus
+                                                                .selectStatusTicket
                                                         }
                                                     >
                                                         <option
@@ -274,26 +279,17 @@ const TicketResView = (props) => {
                                                         </option>
                                                     </select>
                                                     {formik.touched
-                                                        .selectStatus &&
+                                                        .selectStatusTicket &&
                                                         formik.errors
-                                                            .selectStatus && (
+                                                            .selectStatusTicket && (
                                                             <small className="error-cls">
                                                                 {
                                                                     formik
                                                                         .errors
-                                                                        .selectStatus
+                                                                        .selectStatusTicket
                                                                 }
                                                             </small>
                                                         )}
-                                                    {/* {formik.errors
-                                                        .selectStatus ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .selectStatus
-                                                            }
-                                                        </small>
-                                                    ) : null} */}
                                                 </Col>
 
                                                 <Col
