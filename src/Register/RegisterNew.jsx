@@ -559,18 +559,18 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={
                                                         formik.values.title
-                                                            ? 2
+                                                            ? 4
                                                             : 5
                                                     }
                                                     sm={
                                                         formik.values.title
-                                                            ? 2
+                                                            ? 4
                                                             : 5
                                                     }
                                                     md={
                                                         formik.values.title
-                                                            ? 2
-                                                            : 3
+                                                            ? 4
+                                                            : 5
                                                     }
                                                     xl={
                                                         formik.values.title
@@ -650,18 +650,18 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={
                                                         formik.values.title
-                                                            ? 10
+                                                            ? 8
                                                             : 7
                                                     }
                                                     sm={
                                                         formik.values.title
-                                                            ? 10
+                                                            ? 8
                                                             : 7
                                                     }
                                                     md={
                                                         formik.values.title
-                                                            ? 7
-                                                            : 6
+                                                            ? 8
+                                                            : 7
                                                     }
                                                     xl={
                                                         formik.values.title
@@ -714,7 +714,7 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
-                                                    md={3}
+                                                    md={12}
                                                     xl={3}
                                                     // xs={12}
                                                     // sm={12}
@@ -786,7 +786,7 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
-                                                    md={6}
+                                                    md={12}
                                                     xl={6}
                                                     // xs={12}
                                                     // sm={12}
@@ -834,7 +834,7 @@ function RegisterNew() {
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
-                                                    md={6}
+                                                    md={12}
                                                     xl={6}
                                                     // xs={6}
                                                     // sm={6}
