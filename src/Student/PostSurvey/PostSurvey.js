@@ -169,7 +169,7 @@ const PostSurvey = () => {
                             dispatch(studentPostSurveyCertificate(language));
                             openNotificationWithIcon(
                                 'success',
-                                t('student.postsurver_scc_sub'),
+                                'Post Survey is been submitted successfully..!!',
                                 ''
                             );
                             setCounts(counts + 1);
@@ -289,6 +289,7 @@ const PostSurvey = () => {
             });
     }, [language, counts]);
     const comingSoonText = t('dummytext.student_post_survey');
+    console.log(postSurveysList);
     return (
         <Layout>
             {!showPage ? (
@@ -740,51 +741,53 @@ const PostSurvey = () => {
                                                                                         }
                                                                                     </Label>
                                                                                 </FormGroup>
-
-                                                                                <FormGroup
-                                                                                    check
-                                                                                    className="mx-1"
-                                                                                >
-                                                                                    <Label
+                                                                                {eachQuestion.option_d !==
+                                                                                    null && (
+                                                                                    <FormGroup
                                                                                         check
-                                                                                        style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                        className="mx-1"
                                                                                     >
-                                                                                        <Input
-                                                                                            type="checkbox"
-                                                                                            name={`${eachQuestion.quiz_survey_question_id}`}
-                                                                                            disabled={
-                                                                                                isDisabled
-                                                                                            }
-                                                                                            checked={
-                                                                                                filterAnswers(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ) &&
-                                                                                                filterAnswers(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ).includes(
+                                                                                        <Label
+                                                                                            check
+                                                                                            style={{
+                                                                                                fontSize:
+                                                                                                    '1.4rem'
+                                                                                            }}
+                                                                                        >
+                                                                                            <Input
+                                                                                                type="checkbox"
+                                                                                                name={`${eachQuestion.quiz_survey_question_id}`}
+                                                                                                disabled={
+                                                                                                    isDisabled
+                                                                                                }
+                                                                                                checked={
+                                                                                                    filterAnswers(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ) &&
+                                                                                                    filterAnswers(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ).includes(
+                                                                                                        eachQuestion.option_d
+                                                                                                    )
+                                                                                                }
+                                                                                                id={
                                                                                                     eachQuestion.option_d
-                                                                                                )
-                                                                                            }
-                                                                                            id={
+                                                                                                }
+                                                                                                onChange={(
+                                                                                                    e
+                                                                                                ) =>
+                                                                                                    handleOnChange(
+                                                                                                        e
+                                                                                                    )
+                                                                                                }
+                                                                                                value={`${eachQuestion.option_d}`}
+                                                                                            />
+                                                                                            {
                                                                                                 eachQuestion.option_d
                                                                                             }
-                                                                                            onChange={(
-                                                                                                e
-                                                                                            ) =>
-                                                                                                handleOnChange(
-                                                                                                    e
-                                                                                                )
-                                                                                            }
-                                                                                            value={`${eachQuestion.option_d}`}
-                                                                                        />
-                                                                                        {
-                                                                                            eachQuestion.option_d
-                                                                                        }
-                                                                                    </Label>
-                                                                                </FormGroup>
+                                                                                        </Label>
+                                                                                    </FormGroup>
+                                                                                )}
                                                                             </>
                                                                         )}
                                                                     </>
@@ -813,9 +816,10 @@ const PostSurvey = () => {
                                                     //     )
                                                     // }
                                                     size="small"
-                                                    label={t(
-                                                        'student_presurvey.submit'
-                                                    )}
+                                                    label="Submitt"
+                                                    // label={t(
+                                                    //     'student_presurvey.submit'
+                                                    // )}
                                                     onClick={(e) =>
                                                         handleOnSubmit(e)
                                                     }

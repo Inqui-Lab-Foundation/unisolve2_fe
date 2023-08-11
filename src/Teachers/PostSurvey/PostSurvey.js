@@ -100,7 +100,7 @@ const PostSurvey = () => {
         setAnswerResponses(newItems);
     };
     useEffect(() => {
-        if(currentUser?.data[0]?.user_id){
+        if (currentUser?.data[0]?.user_id) {
             dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
         }
     }, [dispatch, currentUser?.data[0]?.user_id]);
@@ -130,7 +130,7 @@ const PostSurvey = () => {
                     if (preSurveyRes?.status == 200) {
                         openNotificationWithIcon(
                             'success',
-                            'PostSurvey is been submitted successfully..!!',
+                            'Post Survey is been submitted successfully..!!',
                             ''
                         );
                         setCount(count + 1);
@@ -666,50 +666,53 @@ const PostSurvey = () => {
                                                                                     </Label>
                                                                                 </FormGroup>
 
-                                                                                <FormGroup
-                                                                                    check
-                                                                                    className="mx-1"
-                                                                                >
-                                                                                    <Label
+                                                                                {eachQuestion.option_d !==
+                                                                                    null && (
+                                                                                    <FormGroup
                                                                                         check
-                                                                                        style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                        className="mx-1"
                                                                                     >
-                                                                                        <Input
-                                                                                            type="checkbox"
-                                                                                            name={`${eachQuestion.quiz_survey_question_id}`}
-                                                                                            disabled={
-                                                                                                isDisabled
-                                                                                            }
-                                                                                            checked={
-                                                                                                filterAnswer(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ) &&
-                                                                                                filterAnswer(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ).includes(
+                                                                                        <Label
+                                                                                            check
+                                                                                            style={{
+                                                                                                fontSize:
+                                                                                                    '1.4rem'
+                                                                                            }}
+                                                                                        >
+                                                                                            <Input
+                                                                                                type="checkbox"
+                                                                                                name={`${eachQuestion.quiz_survey_question_id}`}
+                                                                                                disabled={
+                                                                                                    isDisabled
+                                                                                                }
+                                                                                                checked={
+                                                                                                    filterAnswer(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ) &&
+                                                                                                    filterAnswer(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ).includes(
+                                                                                                        eachQuestion.option_d
+                                                                                                    )
+                                                                                                }
+                                                                                                id={
                                                                                                     eachQuestion.option_d
-                                                                                                )
-                                                                                            }
-                                                                                            id={
+                                                                                                }
+                                                                                                onChange={(
+                                                                                                    e
+                                                                                                ) =>
+                                                                                                    handleChange(
+                                                                                                        e
+                                                                                                    )
+                                                                                                }
+                                                                                                value={`${eachQuestion.option_d}`}
+                                                                                            />
+                                                                                            {
                                                                                                 eachQuestion.option_d
                                                                                             }
-                                                                                            onChange={(
-                                                                                                e
-                                                                                            ) =>
-                                                                                                handleChange(
-                                                                                                    e
-                                                                                                )
-                                                                                            }
-                                                                                            value={`${eachQuestion.option_d}`}
-                                                                                        />
-                                                                                        {
-                                                                                            eachQuestion.option_d
-                                                                                        }
-                                                                                    </Label>
-                                                                                </FormGroup>
+                                                                                        </Label>
+                                                                                    </FormGroup>
+                                                                                )}
                                                                             </>
                                                                         )}
                                                                     </>

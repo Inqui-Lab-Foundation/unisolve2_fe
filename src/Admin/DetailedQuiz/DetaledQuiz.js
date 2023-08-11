@@ -248,8 +248,8 @@ const DetaledQuiz = (props) => {
                                             {currentRole === 'MENTOR' && (
                                                 <>
                                                     <h2>
-                                                        Score:
-                                                        {currentScore?.score}/
+                                                        Score: 
+                                                        {currentScore?.score ? currentScore?.score : '0'}/
                                                         {totalQstCount}
                                                     </h2>
                                                     <h2
