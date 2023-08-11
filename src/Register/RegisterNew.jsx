@@ -55,7 +55,7 @@ function RegisterNew() {
     const [timer, setTimer] = useState(0);
     const [or, setOr] = useState('');
     const handleOnChange = (e) => {
-        setDiesCode(e.target.value);
+        setDiesCode(e.target.value.trim());
         setOrgData();
         setError('');
     };
@@ -110,15 +110,21 @@ function RegisterNew() {
             username: Yup.string()
                 .required('required')
                 .trim()
-                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number'),
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits'),
             whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number'),
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digit)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digit'),
             gender: Yup.string().required('Please select valid gender'),
             title: Yup.string().required('Please select Title')
         }),
@@ -142,13 +148,13 @@ function RegisterNew() {
                 }).toString();
                 // values.password = encrypted;
                 const body = JSON.stringify({
-                    full_name: values.full_name,
-                    organization_code: values.organization_code,
-                    mobile: values.mobile,
-                    whatapp_mobile: values.whatapp_mobile,
-                    username: values.username,
-                    qualification: values.qualification,
-                    role: values.role,
+                    full_name: values.full_name.trim(),
+                    organization_code: values.organization_code.trim(),
+                    mobile: values.mobile.trim(),
+                    whatapp_mobile: values.whatapp_mobile.trim(),
+                    username: values.username.trim(),
+                    qualification: values.qualification.trim(),
+                    role: values.role.trim(),
                     gender: values.gender,
                     title: values.title,
                     reg_status: values.reg_status,
@@ -415,15 +421,17 @@ function RegisterNew() {
 
                 <Col xs={12} sm={12} md={12} xl={6} className="article">
                     <div className="row">
-                        <Col md={12} className="mr-auto text-center">
-                            <h2 className="text-white">
-                                <img
-                                    src={signuplogo}
-                                    alt="Signup logo"
-                                    className="img-fluid w-50"
-                                />
-                            </h2>
-                        </Col>
+                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                            <Col md={12} className="mr-auto text-center">
+                                <h2 className="text-white">
+                                    <img
+                                        src={signuplogo}
+                                        alt="Signup logo"
+                                        className="img-fluid w-50"
+                                    />
+                                </h2>
+                            </Col>
+                        </a>
                     </div>
 
                     <Row className="article-header mb-4 mt-4 text-center">
@@ -588,7 +596,7 @@ function RegisterNew() {
                                                         }
                                                         name="title"
                                                         // id="gender"
-                                                        className=" col-8 form-control custom-registerdropdown "
+                                                        className=" col-8 selectDropdown"
                                                         style={{
                                                             borderRadius: '0'
                                                         }}
@@ -729,10 +737,7 @@ function RegisterNew() {
                                                         }
                                                         name="gender"
                                                         // id="gender"
-                                                        className=" col-8 SelectBox form-control custom-registerdropdown "
-                                                        style={{
-                                                            borderRadius: '0'
-                                                        }}
+                                                        className="col-8 selectDropdown"
                                                         value={
                                                             formik.values.gender
                                                         }
@@ -838,14 +843,31 @@ function RegisterNew() {
                                                 >
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <Label
-                                                            className="mb-2 mt-2"
+                                                            className="mb-2 mt-3"
                                                             htmlFor="phone"
                                                         >
                                                             {t(
                                                                 'teacehr_red.faculty_mobile'
                                                             )}
                                                         </Label>
-                                                        <div className="my-10 checkbox-right">
+                                                        <div
+                                                            className="my-10 checkbox-right"
+                                                            style={{
+                                                                display: 'flex'
+                                                            }}
+                                                        >
+                                                            <b
+                                                                style={{
+                                                                    marginRight:
+                                                                        '0.5rem',
+                                                                    marginTop:
+                                                                        '1rem',
+                                                                    fontSize:
+                                                                        '1.5rem'
+                                                                }}
+                                                            >
+                                                                Same
+                                                            </b>
                                                             <Input
                                                                 type="checkbox"
                                                                 className="mt-3 mb-8 my-10 pb-4 pt-3"
@@ -886,7 +908,8 @@ function RegisterNew() {
                                                                 : true) ||
                                                             (holdKey
                                                                 ? true
-                                                                : false)
+                                                                : false) ||
+                                                            checkBox
                                                         }
                                                         name="whatapp_mobile"
                                                         onChange={
@@ -975,9 +998,9 @@ function RegisterNew() {
                                                     }
                                                     size="small"
                                                     disabled={
-                                                        timer == 0
+                                                        (timer == 0
                                                             ? false
-                                                            : true
+                                                            : true) || !disable
                                                     }
                                                 />
                                             </div>
