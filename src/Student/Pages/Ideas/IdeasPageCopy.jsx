@@ -117,9 +117,11 @@ const IdeasPageNew = () => {
 
     const handleBack = () => {
         setScreenCount(screenCount - 1);
+        scroll();
     };
     const handleNext = () => {
         setScreenCount(screenCount + 1);
+        scroll();
     };
 
     useEffect(() => {
@@ -657,7 +659,7 @@ const IdeasPageNew = () => {
                                                                 </h3>
 
                                                                 <div>
-                                                                    <Button
+                                                                    {/* <Button
                                                                         type="button"
                                                                         btnClass="me-3 text-white"
                                                                         backgroundColor="#067DE1"
@@ -679,7 +681,7 @@ const IdeasPageNew = () => {
                                                                                       'teacher_teams.draft'
                                                                                   )
                                                                         }`}
-                                                                    />
+                                                                    /> */}
                                                                     {/* <Button
                                                                         type="button"
                                                                         btnClass="primary"
@@ -1461,18 +1463,34 @@ const IdeasPageNew = () => {
                                         disabled={!(screenCount > 1)}
                                     />
                                     <p>{screenCount}</p>
-                                    <Button
+                                    <div>
+                                        <Button
+                                            type="button"
+                                            btnClass={
+                                                screenCount < 4
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }
+                                            onClick={handleNext}
+                                            size="small"
+                                            disabled={!(screenCount < 4)}
+                                            label="Next"
+                                        />
+                                        <Button
                                         type="button"
-                                        btnClass={
-                                            screenCount < 4
-                                                ? 'primary'
-                                                : 'default'
+                                        btnClass="me-3 text-white"
+                                        backgroundColor="#067DE1"
+                                        onClick={(e) =>
+                                            handleSubmit(e, 'DRAFT')
                                         }
-                                        onClick={handleNext}
                                         size="small"
-                                        disabled={!(screenCount < 4)}
-                                        label="Next"
+                                        label={`${
+                                            loading.draft
+                                                ? t('teacher_teams.loading')
+                                                : t('teacher_teams.draft')
+                                        }`}
                                     />
+                                    </div>
                                 </Col>
                             </Row>
                         )}
