@@ -40,20 +40,20 @@ const TicketResView = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            ansDetails: '',
+            ansTicket: '',
             selectStatus: ''
         },
 
         validationSchema: Yup.object({
-            ansDetails: Yup.string().required('Required'),
+            ansTicket: Yup.string().required('Required'),
             selectStatus: Yup.string()
         }),
 
         onSubmit: (values) => {
-            const ansDetails = values.ansDetails;
+            const ansTicket = values. ansTicket;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                reply_details: ansDetails,
+                reply_details:  ansTicket,
                 selectStatus: values.selectStatus
             });
 
@@ -183,23 +183,23 @@ const TicketResView = (props) => {
                                                 <TextArea
                                                     className={'defaultInput'}
                                                     placeholder="Enter reply comments"
-                                                    id="ansDetails"
-                                                    name="ansDetails"
+                                                    id=" ansTicket"
+                                                    name=" ansTicket"
                                                     onChange={
                                                         formik.handleChange
                                                     }
                                                     onBlur={formik.handleBlur}
                                                     value={
-                                                        formik.values.ansDetails
+                                                        formik.values. ansTicket
                                                     }
                                                 />
 
-                                                {formik.touched.ansDetails &&
-                                                formik.errors.ansDetails ? (
+                                                {formik.touched. ansTicket &&
+                                                formik.errors. ansTicket ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                .ansDetails
+                                                                . ansTicket
                                                         }
                                                     </small>
                                                 ) : null}
