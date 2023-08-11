@@ -25,16 +25,7 @@ const AddNewTicket = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
 
-    // const selectCategory = {
-    //     // here we can select the category of support tickets //
-    //     label: 'Select Category',
-    //     options: [
-    //         { label: 'General', value: 'General' },
-    //         { label: 'Technical', value: 'Technical' },
-    //         { label: 'Suggestion', value: 'Suggestion' }
-    //     ],
-    //     className: 'defaultDropdown'
-    // };
+   
 
     const formik = useFormik({
         initialValues: {
@@ -125,20 +116,7 @@ const AddNewTicket = (props) => {
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    {/* <DropDownWithSearch
-                                                        {...selectCategory}
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        onChange={(option) => {
-                                                            formik.setFieldValue(
-                                                                'selectCategory',
-                                                                option[0].value
-                                                            );
-                                                        }}
-                                                        name="selectCategory"
-                                                        id="selectCategory"
-                                                    /> */}
+                                                  
                                                     <select
                                                         name="ticket"
                                                         id="ticket"
@@ -160,7 +138,7 @@ const AddNewTicket = (props) => {
                                                             Select Category
                                                         </option>
                                                         <option value="General">
-                                                        General
+                                                            General
                                                         </option>
                                                         <option value="Technical">
                                                             Technical
@@ -186,7 +164,7 @@ const AddNewTicket = (props) => {
                                             <Col md={12}>
                                                 <Label
                                                     className="name-req "
-                                                    htmlFor="ticketDetails"
+                                                    htmlFor="ticket Details"
                                                 >
                                                     Details
                                                     <span
