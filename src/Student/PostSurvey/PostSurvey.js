@@ -169,7 +169,7 @@ const PostSurvey = () => {
                             dispatch(studentPostSurveyCertificate(language));
                             openNotificationWithIcon(
                                 'success',
-                                t('student.postsurver_scc_sub'),
+                                'Post Survey is been submitted successfully..!!',
                                 ''
                             );
                             setCounts(counts + 1);
@@ -289,6 +289,7 @@ const PostSurvey = () => {
             });
     }, [language, counts]);
     const comingSoonText = t('dummytext.student_post_survey');
+    console.log(postSurveysList);
     return (
         <Layout>
             {!showPage ? (
@@ -813,9 +814,10 @@ const PostSurvey = () => {
                                                     //     )
                                                     // }
                                                     size="small"
-                                                    label={t(
-                                                        'student_presurvey.submit'
-                                                    )}
+                                                    label="Submitt"
+                                                    // label={t(
+                                                    //     'student_presurvey.submit'
+                                                    // )}
                                                     onClick={(e) =>
                                                         handleOnSubmit(e)
                                                     }

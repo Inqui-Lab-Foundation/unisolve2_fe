@@ -157,7 +157,7 @@ export const adminLoginUserLogOut = (history) => async () => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            alert('hii');
+            // alert('hii');
             history.push('/admin');
             setCurrentUser();
             localStorage.removeItem('headerOption');

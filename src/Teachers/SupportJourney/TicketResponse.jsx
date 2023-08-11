@@ -51,7 +51,6 @@ const TicketResponse = (props) => {
 
         onSubmit: (values) => {
             const ansDetails = values.ansDetails;
-            // const tatus = values.selectStatus;
             const body = JSON.stringify({
                 support_ticket_id: id,
                 // status: values.selectStatus,
@@ -59,7 +58,6 @@ const TicketResponse = (props) => {
             });
 
             dispatch(createSupportTicketResponse(body));
-            console.log(body);
             dispatch(
                 SupportTicketStatusChange(id, { status: values.selectStatus })
             );
@@ -70,22 +68,22 @@ const TicketResponse = (props) => {
             }, 500);
         }
     });
-    const selectProgress = {
-        // here we can select the support tickets //
-        // here we can give the replies to tickets //
-        // here we can select the   Invalid label  we are not able to give replies to that tickets //
-        label:
-            supportTicket && supportTicket.status
-                ? supportTicket.status
-                : 'Select Status',
-        options: [
-            { label: 'OPEN', value: 'OPEN' },
-            { label: 'INPROGRESS', value: 'INPROGRESS' },
-            { label: 'RESOLVED', value: 'RESOLVED' },
-            { label: 'INVALID ', value: 'INVALID' }
-        ],
-        className: 'defaultDropdown'
-    };
+    // const selectProgress = {
+    //     // here we can select the support tickets //
+    //     // here we can give the replies to tickets //
+    //     // here we can select the   Invalid label  we are not able to give replies to that tickets //
+    //     label:
+    //         supportTicket && supportTicket.status
+    //             ? supportTicket.status
+    //             : 'Select Status',
+    //     options: [
+    //         { label: 'OPEN', value: 'OPEN' },
+    //         { label: 'INPROGRESS', value: 'INPROGRESS' },
+    //         { label: 'RESOLVED', value: 'RESOLVED' },
+    //         { label: 'INVALID ', value: 'INVALID' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -235,7 +233,7 @@ const TicketResponse = (props) => {
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    <DropDownWithSearch
+                                                    {/* <DropDownWithSearch
                                                         {...selectProgress}
                                                         onBlur={
                                                             formik.handleBlur
@@ -248,9 +246,63 @@ const TicketResponse = (props) => {
                                                         }}
                                                         name="selectStatus"
                                                         id="selectStatus"
-                                                    />
-
-                                                    {formik.errors
+                                                    /> */}
+                                                    <select
+                                                        name="selectStatus"
+                                                        id="selectStatus"
+                                                        className="form-control custom-dropdown"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        // onChange={(option) => {
+                                                        //     formik.setFieldValue(
+                                                        //         'selectStatus',
+                                                        //         option[0].value
+                                                        //     );
+                                                        // }}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .selectStatus
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled={true}
+                                                        >
+                                                            {supportTicket &&
+                                                            supportTicket.status
+                                                                ? supportTicket.status
+                                                                : 'Select Status'}
+                                                        </option>
+                                                        <option value="OPEN">
+                                                            OPEN
+                                                        </option>
+                                                        <option value="INPROGRESS">
+                                                            INPROGRESS
+                                                        </option>
+                                                        <option value="RESOLVED">
+                                                            RESOLVED
+                                                        </option>
+                                                        <option value="INVALID">
+                                                            INVALID
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched
+                                                        .selectStatus &&
+                                                        formik.errors
+                                                            .selectStatus && (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .selectStatus
+                                                                }
+                                                            </small>
+                                                        )}
+                                                    {/* {formik.errors
                                                         .selectStatus ? (
                                                         <small className="error-cls">
                                                             {
@@ -258,7 +310,7 @@ const TicketResponse = (props) => {
                                                                     .selectStatus
                                                             }
                                                         </small>
-                                                    ) : null}
+                                                    ) : null} */}
                                                 </Col>
 
                                                 <Col

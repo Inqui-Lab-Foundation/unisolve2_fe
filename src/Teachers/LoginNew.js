@@ -22,6 +22,7 @@ import CryptoJS from 'crypto-js';
 // import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import i18next from 'i18next';
+import { numberFormat } from 'highcharts';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
@@ -48,15 +49,18 @@ const LoginNew = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
+            phone: '',
             password: ''
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('required').trim(),
-            // .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-            // .min(10, 'Please enter valid number')
-            // .max(10, 'Please enter valid number'),
+            phone: Yup.string()
+                .required('required')
+                .trim()
+                .matches(/^[0-9\s/^ *$/]+$/, 'Mobile number is not valid')
+                // .matches(/^$|^[1-9]\d*$/, 'Mobile number is not valid')
+                .min(10, 'Please enter valid number')
+                .max(10, 'Please enter valid number'),
             password: Yup.string().required('Required password')
         }),
         // TEACHER ROLE
@@ -84,7 +88,7 @@ const LoginNew = (props) => {
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             const body = {
-                username: values.email.trim(),
+                username: values.phone.trim(),
                 password: encrypted,
                 role: 'MENTOR'
             };
@@ -218,24 +222,26 @@ const LoginNew = (props) => {
                                         >
                                             <Label
                                                 className="mb-2"
-                                                htmlFor="email"
+                                                htmlFor="phone"
                                             >
                                                 Mobile Number
                                                 {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
-                                                id="email"
-                                                name="email"
+                                                id="phone"
+                                                name="phone"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.email}
+                                                value={formik.values.phone}
+                                                // type="number"
+                                                keyboardType="numberFormat"
                                             />
 
-                                            {formik.touched.email &&
-                                            formik.errors.email ? (
+                                            {formik.touched.phone &&
+                                            formik.errors.phone ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.email}
+                                                    {formik.errors.phone}
                                                 </small>
                                             ) : null}
                                         </Col>

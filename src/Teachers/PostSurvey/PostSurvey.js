@@ -100,7 +100,7 @@ const PostSurvey = () => {
         setAnswerResponses(newItems);
     };
     useEffect(() => {
-        if(currentUser?.data[0]?.user_id){
+        if (currentUser?.data[0]?.user_id) {
             dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
         }
     }, [dispatch, currentUser?.data[0]?.user_id]);
@@ -130,7 +130,7 @@ const PostSurvey = () => {
                     if (preSurveyRes?.status == 200) {
                         openNotificationWithIcon(
                             'success',
-                            'PostSurvey is been submitted successfully..!!',
+                            'Post Survey is been submitted successfully..!!',
                             ''
                         );
                         setCount(count + 1);

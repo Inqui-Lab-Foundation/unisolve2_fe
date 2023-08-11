@@ -53,7 +53,8 @@ const TicketResView = (props) => {
             const ansDetails = values.ansDetails;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                reply_details: ansDetails
+                reply_details: ansDetails,
+                selectStatus: values.selectStatus
             });
 
             dispatch(createSupportTicketResponse(body));
@@ -68,19 +69,19 @@ const TicketResView = (props) => {
         }
     });
 
-    const selectProgress = {
-        label:
-            supportTicket && supportTicket.status
-                ? supportTicket.status
-                : 'Select Status',
-        options: [
-            { label: 'OPEN', value: 'OPEN' },
-            { label: 'INPROGRESS', value: 'INPROGRESS' },
-            { label: 'RESOLVED', value: 'RESOLVED' },
-            { label: 'INVALID', value: 'INVALID' }
-        ],
-        className: 'defaultDropdown'
-    };
+    // const selectProgress = {
+    //     label:
+    //         supportTicket && supportTicket.status
+    //             ? supportTicket.status
+    //             : 'Select Status',
+    //     options: [
+    //         { label: 'OPEN', value: 'OPEN' },
+    //         { label: 'INPROGRESS', value: 'INPROGRESS' },
+    //         { label: 'RESOLVED', value: 'RESOLVED' },
+    //         { label: 'INVALID', value: 'INVALID' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -210,19 +211,12 @@ const TicketResView = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Status
-                                                    {/* <span
-                                                        required
-                                                        // style={{ color: 'red' }}
-                                                        className="p-1"
-                                                    >
-                                                        *
-                                                    </span> */}
                                                 </Label>
                                                 <Col
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    <DropDownWithSearch
+                                                    {/* <DropDownWithSearch
                                                         {...selectProgress}
                                                         onBlur={
                                                             formik.handleBlur
@@ -235,9 +229,63 @@ const TicketResView = (props) => {
                                                         }}
                                                         name="selectStatus"
                                                         id="selectStatus"
-                                                    />
-
-                                                    {formik.errors
+                                                    /> */}
+                                                    <select
+                                                        name="selectStatus"
+                                                        id="selectStatus"
+                                                        className="form-control custom-dropdown"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        // onChange={(option) => {
+                                                        //     formik.setFieldValue(
+                                                        //         'selectStatus',
+                                                        //         option[0].value
+                                                        //     );
+                                                        // }}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .selectStatus
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled={true}
+                                                        >
+                                                            {supportTicket &&
+                                                            supportTicket.status
+                                                                ? supportTicket.status
+                                                                : 'Select Status'}
+                                                        </option>
+                                                        <option value="OPEN">
+                                                            OPEN
+                                                        </option>
+                                                        <option value="INPROGRESS">
+                                                            INPROGRESS
+                                                        </option>
+                                                        <option value="RESOLVED">
+                                                            RESOLVED
+                                                        </option>
+                                                        <option value="INVALID">
+                                                            INVALID
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched
+                                                        .selectStatus &&
+                                                        formik.errors
+                                                            .selectStatus && (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .selectStatus
+                                                                }
+                                                            </small>
+                                                        )}
+                                                    {/* {formik.errors
                                                         .selectStatus ? (
                                                         <small className="error-cls">
                                                             {
@@ -245,7 +293,7 @@ const TicketResView = (props) => {
                                                                     .selectStatus
                                                             }
                                                         </small>
-                                                    ) : null}
+                                                    ) : null} */}
                                                 </Col>
 
                                                 <Col

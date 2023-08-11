@@ -212,8 +212,9 @@
         "idea_init_succ": "Idea initiated successfully",
         "please_com_postsurvey_for_certificate": "Please complete the following post survey to get course completion certificate.",
         "view_idea": "View Idea",
-        "presurver_scc_sub": "Presurvey has been submitted successfully",
-        "postsurver_scc_sub": "PostSurvey has been submitted successfully..!!",
+        "postsurver_scc_sub": "Pre Survey has been submitted successfully",
+        "presurver_scc_sub": "Post Survey has been submitted successfully..!!",
+
         "save_draft": "Save as Draft",
         "discard": "Discard",
         "upload_file": "Upload File",
@@ -300,7 +301,7 @@
         "loading": "Loading"
     },
     "general_req": {
-        "attempt_logout": "You are attempting to logout of Unisolve.",
+        "attempt_logout": "You are attempting to logout from Unisolve.",
         "are_you_sure": "Are you sure?",
         "btn_logout": "Logout",
         "btn_cancel": "Cancel",
@@ -357,7 +358,7 @@
         "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your guide teacher to update the name in the Teams Page of Teacher login.<p>",
         "name": "Name : ",
         "school": "</br>School : ",
-        "dear":"Dear Student,"
+        "dear": "Dear Student,"
     },
     "badges": {
         "congratulations": "Congratulations",
@@ -390,15 +391,15 @@
         "idea_submission_date_com_desc": "Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
         "go_to_course_button": "Go to course",
         "go_to_post_survey_button": "Go to Post Survey",
-        "cong_msg_menu":"<p class='text-success'><b>🎉 Congratulations on completing the course! 🎉</b></p><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p><b>We can't wait to see all the amazing Ideas you & your team are going to submit.</b></p>",
-        "quiz_inst_msg":"<p class='text-center' style='font-size:1.5rem'>Congratulations on finishing the module! Here is a short quiz to check for your learning from the videos you watched.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
-        "quiz_start_title":"Ready for a quick test?",
-        "quiz_con_title":" Continue your quick test",
-        "idea_ins_note":"<p class='text-success'><b>Congratulations to you and your team!</b></p><p>For successfully completing the course and starting the idea submission. As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b> Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Choose the Sustainable Development Goal (SDG) as per the selected problem which will appear in the nest screen.</li><li>Write down the Current State, Desired State, Effects and Causes of the selected problem.</li><li>Write down Idea Name & its descriptions clearly. Idea name should convey the uniqueness of your solution.</li><li>Make note of user feedback to your idea which helped improve your solution.</li><li>List materials you’ll need to make a working model & gather images & videos related to your prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
-        "my_cer_note":"<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>"
+        "cong_msg_menu": "<p class='text-success'><b>🎉 Congratulations on completing the course! 🎉</b></p><p>You did it! Your dedication and hard work have brought you to this exciting milestone. We are incredibly proud of your achievement and the effort you've put into UNISOLVE.</p><p>This accomplishment marks just the beginning of your journey. The knowledge you've gained will be a valuable asset as you move forward in UNISOLVE. Remember, learning is a lifelong adventure, and you've proven your ability to thrive in it.</p><p><b>We can't wait to see all the amazing Ideas you & your team are going to submit.</b></p>",
+        "quiz_inst_msg": "<p class='text-center' style='font-size:1.5rem'>Congratulations on finishing the module! Here is a short quiz to check for your learning from the videos you watched.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
+        "quiz_start_title": "Ready for a quick test?",
+        "quiz_con_title": " Continue your quick test",
+        "idea_ins_note": "<p class='text-success'><b>Congratulations to you and your team!</b></p><p>For successfully completing the course and starting the idea submission. As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b> Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Choose the Sustainable Development Goal (SDG) as per the selected problem which will appear in the nest screen.</li><li>Write down the Current State, Desired State, Effects and Causes of the selected problem.</li><li>Write down Idea Name & its descriptions clearly. Idea name should convey the uniqueness of your solution.</li><li>Make note of user feedback to your idea which helped improve your solution.</li><li>List materials you’ll need to make a working model & gather images & videos related to your prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
+        "my_cer_note": "<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>"
     },
-    "comm_tech_stu":{
-        "resources_note":"Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
+    "comm_tech_stu": {
+        "resources_note": "Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
     },
     "translation": {
         "tamil": "English Content :-",

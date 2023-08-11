@@ -25,31 +25,31 @@ const AddNewTicket = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
 
-    const selectCategory = {
-        // here we can select the category of support tickets //
-        label: 'Select Category',
-        options: [
-            { label: 'General', value: 'General' },
-            { label: 'Technical', value: 'Technical' },
-            { label: 'Suggestion', value: 'Suggestion' }
-        ],
-        className: 'defaultDropdown'
-    };
+    // const selectCategory = {
+    //     // here we can select the category of support tickets //
+    //     label: 'Select Category',
+    //     options: [
+    //         { label: 'General', value: 'General' },
+    //         { label: 'Technical', value: 'Technical' },
+    //         { label: 'Suggestion', value: 'Suggestion' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
 
     const formik = useFormik({
         initialValues: {
-            selectCategory: '',
+            ticket: '',
             ticketDetails: ''
         },
 
         validationSchema: Yup.object({
-            selectCategory: Yup.string().required('Required'),
+            ticket: Yup.string().required('Required'),
 
             ticketDetails: Yup.string().required('Required')
         }),
 
         onSubmit: (values) => {
-            const query_category = values.selectCategory;
+            const query_category = values.ticket;
             const query_details = values.ticketDetails;
 
             const body = JSON.stringify({
@@ -125,7 +125,7 @@ const AddNewTicket = (props) => {
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    <DropDownWithSearch
+                                                    {/* <DropDownWithSearch
                                                         {...selectCategory}
                                                         onBlur={
                                                             formik.handleBlur
@@ -138,14 +138,42 @@ const AddNewTicket = (props) => {
                                                         }}
                                                         name="selectCategory"
                                                         id="selectCategory"
-                                                    />
-
-                                                    {formik.errors
-                                                        .selectCategory ? (
+                                                    /> */}
+                                                    <select
+                                                        name="ticket"
+                                                        id="ticket"
+                                                        className="form-control custom-dropdown"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.ticket
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled={true}
+                                                        >
+                                                            Select Category
+                                                        </option>
+                                                        <option value="General">
+                                                        General
+                                                        </option>
+                                                        <option value="Technical">
+                                                            Technical
+                                                        </option>
+                                                        <option value="Suggestion">
+                                                            Suggestion
+                                                        </option>
+                                                    </select>
+                                                    {formik.errors.ticket ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .selectCategory
+                                                                    .ticket
                                                             }
                                                         </small>
                                                     ) : null}
