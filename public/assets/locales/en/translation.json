@@ -248,6 +248,7 @@
     "teacher_teams": {
         "team_heading": "Teams Management",
         "create_team": "Create Team",
+        
         "create_team_members": "Create Team Members details",
         "add_new_team": "Add New Team details",
         "s_no": "No",
@@ -330,10 +331,11 @@
 
         "title": "Title",
         "teacher_title": "Select Title",
-        "teacher_title_dr": "Dr",
-        "teacher_title_mr": "Mr",
-        "teacher_title_miss": "Miss",
-        "teacher_title_mrs": "Mrs",
+        "teacher_title_drs": "Dr",
+        "teacher_title_mrs": "Mr",
+        "teacher_title_misss": "Miss",
+        "teacher_title_mrss": "Mrs",
+
 
         "faculty_name_pl": "Enter full name",
         "faculty_email": "Faculty Email Address",
