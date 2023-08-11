@@ -666,50 +666,53 @@ const PostSurvey = () => {
                                                                                     </Label>
                                                                                 </FormGroup>
 
-                                                                                <FormGroup
-                                                                                    check
-                                                                                    className="mx-1"
-                                                                                >
-                                                                                    <Label
+                                                                                {eachQuestion.option_d !==
+                                                                                    null && (
+                                                                                    <FormGroup
                                                                                         check
-                                                                                        style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                        className="mx-1"
                                                                                     >
-                                                                                        <Input
-                                                                                            type="checkbox"
-                                                                                            name={`${eachQuestion.quiz_survey_question_id}`}
-                                                                                            disabled={
-                                                                                                isDisabled
-                                                                                            }
-                                                                                            checked={
-                                                                                                filterAnswer(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ) &&
-                                                                                                filterAnswer(
-                                                                                                    eachQuestion.quiz_survey_question_id
-                                                                                                ).includes(
+                                                                                        <Label
+                                                                                            check
+                                                                                            style={{
+                                                                                                fontSize:
+                                                                                                    '1.4rem'
+                                                                                            }}
+                                                                                        >
+                                                                                            <Input
+                                                                                                type="checkbox"
+                                                                                                name={`${eachQuestion.quiz_survey_question_id}`}
+                                                                                                disabled={
+                                                                                                    isDisabled
+                                                                                                }
+                                                                                                checked={
+                                                                                                    filterAnswer(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ) &&
+                                                                                                    filterAnswer(
+                                                                                                        eachQuestion.quiz_survey_question_id
+                                                                                                    ).includes(
+                                                                                                        eachQuestion.option_d
+                                                                                                    )
+                                                                                                }
+                                                                                                id={
                                                                                                     eachQuestion.option_d
-                                                                                                )
-                                                                                            }
-                                                                                            id={
+                                                                                                }
+                                                                                                onChange={(
+                                                                                                    e
+                                                                                                ) =>
+                                                                                                    handleChange(
+                                                                                                        e
+                                                                                                    )
+                                                                                                }
+                                                                                                value={`${eachQuestion.option_d}`}
+                                                                                            />
+                                                                                            {
                                                                                                 eachQuestion.option_d
                                                                                             }
-                                                                                            onChange={(
-                                                                                                e
-                                                                                            ) =>
-                                                                                                handleChange(
-                                                                                                    e
-                                                                                                )
-                                                                                            }
-                                                                                            value={`${eachQuestion.option_d}`}
-                                                                                        />
-                                                                                        {
-                                                                                            eachQuestion.option_d
-                                                                                        }
-                                                                                    </Label>
-                                                                                </FormGroup>
+                                                                                        </Label>
+                                                                                    </FormGroup>
+                                                                                )}
                                                                             </>
                                                                         )}
                                                                     </>
