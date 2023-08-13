@@ -89,7 +89,7 @@ const LoginNew = (props) => {
             }).toString();
             const body = {
                 username: values.phone.trim(),
-                password: encrypted,
+                password: encrypted.trim(),
                 role: 'MENTOR'
             };
             props.teacherLoginUserAction(body, history, 'MENTOR');
