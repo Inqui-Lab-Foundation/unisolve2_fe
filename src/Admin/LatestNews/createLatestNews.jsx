@@ -137,6 +137,8 @@ const CreateLatestNews = (props) => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <FormGroup className="form-group" md={12}>
+                                    <Row>
+                                            <Col>
                                         <Label className="mb-2" htmlFor="role">
                                             Role
                                         </Label>
@@ -164,11 +166,13 @@ const CreateLatestNews = (props) => {
                                                     {formik.errors.role}
                                                 </small>
                                             )}
+                                            </Col>
+                                            <Col>
                                         <Label
                                             className="mb-2"
                                             htmlFor="new_status"
                                         >
-                                            New Status
+                                            New Icon Status
                                         </Label>
                                         <select
                                             name="new_status"
@@ -190,13 +194,16 @@ const CreateLatestNews = (props) => {
                                                     {formik.errors.new_status}
                                                 </small>
                                             )}
+                                            </Col>
+                                        </Row>
                                         <Label
                                             className="mb-2"
                                             htmlFor="details"
                                         >
                                             Details
                                         </Label>
-                                        <InputBox
+                                        <Input
+                                            type="text"
                                             {...inputDICE}
                                             id="details"
                                             name="details"
@@ -230,8 +237,10 @@ const CreateLatestNews = (props) => {
                                                 onChange={(e) => fileHandler(e)}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            <Button
-                                                label="Upload File"
+                                             <Button
+                                                label="Upload File "
+                                                btnClass="primary"
+                                                size="small"
                                                 onClick={() => {
                                                     document
                                                         .getElementById(

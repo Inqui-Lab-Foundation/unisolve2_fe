@@ -15,7 +15,7 @@ const Reports = () => {
                             <Link to="/admin/reports-registration">
                                 <Card className="p-4 text-center card-effect mb-4">
                                     <b className="text-secondary">
-                                       REGISTRATION REPORTS
+                                       SCHOOL/TEACHER REGISTRATION REPORTS
                                     </b>
                                 </Card>
                             </Link>
@@ -26,7 +26,7 @@ const Reports = () => {
                             <Link to="/admin/SurveyStatus">
                                 <Card className="p-4 text-center card-effect mb-4">
                                     <b className="text-secondary">
-                                       SURVEY STATUS REPORTS
+                                       SURVEY DEATAILED REPORTS
                                     </b>
                                 </Card>
                             </Link>
@@ -34,50 +34,51 @@ const Reports = () => {
                     </Row>
                     <Row className="mb-3">
                         <Col lg={6} md={6}>
-                            <Link to="/admin/CourseStatus">
+                            <Link to="/admin/TeacherProgressDetailed">
                                 <Card className="p-4 text-center card-effect mb-4">
                                     <b className="text-secondary">
-                                        COURSE STATUS
+                                        TEACHER PROGRESS DEATAILED REPORT 
+                                    </b>
+                                </Card>
+                            </Link>
+                        </Col>
+                    </Row>
+
+                    <Row className="mb-3">
+                        <Col lg={6} md={6}>
+                            <Link to="/admin/">
+                                <Card className="p-4 text-center card-effect mb-4">
+                                    <b className="text-secondary">
+                                        STUDENT PROGRESS DEATAILED REPORT
                                     </b>
                                 </Card>
                             </Link>
                         </Col>
                     </Row>
                     
+                    <Row className="mb-3">
+                        <Col lg={6} md={6}>
+                            <Link to="/admin/">
+                                <Card className="p-4 text-center card-effect mb-4">
+                                    <b className="text-secondary">
+                                        IDEA SUBMISSION DETAILED REPORT
+                                    </b>
+                                </Card>
+                            </Link>
+                        </Col>
+                    </Row>
                     <Row className="mb-3">
                         <Col lg={6} md={6}>
                             <Link to="/admin/ChallengesReport">
                                 <Card className="p-4 text-center card-effect mb-4">
                                     <b className="text-secondary">
-                                        CHALLENGES REPORTS
-                                    </b>
-                                </Card>
-                            </Link>
-                        </Col>
-                    </Row>
-                    <Row className="mb-3">
-                        <Col lg={6} md={6}>
-                            <Link to="/admin/">
-                                <Card className="p-4 text-center card-effect mb-4">
-                                    <b className="text-secondary">
-                                        STUDENT AND TEAM STATUS
+                                        CHALLENGES EVALUATION REPORTS
                                     </b>
                                 </Card>
                             </Link>
                         </Col>
                     </Row>
                     
-                    <Row className="mb-3">
-                        <Col lg={6} md={6}>
-                            <Link to="/admin/">
-                                <Card className="p-4 text-center card-effect mb-4">
-                                    <b className="text-secondary">
-                                        CERTIFICATES
-                                    </b>
-                                </Card>
-                            </Link>
-                        </Col>
-                    </Row>
                 </div>
             </Container>
         </Layout>

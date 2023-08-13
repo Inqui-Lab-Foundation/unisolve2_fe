@@ -101,7 +101,7 @@ import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
 import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
-import CourseStatus from './Admin/Reports/Helpers/CourseStatus';
+import TeacherProgressDetailed from './Admin/Reports/Helpers/TeacherProgressDetailed';
 import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
@@ -352,8 +352,8 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/CourseStatus"
-                        component={CourseStatus}
+                        path="/admin/TeacherProgressDetailed"
+                        component={TeacherProgressDetailed}
                     />
                     <ProtectedRoute
                         exact={true}
