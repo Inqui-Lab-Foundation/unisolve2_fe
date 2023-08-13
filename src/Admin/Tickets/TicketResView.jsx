@@ -53,8 +53,8 @@ const TicketResView = (props) => {
             const ansTicket = values.ansTicket;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                reply_details: ansTicket,
-                selectStatusTicket: values.selectStatusTicket
+                reply_details: ansTicket
+                // selectStatusTicket: values.selectStatusTicket
             });
 
             dispatch(createSupportTicketResponse(body));
@@ -239,15 +239,15 @@ const TicketResView = (props) => {
                                                         name=" selectStatusTicket"
                                                         id=" selectStatusTicket"
                                                         className="form-control custom-dropdown"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        // onChange={(option) => {
-                                                        //     formik.setFieldValue(
-                                                        //         'selectStatus',
-                                                        //         option[0].value
-                                                        //     );
-                                                        // }}
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            formik.setFieldValue(
+                                                                'selectStatusTicket',
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }

@@ -393,7 +393,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-2"
-                                style={{ height: '100px' }}
+                                style={{ height: '120px', weight: '100px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
@@ -421,7 +421,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-2"
-                                style={{ height: '100px' }}
+                                style={{ height: '120px', weight: '100px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
@@ -453,7 +453,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-2"
-                                style={{ height: '100px' }}
+                                style={{ height: '120px', weight: '100px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
@@ -480,7 +480,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-2"
-                                style={{ height: '100px' }}
+                                style={{ height: '120px', weight: '100px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">

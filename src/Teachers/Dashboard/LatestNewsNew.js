@@ -30,7 +30,7 @@ function LatestNewsNew({ usersdata }) {
                 } else {
                     container.scrollTop += 1; // Adjust scrolling speed as desired
                 }
-            }, 20); // Adjust scrolling interval as desired
+            }, 30); // Adjust scrolling interval as desired
         };
 
         const stopScrolling = () => {
@@ -63,6 +63,7 @@ function LatestNewsNew({ usersdata }) {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response);
                     setNews(response.data.data);
                 }
             })

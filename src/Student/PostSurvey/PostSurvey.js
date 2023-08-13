@@ -801,6 +801,7 @@ const PostSurvey = () => {
                                             <div className="text-right">
                                                 <Button
                                                     type="submit"
+                                                    btnClass="primary"
                                                     // btnClass={
                                                     //     !(
                                                     //         formik.dirty &&
@@ -816,7 +817,7 @@ const PostSurvey = () => {
                                                     //     )
                                                     // }
                                                     size="small"
-                                                    label="Submitt"
+                                                    label="Submit"
                                                     // label={t(
                                                     //     'student_presurvey.submit'
                                                     // )}

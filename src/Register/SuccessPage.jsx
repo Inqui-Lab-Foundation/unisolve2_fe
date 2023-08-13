@@ -180,7 +180,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Mobile Number:{' '}
+                                    Mobile Number / Login ID:{' '}
                                     {successData && successData.mobile}
                                 </p>
                                 <p

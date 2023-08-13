@@ -74,7 +74,7 @@ const EditSchool = (props) => {
                 .trim(),
             // .required('required'),
             principal_name: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid Name')
+                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
                 .trim()
                 .required('required'),
             organization_name: Yup.string()
@@ -82,14 +82,14 @@ const EditSchool = (props) => {
                 .trim()
                 .required('required'),
             organization_code: Yup.string()
-                .matches(
-                    /^[A-Za-z0-9 ]*$/,
-                    'Please enter only alphanumeric characters'
-                )
+                .matches(/^[0-9\s]+$/, 'Entered Wrong DISCE Code')
                 .trim()
-                .required('UDISE  Code is Required'),
+                .required('UDISE  Code is Required')
+                .max(11, 'Please enter Valid DISCE Code'),
             city: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid City')
+                .matches(/^[aA-zZ\s/^.*$/]+$/)
+                // .matches(/^[0-9\s/^ *$/]+$/, 'Mobile number is not valid')
+
                 .trim()
                 .required('required'),
 
@@ -180,6 +180,7 @@ const EditSchool = (props) => {
                                             placeholder="Please enter Institute/School name"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
+                                            // isDisabled={holdKey ? true : false}
                                             value={
                                                 formik.values.organization_name
                                             }

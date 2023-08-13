@@ -158,7 +158,7 @@ function RegisterNew() {
                     gender: values.gender,
                     title: values.title,
                     reg_status: values.reg_status,
-                    password: encrypted
+                    password: encrypted.trim()
                 });
                 var config = {
                     method: 'post',
@@ -251,7 +251,7 @@ function RegisterNew() {
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid UDISE Code');
+                    setError('Entered Wrong UDISE Code');
                 }
             });
 
@@ -473,9 +473,18 @@ function RegisterNew() {
                                                 style={{
                                                     borderRadius: '0px',
                                                     padding: '9px 11px'
+                                                    // color: 'red'
                                                 }}
                                             />
-                                            {error ? <p>{error}</p> : null}
+                                            {error ? (
+                                                <p
+                                                    style={{
+                                                        color: 'red'
+                                                    }}
+                                                >
+                                                    {error}
+                                                </p>
+                                            ) : null}
 
                                             {diceBtn && (
                                                 <div className="mt-4">
