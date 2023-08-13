@@ -18,11 +18,11 @@ const ReportsRegistration = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [notRegisteredData, setNotRegisteredData] = useState([]);
+    //const [notRegisteredData, setNotRegisteredData] = useState([]);
     const filterOptions = ['Registered','Not Registered'];
     const [downloadData, setDownloadData] = useState(null); 
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] = useState(null);
-    const [showTable, setShowTable] = useState(false);
+    //const [showTable, setShowTable] = useState(false);
     const [statsshowTable, setStatsShowTable] = useState(false);
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
@@ -83,7 +83,7 @@ const ReportsRegistration = () => {
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
                     } else if (item === 'Not Registered') {
-                        setNotRegisteredData(response?.data?.data || []);
+                        //setNotRegisteredData(response?.data?.data || []);
                         setDownloadNotRegisteredData(response?.data?.data || []);
                     }
                 }
@@ -160,20 +160,23 @@ const ReportsRegistration = () => {
             });
     };
     
-    const handleViewDetails = () => {
-        if (!filterType) {
-            notification.warning({
-                message: 'Please select a filter type before viewing details.',
-            });
-            return;
-        }
-        setShowTable(true);
-        setStatsShowTable(false);
-        fetchData(filterType);
-    };
+    // const handleViewDetails = () => {
+    //     if (!filterType) {
+    //         notification.warning({
+    //             message: 'Please select a filter type before viewing details.',
+    //         });
+    //         return;
+    //     }
+    //     setShowTable(true);
+    //     setStatsShowTable(false);
+    //     fetchData(filterType);
+    // };
 
     const handleDownload = () => {
         if (!filterType) {
+            notification.warning({
+                message: 'Please select a filter type before Downloading Reports.',
+            });
             return;
         }
         fetchData(filterType);
@@ -217,7 +220,7 @@ const ReportsRegistration = () => {
                                         <Select
                                             list={fullDistrictsNames}
                                             setValue={setRegTeachersdistrict}
-                                            placeHolder={'Select District'}
+                                            placeHolder={'All Districts'}
                                             value={RegTeachersdistrict}
                                         />
                                     </div>
@@ -234,7 +237,7 @@ const ReportsRegistration = () => {
                                 </Col>
 
                                 <Col md={3} className="d-flex align-items-center justify-content-center">
-                                    <Button
+                                    {/* <Button
                                         label="View Details"
                                         btnClass="primary mx-6"
                                         size="small"
@@ -244,7 +247,7 @@ const ReportsRegistration = () => {
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
-                                    />
+                                    /> */}
                                     <Button
                                         onClick={handleDownload}
                                         label={'Download Report'}
@@ -263,7 +266,7 @@ const ReportsRegistration = () => {
                             <div className="chart">
                                 {statsshowTable && regChartTableData.length > 0 && nonRegChartTableData.length > 0 && (
                                     <div className="mt-5">
-                                        <h3>STATISTICS OVERVIEW</h3>
+                                        <h3>OVERVIEW</h3>
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="table-wrapper bg-white">
@@ -273,7 +276,7 @@ const ReportsRegistration = () => {
                                                     >
                                                         <thead>
                                                             <tr>
-                                                                <th>No</th>
+                                                                <th className='no-column'>No</th>
                                                                 <th>District Name</th>
                                                                 <th>Reg. Count</th>
                                                                 <th>Not Reg. Count</th>
@@ -298,7 +301,7 @@ const ReportsRegistration = () => {
                                         </div>
                                     </div>
                                 )}
-                                {showTable && filterType === 'Registered' && (
+                                {/* {showTable && filterType === 'Registered' && (
                                     <div className="mt-5">
                                         <h3>Data based on Filter: {filterType}</h3>
                                         <div className="table-wrapper bg-white">
@@ -365,7 +368,7 @@ const ReportsRegistration = () => {
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                )} */}
                                 {downloadData && (
                                     <CSVLink
                                         data={downloadData}
@@ -396,4 +399,3 @@ const ReportsRegistration = () => {
     );
 };
 export default ReportsRegistration;
-                
