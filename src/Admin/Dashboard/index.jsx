@@ -84,6 +84,7 @@ const Dashboard = () => {
             .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
+                    console.log(orgData);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
@@ -780,8 +781,8 @@ const Dashboard = () => {
                             <Col
                                 style={{
                                     paddingRight: '20px',
-                                    paddingTop:'1rem',
-                                    paddingLeft:'2rem'
+                                    paddingTop: '1rem',
+                                    paddingLeft: '2rem'
                                 }}
                             >
                                 <Row>
@@ -888,7 +889,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                 Teachers Course Completed
+                                                Teachers Course Completed
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -913,8 +914,12 @@ const Dashboard = () => {
                                     </Card>
                                 </Row>
                             </Col>
-                            <Col style={{ paddingRight: '20px',
-                        paddingTop:'1rem' }}>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -934,7 +939,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                               99999
+                                                99999
                                                 {/* {dashboardStates &&
                                             dashboardStates.students_count
                                                 ? dashboardStates.students_count
@@ -1040,8 +1045,12 @@ const Dashboard = () => {
                                     </Card>
                                 </Row>
                             </Col>
-                            <Col style={{ paddingRight: '20px',
-                        paddingTop:'1rem' }}>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1081,7 +1090,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                 Students course completed
+                                                Students course completed
                                             </label>
 
                                             <Card.Text
@@ -1113,8 +1122,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                 Students course in
-                                                progress
+                                                Students course in progress
                                             </label>
 
                                             <Card.Text
@@ -1146,7 +1154,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                 Students Course not started
+                                                Students Course not started
                                             </label>
 
                                             <Card.Text
@@ -1169,94 +1177,94 @@ const Dashboard = () => {
                                 </Row>
                             </Col>
                             <div>
-                            <Card bg="light" text="dark" className="mb-4" >
-                                <Card.Body>
-                                    <Row style={{marginRight:'3rem'}}>
-                                        <Col md={3} style={{}}>
-                                            <label htmlFor="teams">
-                                                Total Male Teachers
-                                            </label>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                1,940
-                                                {/* {dashboardStates &&
+                                <Card bg="light" text="dark" className="mb-4">
+                                    <Card.Body>
+                                        <Row style={{ marginRight: '3rem' }}>
+                                            <Col md={3} style={{}}>
+                                                <label htmlFor="teams">
+                                                    Total Male Teachers
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    1,940
+                                                    {/* {dashboardStates &&
               dashboardStates?.ideas_count
                 ? dashboardStates?.ideas_count
                 : 0} */}
-                                            </Card.Text>
-                                        </Col>
-                                        <Col md={3}>
-                                            <label htmlFor="teams">
-                                                Total Female Teachers
-                                            </label>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                1,940
-                                                {/* {dashboardStates &&
+                                                </Card.Text>
+                                            </Col>
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Female Teachers
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    1,940
+                                                    {/* {dashboardStates &&
               dashboardStates?.ideas_count
                 ? dashboardStates?.ideas_count
                 : 0} */}
-                                            </Card.Text>
-                                        </Col>
-                                        
-                                        <Col md={3}>
-                                            <label htmlFor="teams">
-                                                Total Male Students
-                                            </label>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                1,940
-                                                {/* {dashboardStates &&
+                                                </Card.Text>
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Male Students
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    1,940
+                                                    {/* {dashboardStates &&
               dashboardStates?.ideas_count
                 ? dashboardStates?.ideas_count
                 : 0} */}
-                                            </Card.Text>
-                                        </Col>
-                                        <Col md={3}>
-                                            <label htmlFor="teams">
-                                                Total Female Students
-                                            </label>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                1,940
-                                                {/* {dashboardStates &&
+                                                </Card.Text>
+                                            </Col>
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Female Students
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    1,940
+                                                    {/* {dashboardStates &&
               dashboardStates?.ideas_count
                 ? dashboardStates?.ideas_count
                 : 0} */}
-                                            </Card.Text>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
-                            </Card>
-</div>
+                                                </Card.Text>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </div>
                             {/* <div style={{ flex: 1 }} className="col-lg-12">
                             Data__
                         </div> */}
@@ -1539,6 +1547,44 @@ const Dashboard = () => {
                                                                         .mentor
                                                                         ?.user
                                                                         ?.username
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                WhatsApp Mobile
+                                                                No
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.user
+                                                                        ?.whatapp_mobile
                                                                 }
                                                             </p>
                                                         </Col>

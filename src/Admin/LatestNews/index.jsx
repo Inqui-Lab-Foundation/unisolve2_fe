@@ -13,8 +13,8 @@ import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
 // import { ReactDOM } from 'react-dom';
 // import * as ReactDOM from 'react-dom';
-// import Swal from 'sweetalert2/dist/sweetalert2';
-// import logout from '../../assets/media/logout.svg';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/media/logout.svg';
 
 import 'sweetalert2/src/sweetalert2.scss';
 const AdminLatestNews = () => {
@@ -96,96 +96,95 @@ const AdminLatestNews = () => {
         localStorage.setItem('newsID', JSON.stringify(item));
     };
 
-    const handleDelete = async (item) => {
-        const newsID = item.latest_news_id;
-        const confirmed = window.confirm(
-            'Are you sure you want to delete this news?'
-        );
-        if (!confirmed) {
-            return;
-        }
-        try {
-            const response = await axios.delete(
-                `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsID}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                    }
-                }
-            );
-            if (response.status === 200) {
-                openNotificationWithIcon('success', 'News succesfully deleted');
-                handleResList();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // const handleDelete = (item) => {
-    //     // here we can delete the team //
-    //     const swalWithBootstrapButtons = Swal.mixin({
-    //         customClass: {
-    //             confirmButton: 'btn btn-success',
-    //             cancelButton: 'btn btn-danger'
-    //         },
-    //         buttonsStyling: false
-    //     });
-
-    //     swalWithBootstrapButtons
-    //         .fire({
-    //             title: 'You are attempting to delete Team.',
-    //             text: 'Are you sure?',
-    //             imageUrl: `${logout}`,
-    //             showCloseButton: true,
-    //             confirmButtonText: 'Delete',
-    //             showCancelButton: true,
-    //             cancelButtonText: 'Cancel',
-    //             reverseButtons: false
-    //         })
-    //         .then((result) => {
-    //             if (result.isConfirmed) {
-    //                 var config = {
-    //                     method: 'delete',
-    //                     url:
-    //                         process.env.REACT_APP_API_BASE_URL +
-    //                         '/teams/' +
-    //                         item.team_id,
-    //                     headers: {
-    //                         'Content-Type': 'application/json',
-    //                         // Accept: "application/json",
-    //                         Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //                     }
-    //                 };
-    //                 axios(config)
-    //                     .then(function (response) {
-    //                         if (response.status === 200) {
-    //                             setCount(count + 1);
-    //                             openNotificationWithIcon(
-    //                                 'success',
-    //                                 'Team Delete Successfully'
-    //                             );
-    //                             props.history.push('/teacher/teamlist');
-    //                         } else {
-    //                             openNotificationWithIcon(
-    //                                 'error',
-    //                                 'Opps! Something Wrong'
-    //                             );
-    //                         }
-    //                     })
-    //                     .catch(function (error) {
-    //                         console.log(error);
-    //                     });
-    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //                 swalWithBootstrapButtons.fire(
-    //                     'Cancelled',
-    //                     'Team not Deleted',
-    //                     'error'
-    //                 );
+    // const handleDelete = async (item) => {
+    //     const newsID = item.latest_news_id;
+    //     const confirmed = window.confirm(
+    //         'Are you sure you want to delete this news?'
+    //     );
+    //     if (!confirmed) {
+    //         return;
+    //     }
+    //     try {
+    //         const response = await axios.delete(
+    //             `${process.env.REACT_APP_API_BASE_URL}/latest_news/${newsID}`,
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //                 }
     //             }
-    //         });
+    //         );
+    //         if (response.status === 200) {
+    //             openNotificationWithIcon('success', 'News succesfully deleted');
+    //             handleResList();
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
     // };
+
+    const handleDelete = (item) => {
+        // here we can delete the team //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title: 'Are you sure you want to delete this news?',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Delete',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    var config = {
+                        method: 'delete',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/latest_news/' +
+                            item.latest_news_id,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Accept: "application/json",
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                        }
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                openNotificationWithIcon(
+                                    'success',
+                                    'News succesfully deleted'
+                                );
+                                handleResList();
+                            } else {
+                                openNotificationWithIcon(
+                                    'error',
+                                    'Opps! Something Wrong'
+                                );
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Team not Deleted',
+                        'error'
+                    );
+                }
+            });
+    };
 
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
@@ -202,7 +201,7 @@ const AdminLatestNews = () => {
                 width: '12rem'
             },
             {
-                name: 'New_status',
+                name: 'New Icon',
                 width: '12rem',
                 cell: (record) => {
                     if (record.new_status === '1') {

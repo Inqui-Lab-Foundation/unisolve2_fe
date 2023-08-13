@@ -150,22 +150,22 @@ const EditTeacherProfileDetails = (props) => {
                                                 </option>
                                                 <option value="Dr">
                                                     {t(
-                                                        'teacehr_red.teacher_title_dr'
+                                                        'teacehr_red.teacher_title_drs'
                                                     )}
                                                 </option>
                                                 <option value="Mr">
                                                     {t(
-                                                        'teacehr_red.teacher_title_mr'
+                                                        'teacehr_red.teacher_title_mrs'
                                                     )}
                                                 </option>
                                                 <option value="Miss">
                                                     {t(
-                                                        'teacehr_red.teacher_title_miss'
+                                                        'teacehr_red.teacher_title_misss'
                                                     )}
                                                 </option>
                                                 <option value="Mrs">
                                                     {t(
-                                                        'teacehr_red.teacher_title_mrs'
+                                                        'teacehr_red.teacher_title_mrss'
                                                     )}
                                                 </option>
                                             </select>

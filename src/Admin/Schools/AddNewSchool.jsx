@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -15,12 +16,23 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
+import Select from './../Challenges/pages/Select';
+import { getDistrictData } from '../../redux/studentRegistration/actions';
+import { useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 const AddNewSchool = (props) => {
+    const dispatch = useDispatch();
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
     };
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
+
     // const phoneRegExp = /^[0-9\s]+$/;
     // const headingDetails = {
     //     title: 'Add New Institution Details',
@@ -36,6 +48,9 @@ const AddNewSchool = (props) => {
     //         }
     //     ]
     // };
+    useEffect(() => {
+        dispatch(getDistrictData());
+    }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -61,17 +76,19 @@ const AddNewSchool = (props) => {
                 .email('Invalid email address format'),
             principal_name: Yup.string()
                 .optional()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid Name'),
+                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
+                .trim()
+                .required('required'),
             organization_name: Yup.string().required(
                 'Organization  Name is Required'
             ),
             organization_code: Yup.string()
-                .matches(
-                    /^[A-Za-z0-9]*$/,
-                    'Please enter only alphanumeric characters'
-                )
-                .required('UDISE  Code is Required'),
-            city: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid City'),
+                .matches(/^[0-9\s]+$/, 'Entered Wrong DISCE Code')
+                .trim()
+                .required('UDISE  Code is Required')
+                .max(11, 'Please enter Valid DISCE Code'),
+            // .min(10, 'Number is less than 10 digits'),
+            city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/),
             district: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid district')
                 .required('District is Required'),
@@ -106,6 +123,7 @@ const AddNewSchool = (props) => {
                 });
         }
     });
+    // console.log('formik.values.district', formik.values.district);
 
     return (
         <Layout>
@@ -137,6 +155,7 @@ const AddNewSchool = (props) => {
                                             value={
                                                 formik.values.organization_code
                                             }
+                                            // isDisabled={holdKey ? true : false}
                                         />
                                         {formik.touched.organization_code &&
                                         formik.errors.organization_code ? (
@@ -200,7 +219,22 @@ const AddNewSchool = (props) => {
                                             District
                                             <span required>*</span>
                                         </Label>
-                                        <InputBox
+                                        <Col md={3}>
+                                            {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
+                                            <Select
+                                                list={fullDistrictsNames}
+                                                setValue={(value) =>
+                                                    formik.setFieldValue(
+                                                        'district',
+                                                        value
+                                                    )
+                                                }
+                                                placeHolder={'Select District'}
+                                                value={formik.values.district}
+                                            />
+                                            {/* </div> */}
+                                        </Col>
+                                        {/* <InputBox
                                             {...inputDICE}
                                             id="district"
                                             name="district"
@@ -208,7 +242,7 @@ const AddNewSchool = (props) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.district}
-                                        />
+                                        /> */}
                                         {formik.touched.district &&
                                         formik.errors.district ? (
                                             <small className="error-cls">
@@ -227,6 +261,7 @@ const AddNewSchool = (props) => {
                                             onBlur={formik.handleBlur}
                                             value={formik.values.state}
                                         />
+
                                         {formik.touched.state &&
                                         formik.errors.state ? (
                                             <small className="error-cls">

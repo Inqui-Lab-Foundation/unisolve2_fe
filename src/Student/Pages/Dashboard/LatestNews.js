@@ -62,6 +62,7 @@ function LatestNews({ usersdata }) {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response);
                     setNews(response.data.data);
                 }
             })
@@ -77,9 +78,7 @@ function LatestNews({ usersdata }) {
                     <Row>
                         <Col md={8} className="border-right my-auto">
                             <Row>
-                                <h2 style={{ color: 'black' }}>
-                                    Latest News
-                                </h2>
+                                <h2 style={{ color: 'black' }}>Latest News</h2>
                             </Row>
                             <div
                                 id="boxflow"
@@ -88,7 +87,7 @@ function LatestNews({ usersdata }) {
                                     height: '200px',
                                     width: '500px'
                                     //overflow: 'auto'
-                                }}                                
+                                }}
                             >
                                 <ul>
                                     {news?.map((item, index) => (
@@ -133,7 +132,11 @@ function LatestNews({ usersdata }) {
                                                 > */}
                                                     {item?.url != null &&
                                                     item?.url != '' ? (
-                                                        <a target="_blank">
+                                                        <a
+                                                            target="_blank"
+                                                            className="link-item"
+                                                            href={item?.url}
+                                                        >
                                                             <button className="btn btn-success ">
                                                                 Url
                                                             </button>

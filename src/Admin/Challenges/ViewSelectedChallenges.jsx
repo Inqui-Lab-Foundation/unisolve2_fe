@@ -50,7 +50,7 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleclickcall = async() => {
+    const handleclickcall = async () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
@@ -181,7 +181,7 @@ const ViewSelectedIdea = () => {
 
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={3}>
+                                        <Col md={6}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullDistrictsNames}

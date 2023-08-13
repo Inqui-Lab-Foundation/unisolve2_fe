@@ -48,6 +48,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response }) => {
     const answersSort = [...answers].sort(
         (a, b) => a.question_no - b.question_no
     );
+
     return (
         <Modal
             show={show}
@@ -86,14 +87,19 @@ const IdeaSubmissionCard = ({ handleClose, show, response }) => {
                     <p className="fw-bold me-3">
                         Initiated By: {response[0]?.initiated_name}
                     </p>
-                    <p className="fw-bold">
-                        Submitted at:{' '}
-                        {response[0]?.submitted_at
-                            ? moment(response[0]?.submitted_at).format(
-                                  'DD-MM-YYYY'
-                              )
-                            : '-'}
-                    </p>
+                    {/* {submittedResponse === SUBMITTED ? ( */}
+                    {response[0]?.status != 'DRAFT' ? (
+                        <p className="fw-bold">
+                            Submitted at:{' '}
+                            {response[0]?.submitted_at
+                                ? moment(response[0]?.submitted_at).format(
+                                      'DD-MM-YYYY'
+                                  )
+                                : '-'}
+                        </p>
+                    ) : (
+                        ''
+                    )}
                 </div>
             </Modal.Body>
             <Modal.Footer>
