@@ -22,7 +22,7 @@ const FaqByCategory = () => {
     const search = useLocation().search;
 
     const [data, setData] = useState([]);
-
+    const [activeButton, setActiveButton] = useState('teacher');
     const getFaqByCategory = async (id) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
@@ -47,7 +47,7 @@ const FaqByCategory = () => {
             });
     };
 
-    useEffect(async() => {
+    useEffect(async () => {
         await getFaqByCategory(1);
     }, []);
     const deleteFaq = async (faqID) => {
@@ -64,7 +64,7 @@ const FaqByCategory = () => {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
                 axios
                     .delete(`${URL.getFaqList}/${faqID}`, axiosConfig)
-                    .then(async(faqDeleteRes) => {
+                    .then(async (faqDeleteRes) => {
                         if (faqDeleteRes?.status == 200) {
                             Swal.fire(
                                 'Faq Deleted Successfully..!!',
@@ -167,7 +167,38 @@ const FaqByCategory = () => {
                                 label={`Add FAQ`}
                                 btnClass="primary float-end mb-3"
                                 size="small"
+                                style={{marginLeft:'.3rem'}}
                                 onClick={() => history.push('/admin/New-faq')}
+                            />
+                            <Button
+                                label={`Teacher FAQ`}
+                                //btnClass={`primary float-end mb-3 ${activeButton === 'teacher' ? 'active' : ''}`}
+                                btnClass="primary  float-end mb-3"
+                                style={{
+                                    backgroundColor: activeButton === 'teacher' ? '#0d6efd' : '#ffcb34',
+                                    color: activeButton === 'teacher' ? 'white' : 'black',
+                                    marginLeft:'.3rem',
+                                }}
+                                size="small"
+                                onClick={() => {
+                                    setActiveButton('teacher');
+                                    getFaqByCategory(1);
+                                }}
+                            />
+                            <Button
+                                label={`Student FAQ`}
+                                //btnClass={`primary float-end mb-3 ${activeButton === 'student' ? 'active' : ''}`}
+                                btnClass="primary float-end mb-3"
+                                size="small"
+                                style={{
+                                    backgroundColor: activeButton === 'student' ? '#0d6efd' : '#ffcb34',
+                                    color: activeButton === 'student' ? 'white' : 'black',
+                                   
+                                }}
+                                onClick={() => {
+                                    setActiveButton('student');
+                                    getFaqByCategory(2);
+                                }}
                             />
                             <DataTableExtensions
                                 {...dataProps}
