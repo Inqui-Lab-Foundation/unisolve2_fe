@@ -7,20 +7,34 @@ import {openNotificationWithIcon,getCurrentUser} from '../../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch,useSelector} from 'react-redux';
-import Select from '../Helpers/Select';
+import Select from './Select';
+import DoughnutChart from './DoughnutChart';
 import axios from 'axios';
 import '../reports.scss';
 
-const CourseStatus = () => {
+const TeacherProgressDetailed = () => {
 
     const [district, setdistrict] = React.useState('');
-    const [teacherCourseReportsData, setTeacherCourseReportsData] = useState([]);
-    const [teacherCourseShowTable, setTeacherCourseShowTable] = useState(false);
+    const [reportsData, setReportsData] = useState([]);
+    const [showTable, setShowTable] = useState([]);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const [msg, setMsg] = useState('');
     const dispatch = useDispatch();
     const fullDistrictsNames = useSelector((state) => state?.studentRegistration?.dists);
+
+    const doughnutChartData = {
+        data: {
+            labels: ['Male','Female'],
+            datasets: [
+                {
+                    data:[60,40],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    hoverBackgroundColor: ['#36A2EB', '#FF6384'],
+                }
+            ],
+        },
+    };
 
     useEffect(() => {
         dispatch(getDistrictData());
@@ -28,13 +42,8 @@ const CourseStatus = () => {
 
     const handleDownload = (item) => {
         setMsg(item);
-        let url = '';
-        if (item === 'Teachers Course Completion List') {
-            url = `/reports/courseComplete`;
-        } else {
-            return;
-        }
-
+        const url = item === 'Mentor Details' ? `/reports/mentordeatilscsv` : '';
+        //const token = currentUser?.data[0]?.token;
         const config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + url,
@@ -45,17 +54,10 @@ const CourseStatus = () => {
         };
         axios(config)
             .then(function (response) {
-                if (response.status === 200) {
-                    const msg = 
-                    item === 'Teachers Course Completion List' 
-                        ? 'Teachers Course Completion Download Successfully' 
-                        : '';
-
-                    if (item === 'Teachers Course Completion List') {
-                        setTeacherCourseReportsData(response?.data?.data);
-                        setTeacherCourseShowTable(true);
-                    }
-                    openNotificationWithIcon('success', msg);
+                if (response.status === 200 && item === 'Mentor Details') {
+                    setReportsData(response?.data?.data);
+                    setShowTable(true);
+                    openNotificationWithIcon('success', 'Teacher Progress Detailed Report Downloaded Successfully');
                 }
                 const element = document.getElementById('CSVBtn');
                 element.click();
@@ -66,9 +68,8 @@ const CourseStatus = () => {
     };
 
     const fetchData = (item) => {
-        const url = 
-        item === 'Teachers Course Completion List' ? '/reports/courseComplete' : '';
-    
+        const url = item === 'Mentor Details' ? `/reports/mentordeatilscsv` : '';
+
         const config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + url,
@@ -80,8 +81,8 @@ const CourseStatus = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setTeacherCourseReportsData(response?.data?.data);
-                    setTeacherCourseShowTable(true);
+                    setReportsData(response?.data?.data);
+                    setShowTable(true);
                 }
             })
             .catch(function (error) {
@@ -92,9 +93,9 @@ const CourseStatus = () => {
     return (
         <>
             <Layout>
-                <Container className="RegReports mt-5 mb-30 userlist">
+                <Container className="RegReports mt-3 mb-10 userlist">
                     <Row className="mt-0 pt-2">
-                        <Col><h2>Course Completion Reports </h2></Col>
+                        <Col><h2>TEACHER PROGRESS DETAILED REPORT</h2></Col>
                         <Col className="text-right mb-1">
                             <Button
                                 label="Back"
@@ -106,7 +107,6 @@ const CourseStatus = () => {
                         </Col>
                         <div className="reports-data p-5 mt-5 bg-white">
                             <Row className="align-items-center">
-                                <h2>Course Completed Teachers List</h2>
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -117,24 +117,34 @@ const CourseStatus = () => {
                                         />
                                     </div>
                                 </Col>
-                                <Col md={3} className="d-flex align-items-center justify-content-center">
-                                        
+                                {/* <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={}
+                                            setValue={}
+                                            placeHolder={'Select category'}
+                                            value={}
+                                        />
+                                    </div>
+                                </Col> */}
+                                <Col md={3} className="d-flex align-items-center justify-content-center">   
                                     <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
                                         onClick={() =>
-                                            fetchData('Teachers Course Completion List')
+                                            fetchData('Mentor Details')
                                         }
                                         style={{
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
                                     />
-
                                     <Button
-                                        onClick={() => {handleDownload('Teachers Course Completion List');}}
+                                        onClick={() =>
+                                            handleDownload('Mentor Details')
+                                        }
                                         label={'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
@@ -150,30 +160,18 @@ const CourseStatus = () => {
                         </div>
                     </Row>
 
-                    {teacherCourseShowTable && (
+                    {showTable && (
                         <Row className="mt-5">
-                            <Col>
-                                <div className="table-wrapper bg-white">
-                                    <h2
-                                        style={{
-                                            color: 'deepskyblue',
-                                            textAlign: 'center',
-                                            fontFamily: 'Algerian',
-                                            fontSize: '8px'
-                                        }}
-                                    >
-                                        DATA GRID WITH SEARCH & PAGINATION
-                                    </h2>
-                                </div>
+                            <Col md={8}>
                                 <div
                                     className="table-wrapper"
                                     style={{
                                         backgroundColor: 'white',
                                         padding: '20px',
-                                        maxHeight: '300px',
                                         overflowY: 'auto'
                                     }}
                                 >
+                                    <h2>OVERVIEW</h2>
                                     <Table className="table table-striped table-bordered responsive">
                                         <thead
                                             style={{
@@ -190,7 +188,7 @@ const CourseStatus = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {teacherCourseReportsData.map(
+                                            {reportsData.map(
                                                 (item, index) => (
                                                     <tr key={index}>
                                                         <td>{item.organization_code}</td>
@@ -203,6 +201,11 @@ const CourseStatus = () => {
                                     </Table>
                                 </div>
                             </Col>
+                            <Col md={4}>
+                                {/* Place your doughnut chart component here */}
+                                {/* For example: */}
+                                <DoughnutChart chartConfig={doughnutChartData} />
+                            </Col>
                         </Row>
                     )}
                 </Container>
@@ -211,10 +214,10 @@ const CourseStatus = () => {
                 <CSVLink
                     style={{ display: 'none' }}
                     id="CSVBtn"
-                    data={teacherCourseReportsData}
+                    data={reportsData}
                     filename={
-                        msg === 'Teachers Course Completion List'
-                            ? 'Teacher Course Completion.csv'
+                        msg === 'Mentor Details'
+                            ? 'Teacher Progress Detailed List.csv'
                             : 'Report.csv'
                     }
                 />
@@ -223,5 +226,5 @@ const CourseStatus = () => {
     );
 };
 
-export default CourseStatus;
+export default TeacherProgressDetailed;
 
