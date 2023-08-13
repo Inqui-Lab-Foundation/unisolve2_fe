@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -61,17 +62,19 @@ const AddNewSchool = (props) => {
                 .email('Invalid email address format'),
             principal_name: Yup.string()
                 .optional()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid Name'),
+                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
+                .trim()
+                .required('required'),
             organization_name: Yup.string().required(
                 'Organization  Name is Required'
             ),
             organization_code: Yup.string()
-                .matches(
-                    /^[A-Za-z0-9]*$/,
-                    'Please enter only alphanumeric characters'
-                )
-                .required('UDISE  Code is Required'),
-            city: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid City'),
+                .matches(/^[0-9\s]+$/, 'Entered Wrong DISCE Code')
+                .trim()
+                .required('UDISE  Code is Required')
+                .max(11, 'Please enter Valid DISCE Code'),
+            // .min(10, 'Number is less than 10 digits'),
+            city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/),
             district: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid district')
                 .required('District is Required'),
@@ -137,6 +140,7 @@ const AddNewSchool = (props) => {
                                             value={
                                                 formik.values.organization_code
                                             }
+                                            // isDisabled={holdKey ? true : false}
                                         />
                                         {formik.touched.organization_code &&
                                         formik.errors.organization_code ? (

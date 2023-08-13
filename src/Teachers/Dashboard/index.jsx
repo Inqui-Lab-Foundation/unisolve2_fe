@@ -35,7 +35,7 @@ const Dashboard = () => {
     }, []);
 
     useEffect(() => {
-        if(currentUser?.data[0]?.user_id){
+        if (currentUser?.data[0]?.user_id) {
             dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
         }
     }, [dispatch, currentUser?.data[0]?.user_id]);
@@ -222,7 +222,12 @@ const Dashboard = () => {
                     <Row>
                         <Col style={{ paddingRight: '20px' }}>
                             <Row>
-                                <Card bg="light" text="dark" className="mb-4">
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="mb-4"
+                                    style={{ width: '350px' }}
+                                >
                                     <Card.Body>
                                         <label htmlFor="teams" className="">
                                             Number of Teams
@@ -245,12 +250,21 @@ const Dashboard = () => {
                                 </Card>
                             </Row>
                             <Row>
-                                <Card bg="light" text="dark" className="mb-4">
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="mb-4 card"
+                                    style={{ width: '350px' }}
+                                >
                                     <Card.Body>
-                                        <label htmlFor="teams" className="">
+                                        <label
+                                            htmlFor="teams"
+                                            className="cardbody"
+                                        >
                                             Course Complete
                                         </label>
                                         <Card.Text
+                                            className="cardtext"
                                             style={{
                                                 fontSize: '48px',
                                                 fontWeight: 'bold',
@@ -261,12 +275,14 @@ const Dashboard = () => {
                                             {dashboardStates &&
                                             dashboardStates?.course_completed_count !==
                                                 undefined
-                                                ? `${Math.round(
-                                                    (dashboardStates?.course_completed_count /
-                                                    dashboardStates?.Total_course_count) *
-                                                    100
-                                                    ) + ' %' }`
-                                              : '-'}
+                                                ? `${
+                                                      Math.round(
+                                                          (dashboardStates?.course_completed_count /
+                                                              dashboardStates?.Total_course_count) *
+                                                              100
+                                                      ) + ' %'
+                                                  }`
+                                                : '-'}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -274,7 +290,12 @@ const Dashboard = () => {
                         </Col>
                         <Col>
                             <Row>
-                                <Card bg="light" text="dark" className="mb-4">
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="mb-4"
+                                    style={{ width: '350px' }}
+                                >
                                     <Card.Body>
                                         <label htmlFor="teams" className="">
                                             Total Students
@@ -296,7 +317,12 @@ const Dashboard = () => {
                                 </Card>
                             </Row>
                             <Row>
-                                <Card bg="light" text="dark" className="mb-4">
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="mb-4"
+                                    style={{ width: '350px' }}
+                                >
                                     <Card.Body>
                                         <label htmlFor="teams" className="">
                                             Number of Ideas
@@ -322,7 +348,11 @@ const Dashboard = () => {
                         </Col>
 
                         <Col>
-                            <Card bg="light" text="dark" className=" md-3 xs-12 ">
+                            <Card
+                                bg="light"
+                                text="dark"
+                                className=" md-3 xs-12 "
+                            >
                                 <Card.Body style={{ overflowX: 'auto' }}>
                                     <LatestNewsNew
                                         usersdata={currentUser?.data}

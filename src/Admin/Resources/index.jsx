@@ -13,7 +13,10 @@ import { Button } from '../../stories/Button';
 import { useHistory } from 'react-router-dom';
 // import { ReactDOM } from 'react-dom';
 // import * as ReactDOM from 'react-dom';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import logout from '../../assets/media/logout.svg';
 
+import 'sweetalert2/src/sweetalert2.scss';
 const AdminResources = () => {
     const history = useHistory();
     const [resList, setResList] = useState([]);
@@ -54,111 +57,97 @@ const AdminResources = () => {
         localStorage.setItem('resID', JSON.stringify(item));
     };
 
-    const handleDelete = async (item) => {
-        const resourceID = item.resource_id;
-        const confirmed = window.confirm(
-            'Are you sure you want to delete this resource?'
-        );
-        if (!confirmed) {
-            return;
-        }
-        try {
-            const response = await axios.delete(
-                `${process.env.REACT_APP_API_BASE_URL}/resource/${resourceID}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                    }
-                }
-            );
-            if (response.status === 200) {
-                openNotificationWithIcon(
-                    'success',
-                    'Resource succesfully deleted'
-                );
-                handleResList();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // const handleDic = (item) => {
-    //     // where we can select district //
-    //     // where item = district //
-    //     history.push({
-    //         pathname: '/admin/selectingDistricts-evaluationProcess'
-    //     });
-    //     localStorage.setItem('eavlId', JSON.stringify(item));
-    // };
-
-    // const handleActiveStatusUpdate = (item, itemA) => {
-    //     // where we can update the evaluation status //
-    //     // where item = evaluation process id //
-    //     // where itemA = status //
-    //     const body = {
-    //         status: itemA,
-    //         role: item.role,
-    //         details: item.details,
-    //         type: item.type
-    //     };
-    //     var config = {
-    //         method: 'put',
-    //         url:
-    //             process.env.REACT_APP_API_BASE_URL +
-    //             '/resource/' +
-    //             item.evaluation_process_id,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             // console.log(response);
-    //             if (response.status === 200) {
-    //                 handleResList();
-
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Status update successfully'
-    //                 );
+    // const handleDelete = async (item) => {
+    //     const resourceID = item.resource_id;
+    //     const confirmed = window.confirm(
+    //         'Are you sure you want to delete this resource?'
+    //     );
+    //     if (!confirmed) {
+    //         return;
+    //     }
+    //     try {
+    //         const response = await axios.delete(
+    //             `${process.env.REACT_APP_API_BASE_URL}/resource/${resourceID}`,
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //                 }
     //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //             openNotificationWithIcon('error', 'Something went wrong');
-    //         });
+    //         );
+    //         if (response.status === 200) {
+    //             openNotificationWithIcon(
+    //                 'success',
+    //                 'Resource succesfully deleted'
+    //             );
+    //             handleResList();
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
     // };
+    const handleDelete = (item) => {
+        // here we can delete the team //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
-    // let staticData = [
-    //     {
-    //       id: 1,
-    //       role: 'Schema 1',
-    //       details: 'd1',
-    //       type: 'file',
-    //       file: 'f1.pdf',
-    //       link: ''
-    //       // other properties...
-    //     },
-    //     {
-    //       id: 2,
-    //       role: 'Schema 2',
-    //       details: 'd2',
-    //       type: 'link',
-    //       file: '',
-    //       link: 'https://drive.google.com/file/d/1X_VjJzR1RpGdpPotYNknpCNPm4DZgmzt/view?usp=sharing'
-    //       // other properties...
-    //     },
-    //     // Add more objects as needed
-    //   ];
-
-    //   ReactDOM.render(
-    //     <createResource staticData={staticData} />,
-    //     document.getElementById('root')
-    // );
+        swalWithBootstrapButtons
+            .fire({
+                title: 'Are you sure you want to delete this news?',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Delete',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    var config = {
+                        method: 'delete',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/resource/' +
+                            item.resource_id,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Accept: "application/json",
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                        }
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                openNotificationWithIcon(
+                                    'success',
+                                    'Are you sure you want to delete this resource?'
+                                );
+                                handleResList();
+                            } else {
+                                openNotificationWithIcon(
+                                    'error',
+                                    'Opps! Something Wrong'
+                                );
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Team not Deleted',
+                        'error'
+                    );
+                }
+            });
+    };
 
     const resData = {
         data: resList && resList.length > 0 ? resList : [],
@@ -171,15 +160,7 @@ const AdminResources = () => {
                 width: '10%'
                 // center: true,
             },
-            // {
-            //     name: 'Evaluation Id',
-            //     selector: 'evaluation_process_id',
-            //     // cellExport: (row) => row.evaluation_process_id,
 
-            //     sortable: true,
-            //     width: '12%'
-            //     // center: true,
-            // },
             {
                 name: 'Role',
                 selector: 'role',
@@ -191,27 +172,7 @@ const AdminResources = () => {
                 selector: 'description',
                 width: '35rem'
             },
-            // {
-            //     name: 'Type',
-            //     selector: 'type',
-            //     width: '15%',
-            //     // cell: (record) => {
-            //     //     if (record.type === 'file') {
-            //     //         return (
-            //     //             <a href={record.file} download>
-            //     //                 <button className="btn btn-primary">Download</button>
-            //     //             </a>
-            //     //         );
-            //     //     } else if (record.type === 'link') {
-            //     //         return (
-            //     //             <a href={record.navigation}>
-            //     //                 <button className="btn btn-primary">Navigate</button>
-            //     //             </a>
-            //     //         );
-            //     //     }
-            //     //     return null;
-            //     // },
-            // },
+
             {
                 name: 'File/Link',
                 selector: 'attachments',
@@ -273,43 +234,6 @@ const AdminResources = () => {
                                 DELETE
                             </div>
                         </div>
-                        {/* <Link
-                            exact="true"
-                            key={record}
-                            onClick={() => handleDic(record)}
-                            style={{ marginRight: '12px' }}
-                        >
-                            <div className="btn btn-success btn-lg mx-2">
-                                DISTRICTS
-                            </div>
-                        </Link> */}
-                        {/* {record.status == 'ACTIVE' ? (
-                            <Link
-                                exact="true"
-                                key={record}
-                                onClick={() =>
-                                    handleActiveStatusUpdate(record, 'INACTIVE')
-                                }
-                                style={{ marginRight: '5px' }}
-                            >
-                                <div className="btn btn-danger btn-lg  mx-2">
-                                    INACTIVE
-                                </div>
-                            </Link>
-                        ) : (
-                            <Link
-                                exact="true"
-                                key={record}
-                                onClick={() =>
-                                    handleActiveStatusUpdate(record, 'ACTIVE')
-                                }
-                                style={{ marginRight: '12px' }}
-                            >
-                                <div className="btn btn-warning btn-lg  mx-2">
-                                    ACTIVE
-                                </div>
-                            </Link>
-                        )} */}
                     </>
                 ]
             }

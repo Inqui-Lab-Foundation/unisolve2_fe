@@ -253,9 +253,12 @@ const TicketResponse = (props) => {
                                                         name=" selectStatusTicket"
                                                         id=" selectStatusTicket"
                                                         className="form-control custom-dropdown"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        onChange={(e) => {
+                                                            formik.setFieldValue(
+                                                                'selectStatusTicket',
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                         // onChange={(option) => {
                                                         //     formik.setFieldValue(
                                                         //         'selectStatus',

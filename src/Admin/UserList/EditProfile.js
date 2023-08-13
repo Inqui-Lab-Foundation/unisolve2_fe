@@ -10,7 +10,6 @@ import axios from 'axios';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { getAdminEvalutorsList } from '../store/adminEvalutors/actions';
@@ -25,20 +24,7 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-    const headingDetails = {
-        title: 'User Edit Details',
 
-        options: [
-            {
-                title: 'User List',
-                path: '/admin/userlist'
-            },
-            {
-                title: 'User Edit Profile',
-                path: '/admin/userlist'
-            }
-        ]
-    };
     // const phoneRegExp = /^[0-9\s]+$/;
 
     const getValidationSchema = (data) => {
@@ -49,8 +35,14 @@ const EditProfile = (props) => {
                 .min(2, 'Enter a valid name')
                 .required('Name is Required'),
             email: Yup.string()
-                .email('Invalid email address format')
-                .required('Email is required')
+                .required('required')
+                .trim()
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits')
         });
         // if (data?.mentor_id)
         //     adminValidation['phone'] = Yup.string()
@@ -153,7 +145,8 @@ const EditProfile = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
+                        <h3 className="mb-5">User Edit Profile</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
