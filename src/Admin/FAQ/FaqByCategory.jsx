@@ -93,6 +93,15 @@ const FaqByCategory = () => {
                 width: '10%'
             },
             {
+                name: 'Category',
+                cell: (row) => (
+                    <span>
+                        {row.faq_category_id === 1 ? 'Teacher' : 'Student'}
+                    </span>
+                ),
+                width: '20%'
+            },
+            {
                 name: 'Questions',
                 selector: 'question',
                 width: '50%',

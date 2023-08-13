@@ -5,9 +5,10 @@ import {
     Row,
     Col,
     Card,
-    CardTitle,
+    // CardTitle,
     CardBody,
-    CardText
+    CardText,
+    Button
 } from 'reactstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -124,10 +125,10 @@ const MyProfile = () => {
                                                                 }
                                                             </b>
                                                         </CardText>
-                                                        <CardText>
+                                                        {/*   <CardText>
                                                             <span>state :</span>{' '}
                                                             <b>Maldives</b>
-                                                        </CardText>
+                                                            </CardText> */}
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -137,19 +138,34 @@ const MyProfile = () => {
                                         <br />
                                         <Row>
                                             <Col md={6}>
-                                                <CardText>
+                                                {/*    <CardText>
                                                     <CardTitle className="pb-2">
                                                         Password
                                                     </CardTitle>
-                                                </CardText>
-                                                <CardText>
-                                                    <div
+                                                        </CardText> */}
+
+                                                {/*  <div
                                                         onClick={showModal}
+                                                        
                                                         className="my-auto pt-0 text-link text-primary"
                                                     >
                                                         Change Password
-                                                    </div>
-                                                </CardText>
+                                                    </div> */}
+                                                <div>
+                                                    <Button
+                                                        size="small"
+                                                        //className="btn  btn-lg   text-black"
+                                                        className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#ffcb34'
+                                                        }}
+                                                        onClick={showModal}
+                                                    >
+                                                        {' '}
+                                                        Change Password
+                                                    </Button>
+                                                </div>
                                             </Col>
                                         </Row>
                                     </CardBody>
