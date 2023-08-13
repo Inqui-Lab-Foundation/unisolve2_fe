@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { FormGroup, Input, Label, Row, Col } from 'reactstrap';
@@ -26,7 +27,7 @@ const Question = (props) => {
         const { name, checked } = e.target;
         const optionNumber = parseInt(name.split('@')[1]);
         const optionName = name.split('@')[0];
-      
+
         if (checked) {
             setIsCheck((prevIsCheck) => [
                 ...prevIsCheck,
@@ -34,20 +35,21 @@ const Question = (props) => {
             ]);
         } else {
             setIsCheck((prevIsCheck) =>
-                prevIsCheck.filter((item) => item.optionName !== optionName || item.optionNumber !== optionNumber)
+                prevIsCheck.filter(
+                    (item) =>
+                        item.optionName !== optionName ||
+                        item.optionNumber !== optionNumber
+                )
             );
         }
     };
-       
+
     useEffect(() => {
         const selectedAns = isCheck.map((item) => item.optionName).toString();
         const allAns = selectedAns.replace(/,/g, '{{}}');
         // const selectedAns = isCheck.map((item) => item.name).join('{{}}');
         props.onSelectAnswer(allAns);
     }, [isCheck]);
-      
-      
-      
 
     useEffect(() => {
         props.onSelectAnswer(cAnswer);
@@ -77,14 +79,15 @@ const Question = (props) => {
     const ans = {
         type: 'text',
         className: 'defaultInput',
-        placeholder: 'Please Answer',
+        placeholder: 'Please Answer'
     };
 
     useEffect(() => {
-        const sortedIsCheck = [...isCheck].sort((a, b) => a.optionNumber - b.optionNumber);
+        const sortedIsCheck = [...isCheck].sort(
+            (a, b) => a.optionNumber - b.optionNumber
+        );
         setIsCheck(sortedIsCheck);
     }, [isCheck.length]);
-      
 
     return (
         <Fragment>
@@ -110,18 +113,23 @@ const Question = (props) => {
                         src={quiz[0].question_icon}
                         alt={quiz[0].question_icon}
                         className="img-fluid"
-                        style={{ marginRight: '2rem', marginLeft: '2rem', width: '15%' }}
+                        style={{
+                            marginRight: '2rem',
+                            marginLeft: '2rem',
+                            width: '15%'
+                        }}
                     />
                 )}
                 <span
                     dangerouslySetInnerHTML={{
-                        __html: quiz[0] && quiz[0].question,
+                        __html: quiz[0] && quiz[0].question
                     }}
                 ></span>
             </div>
 
             <div>
-                {props.responceData && props.responceData.status === 200 ? null : (
+                {props.responceData &&
+                props.responceData.status === 200 ? null : (
                     <div>
                         {quiz[0] && quiz[0].type === 'TEXT' && (
                             <div className="answers">
@@ -130,7 +138,9 @@ const Question = (props) => {
                                         {...ans}
                                         id="Ans"
                                         name="Please Answer"
-                                        onChange={(e) => setAnswer(e.target.value)}
+                                        onChange={(e) =>
+                                            setAnswer(e.target.value)
+                                        }
                                         value={cAnswer}
                                     />
                                 </label>
@@ -138,7 +148,8 @@ const Question = (props) => {
                         )}
                     </div>
                 )}
-                {props.responceData && props.responceData.status === 200 ? null : (
+                {props.responceData &&
+                props.responceData.status === 200 ? null : (
                     <div>
                         {quiz[0] && quiz[0].type === 'DRAW' && (
                             <div className="answers">
@@ -146,12 +157,16 @@ const Question = (props) => {
                                     <Col md={3}>
                                         {!image ? (
                                             <div className="wrapper">
-                                                <div className="btnimg">Upload File</div>
+                                                <div className="btnimg">
+                                                    Upload File
+                                                </div>
                                                 <input
                                                     type="file"
                                                     name="file"
                                                     accept={'.pdf,.csv'}
-                                                    onChange={(e) => changeHandler(e)}
+                                                    onChange={(e) =>
+                                                        changeHandler(e)
+                                                    }
                                                 />
                                             </div>
                                         ) : null}
@@ -179,7 +194,9 @@ const Question = (props) => {
                                             <Col md={2} className="my-auto">
                                                 {image ? (
                                                     <Button
-                                                        onClick={removeSelectedImage}
+                                                        onClick={
+                                                            removeSelectedImage
+                                                        }
                                                         btnClass="primary py-2 px-4"
                                                         size="small"
                                                         label="Remove"
@@ -195,7 +212,8 @@ const Question = (props) => {
                         )}
                     </div>
                 )}
-                {((quiz[0] && quiz[0].type === 'MRQ') || (quiz[0] && quiz[0].type === 'MCQ')) && (
+                {((quiz[0] && quiz[0].type === 'MRQ') ||
+                    (quiz[0] && quiz[0].type === 'MCQ')) && (
                     <div className="answers">
                         {quiz[0] &&
                             quiz[0].options.map((answer, i) => {
@@ -203,7 +221,9 @@ const Question = (props) => {
 
                                 const optionNumber = i + 1;
                                 const isCorrectAnswer =
-                                    props.responceData?.data[0]?.correct_answer?.includes(answer) || false;
+                                    props.responceData?.data[0]?.correct_answer?.includes(
+                                        answer
+                                    ) || false;
 
                                 // const isCorrectAnswer = props.responceData &&
                                 //      props.responceData.data[0] &&
@@ -214,12 +234,21 @@ const Question = (props) => {
                                 //     props.responceData.data[0].correct_answer !== answer;
 
                                 const isWrongAnswer =
-                                    answer === cAnswer &&
-                                    !props.responceData?.data[0]?.correct_answer?.includes(answer) || false;
+                                    (answer === cAnswer &&
+                                        !props.responceData?.data[0]?.correct_answer?.includes(
+                                            answer
+                                        )) ||
+                                    false;
 
                                 const areWrongAnswers =
-                                    isCheck.find(item => item.optionName === answer && item.optionNumber === optionNumber) &&
-                                    !props.responceData?.data[0]?.correct_answer?.includes(answer);
+                                    isCheck.find(
+                                        (item) =>
+                                            item.optionName === answer &&
+                                            item.optionNumber === optionNumber
+                                    ) &&
+                                    !props.responceData?.data[0]?.correct_answer?.includes(
+                                        answer
+                                    );
 
                                 // const answerStyle = {
                                 //     backgroundColor: isCorrectAnswer ? 'MediumSeaGreen' : isWrongAnswer ? 'Tomato' : '',
@@ -228,101 +257,155 @@ const Question = (props) => {
                                 // };
 
                                 // Map option text to option numbers
-                                
+
                                 // const optionNumber = `option-${optionNumber}`;
 
                                 return (
                                     <div className="answer" key={i}>
                                         {quiz[0] && quiz[0].type === 'MCQ' ? (
-                                            <label
-                                                htmlFor={answer}
-                                                className="my-auto d-flex"
-                                                style={{
-                                                    backgroundColor: isCorrectAnswer
-                                                        ? 'LightGreen'
-                                                        : areWrongAnswers && isSubmitted
-                                                            ? 'Orange'
+                                            <>
+                                                <label
+                                                    htmlFor={answer}
+                                                    className="my-auto d-flex"
+                                                    style={{
+                                                        backgroundColor:
+                                                            isCorrectAnswer
+                                                                ? 'LightGreen'
+                                                                : areWrongAnswers &&
+                                                                  isSubmitted
+                                                                ? 'Orange'
+                                                                : '',
+                                                        border: isCorrectAnswer
+                                                            ? '2px solid green'
+                                                            : areWrongAnswers &&
+                                                              isSubmitted
+                                                            ? '2px solid red'
                                                             : '',
-                                                    border: isCorrectAnswer 
-                                                        ? '2px solid green' 
-                                                        : areWrongAnswers && isSubmitted
-                                                            ? '2px solid red' 
-                                                            : '',
-                                                    paddingTop: '1.5rem',
-                                                    paddingBottom: '1.5rem',
-                                                    borderRadius: '1rem'
-                                                }}
-                                            >
-                                                <Input
-                                                    name={answer + '@' + optionNumber}
-                                                    type="checkbox"
-                                                    className="mx-2"
-                                                    onChange={handleClick}
-                                                    // style={{ margin: 'auto' }}
-                                                    checked={isCheck.find(item => item.optionName === answer && item.optionNumber === optionNumber)}
-                                                    id={answer}
-                                                    disabled={props.responceData && props.responceData.status === 200}
-                                                />
-                                                <div className="flex-grow-1" 
-                                                    style={{color: isCorrectAnswer
-                                                        ? 'Green'
-                                                        : areWrongAnswers && isSubmitted
-                                                            ? 'Red'
-                                                            : '',
-                                                    }}>
-                                                    {answer}
-                                                </div>
-                                            </label>
+                                                        paddingTop: '1.5rem',
+                                                        paddingBottom: '1.5rem',
+                                                        fontWeight: 'bold',
+                                                        borderRadius: '1rem'
+                                                    }}
+                                                >
+                                                    <Input
+                                                        name={
+                                                            answer +
+                                                            '@' +
+                                                            optionNumber
+                                                        }
+                                                        type="checkbox"
+                                                        style={{
+                                                            fontWeight: 'bold'
+                                                        }}
+                                                        className="mx-2"
+                                                        onChange={handleClick}
+                                                        // style={{ margin: 'auto' }}
+                                                        checked={isCheck.find(
+                                                            (item) =>
+                                                                item.optionName ===
+                                                                    answer &&
+                                                                item.optionNumber ===
+                                                                    optionNumber
+                                                        )}
+                                                        id={answer}
+                                                        disabled={
+                                                            props.responceData &&
+                                                            props.responceData
+                                                                .status === 200
+                                                        }
+                                                    />
+                                                    <div
+                                                        className="flex-grow-1"
+                                                        style={{
+                                                            color: isCorrectAnswer
+                                                                ? 'Green'
+                                                                : areWrongAnswers &&
+                                                                  isSubmitted
+                                                                ? 'Red'
+                                                                : ''
+                                                        }}
+                                                    >
+                                                        {answer}
+                                                    </div>
+                                                </label>
+                                                <br />
+                                            </>
                                         ) : (
                                             <FormGroup
                                                 check
                                                 className="answer-text d-flex mx-2"
                                                 style={{
-                                                    backgroundColor: isCorrectAnswer
-                                                        ? 'LightGreen'
-                                                        : isWrongAnswer && isSubmitted
+                                                    backgroundColor:
+                                                        isCorrectAnswer
+                                                            ? 'LightGreen'
+                                                            : isWrongAnswer &&
+                                                              isSubmitted
                                                             ? 'Orange'
                                                             : '',
-                                                    border: isCorrectAnswer 
-                                                        ? '2px solid green' 
-                                                        : isWrongAnswer && isSubmitted
-                                                            ? '2px solid red' 
-                                                            : '',
+                                                    border: isCorrectAnswer
+                                                        ? '2px solid green'
+                                                        : isWrongAnswer &&
+                                                          isSubmitted
+                                                        ? '2px solid red'
+                                                        : '',
                                                     paddingTop: '1.5rem',
                                                     paddingBottom: '1.5rem',
+                                                    fontWeight: 'bold',
                                                     borderRadius: '1rem'
                                                 }}
                                             >
                                                 <Input
-                                                    onChange={() => setAnswer(answer)}
+                                                    onChange={() =>
+                                                        setAnswer(answer)
+                                                    }
                                                     className="my-auto"
                                                     name="radio1"
+                                                    style={{
+                                                        fontWeight: 'bold'
+                                                    }}
                                                     type="radio"
                                                     id={answer}
-                                                    disabled={props.responceData &&
-                                                        props.responceData.status === 200 ? true : false}
+                                                    disabled={
+                                                        props.responceData &&
+                                                        props.responceData
+                                                            .status === 200
+                                                            ? true
+                                                            : false
+                                                    }
                                                 />
                                                 {file[1] === 'png' ? (
-                                                    <figure htmlFor={answer} className="text-center my-auto mx-3">
+                                                    <figure
+                                                        htmlFor={answer}
+                                                        className="text-center my-auto mx-3"
+                                                    >
                                                         <img
                                                             src={answer}
                                                             alt={answer}
                                                             className="img-fluid"
-                                                            style={{ width: '50px' }}
+                                                            style={{
+                                                                width: '50px'
+                                                            }}
                                                             htmlFor={answer}
                                                         />
                                                     </figure>
                                                 ) : (
-                                                    <Label htmlFor={answer} 
-                                                        style={{color: isCorrectAnswer
-                                                            ? 'Green'
-                                                            : isWrongAnswer && isSubmitted
-                                                                ? 'Red'
-                                                                : '',
-                                                        }}
-                                                        className="px-3">
-                                                        {answer}
-                                                    </Label>
+                                                    <>
+                                                        <Label
+                                                            htmlFor={answer}
+                                                            style={{
+                                                                color: isCorrectAnswer
+                                                                    ? 'Green'
+                                                                    : isWrongAnswer &&
+                                                                      isSubmitted
+                                                                    ? 'Red'
+                                                                    : ''
+                                                            }}
+                                                            className="px-3"
+                                                        >
+                                                            {answer}
+                                                        </Label>
+                                                        <br />
+                                                    </>
                                                 )}
                                             </FormGroup>
                                         )}
@@ -337,7 +420,3 @@ const Question = (props) => {
 };
 
 export default Question;
-
-
-
-

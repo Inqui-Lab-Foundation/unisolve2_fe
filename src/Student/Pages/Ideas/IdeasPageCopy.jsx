@@ -93,6 +93,7 @@ const IdeasPageNew = () => {
     const [files, setFiles] = useState([]);
     const [uploadQId, setuploadQId] = useState(null);
     const [immediateLink, setImmediateLink] = useState(null);
+    const [hide, setHide] = useState(false);
     const [others, setOthers] = useState(
         challengesSubmittedResponse[0]?.others
     );
@@ -1464,32 +1465,36 @@ const IdeasPageNew = () => {
                                     />
                                     <p>{screenCount}</p>
                                     <div>
+                                        {screenCount < 4 && (
+                                            <Button
+                                                type="button"
+                                                btnClass={
+                                                    screenCount < 4
+                                                        ? 'primary'
+                                                        : 'default'
+                                                }
+                                                onClick={handleNext}
+                                                size="small"
+                                                // disabled={
+                                                //     !(screenCount < 4 )
+                                                // }
+                                                label="Next"
+                                            />
+                                        )}
                                         <Button
                                             type="button"
-                                            btnClass={
-                                                screenCount < 4
-                                                    ? 'primary'
-                                                    : 'default'
+                                            btnClass="me-3 text-white"
+                                            backgroundColor="#067DE1"
+                                            onClick={(e) =>
+                                                handleSubmit(e, 'DRAFT')
                                             }
-                                            onClick={handleNext}
                                             size="small"
-                                            disabled={!(screenCount < 4)}
-                                            label="Next"
+                                            label={`${
+                                                loading.draft
+                                                    ? t('teacher_teams.loading')
+                                                    : t('teacher_teams.draft')
+                                            }`}
                                         />
-                                        <Button
-                                        type="button"
-                                        btnClass="me-3 text-white"
-                                        backgroundColor="#067DE1"
-                                        onClick={(e) =>
-                                            handleSubmit(e, 'DRAFT')
-                                        }
-                                        size="small"
-                                        label={`${
-                                            loading.draft
-                                                ? t('teacher_teams.loading')
-                                                : t('teacher_teams.draft')
-                                        }`}
-                                    />
                                     </div>
                                 </Col>
                             </Row>

@@ -145,7 +145,11 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                            <a
+                                href={
+                                    'https://s3kmz83xhk.execute-api.ap-south-1.amazonaws.com'
+                                }
+                            >
                                 <Col
                                     md={12}
                                     className="d-flex justify-content-center align-items-center"

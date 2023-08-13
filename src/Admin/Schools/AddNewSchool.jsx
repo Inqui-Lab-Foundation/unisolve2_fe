@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -16,12 +16,23 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
+import Select from './../Challenges/pages/Select';
+import { getDistrictData } from '../../redux/studentRegistration/actions';
+import { useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 const AddNewSchool = (props) => {
+    const dispatch = useDispatch();
+
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
     };
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
+
     // const phoneRegExp = /^[0-9\s]+$/;
     // const headingDetails = {
     //     title: 'Add New Institution Details',
@@ -37,6 +48,9 @@ const AddNewSchool = (props) => {
     //         }
     //     ]
     // };
+    useEffect(() => {
+        dispatch(getDistrictData());
+    }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -109,6 +123,7 @@ const AddNewSchool = (props) => {
                 });
         }
     });
+    // console.log('formik.values.district', formik.values.district);
 
     return (
         <Layout>
@@ -204,7 +219,22 @@ const AddNewSchool = (props) => {
                                             District
                                             <span required>*</span>
                                         </Label>
-                                        <InputBox
+                                        <Col md={3}>
+                                            {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
+                                            <Select
+                                                list={fullDistrictsNames}
+                                                setValue={(value) =>
+                                                    formik.setFieldValue(
+                                                        'district',
+                                                        value
+                                                    )
+                                                }
+                                                placeHolder={'Select District'}
+                                                value={formik.values.district}
+                                            />
+                                            {/* </div> */}
+                                        </Col>
+                                        {/* <InputBox
                                             {...inputDICE}
                                             id="district"
                                             name="district"
@@ -212,7 +242,7 @@ const AddNewSchool = (props) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.district}
-                                        />
+                                        /> */}
                                         {formik.touched.district &&
                                         formik.errors.district ? (
                                             <small className="error-cls">
@@ -231,6 +261,7 @@ const AddNewSchool = (props) => {
                                             onBlur={formik.handleBlur}
                                             value={formik.values.state}
                                         />
+
                                         {formik.touched.state &&
                                         formik.errors.state ? (
                                             <small className="error-cls">

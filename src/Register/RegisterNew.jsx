@@ -135,14 +135,14 @@ function RegisterNew() {
                 setErrorMsg(true);
             } else {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                values.password = values.username.trim();
+                var pass = values.username.trim();
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
                 );
                 const iv = CryptoJS.enc.Hex.parse(
                     '00000000000000000000000000000000'
                 );
-                const encrypted = CryptoJS.AES.encrypt(values.username, key, {
+                const encrypted = CryptoJS.AES.encrypt(pass, key, {
                     iv: iv,
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
@@ -158,7 +158,7 @@ function RegisterNew() {
                     gender: values.gender,
                     title: values.title,
                     reg_status: values.reg_status,
-                    password: encrypted.trim()
+                    password: encrypted
                 });
                 var config = {
                     method: 'post',
@@ -467,6 +467,8 @@ function RegisterNew() {
                                                     handleOnChange(e)
                                                 }
                                                 value={diesCode}
+                                                maxLength={11}
+                                                minLength={11}
                                                 name="organization_code"
                                                 placeholder="Enter UDISE Code"
                                                 className="w-100 mb-3 mb-md-0"

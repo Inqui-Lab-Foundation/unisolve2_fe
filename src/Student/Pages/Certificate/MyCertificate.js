@@ -149,7 +149,7 @@ const Certificate = ({
 };
 
 const MyCertificate = () => {
-    const showDummypage = false;
+    const showDummypage = true;
     const { t } = useTranslation();
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage

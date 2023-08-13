@@ -614,11 +614,11 @@ const TicketsPage = (props) => {
                 selector: 'user.username',
                 width: '25rem'
             },
-            // {
-            //     name: 'Mobile',
-            //     selector: 'mobile',
-            //     width: '11%'
-            // },
+            {
+                name: 'Mobile',
+                selector: 'mobile',
+                width: '11%'
+            },
             {
                 name: 'District',
                 selector: 'district',

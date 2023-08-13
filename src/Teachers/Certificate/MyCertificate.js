@@ -18,7 +18,7 @@ const MyCertificate = () => {
     // console.log(currentUser, 'currentUser');
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
     //let tempVar = postSurveyStatus ==="COMPLETED";
-    let tempVar = false;
+    let tempVar = true;
     const handleCertificateDownload = () => {
         // here we can download the certificates //
         const content = pdfRef.current;

@@ -182,7 +182,7 @@ const EditProfile = (props) => {
                                                 className="name-req mt-5"
                                                 htmlFor="email"
                                             >
-                                                Email
+                                                Mobile No
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
