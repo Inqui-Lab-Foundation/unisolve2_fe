@@ -278,6 +278,12 @@ const TicketsPage = (props) => {
                 width: '27rem'
             },
             {
+                name: 'District',
+                selector: 'district',
+                cellExport: (row) => row.district,
+                width: '15rem'
+            },
+            {
                 name: 'Principal Name',
                 selector: 'principal_name',
                 cellExport: (row) => row.principal_name,
