@@ -135,7 +135,7 @@ function RegisterNew() {
                 setErrorMsg(true);
             } else {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                values.password = values.username;
+                values.password = values.username.trim();
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
                 );
