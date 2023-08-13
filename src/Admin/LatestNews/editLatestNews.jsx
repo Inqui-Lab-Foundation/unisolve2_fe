@@ -140,66 +140,90 @@ const EditLatestNews = (props) => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <FormGroup className="form-group" md={12}>
-                                        <Label className="mb-2" htmlFor="role">
-                                            Role
-                                        </Label>
-                                        <select
-                                            name="role"
-                                            id="role"
-                                            className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.role}
-                                        >
-                                            <option value="">
-                                                Select role
-                                            </option>
-                                            <option value="mentor">
-                                                mentor
-                                            </option>
-                                            <option value="student">
-                                                student
-                                            </option>
-                                        </select>
-                                        {formik.touched.role &&
-                                            formik.errors.role && (
-                                                <small className="error-cls">
-                                                    {formik.errors.role}
-                                                </small>
-                                            )}
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="new_status"
-                                        >
-                                            New Status
-                                        </Label>
-                                        <select
-                                            name="new_status"
-                                            id="new_status"
-                                            className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.new_status}
-                                        >
-                                            <option value="">
-                                                Select New Status
-                                            </option>
-                                            <option value="0">Disable</option>
-                                            <option value="1">Enable</option>
-                                        </select>
-                                        {formik.touched.new_status &&
-                                            formik.errors.new_status && (
-                                                <small className="error-cls">
-                                                    {formik.errors.new_status}
-                                                </small>
-                                            )}
+                                        <Row>
+                                            <Col>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="role"
+                                                >
+                                                    Role
+                                                </Label>
+                                                <select
+                                                    name="role"
+                                                    id="role"
+                                                    className="form-control custom-dropdown"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={formik.values.role}
+                                                >
+                                                    <option value="">
+                                                        Select role
+                                                    </option>
+                                                    <option value="mentor">
+                                                        mentor
+                                                    </option>
+                                                    <option value="student">
+                                                        student
+                                                    </option>
+                                                </select>
+                                                {formik.touched.role &&
+                                                    formik.errors.role && (
+                                                        <small className="error-cls">
+                                                            {formik.errors.role}
+                                                        </small>
+                                                    )}
+                                            </Col>
+                                            <Col>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="new_status"
+                                                >
+                                                    New Icon Status
+                                                </Label>
+                                                <select
+                                                    name="new_status"
+                                                    id="new_status"
+                                                    className="form-control custom-dropdown"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values.new_status
+                                                    }
+                                                >
+                                                    <option value="">
+                                                        Select New Status
+                                                    </option>
+                                                    <option value="0">
+                                                        Disable
+                                                    </option>
+                                                    <option value="1">
+                                                        Enable
+                                                    </option>
+                                                </select>
+                                                {formik.touched.new_status &&
+                                                    formik.errors
+                                                        .new_status && (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .new_status
+                                                            }
+                                                        </small>
+                                                    )}
+                                            </Col>
+                                        </Row>
                                         <Label
                                             className="mb-2"
                                             htmlFor="details"
                                         >
                                             Details
                                         </Label>
-                                        <InputBox
+                                        <Input
+                                            type="text"
                                             {...inputDICE}
                                             id="details"
                                             name="details"
@@ -234,7 +258,9 @@ const EditLatestNews = (props) => {
                                                 onBlur={formik.handleBlur}
                                             />
                                             <Button
-                                                label="Upload File"
+                                                label="Upload File "
+                                                btnClass="primary"
+                                                size="small"
                                                 onClick={() => {
                                                     document
                                                         .getElementById(
@@ -258,6 +284,34 @@ const EditLatestNews = (props) => {
                                                         formik.initialValues
                                                             .file_name.name}
                                                 </span>
+                                            )}
+
+                                            {/* Display Download Button */}
+                                            {formik.values.file_name && (
+                                                <button
+                                                    className="btn btn-warning rounded-pill btn-lg mx-2"
+                                                    style={{ color: 'black' }}
+                                                    size="small"
+                                                    label=" "
+                                                >
+                                                    <a
+                                                        href={
+                                                            formik.values
+                                                                .file_name
+                                                        }
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        style={{
+                                                            color: 'black',
+                                                            fontWeight: 'bold',
+                                                            fontSize: '14px',
+                                                            padding:'.5rem'
+                                                        }}
+                                                        className="btn btn-warning rounded-pill btn-lg mx-2"
+                                                    >
+                                                        Download
+                                                    </a>
+                                                </button>
                                             )}
                                         </div>
                                         {formik.touched.file_name &&
