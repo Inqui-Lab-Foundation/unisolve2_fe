@@ -22,7 +22,7 @@ const ForgotPasswordNew = () => {
     const [errorMsg, seterrorMsg] = useState('');
     const inputMobile = {
         type: 'mobile',
-        placeholder: 'Enter your Unisolve registered Mobile Number'
+        placeholder: 'Enter your registered Mobile Number'
     };
 
     const logInBtn = {
@@ -140,7 +140,7 @@ const ForgotPasswordNew = () => {
                                 <span className=" sub mt-2 w-100">
                                     Don’t worry! Resetting your password is
                                     easy, just type in the mobile number you
-                                    registered to Unisolve
+                                    registered to this program
                                 </span>
                                 <Form onSubmit={formik.handleSubmit}>
                                     <div className="form-row row my-5">

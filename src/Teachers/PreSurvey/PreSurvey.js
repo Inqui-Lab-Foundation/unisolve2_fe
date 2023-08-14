@@ -296,7 +296,7 @@ const PreSurvey = () => {
                                             </figure>
                                         </Col>
                                         <Col md={8}>
-                                            <h2>
+                                            <h2 className='text-primary'>
                                                 {t(
                                                     'teacher_get_started.heading'
                                                 )}
