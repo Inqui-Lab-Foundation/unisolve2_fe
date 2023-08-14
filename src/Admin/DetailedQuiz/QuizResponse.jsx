@@ -20,7 +20,7 @@ const QuizResponse = ({ response }) => {
                 )}
                 <div className={`${!accimg ? 'col-12' : 'col-9'}`}>
                     {response.is_correct ? (
-                        <div className="row">
+                        <div className="row mt-5">
                             {parse(
                                 `
                                 <p  className="text-left responce_true">
@@ -30,7 +30,7 @@ const QuizResponse = ({ response }) => {
                             )}
                         </div>
                     ) : (
-                        <div className="row">
+                        <div className="row mt-5">
                             {parse(
                                 `
                         <p  className="text-left responce_false">
