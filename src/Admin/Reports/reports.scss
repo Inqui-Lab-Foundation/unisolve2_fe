@@ -14,21 +14,29 @@
 
 .table-wrapper {
     display:block;
-    max-height:300px;
+    max-height:400px;
+    max-width:max-content;
     overflow-y:auto;
+    overflow-x: hidden; 
+    border: 1px solid #ccc;
+    position: relative;
 }
 .table-wrapper table {
     display:table;
-    width:100%;
-    table-layout:fixed;
+    width: 100px;
+    table-layout:auto;
+    border-collapse: collapse;
 }
 .table-wrapper thead {
     width: calc( 100% - 1em );
+    position: sticky;
+    top: 0; 
+    background-color: #fff;
+    z-index: 2;
+    margin-top: -1px;
+    border-bottom: 1px solid #ccc;
 } 
 
-.no-column {
-    width: 50px; 
-}
 
 .rep{
     margin-top: 0;
