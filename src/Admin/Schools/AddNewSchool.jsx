@@ -61,7 +61,7 @@ const AddNewSchool = (props) => {
             organization_code: '',
             city: '',
             district: '',
-            state: '',
+            state: 'Tamilnadu',
             status: 'ACTIVE'
         },
 
@@ -83,9 +83,13 @@ const AddNewSchool = (props) => {
                 'Organization  Name is Required'
             ),
             organization_code: Yup.string()
-                .matches(/^[0-9\s]+$/, 'Entered Wrong DISCE Code')
+                .matches(
+                    /^[0-9\s]+$/,
+                    'Entered Wrong DISCE Code (Enter only digits)'
+                )
                 .trim()
                 .required('UDISE  Code is Required')
+                .min(11, 'Please enter Valid DISCE Code')
                 .max(11, 'Please enter Valid DISCE Code'),
             // .min(10, 'Number is less than 10 digits'),
             city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/),
@@ -219,8 +223,8 @@ const AddNewSchool = (props) => {
                                             District
                                             <span required>*</span>
                                         </Label>
-                                        <Col md={3}>
-                                            {/* <div className="my-3 d-md-block d-flex justify-content-center"> */}
+                                        {/* <Col md={3}> */}
+                                        <div className="my-3 d-md-block d-flex justify-content-center">
                                             <Select
                                                 list={fullDistrictsNames}
                                                 setValue={(value) =>
@@ -232,8 +236,8 @@ const AddNewSchool = (props) => {
                                                 placeHolder={'Select District'}
                                                 value={formik.values.district}
                                             />
-                                            {/* </div> */}
-                                        </Col>
+                                        </div>
+                                        {/* </Col> */}
                                         {/* <InputBox
                                             {...inputDICE}
                                             id="district"
@@ -257,7 +261,8 @@ const AddNewSchool = (props) => {
                                             id="state"
                                             name="state"
                                             placeholder="Please enter state"
-                                            onChange={formik.handleChange}
+                                            isDisabled={true}
+                                            // onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.state}
                                         />

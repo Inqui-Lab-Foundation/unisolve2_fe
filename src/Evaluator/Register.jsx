@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Label } from 'reactstrap';
@@ -12,12 +12,17 @@ import { URL, KEY } from '../constants/defaultValues';
 import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import { getAdminEvalutorsList } from '../redux/actions';
+import Select from '../Admin/Challenges/pages/Select';
+import { getDistrictData } from '../redux/studentRegistration/actions';
 
+import { useSelector } from 'react-redux';
 const Register = (props) => {
     // here we can add admin / eadmin //
     const handleClose = () => {};
     const dispatch = useDispatch();
-
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
     const phoneRegExp = /^[0-9\s]+$/;
 
     const inputPhone = {
@@ -37,11 +42,14 @@ const Register = (props) => {
         placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
-    const inputCity = {
-        type: 'text',
-        placeholder: 'District Name',
-        className: 'defaultInput'
-    };
+    // const inputCity = {
+    //     type: 'text',
+    //     placeholder: 'District Name',
+    //     className: 'defaultInput'
+    // };
+    useEffect(() => {
+        dispatch(getDistrictData());
+    }, []);
 
     const validationForEvaluator = Yup.object({
         full_name: Yup.string()
@@ -232,9 +240,9 @@ const Register = (props) => {
                             <div className="col-md-6 p-0">
                                 <FormGroup className="form-group mt-5" md={12}>
                                     <Label className="mb-2" htmlFor="district">
-                                        District Name
+                                        District
                                     </Label>
-                                    <InputBox
+                                    {/* <InputBox
                                         {...inputCity}
                                         id="district"
                                         name="district"
@@ -242,7 +250,20 @@ const Register = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.district}
                                         maxLength={50}
-                                    />
+                                    /> */}
+                                    <div className="md-12  justify-content-center">
+                                        <Select
+                                            list={fullDistrictsNames}
+                                            setValue={(value) =>
+                                                formik.setFieldValue(
+                                                    'district',
+                                                    value
+                                                )
+                                            }
+                                            placeHolder={'Select District'}
+                                            value={formik.values.district}
+                                        />
+                                    </div>
 
                                     {formik.touched.district &&
                                     formik.errors.district ? (

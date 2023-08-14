@@ -8,7 +8,7 @@ import { Button } from '../../stories/Button';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import { URL, KEY } from '../../constants/defaultValues';
 // import { staticData } from './index';
@@ -16,7 +16,7 @@ import axios from 'axios';
 const CreateResource = (props) => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
-    const history = useHistory();
+    // const history = useHistory();
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -408,7 +408,16 @@ const CreateResource = (props) => {
                                                 size="small"
                                                 btnClass="primary"
                                                 type="cancel"
-                                                onClick={() => history.goBack()}
+                                                // onClick={() =>
+                                                //     history.push(
+                                                //         'admin/Resources/index'
+                                                //     )
+                                                // }
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        '/admin/Resources/index'
+                                                    )
+                                                }
                                             />
                                         </div>
                                     </Col>
@@ -428,6 +437,7 @@ const CreateResource = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
+                                            disabled={!formik.dirty}
                                         />
                                     </Col>
                                 </Row>
