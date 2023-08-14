@@ -181,7 +181,7 @@ const ViewSelectedIdea = () => {
 
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={6}>
+                                        <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullDistrictsNames}

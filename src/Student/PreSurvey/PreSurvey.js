@@ -359,7 +359,7 @@ const PreSurvey = () => {
                                     </figure>
                                 </Col>
                                 <Col md={8}>
-                                    <h2>{t('student_get_started.heading')}</h2>
+                                    <h2 className='text-primary'>{t('student_get_started.heading')}</h2>
                                     <div
                                         dangerouslySetInnerHTML={{
                                             __html: t(
@@ -911,7 +911,7 @@ const PreSurvey = () => {
 
                                         <div>
                                             <h2>
-                                                {t('teacher_get_started.pre')}
+                                                {t('student_get_started.pre')}
                                             </h2>
                                         </div>
                                     </div>

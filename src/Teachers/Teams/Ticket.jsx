@@ -300,7 +300,7 @@ const TicketsPage = (props) => {
                 </Row>
                 <Row className="pt-5">
                     <Card className="w-100 p-5">
-                        <Label>Instructions for adding teams :</Label>
+                        <Label className='text-danger'>Instructions for adding teams :</Label>
                         <p>
                             Adding student teams is the first and most important
                             step as part of the project. Please ensure you are
@@ -338,9 +338,15 @@ const TicketsPage = (props) => {
                                 Change team option can be used only before
                                 initiating an idea.
                             </li>
-                            {/* <li>
-                                25 to 30 students to be enrolled in Project per School
-                            </li> */}
+                            <li>
+                                If Idea is initiated by a team then 
+                                <ul>
+                                    <li>Students & Team cannot be deleted</li>
+                                    <li>Students cannot be changes / shifted to other teams</li>
+                                </ul>
+                            </li>
+
+                            
                         </List>
                     </Card>
                 </Row>

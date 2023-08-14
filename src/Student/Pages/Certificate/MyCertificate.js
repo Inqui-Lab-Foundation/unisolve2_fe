@@ -196,7 +196,9 @@ const MyCertificate = () => {
         if (!postSurveyStatusGl)
             dispatch(studentPostSurveyCertificate(language));
     }, [language]);
-    const enablePostSurvey = ideaSubmissionStatus === 'SUBMITTED';
+    const enablePostSurvey =
+        ideaSubmissionStatus === 'SUBMITTED' &&
+        postSurveyStatusGl === 'COMPLETED';
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
@@ -205,6 +207,7 @@ const MyCertificate = () => {
                         <Row>
                             <Row>
                                 <div
+                                    className="m-4 text-center"
                                     dangerouslySetInnerHTML={{
                                         __html: t('student_course.my_cer_note')
                                     }}

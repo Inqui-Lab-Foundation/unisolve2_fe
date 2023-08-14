@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -15,7 +15,10 @@ import { useHistory } from 'react-router-dom';
 import { getAdminEvalutorsList } from '../store/adminEvalutors/actions';
 import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from 'react-redux';
+import Select from '../../Admin/Challenges/pages/Select';
+import { getDistrictData } from '../../redux/studentRegistration/actions';
 
+import { useSelector } from 'react-redux';
 const EditProfile = (props) => {
     // here we can edit the users details //
     const history = useHistory();
@@ -26,6 +29,12 @@ const EditProfile = (props) => {
         (history && history.location && history.location.data) || {};
 
     // const phoneRegExp = /^[0-9\s]+$/;
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
+    useEffect(() => {
+        dispatch(getDistrictData());
+    }, []);
 
     const getValidationSchema = (data) => {
         // where data = mentorData //
@@ -44,17 +53,17 @@ const EditProfile = (props) => {
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits')
         });
-        // if (data?.mentor_id)
-        //     adminValidation['phone'] = Yup.string()
-        //         .matches(phoneRegExp, 'Mobile number is not valid')
-        //         .min(10, 'Enter a valid mobile number')
-        //         .max(10, 'Enter a valid mobile number')
-        //         .required('Mobile Number is Required');
-        if (data?.evaluator_id)
-            adminValidation['district'] = Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
-                .min(2, 'Enter a valid district')
-                .required('District is Required');
+        if (data?.mentor_id)
+            if (data?.evaluator_id)
+                // adminValidation['phone'] = Yup.string()
+                //     .matches(phoneRegExp, 'Mobile number is not valid')
+                //     .min(10, 'Enter a valid mobile number')
+                //     .max(10, 'Enter a valid mobile number')
+                //     .required('Mobile Number is Required');
+                adminValidation['district'] = Yup.string()
+                    .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
+                    .min(2, 'Enter a valid district')
+                    .required('District is Required');
         return adminValidation;
     };
     const getInitialValues = (data) => {
@@ -81,6 +90,7 @@ const EditProfile = (props) => {
                 full_name: full_name,
                 // mobile: mobile,
                 username: email,
+
                 district: district
             });
             const url = mentorData?.evaluator_id
@@ -245,7 +255,7 @@ const EditProfile = (props) => {
                                                         >
                                                             District
                                                         </Label>
-                                                        <InputBox
+                                                        {/* <InputBox
                                                             className={
                                                                 'defaultInput'
                                                             }
@@ -261,8 +271,30 @@ const EditProfile = (props) => {
                                                                 formik.values
                                                                     .district
                                                             }
-                                                        />
-
+                                                        /> */}
+                                                        <div className="md-12  justify-content-center">
+                                                            <Select
+                                                                list={
+                                                                    fullDistrictsNames
+                                                                }
+                                                                setValue={(
+                                                                    value
+                                                                ) =>
+                                                                    formik.setFieldValue(
+                                                                        'district',
+                                                                        value
+                                                                    )
+                                                                }
+                                                                placeHolder={
+                                                                    'Select District'
+                                                                }
+                                                                value={
+                                                                    formik
+                                                                        .values
+                                                                        .district
+                                                                }
+                                                            />
+                                                        </div>
                                                         {formik.touched
                                                             .district &&
                                                         formik.errors
