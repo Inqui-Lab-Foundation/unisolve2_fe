@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -9,6 +10,7 @@ import Layout from '../../Admin/Layout';
 import { Button } from '../../stories/Button';
 
 import axios from 'axios';
+import Select from './../Challenges/pages/Select';
 
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
@@ -23,7 +25,9 @@ import {
 
 const EditSchool = (props) => {
     const listID = JSON.parse(localStorage.getItem('listId'));
+
     // where  listID = orgnization details //
+
     const listId =
         (history &&
             history.location &&
@@ -82,10 +86,15 @@ const EditSchool = (props) => {
                 .trim()
                 .required('required'),
             organization_code: Yup.string()
-                .matches(/^[0-9\s]+$/, 'Entered Wrong DISCE Code')
+                .matches(
+                    /^[0-9\s]+$/,
+                    'Entered Wrong DISCE Code(Enter Only Numeric values)'
+                )
                 .trim()
-                .required('UDISE  Code is Required')
-                .max(11, 'Please enter Valid DISCE Code'),
+                .required('UDISE  Code is Required'),
+            // .min(11, 'Please enter Valid DISCE Code')
+            // .max(11, 'Please enter Valid DISCE Code'),
+
             city: Yup.string()
                 .matches(/^[aA-zZ\s/^.*$/]+$/)
                 // .matches(/^[0-9\s/^ *$/]+$/, 'Mobile number is not valid')
@@ -126,6 +135,7 @@ const EditSchool = (props) => {
                 });
         }
     });
+    console.log('formik.values.district', formik.values.district);
 
     return (
         <Layout>
@@ -149,6 +159,7 @@ const EditSchool = (props) => {
                                         <InputBox
                                             {...inputDICE}
                                             id="organization_code"
+                                            isDisabled={true}
                                             name="organization_code"
                                             placeholder="Please enter Unique Code"
                                             onChange={formik.handleChange}
@@ -223,11 +234,13 @@ const EditSchool = (props) => {
                                             {...inputDICE}
                                             id="district"
                                             name="district"
+                                            isDisabled={true}
                                             placeholder="Please enter district"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.district}
                                         />
+
                                         {formik.touched.district &&
                                         formik.errors.district ? (
                                             <small className="error-cls">
@@ -241,6 +254,7 @@ const EditSchool = (props) => {
                                             {...inputDICE}
                                             id="state"
                                             name="state"
+                                            isDisabled={true}
                                             placeholder="Please enter state"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
