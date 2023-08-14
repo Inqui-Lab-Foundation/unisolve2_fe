@@ -842,65 +842,85 @@ const TeacherPlayVideo = (props) => {
                                     <Card className="course-sec-basic p-5">
                                         <CardBody>
                                             <CardTitle
-                                                className="text-left"
+                                                className="text-left text-primary"
                                                 tag="h2"
                                             >
                                                 Teacher Handbook
                                             </CardTitle>
                                             <CardBody>
-                                                <p className="text-primary">
+                                                <p>
+                                                    <b>Dear Guide Teacher!</b>
+                                                </p>
+                                                <p>
+                                                    Hope the instructional
+                                                    videos gave you an insight
+                                                    into the course. Further
+                                                    detailed instructions can be
+                                                    found in the handbook.
+                                                </p>
+                                                <p className="text-success">
                                                     <b>
-                                                        Guidelines for Handbook
+                                                        The handbook is a small
+                                                        booklet that covers :
                                                     </b>
                                                 </p>
-                                                <p>Dear Guide Teachers,</p>
+
+                                                <ul>
+                                                    <li>Program Schedule</li>
+                                                    <li>Program Objectives</li>
+                                                    <li>
+                                                        Major milestones in the
+                                                        program
+                                                    </li>
+                                                    <li>
+                                                        Best Practices for
+                                                        teachers
+                                                    </li>
+                                                    <li>Course Elements</li>
+                                                    <li>Learning Concepts</li>
+                                                    <li>
+                                                        Other important
+                                                        instructions
+                                                    </li>
+                                                </ul>
+
                                                 <p>
-                                                    This handbook is an
-                                                    important document which
-                                                    will help you understand the
-                                                    program objectives and
-                                                    enable you to support your
-                                                    student teams better.
+                                                    You can refer to the
+                                                    handbook whenever there are
+                                                    any doubts about the
+                                                    program. Both the
+                                                    instructional videos and
+                                                    handbook together will equip
+                                                    you to be an efficient guide
+                                                    to the students especially
+                                                    when they are working on
+                                                    Student Workbook.
                                                 </p>
+
                                                 <p>
                                                     <b>
-                                                        We request you to follow
-                                                        the following
-                                                        instructions for steps
-                                                        as a next step:
+                                                        The resource section
+                                                        will have the Teacher
+                                                        Handbook and the Student
+                                                        workbook.
                                                     </b>
+                                                    The students will also be
+                                                    able to access the Student
+                                                    workbook in their own
+                                                    profiles.
                                                 </p>
+
                                                 <p>
-                                                    <b>STEP 1 : </b>Go through
-                                                    the Teacher Handbook
-                                                    completely before taking the
-                                                    quiz. The Teacher Handbook
-                                                    will guide you to prepare
-                                                    for roll out of the program
-                                                    in your schools and
-                                                    familiarize all the students
-                                                    about the program and the
-                                                    course components.
-                                                </p>
-                                                <p>
-                                                    <b>STEP 2 : </b>Register the
-                                                    students on the platform and
-                                                    guide them through the
-                                                    journey.
-                                                </p>
-                                                <p>
-                                                    <b>STEP 3 : </b> Guide the
-                                                    student teams in accessing
-                                                    the platform to complete the
-                                                    learning videos and
-                                                    workbook.
-                                                </p>
-                                                <p>
-                                                    <b>STEP 4 : </b>Guide all
-                                                    the student teams in
-                                                    submission of ideas and
-                                                    downloading of the
-                                                    certificates.{' '}
+                                                    To know that you are ready
+                                                    to support the students for
+                                                    this program, you will be
+                                                    required to take a quiz.
+                                                    Don’t worry,the quiz is not
+                                                    a test, it is designed to
+                                                    help you recall the thing
+                                                    you have to keep in mind
+                                                    while doing the program. All
+                                                    the best!
                                                 </p>
                                             </CardBody>
                                             <div className="text-left mb-2">
@@ -1005,47 +1025,61 @@ const TeacherPlayVideo = (props) => {
                                                         </h2>
                                                         <br />
                                                         <p>
-                                                            You did it! Your
-                                                            dedication and hard
-                                                            work have brought
-                                                            you to this exciting
-                                                            milestone. We are
-                                                            incredibly proud of
-                                                            your achievement and
-                                                            the effort you
-                                                            <span>&#8217;</span>
-                                                            ve put into the
-                                                            project.
+                                                            <b>
+                                                                Now that you
+                                                                have completed
+                                                                the quiz, Below
+                                                                are your next
+                                                                action items in
+                                                                the program :
+                                                            </b>
                                                         </p>
+
+                                                        <ol className="text-left">
+                                                            <li>
+                                                                Create a plan
+                                                                for doing the
+                                                                program using
+                                                                the handbook.
+                                                            </li>
+                                                            <li>
+                                                                Arrange for
+                                                                device access
+                                                                and workbook.
+                                                            </li>
+                                                            <li>
+                                                                Schedule weekly
+                                                                sessions to
+                                                                watch/discuss
+                                                                videos and
+                                                                workbook.
+                                                            </li>
+                                                            <li>
+                                                                Ensure students
+                                                                complete the
+                                                                workbook before
+                                                                the next
+                                                                session.
+                                                            </li>
+                                                            <li>
+                                                                Guide students
+                                                                through the
+                                                                program.
+                                                            </li>
+                                                            <li>
+                                                                Evaluate
+                                                                students’
+                                                                performance
+                                                                using the
+                                                                teacher rubric.
+                                                            </li>
+                                                        </ol>
+
                                                         <p>
-                                                            This accomplishment
-                                                            marks just the
-                                                            beginning of your
-                                                            journey as a Guide
-                                                            Teacher. The
-                                                            knowledge you
-                                                            <span>&#8217;</span>
-                                                            ve gained will be a
-                                                            valuable asset as
-                                                            you move forward in
-                                                            UNISOLVE.
-                                                        </p>
-                                                        <p>
-                                                            We can
-                                                            <span>&#8217;</span>
-                                                            t wait to see your
-                                                            school students
-                                                            enrolling in the
-                                                            program and starting
-                                                            their journey with
-                                                            your support as a
-                                                            guide teacher.
-                                                        </p>
-                                                        <p>
-                                                            Once again,
-                                                            congratulations and
-                                                            all the best to you
-                                                            and your students!
+                                                            You are now ready to
+                                                            guide your students
+                                                            on their problem
+                                                            solving journeys!
                                                         </p>
                                                     </div>
                                                 ) : (
@@ -1160,43 +1194,53 @@ const TeacherPlayVideo = (props) => {
 
                                                 <CardBody>
                                                     <p>
-                                                        You did it! Your
-                                                        dedication and hard work
-                                                        have brought you to this
-                                                        exciting milestone. We
-                                                        are incredibly proud of
-                                                        your achievement and the
-                                                        effort you
-                                                        <span>&#8217;</span>ve
-                                                        put into the project.
+                                                        <b>
+                                                            Now that you have
+                                                            completed the quiz,
+                                                            Below are your next
+                                                            action items in the
+                                                            program :
+                                                        </b>
                                                     </p>
+
+                                                    <ol className="text-left">
+                                                        <li>
+                                                            Create a plan for
+                                                            doing the program
+                                                            using the handbook.
+                                                        </li>
+                                                        <li>
+                                                            Arrange for device
+                                                            access and workbook.
+                                                        </li>
+                                                        <li>
+                                                            Schedule weekly
+                                                            sessions to
+                                                            watch/discuss videos
+                                                            and workbook.
+                                                        </li>
+                                                        <li>
+                                                            Ensure students
+                                                            complete the
+                                                            workbook before the
+                                                            next session.
+                                                        </li>
+                                                        <li>
+                                                            Guide students
+                                                            through the program.
+                                                        </li>
+                                                        <li>
+                                                            Evaluate students’
+                                                            performance using
+                                                            the teacher rubric.
+                                                        </li>
+                                                    </ol>
+
                                                     <p>
-                                                        This accomplishment
-                                                        marks just the beginning
-                                                        of your journey as a
-                                                        Guide Teacher. The
-                                                        knowledge you
-                                                        <span>&#8217;</span>ve
-                                                        gained will be a
-                                                        valuable asset as you
-                                                        move forward in
-                                                        UNISOLVE.
-                                                    </p>
-                                                    <p>
-                                                        We can
-                                                        <span>&#8217;</span>t
-                                                        wait to see your school
-                                                        students enrolling in
-                                                        the program and starting
-                                                        their journey with your
-                                                        support as a guide
-                                                        teacher.
-                                                    </p>
-                                                    <p>
-                                                        Once again,
-                                                        congratulations and all
-                                                        the best to you and your
-                                                        students!
+                                                        You are now ready to
+                                                        guide your students on
+                                                        their problem solving
+                                                        journeys!
                                                     </p>
                                                 </CardBody>
                                             </CardBody>

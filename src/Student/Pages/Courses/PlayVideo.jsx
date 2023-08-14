@@ -1268,10 +1268,9 @@ const PlayVideoCourses = (props) => {
                                                             <CardBody>
                                                                 <div>
                                                                     <CardTitle
-                                                                        className=" text-left pt-4 pb-4"
+                                                                        className=" text-left pt-4 pb-4 text-primary"
                                                                         tag="h2"
                                                                     >
-                                                                        Unisolve{' '}
                                                                         {t(
                                                                             'student.w_sheet'
                                                                         )}
