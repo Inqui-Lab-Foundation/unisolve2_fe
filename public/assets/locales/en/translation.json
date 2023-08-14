@@ -207,7 +207,7 @@
         "quiz_completed": "Quiz Successfully Completed",
         "ref_quiz_heading": "Let's think about a few things you learnt in the video",
         "idea_submitted": "Your idea has been submitted successfully",
-        "idea_draft": "Your idea has been submitted as draft",
+        "idea_draft": "Your idea has been saved as draft",
         "attempt_all_questions": "Please Attempt All Questions..!!",
         "idea_init_succ": "Idea initiated successfully",
         "please_com_postsurvey_for_certificate": "Please complete the following post survey to get course completion certificate.",
@@ -238,7 +238,7 @@
         "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
-        "complete_postsurvey": "Please complete post survey to get course completion certificate",
+        "complete_postsurvey": "Please complete post survey to get your certificate",
         "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
     },
     "teacher_header": {

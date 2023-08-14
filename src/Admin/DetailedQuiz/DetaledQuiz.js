@@ -433,7 +433,14 @@ const DetaledQuiz = (props) => {
                                     <div className="score"></div>
                                     <Row>
                                         <Col xs={10}>
-                                            <p>{t('teacher.question')}</p>
+                                            <p>
+                                                {t('teacher.question')}{' '}
+                                                {props?.adminCourseQst?.data &&
+                                                    props?.adminCourseQst
+                                                        ?.data[0] &&
+                                                    props?.adminCourseQst
+                                                        ?.data[0]?.question_no}
+                                            </p>
                                         </Col>
                                     </Row>
 
