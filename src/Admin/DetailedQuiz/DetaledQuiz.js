@@ -194,7 +194,9 @@ const DetaledQuiz = (props) => {
             attemptNumber + 1
         );
     };
-    setTimeout(()=>{setStartloader(false);},500);
+    setTimeout(() => {
+        setStartloader(false);
+    }, 500);
 
     return (
         <>
@@ -248,9 +250,11 @@ const DetaledQuiz = (props) => {
                                             {currentRole === 'MENTOR' && (
                                                 <>
                                                     <h2>
-                                                        Score: 
-                                                        {currentScore?.score ? currentScore?.score : '0'}/
-                                                        {totalQstCount}
+                                                        Score:
+                                                        {currentScore?.score
+                                                            ? currentScore?.score
+                                                            : '0'}
+                                                        /{totalQstCount}
                                                     </h2>
                                                     <h2
                                                         style={{
@@ -271,7 +275,9 @@ const DetaledQuiz = (props) => {
                                                             props.setInstructions(
                                                                 true
                                                             );
-                                                            props.setHandbook(false);
+                                                            props.setHandbook(
+                                                                false
+                                                            );
                                                         }}
                                                     />
                                                 </>
@@ -427,7 +433,14 @@ const DetaledQuiz = (props) => {
                                     <div className="score"></div>
                                     <Row>
                                         <Col xs={10}>
-                                            <p>{t('teacher.question')}</p>
+                                            <p>
+                                                {t('teacher.question')}{' '}
+                                                {props?.adminCourseQst?.data &&
+                                                    props?.adminCourseQst
+                                                        ?.data[0] &&
+                                                    props?.adminCourseQst
+                                                        ?.data[0]?.question_no}
+                                            </p>
                                         </Col>
                                     </Row>
 

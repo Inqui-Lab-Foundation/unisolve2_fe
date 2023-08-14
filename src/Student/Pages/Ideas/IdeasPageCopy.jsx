@@ -20,7 +20,8 @@ import Layout from '../../Layout';
 import { useSelector } from 'react-redux';
 import {
     getStudentChallengeQuestions,
-    getStudentChallengeSubmittedResponse
+    getStudentChallengeSubmittedResponse,
+    updateStudentBadges
 } from '../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../../helpers/Utils';
@@ -318,6 +319,15 @@ const IdeasPageNew = () => {
                         'Idea Submission Submitted Successfully',
                         ''
                     );
+                    dispatch(
+                                updateStudentBadges(
+                                    { badge_slugs: ['the_change_maker'] },
+                                    currentUser?.data[0]?.user_id,
+                                    language,
+                                    t
+                                )
+                            );
+
                     dispatch(
                         getStudentChallengeSubmittedResponse(
                             currentUser?.data[0]?.team_id,
