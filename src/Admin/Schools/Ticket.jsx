@@ -24,6 +24,7 @@ const TicketsPage = (props) => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [SRows, setSRows] = React.useState([]);
+    const [disableBtn, setDisablebtn] = useState(false);
 
     React.useEffect(() => {
         const timeout = setTimeout(() => {
@@ -54,6 +55,7 @@ const TicketsPage = (props) => {
         localStorage.setItem('listId', JSON.stringify(item));
     };
     const handleActiveStatusUpdate = (item, itemA) => {
+        setDisablebtn(true);
         // where we can update the status InActive or New   //
         // where item = orgnization id details , itemA= status //
         const body = {
@@ -75,6 +77,9 @@ const TicketsPage = (props) => {
         };
         axios(config)
             .then(function (response) {
+                setTimeout(() => {
+                    setDisablebtn(false);
+                }, 3000);
                 if (response.status === 200) {
                     setReqList(false);
                     openNotificationWithIcon(
@@ -90,6 +95,7 @@ const TicketsPage = (props) => {
             });
     };
     const handleStatusUpdate = (item, itemS) => {
+        setDisablebtn(true);
         // where we can update the status Active or New  //
         // where item = orgnization id details , itemS= status //
         //organization_code = orgnization code //
@@ -113,6 +119,9 @@ const TicketsPage = (props) => {
         };
         axios(config)
             .then(async function (response) {
+                setTimeout(() => {
+                    setDisablebtn(false);
+                }, 3000);
                 if (response.status === 200) {
                     setReqList(true);
                     await listApi();
@@ -129,6 +138,7 @@ const TicketsPage = (props) => {
     };
 
     const handleNewUpdate = (item, itemS) => {
+        setDisablebtn(true);
         // where we can update the status Active or InActive //
         // where item = orgnization id details , itemS= status //
         //organization_code = orgnization code //
@@ -152,6 +162,9 @@ const TicketsPage = (props) => {
         };
         axios(config)
             .then(async function (response) {
+                setTimeout(() => {
+                    setDisablebtn(false);
+                }, 3000);
                 if (response.status === 200) {
                     setNewList(true);
                     await newListApi();
@@ -325,18 +338,22 @@ const TicketsPage = (props) => {
                         >
                             <div className="btn btn-primary  mx-2">EDIT</div>
                         </div>
+                        {/* {disableBtn === false ? setDisableBtn(false) */}
                         <div
                             key={record}
                             onClick={() =>
+                                !disableBtn &&
                                 handleActiveStatusUpdate(record, 'NEW')
                             }
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-success ">TEST</div>
                         </div>
+                        {/* : setDisableBtn(true)} */}
                         <div
                             key={record}
                             onClick={() =>
+                                !disableBtn &&
                                 handleActiveStatusUpdate(record, 'INACTIVE')
                             }
                             style={{ marginRight: '10px' }}
@@ -403,14 +420,19 @@ const TicketsPage = (props) => {
                         </div>
                         <div
                             key={record}
-                            onClick={() => handleStatusUpdate(record, 'ACTIVE')}
+                            onClick={() =>
+                                !disableBtn &&
+                                handleStatusUpdate(record, 'ACTIVE')
+                            }
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-warning ">ACTIVE</div>
                         </div>
                         <div
                             key={record}
-                            onClick={() => handleStatusUpdate(record, 'NEW')}
+                            onClick={() =>
+                                !disableBtn && handleStatusUpdate(record, 'NEW')
+                            }
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-success">TEST</div>
@@ -473,14 +495,19 @@ const TicketsPage = (props) => {
                         </div>
                         <div
                             key={record}
-                            onClick={() => handleNewUpdate(record, 'ACTIVE')}
+                            onClick={() =>
+                                !disableBtn && handleNewUpdate(record, 'ACTIVE')
+                            }
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-warning ">ACTIVE</div>
                         </div>
                         <div
                             key={record}
-                            onClick={() => handleNewUpdate(record, 'INACTIVE')}
+                            onClick={() =>
+                                !disableBtn &&
+                                handleNewUpdate(record, 'INACTIVE')
+                            }
                             style={{ marginRight: '10px' }}
                         >
                             <div className="btn btn-danger">INACTIVE</div>
@@ -563,7 +590,7 @@ const TicketsPage = (props) => {
                         <div className="my-2">
                             <DataTableExtensions
                                 print={false}
-                                // export={true}
+                                export={true}
                                 {...reqSchoolsData}
                                 exportHeaders
                             >
@@ -582,7 +609,7 @@ const TicketsPage = (props) => {
                         <div className="my-2">
                             <DataTableExtensions
                                 print={false}
-                                // export={true}
+                                export={true}
                                 {...newSchoolsData}
                                 exportHeaders
                             >
@@ -600,7 +627,7 @@ const TicketsPage = (props) => {
                         <div className="my-2">
                             <DataTableExtensions
                                 {...SchoolsData}
-                                // export={true}
+                                export={true}
                                 print={false}
                                 exportHeaders
                             >

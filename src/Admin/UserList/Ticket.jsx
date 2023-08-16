@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
@@ -49,12 +50,7 @@ const SelectDists = ({
     setDist,
     newDist
 }) => {
-    console.log(newDist);
-    // const [dsts, setNewDist] = useState('');
-    // useEffect(async () => {
-    //     const dist = localStorage.getItem('dist');
-    //     await setDist(dist);
-    // }, [localStorage.getItem('dist')]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
@@ -62,14 +58,14 @@ const SelectDists = ({
 
     const handleDists = (e) => {
         // setNewDist(e.target.value);
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 5000);
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
 
-    // useEffect(() => {
-    //     setLoading(true);
-    // }, []);
-    console.log(newDist);
     return (
         <select
             onChange={handleDists}
@@ -79,21 +75,6 @@ const SelectDists = ({
             className="text-capitalize"
         >
             <option value="">Select District</option>
-            {/* {loading ? (
-                <ClipLoader loading={loading} color={color} size={100} />
-            ) : (
-                <div>
-                    {dists && dists.length > 0 ? (
-                        dists.map((item, i) => (
-                            <option key={i} value={item}>
-                                {item}
-                            </option>
-                        ))
-                    ) : (
-                        <option value="">There are no Districts</option>
-                    )}
-                </div>
-            )} */}
 
             {dists && dists.length > 0 ? (
                 dists.map((item, i) => (
@@ -112,11 +93,11 @@ const TicketsPage = (props) => {
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
-    // let [color, setColor] = useState('#ffffff');
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
+
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -130,12 +111,21 @@ const TicketsPage = (props) => {
 
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
-            props.getStudentListAction(studentDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                props.getStudentListAction(studentDist);
+            }, 2000);
         }
     }, [tab, studentDist]);
     useEffect(() => {
         if (Number(tab) === 2 && mentorDist !== '') {
             props.getAdminMentorsListAction('ALL', mentorDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                props.getStudentListAction(mentorDist);
+            }, 2000);
         }
     }, [tab, mentorDist]);
     useEffect(() => {
@@ -147,7 +137,9 @@ const TicketsPage = (props) => {
     const [mentorRows, setMentorRows] = React.useState([]);
 
     useEffect(() => {
+        setLoading(true);
         const mentorTimeout = setTimeout(() => {
+            setLoading(false);
             setMentorRows(TableMentorsProps.data);
         }, 2000);
         return () => clearTimeout(mentorTimeout);
@@ -206,7 +198,6 @@ const TicketsPage = (props) => {
             } else {
                 let dist = localStorage.getItem('dist');
                 setstudentDist(dist);
-                // setstudentDist(dist);
                 props.getStudentListAction(studentDist);
             }
         }
@@ -437,7 +428,7 @@ const TicketsPage = (props) => {
             },
 
             {
-                name: 'Email',
+                name: 'Mobile No',
                 selector: 'username',
                 width: '22rem'
             },
@@ -831,7 +822,7 @@ const TicketsPage = (props) => {
                                                 props.getDistrictsListAction
                                             }
                                             setDist={setmentorDist}
-                                            newDist={newDist}
+                                            newDist={mentorDist}
                                             dists={props.dists}
                                             tab={tab}
                                         />
@@ -917,13 +908,9 @@ const TicketsPage = (props) => {
                             >
                                 {mentorDist === '' ? (
                                     <CommonPage text="Please select a district" />
+                                ) : loading ? (
+                                    <ClipLoader loading={loading} size={20} />
                                 ) : (
-                                    // ) : loading ? (
-                                    //     <ClipLoader
-                                    //         loading={loading}
-                                    //         // color={color}
-                                    //         size={20}
-                                    //     />
                                     <div className="my-5">
                                         <DataTableExtensions
                                             {...TableMentorsProps}
