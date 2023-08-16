@@ -1656,7 +1656,7 @@ const Dashboard = () => {
                                             <div className="row">
                                                 <div className="col">
                                                     <h2 className="text-center m-3 text-primary">
-                                                        Mentor Details
+                                                        Teams Registered
                                                     </h2>
                                                     <hr />
                                                 </div>

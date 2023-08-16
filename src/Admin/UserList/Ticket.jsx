@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
@@ -49,7 +50,8 @@ const SelectDists = ({
     setDist,
     newDist
 }) => {
-    console.log(newDist);
+    const [loading, setLoading] = useState(false);
+
     // const [dsts, setNewDist] = useState('');
     // useEffect(async () => {
     //     const dist = localStorage.getItem('dist');
@@ -62,14 +64,17 @@ const SelectDists = ({
 
     const handleDists = (e) => {
         // setNewDist(e.target.value);
+        setLoading(true);
+        setTimeout(() => {
+            // Once the action is complete, set loading back to false
+            setLoading(false);
+        }, 5000);
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
-
     // useEffect(() => {
     //     setLoading(true);
     // }, []);
-    console.log(newDist);
     return (
         <select
             onChange={handleDists}
@@ -117,7 +122,10 @@ const TicketsPage = (props) => {
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
-    const [mentorDist, setmentorDist] = useState('');
+    const [mentorDist, setmentorDist] = useState(district ? district : '');
+
+    // const [mentorDist, setmentorDist] = useState('');
+    // console.log(mentorDist);
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
     useEffect(() => {
@@ -130,12 +138,23 @@ const TicketsPage = (props) => {
 
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
-            props.getStudentListAction(studentDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                // setRows(StudentsData.data);
+                props.getStudentListAction(studentDist);
+            }, 2000);
         }
     }, [tab, studentDist]);
     useEffect(() => {
         if (Number(tab) === 2 && mentorDist !== '') {
-            props.getAdminMentorsListAction('ALL', mentorDist);
+            // props.getAdminMentorsListAction('ALL', mentorDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                // setRows(StudentsData.data);
+                props.getStudentListAction(mentorDist);
+            }, 2000);
         }
     }, [tab, mentorDist]);
     useEffect(() => {
@@ -147,7 +166,9 @@ const TicketsPage = (props) => {
     const [mentorRows, setMentorRows] = React.useState([]);
 
     useEffect(() => {
+        setLoading(true);
         const mentorTimeout = setTimeout(() => {
+            setLoading(false);
             setMentorRows(TableMentorsProps.data);
         }, 2000);
         return () => clearTimeout(mentorTimeout);
@@ -205,6 +226,7 @@ const TicketsPage = (props) => {
                 props.getAdminMentorsListAction('ALL', mentorDist);
             } else {
                 let dist = localStorage.getItem('dist');
+                // setLoading(true);
                 setstudentDist(dist);
                 // setstudentDist(dist);
                 props.getStudentListAction(studentDist);
@@ -437,7 +459,7 @@ const TicketsPage = (props) => {
             },
 
             {
-                name: 'Email',
+                name: 'Mobile No',
                 selector: 'username',
                 width: '22rem'
             },
@@ -514,6 +536,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
+    console.log(props.mentorsList);
     const StudentsData = {
         data: props.studentList,
         columns: [
@@ -831,7 +854,7 @@ const TicketsPage = (props) => {
                                                 props.getDistrictsListAction
                                             }
                                             setDist={setmentorDist}
-                                            newDist={newDist}
+                                            newDist={mentorDist}
                                             dists={props.dists}
                                             tab={tab}
                                         />
@@ -917,13 +940,13 @@ const TicketsPage = (props) => {
                             >
                                 {mentorDist === '' ? (
                                     <CommonPage text="Please select a district" />
+                                ) : loading ? (
+                                    <ClipLoader
+                                        loading={loading}
+                                        // color={color}
+                                        size={20}
+                                    />
                                 ) : (
-                                    // ) : loading ? (
-                                    //     <ClipLoader
-                                    //         loading={loading}
-                                    //         // color={color}
-                                    //         size={20}
-                                    //     />
                                     <div className="my-5">
                                         <DataTableExtensions
                                             {...TableMentorsProps}

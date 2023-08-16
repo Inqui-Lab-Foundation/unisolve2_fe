@@ -32,7 +32,7 @@ const CommonUserProfile = (props) => {
             pathname: '/admin/userlist'
         });
         localStorage.setItem('dist', props.location.dist);
-        localStorage.setItem('num', JSON.stringify(props.location.num));
+        localStorage.setItem('num', props.location.num);
     };
     const handleReset = () => {
         // where we can reset the password  as diesCode //
