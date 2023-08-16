@@ -52,12 +52,6 @@ const SelectDists = ({
 }) => {
     const [loading, setLoading] = useState(false);
 
-    // const [dsts, setNewDist] = useState('');
-    // useEffect(async () => {
-    //     const dist = localStorage.getItem('dist');
-    //     await setDist(dist);
-    // }, [localStorage.getItem('dist')]);
-
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
     }, [tab]);
@@ -66,15 +60,12 @@ const SelectDists = ({
         // setNewDist(e.target.value);
         setLoading(true);
         setTimeout(() => {
-            // Once the action is complete, set loading back to false
             setLoading(false);
         }, 5000);
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
-    // useEffect(() => {
-    //     setLoading(true);
-    // }, []);
+
     return (
         <select
             onChange={handleDists}
@@ -84,21 +75,6 @@ const SelectDists = ({
             className="text-capitalize"
         >
             <option value="">Select District</option>
-            {/* {loading ? (
-                <ClipLoader loading={loading} color={color} size={100} />
-            ) : (
-                <div>
-                    {dists && dists.length > 0 ? (
-                        dists.map((item, i) => (
-                            <option key={i} value={item}>
-                                {item}
-                            </option>
-                        ))
-                    ) : (
-                        <option value="">There are no Districts</option>
-                    )}
-                </div>
-            )} */}
 
             {dists && dists.length > 0 ? (
                 dists.map((item, i) => (
@@ -117,15 +93,12 @@ const TicketsPage = (props) => {
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
-    // let [color, setColor] = useState('#ffffff');
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
-    const [mentorDist, setmentorDist] = useState(district ? district : '');
 
-    // const [mentorDist, setmentorDist] = useState('');
-    // console.log(mentorDist);
+    const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
     useEffect(() => {
@@ -141,18 +114,16 @@ const TicketsPage = (props) => {
             setLoading(true);
             const timeout = setTimeout(() => {
                 setLoading(false);
-                // setRows(StudentsData.data);
                 props.getStudentListAction(studentDist);
             }, 2000);
         }
     }, [tab, studentDist]);
     useEffect(() => {
         if (Number(tab) === 2 && mentorDist !== '') {
-            // props.getAdminMentorsListAction('ALL', mentorDist);
+            props.getAdminMentorsListAction('ALL', mentorDist);
             setLoading(true);
             const timeout = setTimeout(() => {
                 setLoading(false);
-                // setRows(StudentsData.data);
                 props.getStudentListAction(mentorDist);
             }, 2000);
         }
@@ -226,9 +197,7 @@ const TicketsPage = (props) => {
                 props.getAdminMentorsListAction('ALL', mentorDist);
             } else {
                 let dist = localStorage.getItem('dist');
-                // setLoading(true);
                 setstudentDist(dist);
-                // setstudentDist(dist);
                 props.getStudentListAction(studentDist);
             }
         }
@@ -536,7 +505,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    console.log(props.mentorsList);
     const StudentsData = {
         data: props.studentList,
         columns: [
@@ -941,11 +909,7 @@ const TicketsPage = (props) => {
                                 {mentorDist === '' ? (
                                     <CommonPage text="Please select a district" />
                                 ) : loading ? (
-                                    <ClipLoader
-                                        loading={loading}
-                                        // color={color}
-                                        size={20}
-                                    />
+                                    <ClipLoader loading={loading} size={20} />
                                 ) : (
                                     <div className="my-5">
                                         <DataTableExtensions

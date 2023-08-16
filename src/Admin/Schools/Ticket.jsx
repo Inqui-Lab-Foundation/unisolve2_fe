@@ -86,7 +86,6 @@ const TicketsPage = (props) => {
                         'success',
                         'Status update successfully'
                     );
-                    // setDisablebtn(true);
                     props.getSchoolRegistationBulkUploadActions('i');
                 }
             })
