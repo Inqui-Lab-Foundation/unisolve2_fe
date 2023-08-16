@@ -19,12 +19,11 @@ import {
 import Select from './../Challenges/pages/Select';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
-
 import { useSelector } from 'react-redux';
+import { categoryValue, stateValue } from './constentText';
 
 const AddNewSchool = (props) => {
     const dispatch = useDispatch();
-
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -32,22 +31,13 @@ const AddNewSchool = (props) => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    
+    fullDistrictsNames.shift();
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
-    // const phoneRegExp = /^[0-9\s]+$/;
-    // const headingDetails = {
-    //     title: 'Add New Institution Details',
+    const stateData = stateValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
-    //     options: [
-    //         {
-    //             title: 'Institution',
-    //             path: '/admin/registered-schools'
-    //         },
-    //         {
-    //             title: 'Add New Institution',
-    //             path: '/admin/register-new-schools'
-    //         }
-    //     ]
-    // };
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
@@ -61,44 +51,39 @@ const AddNewSchool = (props) => {
             organization_code: '',
             city: '',
             district: '',
-            state: 'Tamilnadu',
-            status: 'ACTIVE'
+            state: stateData,
+            status: 'ACTIVE',
+            category: ''
         },
 
         validationSchema: Yup.object({
-            // principal_mobile: Yup.string()
-            //     .optional()
-            //     .matches(phoneRegExp, 'Mobile number is not valid')
-            //     .min(10, 'Enter a valid mobile number')
-            //     .max(10, 'Enter a valid mobile number'),
+            organization_code: Yup.string()
+                .matches(
+                    /^[A-Za-z0-9]*$/,
+                    'Please enter only alphanumeric characters'
+                )
+                .trim()
+                .required('UDISE  Code is Required'),
+            organization_name: Yup.string().required(
+                'Organization  Name is Required'
+            ),
+            district: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid district')
+                .required('District is Required'),
+            category: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid category')
+                .required('category is Required'),
+            state: Yup.string()
+                .optional()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
             principal_email: Yup.string()
                 .optional()
                 .email('Invalid email address format'),
             principal_name: Yup.string()
                 .optional()
                 .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
-                .trim()
-                .required('required'),
-            organization_name: Yup.string().required(
-                'Organization  Name is Required'
-            ),
-            organization_code: Yup.string()
-                .matches(
-                    /^[0-9\s]+$/,
-                    'Entered Wrong DISCE Code (Enter only digits)'
-                )
-                .trim()
-                .required('UDISE  Code is Required')
-                .min(11, 'Please enter Valid DISCE Code')
-                .max(11, 'Please enter Valid DISCE Code'),
-            // .min(10, 'Number is less than 10 digits'),
-            city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/),
-            district: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-                .required('District is Required'),
-            state: Yup.string()
-                .optional()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid State')
+                .trim(),
+            city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/)
         }),
 
         onSubmit: async (values) => {
@@ -251,6 +236,34 @@ const AddNewSchool = (props) => {
                                         formik.errors.district ? (
                                             <small className="error-cls">
                                                 {formik.errors.district}
+                                            </small>
+                                        ) : null}
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="district"
+                                        >
+                                            category
+                                            <span required>*</span>
+                                        </Label>
+                                        {/* <Col md={3}> */}
+                                        <div className="my-3 d-md-block d-flex justify-content-center">
+                                            <Select
+                                                list={categoryData}
+                                                setValue={(value) =>
+                                                    formik.setFieldValue(
+                                                        'category',
+                                                        value
+                                                    )
+                                                }
+                                                placeHolder={'Select category'}
+                                                value={formik.values.category}
+                                            />
+                                        </div>
+
+                                        {formik.touched.category &&
+                                        formik.errors.category ? (
+                                            <small className="error-cls">
+                                                {formik.errors.category}
                                             </small>
                                         ) : null}
                                         <Label className="mb-2" htmlFor="state">

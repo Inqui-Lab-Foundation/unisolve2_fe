@@ -297,17 +297,17 @@ const TicketsPage = (props) => {
                 width: '15rem'
             },
             {
+                name: 'category',
+                selector: 'category',
+                cellExport: (row) => row.category,
+                width: '10rem'
+            },
+            {
                 name: 'Principal Name',
                 selector: 'principal_name',
                 cellExport: (row) => row.principal_name,
                 width: '15rem'
             },
-            // {
-            //     name: 'Mobile',
-            //     selector: 'principal_mobile',
-            //     cellExport: (row) => row.principal_mobile,
-            //     width: '12%'
-            // },
             {
                 name: 'Status',
                 cellExport: (row) => row.status,
@@ -321,12 +321,12 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10rem'
+                width: '8rem'
             },
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '27rem',
+                width: '25rem',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -375,26 +375,36 @@ const TicketsPage = (props) => {
                 width: '6rem'
             },
             {
-                name: 'Unique Code',
-                selector: (row) => row.organization_code,
+                name: 'UDISE Code ',
+                selector: 'organization_code',
+                cellExport: (row) => row.organization_code,
                 sortable: true,
                 width: '15rem'
             },
             {
                 name: 'Institution Name',
-                selector: (row) => row.organization_name,
+                selector: 'organization_name',
+                cellExport: (row) => row.organization_name,
                 width: '27rem'
+            },
+            {
+                name: 'District',
+                selector: 'district',
+                cellExport: (row) => row.district,
+                width: '15rem'
+            },
+            {
+                name: 'category',
+                selector: 'category',
+                cellExport: (row) => row.category,
+                width: '10rem'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
+                cellExport: (row) => row.principal_name,
                 width: '15rem'
             },
-            // {
-            //     name: 'Mobile',
-            //     selector: 'principal_mobile',
-            //     width: '12%'
-            // },
             {
                 name: 'Status',
                 cell: (row) => [
@@ -451,22 +461,37 @@ const TicketsPage = (props) => {
                 width: '6rem'
             },
             {
-                name: 'Unique Code',
+                name: 'UDISE Code ',
                 selector: 'organization_code',
+                cellExport: (row) => row.organization_code,
                 sortable: true,
+
                 width: '15rem'
             },
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                width: '25rem'
+                cellExport: (row) => row.organization_name,
+                width: '27rem'
+            },
+            {
+                name: 'District',
+                selector: 'district',
+                cellExport: (row) => row.district,
+                width: '15rem'
+            },
+            {
+                name: 'category',
+                selector: 'category',
+                cellExport: (row) => row.category,
+                width: '10rem'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
-                width: '13rem'
+                cellExport: (row) => row.principal_name,
+                width: '15rem'
             },
-
             {
                 name: 'Status',
                 cell: (row) => [

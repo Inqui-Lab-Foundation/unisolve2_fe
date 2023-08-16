@@ -65,52 +65,38 @@ const EditSchool = (props) => {
             city: listId && listId.city,
             district: listId && listId.district,
             state: listId && listId.state,
-            status: listId && listId.status
+            status: listId && listId.status,
+            category: listId && listId.category
         },
 
         validationSchema: Yup.object({
-            // principal_mobile: Yup.string()
-            //     .matches(phoneRegExp, 'Mobile number is not valid')
-            //     .min(10, 'Enter a valid mobile number')
-            //     .max(10, 'Enter a valid mobile number'),
-            principal_email: Yup.string()
-                .email('Invalid email address format')
-                .trim(),
-            // .required('required'),
-            principal_name: Yup.string()
-                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
-                .trim()
-                .required('required'),
-            organization_name: Yup.string()
-                .required('Organization  Name is Required')
-                .trim()
-                .required('required'),
             organization_code: Yup.string()
                 .matches(
-                    /^[0-9\s]+$/,
-                    'Entered Wrong DISCE Code(Enter Only Numeric values)'
+                    /^[A-Za-z0-9]*$/,
+                    'Please enter only alphanumeric characters'
                 )
                 .trim()
                 .required('UDISE  Code is Required'),
-            // .min(11, 'Please enter Valid DISCE Code')
-            // .max(11, 'Please enter Valid DISCE Code'),
-
-            city: Yup.string()
-                .matches(/^[aA-zZ\s/^.*$/]+$/)
-                // .matches(/^[0-9\s/^ *$/]+$/, 'Mobile number is not valid')
-
-                .trim()
-                .required('required'),
-
+            organization_name: Yup.string().required(
+                'Organization  Name is Required'
+            ),
             district: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-                .trim()
-                .required('required'),
-            // .required('District is Required'),
+                .required('District is Required'),
+            category: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid category')
+                .required('category is Required'),
             state: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid State')
-                .trim()
-                .required('required')
+                .optional()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
+            principal_email: Yup.string()
+                .optional()
+                .email('Invalid email address format'),
+            principal_name: Yup.string()
+                .optional()
+                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
+                .trim(),
+            city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/)
         }),
 
         onSubmit: async (values) => {
@@ -182,7 +168,7 @@ const EditSchool = (props) => {
                                             htmlFor="organization_name"
                                         >
                                             Institute/School Name
-                                            {/* <span required>*</span> */}
+                                            <span required>*</span>
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -245,6 +231,30 @@ const EditSchool = (props) => {
                                         formik.errors.district ? (
                                             <small className="error-cls">
                                                 {formik.errors.district}
+                                            </small>
+                                        ) : null}
+
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="district"
+                                        >
+                                            category
+                                            {/* <span required>*</span> */}
+                                        </Label>
+                                        <InputBox
+                                            id="category"
+                                            name="category"
+                                            isDisabled={true}
+                                            placeholder="Please enter category"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.category}
+                                        />
+
+                                        {formik.touched.category &&
+                                        formik.errors.category ? (
+                                            <small className="error-cls">
+                                                {formik.errors.category}
                                             </small>
                                         ) : null}
                                         <Label className="mb-2" htmlFor="state">
