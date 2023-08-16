@@ -493,6 +493,7 @@ const PlayVideoCourses = (props) => {
     // };
     const [videoCompleted, setVideoCompleted] = useState(false);
     const handleVimeoOnEnd = (event) => {
+        toggle(topicObj.course_module_id);
         const topixIndex = setTopicArrays.findIndex(
             (item) => item.topic_type_id === topicObj.topic_type_id
         );

@@ -1583,7 +1583,6 @@ const Dashboard = () => {
                                                                 {
                                                                     orgData
                                                                         .mentor
-                                                                        ?.user
                                                                         ?.whatapp_mobile
                                                                 }
                                                             </p>
