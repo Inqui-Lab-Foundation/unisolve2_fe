@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
@@ -49,12 +50,7 @@ const SelectDists = ({
     setDist,
     newDist
 }) => {
-    console.log(newDist);
-    // const [dsts, setNewDist] = useState('');
-    // useEffect(async () => {
-    //     const dist = localStorage.getItem('dist');
-    //     await setDist(dist);
-    // }, [localStorage.getItem('dist')]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
@@ -62,14 +58,14 @@ const SelectDists = ({
 
     const handleDists = (e) => {
         // setNewDist(e.target.value);
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
 
-    // useEffect(() => {
-    //     setLoading(true);
-    // }, []);
-    console.log(newDist);
     return (
         <select
             onChange={handleDists}
@@ -79,21 +75,6 @@ const SelectDists = ({
             className="text-capitalize"
         >
             <option value="">Select District</option>
-            {/* {loading ? (
-                <ClipLoader loading={loading} color={color} size={100} />
-            ) : (
-                <div>
-                    {dists && dists.length > 0 ? (
-                        dists.map((item, i) => (
-                            <option key={i} value={item}>
-                                {item}
-                            </option>
-                        ))
-                    ) : (
-                        <option value="">There are no Districts</option>
-                    )}
-                </div>
-            )} */}
 
             {dists && dists.length > 0 ? (
                 dists.map((item, i) => (
@@ -108,15 +89,16 @@ const SelectDists = ({
     );
 };
 const TicketsPage = (props) => {
+    // console.log(props.mentorsList);
     const dispatch = useDispatch();
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
-    // let [color, setColor] = useState('#ffffff');
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
+
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -130,12 +112,21 @@ const TicketsPage = (props) => {
 
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
-            props.getStudentListAction(studentDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                props.getStudentListAction(studentDist);
+            }, 2000);
         }
     }, [tab, studentDist]);
     useEffect(() => {
         if (Number(tab) === 2 && mentorDist !== '') {
             props.getAdminMentorsListAction('ALL', mentorDist);
+            setLoading(true);
+            const timeout = setTimeout(() => {
+                setLoading(false);
+                props.getStudentListAction(mentorDist);
+            }, 2000);
         }
     }, [tab, mentorDist]);
     useEffect(() => {
@@ -147,7 +138,9 @@ const TicketsPage = (props) => {
     const [mentorRows, setMentorRows] = React.useState([]);
 
     useEffect(() => {
+        setLoading(true);
         const mentorTimeout = setTimeout(() => {
+            setLoading(false);
             setMentorRows(TableMentorsProps.data);
         }, 2000);
         return () => clearTimeout(mentorTimeout);
@@ -206,7 +199,6 @@ const TicketsPage = (props) => {
             } else {
                 let dist = localStorage.getItem('dist');
                 setstudentDist(dist);
-                // setstudentDist(dist);
                 props.getStudentListAction(studentDist);
             }
         }
@@ -416,8 +408,12 @@ const TicketsPage = (props) => {
     };
 
     const TableMentorsProps = {
-        data: props.mentorsList,
-        totalItems: props.totalItems,
+        // data: props.mentorsList,
+        data:
+            props.mentorsList && props.mentorsList.length > 0
+                ? props.mentorsList
+                : [],
+        // totalItems: props.totalItems,
         columns: [
             {
                 name: 'No',
@@ -427,25 +423,33 @@ const TicketsPage = (props) => {
             {
                 name: 'UDISE',
                 selector: 'organization_code',
+                cellExport: (row) => row.organization_code,
                 width: '13rem'
+            },
+            {
+                name: 'School Name',
+                // selector: 'organization_name',
+                selector: (row) => row.organization.organization_name,
+                cellExport: (row) => row.organization.organization_name,
+                width: '15rem'
             },
 
             {
                 name: 'Teacher Name',
                 selector: 'full_name',
-                width: '21rem'
+                cellExport: (row) => row.full_name,
+
+                width: '15rem'
             },
 
             {
-                name: 'Email',
+                name: 'Mobile No',
                 selector: 'username',
-                width: '22rem'
+                cellExport: (row) => row.username,
+
+                width: '15rem'
             },
-            // {
-            //     name: 'Phone',
-            //     selector: 'mobile',
-            //     width: '10%'
-            // },
+
             {
                 name: 'Status',
                 cell: (row) => [
@@ -463,7 +467,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '35rem',
+                width: '27rem',
                 cell: (record) => [
                     // <div
                     //
@@ -525,12 +529,14 @@ const TicketsPage = (props) => {
             {
                 name: 'Team Name',
                 selector: 'team.team_name',
+                cellExport: (row) => row.team.team_name,
 
                 width: '17rem'
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
+                cellExport: (row) => row.full_name,
                 width: '20rem'
             },
             {
@@ -693,16 +699,21 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row?.id,
+
                 width: '6rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
+                cellExport: (row) => row?.user?.full_name,
+
                 width: '17rem'
             },
             {
                 name: 'Email',
                 selector: (row) => row?.user?.username,
+                cellExport: (row) => row?.user?.username,
+
                 width: '27rem'
             },
             {
@@ -831,7 +842,7 @@ const TicketsPage = (props) => {
                                                 props.getDistrictsListAction
                                             }
                                             setDist={setmentorDist}
-                                            newDist={newDist}
+                                            newDist={mentorDist}
                                             dists={props.dists}
                                             tab={tab}
                                         />
@@ -893,6 +904,7 @@ const TicketsPage = (props) => {
                                             {...StudentsData}
                                             exportHeaders
                                             print={false}
+                                            export={true}
                                         >
                                             <DataTable
                                                 data={rows}
@@ -917,18 +929,15 @@ const TicketsPage = (props) => {
                             >
                                 {mentorDist === '' ? (
                                     <CommonPage text="Please select a district" />
+                                ) : loading ? (
+                                    <ClipLoader loading={loading} size={20} />
                                 ) : (
-                                    // ) : loading ? (
-                                    //     <ClipLoader
-                                    //         loading={loading}
-                                    //         // color={color}
-                                    //         size={20}
-                                    //     />
                                     <div className="my-5">
                                         <DataTableExtensions
                                             {...TableMentorsProps}
                                             exportHeaders
                                             print={false}
+                                            export={true}
                                         >
                                             <DataTable
                                                 data={mentorRows}
@@ -956,6 +965,7 @@ const TicketsPage = (props) => {
                                         {...evaluatorsData}
                                         exportHeaders
                                         print={false}
+                                        export={true}
                                     >
                                         <DataTable
                                             responsive={true}
@@ -981,6 +991,7 @@ const TicketsPage = (props) => {
                                         {...adminData}
                                         exportHeaders
                                         print={false}
+                                        export={true}
                                     >
                                         <DataTable
                                             data={props.adminData}

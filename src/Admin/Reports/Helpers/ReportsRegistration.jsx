@@ -10,7 +10,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
 import axios from 'axios';
 import '../reports.scss';
-import { Doughnut } from 'react-chartjs-2';
+//import DoughnutChartComponent  from '../Helpers/DoughnutChart';
 import { notification } from 'antd';
 
 const ReportsRegistration = () => {
@@ -18,47 +18,26 @@ const ReportsRegistration = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [notRegisteredData, setNotRegisteredData] = useState([]);
+    //const [notRegisteredData, setNotRegisteredData] = useState([]);
     const filterOptions = ['Registered','Not Registered'];
     const [downloadData, setDownloadData] = useState(null); 
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] = useState(null);
-    const [showTable, setShowTable] = useState(false);
-    const [statsshowTable, setStatsShowTable] = useState(false);
+    const [chartTableData, setChartTableData] = useState([]);
+    //const [showTable, setShowTable] = useState(false);
+    //const [statsshowTable, setStatsShowTable] = useState(false);
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
+    //const [registeredGenderChartData, setRegisteredGenderChartData] = useState(null);
     const fullDistrictsNames = useSelector((state) => state?.studentRegistration?.dists);
-    const [regChartTableData, setRegChartTableData] = useState([]);
-    const [nonRegChartTableData, setNonRegChartTableData] = useState([]);
-    const [chartData, setChartData] = useState({
-        labels: ['Registered', 'Not Registered'],
-        datasets: [
-            {
-                label: 'Teacher Registration Status',
-                data: [regChartTableData.length, nonRegChartTableData.length],
-                backgroundColor: ['#36A2EB', '#FF6384'],
-                hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-            },
-        ],
-    });
        
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
-        setStatsShowTable(true);
+        //setStatsShowTable(true);
     }, []);
-
-    const chartOptions = {
-        maintainAspectRatio: false,
-        legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: 'black',
-            },
-        },
-    };
     
     const fetchData = (item) => {
         const url = item === 'Registered'
@@ -83,7 +62,7 @@ const ReportsRegistration = () => {
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
                     } else if (item === 'Not Registered') {
-                        setNotRegisteredData(response?.data?.data || []);
+                        //setNotRegisteredData(response?.data?.data || []);
                         setDownloadNotRegisteredData(response?.data?.data || []);
                     }
                 }
@@ -96,7 +75,7 @@ const ReportsRegistration = () => {
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorRegNONregCount', 
+            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorsummary', 
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`,
@@ -106,74 +85,34 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const firstDataItem = response?.data?.data[0];
+                    const chartTableData = response?.data?.data || [];
+                    setChartTableData(chartTableData);
 
-                    const notRegisteredCount = firstDataItem?.Count?.[0]?.notRegisteredCount || 0;
-                    const registeredCount = firstDataItem?.Count?.[1]?.RegisteredCount || 0;
+                    // const lastRow = chartTableData[chartTableData.length - 1];
 
-
-                    const allDistricts = Array.from(new Set([
-                        ...(firstDataItem?.reglist?.map(item => item.district) || []),
-                        ...(firstDataItem?.nonreglist?.map(item => item.district) || []),
-                    ]));
-
-                    const registeredDistricts = {};
-                    firstDataItem?.reglist?.forEach(item => {
-                        registeredDistricts[item.district] = item.RegisteredCount;
-                    });
-
-                    const notRegisteredDistricts = {};
-                    firstDataItem?.nonreglist?.forEach(item => {
-                        notRegisteredDistricts[item.district] = item.notRegisteredCount;
-                    });
-
-                    const chartTableData = allDistricts.map(district => {
-                        return {
-                            district,
-                            RegisteredCount: registeredDistricts[district] || 0,
-                            notRegisteredCount: notRegisteredDistricts[district] || 0,
-                        };
-                    });
-                    setRegChartTableData(chartTableData);
-                    setNonRegChartTableData(chartTableData);
-
-                    setChartData({
-                        labels: ['Registered', 'Not Registered'],
-                        datasets: [
-                            {
-                                label: 'Teacher Registration Status',
-                                data: [notRegisteredCount,registeredCount],
-                                // [    
-                                //     firstDataItem?.reglist?.length || 0,
-                                //     firstDataItem?.nonreglist?.length || 0,
-                                // ],
-                                
-                                backgroundColor: ['#36A2EB', '#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-                            },
-                        ],
-                    });
+                    // const registeredGenderChartData = {
+                    //     labels: ['Male', 'Female'],
+                    //     datasets: [
+                    //         {
+                    //             data: [lastRow.male_mentor_count, lastRow.female_mentor_count],
+                    //             backgroundColor: ['#FF6384', '#36A2EB'],
+                    //             hoverBackgroundColor: ['#FF6384', '#36A2EB'],
+                    //         },
+                    //     ],
+                    // };
+                    // setRegisteredGenderChartData(registeredGenderChartData);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
             });
     };
-    
-    const handleViewDetails = () => {
-        if (!filterType) {
-            notification.warning({
-                message: 'Please select a filter type before viewing details.',
-            });
-            return;
-        }
-        setShowTable(true);
-        setStatsShowTable(false);
-        fetchData(filterType);
-    };
-
+                    
     const handleDownload = () => {
         if (!filterType) {
+            notification.warning({
+                message: 'Please select a filter type before Downloading Reports.',
+            });
             return;
         }
         fetchData(filterType);
@@ -192,8 +131,7 @@ const ReportsRegistration = () => {
         }
     }, [filteredData]);
 
-    console.log('regChartTableData length:', regChartTableData.length);
-    console.log('nonRegChartTableData length:', nonRegChartTableData.length);
+    
 
     return (
         <>
@@ -217,7 +155,7 @@ const ReportsRegistration = () => {
                                         <Select
                                             list={fullDistrictsNames}
                                             setValue={setRegTeachersdistrict}
-                                            placeHolder={'Select District'}
+                                            placeHolder={'All Districts'}
                                             value={RegTeachersdistrict}
                                         />
                                     </div>
@@ -234,7 +172,7 @@ const ReportsRegistration = () => {
                                 </Col>
 
                                 <Col md={3} className="d-flex align-items-center justify-content-center">
-                                    <Button
+                                    {/* <Button
                                         label="View Details"
                                         btnClass="primary mx-6"
                                         size="small"
@@ -244,7 +182,7 @@ const ReportsRegistration = () => {
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
-                                    />
+                                    /> */}
                                     <Button
                                         onClick={handleDownload}
                                         label={'Download Report'}
@@ -261,9 +199,9 @@ const ReportsRegistration = () => {
                             </Row>
                             
                             <div className="chart">
-                                {statsshowTable && regChartTableData.length > 0 && nonRegChartTableData.length > 0 && (
+                                {chartTableData.length > 0 && (
                                     <div className="mt-5">
-                                        <h3>STATISTICS OVERVIEW</h3>
+                                        <h3>OVERVIEW</h3>
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="table-wrapper bg-white">
@@ -275,30 +213,38 @@ const ReportsRegistration = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>District Name</th>
-                                                                <th>Reg. Count</th>
-                                                                <th>Not Reg. Count</th>
+                                                                <th>Total Eligible Schools</th>
+                                                                <th>Total Registered Teachers</th>
+                                                                <th>Total Not Registered Teachers</th>
+                                                                <th>Registered Male Teachers</th>
+                                                                <th>Registered Female Teachers</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {regChartTableData.map((item, index) => (
+                                                            {chartTableData.map((item, index) => (
                                                                 <tr key={index}>
                                                                     <td>{index+1}</td>
                                                                     <td>{item.district}</td>
-                                                                    <td>{item.RegisteredCount || 0}</td>
-                                                                    <td>{item.notRegisteredCount || 0}</td>
+                                                                    <td>{item.organization_count}</td>
+                                                                    <td>{item.total_registered_teachers}</td>
+                                                                    <td>{item.total_not_registered_teachers}</td>
+                                                                    <td>{item.male_mentor_count}</td>
+                                                                    <td>{item.female_mentor_count}</td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6 d-flex align-items-center justify-content-center">
-                                                <Doughnut data={chartData} options={chartOptions} />
-                                            </div>
+                                            {/* <div className="doughnut-chart">
+                                                {registeredGenderChartData && (
+                                                    <DoughnutChartComponent chartConfig={registeredGenderChartData} />
+                                                )}
+                                            </div> */}
                                         </div>
                                     </div>
                                 )}
-                                {showTable && filterType === 'Registered' && (
+                                {/* {showTable && filterType === 'Registered' && (
                                     <div className="mt-5">
                                         <h3>Data based on Filter: {filterType}</h3>
                                         <div className="table-wrapper bg-white">
@@ -365,7 +311,7 @@ const ReportsRegistration = () => {
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                )} */}
                                 {downloadData && (
                                     <CSVLink
                                         data={downloadData}
@@ -396,4 +342,3 @@ const ReportsRegistration = () => {
     );
 };
 export default ReportsRegistration;
-                

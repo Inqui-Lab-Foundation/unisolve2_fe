@@ -59,7 +59,7 @@ const LoginNew = (props) => {
                 .trim()
                 .matches(
                     /^[0-9\s/^ *$/]+$/,
-                    'Mobile number is not valid (Enter only digits) '
+                    'Enter Valid Phone No (Enter only digits) '
                 )
                 // .matches(/^$|^[1-9]\d*$/, 'Mobile number is not valid')
                 .max(10, 'Please enter only 10 digit valid number')
@@ -234,6 +234,8 @@ const LoginNew = (props) => {
                                                 {...inputUserId}
                                                 id="phone"
                                                 name="phone"
+                                                maxLength={10}
+                                                minLength={10}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.phone}
