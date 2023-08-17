@@ -5,12 +5,13 @@ import { getCurrentUser } from './Utils';
 
 const ProtectedRoute = ({
     component: Component,
+    user:user,
     ...rest
 }) => {
     const setComponent = (props) => {
         if (isAuthGuardActive) {
             const currentUser = getCurrentUser();
-            if (currentUser) {
+            if (currentUser.data[0].role === user) {
                 return <Component {...props} />;
             }
             return (
