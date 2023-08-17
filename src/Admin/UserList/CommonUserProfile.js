@@ -127,7 +127,7 @@ const CommonUserProfile = (props) => {
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Email:</b>
+                                    <b>Mobile No:</b>
                                 </span>
                                 <b>
                                     {props.location.data &&
