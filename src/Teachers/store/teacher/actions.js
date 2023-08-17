@@ -116,7 +116,12 @@ export const teacherLoginUser = (data, history, module) => async (dispatch) => {
             dispatch(teacherLoginUserSuccess(result));
             history.push('/teacher/dashboard');
         } else {
-            openNotificationWithIcon('error', 'Enter the correct credentials');
+            if(result.status === 401){
+                openNotificationWithIcon('error', 'Entered credentials are Inactive');
+            }
+            else{
+                openNotificationWithIcon('error', 'Enter the correct credentials');
+            }
             dispatch(teacherLoginUserError(result.statusText));
         }
     } catch (error) {

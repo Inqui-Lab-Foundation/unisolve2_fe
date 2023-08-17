@@ -227,7 +227,7 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
-                        user="STUDENT"
+                        user="ADMIN"
                         path="/admin/dashboard"
                         component={AdminDashboard}
                     />
