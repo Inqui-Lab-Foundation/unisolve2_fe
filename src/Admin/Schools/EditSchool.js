@@ -177,10 +177,14 @@ const EditSchool = (props) => {
                                             placeholder="Please enter Institute/School name"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
-                                            // isDisabled={holdKey ? true : false}
                                             value={
                                                 formik.values.organization_name
                                             }
+                                            // className="code"/
+                                            // style={{
+                                            //     fontWeight: 'bold',
+                                            //     color: 'red'
+                                            // }}
                                         />
                                         {formik.touched.organization_name &&
                                         formik.errors.organization_name ? (

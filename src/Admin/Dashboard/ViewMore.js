@@ -10,6 +10,7 @@ import { Button } from '../../stories/Button';
 const ViewMore = () => {
     const history = useHistory();
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    console.log(orgDaTa);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
     const headingDetails = {
@@ -102,15 +103,40 @@ const ViewMore = () => {
                                 <h2 className="mb-4">Mentor Details</h2>
                                 <CardText>
                                     <span className="mx-3">
+                                        <b>Title :</b>
+                                    </span>
+                                    {/* <b>{orgDaTa.mentor.full_name}</b> */}
+                                </CardText>
+
+                                <CardText>
+                                    <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.full_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
+                                        <b>Gender :</b>
+                                    </span>
+                                    {/* <b>{orgDaTa.mentor.full_name}</b> */}
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
                                         <b>Mentor Id :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_id}</b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Mobile No :</b>
+                                    </span>
+                                    <b>{orgDaTa.mentor.user.username}</b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>WhatsApp No :</b>
+                                    </span>
+                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
                                 </CardText>
                             </CardBody>
                         </Card>
@@ -125,6 +151,20 @@ const ViewMore = () => {
                                     />
                                 </div>
                             </Col>
+                        </Row>
+                        <Row className="py-5">
+                            <Card className="py-5">
+                                <CardBody>
+                                    <h2 className="mb-4">Mentor progress</h2>
+
+                                    <CardText>
+                                        <span className="mx-3">
+                                            <b>Card </b>
+                                        </span>
+                                        {/* <b>{orgDaTa.mentor.whatapp_mobile}</b> */}
+                                    </CardText>
+                                </CardBody>
+                            </Card>
                         </Row>
                     </Row>
                 </Row>

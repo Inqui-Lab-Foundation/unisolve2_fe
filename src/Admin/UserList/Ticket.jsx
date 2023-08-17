@@ -61,7 +61,7 @@ const SelectDists = ({
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 5000);
+        }, 2000);
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
@@ -89,6 +89,7 @@ const SelectDists = ({
     );
 };
 const TicketsPage = (props) => {
+    // console.log(props.mentorsList);
     const dispatch = useDispatch();
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
@@ -407,8 +408,12 @@ const TicketsPage = (props) => {
     };
 
     const TableMentorsProps = {
-        data: props.mentorsList,
-        totalItems: props.totalItems,
+        // data: props.mentorsList,
+        data:
+            props.mentorsList && props.mentorsList.length > 0
+                ? props.mentorsList
+                : [],
+        // totalItems: props.totalItems,
         columns: [
             {
                 name: 'No',
@@ -418,25 +423,33 @@ const TicketsPage = (props) => {
             {
                 name: 'UDISE',
                 selector: 'organization_code',
+                cellExport: (row) => row.organization_code,
                 width: '13rem'
+            },
+            {
+                name: 'School Name',
+                // selector: 'organization_name',
+                selector: (row) => row.organization.organization_name,
+                cellExport: (row) => row.organization.organization_name,
+                width: '15rem'
             },
 
             {
                 name: 'Teacher Name',
                 selector: 'full_name',
-                width: '21rem'
+                cellExport: (row) => row.full_name,
+
+                width: '15rem'
             },
 
             {
                 name: 'Mobile No',
                 selector: 'username',
-                width: '22rem'
+                cellExport: (row) => row.username,
+
+                width: '15rem'
             },
-            // {
-            //     name: 'Phone',
-            //     selector: 'mobile',
-            //     width: '10%'
-            // },
+
             {
                 name: 'Status',
                 cell: (row) => [
@@ -454,7 +467,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '35rem',
+                width: '27rem',
                 cell: (record) => [
                     // <div
                     //
@@ -516,12 +529,14 @@ const TicketsPage = (props) => {
             {
                 name: 'Team Name',
                 selector: 'team.team_name',
+                cellExport: (row) => row.team.team_name,
 
                 width: '17rem'
             },
             {
                 name: 'Student Name',
                 selector: 'full_name',
+                cellExport: (row) => row.full_name,
                 width: '20rem'
             },
             {
@@ -684,16 +699,21 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row) => row?.id,
+
                 width: '6rem'
             },
             {
                 name: 'Admin Name',
                 selector: (row) => row?.user?.full_name,
+                cellExport: (row) => row?.user?.full_name,
+
                 width: '17rem'
             },
             {
                 name: 'Email',
                 selector: (row) => row?.user?.username,
+                cellExport: (row) => row?.user?.username,
+
                 width: '27rem'
             },
             {
@@ -884,6 +904,7 @@ const TicketsPage = (props) => {
                                             {...StudentsData}
                                             exportHeaders
                                             print={false}
+                                            export={true}
                                         >
                                             <DataTable
                                                 data={rows}
@@ -916,6 +937,7 @@ const TicketsPage = (props) => {
                                             {...TableMentorsProps}
                                             exportHeaders
                                             print={false}
+                                            export={true}
                                         >
                                             <DataTable
                                                 data={mentorRows}
@@ -943,6 +965,7 @@ const TicketsPage = (props) => {
                                         {...evaluatorsData}
                                         exportHeaders
                                         print={false}
+                                        export={true}
                                     >
                                         <DataTable
                                             responsive={true}
@@ -968,6 +991,7 @@ const TicketsPage = (props) => {
                                         {...adminData}
                                         exportHeaders
                                         print={false}
+                                        export={true}
                                     >
                                         <DataTable
                                             data={props.adminData}
