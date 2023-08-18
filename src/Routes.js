@@ -143,11 +143,13 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="DISTRICT"
                         path="/coordinator/dashboard"
                         component={DashboardCoordinator}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="DISTRICT"
                         path="/coordinator-changePassword"
                         component={CoordinatorChangePswModal}
                     />
@@ -159,11 +161,13 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="SCHOOL"
                         path="/school/dashboard"
                         component={DashboardSchool}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="SCHOOL"
                         path="/school-changePassword"
                         component={SchoolChangePSWModal}
                     />
