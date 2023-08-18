@@ -143,11 +143,13 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="DISTRICT"
                         path="/coordinator/dashboard"
                         component={DashboardCoordinator}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="DISTRICT"
                         path="/coordinator-changePassword"
                         component={CoordinatorChangePswModal}
                     />
@@ -159,11 +161,13 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="SCHOOL"
                         path="/school/dashboard"
                         component={DashboardSchool}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="SCHOOL"
                         path="/school-changePassword"
                         component={SchoolChangePSWModal}
                     />
@@ -171,43 +175,51 @@ const Routers = () => {
                     <ProtectedRoute
                         exact
                         path="/dashboard"
+                        user="STUDENT"
                         component={Dashboard}
                     />
-                    <ProtectedRoute exact path="/about" component={Dashboard} />
+                    <ProtectedRoute exact path="/about" user="STUDENT" component={Dashboard} />
                     <ProtectedRoute
                         exact
                         path="/instructions"
+                        user="STUDENT"
                         component={InstructionsPage}
                     />
                     <ProtectedRoute
                         exact
                         path="/challenges"
+                        user="STUDENT"
                         component={IdeasPageNew}
                     />
                     <ProtectedRoute
                         exact
+                        user="STUDENT"
                         path="/challenge-initiation"
                         component={SDG}
                     />
                     <ProtectedRoute
                         exact
                         path="/badges"
+                        user="STUDENT"
                         component={BadgesComp}
                     />
                     <ProtectedRoute
                         exact
                         path="/playCourse/:id"
+                        user="STUDENT"
                         component={PlayVideoCourses}
                     />
                     <ProtectedRoute
                         exact
                         path="/student/Resources/index"
+                        user="STUDENT"
                         component={StudentResources}
                     />
-                    <ProtectedRoute exact path="/faq" component={FaqPage} />
+                    <ProtectedRoute exact path="/faq" user="STUDENT" component={FaqPage} />
                     <ProtectedRoute
                         exact
                         path="/my-profile"
+                        user="STUDENT"
                         component={MyProfile}
                     />
                     {/* ADMIN ROUTES */}
@@ -219,21 +231,25 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/dashboard"
                         component={AdminDashboard}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/my-profile"
                         component={AdminMyProfile}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/badges"
                         component={AdminChallengesComp}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/popup"
                         component={Popup}
                     />
@@ -245,156 +261,186 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         path="/admin/userlist"
+                        user="ADMIN"
                         component={AdminUserList}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/userprofile"
                         component={CommonUserProfile}
                     />
                     {/* CommonUserProfileEdit */}
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/edit-user-profile"
                         component={CommonUserProfileEdit}
                     />
                     <ProtectedRoute
                         exact={true}
                         path="/admin/faq"
+                        user="ADMIN"
                         component={AdminFaqByCategory}
                     />
                     <ProtectedRoute
                         exact={true}
                         path="/admin/New-faq"
+                        user="ADMIN"
                         component={AddNewFaq}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/edit-faq/:faqid"
                         component={EditFaq}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/all-tickets"
                         component={AdminTickets}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/tickets"
                         component={AdminTickets}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/registered-schools"
                         component={AdminAllSchools}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/View-More-details"
                         component={ViewMore}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/register-new-schools"
                         component={AddNewSchool}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/challenges"
                         component={AdminChallenges}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/evaluationStatus"
                         component={AdminEvaluation}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/evaluationStatus/viewlist"
                         component={Selectedlist}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/evaluationStatus/viewfinallist"
                         component={Selectedfinallist}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/evaluationProcess"
                         component={AdminEvaluationProcess}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/reports"
                         component={Reports}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/selected-report"
                         component={IndividualReport}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/reports-view"
                         component={ReportsView}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/reports-registration"
                         component={ReportsRegistration}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/SurveyStatus"
                         component={SurveyStatus}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/TeacherProgressDetailed"
                         component={TeacherProgressDetailed}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/ChallengesReport"
                         component={ChallengesReport}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/Resources/index"
                         component={AdminResources}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/Resources/createResource"
                         component={AdminCreateResource}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/Resources/editResource"
                         component={AdminEditResource}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/LatestNews/index"
                         component={AdminLatestNews}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/LatestNews/createLatestNews"
                         component={AdminCreateLatestNews}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/LatestNews/editLatestNews"
                         component={AdminEditLatestNews}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="STUDENT"
                         path="/change-password"
                         component={StudenetChangePSWModal}
                     />
@@ -408,17 +454,20 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/dashboard"
+                        user="MENTOR"
                         component={TeacherDashboard}
                     />
 
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/faq"
+                        user="MENTOR"
                         component={TeacherFaqPage}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/Resources/index"
                         component={TeacherResources}
                     />
@@ -430,143 +479,170 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/teamlist"
                         component={TeacherTeamList}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/create-team"
                         component={TeacherCreateTeam}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/pre-survey"
                         component={TeacherPreservey}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/edit-team"
                         component={TeacherEditTeam}
                     />
                     {/* Team member */}
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/view-team-member"
                         component={TeacherViewTeamMember}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/create-team-member/:id/:count"
                         component={TeacherTeamMember}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/edit-team-member"
                         component={TeacherEditTeamMember}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/playvideo/:id"
                         component={TeacherPlayVideo}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/EditTeacherProfile"
                         component={TeacherEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/my-profile"
                         component={TeacherMyProfile}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/change-password"
                         component={ChangePSWModal}
                     />
                     {/* support journey */}
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/support-journey"
                         component={TeacherSupport}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/support-journey/add-ticket"
                         component={TeacherSupportAdd}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/support-journey/ans-ticket"
                         component={TeacherSupportAnswer}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/support-journey/ans-ticket"
                         component={TicketResView}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="STUDENT"
                         path="/student/pre-survey"
                         component={StudentPreservey}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="STUDENT"
                         path="/student/post-survey"
                         component={StudentPostservey}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/post-survey"
                         component={TeacherPostservey}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="MENTOR"
                         path="/teacher/my-certificate"
                         component={MyCertificate}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="STUDENT"
                         path="/student/my-certificate"
                         component={StudentCertificate}
                     />
                     <ProtectedRoute
                         exact={true}
                         path="/admin/register-edit-schools"
+                        user="ADMIN"
                         component={EditSchool}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/translation"
                         component={Translation}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/create-evaluationProcess"
                         component={CreateEvalProcess}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/edit-evaluationProcess"
                         component={EditEvalProcess}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/selectingDistricts-evaluationProcess"
                         component={SelDistricts}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/edit-translation"
                         component={EditTranslation}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
                         path="/admin/create-translation"
                         component={CreateTranslation}
                     />
@@ -579,11 +655,13 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EVALUATOR"
                         path="/evaluator/dashboard"
                         component={EvaluatorDashboard}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EVALUATOR"
                         path="/evaluator/change-password"
                         component={EvaluatorChangePassword}
                     />
@@ -594,18 +672,21 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EVALUATOR"
                         path="/evaluator/submitted-ideas"
                         component={EvaluatorIdeaList}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="EVALUATOR"
                         path="/evaluator/instructions"
                         component={EvaluatorInstructions}
                     />
 
                     <ProtectedRoute
                         exact={true}
+                        user="EVALUATOR"
                         path="/evaluator/evaluated-ideas"
                         component={EvaluatedIdea}
                     />
@@ -616,21 +697,25 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EADMIN"
                         path="/eadmin/dashboard"
                         component={Eadmindashboard}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EADMIN"
                         path="/eadmin/change-password"
                         component={EadminChangePassword}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EADMIN"
                         path="/eadmin/listofideas"
                         component={ListOfIdeas}
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="EADMIN"
                         path="/eadmin/listofFinalideas"
                         component={ListOfFinalIdeas}
                     />

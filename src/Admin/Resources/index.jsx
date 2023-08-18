@@ -126,7 +126,7 @@ const AdminResources = () => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'Are you sure you want to delete this resource?'
+                                    'Resource Deleted Successfully'
                                 );
                                 handleResList();
                             } else {

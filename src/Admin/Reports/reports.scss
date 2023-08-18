@@ -14,7 +14,7 @@
 
 .table-wrapper {
     display:block;
-    max-height:400px;
+    max-height:900px;
     max-width:max-content;
     overflow-y:auto;
     overflow-x: hidden; 
@@ -46,4 +46,21 @@
 }
 .hidden {
     display: none;
+}
+.doughnut-chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 400px;
+    padding: 20px;
+    margin-left: 30px;
+    box-sizing: border-box;
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
 }
