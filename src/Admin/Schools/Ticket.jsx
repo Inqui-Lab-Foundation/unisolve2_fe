@@ -294,13 +294,13 @@ const TicketsPage = (props) => {
                 name: 'District',
                 selector: 'district',
                 cellExport: (row) => row.district,
-                width: '15rem'
+                width: '13rem'
             },
             {
-                name: 'category',
+                name: 'Category',
                 selector: 'category',
                 cellExport: (row) => row.category,
-                width: '10rem'
+                width: '12rem'
             },
             {
                 name: 'Principal Name',
@@ -391,13 +391,13 @@ const TicketsPage = (props) => {
                 name: 'District',
                 selector: 'district',
                 cellExport: (row) => row.district,
-                width: '15rem'
+                width: '13rem'
             },
             {
-                name: 'category',
+                name: 'Category',
                 selector: 'category',
                 cellExport: (row) => row.category,
-                width: '10rem'
+                width: '12rem'
             },
             {
                 name: 'Principal Name',
@@ -478,13 +478,13 @@ const TicketsPage = (props) => {
                 name: 'District',
                 selector: 'district',
                 cellExport: (row) => row.district,
-                width: '15rem'
+                width: '13rem'
             },
             {
-                name: 'category',
+                name: 'Category',
                 selector: 'category',
                 cellExport: (row) => row.category,
-                width: '10rem'
+                width: '12rem'
             },
             {
                 name: 'Principal Name',
