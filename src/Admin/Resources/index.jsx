@@ -98,7 +98,7 @@ const AdminResources = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'Are you sure you want to delete this news?',
+                title: 'Are you sure you want to delete this Resource ?',
                 text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,

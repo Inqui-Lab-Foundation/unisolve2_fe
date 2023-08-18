@@ -1,32 +1,39 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../Admin/Layout';
 import { useHistory, withRouter } from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardText } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
+import { useDispatch } from 'react-redux';
+
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
+import { getStudentDashboardStatus } from '../../redux/studentRegistration/actions';
 const CommonUserProfile = (props) => {
     const history = useHistory();
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
+    const dashboardStatus = useSelector(
+        (state) => state?.studentRegistration.dashboardStatus
+    );
     const currentUser = getCurrentUser('current_user');
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (currentUser) {
+            dispatch(
+                getStudentDashboardStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
+            );
+        }
+    }, [currentUser?.data[0]?.user_id, language]);
 
-    const headingDetails = {
-        title: 'User List Details',
-
-        options: [
-            {
-                title: 'User List',
-                path: '/admin/userlist'
-            },
-            {
-                title: 'User List Profile',
-                path: '/admin/userlist'
-            }
-        ]
-    };
-
+    console.log(dashboardStatus);
     const handleViewBack = () => {
         history.push({
             pathname: '/admin/userlist'
@@ -86,7 +93,8 @@ const CommonUserProfile = (props) => {
             <Container className="mt-5 pt-5 dynamic-form">
                 <Row>
                     <div className="col-6">
-                        <BreadcrumbTwo {...headingDetails} />
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
+                        <h3 className="mt-5"> User List Details</h3>
                     </div>
                     <div className="col-6 text-end">
                         <Button
@@ -196,6 +204,63 @@ const CommonUserProfile = (props) => {
                                               .district
                                         : '-'}
                                 </b>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Row>
+                <Row>
+                    <Card className="py-5">
+                        <CardBody>
+                            <h2 className="mb-4">Course Details</h2>
+
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Completed Videos :</b>
+                                </span>
+                                {/* <b>
+                                    {props.location.data &&
+                                    props.location.data.full_name
+                                        ? props.location.data &&
+                                          props.location.data.full_name
+                                        : '-'}
+                                </b> */}
+                            </CardText>
+
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Completed Quiz :</b>
+                                </span>
+                                {/* <b>
+                                    {props.location.data &&
+                                    props.location.data?.username
+                                        ? props.location.data &&
+                                          props.location.data?.username
+                                        : '-'}
+                                </b> */}
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Course Completion :</b>
+                                </span>
+                                {/* <b>
+                                    {props.location.data &&
+                                    props.location.data.full_name
+                                        ? props.location.data &&
+                                          props.location.data.full_name
+                                        : '-'}
+                                </b> */}
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Earned Badges :</b>
+                                </span>
+                                {/* <b>
+                                    {props.location.data &&
+                                    props.location.data.full_name
+                                        ? props.location.data &&
+                                          props.location.data.full_name
+                                        : '-'}
+                                </b> */}
                             </CardText>
                         </CardBody>
                     </Card>
