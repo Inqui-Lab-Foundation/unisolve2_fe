@@ -19,7 +19,7 @@ import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { RichText } from '../../stories/RichText/RichText';
+//import { RichText } from '../../stories/RichText/RichText';
 
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
@@ -33,15 +33,13 @@ import AddFaqCategoryModal from './AddFaqCategoryModal';
 import plusIcon from '../../assets/media/img/plus-icon.svg';
 import axios from 'axios';
 
-import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+//import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { useHistory, useParams } from 'react-router-dom';
 
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './style.scss';
 
 const EditFaq = (props) => {
-   
-
     const [categoriesList, setCategoriesList] = useState([]);
     const [faqData, setFaqData] = useState({});
     const [showFaqCatModal, setShowFaqCatModal] = useState(false);
@@ -49,20 +47,20 @@ const EditFaq = (props) => {
         label: '',
         value: ''
     });
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+    // const [editorState, ] = useState(() =>
+    //     EditorState.createEmpty()
+    // );
     const history = useHistory();
 
     let { faqid } = useParams();
 
-    const handleEditorChange = (state) => {
-        setEditorState(state);
-        formik.setFieldValue(
-            'answer',
-            state.getCurrentContent().getPlainText()
-        );
-    };
+    // const handleEditorChange = (state) => {
+    //     setEditorState(state);
+    //     formik.setFieldValue(
+    //         'answer',
+    //         state.getCurrentContent().getPlainText()
+    //     );
+    // };
 
     const formik = useFormik({
         initialValues: {
@@ -156,13 +154,6 @@ const EditFaq = (props) => {
                         setFaqData(dataValue);
                         formik.setFieldValue('question', dataValue?.question);
                         formik.setFieldValue('answer', dataValue?.answer);
-                        setEditorState(
-                            EditorState.createWithContent(
-                                ContentState.createFromBlockArray(
-                                    convertFromHTML(dataValue?.answer)
-                                )
-                            )
-                        );
                         formik.setFieldValue(
                             'faq_category_id',
                             dataValue?.faq_category_id
@@ -331,20 +322,18 @@ const EditFaq = (props) => {
                                                 FAQ answer
                                             </Label>
                                             <Col className="form-group" md={12}>
-                                                <div>
-                                                    <RichText
-                                                        name="answer"
-                                                        value={
-                                                            formik.values.answer
-                                                        }
-                                                        handleEditorChange={
-                                                            handleEditorChange
-                                                        }
-                                                        editorState={
-                                                            editorState
-                                                        }
-                                                    />
-                                                </div>
+                                                <textarea
+                                                    className="form-control form-control-lg"
+                                                    rows="8"
+                                                    name="answer"
+                                                    value={formik.values.answer}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    style={{
+                                                        fontSize: '2rem'
+                                                    }}
+                                                ></textarea>
                                                 {formik.errors.answer ? (
                                                     <small className="error-cls">
                                                         {formik.errors.answer}

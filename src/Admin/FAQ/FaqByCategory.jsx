@@ -24,19 +24,20 @@ const FaqByCategory = () => {
     const [data, setData] = useState([]);
     const [activeButton, setActiveButton] = useState('teacher');
     const getFaqByCategory = async (id) => {
+        setData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(`${URL.getFaqByCategoryId}/${id}`, axiosConfig)
             .then((res) => {
                 if (res?.status === 200) {
-                    setData(
-                        () =>
-                            res?.data?.data[0]?.faqs &&
-                            res?.data?.data[0]?.faqs.map((item, i) => {
-                                item.index = i + 1;
-                                return item;
-                            })
-                    );
+                    const updatedWithKey =
+                        res?.data?.data[0]?.faqs &&
+                        res?.data?.data[0]?.faqs.map((item, i) => {
+                            const upd = { ...item };
+                            upd['key'] = i + 1;
+                            return upd;
+                        });
+                    setData(updatedWithKey);
                 }
             })
             .catch((err) => {
@@ -88,66 +89,66 @@ const FaqByCategory = () => {
         columns: [
             {
                 name: 'No.',
-                selector: 'index',
+                selector: 'key',
                 sortable: true,
-                width: '10%'
+                width: '9rem'
             },
             {
                 name: 'Category',
-                cell: (row) => (
-                    <span>
-                        {row.faq_category_id === 1 ? 'Teacher' : 'Student'}
-                    </span>
-                ),
-                width: '20%'
+                selector: (row) =>
+                    row.faq_category_id === 1 ? 'Teacher' : 'Student',
+                width: '13rem'
             },
             {
                 name: 'Questions',
                 selector: 'question',
-                width: '50%',
+                width: '70rem',
                 sortable: true
             },
-
             {
                 name: 'Status',
-                cell: (row) => [
+                selector: (params) => (
                     <div
                         className={`btn ${
-                            row.status === 'ACTIVE'
+                            params.status === 'ACTIVE'
                                 ? 'btn-primary'
                                 : 'btn-danger'
                         }`}
-                        key={row.faq_id}
                     >
-                        {row.status}
+                        {params.status}
                     </div>
-                ],
-                allowOverflow: true,
-                button: true,
-                width: '20%',
+                ),
+                width: '10rem',
                 right: true
             },
             {
                 name: 'Actions',
-                cell: (row) => [
-                    <i
-                        key={row.faq_id}
-                        className="fa fa-edit"
-                        style={{ marginRight: '10px' }}
-                        onClick={() =>
-                            history.push(`/admin/edit-faq/${row.faq_id}`)
-                        }
-                    />,
-                    <i
-                        key={row.faq_id}
-                        className="fa fa-trash"
-                        onClick={() => deleteFaq(row.faq_id)}
-                    />
-                ],
-                allowOverflow: true,
-                button: true,
-                width: '12%',
-                right: true
+                cell: (params) => {
+                    return [
+                        <div key={params.key}>
+                            <a
+                                onClick={() =>
+                                    history.push(
+                                        `/admin/edit-faq/${params.faq_id}`
+                                    )
+                                }
+                            >
+                                <i
+                                    className="fa fa-edit"
+                                    style={{ marginRight: '10px' }}
+                                />
+                            </a>
+                            <a onClick={() => deleteFaq(params.faq_id)}>
+                                <i
+                                    //key={params.faq_id}
+                                    className="fa fa-trash"
+                                    style={{ marginRight: '10px' }}
+                                />
+                            </a>
+                        </div>
+                    ];
+                },
+                width: '10rem'
             }
         ]
     };
@@ -167,7 +168,7 @@ const FaqByCategory = () => {
                                 label={`Add FAQ`}
                                 btnClass="primary float-end mb-3"
                                 size="small"
-                                style={{marginLeft:'.3rem'}}
+                                style={{ marginLeft: '.3rem' }}
                                 onClick={() => history.push('/admin/New-faq')}
                             />
                             <Button
@@ -175,9 +176,15 @@ const FaqByCategory = () => {
                                 //btnClass={`primary float-end mb-3 ${activeButton === 'teacher' ? 'active' : ''}`}
                                 btnClass="primary  float-end mb-3"
                                 style={{
-                                    backgroundColor: activeButton === 'teacher' ? '#0d6efd' : '#ffcb34',
-                                    color: activeButton === 'teacher' ? 'white' : 'black',
-                                    marginLeft:'.3rem',
+                                    backgroundColor:
+                                        activeButton === 'teacher'
+                                            ? '#0d6efd'
+                                            : '#ffcb34',
+                                    color:
+                                        activeButton === 'teacher'
+                                            ? 'white'
+                                            : 'black',
+                                    marginLeft: '.3rem'
                                 }}
                                 size="small"
                                 onClick={() => {
@@ -191,9 +198,14 @@ const FaqByCategory = () => {
                                 btnClass="primary float-end mb-3"
                                 size="small"
                                 style={{
-                                    backgroundColor: activeButton === 'student' ? '#0d6efd' : '#ffcb34',
-                                    color: activeButton === 'student' ? 'white' : 'black',
-                                   
+                                    backgroundColor:
+                                        activeButton === 'student'
+                                            ? '#0d6efd'
+                                            : '#ffcb34',
+                                    color:
+                                        activeButton === 'student'
+                                            ? 'white'
+                                            : 'black'
                                 }}
                                 onClick={() => {
                                     setActiveButton('student');
@@ -201,18 +213,19 @@ const FaqByCategory = () => {
                                 }}
                             />
                             <DataTableExtensions
-                                {...dataProps}
                                 exportHeaders
                                 print={false}
+                                export={false}
+                                {...dataProps}
                             >
                                 <DataTable
-                                    data={rows}
+                                    data={data}
                                     defaultSortField="id"
                                     defaultSortAsc={false}
                                     pagination
                                     highlightOnHover
                                     fixedHeader
-                                    subHeaderAlign={Alignment.Center}
+                                    //subHeaderAlign={Alignment.Center}
                                 />
                             </DataTableExtensions>
                         </div>

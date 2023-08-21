@@ -16,7 +16,7 @@ import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { RichText } from '../../stories/RichText/RichText';
+//import { RichText } from '../../stories/RichText/RichText';
 
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
@@ -27,7 +27,7 @@ import {
 import AddFaqCategoryModal from './AddFaqCategoryModal';
 import plusIcon from '../../assets/media/img/plus-icon.svg';
 import axios from 'axios';
-import { EditorState } from 'draft-js';
+//import { EditorState } from 'draft-js';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -37,14 +37,14 @@ import { useSelector } from 'react-redux';
 
 const AddNewFaq = (props) => {
     const language = useSelector((state) => state?.admin?.adminLanguage);
-   
+
     const [categoriesList, setCategoriesList] = useState([]);
     const [faqData, setFaqData] = useState({});
     const [showFaqCatModal, setShowFaqCatModal] = useState(false);
     const [defaultCategory, setDefaultCategory] = useState();
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+    // const [editorState, setEditorState] = useState(() =>
+    //     EditorState.createEmpty()
+    // );
     const history = useHistory();
     let query = useQuery();
     const faqID = query.get('faqid');
@@ -57,13 +57,13 @@ const AddNewFaq = (props) => {
         return React.useMemo(() => new URLSearchParams(search), [search]);
     }
 
-    const handleEditorChange = (state) => {
-        setEditorState(state);
-        formik.setFieldValue(
-            'answer',
-            state.getCurrentContent().getPlainText()
-        );
-    };
+    // const handleEditorChange = (state) => {
+    //     setEditorState(state);
+    //     formik.setFieldValue(
+    //         'answer',
+    //         state.getCurrentContent().getPlainText()
+    //     );
+    // };
 
     const formik = useFormik({
         initialValues: {
@@ -335,22 +335,19 @@ const AddNewFaq = (props) => {
                                                 FAQ answer
                                             </Label>
                                             <Col className="form-group" md={12}>
-                                                <div
-                                                    style={{ height: '211px' }}
-                                                >
-                                                    <RichText
-                                                        name="answer"
-                                                        value={
-                                                            formik.values.answer
-                                                        }
-                                                        handleEditorChange={
-                                                            handleEditorChange
-                                                        }
-                                                        editorState={
-                                                            editorState
-                                                        }
-                                                    />
-                                                </div>
+                                                <textarea
+                                                    className="form-control form-control-lg"
+                                                    rows="8"
+                                                    name="answer"
+                                                    value={formik.values.answer}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    style={{
+                                                        fontSize: '2rem'
+                                                    }}
+                                                ></textarea>
+
                                                 {formik.errors.answer ? (
                                                     <small className="error-cls">
                                                         {formik.errors.answer}
