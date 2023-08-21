@@ -8,8 +8,8 @@ class detailToDownload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        console.log(props);
     }
-
     render() {
         const average = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length;
         return (
@@ -62,7 +62,8 @@ class detailToDownload extends React.Component {
                                 </div>
                                 <div className="col-8 text-capitalize fs-4">
                                     :{' '}
-                                    {this.props?.ideaDetails?.team_members.toString()}
+                                    {this.props?.ideaDetails?.team_members &&
+                                        this.props?.ideaDetails?.team_members.toString()}
                                 </div>
                             </div>
                             <div className="row my-2">

@@ -98,7 +98,6 @@ const TicketsPage = (props) => {
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
     const [studentDist, setstudentDist] = useState(district ? district : '');
-
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -215,6 +214,7 @@ const TicketsPage = (props) => {
                 dist: studentDist,
                 num: num
             });
+            localStorage.setItem('studentId', item.user_id);
         } else {
             props.history.push({
                 pathname: `/admin/userprofile`,
@@ -525,6 +525,26 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: 'id',
                 width: '6rem'
+            },
+            {
+                name: 'UDISE',
+                selector: 'team.mentor.organization.organization_code',
+                cellExport: (row) =>
+                    row.team.mentor.organization.organization_code,
+                width: '13rem'
+            },
+            {
+                name: 'Category',
+                selector: 'team.mentor.organization.category',
+                cellExport: (row) => row.team.mentor.organization.category,
+                width: '13rem'
+            },
+            {
+                name: 'School Name',
+                selector: 'team.mentor.organization.organization_name',
+                cellExport: (row) =>
+                    row.team.mentor.organization.organization_name,
+                width: '13rem'
             },
             {
                 name: 'Team Name',
