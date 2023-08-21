@@ -39,6 +39,7 @@ const Dashboard = () => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
+    console.log(dashboardStatus);
     // const dashboardChallengesStatus = useSelector(
     //     (state) => state?.studentRegistration.dashboardChallengesStatus
     // );
