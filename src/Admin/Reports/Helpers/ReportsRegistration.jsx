@@ -95,9 +95,9 @@ const ReportsRegistration = () => {
 
     const fetchData = (item) => {
         const url = item === 'Registered'
-            ? `/reports/mentorRegList`
+            ? `/reports/mentorRegList?district=${RegTeachersdistrict}`
             : item === 'Not Registered'
-                ? `/reports/notRegistered`
+                ? `/reports/notRegistered?district=${RegTeachersdistrict}`
                 : '';
 
         const config = {
@@ -130,40 +130,44 @@ const ReportsRegistration = () => {
     };
 
     const handleDownload = () => {
-        if (!filterType) {
+        if (!RegTeachersdistrict || !filterType) {
             notification.warning({
-                message: 'Please select a filter type before Downloading Reports.',
+                message: 'Please select a district and filter type before Downloading Reports.',
             });
             return;
         }
         setIsDownloading(true);
-        setDownloadComplete(false);
+        //  setDownloadComplete(false);
         fetchData(filterType);
-
-        // setTimeout(() => {
-        //     setIsDownloading(false);
-        //     setDownloadComplete(true);
-        // }, 2500); 
     };
-        // if (filterType === 'Registered' && csvLinkRef.current) {
-        //     setDownloadData(filteredData);
-        //     csvLinkRef.current.link.click();
-        // } else if (filterType === 'Not Registered' && csvLinkRefNotRegistered.current) {
-        //     //setDownloadNotRegisteredData(filteredData);
-        //     csvLinkRefNotRegistered.current.link.click();
-        // }
-        //openNotificationWithIcon('success',`${filterType} Downloaded Successfully`);
+        
+    // if (filterType === 'Registered' && csvLinkRef.current) {
+    //     setDownloadData(filteredData);
+    //     csvLinkRef.current.link.click();
+    // } else if (filterType === 'Not Registered' && csvLinkRefNotRegistered.current) {
+    //     //setDownloadNotRegisteredData(filteredData);
+    //     csvLinkRefNotRegistered.current.link.click();
+    // }
+    //openNotificationWithIcon('success',`${filterType} Downloaded Successfully`);
 
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
             setIsDownloading(false);
-            setDownloadComplete(true);
-            setTimeout(() => {
-                setDownloadComplete(false);
-            }, 1500);
+            // setDownloadComplete(true);
+            // setTimeout(() => {
+            //     setDownloadComplete(false);
+            // }, 1500);
         }
     }, [filteredData,downloadNotRegisteredData]);
+
+    useEffect(() => {
+        if (downloadComplete) {
+            setDownloadComplete(false);
+            setRegTeachersdistrict('');
+            setFilterType('');
+        }
+    }, [downloadComplete]);
 
     const fetchChartTableData = () => {
         const config = {
@@ -238,7 +242,7 @@ const ReportsRegistration = () => {
                                         <Select
                                             list={fullDistrictsNames}
                                             setValue={setRegTeachersdistrict}
-                                            placeHolder={'All Districts'}
+                                            placeHolder={'Select District'}
                                             value={RegTeachersdistrict}
                                         />
                                     </div>
@@ -269,7 +273,13 @@ const ReportsRegistration = () => {
                                     <Button
                                         onClick={handleDownload}
                                         //label={'Download Report'}
-                                        label={downloadComplete ? 'Download Complete' : (isDownloading ? 'Downloading...' : 'Download Report')}
+                                        label={
+                                            downloadComplete
+                                                ? 'Download Complete'
+                                                : isDownloading
+                                                    ? 'Downloading...'
+                                                    : 'Download Report'
+                                        }
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
