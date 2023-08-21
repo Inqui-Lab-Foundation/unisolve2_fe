@@ -70,10 +70,10 @@ const Translation = (props) => {
                         </a>
                     ];
                 },
-                width: '17%',
+                width: '12rem',
                 center: true
             },
-          {/*  {
+          /*  {
                 name: 'From',
                 selector: 'from_locale',
                 width: '8%'
@@ -82,16 +82,16 @@ const Translation = (props) => {
                 name: 'To',
                 selector: 'to_locale',
                 width: '5%'
-            }, */},
+            }, */
             {
                 name: 'English',
                 selector: 'key',
-                width: '35%'
+                width: '50rem'
             },
             {
                 name: 'Translation',
                 selector: 'value',
-                width: '35%'
+                width: '50rem'
             }
         ]
     };
