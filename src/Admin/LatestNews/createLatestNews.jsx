@@ -137,63 +137,80 @@ const CreateLatestNews = (props) => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <FormGroup className="form-group" md={12}>
-                                    <Row>
+                                        <Row>
                                             <Col>
-                                        <Label className="mb-2" htmlFor="role">
-                                            Role
-                                        </Label>
-                                        <select
-                                            name="role"
-                                            id="role"
-                                            className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.role}
-                                        >
-                                            <option value="">
-                                                Select role
-                                            </option>
-                                            <option value="mentor">
-                                                mentor
-                                            </option>
-                                            <option value="student">
-                                                student
-                                            </option>
-                                        </select>
-                                        {formik.touched.role &&
-                                            formik.errors.role && (
-                                                <small className="error-cls">
-                                                    {formik.errors.role}
-                                                </small>
-                                            )}
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="role"
+                                                >
+                                                    Role
+                                                </Label>
+                                                <select
+                                                    name="role"
+                                                    id="role"
+                                                    className="form-control custom-dropdown"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={formik.values.role}
+                                                >
+                                                    <option value="">
+                                                        Select role
+                                                    </option>
+                                                    <option value="mentor">
+                                                        mentor
+                                                    </option>
+                                                    <option value="student">
+                                                        student
+                                                    </option>
+                                                </select>
+                                                {formik.touched.role &&
+                                                    formik.errors.role && (
+                                                        <small className="error-cls">
+                                                            {formik.errors.role}
+                                                        </small>
+                                                    )}
                                             </Col>
                                             <Col>
-                                        <Label
-                                            className="mb-2"
-                                            htmlFor="new_status"
-                                        >
-                                            New Icon Status
-                                        </Label>
-                                        <select
-                                            name="new_status"
-                                            id="new_status"
-                                            className="form-control custom-dropdown"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.new_status}
-                                        >
-                                            <option value="">
-                                                Select New Status
-                                            </option>
-                                            <option value="0">Disable</option>
-                                            <option value="1">Enable</option>
-                                        </select>
-                                        {formik.touched.new_status &&
-                                            formik.errors.new_status && (
-                                                <small className="error-cls">
-                                                    {formik.errors.new_status}
-                                                </small>
-                                            )}
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="new_status"
+                                                >
+                                                    New Icon Status
+                                                </Label>
+                                                <select
+                                                    name="new_status"
+                                                    id="new_status"
+                                                    className="form-control custom-dropdown"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values.new_status
+                                                    }
+                                                >
+                                                    <option value="">
+                                                        Select New Icon Status
+                                                    </option>
+                                                    <option value="0">
+                                                        Disable
+                                                    </option>
+                                                    <option value="1">
+                                                        Enable
+                                                    </option>
+                                                </select>
+                                                {formik.touched.new_status &&
+                                                    formik.errors
+                                                        .new_status && (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .new_status
+                                                            }
+                                                        </small>
+                                                    )}
                                             </Col>
                                         </Row>
                                         <Label
@@ -237,7 +254,7 @@ const CreateLatestNews = (props) => {
                                                 onChange={(e) => fileHandler(e)}
                                                 onBlur={formik.handleBlur}
                                             />
-                                             <Button
+                                            <Button
                                                 label="Upload File "
                                                 btnClass="primary"
                                                 size="small"

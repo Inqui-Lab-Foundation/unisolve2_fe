@@ -342,7 +342,7 @@ const TicketsPage = (props) => {
                                 If Idea is initiated by a team then 
                                 <ul>
                                     <li>Students & Team cannot be deleted</li>
-                                    <li>Students cannot be changes / shifted to other teams</li>
+                                    <li>Students cannot be changed / shifted to other teams</li>
                                 </ul>
                             </li>
 
