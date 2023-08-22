@@ -194,10 +194,11 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b> Quiz Score :</b>
                                     </span>
-                                    <b>{course[0]?.score}</b>
-                                    {/* <b>{course.response.data.data.scores};</b> */}
-                                    {/* <b>{course.response.data[0].}</b> */}
-                                    {/* <b>{orgDaTa.mentor.title}</b> */}
+                                    <b>
+                                        {course[0]?.score
+                                            ? course[0].score
+                                            : '-'}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
@@ -207,8 +208,10 @@ const ViewMore = () => {
                                         {Math.round(
                                             100 -
                                                 percentageBWNumbers(
-                                                    course?.totalProgress,
-                                                    course?.currentProgress
+                                                    course[0]?.score
+                                                        ?.totalProgress,
+                                                    course[0]?.score
+                                                        ?.currentProgress
                                                 )
                                         ) + '%'}
                                     </b>{' '}

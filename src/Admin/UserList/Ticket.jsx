@@ -225,6 +225,13 @@ const TicketsPage = (props) => {
         }
         localStorage.setItem('mentor', JSON.stringify(item));
     };
+    const viewDetail = (item) => {
+        props.history.push({
+            pathname: '/admin/teacherview',
+            data: item
+        });
+        localStorage.setItem('mentor', item);
+    };
     const handleEdit = (item) => {
         // where we can edit user details  //
         // where item = mentor id //
@@ -479,7 +486,8 @@ const TicketsPage = (props) => {
                     // </div>,
                     <div
                         key={record.id}
-                        onClick={() => handleSelect(record, '2')}
+                        // onClick={() => handleSelect(record, '2')}
+                        onClick={viewDetail}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary ">VIEW</div>
