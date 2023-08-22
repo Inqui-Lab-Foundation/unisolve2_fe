@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -113,7 +114,7 @@ import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
 import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
-
+import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
 const Routers = () => {
     return (
         <>
@@ -178,7 +179,12 @@ const Routers = () => {
                         user="STUDENT"
                         component={Dashboard}
                     />
-                    <ProtectedRoute exact path="/about" user="STUDENT" component={Dashboard} />
+                    <ProtectedRoute
+                        exact
+                        path="/about"
+                        user="STUDENT"
+                        component={Dashboard}
+                    />
                     <ProtectedRoute
                         exact
                         path="/instructions"
@@ -215,7 +221,12 @@ const Routers = () => {
                         user="STUDENT"
                         component={StudentResources}
                     />
-                    <ProtectedRoute exact path="/faq" user="STUDENT" component={FaqPage} />
+                    <ProtectedRoute
+                        exact
+                        path="/faq"
+                        user="STUDENT"
+                        component={FaqPage}
+                    />
                     <ProtectedRoute
                         exact
                         path="/my-profile"
@@ -263,6 +274,12 @@ const Routers = () => {
                         path="/admin/userlist"
                         user="ADMIN"
                         component={AdminUserList}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/teacherview"
+                        user="ADMIN"
+                        component={TeacherViewDetails}
                     />
                     <ProtectedRoute
                         exact={true}
