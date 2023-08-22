@@ -153,13 +153,14 @@ const TicketsPage = () => {
         columns: [
             {
                 name: 'No',
-                selector: (row, key) => key + 1,
-
+                selector: (row) => row.index,
+                cellExport: (row) => row.index,
                 width: '10rem'
             },
             {
                 name: ' Query Category',
                 selector: (row) => row.query_category,
+                cellExport: (row) => row.query_category,
                 sortable: true,
                 width: '25rem'
             },
@@ -167,6 +168,8 @@ const TicketsPage = () => {
             {
                 name: ' Query Details',
                 selector: (row) => row.query_details,
+                cellExport: (row) => row.query_details,
+
                 width: '45rem',
                 // center: true,
                 cell: (params) => [
@@ -183,6 +186,8 @@ const TicketsPage = () => {
             {
                 name: 'Status',
                 selector: (row) => row.status,
+                cellExport: (row) => row.status,
+
                 width: '20rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
@@ -246,7 +251,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        // export={false}
+                                        export={true}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -266,7 +271,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        // export={false}
+                                        export={true}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -286,7 +291,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        // export={false}
+                                        export={true}
                                         {...allData}
                                         exportHeaders
                                     >
@@ -306,7 +311,7 @@ const TicketsPage = () => {
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
-                                        // export={false}
+                                        export={true}
                                         {...allData}
                                         exportHeaders
                                     >
