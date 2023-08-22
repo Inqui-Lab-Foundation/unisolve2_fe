@@ -274,7 +274,7 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: (row) => row.index,
                 cellExport: (row) => row.index,
-                width: '6rem'
+                width: '9rem'
             },
             {
                 name: 'UDISE Code ',
@@ -288,7 +288,7 @@ const TicketsPage = (props) => {
                 name: 'Institution Name',
                 selector: 'organization_name',
                 cellExport: (row) => row.organization_name,
-                width: '27rem'
+                width: '24rem'
             },
             {
                 name: 'District',
@@ -372,7 +372,7 @@ const TicketsPage = (props) => {
                 name: 'No',
                 selector: (row, key) => key + 1,
                 // sortable: true,
-                width: '6rem'
+                width: '9rem'
             },
             {
                 name: 'UDISE Code ',
@@ -385,7 +385,7 @@ const TicketsPage = (props) => {
                 name: 'Institution Name',
                 selector: 'organization_name',
                 cellExport: (row) => row.organization_name,
-                width: '27rem'
+                width: '24rem'
             },
             {
                 name: 'District',
@@ -458,7 +458,7 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: (row, key) => key + 1,
-                width: '6rem'
+                width: '9rem'
             },
             {
                 name: 'UDISE Code ',
@@ -472,7 +472,7 @@ const TicketsPage = (props) => {
                 name: 'Institution Name',
                 selector: 'organization_name',
                 cellExport: (row) => row.organization_name,
-                width: '27rem'
+                width: '24rem'
             },
             {
                 name: 'District',

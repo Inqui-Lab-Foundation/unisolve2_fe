@@ -226,11 +226,15 @@ const TicketsPage = (props) => {
         localStorage.setItem('mentor', JSON.stringify(item));
     };
     const viewDetail = (item) => {
+        console.log('item.organization_code', item.organization_code);
         props.history.push({
-            pathname: '/admin/teacherview',
+            pathname: '/admin/teacher/dashboard',
             data: item
         });
-        localStorage.setItem('mentor', item);
+        localStorage.setItem(
+            'organization_code',
+            JSON.stringify(item.organization_code)
+        );
     };
     const handleEdit = (item) => {
         // where we can edit user details  //
@@ -425,13 +429,20 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: 'id',
-                width: '6rem'
+                width: '9rem'
             },
             {
                 name: 'UDISE',
                 selector: 'organization_code',
                 cellExport: (row) => row.organization_code,
                 width: '13rem'
+            },
+            {
+                name: 'Category',
+                // selector: 'organization_name',
+                selector: (row) => row.organization.category,
+                cellExport: (row) => row.organization.category,
+                width: '15rem'
             },
             {
                 name: 'School Name',
@@ -487,7 +498,8 @@ const TicketsPage = (props) => {
                     <div
                         key={record.id}
                         // onClick={() => handleSelect(record, '2')}
-                        onClick={viewDetail}
+                        // onClick={viewDetail}
+                        onClick={() => viewDetail(record)}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary ">VIEW</div>
@@ -532,7 +544,7 @@ const TicketsPage = (props) => {
             {
                 name: 'No',
                 selector: 'id',
-                width: '6rem'
+                width: '9rem'
             },
             {
                 name: 'UDISE',
@@ -630,6 +642,8 @@ const TicketsPage = (props) => {
             }
         ]
     };
+    console.log(props.mentorList);
+
     const evaluatorsData = {
         data: props.evalutorsList,
         columns: [

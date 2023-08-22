@@ -66,9 +66,9 @@
 //     size: "medium",
 //     onClick: undefined,
 // };
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./InputBox.scss";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './InputBox.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export const InputBox = ({
@@ -83,9 +83,9 @@ export const InputBox = ({
     className,
     isDisabled,
     maxLength,
-    showEyeIcon,
+    showEyeIcon
 }) => {
-    const design = type === "Email" ? "form-control1" : "form-control";
+    const design = type === 'Email' ? 'form-control1' : 'form-control';
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -95,21 +95,21 @@ export const InputBox = ({
     return (
         <div className={`InputBox ${className}`}>
             <input
-                type={showPassword ? "text" : type}
-                className={["inputBox", `inputBox--${size}`, design].join(" ")}
+                type={showPassword ? 'text' : type}
+                className={['inputBox', `inputBox--${size}`, design].join(' ')}
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
                 onBlur={onBlur}
                 id={id}
                 name={name}
-                aria-describedby='basic-addon1'
+                aria-describedby="basic-addon1"
                 disabled={isDisabled}
                 maxLength={maxLength}
             />
             {showEyeIcon && type === 'password' && (
                 <div className="eye-icon" onClick={togglePasswordVisibility}>
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </div>
             )}
         </div>
@@ -119,7 +119,7 @@ export const InputBox = ({
 InputBox.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string,
-    size: PropTypes.oneOf(["small", "medium", "large"]),
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
     name: PropTypes.string,
     onChange: PropTypes.func,
     value: PropTypes.string,
@@ -128,10 +128,9 @@ InputBox.propTypes = {
     className: PropTypes.string,
     isDisabled: PropTypes.bool,
     maxLength: PropTypes.number,
-    showEyeIcon: PropTypes.bool,
+    showEyeIcon: PropTypes.bool
 };
 
 InputBox.defaultProps = {
-    size: "medium",
+    size: 'medium'
 };
-

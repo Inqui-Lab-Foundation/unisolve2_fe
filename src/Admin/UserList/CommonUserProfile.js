@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
@@ -20,6 +21,7 @@ import {
 const CommonUserProfile = (props) => {
     // console.log(props);
     const studentId = localStorage.getItem('studentId');
+    // console.log(studentId);
     const [course, setCourse] = useState([]);
     const history = useHistory();
     const language = useSelector(
@@ -28,7 +30,7 @@ const CommonUserProfile = (props) => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
-    console.log(props.location.data, 'dashboardStatus');
+    // console.log(props.location.data, 'dashboardStatus');
 
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
@@ -59,7 +61,7 @@ const CommonUserProfile = (props) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setCourse(response.data.data[0]?.scores);
-                    console.log(response);
+                    // console.log(response);
                 }
             })
             .catch(function (error) {
@@ -113,17 +115,30 @@ const CommonUserProfile = (props) => {
         // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
     };
+    // const handleEdit = () => {
+    //     // where we can edit  the users data //
+    //     history.push({
+    //         pathname: '/admin/student/edit-user-profile',
+    //         data: {
+    //             username: props.location.data && props.location.data.username,
+    //             full_name: props.location.data && props.location.data.full_name,
+    //             organization_code:
+    //                 props.location.data &&
+    //                 props.location.data?.organization_code,
+    //             mentor_id: props.location.data && props.location.data.mentor_id
+    //         }
+    //     });
+    // };
     const handleEdit = () => {
-        // where we can edit  the users data //
         history.push({
-            pathname: '/admin/edit-user-profile',
+            pathname: '/admin/student/edit-user-profile',
             data: {
-                username: props.location.data && props.location.data.username,
-                full_name: props.location.data && props.location.data.full_name,
-                organization_code:
-                    props.location.data &&
-                    props.location.data?.organization_code,
-                mentor_id: props.location.data && props.location.data.mentor_id
+                Age: studentId.Age,
+                Gender: studentId.Gender,
+                Grade: studentId.Grade,
+                student_id: studentId.student_id,
+                team_id: studentId.team_id,
+                full_name: studentId.full_name
             }
         });
     };

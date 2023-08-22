@@ -115,6 +115,10 @@ import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
 import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
 import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
+import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
+import MentorEditProfile from './Admin/UserList/MentorEditProfile';
+import StudentEditProfile from './Admin/UserList/StudentEditProfile';
+
 const Routers = () => {
     return (
         <>
@@ -249,6 +253,12 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/teacher/dashboard"
+                        component={AdminTeacherDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/my-profile"
                         component={AdminMyProfile}
                     />
@@ -296,6 +306,18 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        user="ADMIN"
+                        path="/admin/mentor/edit-user-profile"
+                        component={MentorEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/student/edit-user-profile"
+                        component={StudentEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         path="/admin/faq"
                         user="ADMIN"
                         component={AdminFaqByCategory}
@@ -335,6 +357,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/View-More-details"
                         component={ViewMore}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/teacher/View-More-details"
+                        component={TeacherViewDetails}
                     />
                     <ProtectedRoute
                         exact={true}
