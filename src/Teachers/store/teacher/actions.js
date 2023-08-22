@@ -117,7 +117,7 @@ export const teacherLoginUser = (data, history, module) => async (dispatch) => {
             history.push('/teacher/dashboard');
         } else {
             if(result.status === 401){
-                openNotificationWithIcon('error', 'Entered credentials are Inactive');
+                openNotificationWithIcon('error', 'Your Account is Inactive. Contact administrator');
             }
             else{
                 openNotificationWithIcon('error', 'Enter the correct credentials');

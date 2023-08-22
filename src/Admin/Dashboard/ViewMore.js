@@ -15,6 +15,7 @@ const ViewMore = () => {
     const currentUser = getCurrentUser('current_user');
 
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    console.log(orgDaTa);
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
@@ -26,6 +27,7 @@ const ViewMore = () => {
     teamId.push({ mentor_id: orgDaTa.mentor.mentor_id });
 
     const handleBack = () => {
+        
         history.push({
             pathname: '/admin/dashboard'
         });
@@ -50,8 +52,8 @@ const ViewMore = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setCourse(response.data.data[0]?.scores);
-                    console.log(response);
+                    setCourse(response.data.data);
+                    // console.log(response);
                 }
             })
             .catch(function (error) {
@@ -106,10 +108,17 @@ const ViewMore = () => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
+                                    <b>Category :</b>
+                                </span>
+                                <b>{orgDaTa.category}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
                                     <b>City :</b>
                                 </span>
                                 <b>{orgDaTa.city}</b>
                             </CardText>
+
                             <CardText>
                                 <span className="mx-3">
                                     <b>District :</b>
@@ -194,23 +203,29 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b> Quiz Score :</b>
                                     </span>
-                                    <b>{course[0]?.score}</b>
-                                    {/* <b>{course.response.data.data.scores};</b> */}
-                                    {/* <b>{course.response.data[0].}</b> */}
-                                    {/* <b>{orgDaTa.mentor.title}</b> */}
+                                    <b>
+                                        {course[0]?.scores[0]?.score
+                                            ? course[0]?.scores[0]?.score
+                                            : 0}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Course Progress :</b>
                                     </span>
                                     <b>
-                                        {Math.round(
-                                            100 -
-                                                percentageBWNumbers(
-                                                    course?.totalProgress,
-                                                    course?.currentProgress
-                                                )
-                                        ) + '%'}
+                                        {course[0]?.currentProgress !==
+                                        undefined
+                                            ? `${
+                                                  Math.round(
+                                                      (course[0]
+                                                          ?.currentProgress /
+                                                          course[0]
+                                                              ?.totalProgress) *
+                                                          100
+                                                  ) + '%'
+                                              }`
+                                            : 0}
                                     </b>{' '}
                                 </CardText>
                             </CardBody>

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './SupportingSCSS/Ideas/style.scss';
@@ -113,6 +114,10 @@ import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
 import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
+import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
+import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
+import MentorEditProfile from './Admin/UserList/MentorEditProfile';
+import StudentEditProfile from './Admin/UserList/StudentEditProfile';
 
 const Routers = () => {
     return (
@@ -178,7 +183,12 @@ const Routers = () => {
                         user="STUDENT"
                         component={Dashboard}
                     />
-                    <ProtectedRoute exact path="/about" user="STUDENT" component={Dashboard} />
+                    <ProtectedRoute
+                        exact
+                        path="/about"
+                        user="STUDENT"
+                        component={Dashboard}
+                    />
                     <ProtectedRoute
                         exact
                         path="/instructions"
@@ -215,7 +225,12 @@ const Routers = () => {
                         user="STUDENT"
                         component={StudentResources}
                     />
-                    <ProtectedRoute exact path="/faq" user="STUDENT" component={FaqPage} />
+                    <ProtectedRoute
+                        exact
+                        path="/faq"
+                        user="STUDENT"
+                        component={FaqPage}
+                    />
                     <ProtectedRoute
                         exact
                         path="/my-profile"
@@ -234,6 +249,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/dashboard"
                         component={AdminDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/teacher/dashboard"
+                        component={AdminTeacherDashboard}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -266,6 +287,12 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/teacherview"
+                        user="ADMIN"
+                        component={TeacherViewDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         user="ADMIN"
                         path="/admin/userprofile"
                         component={CommonUserProfile}
@@ -276,6 +303,18 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/edit-user-profile"
                         component={CommonUserProfileEdit}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/mentor/edit-user-profile"
+                        component={MentorEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/student/edit-user-profile"
+                        component={StudentEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -318,6 +357,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/View-More-details"
                         component={ViewMore}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/teacher/View-More-details"
+                        component={TeacherViewDetails}
                     />
                     <ProtectedRoute
                         exact={true}
