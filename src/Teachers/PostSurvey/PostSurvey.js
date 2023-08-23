@@ -27,9 +27,7 @@ import Congo from '../../assets/media/survey-success.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { UncontrolledAlert } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
-import { getDashboardStates } from '../store/dashboard/actions';
 import PostSurveyStatic from './PostSurveyStatic';
-import { getLanguage } from '../../constants/languageOptions';
 
 const PostSurvey = () => {
     // here we can attempt all the questions then we are able to download the certificate //
@@ -41,13 +39,8 @@ const PostSurvey = () => {
     const [count, setCount] = useState(0);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
-
     const [answerResponses, setAnswerResponses] = useState([]);
-    const dashboardStates = useSelector(
-        (state) => state.teacherDashBoard.dashboardStates
-    );
     const filterAnswer = (questionId) => {
-        // console.log(questionId);
         const data =
             answerResponses &&
             answerResponses.length > 0 &&
@@ -58,6 +51,58 @@ const PostSurvey = () => {
             ? data[0].selected_option
             : '';
     };
+    const [teamsCount, setTeamsCount] = useState(0);
+    const [ideaCount, setIdeaCount] = useState(0);
+    const mentorTeamsCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/teamCount?mentor_id=${currentUser?.data[0]?.mentor_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTeamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const mentorIdeaCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/ideaCount?mentor_id=${currentUser?.data[0]?.mentor_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setIdeaCount(response.data.data[0].idea_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(() => {
+        if (currentUser?.data[0]?.user_id) {
+            mentorTeamsCount();
+            mentorIdeaCount();
+        }
+    }, [currentUser?.data[0]?.user_id]);
     const handleChange = (e) => {
         let newItems = [...answerResponses];
         let obj = {
@@ -99,11 +144,6 @@ const PostSurvey = () => {
         }
         setAnswerResponses(newItems);
     };
-    useEffect(() => {
-        if (currentUser?.data[0]?.user_id) {
-            dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
-        }
-    }, [dispatch, currentUser?.data[0]?.user_id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -219,10 +259,9 @@ const PostSurvey = () => {
                         <div className="aside  p-4 bg-white">
                             <h2>{t('teacher.post_survey')}</h2>
                             <CardBody>
-                                {dashboardStates &&
-                                dashboardStates.teams_count &&
-                                dashboardStates.ideas_count ===
-                                    dashboardStates.teams_count &&
+                                {teamsCount !== 0 &&
+                                ideaCount !== 0 &&
+                                teamsCount === ideaCount &&
                                 postSurveyStatus != 'COMPLETED' ? (
                                     <>
                                         <UncontrolledAlert
