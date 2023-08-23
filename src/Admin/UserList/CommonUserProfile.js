@@ -19,24 +19,28 @@ import {
     getStudentDashboardTeamProgressStatus
 } from '../../redux/studentRegistration/actions';
 const CommonUserProfile = (props) => {
-    // console.log(props);
-    const studentId = localStorage.getItem('studentId');
-    // console.log(studentId);
-    const [course, setCourse] = useState([]);
     const history = useHistory();
+
+    const currentUser = getCurrentUser('current_user');
+
+    // const studentId = localStorage.getItem('studentId');
+
+    const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
+
+    const [course, setCourse] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration.dashboardStatus
     );
-    // console.log(props.location.data, 'dashboardStatus');
 
-    const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     useEffect(() => {
         if (currentUser) {
-            dispatch(getStudentDashboardStatus(studentId, language));
+            dispatch(
+                getStudentDashboardStatus(StudentsDaTa.student_id, language)
+            );
             dispatch(
                 getStudentDashboardTeamProgressStatus(
                     currentUser?.data[0]?.user_id,
@@ -50,7 +54,7 @@ const CommonUserProfile = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${studentId}`,
+                `/dashboard/quizscores?user_id=${StudentsDaTa.student_id}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -61,7 +65,6 @@ const CommonUserProfile = (props) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setCourse(response.data.data[0]?.scores);
-                    // console.log(response);
                 }
             })
             .catch(function (error) {
@@ -84,8 +87,8 @@ const CommonUserProfile = (props) => {
 
         const body = JSON.stringify({
             organization_code:
-                props.location.data && props.location.data?.organization_code,
-            mentor_id: props.location.data && props.location.data.mentor_id,
+                StudentsDaTa?.team?.mentor?.organization.organization_code,
+            mentor_id: StudentsDaTa?.team?.mentor.mentor_id,
             otp: false
         });
         var config = {
@@ -111,10 +114,7 @@ const CommonUserProfile = (props) => {
                 console.log(error);
             });
     };
-    const percentageBWNumbers = (a, b) => {
-        // here a = all_topics_count ; b= topics_completed_count //
-        return (((a - b) / a) * 100).toFixed(2);
-    };
+
     // const handleEdit = () => {
     //     // where we can edit  the users data //
     //     history.push({
@@ -133,12 +133,12 @@ const CommonUserProfile = (props) => {
         history.push({
             pathname: '/admin/student/edit-user-profile',
             data: {
-                Age: studentId.Age,
-                Gender: studentId.Gender,
-                Grade: studentId.Grade,
-                student_id: studentId.student_id,
-                team_id: studentId.team_id,
-                full_name: studentId.full_name
+                Age: StudentsDaTa.Age,
+                Gender: StudentsDaTa.Gender,
+                Grade: StudentsDaTa.Grade,
+                student_id: StudentsDaTa.student_id,
+                team_id: StudentsDaTa?.team.team_id,
+                full_name: StudentsDaTa.full_name
             }
         });
     };
@@ -214,76 +214,45 @@ const CommonUserProfile = (props) => {
                                     <b>Name :</b>
                                 </span>
                                 <b>
-                                    {props.location.data &&
+                                    {StudentsDaTa.full_name}
+                                    {/* {props.location.data &&
                                     props.location.data.full_name
                                         ? props.location.data &&
                                           props.location.data.full_name
-                                        : '-'}
+                                        : '-'}{' '} */}
                                 </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Class :</b>
                                 </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.Grade
-                                        ? props.location.data &&
-                                          props.location.data.Grade
-                                        : '-'}
-                                </b>
+                                <b>{StudentsDaTa.Grade}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b> Gender :</b>
                                 </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.Gender
-                                        ? props.location.data &&
-                                          props.location.data.Gender
-                                        : '-'}
-                                </b>
+                                <b>{StudentsDaTa.Gender}</b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
                                     <b>Age :</b>
                                 </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.Age
-                                        ? props.location.data &&
-                                          props.location.data.Age
-                                        : '-'}
-                                </b>
+                                <b>{StudentsDaTa.Age}</b>
                             </CardText>
+
                             <CardText>
                                 <span className="mx-3">
                                     <b>Mentor Name :</b>
                                 </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.team &&
-                                    props.location.data.team.mentor.full_name
-                                        ? props.location.data &&
-                                          props.location.data.team &&
-                                          props.location.data.team.mentor
-                                              .full_name
-                                        : '-'}
-                                </b>
+                                <b>{StudentsDaTa.team?.mentor.full_name}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Team Name :</b>
                                 </span>
-                                <b>
-                                    {props.location.data &&
-                                    props.location.data.team.team_name
-                                        ? props.location.data &&
-                                          props.location.data.team.team_name
-                                        : '-'}
-                                </b>
+                                <b>{StudentsDaTa?.team.team_name}</b>
                             </CardText>
                         </CardBody>
                     </Card>
@@ -299,17 +268,10 @@ const CommonUserProfile = (props) => {
                                 </span>
 
                                 <b>
-                                    {props.location.data &&
-                                    props.location.data.team &&
-                                    props.location.data.team.mentor &&
-                                    props.location.data.team.mentor.organization
-                                        .organization_code
-                                        ? props.location.data &&
-                                          props.location.data.team &&
-                                          props.location.data.team.mentor &&
-                                          props.location.data.team.mentor
-                                              .organization.organization_code
-                                        : '-'}
+                                    {
+                                        StudentsDaTa?.team?.mentor?.organization
+                                            .organization_code
+                                    }
                                 </b>
                             </CardText>
                             <CardText>
@@ -317,17 +279,10 @@ const CommonUserProfile = (props) => {
                                     <b>School Name :</b>
                                 </span>
                                 <b>
-                                    {props.location.data &&
-                                    props.location.data.team &&
-                                    props.location.data.team.mentor &&
-                                    props.location.data.team.mentor.organization
-                                        .organization_name
-                                        ? props.location.data &&
-                                          props.location.data.team &&
-                                          props.location.data.team.mentor &&
-                                          props.location.data.team.mentor
-                                              .organization.organization_name
-                                        : '-'}
+                                    {
+                                        StudentsDaTa?.team?.mentor?.organization
+                                            .organization_name
+                                    }
                                 </b>
                             </CardText>
 
@@ -336,17 +291,10 @@ const CommonUserProfile = (props) => {
                                     <b>District :</b>
                                 </span>
                                 <b>
-                                    {props.location.data &&
-                                    props.location.data.team &&
-                                    props.location.data.team.mentor &&
-                                    props.location.data.team.mentor.organization
-                                        .district
-                                        ? props.location.data &&
-                                          props.location.data.team &&
-                                          props.location.data.team.mentor &&
-                                          props.location.data.team.mentor
-                                              .organization.district
-                                        : '-'}
+                                    {
+                                        StudentsDaTa?.team?.mentor?.organization
+                                            .district
+                                    }
                                 </b>
                             </CardText>
                             <CardText>
@@ -354,7 +302,11 @@ const CommonUserProfile = (props) => {
                                     <b>Category :</b>
                                 </span>
                                 <b>
-                                    {props.location.data &&
+                                    {
+                                        StudentsDaTa?.team?.mentor?.organization
+                                            .category
+                                    }
+                                    {/* {props.location.data &&
                                     props.location.data.team &&
                                     props.location.data.team.mentor &&
                                     props.location.data.team.mentor.organization
@@ -364,7 +316,7 @@ const CommonUserProfile = (props) => {
                                           props.location.data.team.mentor &&
                                           props.location.data.team.mentor
                                               .organization.category
-                                        : '-'}
+                                        : '-'} */}
                                 </b>
                             </CardText>
                         </CardBody>
@@ -403,21 +355,17 @@ const CommonUserProfile = (props) => {
                                     <b>Course Completion :</b>
                                 </span>
                                 <b>
-                                    {Math.round(
-                                        100 -
-                                            percentageBWNumbers(
-                                                dashboardStatus?.all_topics_count,
-                                                dashboardStatus?.topics_completed_count
-                                            )
-                                    ) + '%'}
+                                    {dashboardStatus?.topics_completed_count !==
+                                    undefined
+                                        ? `${
+                                              Math.round(
+                                                  (dashboardStatus?.topics_completed_count /
+                                                      dashboardStatus?.all_topics_count) *
+                                                      100
+                                              ) + '%'
+                                          }`
+                                        : 0}
                                 </b>
-                                {/* <b>
-                                    {props.location.data &&
-                                    props.location.data.full_name
-                                        ? props.location.data &&
-                                          props.location.data.full_name
-                                        : '-'}
-                                </b> */}
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
