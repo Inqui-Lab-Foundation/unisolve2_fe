@@ -61,16 +61,16 @@ const EditSchool = (props) => {
             // principal_mobile: listId && listId.principal_mobile,
             principal_email: listId && listId.principal_email,
             organization_name: listId && listId.organization_name,
-            // organization_code: listId && listId.organization_code,
-            organization_code: 'Unique Code',
+            organization_code: listId && listId.organization_code,
+            // organization_code: 'Unique Code',
             city: listId && listId.city,
-            // district: listId && listId.district,
-            district: 'District',
-            state: 'State',
-            // state: listId && listId.state,
+            district: listId && listId.district,
+            // district: 'District',
+            // state: 'State',
+            state: listId && listId.state,
             status: listId && listId.status,
-            // category: listId && listId.category
-            category: 'Category'
+            category: listId && listId.category
+            // category: 'Category'
         },
 
         validationSchema: Yup.object({
@@ -140,6 +140,12 @@ const EditSchool = (props) => {
                                 <div className="create-ticket register-block">
                                     <FormGroup className="form-group">
                                         <Row className="justify-content-center">
+                                            <p style={{ color: 'red' }}>
+                                                Note : Here Editable Fields are
+                                                Institute/School
+                                                Name,City,Principal
+                                                Name,Principal Email.
+                                            </p>
                                             <Col md={6}>
                                                 <Label
                                                     className="mb-2"

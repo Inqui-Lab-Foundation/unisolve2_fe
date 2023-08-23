@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import { Tabs } from 'antd';
@@ -153,8 +154,9 @@ const TicketsPage = () => {
         columns: [
             {
                 name: 'No',
-                selector: (row) => row.index,
-                cellExport: (row) => row.index,
+                // selector: (row) => row.index,
+                selector: (row, key) => key + 1,
+                // cellExport: (row) => row.index,
                 width: '10rem'
             },
             {
