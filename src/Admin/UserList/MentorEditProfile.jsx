@@ -34,7 +34,6 @@ const EditProfile = (props) => {
         (history && history.location && history.location.data) || {};
 
     // const phoneRegExp = /^[0-9\s]+$/;
-    console.log(mentorData);
     const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
@@ -66,7 +65,6 @@ const EditProfile = (props) => {
     const getInitialValues = (mentorData) => {
         const commonInitialValues = {
             name: mentorData?.full_name,
-            // phone: mentorData.mobile,
             title: mentorData.title,
             whatapp_mobile: mentorData.whatapp_mobile,
             gender: mentorData.gender
@@ -78,17 +76,15 @@ const EditProfile = (props) => {
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
             const full_name = values.name;
-            // const mobile = values.phone;
             const title = values.title;
             const whatapp_mobile = values.whatapp_mobile;
             const gender = values.gender;
             const body = JSON.stringify({
                 full_name: full_name,
-                // mobile: mobile,
                 title: title,
                 whatapp_mobile: whatapp_mobile,
                 gender: gender,
-                username: mentorData.user.username
+                username: mentorData.username
             });
             const url =
                 process.env.REACT_APP_API_BASE_URL +
@@ -105,18 +101,17 @@ const EditProfile = (props) => {
             };
             axios(config)
                 .then(function (response) {
-                    console.log(response, 'response');
-                    // if (response.status === 200) {
-                    //     openNotificationWithIcon(
-                    //         'success',
-                    //         'Updated Successfully'
-                    //     );
-                    //     currentUser.data[0].full_name = values.name;
-                    //     setCurrentUser(currentUser);
-                    //     setTimeout(() => {
-                    //         props.history.push('/admin/teacher/dashboard');
-                    //     }, 200);
-                    // }
+                    if (response.status === 200) {
+                        openNotificationWithIcon(
+                            'success',
+                            'Updated Successfully'
+                        );
+                        // currentUser.data[0].full_name = values.name;
+                        // setCurrentUser(currentUser);
+                        // setTimeout(() => {
+                        props.history.push('/admin/teacher/dashboard');
+                        // }, 200);
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -127,19 +122,7 @@ const EditProfile = (props) => {
         // where we can discard  the changes //
         props.history.push('/admin/teacher/dashboard');
     };
-    // const handleDiscard = () => {
-    //     // where we can discard  the changes //
-    //     props.history.push(
-    //         mentorData.where === 'Dashbord'
-    //             ? '/admin/dashboard'
-    //             : '/admin/userlist'
-    //     );
-    //     localStorage.setItem(
-    //         'organization_code',
-    //         JSON.stringify(mentorData.organization_code)
-    //     );
-    // };
-    // console.log(formik.values, 'formik.values');
+
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -149,87 +132,6 @@ const EditProfile = (props) => {
                         <h3 className="mb-5">User Edit Profile</h3>
 
                         <div>
-                            {/* <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
-                                    <Row className="justify-content-center">
-                                        <Col md={6} className="mb-5 mb-xl-0">
-                                            <Label
-                                                className="name-req"
-                                                htmlFor="name"
-                                            >
-                                                Name
-                                            </Label>
-
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                id="name"
-                                                name="name"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.name}
-                                            />
-
-                                            {formik.touched.name &&
-                                            formik.errors.name ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.name}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <div className="w-100" />
-                                        <Col md={6}>
-                                            <Label
-                                                className="name-req mt-5"
-                                                htmlFor="email"
-                                            >
-                                                Mobile No
-                                            </Label>
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                id="email"
-                                                name="email"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.email}
-                                            />
-                                            {formik.touched.email &&
-                                            formik.errors.email ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.email}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <div className="w-100" />
-                                    </Row>
-                                </div>
-
-                                <hr className="mt-4 mb-4"></hr>
-                                <Row>
-                                    <Col className="col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Discard"
-                                            btnClass="secondary"
-                                            size="small"
-                                            onClick={handleDiscard}
-                                        />
-                                    </Col>
-                                    <Col className="submit-btn col-xs-12 col-sm-6">
-                                        <Button
-                                            label="Submit details"
-                                            type="submit"
-                                            btnClass={
-                                                !(
-                                                    formik.dirty &&
-                                                    formik.isValid
-                                                )
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                            size="small"
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form> */}
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">

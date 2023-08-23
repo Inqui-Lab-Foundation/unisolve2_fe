@@ -29,7 +29,7 @@ function LatestNews({ usersdata }) {
                 } else {
                     container.scrollTop += 1; // Adjust scrolling speed as desired
                 }
-            }, 20); // Adjust scrolling interval as desired
+            }, 30); // Adjust scrolling interval as desired
         };
 
         const stopScrolling = () => {

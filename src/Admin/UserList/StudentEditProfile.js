@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable indent */
 import React from 'react';
 // import './styles.scss';
@@ -18,15 +20,17 @@ const EditTeamMember = (props) => {
     const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    const teamMemberData =
-        (history && history.location && history.location.item) || {};
-    // console.log(teamMemberData);
+
+    const mentorData =
+        // where  mentorData = mentor details //
+        (history && history.location && history.location.data) || {};
+    console.log(mentorData);
     const formik = useFormik({
         initialValues: {
-            fullName: teamMemberData && teamMemberData.full_name,
-            age: JSON.stringify(teamMemberData && teamMemberData.Age),
-            grade: teamMemberData && teamMemberData.Grade,
-            gender: teamMemberData && teamMemberData.Gender
+            fullName: mentorData && mentorData.full_name,
+            age: JSON.stringify(mentorData && mentorData.Age),
+            grade: mentorData && mentorData.Grade,
+            gender: mentorData && mentorData.Gender
         },
 
         validationSchema: Yup.object({
@@ -52,7 +56,8 @@ const EditTeamMember = (props) => {
 
         onSubmit: (values) => {
             const body = {
-                team_id: teamMemberData.team_id,
+                // team_id: mentorData.team_id,
+                team_id: JSON.stringify(mentorData && mentorData.team_id),
                 role: 'STUDENT',
                 full_name: values.fullName,
                 Age: values.age,
@@ -64,7 +69,7 @@ const EditTeamMember = (props) => {
                 url:
                     process.env.REACT_APP_API_BASE_URL +
                     '/students/' +
-                    teamMemberData.student_id,
+                    mentorData.student_id,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -76,8 +81,9 @@ const EditTeamMember = (props) => {
                     if (response.status === 200) {
                         openNotificationWithIcon(
                             'success',
-                            'Team Member Update Successfully'
+                            ' Updated Successfully'
                         );
+                        props.history.push('/admin/userlist');
                         // handleView(teamMemberData);
                     } else {
                         openNotificationWithIcon(
@@ -95,12 +101,6 @@ const EditTeamMember = (props) => {
         }
     });
 
-    // const handleView = (item) => {
-    //     history.push({
-    //         pathname: '/teacher/view-team-member',
-    //         item: item
-    //     });
-    // };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -279,7 +279,7 @@ const EditTeamMember = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/admin/userprofile'
+                                                    '/admin/userlist'
                                                 )
                                             }
                                         />

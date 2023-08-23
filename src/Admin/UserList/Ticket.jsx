@@ -89,7 +89,6 @@ const SelectDists = ({
     );
 };
 const TicketsPage = (props) => {
-    // console.log(props.mentorsList);
     const dispatch = useDispatch();
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
@@ -215,6 +214,7 @@ const TicketsPage = (props) => {
                 num: num
             });
             localStorage.setItem('studentId', item.user_id);
+            localStorage.setItem('studentData', JSON.stringify(item));
         } else {
             props.history.push({
                 pathname: `/admin/userprofile`,
@@ -226,7 +226,6 @@ const TicketsPage = (props) => {
         localStorage.setItem('mentor', JSON.stringify(item));
     };
     const viewDetail = (item) => {
-        console.log('item.organization_code', item.organization_code);
         props.history.push({
             pathname: '/admin/teacher/dashboard',
             data: item
@@ -419,7 +418,6 @@ const TicketsPage = (props) => {
     };
 
     const TableMentorsProps = {
-        // data: props.mentorsList,
         data:
             props.mentorsList && props.mentorsList.length > 0
                 ? props.mentorsList
@@ -642,7 +640,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    console.log(props.mentorList);
+    // console.log(props.studentList);
 
     const evaluatorsData = {
         data: props.evalutorsList,
