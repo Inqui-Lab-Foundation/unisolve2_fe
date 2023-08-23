@@ -403,6 +403,155 @@ const Dashboard = () => {
                 }
             });
     };
+    useEffect(() => {
+        adminTeamsCount();
+        adminSudentCount();
+        adminideasCount();
+        adminMentorCount();
+        adminSudentbygenderCount();
+        adminSchoolCount();
+    }, []);
+
+    const [totalteamsCount, setTotalteamsCount] = useState(0);
+    const [totalStudentCount, setTotalStudentCount] = useState(0);
+    const [totalideasCount, setTotalideasCount] = useState(0);
+    const [totalSubmittedideasCount, setTotalSubmittedideasCount] = useState(0);
+    const [totalMentorCount, setTotalMentorCount] = useState(0);
+    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState(0);
+    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState(0);
+    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState(0);
+    const [totalSchoolCount, setTotalSchoolCount] = useState(0);
+
+    
+    const adminTeamsCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/teamCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentCount(response.data.data[0].student_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminideasCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/ideasCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalSubmittedideasCount(
+                        response.data.data[0].submitted_ideas
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminMentorCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalMentorCount(response.data.data[0].mentorCount);
+                    setTotalMentorMaleCount(response.data.data[0].mentorMale);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentbygenderCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCountbygender`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentMaleCount(response.data.data[0].studentMale);
+                    setTotalStudentFemaleCount(
+                        response.data.data[0].studentFemale
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSchoolCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalSchoolCount(response.data.data[0].schoolCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     //     return (
     //         <Layout>
@@ -805,11 +954,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.teams_count
-                                                ? dashboardStates?.teams_count
-                                                : 0} */}
+                                                {totalSchoolCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -833,16 +978,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.course_completed_count !==
-                                                undefined
-                                                ? `${
-                                                      (dashboardStates?.course_completed_count /
-                                                          dashboardStates?.Total_course_count) *
-                                                      100
-                                                  }%`
-                                                : '-'} */}
+                                                {totalMentorCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -866,16 +1002,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.course_completed_count !==
-                                                undefined
-                                                ? `${
-                                                      (dashboardStates?.course_completed_count /
-                                                          dashboardStates?.Total_course_count) *
-                                                      100
-                                                  }%`
-                                                : '-'} */}
+                                                {totalMentorCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -900,15 +1027,6 @@ const Dashboard = () => {
                                                 }}
                                             >
                                                 99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.course_completed_count !==
-                                                undefined
-                                                ? `${
-                                                      (dashboardStates?.course_completed_count /
-                                                          dashboardStates?.Total_course_count) *
-                                                      100
-                                                  }%`
-                                                : '-'} */}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -939,11 +1057,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates.students_count
-                                                ? dashboardStates.students_count
-                                                : '-'} */}
+                                                {totalteamsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -971,11 +1085,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                               {totalSubmittedideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1003,11 +1113,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                               {totalideasCount-totalSubmittedideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1035,11 +1141,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                               {totalteamsCount-totalideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1070,11 +1172,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                1,10,000
-                                                {/* {dashboardStates &&
-                                            dashboardStates.students_count
-                                                ? dashboardStates.students_count
-                                                : '-'} */}
+                                              {totalStudentCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1102,11 +1200,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                1,940
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                                9999
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1134,11 +1228,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                1,940
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                                9999
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1166,11 +1256,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                1,940
-                                                {/* {dashboardStates &&
-                                            dashboardStates?.ideas_count
-                                                ? dashboardStates?.ideas_count
-                                                : 0} */}
+                                                9999
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1193,11 +1279,7 @@ const Dashboard = () => {
                                                         marginBottom: '20px'
                                                     }}
                                                 >
-                                                    1,940
-                                                    {/* {dashboardStates &&
-              dashboardStates?.ideas_count
-                ? dashboardStates?.ideas_count
-                : 0} */}
+                                                   {totalMentorMaleCount}
                                                 </Card.Text>
                                             </Col>
                                             <Col md={3}>
@@ -1213,11 +1295,7 @@ const Dashboard = () => {
                                                         marginBottom: '20px'
                                                     }}
                                                 >
-                                                    1,940
-                                                    {/* {dashboardStates &&
-              dashboardStates?.ideas_count
-                ? dashboardStates?.ideas_count
-                : 0} */}
+                                                    {totalMentorCount-totalMentorMaleCount}
                                                 </Card.Text>
                                             </Col>
 
@@ -1234,11 +1312,7 @@ const Dashboard = () => {
                                                         marginBottom: '20px'
                                                     }}
                                                 >
-                                                    1,940
-                                                    {/* {dashboardStates &&
-              dashboardStates?.ideas_count
-                ? dashboardStates?.ideas_count
-                : 0} */}
+                                                    {totalStudentMaleCount}
                                                 </Card.Text>
                                             </Col>
                                             <Col md={3}>
@@ -1254,11 +1328,7 @@ const Dashboard = () => {
                                                         marginBottom: '20px'
                                                     }}
                                                 >
-                                                    1,940
-                                                    {/* {dashboardStates &&
-              dashboardStates?.ideas_count
-                ? dashboardStates?.ideas_count
-                : 0} */}
+                                                   {totalStudentFemaleCount}
                                                 </Card.Text>
                                             </Col>
                                         </Row>
