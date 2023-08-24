@@ -2,7 +2,7 @@
 import 'antd/dist/antd.css';
 import { Card, Progress } from 'reactstrap';
 import { Table } from 'antd';
-import { getAdminTeamsList, getTeamMemberStatus } from '../store/teams/actions';
+import { getTeamMemberStatus } from '../store/teams/actions';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -19,7 +19,7 @@ import { Row, Col } from 'reactstrap';
 export default function DoughnutChart({ user }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    const { teamsList, teamsMembersStatus, teamsMembersStatusErr } =
+    const { teamsMembersStatus, teamsMembersStatusErr } =
         useSelector((state) => state.teams);
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
@@ -45,12 +45,34 @@ export default function DoughnutChart({ user }) {
             setmentorid(user[0].mentor_id);
         }
     }, [user]);
+    const [teamsList , setTeamsList ] = useState([]);
     useEffect(() => {
         if (mentorid) {
             setshowDefault(true);
-            dispatch(getAdminTeamsList(mentorid));
+            teamNameandIDsbymentorid(mentorid);
         }
     }, [mentorid]);
+
+    const teamNameandIDsbymentorid = (mentorid) => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/teams/namebymenterid?mentor_id=${mentorid}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTeamsList(response.data.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     useEffect(() => {
         var config = {
