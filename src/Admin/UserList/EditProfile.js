@@ -86,13 +86,22 @@ const EditProfile = (props) => {
             const email = values.email;
             // const mobile = values.phone;
             const district = values.district;
-            const body = JSON.stringify({
-                full_name: full_name,
-                // mobile: mobile,
-                username: email,
-
-                district: district
-            });
+            const body = mentorData?.evaluator_id
+                ? JSON.stringify({
+                      full_name: full_name,
+                      username: email,
+                      district: district
+                  })
+                : mentorData?.admin_id
+                ? JSON.stringify({
+                      full_name: full_name,
+                      username: email
+                  })
+                : JSON.stringify({
+                      full_name: full_name,
+                      username: email,
+                      mobile: email
+                  });
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL +
                   '/evaluators/' +

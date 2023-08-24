@@ -410,19 +410,23 @@ const Dashboard = () => {
         adminMentorCount();
         adminSudentbygenderCount();
         adminSchoolCount();
+        adminmentorCourseCount();
+        adminStudentCourseCount();
     }, []);
 
-    const [totalteamsCount, setTotalteamsCount] = useState(0);
-    const [totalStudentCount, setTotalStudentCount] = useState(0);
-    const [totalideasCount, setTotalideasCount] = useState(0);
-    const [totalSubmittedideasCount, setTotalSubmittedideasCount] = useState(0);
-    const [totalMentorCount, setTotalMentorCount] = useState(0);
-    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState(0);
-    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState(0);
-    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState(0);
-    const [totalSchoolCount, setTotalSchoolCount] = useState(0);
+    const [totalteamsCount, setTotalteamsCount] = useState('-');
+    const [totalStudentCount, setTotalStudentCount] = useState('-');
+    const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalSubmittedideasCount, setTotalSubmittedideasCount] = useState('-');
+    const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
+    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
+    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
+    const [totalSchoolCount, setTotalSchoolCount] = useState('-');
+    const [mentorCoursesCompletedCount , setMentorCoursesCompletedCount ] = useState('-');
+    const [studentCoursesCompletedCount , setStudentCoursesCompletedCount ] = useState('-');
+    const [totalstudentCoursesCount , setTotalstudentCoursesCount ] = useState('-');
 
-    
     const adminTeamsCount = () => {
         var config = {
             method: 'get',
@@ -546,6 +550,47 @@ const Dashboard = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTotalSchoolCount(response.data.data[0].schoolCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminmentorCourseCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setMentorCoursesCompletedCount(response.data.data[0].mentorCoursesCompletedCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminStudentCourseCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setStudentCoursesCompletedCount(response.data.data[0].StudentCoursesCompletedCount);
+                    setTotalstudentCoursesCount(response.data.data[0].started);
                 }
             })
             .catch(function (error) {
@@ -1026,7 +1071,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                99999
+                                                {mentorCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1200,7 +1245,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                9999
+                                                {studentCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1228,7 +1273,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                9999
+                                                {totalstudentCoursesCount-studentCoursesCompletedCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1256,7 +1301,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                9999
+                                                {totalStudentCount-totalstudentCoursesCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
