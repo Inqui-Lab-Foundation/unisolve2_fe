@@ -100,6 +100,7 @@ const TicketsPage = (props) => {
     const [mentorDist, setmentorDist] = useState('');
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
+    const [fetchData, setFetchData] = useState(false);
     useEffect(() => {
         if (tab === 3) {
             props.getEvaluatorListAction();

@@ -20,7 +20,7 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-
+    console.log(teamMemberData);
     const formik = useFormik({
         initialValues: {
             fullName: teamMemberData && teamMemberData.full_name,
