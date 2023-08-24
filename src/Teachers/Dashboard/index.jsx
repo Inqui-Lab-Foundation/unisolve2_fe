@@ -34,10 +34,10 @@ const Dashboard = () => {
     }, [currentUser?.data[0]?.user_id]);
     // here in  Dashboard we can see all details of teacher //
     // like  school name , district , no of ideas , no of teams //
-    const [teamsCount, setTeamsCount] = useState(0);
-    const [ideaCount, setIdeaCount] = useState(0);
-    const [studentCount, setStudentCount] = useState(0);
-    const [coursepercentage, setCoursepercentage] = useState(0);
+    const [teamsCount, setTeamsCount] = useState('-');
+    const [ideaCount, setIdeaCount] = useState('-');
+    const [studentCount, setStudentCount] = useState('-');
+    const [coursepercentage, setCoursepercentage] = useState('-');
 
     const mentorTeamsCount = () => {
         var config = {

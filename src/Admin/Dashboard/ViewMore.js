@@ -27,7 +27,6 @@ const ViewMore = () => {
     teamId.push({ mentor_id: orgDaTa.mentor.mentor_id });
 
     const handleBack = () => {
-        
         history.push({
             pathname: '/admin/dashboard'
         });
@@ -42,7 +41,7 @@ const ViewMore = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${orgDaTa.mentor.user_id}&role=MENTOR`,
+                `/dashboard/quizscores?user_id=${orgDaTa?.mentor.user_id}&role=MENTOR`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -206,7 +205,7 @@ const ViewMore = () => {
                                     <b>
                                         {course[0]?.scores[0]?.score
                                             ? course[0]?.scores[0]?.score
-                                            : 0}
+                                            : '-'}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -225,7 +224,7 @@ const ViewMore = () => {
                                                           100
                                                   ) + '%'
                                               }`
-                                            : 0}
+                                            : '-'}
                                     </b>{' '}
                                 </CardText>
                             </CardBody>

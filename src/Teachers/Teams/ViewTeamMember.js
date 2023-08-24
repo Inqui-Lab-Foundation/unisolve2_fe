@@ -10,7 +10,6 @@ import { Button } from '../../stories/Button';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-    getAdminTeamsList,
     getAdminTeamMembersList,
     studentResetPassword
 } from '../../redux/actions';
@@ -33,7 +32,6 @@ const ViewTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamID = JSON.parse(localStorage.getItem('teamId'));
     const dispatch = useDispatch();
-
     const history = useHistory();
     const teamId =
         (history &&
@@ -41,16 +39,17 @@ const ViewTeamMember = (props) => {
             history.location.item &&
             history.location.item.team_id) ||
         teamID.team_id;
-    const IdeaStatus =
+    const StudentCount =
         (history &&
             history.location &&
             history.location.item &&
-            history.location.item.ideaStatus) ||
-        teamID.ideaStatus;
-
+            history.location.item.StudentCount) ||
+        teamID.StudentCount;
+    const mentorId =
+        (history && history.location && history.location.mentorid) ||
+        teamID.mentorid;
     const [count, setCount] = useState(0);
     // eslint-disable-next-line no-unused-vars
-    const [teamsMembersList, setTeamsMemers] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
@@ -59,46 +58,146 @@ const ViewTeamMember = (props) => {
     const [value, setvalue] = useState('');
     const [teamchangeobj, setteamchangeObj] = useState({});
     const [selectedstudent, setselectedstudent] = useState();
+    const [IdeaStatus, setIdeaStatus] = useState('No Idea');
     useEffect(async () => {
-        await handleteamMembersAPI(teamId);
+        props.getAdminTeamMembersListAction(teamId);
+        ideaStatusfun();
         // here teamId = team id //
     }, [teamId, count]);
 
-    async function handleteamMembersAPI(teamId) {
-        // here we can get all team member details //
+    const teamListbymentorid = () => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                '/teams/' +
-                teamId +
-                '/members' +
-                '?status=ACTIVE',
+                `/teams/listwithideaStatus?mentor_id=${mentorId}`,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
             }
         };
-        await axios(config)
+        axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    const updatedWithKey =
-                        response.data &&
-                        response.data.data.map((item, i) => {
-                            const upd = { ...item };
-                            upd['key'] = i + 1;
-                            return upd;
-                        });
-                    setTeamsMemers(updatedWithKey);
+                    const teamlistobj = {};
+                    const listofteams = response.data.data
+                        .map((item) => {
+                            if (
+                                item.StudentCount < 5 &&
+                                item.ideaStatus === null
+                            ) {
+                                teamlistobj[item.team_name] = item.team_id;
+                                return item.team_name;
+                            }
+                        })
+                        .filter(Boolean);
+                    if (Object.keys(teamlistobj).length > 0) {
+                        let index = listofteams.indexOf(teamID.team_name);
+
+                        if (index >= 0) {
+                            listofteams.splice(index, 1);
+                        }
+                    }
+
+                    setteamlist(listofteams);
+                    setteamchangeObj(teamlistobj);
+                    setShow(true);
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }
+    };
+    const ideaStatusfun = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/challenge_response/ideastatusbyteamId?team_id=${teamId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setIdeaStatus(response.data.data[0].ideaStatus);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    const handleDelete = (id) => {
+        // here we can delete the team //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to delete Team.',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Delete',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    var config = {
+                        method: 'delete',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL + '/teams/' + id,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Accept: "application/json",
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                        }
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                openNotificationWithIcon(
+                                    'success',
+                                    'Team Delete Successfully'
+                                );
+                                history.push({
+                                    pathname: '/teacher/teamlist'
+                                });
+                            } else {
+                                openNotificationWithIcon(
+                                    'error',
+                                    'Opps! Something Wrong'
+                                );
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Team not Deleted',
+                        'error'
+                    );
+                }
+            });
+    };
+
     const handleSwitchTeam = (item) => {
-        if (teamsMembersList.length > 2) {
-            setShow(true);
+        if (props.teamsMembersList.length > 2) {
+            teamListbymentorid();
             setselectedstudent(item);
         } else {
             openNotificationWithIcon('error', 'Opps! Something Wrong');
@@ -188,12 +287,13 @@ const ViewTeamMember = (props) => {
             })
             .catch((err) => console.log(err.response));
     };
+
     var adminTeamMembersList = {
-        data: teamsMembersList.length > 0 && teamsMembersList,
+        data: props.teamsMembersList.length > 0 && props.teamsMembersList,
         columns: [
             {
                 name: 'No',
-                selector: 'key',
+                selector: (row, key) => key + 1,
                 width: '6rem'
             },
             {
@@ -240,9 +340,9 @@ const ViewTeamMember = (props) => {
                         </a>,
 
                         <a onClick={() => handleDeleteTeamMember(params)}>
-                            {teamsMembersList &&
-                                teamsMembersList.length > 2 &&
-                                IdeaStatus === null && (
+                            {props.teamsMembersList &&
+                                props.teamsMembersList.length > 2 &&
+                                IdeaStatus === 'No Idea' && (
                                     <i
                                         key={params.team_id}
                                         className="fa fa-trash"
@@ -253,8 +353,8 @@ const ViewTeamMember = (props) => {
                         <a onClick={() => handleResetPassword(params)}>
                             <i key={params.team_id} className="fa fa-key" />
                         </a>,
-                        teamsMembersList.length > 2 &&
-                            IdeaStatus === null && ( // <-- Updated condition
+                        props.teamsMembersList.length > 2 &&
+                            IdeaStatus === 'No Idea' && ( // <-- Updated condition
                                 <a onClick={() => handleSwitchTeam(params)}>
                                     <i
                                         key={params.team_id}
@@ -330,6 +430,9 @@ const ViewTeamMember = (props) => {
                                     'success',
                                     t('teacher_teams.delete_success')
                                 );
+                                history.push({
+                                    pathname: '/teacher/teamlist'
+                                });
                             } else {
                                 openNotificationWithIcon(
                                     'error',
@@ -349,28 +452,7 @@ const ViewTeamMember = (props) => {
                 }
             });
     };
-    useEffect(() => {
-        const teamlistobj = {};
-        const listofteams = props.teamsList
 
-            .map((item) => {
-                if (item.student_count < 5 && item.ideaStatus === null) {
-                    teamlistobj[item.team_name] = item.team_id;
-                    return item.team_name;
-                }
-            })
-            .filter(Boolean);
-        if (Object.keys(teamlistobj).length > 0) {
-            let index = listofteams.indexOf(teamID.team_name);
-
-            if (index >= 0) {
-                listofteams.splice(index, 1);
-            }
-        }
-
-        setteamlist(listofteams);
-        setteamchangeObj(teamlistobj);
-    }, [props.teamsList, show]);
 
     return (
         <Layout>
@@ -398,8 +480,8 @@ const ViewTeamMember = (props) => {
                     </Row>
                     <div className="ticket-data">
                         <Tabs defaultActiveKey="1">
-                            {teamsMembersList &&
-                            !teamsMembersList.length > 0 ? (
+                            {props.teamsMembersList &&
+                            !props.teamsMembersList.length > 0 ? (
                                 <DoubleBounce />
                             ) : (
                                 <div className="my-2">
@@ -421,6 +503,22 @@ const ViewTeamMember = (props) => {
                             )}
                         </Tabs>
                     </div>
+                    {StudentCount <= 2 && IdeaStatus === 'No Idea' && (
+                        <div className="p-5">
+                            <Button
+                                label={t('teacher_teams.delete')}
+                                btnClass="primary ml-2"
+                                size="small"
+                                shape="btn-square"
+                                style={{
+                                    color: '#ffffff',
+                                    backgroundColor: 'red'
+                                }}
+                                Icon={BsPlusLg}
+                                onClick={() => handleDelete(teamId)}
+                            />
+                        </div>
+                    )}
                 </Row>
             </Container>
             {show && (
@@ -449,44 +547,12 @@ const ViewTeamMember = (props) => {
                             <h3 className="mb-sm-4 mb-3">
                                 Please select Team to switch student
                             </h3>
-                            {/* <div className="text-left">
-                                <input
-                                    type="radio"
-                                    checked={!value}
-                                    onChange={(e) => setvalue('')}
-                                />
-
-                                <label className="text-left">
-                                    Select Team{' '}
-                                </label>
-                                <hr />
-                                {/* {teamlist.length > 0 &&
-                                    teamlist.map((item) => (
-                                        <div className="text-left">
-                                            <input
-                                                type="radio"
-                                                value={item}
-                                                checked={value == item}
-                                                onChange={(e) => setvalue(item)}
-                                            />
-                                            <label className="text-left">
-                                                {item}
-                                            </label>
-                                            
-                                        </div>
-                                    ))} */}
                             <Select
                                 list={teamlist}
                                 setValue={setvalue}
                                 placeHolder={'Please Select team'}
                                 value={value}
                             />
-                            {/* <input
-                                type="radio"
-                                name="value"
-                                value="teamlist"
-                                onChange={(e) => setvalue(e.target.value)}
-                            /> */}
                         </div>
 
                         <div className="text-center">
@@ -506,11 +572,10 @@ const ViewTeamMember = (props) => {
 };
 
 const mapStateToProps = ({ teams }) => {
-    const { teamsList, teamsMembersList } = teams;
-    return { teamsList, teamsMembersList };
+    const { teamsMembersList } = teams;
+    return { teamsMembersList };
 };
 
 export default connect(mapStateToProps, {
-    getAdminTeamMembersListAction: getAdminTeamMembersList,
-    getAdminTeamsListAction: getAdminTeamsList
+    getAdminTeamMembersListAction: getAdminTeamMembersList
 })(ViewTeamMember);
