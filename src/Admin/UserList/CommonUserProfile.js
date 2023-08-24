@@ -26,7 +26,7 @@ const CommonUserProfile = (props) => {
     // const studentId = localStorage.getItem('studentId');
 
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
-
+    console.log(StudentsDaTa);
     const [course, setCourse] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
@@ -38,9 +38,7 @@ const CommonUserProfile = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (currentUser) {
-            dispatch(
-                getStudentDashboardStatus(StudentsDaTa.student_id, language)
-            );
+            dispatch(getStudentDashboardStatus(StudentsDaTa.user_id, language));
             dispatch(
                 getStudentDashboardTeamProgressStatus(
                     currentUser?.data[0]?.user_id,
@@ -54,7 +52,7 @@ const CommonUserProfile = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${StudentsDaTa.student_id}`,
+                `/dashboard/quizscores?user_id=${StudentsDaTa.user_id}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -171,7 +169,7 @@ const CommonUserProfile = (props) => {
             {
                 name: 'Score',
                 // selector: 'eval_schema',
-                selector: (row) => (row.score ? row.score : 0),
+                selector: (row) => (row.score ? row.score : '-'),
 
                 width: '20rem'
             }
@@ -335,7 +333,7 @@ const CommonUserProfile = (props) => {
                                     {dashboardStatus &&
                                     dashboardStatus?.videos_completed_count
                                         ? dashboardStatus?.videos_completed_count
-                                        : 0}
+                                        : '-'}
                                 </b>
                             </CardText>
 
@@ -347,7 +345,7 @@ const CommonUserProfile = (props) => {
                                     {dashboardStatus &&
                                     dashboardStatus?.quiz_completed_count
                                         ? dashboardStatus?.quiz_completed_count
-                                        : 0}
+                                        : '-'}
                                 </b>
                             </CardText>
                             <CardText>
@@ -364,7 +362,7 @@ const CommonUserProfile = (props) => {
                                                       100
                                               ) + '%'
                                           }`
-                                        : 0}
+                                        : '-'}
                                 </b>
                             </CardText>
                             <CardText>
@@ -375,7 +373,7 @@ const CommonUserProfile = (props) => {
                                     {dashboardStatus &&
                                     dashboardStatus?.badges_earned_count
                                         ? dashboardStatus?.badges_earned_count
-                                        : 0}
+                                        : '-'}
                                 </b>
                             </CardText>
                         </CardBody>
