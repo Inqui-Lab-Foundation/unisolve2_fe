@@ -127,6 +127,7 @@ const DashboardSchool = () => {
                             </Card.Body>
                         </Card>
                     </Col>
+                    
                 </Row>
             </Container>
         </Layout>

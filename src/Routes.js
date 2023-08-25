@@ -103,6 +103,8 @@ import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
 import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
 import TeacherProgressDetailed from './Admin/Reports/Helpers/TeacherProgressDetailed';
+import StudentsProgressReport from './Admin/Reports/Helpers/StudentsProgressReport';
+
 import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
@@ -437,6 +439,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/TeacherProgressDetailed"
                         component={TeacherProgressDetailed}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/StudentsProgressReport"
+                        component={StudentsProgressReport}
                     />
                     <ProtectedRoute
                         exact={true}

@@ -289,7 +289,6 @@ const PostSurvey = () => {
             });
     }, [language, counts]);
     const comingSoonText = t('dummytext.student_post_survey');
-    console.log(postSurveysList);
     return (
         <Layout>
             {!showPage ? (

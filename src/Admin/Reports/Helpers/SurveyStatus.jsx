@@ -149,6 +149,7 @@ const SurveyStatus = () => {
     }, []);
 
     
+
     // const handleViewDetails = () => {
     //     if ((!filterType) || (!surveyType)){
     //         notification.warning({
@@ -159,7 +160,7 @@ const SurveyStatus = () => {
     //     setShowTable(true);
     //     fetchData(filterType,surveyType);
     // };
-    // console.log(fetchData);
+
 
     const handleDownload = () => {
         if (!filterType || !surveyType) {
