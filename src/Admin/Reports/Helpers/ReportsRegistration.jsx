@@ -18,13 +18,15 @@ import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 
 const ReportsRegistration = () => {
+   
+   
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     //const [notRegisteredData, setNotRegisteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
     const [downloadData, setDownloadData] = useState(null);
-    console.log(downloadData, 'Data');
+    // console.log(downloadData, 'Data');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
@@ -40,6 +42,7 @@ const ReportsRegistration = () => {
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
+
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );

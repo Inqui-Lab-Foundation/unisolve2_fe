@@ -24,7 +24,6 @@ const EditTeamMember = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-    console.log(mentorData);
     const formik = useFormik({
         initialValues: {
             fullName: mentorData && mentorData.full_name,

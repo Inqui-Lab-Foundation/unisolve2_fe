@@ -63,7 +63,6 @@ function LatestNewsNew({ usersdata }) {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
                     setNews(response.data.data);
                 }
             })

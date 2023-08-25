@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import Layout from '../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import DataTableExtensions from 'react-data-table-component-extensions';
-import DataTable from 'react-data-table-component';
+import DataTable, { Alignment } from 'react-data-table-component';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 
 const TeacherResources = () => {
     const [resList, setResList] = useState([]);
+    const [rows, setRows] = React.useState([]);
+
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
 
@@ -42,6 +45,7 @@ const TeacherResources = () => {
         columns: [
             {
                 name: 'No',
+                // selector: 'id',
                 selector: (row, key) => key + 1,
                 sortable: true,
                 width: '15%'
@@ -109,6 +113,7 @@ const TeacherResources = () => {
 
                     <div className="my-2">
                         <DataTableExtensions
+                            data={rows}
                             print={false}
                             export={false}
                             {...resData}
@@ -120,7 +125,9 @@ const TeacherResources = () => {
                                 pagination
                                 highlightOnHover
                                 fixedHeader
-                                subHeaderAlign="center"
+                                subHeaderAlign={Alignment.Center}
+
+                                // subHeaderAlign="center"
                             />
                         </DataTableExtensions>
                     </div>
