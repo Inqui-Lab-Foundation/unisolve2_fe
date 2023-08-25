@@ -33,7 +33,6 @@ const LinkComponent = ({ item }) => {
     );
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
-    console.log(response);
     const submittedResponse = response[0]?.response;
     const componentRef = useRef();
     const [teamResponse, setTeamResponse] = React.useState([]);

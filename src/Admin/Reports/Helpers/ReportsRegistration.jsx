@@ -19,6 +19,8 @@ import { notification } from 'antd';
 import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
+   
+   
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
@@ -42,6 +44,7 @@ const ReportsRegistration = () => {
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
+
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );

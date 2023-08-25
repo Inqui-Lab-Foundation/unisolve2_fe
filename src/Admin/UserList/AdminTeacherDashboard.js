@@ -49,7 +49,6 @@ const Dashboard = () => {
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
     const [isideadisable, setIsideadisable] = useState(false);
-    console.log(orgData);
     // const Mentor = JSON.parse(localStorage.getItem('mentor'));
 
     const handleOnChange = (e) => {
@@ -87,7 +86,6 @@ const Dashboard = () => {
             .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
-                    console.log(orgData);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
