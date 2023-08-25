@@ -16,14 +16,18 @@ import axios from 'axios';
 import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
+import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
+    const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+     
     const [downloadData, setDownloadData] = useState(null);
-    console.log(downloadData, 'Data');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
@@ -225,9 +229,9 @@ const ReportsRegistration = () => {
     const fetchData = (item) => {
         const url =
             item === 'Registered'
-                ? `/reports/mentorRegList?district=${RegTeachersdistrict}`
+                ? `/reports/mentorRegList?district=${RegTeachersdistrict}&category=${category}`
                 : item === 'Not Registered'
-                ? `/reports/notRegistered?district=${RegTeachersdistrict}`
+                ? `/reports/notRegistered?district=${RegTeachersdistrict}&category=${category}`
                 : '';
 
         const config = {
@@ -266,10 +270,10 @@ const ReportsRegistration = () => {
     };
 
     const handleDownload = () => {
-        if (!RegTeachersdistrict || !filterType) {
+        if (!RegTeachersdistrict || !filterType || !category) {
             notification.warning({
                 message:
-                    'Please select a district and filter type before Downloading Reports.'
+                    'Please select a district,category and filter type before Downloading Reports.'
             });
             return;
         }
@@ -291,8 +295,6 @@ const ReportsRegistration = () => {
             setFilterType('');
         }
     }, [downloadComplete]);
-
-    console.log("Not Registered Data:", downloadNotRegisteredData);
 
     const fetchChartTableData = () => {
         const config = {
@@ -382,6 +384,16 @@ const ReportsRegistration = () => {
                                             setValue={setFilterType}
                                             placeHolder={'Select Filter'}
                                             value={filterType}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
                                         />
                                     </div>
                                 </Col>
