@@ -641,7 +641,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    // console.log(props.studentList);
 
     const evaluatorsData = {
         data: props.evalutorsList,

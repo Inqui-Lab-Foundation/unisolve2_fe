@@ -154,7 +154,7 @@ const SurveyStatus = () => {
         setShowTable(true);
         fetchData(filterType,surveyType);
     };
-    console.log(fetchData);
+    // console.log(fetchData);
 
     const handleDownload = () => {
         if (!filterType || !surveyType) {

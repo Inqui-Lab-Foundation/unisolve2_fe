@@ -15,7 +15,6 @@ const ViewMore = () => {
     const currentUser = getCurrentUser('current_user');
 
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
-    console.log(orgDaTa);
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //

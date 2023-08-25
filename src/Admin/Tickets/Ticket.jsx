@@ -235,7 +235,6 @@ const TicketsPage = () => {
         }, 2000);
         return () => clearTimeout(timeout);
     }, []);
-    // console.log(allData.data, 'data');
     const changeTab = async (e) => {
         if (e === '1') {
             await listApi();
