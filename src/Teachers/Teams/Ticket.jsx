@@ -2,17 +2,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, List, Label, Card } from 'reactstrap';
-import { Tabs, Space } from 'antd';
+import { Tabs} from 'antd';
 import Layout from '../Layout';
-import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
-import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-    getAdminTeamsList,
-    getAdminTeamMembersList
-} from '../../redux/actions';
 import axios from 'axios';
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -24,62 +18,54 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { useTranslation } from 'react-i18next';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 
-const TicketsPage = (props) => {
+const TicketsPage = () => {
     const history = useHistory();
     const { t } = useTranslation();
-    const dashboardStates = useSelector(
-        (state) => state.teacherDashBoard.dashboardStates
-    );
-
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
-
     const [teamsArray, setTeamsArray] = useState([]);
-    // eslint-disable-next-line no-unused-vars
-    const [teamMembersListArray, setTeamMembersArray] = useState([]);
-
-    // eslint-disable-next-line no-unused-vars
-    const [teamId, setTeamId] = useState('');
-
     const currentUser = getCurrentUser('current_user');
-    const [pending, setPending] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
-    const [rows, setRows] = React.useState([]);
-
-    React.useEffect(() => {
-        const timeout = setTimeout(() => {
-            setRows(adminTeamsList.data);
-            setPending(false);
-        }, 2000);
-        return () => clearTimeout(timeout);
-    }, []);
+    const [teamsList, setTeamsList] = useState([]);
     useEffect(() => {
-        setLoading(true);
-        props
-            .getAdminTeamsListAction(currentUser?.data[0]?.mentor_id)
-            .then(() => setLoading(false));
-    }, [count]);
+        if (currentUser?.data[0]?.mentor_id) {
+            teamListbymentorid(currentUser?.data[0]?.mentor_id);
+        }
+    }, [currentUser?.data[0]?.mentor_id]);
+
+    const teamListbymentorid = (mentorid) => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/teams/list?mentor_id=${mentorid}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTeamsList(response.data.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     useEffect(() => {
         setLoading(true);
         var teamsArrays = [];
-        props.teamsList.map((teams, index) => {
+        teamsList.map((teams, index) => {
             var key = index + 1;
             return teamsArrays.push({ ...teams, key });
         });
         setTeamsArray(teamsArrays);
         setLoading(false);
-    }, [props.teamsList]);
-
-    useEffect(() => {
-        var teamsMembersArrays = [];
-        props.teamsMembersList.length > 0 &&
-            props.teamsMembersList.map((teams, index) => {
-                var key = index + 1;
-                return teamsMembersArrays.push({ ...teams, key });
-            });
-        setTeamMembersArray(teamsMembersArrays);
-    }, [props.teamsMembersList.length > 0]);
+    }, [teamsList]);
 
     const adminTeamsList = {
         data: teamsArray,
@@ -98,7 +84,7 @@ const TicketsPage = (props) => {
             },
             {
                 name: t('teacher_teams.team_members_count'),
-                selector: 'student_count',
+                selector: 'StudentCount',
                 width: '23rem'
             },
             {
@@ -107,37 +93,18 @@ const TicketsPage = (props) => {
                     return [
                         <div key={params} onClick={() => handleCreate(params)}>
                             {process.env.REACT_APP_TEAM_LENGTH >
-                                params.student_count && (
+                                params.StudentCount && (
                                 <div className="btn btn-success  mr-5 mx-2">
                                     {t('teacher_teams.create')}
                                 </div>
                             )}
                         </div>,
                         <div key={params} onClick={() => handleView(params)}>
-                            {!params.student_count < 1 && (
+                            {!params.StudentCount < 1 && (
                                 <div className="btn btn-primary  mr-5">
                                     {t('teacher_teams.view')}
                                 </div>
                             )}
-                        </div>,
-                        // <div
-                        //     key={params}
-                        //     onClick={() => handleEditTeam(params)}
-                        //     // style={{marginRight:"20px"}}
-                        // >
-                        //     <div className="btn btn-warning btn-lg mr-5 mx-2">{t('teacher_teams.edit')}</div>
-                        // </div>,
-                        <div
-                            key={params}
-                            onClick={() => handleDelete(params)}
-                            // style={{marginRight:"20px"}}
-                        >
-                            {params.student_count <= 2 &&
-                                params.ideaStatus === null && (
-                                    <div className="btn btn-danger  mx-2">
-                                        {t('teacher_teams.delete')}
-                                    </div>
-                                )}
                         </div>
                     ];
                 },
@@ -152,7 +119,7 @@ const TicketsPage = (props) => {
         // where we can add team member details //
         history.push({
             pathname: `/teacher/create-team-member/${item.team_id}/${
-                item.student_count ? item.student_count : 'new'
+                item.StudentCount ? item.StudentCount : 'new'
             }`
         });
     };
@@ -167,75 +134,13 @@ const TicketsPage = (props) => {
     };
     const handleView = (item) => {
         // here item = team member details  //
+        item['mentorid']=currentUser?.data[0]?.mentor_id;
         history.push({
             pathname: '/teacher/view-team-member',
-            item: item
+            item: item,
+            mentorid :currentUser?.data[0]?.mentor_id
         });
         localStorage.setItem('teamId', JSON.stringify(item));
-    };
-
-    const handleDelete = (item) => {
-        // here we can delete the team //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title: 'You are attempting to delete Team.',
-                text: 'Are you sure?',
-                imageUrl: `${logout}`,
-                showCloseButton: true,
-                confirmButtonText: 'Delete',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    var config = {
-                        method: 'delete',
-                        url:
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/teams/' +
-                            item.team_id,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
-                        }
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            if (response.status === 200) {
-                                setCount(count + 1);
-                                openNotificationWithIcon(
-                                    'success',
-                                    'Team Delete Successfully'
-                                );
-                                props.history.push('/teacher/teamlist');
-                            } else {
-                                openNotificationWithIcon(
-                                    'error',
-                                    'Opps! Something Wrong'
-                                );
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Team not Deleted',
-                        'error'
-                    );
-                }
-            });
     };
 
     const centerTitleMobile = {
@@ -280,7 +185,7 @@ const TicketsPage = (props) => {
                                         {...adminTeamsList}
                                     >
                                         <DataTable
-                                            data={rows}
+                                            data={teamsArray}
                                             defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
@@ -300,7 +205,9 @@ const TicketsPage = (props) => {
                 </Row>
                 <Row className="pt-5">
                     <Card className="w-100 p-5">
-                        <Label className='text-danger'>Instructions for adding teams :</Label>
+                        <Label className="text-danger">
+                            Instructions for adding teams :
+                        </Label>
                         <p>
                             Adding student teams is the first and most important
                             step as part of the project. Please ensure you are
@@ -339,14 +246,15 @@ const TicketsPage = (props) => {
                                 initiating an idea.
                             </li>
                             <li>
-                                If Idea is initiated by a team then 
+                                If Idea is initiated by a team then
                                 <ul>
                                     <li>Students & Team cannot be deleted</li>
-                                    <li>Students cannot be changed / shifted to other teams</li>
+                                    <li>
+                                        Students cannot be changed / shifted to
+                                        other teams
+                                    </li>
                                 </ul>
                             </li>
-
-                            
                         </List>
                     </Card>
                 </Row>
@@ -355,12 +263,4 @@ const TicketsPage = (props) => {
     );
 };
 
-const mapStateToProps = ({ teams }) => {
-    const { teamsList, teamsMembersList } = teams;
-    return { teamsList, teamsMembersList };
-};
-
-export default connect(mapStateToProps, {
-    getAdminTeamsListAction: getAdminTeamsList,
-    getAdminTeamMembersListAction: getAdminTeamMembersList
-})(TicketsPage);
+export default TicketsPage;
