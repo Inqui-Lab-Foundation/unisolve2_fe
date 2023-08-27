@@ -1,6 +1,7 @@
 export const categoryValue = {
-    tn: ['SCHOOL'],
+    tn: ['All Categorys', 'SCHOOL'],
     ka: [
+        'All Categorys',
         'HPS - KRISHNARAJA PET',
         'HPS - MADDUR',
         'HPS - MALAVALLY',
@@ -19,6 +20,7 @@ export const categoryValue = {
         'HP -SRIRANGA PATNA'
     ],
     ts: [
+        'All Categorys',
         'GOVT_LOCALBODY',
         'KGBV',
         'MODEL SCHOOLS',
@@ -34,6 +36,5 @@ export const categoryValue = {
 export const stateValue = {
     tn: 'Tamilnadu',
     ka: 'Karnataka',
-    ts: 'Telangana',
+    ts: 'Telangana'
 };
-
