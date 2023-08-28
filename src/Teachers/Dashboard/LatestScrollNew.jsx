@@ -11,7 +11,7 @@ import './ContinousScroll.css';
 import axios from 'axios';
 import newIcon from '../../assets/media/blinking_new.gif';
 
-function LatestNewsNew({ usersdata }) {
+function LatestScrollNew({ usersdata }) {
     const currentUser = getCurrentUser('current_user');
 
     const [newsRes, setNewRes] = useState({});
@@ -191,4 +191,4 @@ function LatestNewsNew({ usersdata }) {
         </div>
     );
 }
-export default LatestNewsNew;
+export default LatestScrollNew;
