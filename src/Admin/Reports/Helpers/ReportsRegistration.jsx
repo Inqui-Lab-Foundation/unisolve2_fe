@@ -265,10 +265,12 @@ const ReportsRegistration = () => {
                         'success',
                         `${filterType} Report Downloaded Successfully`
                     );
+                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
+                setIsDownloading(false);
             });
     };
 
@@ -287,7 +289,7 @@ const ReportsRegistration = () => {
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
-            setIsDownloading(false);
+            //setIsDownloading(false);
         }
     }, [filteredData, downloadNotRegisteredData]);
 
