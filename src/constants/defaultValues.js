@@ -118,6 +118,8 @@ export const URL = {
     getStudentDashboardStatusCommonById:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/studentStats/',
     getTeacherById: process.env.REACT_APP_API_BASE_URL + '/mentors/',
+    getSchoolById: process.env.REACT_APP_API_BASE_URL + '/organizations/',
+
     getTeacherDashboardStatesById:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/mentorStats/',
     getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + '/challenge',

@@ -14,9 +14,9 @@ const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
-
+    console.log(teacher);
     useLayoutEffect(() => {
-        if(currentUser?.data[0]?.mentor_id){
+        if (currentUser?.data[0]?.mentor_id) {
             dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
         }
     }, [currentUser?.data[0]?.mentor_id]);
@@ -73,7 +73,7 @@ const MyProfile = () => {
                                                                 >
                                                                     <b>Title</b>
                                                                 </Col>
-                                                                <Col 
+                                                                <Col
                                                                     xs={1}
                                                                     sm={1}
                                                                     md={1}
@@ -105,10 +105,12 @@ const MyProfile = () => {
                                                                 >
                                                                     <b>Name</b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -137,10 +139,12 @@ const MyProfile = () => {
                                                                         Gender
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -169,10 +173,12 @@ const MyProfile = () => {
                                                                         Mobile
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -202,10 +208,12 @@ const MyProfile = () => {
                                                                         Mobile
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -284,10 +292,12 @@ const MyProfile = () => {
                                                                 >
                                                                     <b>UDISE</b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -317,10 +327,12 @@ const MyProfile = () => {
                                                                         Name
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -355,10 +367,12 @@ const MyProfile = () => {
                                                                         Name
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -392,10 +406,12 @@ const MyProfile = () => {
                                                                         Email
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -465,10 +481,12 @@ const MyProfile = () => {
                                                                 >
                                                                     <b>City</b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -501,10 +519,12 @@ const MyProfile = () => {
                                                                         District
                                                                     </b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col
@@ -536,10 +556,12 @@ const MyProfile = () => {
                                                                 >
                                                                     <b>State</b>
                                                                 </Col>
-                                                                <Col xs={1}
+                                                                <Col
+                                                                    xs={1}
                                                                     sm={1}
                                                                     md={1}
-                                                                    xl={1}>
+                                                                    xl={1}
+                                                                >
                                                                     :
                                                                 </Col>
                                                                 <Col

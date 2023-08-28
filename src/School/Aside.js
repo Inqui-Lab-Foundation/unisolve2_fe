@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useHistory } from 'react-router-dom';
 import {
@@ -9,7 +10,7 @@ import {
 } from 'react-pro-sidebar';
 import { FaBars } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
-
+import { FaHouseUser } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import SmallLogo from '../assets/media/logo192.png';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -116,6 +117,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink exact={true} to={'/school-changePassword'}>
                             {t('teacher.password')}
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaHouseUser />}
+                        className={
+                            location.pathname === '/school/my-profile' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/school/my-profile'}>
+                            {t('teacher.profile')}
                         </NavLink>
                     </MenuItem>
 
