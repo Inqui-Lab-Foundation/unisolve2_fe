@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -111,6 +112,8 @@ import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
+import MySchoolProfile from './School/MySchoolProfile';
+
 import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
@@ -120,7 +123,7 @@ import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
 import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
 import MentorEditProfile from './Admin/UserList/MentorEditProfile';
 import StudentEditProfile from './Admin/UserList/StudentEditProfile';
-
+import SchoolEditProfile from './School/SchoolEditProfile';
 const Routers = () => {
     return (
         <>
@@ -171,6 +174,18 @@ const Routers = () => {
                         user="SCHOOL"
                         path="/school/dashboard"
                         component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="SCHOOL"
+                        path="/school/my-profile"
+                        component={MySchoolProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="SCHOOL"
+                        path="/EditSchoolProfile"
+                        component={SchoolEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
