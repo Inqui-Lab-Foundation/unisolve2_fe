@@ -15,7 +15,7 @@ import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../Helpers/Select';
 import axios from 'axios';
-
+import { categoryValue } from '../../Schools/constentText';
 import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
@@ -177,19 +177,15 @@ const ReportsRegistration = () => {
         }
     };
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
-    const [filterType, setFilterType] = useState('');
-    const [filteredData, setFilteredData] = useState([]);
-    //const [notRegisteredData, setNotRegisteredData] = useState([]);
-    const filterOptions = ['Registered', 'Not Registered'];
+    const [category, setCategory] = useState('');
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+
     const [downloadData, setDownloadData] = useState(null);
-    // console.log(downloadData, 'Data');
-    const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
-        useState(null);
     const [chartTableData, setChartTableData] = useState([]);
     //const [showTable, setShowTable] = useState(false);
     //const [statsshowTable, setStatsShowTable] = useState(false);
     const csvLinkRef = useRef();
-    const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
@@ -201,7 +197,96 @@ const ReportsRegistration = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-
+    const studentDetailsHeaders = [
+        {
+            label: 'UDISE CODE',
+            key: 'UDISE code'
+        },
+        {
+            label: 'School Name',
+            key: 'School Name'
+        },
+        {
+            label: 'School Type/Category',
+            key: 'category'
+        },
+        {
+            label: 'District',
+            key: 'district'
+        },
+        {
+            label: 'City',
+            key: 'city'
+        },
+        {
+            label: 'HM Name',
+            key: 'HM Name'
+        },
+        {
+            label: 'HM Contact',
+            key: 'HM Contact'
+        },
+        {
+            label: 'Teacher Name',
+            key: 'Teacher Name'
+        },
+        {
+            label: 'Teacher Gender',
+            key: 'Teacher Gender'
+        },
+        {
+            label: 'Teacher Contact',
+            key: 'Teacher Contact'
+        },
+        {
+            label: 'Teacher WhatsApp Contact',
+            key: 'Teacher WhatsApp Contact'
+        },
+        {
+            label: 'Team Name',
+            key: 'Team Name'
+        },
+        {
+            label: 'Student Name',
+            key: 'Student Name'
+        },
+        {
+            label: 'Student Username',
+            key: 'Student Username'
+        },
+        {
+            label: 'Age',
+            key: 'Age'
+        },
+        {
+            label: 'Gender',
+            key: 'gender'
+        },
+        {
+            label: 'Grade',
+            key: 'Grade'
+        },
+        {
+            label: 'Pre-Survey Status',
+            key: 'Pre Survey Status'
+        },
+        {
+            label: 'Course Completion%',
+            key: 'Course Completion'
+        },
+        {
+            label: 'Course Status',
+            key: 'Course Status'
+        },
+        {
+            label: 'Idea Status',
+            key: 'Course Status'
+        },
+        {
+            label: 'Post-Survey Status',
+            key: 'Post Survey Status'
+        }
+    ];
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
@@ -261,13 +346,8 @@ const ReportsRegistration = () => {
         }
     };
 
-    const fetchData = (item) => {
-        const url =
-            item === 'Registered'
-                ? `/reports/mentorRegList?district=${RegTeachersdistrict}`
-                : item === 'Not Registered'
-                ? `/reports/notRegistered?district=${RegTeachersdistrict}`
-                : '';
+    const fetchData = () => {
+        const url = `/reports/studentdetailsreport?district=${RegTeachersdistrict}&category=${category}`;
 
         const config = {
             method: 'get',
@@ -277,71 +357,62 @@ const ReportsRegistration = () => {
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
-
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    if (item === 'Registered') {
-                        setFilteredData(response?.data?.data || []);
-                        setDownloadData(response?.data?.data || []);
-
-                        csvLinkRef.current.link.click();
-                    } else if (item === 'Not Registered') {
-                        //setNotRegisteredData(response?.data?.data || []);
-                        setDownloadNotRegisteredData(
-                            response?.data?.data || []
+                    const newdatalist = response.data.data.map((item) => {
+                        const dataList = { ...item };
+                        if (item['Post Survey Status'] === 'ACTIVE') {
+                            dataList['Post Survey Status'] = 'Completed';
+                        }
+                        if (item['Pre Survey Status'] === 'ACTIVE') {
+                            dataList['Pre Survey Status'] = 'Completed';
+                        }
+                        const coursePre = Math.round(
+                            (item.course_status / 34) * 100
                         );
-                        csvLinkRefNotRegistered.current.link.click();
-                    }
+                        dataList['Course Completion'] = `${coursePre}%`;
+                        if (coursePre >= 100) {
+                            dataList['Course Status'] = 'Completed';
+                        } else if (coursePre < 100 && coursePre > 0) {
+                            dataList['Course Status'] = 'In Progress';
+                        } else {
+                            dataList['Course Status'] = 'Not Started';
+                        }
+                        return dataList;
+                    });
+                    setDownloadData(newdatalist);
+                    csvLinkRef.current.link.click();
                     openNotificationWithIcon(
                         'success',
-                        `${filterType} Report Downloaded Successfully`
+                        `Student Detailed Reports Downloaded Successfully`
                     );
+                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
+                setIsDownloading(false);
             });
     };
 
     const handleDownload = () => {
-        if (!RegTeachersdistrict || !filterType) {
+        if (!RegTeachersdistrict || !category) {
             notification.warning({
                 message:
-                    'Please select a district and filter type before Downloading Reports.'
+                    'Please select a district and category type before Downloading Reports.'
             });
             return;
         }
         setIsDownloading(true);
         //  setDownloadComplete(false);
-        fetchData(filterType);
+        fetchData();
     };
-
-    // if (filterType === 'Registered' && csvLinkRef.current) {
-    //     setDownloadData(filteredData);
-    //     csvLinkRef.current.link.click();
-    // } else if (filterType === 'Not Registered' && csvLinkRefNotRegistered.current) {
-    //     //setDownloadNotRegisteredData(filteredData);
-    //     csvLinkRefNotRegistered.current.link.click();
-    // }
-    //openNotificationWithIcon('success',`${filterType} Downloaded Successfully`);
-
-    useEffect(() => {
-        if (filteredData.length > 0) {
-            setDownloadData(filteredData);
-            setIsDownloading(false);
-            // setDownloadComplete(true);
-            // setTimeout(() => {
-            //     setDownloadComplete(false);
-            // }, 1500);
-        }
-    }, [filteredData, downloadNotRegisteredData]);
 
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
             setRegTeachersdistrict('');
-            setFilterType('');
         }
     }, [downloadComplete]);
 
@@ -428,32 +499,19 @@ const ReportsRegistration = () => {
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
-                                            list={filterOptions}
-                                            setValue={setFilterType}
-                                            placeHolder={'Select Filter'}
-                                            value={filterType}
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
                                         />
                                     </div>
                                 </Col>
-
                                 <Col
                                     md={3}
                                     className="d-flex align-items-center justify-content-center"
                                 >
-                                    {/* <Button
-                                        label="View Details"
-                                        btnClass="primary mx-6"
-                                        size="small"
-                                        shape="btn-square"
-                                        onClick={handleViewDetails}
-                                        style={{
-                                            width: '150px',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                    /> */}
                                     <Button
                                         onClick={handleDownload}
-                                        //label={'Download Report'}
                                         label={
                                             downloadComplete
                                                 ? 'Download Complete'
@@ -758,8 +816,9 @@ const ReportsRegistration = () => {
 
                                 {downloadData && (
                                     <CSVLink
+                                        headers={studentDetailsHeaders}
                                         data={downloadData}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        filename={`Student Detailed Reports.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {
@@ -768,20 +827,6 @@ const ReportsRegistration = () => {
                                         }}
                                     >
                                         Download CSV
-                                    </CSVLink>
-                                )}
-                                {downloadNotRegisteredData && (
-                                    <CSVLink
-                                        data={downloadNotRegisteredData}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRefNotRegistered}
-                                        onDownloaded={() => {
-                                            setIsDownloading(false);
-                                            setDownloadComplete(true);
-                                        }}
-                                    >
-                                        Download Not Registered CSV
                                     </CSVLink>
                                 )}
                             </div>

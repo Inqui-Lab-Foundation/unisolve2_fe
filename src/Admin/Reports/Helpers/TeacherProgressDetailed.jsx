@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Layout from '../../Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
-import { getCurrentUser} from '../../../helpers/Utils';
+import { getCurrentUser } from '../../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,77 +12,247 @@ import axios from 'axios';
 import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-//import { notification } from 'antd';
+import { categoryValue } from '../../Schools/constentText';
+import { notification } from 'antd';
 
 const TeacherDetailed = () => {
     const [district, setdistrict] = React.useState('');
-    const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState([]);
+    const [category, setCategory] = useState('');
+    const [isDownload,setIsDownload] =useState(false);
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
+        []
+    );
     const [chartTableData, setChartTableData] = useState([]);
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const csvLinkRef = useRef();
     const dispatch = useDispatch();
-    const fullDistrictsNames = useSelector((state) => state?.studentRegistration?.dists);
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
+    const teacherDetailsHeaders=[
+        {
+            label: "UDISE CODE",
+            key: "UDISE code"
+        },
+        {
+            label: "School Name",
+            key: "School Name"
+        },
+        {
+            label: "School Type/Category",
+            key: "category"
+        },
+        {
+            label: "District",
+            key: "district"
+        },
+        {
+            label: "City",
+            key: "city"
+        },
+        {
+            label: "HM Name",
+            key: "HM Name"
+        },
+        {
+            label: "HM Contact",
+            key: "HM Contact"
+        },
+        {
+            label: "Teacher Name",
+            key: "Teacher Name"
+        },
+        {
+            label: "Teacher Gender",
+            key: "Teacher Gender"
+        },
+        {
+            label: "Teacher Contact",
+            key: "Teacher Contact"
+        },
+        {
+            label: "Teacher WhatsApp Contact",
+            key: "Teacher WhatsApp Contact"
+        },
+        {
+            label:"Pre Survey Status",
+            key:'Pre Survey Status'
+        },
+        {
+            label:"Course Status",
+            key:'Course Status'
+        },
+        {
+            label:"Post Survey Status",
+            key:'Post Survey Status'
+        },
+        {
+            label:"NO.of Teams Created",
+            key:'team_count'
+        },
+        {
+            label:"No.of Students Enrollrd",
+            key:'student_count'
+        },
+        {
+            label:"No.of Students Presurvey Completed",
+            key:'preSur_cmp'
+        },
+        {
+            label:"No.of Students Presurvey Not Started",
+            key:'presurveyNotStarted'
+        },
+        {
+            label:"No.of Students Course Completed",
+            key:'countop'
+        },
+        {
+            label:"No.of Students Course Inprogress",
+            key:'courseinprogess'
+        },
+        {
+            label:"No.of Students Course Not Started",
+            key:'courseNotStarted'
+        },
+        {
+            label:"No.of Teams Idea Submitted",
+            key:'submittedcout'
+        },
+        {
+            label:"No.of Teams Idea in Draft",
+            key:'draftcout'
+        },
+        {
+            label:"No.of Teams Idea NOt Initiated",
+            key:'ideanotIN'
+        },
+        
+    ];
     const barChartData = {
-        labels: ['chennai', 'Coimbatore', 'Madurai', 'karur', 'Salem', 'Theni', 'Vellore', 'Bangalore', 'Ranipet', 'Erode'],
+        labels: [
+            'chennai',
+            'Coimbatore',
+            'Madurai',
+            'karur',
+            'Salem',
+            'Theni',
+            'Vellore',
+            'Bangalore',
+            'Ranipet',
+            'Erode'
+        ],
         datasets: [
             {
                 label: 'No.of Students Enrolled',
                 data: [15, 28, 10, 45, 32, 20, 37, 18, 25, 30],
                 backgroundColor: 'rgba(75, 162, 192, 0.6)',
-                borderWidth: 0.5,
+                borderWidth: 0.5
             },
             {
                 label: 'No. of Teams created',
                 data: [5, 8, 5, 20, 17, 10, 32, 10, 13, 12],
                 backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                borderWidth: 0.5,
-            },
-        ],
+                borderWidth: 0.5
+            }
+        ]
     };
     const stackedBarChartData = {
-        labels: ['chennai', 'Coimbatore', 'Madurai', 'karur', 'Salem', 'Theni', 'Vellore', 'Bangalore', 'Ranipet', 'Erode'],
+        labels: [
+            'chennai',
+            'Coimbatore',
+            'Madurai',
+            'karur',
+            'Salem',
+            'Theni',
+            'Vellore',
+            'Bangalore',
+            'Ranipet',
+            'Erode'
+        ],
         datasets: [
             {
                 label: 'No. of Teachers not started course',
                 data: [10, 20, 30, 25, 15, 10, 5, 8, 12, 18],
-                backgroundColor: 'rgba(0, 128, 0, 0.6)',
+                backgroundColor: 'rgba(0, 128, 0, 0.6)'
             },
             {
                 label: 'No. of Teachers course inprogress',
                 data: [5, 8, 5, 20, 17, 10, 32, 10, 13, 12],
-                backgroundColor: 'rgba(255, 255, 0, 0.6)',
+                backgroundColor: 'rgba(255, 255, 0, 0.6)'
             },
             {
                 label: 'No. of teachers completed course',
                 data: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
-                backgroundColor: 'rgba(255, 0, 0, 0.6)',
-            },
-        ],
+                backgroundColor: 'rgba(255, 0, 0, 0.6)'
+            }
+        ]
     };
-    
+
     useEffect(() => {
         dispatch(getDistrictData());
         //fetchChartTableData();
         const fakeChartData = [
-            { district: 'chennai', organization_count: 50,total_no_of_teams_created:2,total_no_of_students_enrolled:4, total_registered_teachers: 30, total_not_registered_teachers: 20,No_of_Teachers_Completed_the_course:20,No_of_Teachers_course_inprogress:5,No_of_Teachers_not_started_course:5},
-            { district: 'Coimbatore', organization_count: 40,total_no_of_teams_created:5,total_no_of_students_enrolled:3, total_registered_teachers: 25, total_not_registered_teachers: 15,No_of_Teachers_Completed_the_course:15,No_of_Teachers_course_inprogress:8, No_of_Teachers_not_started_course:4},
-            { district: 'Erode', organization_count: 50,total_no_of_teams_created:4,total_no_of_students_enrolled:5, total_registered_teachers: 30, total_not_registered_teachers: 20,No_of_Teachers_Completed_the_course:3,No_of_Teachers_course_inprogress:7,No_of_Teachers_not_started_course:5 },
-            { district: 'Kannur', organization_count: 40,total_no_of_teams_created:3,total_no_of_students_enrolled:2, total_registered_teachers: 25, total_not_registered_teachers: 15,No_of_Teachers_Completed_the_course:5,No_of_Teachers_course_inprogress:10,No_of_Teachers_not_started_course:7},
+            {
+                district: 'chennai',
+                organization_count: 50,
+                total_no_of_teams_created: 2,
+                total_no_of_students_enrolled: 4,
+                total_registered_teachers: 30,
+                total_not_registered_teachers: 20,
+                No_of_Teachers_Completed_the_course: 20,
+                No_of_Teachers_course_inprogress: 5,
+                No_of_Teachers_not_started_course: 5
+            },
+            {
+                district: 'Coimbatore',
+                organization_count: 40,
+                total_no_of_teams_created: 5,
+                total_no_of_students_enrolled: 3,
+                total_registered_teachers: 25,
+                total_not_registered_teachers: 15,
+                No_of_Teachers_Completed_the_course: 15,
+                No_of_Teachers_course_inprogress: 8,
+                No_of_Teachers_not_started_course: 4
+            },
+            {
+                district: 'Erode',
+                organization_count: 50,
+                total_no_of_teams_created: 4,
+                total_no_of_students_enrolled: 5,
+                total_registered_teachers: 30,
+                total_not_registered_teachers: 20,
+                No_of_Teachers_Completed_the_course: 3,
+                No_of_Teachers_course_inprogress: 7,
+                No_of_Teachers_not_started_course: 5
+            },
+            {
+                district: 'Kannur',
+                organization_count: 40,
+                total_no_of_teams_created: 3,
+                total_no_of_students_enrolled: 2,
+                total_registered_teachers: 25,
+                total_not_registered_teachers: 15,
+                No_of_Teachers_Completed_the_course: 5,
+                No_of_Teachers_course_inprogress: 10,
+                No_of_Teachers_not_started_course: 7
+            }
         ];
         setChartTableData(fakeChartData);
-        const male = 30; 
-        const female = 20; 
+        const male = 30;
+        const female = 20;
         setRegisteredChartData({
             labels: ['Male', 'Female'],
             datasets: [
                 {
                     data: [male, female],
                     backgroundColor: ['#36A2EB', '#FF6384'],
-                    hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-                },
-            ],
+                    hoverBackgroundColor: ['#36A2EB', '#FF6384']
+                }
+            ]
         });
     }, []);
 
@@ -93,27 +263,26 @@ const TeacherDetailed = () => {
             labels: {
                 fontColor: 'black'
             }
-        },
+        }
     };
-    
-    
+
     const options = {
         scales: {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    stepSize: 10,
-                },
+                    stepSize: 10
+                }
             },
             x: {
                 grid: {
                     display: true,
-                    drawBorder: true, 
-                    color: 'rgba(0, 0, 0, 0.2)', 
-                    lineWidth: 0.5, 
-                },
-            },
-        },
+                    drawBorder: true,
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    lineWidth: 0.5
+                }
+            }
+        }
     };
     const stackedBarChartOptions = {
         ...options,
@@ -121,18 +290,33 @@ const TeacherDetailed = () => {
             x: {
                 stacked: true,
                 grid: {
-                    display: false,
-                },
+                    display: false
+                }
             },
             y: {
-                stacked: true,
-            },
-        },
+                stacked: true
+            }
+        }
     };
+
+
     const handleDownload = () => {
+        if (!district || !category) {
+            notification.warning({
+                message:
+                    'Please select a district and category type before Downloading Reports.'
+            });
+            return;
+        }
+        setIsDownload(true);
+        fetchData();
+    };
+    const fetchData = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentordeatilscsv',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/reports/mentordetailsreport?district=${district}&category=${category}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -141,12 +325,27 @@ const TeacherDetailed = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setmentorDetailedReportsData(response?.data?.data || []);
+                    const newdatalist = response.data.data.map((item) => {
+                        const dataList = { ...item };
+                        dataList['presurveyNotStarted'] =
+                            item['student_count'] - item['preSur_cmp'];
+                        dataList['courseNotStarted'] =
+                            item['student_count'] -
+                            (item['countop'] + item['courseinprogess']);
+                        dataList['ideanotIN'] =
+                            item['team_count'] -
+                            (item['submittedcout'] + item['draftcout']);
+                        return dataList;
+                    });
+
+                    setmentorDetailedReportsData(newdatalist);
                     csvLinkRef.current.link.click();
+                    setIsDownload(false);
                 }
             })
             .catch(function (error) {
                 console.log(error);
+                setIsDownload(false);
             });
     };
 
@@ -191,7 +390,7 @@ const TeacherDetailed = () => {
     //             console.log('API error:', error);
     //         });
     // };
-    
+
     return (
         <>
             <Layout>
@@ -224,10 +423,10 @@ const TeacherDetailed = () => {
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
-                                            list={['School']}
-                                            setValue={'Select Category'}
+                                            list={categoryData}
+                                            setValue={setCategory}
                                             placeHolder={'Select Category'}
-                                            //value={'Select Category'}
+                                            value={category}
                                         />
                                     </div>
                                 </Col>
@@ -253,7 +452,7 @@ const TeacherDetailed = () => {
 
                                     <Button
                                         onClick={handleDownload}
-                                        label={'Download Report'}
+                                        label={isDownload?'Downloading':'Download Report'}
                                         btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
@@ -262,6 +461,7 @@ const TeacherDetailed = () => {
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
+                                        disabled={isDownload}
                                     />
                                 </Col>
                             </Row>
@@ -298,7 +498,9 @@ const TeacherDetailed = () => {
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>DistrictName</th>
+                                                                <th>
+                                                                    DistrictName
+                                                                </th>
                                                                 <th>
                                                                     Total
                                                                     Registered
@@ -310,30 +512,37 @@ const TeacherDetailed = () => {
                                                                     Created
                                                                 </th>
                                                                 <th>
-                                                                    Total of 
-                                                                    No.of Students
+                                                                    Total of
+                                                                    No.of
+                                                                    Students
                                                                     Teachers
                                                                 </th>
                                                                 <th>
-                                                                    No. of Female 
+                                                                    No. of
+                                                                    Female
                                                                     Students
                                                                 </th>
                                                                 <th>
-                                                                    No. of Male 
+                                                                    No. of Male
                                                                     Students
                                                                 </th>
                                                                 <th>
-                                                                    No. of Teachers
-                                                                    Completed 
+                                                                    No. of
+                                                                    Teachers
+                                                                    Completed
                                                                     the course
                                                                 </th>
                                                                 <th>
-                                                                    No. of Teachers
-                                                                    course InProgress
+                                                                    No. of
+                                                                    Teachers
+                                                                    course
+                                                                    InProgress
                                                                 </th>
                                                                 <th>
-                                                                    No. of Teachers
-                                                                    not started course
+                                                                    No. of
+                                                                    Teachers not
+                                                                    started
+                                                                    course
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -362,10 +571,26 @@ const TeacherDetailed = () => {
                                                                                 item.organization_count
                                                                             }
                                                                         </td>
-                                                                        <td>{item.total_no_of_teams_created}</td>
-                                                                        <td>{item.total_no_of_students_enrolled}</td>
-                                                                        <td>{item.No_of_Teachers_Completed_the_course}</td>
-                                                                        <td>{item.No_of_Teachers_course_inprogress}</td>
+                                                                        <td>
+                                                                            {
+                                                                                item.total_no_of_teams_created
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.total_no_of_students_enrolled
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.No_of_Teachers_Completed_the_course
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.No_of_Teachers_course_inprogress
+                                                                            }
+                                                                        </td>
                                                                         <td>
                                                                             {
                                                                                 item.total_registered_teachers
@@ -398,7 +623,8 @@ const TeacherDetailed = () => {
                                                     <div className="col-md-11 text-center mt-1">
                                                         <p>
                                                             <b>
-                                                            Students Male vs Female
+                                                                Students Male vs
+                                                                Female
                                                             </b>
                                                         </p>
                                                     </div>
@@ -415,12 +641,28 @@ const TeacherDetailed = () => {
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <h3>Teams,Students Enrolled AS of Date</h3>
-                                                        <Bar data={barChartData} options={options} />
+                                                        <h3>
+                                                            Teams,Students
+                                                            Enrolled AS of Date
+                                                        </h3>
+                                                        <Bar
+                                                            data={barChartData}
+                                                            options={options}
+                                                        />
                                                     </div>
                                                     <div>
-                                                        <h3>Teacher Course Status As of Date</h3>
-                                                        <Bar data={stackedBarChartData} options={stackedBarChartOptions} />
+                                                        <h3>
+                                                            Teacher Course
+                                                            Status As of Date
+                                                        </h3>
+                                                        <Bar
+                                                            data={
+                                                                stackedBarChartData
+                                                            }
+                                                            options={
+                                                                stackedBarChartOptions
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -429,6 +671,7 @@ const TeacherDetailed = () => {
                                 )}
                                 {mentorDetailedReportsData && (
                                     <CSVLink
+                                        headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
                                         filename={`Teacher Detailed Reports.csv`}
                                         className="hidden"
@@ -442,7 +685,6 @@ const TeacherDetailed = () => {
                     </Row>
                 </Container>
             </Layout>
-            
         </>
     );
 };
