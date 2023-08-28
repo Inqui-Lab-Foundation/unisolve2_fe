@@ -8,7 +8,9 @@ import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
 import { getCurrentUser } from '../../helpers/Utils';
 import Layout from '../Layout';
 import DoughnutChart from './DoughnutChart';
-import LatestNewsNew from './LatestNewsNew';
+// import LatestNewsNew from './LatestNewsNew';
+import LatestScrollNew from './LatestScrollNew';
+
 import { Card } from 'react-bootstrap';
 import axios from 'axios';
 const Dashboard = () => {
@@ -188,7 +190,7 @@ const Dashboard = () => {
                                             marginBottom: '20px'
                                         }}
                                     >
-                                        {coursepercentage+'%'}
+                                        {coursepercentage + '%'}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -250,7 +252,10 @@ const Dashboard = () => {
                     <Col>
                         <Card bg="light" text="dark" className=" md-3 xs-12 ">
                             <Card.Body style={{ overflowX: 'auto' }}>
-                                <LatestNewsNew usersdata={currentUser?.data} />
+                                {/* <LatestNewsNew usersdata={currentUser?.data} /> */}
+                                <LatestScrollNew
+                                    usersdata={currentUser?.data}
+                                />
                             </Card.Body>
                         </Card>
                     </Col>
