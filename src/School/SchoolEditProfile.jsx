@@ -428,7 +428,7 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col> */}
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="principal_email"
