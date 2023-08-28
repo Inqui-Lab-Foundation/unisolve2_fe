@@ -280,7 +280,7 @@ const ReportsRegistration = () => {
         },
         {
             label: 'Idea Status',
-            key: 'Course Status'
+            key: 'Idea Status'
         },
         {
             label: 'Post-Survey Status',
