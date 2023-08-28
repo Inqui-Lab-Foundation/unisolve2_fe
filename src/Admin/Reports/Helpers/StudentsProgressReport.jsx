@@ -387,10 +387,12 @@ const ReportsRegistration = () => {
                         'success',
                         `Student Detailed Reports Downloaded Successfully`
                     );
+                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
+                setIsDownloading(false);
             });
     };
 
@@ -406,22 +408,6 @@ const ReportsRegistration = () => {
         //  setDownloadComplete(false);
         fetchData();
     };
-
-    // if (filterType === 'Registered' && csvLinkRef.current) {
-    //     setDownloadData(filteredData);
-    //     csvLinkRef.current.link.click();
-    // } else if (filterType === 'Not Registered' && csvLinkRefNotRegistered.current) {
-    //     //setDownloadNotRegisteredData(filteredData);
-    //     csvLinkRefNotRegistered.current.link.click();
-    // }
-    //openNotificationWithIcon('success',`${filterType} Downloaded Successfully`);
-
-    useEffect(() => {
-        if (downloadData) {
-            setDownloadData(downloadData);
-            setIsDownloading(false);
-        }
-    }, [downloadData]);
 
     useEffect(() => {
         if (downloadComplete) {
