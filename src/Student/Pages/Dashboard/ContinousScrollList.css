@@ -1,0 +1,31 @@
+.continuous-scroll-list {
+    overflow: hidden;
+    position: relative;
+    width: 300px; /* Adjust to your desired width */
+    height: 200px; /* Adjust to your desired height */
+}
+
+.scrolling-container {
+    animation: scroll 10s linear infinite; /* Adjust animation duration as needed */
+    display: flex;
+    flex-direction: column;
+}
+.scrolling-container.paused {
+    animation-play-state: paused;
+}
+
+.list-item {
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    margin-bottom: 5px;
+    /* background-color: #f0f0f0; */
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
