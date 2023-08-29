@@ -153,7 +153,8 @@ const PostSurvey = () => {
         let submitData = {
             responses: answerResponses
         };
-        if (postSurveyList.length != submitData.responses.length) {
+        const nonEmptySelectedOptions = submitData.responses.filter(item => item.selected_option.length > 0);
+        if (postSurveyList.length != nonEmptySelectedOptions.length) {
             openNotificationWithIcon(
                 'warning',
                 'Please Attempt All Questions..!!',

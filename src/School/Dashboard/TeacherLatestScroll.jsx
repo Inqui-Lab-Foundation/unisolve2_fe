@@ -6,12 +6,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Col, Row, Card, CardBody, CardText } from 'reactstrap';
 import { getCurrentUser } from '../../helpers/Utils';
 // import './scroll.scss';
-import './ContinousScroll.css';
+import './TeacContinousScroll.css';
 
 import axios from 'axios';
 import newIcon from '../../assets/media/blinking_new.gif';
 
-function LatestScrollNew({ usersdata }) {
+function TeacherLatestScroll({ usersdata }) {
     const currentUser = getCurrentUser('current_user');
 
     const [newsRes, setNewRes] = useState({});
@@ -83,7 +83,10 @@ function LatestScrollNew({ usersdata }) {
                 <Col md={12}>
                     <Row>
                         <Col md={8} className="border-right my-auto">
-                            <h2 style={{ color: 'black' }}>Latest News</h2>
+                            <h2 style={{ color: 'black' }}>
+                                {' '}
+                                Teacher Latest News
+                            </h2>
                             <div
                                 // id="boxflow"
                                 // ref={containerRef}
@@ -191,4 +194,4 @@ function LatestScrollNew({ usersdata }) {
         </div>
     );
 }
-export default LatestScrollNew;
+export default TeacherLatestScroll;

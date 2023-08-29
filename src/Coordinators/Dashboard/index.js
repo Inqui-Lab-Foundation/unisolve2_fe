@@ -4,7 +4,9 @@ import Layout from '../Layout';
 import './dashboard.scss';
 import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
 import { Card } from 'react-bootstrap';
-import LatestNewsNew from '../../Teachers/Dashboard/LatestNewsNew';
+// import LatestNewsNew from '../../Teachers/Dashboard/LatestNewsNew';
+import LatestScrollNew from '../../Teachers/Dashboard/LatestScrollNew';
+
 const DashboardDistrict = () => {
     return (
         <Layout>
@@ -181,7 +183,7 @@ const DashboardDistrict = () => {
                     <Col>
                         <Card bg="light" text="dark" className=" md-3 xs-12 ">
                             <Card.Body style={{ overflowX: 'auto' }}>
-                                <LatestNewsNew />
+                                <LatestScrollNew />
                             </Card.Body>
                         </Card>
                     </Col>

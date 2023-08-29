@@ -14,12 +14,18 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import {
     getStudentDashboardStatus,
     getStudentDashboardTeamProgressStatus
 } from '../../redux/studentRegistration/actions';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import logout from '../../assets/media/logout.svg';
+
 const CommonUserProfile = (props) => {
     const history = useHistory();
+    const { t } = useTranslation();
 
     const currentUser = getCurrentUser('current_user');
 
@@ -78,39 +84,78 @@ const CommonUserProfile = (props) => {
         localStorage.setItem('dist', props.location.dist);
         localStorage.setItem('num', props.location.num);
     };
-
     const handleReset = () => {
-        // where we can reset the password  as diesCode //
-
-        const body = JSON.stringify({
-            organization_code:
-                StudentsDaTa?.team?.mentor?.organization.organization_code,
-            mentor_id: StudentsDaTa?.team?.mentor.mentor_id,
-            otp: false
-        });
-        var config = {
-            method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        // here we can reset password as  user_id //
+        // here data = student_id //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
             },
-            data: body
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 202) {
-                    openNotificationWithIcon(
-                        'success',
-                        'Reset Password Successfully Update!',
-                        ''
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to reset the password',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Reset Password',
+                showCancelButton: true,
+                cancelButtonText: t('general_req.btn_cancel'),
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(
+                        studentResetPassword({
+                            user_id: data.user_id.toString()
+                        })
+                    );
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Reset password is cancelled',
+                        'error'
                     );
                 }
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            .catch((err) => console.log(err.response));
     };
+
+    // const handleReset = () => {
+    //     // where we can reset the password  as diesCode //
+
+    //     const body = JSON.stringify({
+    //         organization_code:
+    //             StudentsDaTa?.team?.mentor?.organization.organization_code,
+    //         mentor_id: StudentsDaTa?.team?.mentor.mentor_id,
+    //         otp: false
+    //     });
+    //     var config = {
+    //         method: 'put',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //         },
+    //         data: body
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 202) {
+    //                 openNotificationWithIcon(
+    //                     'success',
+    //                     'Reset Password Successfully Update!',
+    //                     ''
+    //                 );
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
 
     // const handleEdit = () => {
     //     // where we can edit  the users data //
@@ -184,13 +229,13 @@ const CommonUserProfile = (props) => {
                     </div>
                     <div className="col-6 text-end">
                         <Button
-                            btnClass="btn btn-primary"
+                            btnClass="primary"
                             size="small"
                             label="Edit"
                             onClick={handleEdit}
                         />
                         <Button
-                            btnClass="btn btn-success"
+                            btnClass="primary"
                             size="small"
                             label="Reset"
                             onClick={handleReset}
