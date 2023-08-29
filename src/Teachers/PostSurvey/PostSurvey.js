@@ -153,7 +153,8 @@ const PostSurvey = () => {
         let submitData = {
             responses: answerResponses
         };
-        if (postSurveyList.length != submitData.responses.length) {
+        const nonEmptySelectedOptions = submitData.responses.filter(item => item.selected_option.length > 0);
+        if (postSurveyList.length != nonEmptySelectedOptions.length) {
             openNotificationWithIcon(
                 'warning',
                 'Please Attempt All Questions..!!',
@@ -259,9 +260,7 @@ const PostSurvey = () => {
                         <div className="aside  p-4 bg-white">
                             <h2>{t('teacher.post_survey')}</h2>
                             <CardBody>
-                                {teamsCount !== 0 &&
-                                ideaCount !== 0 &&
-                                teamsCount === ideaCount &&
+                                {
                                 postSurveyStatus != 'COMPLETED' ? (
                                     <>
                                         <UncontrolledAlert
