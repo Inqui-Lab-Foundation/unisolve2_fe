@@ -16,20 +16,24 @@ import axios from 'axios';
 import '../reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
+import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
+   
+   
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
+    const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    //const [notRegisteredData, setNotRegisteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+     
     const [downloadData, setDownloadData] = useState(null);
-    console.log(downloadData, 'Data');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
-    //const [showTable, setShowTable] = useState(false);
-    //const [statsshowTable, setStatsShowTable] = useState(false);
+    const csvLinkRefTable = useRef();
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
@@ -40,9 +44,131 @@ const ReportsRegistration = () => {
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
+
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    const [downloadTableData, setDownloadTableData] = useState(null);
+    const summaryHeaders=[
+        {
+            label: "District Name",
+            key: "district"
+        },
+        {
+            label: "Total Eligible Schools",
+            key: "organization_count"
+        },
+        {
+            label: "Total Registered Teachers",
+            key: "total_registered_teachers"
+        },
+        {
+            label: "Total Not Registered Teachers",
+            key: "total_not_registered_teachers"
+        },
+        {
+            label: "Registered Male Teachers",
+            key: "male_mentor_count"
+        },
+        {
+            label: "Registered Female Teachers",
+            key: "female_mentor_count"
+        },
+    ];
+    const RegHeaders=[
+        {
+            label: "UDISE CODE",
+            key: "organization.organization_code"
+        },
+        {
+            label: "School Name",
+            key: "organization.organization_name"
+        },
+        {
+            label: "School Type/Category",
+            key: "organization.category"
+        },
+        {
+            label: "District",
+            key: "organization.district"
+        },
+        {
+            label: "City",
+            key: "organization.city"
+        },
+        {
+            label: "HM Name",
+            key: "organization.principal_name"
+        },
+        {
+            label: "HM Contact",
+            key: "organization.principal_mobile"
+        },
+        {
+            label: "Teacher Name",
+            key: "full_name"
+        },
+        {
+            label: "Teacher Gender",
+            key: "gender"
+        },
+        {
+            label: "Teacher Contact",
+            key: "mobile"
+        },
+        {
+            label: "Teacher WhatsApp Contact",
+            key: "whatapp_mobile"
+        },
+        
+    ];
+    const notRegHeaders=[
+        {
+            label: "Organization_Id",
+            key: "organization_id"
+        },
+        {
+            label: "UDISE CODE",
+            key: "organization_code"
+        },
+        {
+            label: "School Name",
+            key: "organization_name"
+        },
+        {
+            label: "School Type/Category",
+            key: "category"
+        },
+        {
+            label: "District",
+            key: "district"
+        },
+        {
+            label: "City",
+            key: "city"
+        },
+        {
+            label: "State",
+            key: "state"
+        },
+        {
+            label: "Country",
+            key: "country"
+        },
+        {
+            label: "HM Name",
+            key: "principal_name"
+        },
+        {
+            label: "HM Contact",
+            key: "principal_mobile"
+        },
+        {
+            label: "HM Email",
+            key: "principal_email"
+        },
+    ];
+    
 
     useEffect(() => {
         dispatch(getDistrictData());
@@ -106,9 +232,9 @@ const ReportsRegistration = () => {
     const fetchData = (item) => {
         const url =
             item === 'Registered'
-                ? `/reports/mentorRegList?district=${RegTeachersdistrict}`
+                ? `/reports/mentorRegList?district=${RegTeachersdistrict}&category=${category}`
                 : item === 'Not Registered'
-                ? `/reports/notRegistered?district=${RegTeachersdistrict}`
+                ? `/reports/notRegistered?district=${RegTeachersdistrict}&category=${category}`
                 : '';
 
         const config = {
@@ -139,43 +265,31 @@ const ReportsRegistration = () => {
                         'success',
                         `${filterType} Report Downloaded Successfully`
                     );
+                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
+                setIsDownloading(false);
             });
     };
 
     const handleDownload = () => {
-        if (!RegTeachersdistrict || !filterType) {
+        if (!RegTeachersdistrict || !filterType || !category) {
             notification.warning({
                 message:
-                    'Please select a district and filter type before Downloading Reports.'
+                    'Please select a district,category and filter type before Downloading Reports.'
             });
             return;
         }
         setIsDownloading(true);
-        //  setDownloadComplete(false);
         fetchData(filterType);
     };
-
-    // if (filterType === 'Registered' && csvLinkRef.current) {
-    //     setDownloadData(filteredData);
-    //     csvLinkRef.current.link.click();
-    // } else if (filterType === 'Not Registered' && csvLinkRefNotRegistered.current) {
-    //     //setDownloadNotRegisteredData(filteredData);
-    //     csvLinkRefNotRegistered.current.link.click();
-    // }
-    //openNotificationWithIcon('success',`${filterType} Downloaded Successfully`);
 
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
-            setIsDownloading(false);
-            // setDownloadComplete(true);
-            // setTimeout(() => {
-            //     setDownloadComplete(false);
-            // }, 1500);
+            //setIsDownloading(false);
         }
     }, [filteredData, downloadNotRegisteredData]);
 
@@ -202,6 +316,7 @@ const ReportsRegistration = () => {
                 if (response.status === 200) {
                     const chartTableData = response?.data?.data || [];
                     setChartTableData(chartTableData);
+                    setDownloadTableData(chartTableData);
 
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const maleCount = lastRow?.male_mentor_count || 0;
@@ -215,8 +330,8 @@ const ReportsRegistration = () => {
                         datasets: [
                             {
                                 data: [maleCount, femaleCount],
-                                backgroundColor: ['#FF6384', '#36A2EB'],
-                                hoverBackgroundColor: ['#FF6384', '#36A2EB']
+                                backgroundColor: ['#36A2EB','#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB','#FF6384']
                             }
                         ]
                     });
@@ -226,8 +341,8 @@ const ReportsRegistration = () => {
                         datasets: [
                             {
                                 data: [regCount, regNotCount],
-                                backgroundColor: ['#FF6384', '#36A2EB'],
-                                hoverBackgroundColor: ['#FF6384', '#36A2EB']
+                                backgroundColor: ['#36A2EB','#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB','#FF6384']
                             }
                         ]
                     });
@@ -277,6 +392,16 @@ const ReportsRegistration = () => {
                                         />
                                     </div>
                                 </Col>
+                                <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />
+                                    </div>
+                                </Col>
 
                                 <Col
                                     md={3}
@@ -322,7 +447,27 @@ const ReportsRegistration = () => {
                             <div className="chart">
                                 {chartTableData.length > 0 && (
                                     <div className="mt-5">
-                                        <h3>OVERVIEW</h3>
+                                        <div className="d-flex align-items-center mb-3">
+                                            <h3>OVERVIEW</h3>
+                                            <Button
+                                                label="Download Table"
+                                                btnClass="primary mx-2"
+                                                size="small"
+                                                shape="btn-square"
+                                                onClick={() => {
+                                                    if (downloadTableData) {
+                                                        setIsDownloading(true);
+                                                        setDownloadTableData(null); // Reset data
+                                                        csvLinkRefTable.current.link.click();
+                                                    }
+                                                }}
+                                                style={{
+                                                    width: '150px',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            />
+                                        </div>
+                                        
                                         <div className="row">
                                             <div className="col-md-7">
                                                 <div className="table-wrapper bg-white">
@@ -467,9 +612,25 @@ const ReportsRegistration = () => {
                                         </div>
                                     </div>
                                 )}
+                                {downloadTableData && (
+                                    <CSVLink
+                                        data={downloadTableData}
+                                        headers={summaryHeaders}
+                                        filename={`Mentor_Summary_Table.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRefTable}
+                                        onDownloaded={() => {
+                                            setIsDownloading(false);
+                                            setDownloadComplete(true);
+                                        }}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
+                                )}
                                 {downloadData && (
                                     <CSVLink
                                         data={downloadData}
+                                        headers={RegHeaders}
                                         filename={`Teacher_Registration_Status_${filterType}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
@@ -484,6 +645,7 @@ const ReportsRegistration = () => {
                                 {downloadNotRegisteredData && (
                                     <CSVLink
                                         data={downloadNotRegisteredData}
+                                        headers={notRegHeaders}
                                         filename={`Teacher_Registration_Status_${filterType}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefNotRegistered}
@@ -504,83 +666,3 @@ const ReportsRegistration = () => {
     );
 };
 export default ReportsRegistration;
-// <div className="row">
-//     <div className="col-md-6">
-//         {/* ... your second chart code ... */}
-//     </div>
-//     <div className="col-md-6 doughnut-chart-container">
-//         {registeredGenderChartData && (
-//             <Doughnut data={registeredGenderChartData} options={chartOptions} />
-//         )}
-//     </div>
-
-{
-    /* {showTable && filterType === 'Registered' && (
-    <div className="mt-5">
-        <h3>Data based on Filter: {filterType}</h3>
-        <div className="table-wrapper bg-white">
-            <div className="table-wrapper">
-                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone Number</th>
-                            <th>Organization Code</th>
-                            <th>Organization District</th>
-                            <th>Organization Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredData.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.full_name}</td>
-                                <td>{item.mobile}</td>
-                                <td>{item['organization.organization_code']}</td>
-                                <td>{item['organization.district']}</td>
-                                <td>{item['organization.organization_name']}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </div> 
-    </div>  
-)}   
-{showTable && filterType === 'Not Registered' && (
-    <div className="mt-5">
-        <h3>Data based on Filter: Not Registered</h3>
-        <div className="table-wrapper bg-white">
-            <div className="table-wrapper">
-                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                    <thead>
-                        <tr>
-                            <th>Organization ID</th>
-                            <th>Organization Name</th>
-                            <th>Organization Code</th>
-                            <th>District</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Principal Name</th>
-                            <th>Principal Mobile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {notRegisteredData.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.organization_id}</td>
-                                <td>{item.organization_name}</td>
-                                <td>{item.organization_code}</td>
-                                <td>{item.district}</td>
-                                <td>{item.city}</td>
-                                <td>{item.state}</td>
-                                <td>{item.principal_name}</td>
-                                <td>{item.principal_mobile}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </div>
-    </div>
-)} */
-}

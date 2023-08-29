@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import Layout from '../../Layout';
-import { Container, Row, Col, Table} from 'reactstrap';
+import { Container, Row, Col} from 'reactstrap';
 import { Button } from '../../../stories/Button';
 import { CSVLink } from 'react-csv';
 import {openNotificationWithIcon, getCurrentUser} from '../../../helpers/Utils';
@@ -31,7 +31,7 @@ const SurveyStatus = () => {
     const [stuPredownloadData, setStuPreDownloadData] = useState([]);
     const [stuPostdownloadData, setStuPostDownloadData] = useState([]);
     
-    const [showTable, setShowTable] = useState(false);
+    //const [showTable, setShowTable] = useState(false);
     
     const mentPrecsvLinkRef = useRef();
     const mentPostcsvLinkRef = useRef();
@@ -122,16 +122,21 @@ const SurveyStatus = () => {
                     if (filterType === 'Teacher' && surveyType === 'Pre Survey') {
                         setMentPreReportsData(response?.data?.data);
                         setMentPreDownloadData(response?.data?.data);
+                        mentPrecsvLinkRef.current.link.click();
                     } else if (filterType === 'Teacher' && surveyType === 'Post Survey') {
                         setMentPostReportsData(response?.data?.data);
                         setMentPostDownloadData(response?.data?.data);
+                        mentPostcsvLinkRef.current.link.click();
                     } else if (filterType === 'Student' && surveyType === 'Pre Survey') {
                         setStuPreReportsData(response?.data?.data);
                         setStuPreDownloadData(response?.data?.data);
+                        stuPrecsvLinkRef.current.link.click();
                     } else if (filterType === 'Student' && surveyType === 'Post Survey') {
                         setStuPostReportsData(response?.data?.data);
                         setStuPostDownloadData(response?.data?.data);
+                        stuPostcsvLinkRef.current.link.click();
                     }
+                    openNotificationWithIcon('success', `${filterType} ${surveyType} Downloaded Successfully`);
                 }
             })
             .catch(function (error) {
@@ -144,17 +149,18 @@ const SurveyStatus = () => {
     }, []);
 
     
-    const handleViewDetails = () => {
-        if ((!filterType) || (!surveyType)){
-            notification.warning({
-                message: 'Please select a user type and survey type before downloading the report.',
-            });
-            return;
-        }
-        setShowTable(true);
-        fetchData(filterType,surveyType);
-    };
-    console.log(fetchData);
+
+    // const handleViewDetails = () => {
+    //     if ((!filterType) || (!surveyType)){
+    //         notification.warning({
+    //             message: 'Please select a user type and survey type before downloading the report.',
+    //         });
+    //         return;
+    //     }
+    //     setShowTable(true);
+    //     fetchData(filterType,surveyType);
+    // };
+
 
     const handleDownload = () => {
         if (!filterType || !surveyType) {
@@ -163,51 +169,53 @@ const SurveyStatus = () => {
             });
             return;
         }
-    
-        let url;
-        if (filterType === 'Teacher' && surveyType === 'Pre Survey') {
-            url = `/reports/preSurvey?role=MENTOR`;
-        } else if (filterType === 'Teacher' && surveyType === 'Post Survey') {
-            url = `/reports/postSurvey?role=MENTOR`;
-        } else if (filterType === 'Student' && surveyType === 'Pre Survey') {
-            url = `/reports/preSurvey?role=STUDENT`;
-        } else if (filterType === 'Student' && surveyType === 'Post Survey') {
-            url = `/reports/postSurvey?role=STUDENT`;
-        } else {
-            return;
-        }
-    
-        const config = {
-            method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + url,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`,
-            },
-        };
-    
-        axios(config)
-            .then((response) => {
-                if (response.status === 200) {
-                    
-                    if (filterType === 'Teacher' && surveyType === 'Pre Survey') {
-                        mentPrecsvLinkRef.current.link.click();
-                    } else if (filterType === 'Teacher' && surveyType === 'Post Survey') {
-                        mentPostcsvLinkRef.current.link.click();
-                    } else if (filterType === 'Student' && surveyType === 'Pre Survey') {
-                        stuPrecsvLinkRef.current.link.click();
-                    } else if (filterType === 'Student' && surveyType === 'Post Survey') {
-                        stuPostcsvLinkRef.current.link.click();
-                    }
-    
-                    openNotificationWithIcon('success', `${filterType} ${surveyType} Downloaded Successfully`);
-                }
-            })
-            .catch((error) => {
-                console.log('API error:', error);
-                openNotificationWithIcon('error', `Failed to download the report`);
-            });
+        fetchData(filterType,surveyType);
     };
+    
+    // let url;
+    // if (filterType === 'Teacher' && surveyType === 'Pre Survey') {
+    //     url = `/reports/preSurvey?role=MENTOR`;
+    // } else if (filterType === 'Teacher' && surveyType === 'Post Survey') {
+    //     url = `/reports/postSurvey?role=MENTOR`;
+    // } else if (filterType === 'Student' && surveyType === 'Pre Survey') {
+    //     url = `/reports/preSurvey?role=STUDENT`;
+    // } else if (filterType === 'Student' && surveyType === 'Post Survey') {
+    //     url = `/reports/postSurvey?role=STUDENT`;
+    // } else {
+    //     return;
+    // }
+    
+    // const config = {
+    //     method: 'get',
+    //     url: process.env.REACT_APP_API_BASE_URL + url,
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: `Bearer ${currentUser?.data[0]?.token}`,
+    //     },
+    // };
+    
+    //     axios(config)
+    //         .then((response) => {
+    //             if (response.status === 200) {
+                    
+    //                 if (filterType === 'Teacher' && surveyType === 'Pre Survey') {
+    //                     mentPrecsvLinkRef.current.link.click();
+    //                 } else if (filterType === 'Teacher' && surveyType === 'Post Survey') {
+    //                     mentPostcsvLinkRef.current.link.click();
+    //                 } else if (filterType === 'Student' && surveyType === 'Pre Survey') {
+    //                     stuPrecsvLinkRef.current.link.click();
+    //                 } else if (filterType === 'Student' && surveyType === 'Post Survey') {
+    //                     stuPostcsvLinkRef.current.link.click();
+    //                 }
+    
+    //                 openNotificationWithIcon('success', `${filterType} ${surveyType} Downloaded Successfully`);
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log('API error:', error);
+    //             openNotificationWithIcon('error', `Failed to download the report`);
+    //         });
+    // };
 
     return (
         <>
@@ -247,7 +255,7 @@ const SurveyStatus = () => {
                                     </div>
                                 </Col>
                                 <Col md={3} className="d-flex align-items-center justify-content-center">
-                                    <Button
+                                    {/* <Button
                                         label="View Details"
                                         btnClass="primary mx-3"
                                         size="small"
@@ -257,7 +265,7 @@ const SurveyStatus = () => {
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
-                                    />
+                                    /> */}
                                     <Button
                                         onClick={handleDownload}
                                         label={'Download Report'}
@@ -273,154 +281,51 @@ const SurveyStatus = () => {
                                 </Col>
                             </Row>
                             <div className="chart">
-                                {showTable ? null : (
-                                    <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
-                                        <Bar data={barChartData} options={barChartOptions} />
-                                    </div>
-                                )} 
+                                <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
+                                    <Bar data={barChartData} options={barChartOptions} />
+                                </div>
                             </div>
-                            <div className="table">
-                                {showTable && filterType === 'Teacher' && surveyType ==='Pre Survey' && mentPrereportsData.length > 0 && (
-                                    <div className="mt-5">
-                                        <h3>Data based on Filter: {filterType} {surveyType}</h3>
-                                        <div className="table-wrapper bg-white">
-                                            <div className="table-wrapper">
-                                                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Quiz Response Id</th>
-                                                            <th>Name</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {mentPrereportsData.map((item, index) => (
-                                                            <tr key={index}>
-                                                                <td>{item.quiz_response_id}</td>
-                                                                <td>{item['user.full_name']}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {showTable && filterType === 'Teacher' && surveyType ==='Post Survey' && mentPostreportsData.length > 0 && (
-                                    <div className="mt-5">
-                                        <h3>Data based on Filter: {filterType} {surveyType}</h3>
-                                        <div className="table-wrapper bg-white">
-                                            <div className="table-wrapper">
-                                                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Quiz Response Id</th>
-                                                            <th>Name</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {mentPostreportsData.map((item, index) => (
-                                                            <tr key={index}>
-                                                                <td>{item.quiz_response_id}</td>
-                                                                <td>{item['user.full_name']}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {filterType === 'Student' && surveyType ==='Pre Survey' && stuPrereportsData.length > 0 && (
-                                    <div className="mt-5">
-                                        <h3>Data based on Filter: {filterType} {surveyType}</h3>
-                                        <div className="table-wrapper bg-white">
-                                            <div className="table-wrapper">
-                                                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Quiz Response Id</th>
-                                                            <th>Name</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {stuPrereportsData.map((item, index) => (
-                                                            <tr key={index}>
-                                                                <td>{item.quiz_response_id}</td>
-                                                                <td>{item['user.full_name']}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {filterType === 'Student' && surveyType ==='Post Survey' && stuPostreportsData.length > 0 && (
-                                    <div className="mt-5">
-                                        <h3>Data based on Filter: {filterType} {surveyType}</h3>
-                                        <div className="table-wrapper bg-white">
-                                            <div className="table-wrapper">
-                                                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Quiz Response Id</th>
-                                                            <th>Name</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {stuPostreportsData.map((item, index) => (
-                                                            <tr key={index}>
-                                                                <td>{item.quiz_response_id}</td>
-                                                                <td>{item['user.full_name']}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                                {mentPrereportsData.length > 0 && (
-                                    <CSVLink
-                                        data={mentPredownloadData}
-                                        filename={`Teachers Pre Survey List.csv`}
-                                        className="hidden"
-                                        ref={mentPrecsvLinkRef}
-                                    >
-                                    Download CSV
-                                    </CSVLink>
-                                )}
-                                {mentPostreportsData.length > 0 && (
-                                    <CSVLink
-                                        data={mentPostdownloadData}
-                                        filename={`Teachers Post Survey List.csv`}
-                                        className="hidden"
-                                        ref={mentPostcsvLinkRef}
-                                    >
-                                    Download CSV
-                                    </CSVLink>
-                                )} 
-                                {stuPrereportsData.length > 0 && (
-                                    <CSVLink
-                                        data={stuPredownloadData}
-                                        filename={`Students Pre Survey List.csv`}
-                                        className="hidden"
-                                        ref={stuPrecsvLinkRef}
-                                    >
-                                    Download CSV
-                                    </CSVLink>
-                                )} 
-                                {stuPostreportsData.length > 0 && (
-                                    <CSVLink
-                                        data={stuPostdownloadData}
-                                        filename={`Students Post Survey List.csv`}
-                                        className="hidden"
-                                        ref={stuPostcsvLinkRef}
-                                    >
-                                    Download CSV
-                                    </CSVLink>
-                                )}
-                            </div>
+                            
+                            {mentPrereportsData.length > 0 && (
+                                <CSVLink
+                                    data={mentPredownloadData}
+                                    filename={`Teachers Pre Survey List.csv`}
+                                    className="hidden"
+                                    ref={mentPrecsvLinkRef}
+                                >
+                                Download CSV
+                                </CSVLink>
+                            )}
+                            {mentPostreportsData.length > 0 && (
+                                <CSVLink
+                                    data={mentPostdownloadData}
+                                    filename={`Teachers Post Survey List.csv`}
+                                    className="hidden"
+                                    ref={mentPostcsvLinkRef}
+                                >
+                                Download CSV
+                                </CSVLink>
+                            )} 
+                            {stuPrereportsData.length > 0 && (
+                                <CSVLink
+                                    data={stuPredownloadData}
+                                    filename={`Students Pre Survey List.csv`}
+                                    className="hidden"
+                                    ref={stuPrecsvLinkRef}
+                                >
+                                Download CSV
+                                </CSVLink>
+                            )} 
+                            {stuPostreportsData.length > 0 && (
+                                <CSVLink
+                                    data={stuPostdownloadData}
+                                    filename={`Students Post Survey List.csv`}
+                                    className="hidden"
+                                    ref={stuPostcsvLinkRef}
+                                >
+                                Download CSV
+                                </CSVLink>
+                            )}
                         </div>
                     </Row>
                 </Container>
@@ -430,3 +335,105 @@ const SurveyStatus = () => {
 };
 
 export default SurveyStatus;
+
+{/*<div className="table">
+ {showTable && filterType === 'Teacher' && surveyType ==='Pre Survey' && mentPrereportsData.length > 0 && (
+    <div className="mt-5">
+        <h3>Data based on Filter: {filterType} {surveyType}</h3>
+        <div className="table-wrapper bg-white">
+            <div className="table-wrapper">
+                <Table id="dataTable" className="table table-striped table-bordered responsive">
+                    <thead>
+                        <tr>
+                            <th>Quiz Response Id</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mentPrereportsData.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.quiz_response_id}</td>
+                                <td>{item['user.full_name']}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    </div>
+)}
+{showTable && filterType === 'Teacher' && surveyType ==='Post Survey' && mentPostreportsData.length > 0 && (
+    <div className="mt-5">
+        <h3>Data based on Filter: {filterType} {surveyType}</h3>
+        <div className="table-wrapper bg-white">
+            <div className="table-wrapper">
+                <Table id="dataTable" className="table table-striped table-bordered responsive">
+                    <thead>
+                        <tr>
+                            <th>Quiz Response Id</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mentPostreportsData.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.quiz_response_id}</td>
+                                <td>{item['user.full_name']}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    </div>
+)}
+{filterType === 'Student' && surveyType ==='Pre Survey' && stuPrereportsData.length > 0 && (
+    <div className="mt-5">
+        <h3>Data based on Filter: {filterType} {surveyType}</h3>
+        <div className="table-wrapper bg-white">
+            <div className="table-wrapper">
+                <Table id="dataTable" className="table table-striped table-bordered responsive">
+                    <thead>
+                        <tr>
+                            <th>Quiz Response Id</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {stuPrereportsData.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.quiz_response_id}</td>
+                                <td>{item['user.full_name']}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    </div>
+)}
+{filterType === 'Student' && surveyType ==='Post Survey' && stuPostreportsData.length > 0 && (
+    <div className="mt-5">
+        <h3>Data based on Filter: {filterType} {surveyType}</h3>
+        <div className="table-wrapper bg-white">
+            <div className="table-wrapper">
+                <Table id="dataTable" className="table table-striped table-bordered responsive">
+                    <thead>
+                        <tr>
+                            <th>Quiz Response Id</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {stuPostreportsData.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.quiz_response_id}</td>
+                                <td>{item['user.full_name']}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    </div>
+)} */}

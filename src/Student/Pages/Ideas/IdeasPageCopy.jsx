@@ -312,7 +312,6 @@ const IdeasPageNew = () => {
         };
         axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     openNotificationWithIcon(
                         'success',
@@ -320,13 +319,13 @@ const IdeasPageNew = () => {
                         ''
                     );
                     dispatch(
-                                updateStudentBadges(
-                                    { badge_slugs: ['the_change_maker'] },
-                                    currentUser?.data[0]?.user_id,
-                                    language,
-                                    t
-                                )
-                            );
+                        updateStudentBadges(
+                            { badge_slugs: ['the_change_maker'] },
+                            currentUser?.data[0]?.user_id,
+                            language,
+                            t
+                        )
+                    );
 
                     dispatch(
                         getStudentChallengeSubmittedResponse(

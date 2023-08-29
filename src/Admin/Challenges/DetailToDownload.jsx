@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import LinkComponent from '../Pages/LinkComponent';
-
+import './style.scss';
 // const detailToDownload = (props) => {
 class detailToDownload extends React.Component {
     constructor(props) {
@@ -16,19 +16,22 @@ class detailToDownload extends React.Component {
             <div className="container bg-light">
                 <div className="row">
                     {/* --------personal-------detail---------- */}
-                    <div className="col-md-7 col-12 h-100">
+                    <div className="col-md-7  col-12 h-100">
                         <div className="personal-detail p-5 bg-white shadow rounded border h-100">
                             {/* <p className="fs-2 fw-bold text-primary"> */}
                             <p
-                                className=" text-secondary fw-bold"
-                                style={{ fontFamily: 'courier' }}
+                                className="  text-secondary fw-bold"
+                                style={{
+                                    fontFamily: 'courier',
+                                    textAlign: 'right'
+                                }}
                             >
                                 PERSONAL&nbsp;DETAILS
                             </p>
-                            <div className="row my-2">
+                            <div className="text-right row my-2">
                                 <div
                                     // className="col-4 fw-bold fs-4 text-success"
-                                    className=" col-4 text-success"
+                                    className=" col-4 text-success text-right"
                                     style={{ fontFamily: 'courier' }}
                                 >
                                     Teacher Name

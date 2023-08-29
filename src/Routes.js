@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -103,12 +104,16 @@ import ReportsView from './Admin/Reports/Helpers/ReportsView';
 import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
 import SurveyStatus from './Admin/Reports/Helpers/SurveyStatus';
 import TeacherProgressDetailed from './Admin/Reports/Helpers/TeacherProgressDetailed';
+import StudentsProgressReport from './Admin/Reports/Helpers/StudentsProgressReport';
+
 import ChallengesReport from './Admin/Reports/Helpers/ChallengesReport';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterNew from './Register/RegisterNew';
 import SuccessPage from './Register/SuccessPage';
 import LoginSchool from './School/LoginSchool';
 import DashboardSchool from './School/Dashboard';
+import MySchoolProfile from './School/MySchoolProfile';
+
 import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
@@ -118,7 +123,7 @@ import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
 import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
 import MentorEditProfile from './Admin/UserList/MentorEditProfile';
 import StudentEditProfile from './Admin/UserList/StudentEditProfile';
-
+import SchoolEditProfile from './School/SchoolEditProfile';
 const Routers = () => {
     return (
         <>
@@ -169,6 +174,18 @@ const Routers = () => {
                         user="SCHOOL"
                         path="/school/dashboard"
                         component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="SCHOOL"
+                        path="/school/my-profile"
+                        component={MySchoolProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="SCHOOL"
+                        path="/EditSchoolProfile"
+                        component={SchoolEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -437,6 +454,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/TeacherProgressDetailed"
                         component={TeacherProgressDetailed}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/StudentsProgressReport"
+                        component={StudentsProgressReport}
                     />
                     <ProtectedRoute
                         exact={true}
