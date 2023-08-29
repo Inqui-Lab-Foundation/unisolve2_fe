@@ -260,7 +260,9 @@ const PostSurvey = () => {
                         <div className="aside  p-4 bg-white">
                             <h2>{t('teacher.post_survey')}</h2>
                             <CardBody>
-                                {
+                                {teamsCount !== 0 &&
+                                ideaCount !== 0 &&
+                                teamsCount === ideaCount &&
                                 postSurveyStatus != 'COMPLETED' ? (
                                     <>
                                         <UncontrolledAlert
