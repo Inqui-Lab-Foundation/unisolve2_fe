@@ -26,7 +26,9 @@ import {
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
 import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
-import LatestNews from './LatestNews.js';
+// import LatestNews from './LatestNews.js';
+import LatestScrollNew from './LatestScrollNew.jsx';
+
 import { Card } from 'react-bootstrap';
 
 const Dashboard = () => {
@@ -509,7 +511,10 @@ const Dashboard = () => {
                     <Col>
                         <Card bg="light" text="dark" className=" md-3 xs-12 ">
                             <Card.Body style={{ overflowX: 'auto' }}>
-                                <LatestNews usersdata={currentUser?.data} />
+                                {/* <LatestNews usersdata={currentUser?.data} /> */}
+                                <LatestScrollNew
+                                    usersdata={currentUser?.data}
+                                />
                             </Card.Body>
                         </Card>
                     </Col>

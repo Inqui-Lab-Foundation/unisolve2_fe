@@ -1,26 +1,19 @@
-/* eslint-disable indent */
-/* eslint-disable no-constant-condition */
 /* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
 import { Col, Row, Card, CardBody, CardText } from 'reactstrap';
-import { getCurrentUser } from '../../helpers/Utils';
+import { getCurrentUser } from '../../../helpers/Utils';
 // import './scroll.scss';
-import './ContinousScroll.css';
-
 import axios from 'axios';
-import newIcon from '../../assets/media/blinking_new.gif';
-
+import newIcon from '../../../assets/media/blinking_new.gif';
+import './ContinousScrollList.css';
 function LatestScrollNew({ usersdata }) {
     const currentUser = getCurrentUser('current_user');
 
     const [newsRes, setNewRes] = useState({});
     const [news, setNews] = useState([]);
     // const containerRef = useRef(null);
-    const [isPaused, setIsPaused] = useState(false);
-    const togglePause = () => {
-        setIsPaused(!isPaused);
-    };
     // useEffect(() => {
     //     const container = containerRef.current;
     //     let scrollInterval;
@@ -53,13 +46,16 @@ function LatestScrollNew({ usersdata }) {
     //         container.removeEventListener('mouseleave', startScrolling);
     //     };
     // }, []);
-
+    const [isPaused, setIsPaused] = useState(false);
+    const togglePause = () => {
+        setIsPaused(!isPaused);
+    };
     useEffect(async () => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                '/latest_news/list?category=mentor',
+                '/latest_news/list?category=student',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -78,12 +74,14 @@ function LatestScrollNew({ usersdata }) {
     }, []);
 
     return (
-        <div className="latest-news-container">
+        <div>
             <Row>
                 <Col md={12}>
                     <Row>
                         <Col md={8} className="border-right my-auto">
-                            <h2 style={{ color: 'black' }}>Latest News</h2>
+                            <Row>
+                                <h2 style={{ color: 'black' }}>Latest News</h2>
+                            </Row>
                             <div
                                 // id="boxflow"
                                 // ref={containerRef}
@@ -110,11 +108,12 @@ function LatestScrollNew({ usersdata }) {
                                                         col-6
                                                     >
                                                         <i
-                                                            className="fa fa-bell"
+                                                            className="fa fa-bell p-1 "
                                                             style={{
                                                                 color: 'blue'
                                                             }}
-                                                        ></i>{' '}
+                                                        ></i>
+                                                        {''}
                                                         {item?.details}
                                                         {/* </Col> */}
                                                         {/* <Col
@@ -125,14 +124,14 @@ function LatestScrollNew({ usersdata }) {
                                                         item?.file_name !=
                                                             '' ? (
                                                             <a
-                                                                className="link-item m-2 p-2"
+                                                                className="link-item  m-2 p-2"
                                                                 // rel="noopener noreferrer"
                                                                 href={
                                                                     item?.file_name
                                                                 }
                                                                 target="_blank"
                                                             >
-                                                                <button className="btn btn-warning p-2 ">
+                                                                <button className="btn btn-warning ">
                                                                     File
                                                                 </button>
                                                             </a>
@@ -146,12 +145,11 @@ function LatestScrollNew({ usersdata }) {
                                                         {item?.url != null &&
                                                         item?.url != '' ? (
                                                             <a
-                                                                className="link-item"
-                                                                // rel="noopener noreferrer"
-                                                                href={item?.url}
                                                                 target="_blank"
+                                                                className="link-item"
+                                                                href={item?.url}
                                                             >
-                                                                <button className="btn btn-success  ">
+                                                                <button className="btn btn-success ">
                                                                     Url
                                                                 </button>
                                                             </a>
@@ -160,12 +158,10 @@ function LatestScrollNew({ usersdata }) {
                                                         )}
                                                         {/* </Col> */}
                                                         {/* <Col
-                                                   
+                                                  
                                                 > */}
-                                                        {item?.new_status !=
-                                                            0 &&
-                                                        item?.new_status !=
-                                                            '' ? (
+                                                        {item?.new_status ==
+                                                        1 ? (
                                                             <img
                                                                 className="m-2 p-2"
                                                                 src={newIcon}
