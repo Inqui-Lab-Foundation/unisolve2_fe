@@ -19,20 +19,64 @@ const TeacherDetailed = () => {
     const [district, setdistrict] = React.useState('');
     const [category, setCategory] = useState('');
     const [isDownload,setIsDownload] =useState(false);
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-    const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
-        []
-    );
-    const [chartTableData, setChartTableData] = useState([]);
-    const [registeredChartData, setRegisteredChartData] = useState(null);
+    const categoryData = categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState([]);
+    const [doughnutChartData, setDoughnutChartData] = useState(null);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const csvLinkRef = useRef();
+    const csvLinkRefTable = useRef();
     const dispatch = useDispatch();
-    const fullDistrictsNames = useSelector(
-        (state) => state?.studentRegistration?.dists
-    );
+    const [combinedArray, setCombinedArray] = useState([]);
+    const [downloadTableData, setDownloadTableData] = useState([]);
+    const [barChart1Data, setBarChart1Data] = useState({
+        labels: [],
+        datasets: []
+    });
+    const [barChart2Data, setBarChart2Data] = useState({
+        labels: [],
+        datasets: []
+    });
+    const [totalCount, setTotalCount] = useState([]);
+    const fullDistrictsNames = useSelector((state) => state?.studentRegistration?.dists);
+    const tableHeaders = [
+        {
+            label: "District Name",
+            key: "district"
+        },
+        {
+            label: "Total Registered Teachers",
+            key: "totalReg"
+        },
+        {
+            label: "Total No.of Teams created",
+            key: "totalTeams"
+        },
+        {
+            label: "Total No.of Students enrolled",
+            key: "totalStudents"
+        },
+        {
+            label: "No.of Female Students",
+            key: "femaleStudents"
+        },
+        {
+            label: "No.of Male Students",
+            key: "maleStudents"
+        },
+        {
+            label: "No.of Teachers completed the course",
+            key: "courseCompleted"
+        },
+        {
+            label: "No.of Teachers course IN Progress",
+            key: "courseINcompleted"
+        },
+        {
+            label: "No.of Teachers NOT Started Course",
+            key: "courseNotStarted"
+        },
+    ];
     const teacherDetailsHeaders=[
         {
             label: "UDISE CODE",
@@ -132,128 +176,11 @@ const TeacherDetailed = () => {
         },
         
     ];
-    const barChartData = {
-        labels: [
-            'chennai',
-            'Coimbatore',
-            'Madurai',
-            'karur',
-            'Salem',
-            'Theni',
-            'Vellore',
-            'Bangalore',
-            'Ranipet',
-            'Erode'
-        ],
-        datasets: [
-            {
-                label: 'No.of Students Enrolled',
-                data: [15, 28, 10, 45, 32, 20, 37, 18, 25, 30],
-                backgroundColor: 'rgba(75, 162, 192, 0.6)',
-                borderWidth: 0.5
-            },
-            {
-                label: 'No. of Teams created',
-                data: [5, 8, 5, 20, 17, 10, 32, 10, 13, 12],
-                backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                borderWidth: 0.5
-            }
-        ]
-    };
-    const stackedBarChartData = {
-        labels: [
-            'chennai',
-            'Coimbatore',
-            'Madurai',
-            'karur',
-            'Salem',
-            'Theni',
-            'Vellore',
-            'Bangalore',
-            'Ranipet',
-            'Erode'
-        ],
-        datasets: [
-            {
-                label: 'No. of Teachers not started course',
-                data: [10, 20, 30, 25, 15, 10, 5, 8, 12, 18],
-                backgroundColor: 'rgba(0, 128, 0, 0.6)'
-            },
-            {
-                label: 'No. of Teachers course inprogress',
-                data: [5, 8, 5, 20, 17, 10, 32, 10, 13, 12],
-                backgroundColor: 'rgba(255, 255, 0, 0.6)'
-            },
-            {
-                label: 'No. of teachers completed course',
-                data: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
-                backgroundColor: 'rgba(255, 0, 0, 0.6)'
-            }
-        ]
-    };
-
+    
     useEffect(() => {
         dispatch(getDistrictData());
-        //fetchChartTableData();
-        const fakeChartData = [
-            {
-                district: 'chennai',
-                organization_count: 50,
-                total_no_of_teams_created: 2,
-                total_no_of_students_enrolled: 4,
-                total_registered_teachers: 30,
-                total_not_registered_teachers: 20,
-                No_of_Teachers_Completed_the_course: 20,
-                No_of_Teachers_course_inprogress: 5,
-                No_of_Teachers_not_started_course: 5
-            },
-            {
-                district: 'Coimbatore',
-                organization_count: 40,
-                total_no_of_teams_created: 5,
-                total_no_of_students_enrolled: 3,
-                total_registered_teachers: 25,
-                total_not_registered_teachers: 15,
-                No_of_Teachers_Completed_the_course: 15,
-                No_of_Teachers_course_inprogress: 8,
-                No_of_Teachers_not_started_course: 4
-            },
-            {
-                district: 'Erode',
-                organization_count: 50,
-                total_no_of_teams_created: 4,
-                total_no_of_students_enrolled: 5,
-                total_registered_teachers: 30,
-                total_not_registered_teachers: 20,
-                No_of_Teachers_Completed_the_course: 3,
-                No_of_Teachers_course_inprogress: 7,
-                No_of_Teachers_not_started_course: 5
-            },
-            {
-                district: 'Kannur',
-                organization_count: 40,
-                total_no_of_teams_created: 3,
-                total_no_of_students_enrolled: 2,
-                total_registered_teachers: 25,
-                total_not_registered_teachers: 15,
-                No_of_Teachers_Completed_the_course: 5,
-                No_of_Teachers_course_inprogress: 10,
-                No_of_Teachers_not_started_course: 7
-            }
-        ];
-        setChartTableData(fakeChartData);
-        const male = 30;
-        const female = 20;
-        setRegisteredChartData({
-            labels: ['Male', 'Female'],
-            datasets: [
-                {
-                    data: [male, female],
-                    backgroundColor: ['#36A2EB', '#FF6384'],
-                    hoverBackgroundColor: ['#36A2EB', '#FF6384']
-                }
-            ]
-        });
+        fetchChartTableData();
+        fetchDoughnutChartData();
     }, []);
 
     const chartOption = {
@@ -267,11 +194,18 @@ const TeacherDetailed = () => {
     };
 
     const options = {
+        maintainAspectRatio: false, 
+        responsive: true, 
         scales: {
             y: {
                 beginAtZero: true,
                 ticks: {
                     stepSize: 10
+                },
+                title: {
+                    display: true,
+                    text: 'Number of Students & Teams',
+                    color: 'blue'
                 }
             },
             x: {
@@ -280,25 +214,57 @@ const TeacherDetailed = () => {
                     drawBorder: true,
                     color: 'rgba(0, 0, 0, 0.2)',
                     lineWidth: 0.5
-                }
+                },
+                title: {
+                    display: true,
+                    text: 'Districts',
+                    color: 'blue'
+                },
+                ticks: {
+                    maxRotation: 80, 
+                    autoSkip: false,
+                    //maxTicksLimit: 10, 
+                },
             }
         }
     };
     const stackedBarChartOptions = {
-        ...options,
+        maintainAspectRatio: false, 
+        responsive: true, 
         scales: {
             x: {
                 stacked: true,
                 grid: {
-                    display: false
-                }
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Districts',
+                    color: 'blue',
+                },
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 85,
+                },
             },
             y: {
-                stacked: true
-            }
-        }
+                stacked: true,
+                beginAtZero: true,
+                stepSize: 10,
+                title: {
+                    display: true,
+                    text: 'Number of Teachers',
+                    color: 'blue',
+                },
+                grid: {
+                    display: true,
+                    drawBorder: true,
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    lineWidth: 0.5,
+                },
+            },
+        },
     };
-
 
     const handleDownload = () => {
         if (!district || !category) {
@@ -349,47 +315,153 @@ const TeacherDetailed = () => {
             });
     };
 
-    // const fetchChartTableData = () => {
-    //     const config = {
-    //         method: 'get',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorsummary',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //         }
-    //     };
+    const fetchDoughnutChartData = () => {
+        const config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCountbygender`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    const data = response?.data?.data || [];
+                    if (data.length > 0) {
+                        const doughnutChartItem = data[0];
+                        const studentMale = doughnutChartItem.studentMale;
+                        const studentFemale = doughnutChartItem.studentFemale;
+                        setDoughnutChartData({
+                            labels: ['Male', 'Female'],
+                            datasets: [
+                                {
+                                    data: [studentMale, studentFemale],
+                                    backgroundColor: ['#36A2EB','#FF6384'],
+                                    hoverBackgroundColor: ['#36A2EB','#FF6384']
+                                }
+                            ]
+                        });
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    
 
-    //     axios(config)
-    //         .then((response) => {
-    //             if (response.status === 200) {
-    //                 const chartTableData = [
-    //                     { district: 'chennai', organization_count: 50, total_registered_teachers: 30, total_not_registered_teachers: 20 },
-    //                     { district: 'Coimbatore', organization_count: 40, total_registered_teachers: 25, total_not_registered_teachers: 15 },
-    //                     { district: 'Erode', organization_count: 50, total_registered_teachers: 30, total_not_registered_teachers: 20 },
-    //                     { district: 'Kannur', organization_count: 40, total_registered_teachers: 25, total_not_registered_teachers: 15 },
-    //                 ];
-    //                 setChartTableData(chartTableData);
+    const fetchChartTableData =() => {
+        
+        const config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentordetailstable',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
 
-    //                 const lastRow = chartTableData[chartTableData.length - 1];
-    //                 const regCount = lastRow?.total_registered_teachers || 0;
-    //                 const regNotCount =lastRow?.total_not_registered_teachers || 0;
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    const summary = response.data.data[0].summary;
+                    const teamCount = response.data.data[0].teamCount;
+                    const studentCountDetails = response.data.data[0].studentCountDetails;
+                    const courseCompleted = response.data.data[0].courseCompleted;
+                    const courseINcompleted = response.data.data[0].courseINcompleted;
 
-    //                 setRegisteredChartData({
-    //                     labels: ['Registered', 'Not Registered'],
-    //                     datasets: [
-    //                         {
-    //                             data: [regCount, regNotCount],
-    //                             backgroundColor: ['#36A2EB','#FF6384'],
-    //                             hoverBackgroundColor: ['#36A2EB','#FF6384']
-    //                         }
-    //                     ]
-    //                 });
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log('API error:', error);
-    //         });
-    // };
+                    const combinedArray = summary.map(summaryItem => {
+                        const district = summaryItem.district;
+                        const teamCountItem = teamCount.find(item => item.district === district);
+                        const studentCountItem = studentCountDetails.find(item => item.district === district);
+                        const courseCompletedItem = courseCompleted.find(item => item.district === district);
+                        const courseINcompletedItem = courseINcompleted.find(item => item.district === district);
+                        const courseNotStarted = summaryItem.totalReg - ((courseCompletedItem ? courseCompletedItem.courseIN : 0) + (courseINcompletedItem ? courseINcompletedItem.courseCMP : 0));
+                        
+                        return {
+                            district,
+                            totalReg: summaryItem.totalReg,
+                            totalTeams: teamCountItem ? teamCountItem.totalTeams : 0,
+                            totalStudents: studentCountItem ? studentCountItem.totalstudent : 0,
+                            maleStudents: studentCountItem ? parseInt(studentCountItem.male) : 0,
+                            femaleStudents: studentCountItem ? parseInt(studentCountItem.female) : 0,
+                            courseCompleted: courseCompletedItem ? courseCompletedItem.courseIN : 0,
+                            courseINcompleted: courseINcompletedItem ? courseINcompletedItem.courseCMP : 0,
+                            courseNotStarted
+                        };
+                    });
+                    const total = combinedArray.reduce((acc, item) => {
+                        acc.totalReg += item.totalReg;
+                        acc.totalTeams += item.totalTeams;
+                        acc.totalStudents += item.totalStudents;
+                        acc.maleStudents += item.maleStudents;
+                        acc.femaleStudents += item.femaleStudents;
+                        acc.courseCompleted += item.courseCompleted;
+                        acc.courseINcompleted += item.courseINcompleted;
+                        return acc;
+                    }, {
+                        totalReg: 0,
+                        totalTeams: 0,
+                        totalStudents: 0,
+                        maleStudents: 0,
+                        femaleStudents: 0,
+                        courseCompleted: 0,
+                        courseINcompleted: 0
+                    });
+                    console.log("Total count",total);
+
+                    const barData={
+                        labels: combinedArray.map(item => item.district),
+                        datasets: [
+                            {
+                                label: 'No.of Students Enrolled',
+                                data: combinedArray.map(item => item.totalStudents),
+                                backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                            },
+                            {
+                                label: 'No. of Teams created',
+                                data: combinedArray.map(item => item.totalTeams),
+                                backgroundColor: 'rgba(75, 162, 192, 0.6)',
+                            }
+                        ]
+                    };
+
+                    const stackedBarChartData={
+                        labels: combinedArray.map(item => item.district),
+                        datasets: [
+                            {
+                                label: 'No. of Teachers not started course',
+                                data: combinedArray.map(item => item.courseNotStarted),
+                                backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                            },
+                            {
+                                label: 'No. of Teachers course IN progress',
+                                data: combinedArray.map(item => item.courseINcompleted),
+                                backgroundColor: 'rgba(255, 255, 0, 0.6)'
+                            },
+                            {
+                                label: 'No. of teachers Completed Course',
+                                data: combinedArray.map(item => item.courseCompleted),
+                                backgroundColor: 'rgba(0, 128, 0, 0.6)'
+                            }
+                        ]
+                    };
+                    setCombinedArray(combinedArray);
+                    setDownloadTableData(combinedArray);
+                    setBarChart1Data(barData);
+                    setBarChart2Data(stackedBarChartData);
+                    setTotalCount(total);
+                }
+                
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+            });
+    };
+    console.log(downloadTableData);
 
     return (
         <>
@@ -466,7 +538,7 @@ const TeacherDetailed = () => {
                                 </Col>
                             </Row>
                             <div className="chart">
-                                {chartTableData.length > 0 && (
+                                {combinedArray.length > 0 && (
                                     <div className="mt-5">
                                         <div className="d-flex align-items-center mb-3">
                                             <h3>OVERVIEW</h3>
@@ -475,13 +547,12 @@ const TeacherDetailed = () => {
                                                 btnClass="primary mx-2"
                                                 size="small"
                                                 shape="btn-square"
-                                                // onClick={() => {
-                                                //     if (downloadTableData) {
-                                                //         setIsDownloading(true);
-                                                //         setDownloadTableData(null); // Reset data
-                                                //         csvLinkRefTable.current.link.click();
-                                                //     }
-                                                // }}
+                                                onClick={() => {
+                                                    if (downloadTableData) {
+                                                        setDownloadTableData(null); 
+                                                        csvLinkRefTable.current.link.click();
+                                                    }
+                                                }}
                                                 style={{
                                                     width: '150px',
                                                     whiteSpace: 'nowrap'
@@ -489,8 +560,8 @@ const TeacherDetailed = () => {
                                             />
                                         </div>
                                         <div className="row">
-                                            <div className="col-md-8">
-                                                <div className="table-wrapper bg-white">
+                                            <div className="col-md-7">
+                                                <div className="table-wrapper bg-white" style={{ overflowX: 'auto' }}>
                                                     <Table
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
@@ -499,128 +570,87 @@ const TeacherDetailed = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    DistrictName
+                                                                    District Name
                                                                 </th>
                                                                 <th>
-                                                                    Total
-                                                                    Registered
-                                                                    Teachers
+                                                                        Total
+                                                                        Registered
+                                                                        Teachers
                                                                 </th>
                                                                 <th>
-                                                                    Total of
-                                                                    No.of Teams
-                                                                    Created
+                                                                        Total of
+                                                                        No.of Teams
+                                                                        Created
                                                                 </th>
                                                                 <th>
-                                                                    Total of
+                                                                        Total of
+                                                                        No.of
+                                                                        Students
+                                                                        Enrolled
+                                                                </th>
+                                                                <th>
+                                                                        No.of
+                                                                        Female
+                                                                        Students
+                                                                </th>
+                                                                <th>
+                                                                    No.of Male
+                                                                    Students
+                                                                </th>
+                                                                <th>
                                                                     No.of
-                                                                    Students
-                                                                    Teachers
-                                                                </th>
-                                                                <th>
-                                                                    No. of
-                                                                    Female
-                                                                    Students
-                                                                </th>
-                                                                <th>
-                                                                    No. of Male
-                                                                    Students
-                                                                </th>
-                                                                <th>
-                                                                    No. of
                                                                     Teachers
                                                                     Completed
                                                                     the course
                                                                 </th>
                                                                 <th>
-                                                                    No. of
+                                                                    No.of
                                                                     Teachers
                                                                     course
-                                                                    InProgress
+                                                                    IN Progress
                                                                 </th>
                                                                 <th>
-                                                                    No. of
-                                                                    Teachers not
+                                                                    No.of
+                                                                    Teachers NOT
                                                                     started
                                                                     course
                                                                 </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {chartTableData.map(
-                                                                (
-                                                                    item,
-                                                                    index
-                                                                ) => (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td>
-                                                                            {index +
-                                                                                1}
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.district
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.organization_count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_no_of_teams_created
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_no_of_students_enrolled
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.No_of_Teachers_Completed_the_course
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.No_of_Teachers_course_inprogress
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_registered_teachers
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_not_registered_teachers
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.male_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.female_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            )}
+                                                            {combinedArray.map((item, index) => (
+                                                                <tr key={index}>
+                                                                    <td>{index +1}</td>
+                                                                    <td>{item.district}</td>
+                                                                    <td>{item.totalReg}</td>
+                                                                    <td>{item.totalTeams}</td>
+                                                                    <td>{item.totalStudents}</td>
+                                                                    <td>{item.femaleStudents}</td>
+                                                                    <td>{item.maleStudents}</td>
+                                                                    <td>{item.courseCompleted}</td>
+                                                                    <td>{item.courseINcompleted}</td>
+                                                                    <td>{item.courseNotStarted}</td>
+                                                                </tr>
+                                                            ))}
+                                                            <tr>
+                                                                <td>{}</td>
+                                                                <td>{'Total Count'}</td>
+                                                                <td>{totalCount.totalReg}</td>
+                                                                <td>{totalCount.totalTeams}</td>
+                                                                <td>{totalCount.totalStudents}</td>
+                                                                <td>{totalCount.femaleStudents}</td>
+                                                                <td>{totalCount.maleStudents}</td>
+                                                                <td>{totalCount.courseCompleted}</td>
+                                                                <td>{totalCount.courseINcompleted}</td>
+                                                                <td>{totalCount.totalReg-(totalCount.courseCompleted+totalCount.courseINcompleted)}</td>
+                                                            </tr>
                                                         </tbody>
                                                     </Table>
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
                                                 <div className="row">
-                                                    <div className="col-md-11 text-center mt-1">
+                                                    <div className="col-md-12 text-center mt-1">
                                                         <p>
                                                             <b>
                                                                 Students Male vs
@@ -628,11 +658,11 @@ const TeacherDetailed = () => {
                                                             </b>
                                                         </p>
                                                     </div>
-                                                    <div className="col-md-4 doughnut-chart-container">
-                                                        {registeredChartData && (
+                                                    <div className="col-md-5 doughnut-chart-container">
+                                                        {doughnutChartData && (
                                                             <Doughnut
                                                                 data={
-                                                                    registeredChartData
+                                                                    doughnutChartData
                                                                 }
                                                                 options={
                                                                     chartOption
@@ -640,35 +670,45 @@ const TeacherDetailed = () => {
                                                             />
                                                         )}
                                                     </div>
-                                                    <div>
-                                                        <h3>
-                                                            Teams,Students
-                                                            Enrolled AS of Date
-                                                        </h3>
-                                                        <Bar
-                                                            data={barChartData}
-                                                            options={options}
-                                                        />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6 chart-container mt-1" style={{ width: '100%', height:'370px' }}>
+                                                <div className="chart-box">
+                                                    <Bar data={barChart1Data} options={options} />
+                                                    <div className="chart-title">
+                                                        <p>
+                                                            <b>Teams, Students Enrolled As of Date</b>
+                                                        </p>
                                                     </div>
-                                                    <div>
-                                                        <h3>
-                                                            Teacher Course
-                                                            Status As of Date
-                                                        </h3>
-                                                        <Bar
-                                                            data={
-                                                                stackedBarChartData
-                                                            }
-                                                            options={
-                                                                stackedBarChartOptions
-                                                            }
-                                                        />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6 chart-container mt-3" style={{  width: '100%', height:'370px'}}>
+                                                <div className="chart-box">
+                                                    <Bar data={barChart2Data} options={stackedBarChartOptions}/>
+                                                    <div className="chart-title">
+                                                        <p>
+                                                            <b>Teacher Course Status As of Date</b>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 )}
+                                {downloadTableData && (
+                                    <CSVLink
+                                        data={downloadTableData}
+                                        headers={tableHeaders}
+                                        filename={`Teacher_Detailed_Summary_Reports.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRefTable}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
+                                )}
+                                
                                 {mentorDetailedReportsData && (
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
@@ -690,28 +730,3 @@ const TeacherDetailed = () => {
 };
 export default TeacherDetailed;
 
-// const fetchData = (item) => {
-//     const url =
-//         item === 'Teachers Course Completion List'
-//             ? '/reports/courseComplete'
-//             : '';
-
-//     const config = {
-//         method: 'get',
-//         url: process.env.REACT_APP_API_BASE_URL + url,
-//         headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${currentUser?.data[0]?.token}`
-//         }
-//     };
-//     axios(config)
-//         .then(function (response) {
-//             if (response.status === 200) {
-//                 setTeacherCourseReportsData(response?.data?.data);
-//                 setTeacherCourseShowTable(true);
-//             }
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-// };

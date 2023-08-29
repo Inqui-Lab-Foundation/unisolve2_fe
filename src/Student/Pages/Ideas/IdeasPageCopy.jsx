@@ -341,9 +341,9 @@ const IdeasPageNew = () => {
     };
 
     const swalWrapper = (e, type) => {
-        let responses = [...responseData];
+        const nonEmptySelectedOptions = responseData.filter(item => item.selected_option[0] !== "");
         let responseLength =
-            responses.length + (sdg === 'OTHERS' && others ? 1 : 0);
+        nonEmptySelectedOptions.length + (sdg === 'OTHERS' && others ? 1 : 0);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -352,7 +352,7 @@ const IdeasPageNew = () => {
             buttonsStyling: false,
             allowOutsideClick: false
         });
-        if (!type && responseLength < lengthCheck) {
+        if (responseLength < lengthCheck) {
             swalWithBootstrapButtons.fire({
                 title: t('student.not_allowed'),
                 text: t('student.please_com_all'),

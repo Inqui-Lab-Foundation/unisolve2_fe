@@ -76,8 +76,15 @@ const EditResource = (props) => {
             })
         }),
         onSubmit: async (values) => {
+            console.log(typeof values.attachments, 'hii');
+            console.log(typeof values.attachments !== 'string');
             try {
-                if (values.type === 'file') {
+                if (
+                    values.type === 'file' &&
+                    values.attachments !== null &&
+                    values.attachments !== '' &&
+                    typeof values.attachments !== 'string'
+                ) {
                     const fileData = new FormData();
                     fileData.append('file', values.attachments);
 
@@ -243,13 +250,27 @@ const EditResource = (props) => {
                                                         }
                                                     />
                                                     <Button
-                                                        label="Upload File"
+                                                        label="Upload File "
+                                                        btnClass="primary"
+                                                        size="small"
                                                         onClick={() => {
                                                             document
                                                                 .getElementById(
                                                                     'attachments'
                                                                 )
                                                                 .click();
+                                                        }}
+                                                    />
+                                                    <Button
+                                                        label="Download "
+                                                        btnClass="primary"
+                                                        size="small"
+                                                        onClick={() => {
+                                                            window.open(
+                                                                formik.values
+                                                                    .attachments,
+                                                                '_blank'
+                                                            );
                                                         }}
                                                     />
                                                     {formik.values

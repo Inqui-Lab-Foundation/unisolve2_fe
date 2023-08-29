@@ -218,7 +218,8 @@ const PreSurvey = () => {
         let submittedData = {
             responses: answerResponse
         };
-        if (preSurveyList.length != submittedData.responses.length) {
+        const nonEmptySelectedOptions = submittedData.responses.filter(item => item.selected_option.length > 0);
+        if (preSurveyList.length != nonEmptySelectedOptions.length) {
             openNotificationWithIcon(
                 'warning',
                 'Please Attempt All Questions..!!',

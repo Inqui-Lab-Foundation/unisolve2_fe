@@ -73,7 +73,11 @@ const EditLatestNews = (props) => {
         onSubmit: async (values) => {
             // console.log(values, '----');
             try {
-                if (values.file_name !== null && values.file_name !== '') {
+                if (
+                    values.file_name !== null &&
+                    values.file_name !== '' &&
+                    typeof values.file_name !== 'string'
+                ) {
                     const fileData = new FormData();
                     fileData.append('file', values.file_name);
 
@@ -305,7 +309,7 @@ const EditLatestNews = (props) => {
                                                             color: 'black',
                                                             fontWeight: 'bold',
                                                             fontSize: '14px',
-                                                            padding:'.5rem'
+                                                            padding: '.5rem'
                                                         }}
                                                         className="btn btn-warning rounded-pill btn-lg mx-2"
                                                     >
