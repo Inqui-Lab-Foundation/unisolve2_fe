@@ -19,8 +19,9 @@ import { Row, Col } from 'reactstrap';
 export default function DoughnutChart({ user }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    const { teamsMembersStatus, teamsMembersStatusErr } =
-        useSelector((state) => state.teams);
+    const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
+        (state) => state.teams
+    );
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
     const [ideaShow, setIdeaShow] = useState(false);
@@ -45,7 +46,7 @@ export default function DoughnutChart({ user }) {
             setmentorid(user[0].mentor_id);
         }
     }, [user]);
-    const [teamsList , setTeamsList ] = useState([]);
+    const [teamsList, setTeamsList] = useState([]);
     useEffect(() => {
         if (mentorid) {
             setshowDefault(true);
@@ -56,7 +57,9 @@ export default function DoughnutChart({ user }) {
     const teamNameandIDsbymentorid = (mentorid) => {
         var config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + `/teams/namebymenterid?mentor_id=${mentorid}`,
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/teams/namebymenterid?mentor_id=${mentorid}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -73,6 +76,7 @@ export default function DoughnutChart({ user }) {
                 console.log(error);
             });
     };
+    // console.log(teamsMembersStatus, challengesSubmittedResponse);
 
     useEffect(() => {
         var config = {
