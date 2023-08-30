@@ -30,16 +30,16 @@ const DashboardSchool = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const school = useSelector((state) => state.school);
-    console.log(userId);
-    console.log(orgData);
+    // console.log(userId);
+    // console.log(orgData);
     const dispatch = useDispatch();
-    useLayoutEffect(async () => {
+    useLayoutEffect(() => {
         if (currentUser?.data[0]?.organization_id) {
             dispatch(getSchoolByID(currentUser?.data[0]?.organization_id));
         }
     }, [currentUser?.data[0]?.organization_id]);
 
-    useEffect(async () => {
+    useEffect(() => {
         if (school.school.organization_code) {
             const body = JSON.stringify({
                 organization_code: school.school.organization_code
@@ -55,8 +55,8 @@ const DashboardSchool = (props) => {
                 data: body
             };
 
-            await axios(config)
-                .then(async function (response) {
+            axios(config)
+                .then(function (response) {
                     if (response.status == 200) {
                         setOrgData(response?.data?.data[0]);
                         setMentorId(response?.data?.data[0]?.mentor.mentor_id);
