@@ -180,7 +180,6 @@ const TeacherDetailed = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
-        fetchDoughnutChartData();
     }, []);
 
     const chartOption = {
@@ -315,44 +314,6 @@ const TeacherDetailed = () => {
             });
     };
 
-    const fetchDoughnutChartData = () => {
-        const config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCountbygender`,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    const data = response?.data?.data || [];
-                    if (data.length > 0) {
-                        const doughnutChartItem = data[0];
-                        const studentMale = doughnutChartItem.studentMale;
-                        const studentFemale = doughnutChartItem.studentFemale;
-                        setDoughnutChartData({
-                            labels: ['Male', 'Female'],
-                            datasets: [
-                                {
-                                    data: [studentMale, studentFemale],
-                                    backgroundColor: ['#36A2EB','#FF6384'],
-                                    hoverBackgroundColor: ['#36A2EB','#FF6384']
-                                }
-                            ]
-                        });
-                    }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    
-
     const fetchChartTableData =() => {
         
         const config = {
@@ -379,7 +340,7 @@ const TeacherDetailed = () => {
                         const studentCountItem = studentCountDetails.find(item => item.district === district);
                         const courseCompletedItem = courseCompleted.find(item => item.district === district);
                         const courseINcompletedItem = courseINcompleted.find(item => item.district === district);
-                        const courseNotStarted = summaryItem.totalReg - ((courseCompletedItem ? courseCompletedItem.courseIN : 0) + (courseINcompletedItem ? courseINcompletedItem.courseCMP : 0));
+                        const courseNotStarted = summaryItem.totalReg - ((courseCompletedItem ? courseCompletedItem.courseCMP : 0) + (courseINcompletedItem ? courseINcompletedItem.courseIN : 0));
                         
                         return {
                             district,
@@ -388,8 +349,8 @@ const TeacherDetailed = () => {
                             totalStudents: studentCountItem ? studentCountItem.totalstudent : 0,
                             maleStudents: studentCountItem ? parseInt(studentCountItem.male) : 0,
                             femaleStudents: studentCountItem ? parseInt(studentCountItem.female) : 0,
-                            courseCompleted: courseCompletedItem ? courseCompletedItem.courseIN : 0,
-                            courseINcompleted: courseINcompletedItem ? courseINcompletedItem.courseCMP : 0,
+                            courseCompleted: courseCompletedItem ? courseCompletedItem.courseCMP : 0,
+                            courseINcompleted: courseINcompletedItem ? courseINcompletedItem.courseIN : 0,
                             courseNotStarted
                         };
                     });
@@ -412,6 +373,17 @@ const TeacherDetailed = () => {
                         courseINcompleted: 0
                     });
                     console.log("Total count",total);
+
+                    const doughnutData={
+                        labels: ['Male', 'Female'],
+                        datasets: [
+                            {
+                                data: [total.maleStudents, total.femaleStudents],
+                                backgroundColor: ['#36A2EB','#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB','#FF6384']
+                            }
+                        ]
+                    };
 
                     const barData={
                         labels: combinedArray.map(item => item.district),
@@ -451,6 +423,7 @@ const TeacherDetailed = () => {
                     };
                     setCombinedArray(combinedArray);
                     setDownloadTableData(combinedArray);
+                    setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
                     setBarChart2Data(stackedBarChartData);
                     setTotalCount(total);
