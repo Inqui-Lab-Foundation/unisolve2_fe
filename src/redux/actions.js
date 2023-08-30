@@ -220,10 +220,15 @@ export const COORDINATOR_LOGIN_USER = 'COORDINATOR_LOGIN_USER';
 export const COORDINATOR_LOGIN_USER_SUCCESS = 'COORDINATOR_LOGIN_USER_SUCCESS';
 export const COORDINATOR_LOGIN_USER_ERROR = 'COORDINATOR_LOGIN_USER_ERROR';
 
+export const REPORT_LOGIN_USER = 'REPORT_LOGIN_USER';
+export const REPORT_LOGIN_USER_SUCCESS = 'REPORT_LOGIN_USER_SUCCESS';
+export const REPORT_LOGIN_USER_ERROR = 'REPORT_LOGIN_USER_ERROR';
+
 export * from './auth/actions';
 export * from '../School/store/school/actions';
 
 export * from '../Coordinators/store/Coordinator/actions';
+export * from '../ReportsPanel/store/actions';
 
 export * from '../Admin/store/admin/actions';
 export * from '../Teachers/store/mentors/actions';

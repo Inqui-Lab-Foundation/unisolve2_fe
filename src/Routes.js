@@ -118,12 +118,17 @@ import DashboardCoordinator from './Coordinators/Dashboard';
 import CoordinatorChangePswModal from './Coordinators/ChangePswModal';
 import SchoolChangePSWModal from './School/ChangePSWModal';
 import LogInNew from './Coordinators/LogInNew';
+import LoginReport from './ReportsPanel/LoginReport';
+
 import InstructionsPage from './Student/Pages/Ideas/InstuctionsPage';
 import TeacherViewDetails from './Admin/UserList/TacherViewDetails';
 import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
 import MentorEditProfile from './Admin/UserList/MentorEditProfile';
 import StudentEditProfile from './Admin/UserList/StudentEditProfile';
 import SchoolEditProfile from './School/SchoolEditProfile';
+import DashboardReport from './ReportsPanel/Dashboard';
+import ViewMoreReport from './ReportsPanel/Dashboard/ViewMore';
+import ReportUserEditProfile from './ReportsPanel/Dashboard/ReportUserEditProfile';
 const Routers = () => {
     return (
         <>
@@ -148,9 +153,33 @@ const Routers = () => {
                     />
                     <Route
                         exact={true}
+                        path="/report"
+                        render={() => <LoginReport />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/dashboard"
+                        component={DashboardReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/View-More-details"
+                        component={ViewMoreReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/edit-user-profile"
+                        component={ReportUserEditProfile}
+                    />
+                    <Route
+                        exact={true}
                         path="/coordinator"
                         render={() => <LogInNew />}
                     />
+
                     <ProtectedRoute
                         exact={true}
                         user="DISTRICT"
