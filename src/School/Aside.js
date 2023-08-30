@@ -115,8 +115,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/school-changePassword'}>
-                            {t('teacher.password')}
+                        <NavLink
+                            exact={true}
+                            to={'/school-changePassword'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Change Password
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -126,8 +135,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/school/my-profile'}>
-                            {t('teacher.profile')}
+                        <NavLink
+                            exact={true}
+                            to={'/school/my-profile'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                My Profile
+                            </span>
                         </NavLink>
                     </MenuItem>
 
