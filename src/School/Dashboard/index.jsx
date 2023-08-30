@@ -311,9 +311,13 @@ const DashboardSchool = (props) => {
                                 />
                             </Card.Body>
                         </Card>
-                        {/* </Col>
-                    <Col> */}
-                        <Card bg="light" text="dark" className=" md-3 xs-12">
+                    </Col>
+                    <Col>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className=" md-3 xs-12 mb-5"
+                        >
                             <Card.Body style={{ overflowX: 'auto' }}>
                                 <StudentLatestScroll
                                     usersdata={currentUser?.data}
