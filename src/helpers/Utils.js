@@ -114,6 +114,9 @@ export const logout = (history, t, module, dispatch) => {
                         case 'EADMIN':
                             history.push('/eadmin');
                             break;
+                        case 'REPORT':
+                            history.push('/report');
+                            break;
                         default:
                             history.push('/');
                     }
