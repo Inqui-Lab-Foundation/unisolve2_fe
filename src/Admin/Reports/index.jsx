@@ -6,7 +6,7 @@ import './reports.scss';
 import PageNotFoundImg from '../../assets/media/page-not-found.png';
 
 const Reports = () => {
-    const showPage = false;
+    const showPage = true;
     return (
         <Layout>
             {showPage ? (

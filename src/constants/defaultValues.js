@@ -9,6 +9,8 @@ export const URL = {
     schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
     coordinatorLogin:
         process.env.REACT_APP_API_BASE_URL + '/district_coordinators/login',
+    reportLogin:
+        process.env.REACT_APP_API_BASE_URL + '/admins/login?report=true',
 
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
@@ -79,6 +81,8 @@ export const URL = {
 
     adminLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     teacherLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+    reportLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+
     getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
     getModules: process.env.REACT_APP_API_BASE_URL + '/modules/list',
     getAdminCouses: process.env.REACT_APP_API_BASE_URL + '/courses',
@@ -89,7 +93,7 @@ export const URL = {
     getAdminQstList: process.env.REACT_APP_API_BASE_URL + '/quiz/',
     getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + '/reflectiveQuiz/',
     getSchoolRegistrationBulkupload:
-        process.env.REACT_APP_API_BASE_URL + '/organizations',
+        process.env.REACT_APP_API_BASE_URL + '/organizations?status=ACTIVE',
     getFaqCategoryList: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqByCategoryId: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqList: `${process.env.REACT_APP_API_BASE_URL}/faqs`,

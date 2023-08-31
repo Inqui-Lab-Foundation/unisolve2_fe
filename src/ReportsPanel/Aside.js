@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useHistory } from 'react-router-dom';
 import {
@@ -10,11 +9,12 @@ import {
 } from 'react-pro-sidebar';
 import { FaBars } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
-import { FaHouseUser } from 'react-icons/fa';
-import 'react-pro-sidebar/dist/css/styles.css';
 import SmallLogo from '../assets/media/logo192.png';
+import 'react-pro-sidebar/dist/css/styles.css';
+
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
-import { RiLockPasswordFill } from 'react-icons/ri';
+import ReportIcon1 from '../assets/media/ReportIcon1.png';
+
 import logoutIcon from '../assets/media/logoutIcon.png';
 
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     };
 
     const handleLogout = (e) => {
-        logout(history, t, 'school');
+        logout(history, t, '/REPORT');
         e.preventDefault();
     };
 
@@ -52,7 +52,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
                     >
-                        <Link to={'/school/dashboard'} exact className="d-flex">
+                        <Link
+                            to={'/report/dashboard'}
+                            exact
+                            className="d-flex"
+                        >
                             {menuCollapse ? (
                                 <img
                                     src={SmallLogo}
@@ -91,13 +95,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             />
                         }
                         className={
-                            location.pathname === '/school/dashboard' &&
+                            location.pathname === '/report/dashboard' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/school/dashboard'}
+                            to={'/report/dashboard'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
@@ -109,46 +113,32 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<RiLockPasswordFill />}
+                        icon={
+                            <img
+                                src={ReportIcon1}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="report"
+                            />
+                        }
                         className={
-                            location.pathname === '/school-changePassword' &&
+                            location.pathname === '/report/category' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/school-changePassword'}
+                            to={'/report/category'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
                             }}
                         >
                             <span style={{ color: 'var(--override-color)' }}>
-                                Change Password
+                                Reports
                             </span>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
-                        icon={<FaHouseUser />}
-                        className={
-                            location.pathname === '/school/my-profile' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink
-                            exact={true}
-                            to={'/school/my-profile'}
-                            style={{
-                                color: 'black !important',
-                                '--override-color': 'black'
-                            }}
-                        >
-                            <span style={{ color: 'var(--override-color)' }}>
-                                My Profile
-                            </span>
-                        </NavLink>
-                    </MenuItem>
-
                     <MenuItem
                         icon={
                             <img

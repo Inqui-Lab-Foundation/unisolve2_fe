@@ -232,7 +232,7 @@ const ReportsRegistration = () => {
     const fetchData = (item) => {
         const url =
             item === 'Registered'
-                ? `/reports/mentorRegList?district=${RegTeachersdistrict}&category=${category}`
+                ? `/reports/mentorRegList?status=ACTIVE&district=${RegTeachersdistrict}&category=${category}`
                 : item === 'Not Registered'
                 ? `/reports/notRegistered?district=${RegTeachersdistrict}&category=${category}`
                 : '';

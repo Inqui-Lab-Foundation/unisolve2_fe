@@ -15,9 +15,9 @@ import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/unisolve_slider2.png';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../helpers/Utils';
-import { coordinatorLoginUser } from '../Coordinators/store/Coordinator/actions';
+import { reportLoginUser } from '../ReportsPanel/store/actions';
 
-const LogInNew = (props) => {
+const LoginReport = (props) => {
     // const { t } = useTranslation();
     const history = useHistory();
     useLayoutEffect(() => {
@@ -38,21 +38,20 @@ const LogInNew = (props) => {
                 ? history.push('/school/dashboard')
                 : moduleName === 'COORDINATOR'
                 ? history.push('/coordinator/dashboard')
+                : moduleName === 'REPORT'
+                ? history.push('/report/dashboard')
                 : history.push('/dashboard');
         }
     }, []);
     const formik = useFormik({
         initialValues: {
-            district: '',
+            email: '',
             password: ''
         },
 
         validationSchema: Yup.object({
-            district: Yup.string()
-                .trim()
-                .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
-                .required('Required'),
+            email: Yup.string().required('required'),
+
             password: Yup.string().required('required')
         }),
         onSubmit: (values) => {
@@ -79,15 +78,15 @@ const LogInNew = (props) => {
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             const body = {
-                username: values.district,
+                username: values.email,
                 password: encrypted
             };
-            props.coordinatorLoginUserAction(body, history, 'COORDINATOR');
+            props.reportLoginUserAction(body, history, 'REPORT');
         }
     });
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter District Name '
+        placeholder: 'Enter Report email '
     };
 
     const inputPassword = {
@@ -164,7 +163,7 @@ const LogInNew = (props) => {
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
-                                Coordinator Login
+                                Report Login
                             </h4>
                         </Row>
                         <Row className="mt-5">
@@ -180,21 +179,21 @@ const LogInNew = (props) => {
                                         >
                                             <Label
                                                 className="mb-2"
-                                                htmlFor="district"
+                                                htmlFor="email"
                                             >
-                                                District Name
+                                                Email
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
-                                                id="district"
-                                                name="district"
+                                                id="email"
+                                                name="email"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.district}
+                                                value={formik.values.email}
                                             />
 
-                                            {formik.touched.district &&
-                                            formik.errors.district ? (
+                                            {formik.touched.email &&
+                                            formik.errors.email ? (
                                                 <small className="error-cls">
                                                     Required
                                                 </small>
@@ -299,5 +298,5 @@ const mapStateToProps = ({ authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-    coordinatorLoginUserAction: coordinatorLoginUser
-})(LogInNew);
+    reportLoginUserAction: reportLoginUser
+})(LoginReport);

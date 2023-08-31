@@ -27,7 +27,7 @@ const ViewMore = () => {
 
     const handleBack = () => {
         history.push({
-            pathname: '/admin/teacher/dashboard'
+            pathname: '/report/dashboard'
         });
         localStorage.setItem(
             'organization_code',
@@ -40,7 +40,7 @@ const ViewMore = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${orgDaTa.mentor.user_id}&role=MENTOR`,
+                `/dashboard/quizscores?user_id=${orgDaTa?.mentor.user_id}&role=MENTOR`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -51,12 +51,14 @@ const ViewMore = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     setCourse(response.data.data);
+                    // console.log(response);
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
     }, []);
+    // console.log(course);
     const percentageBWNumbers = (a, b) => {
         // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
@@ -201,9 +203,8 @@ const ViewMore = () => {
                                     </span>
                                     <b>
                                         {course[0]?.scores[0]?.score
-                                            ? course[0]?.scores[0]?.score +
-                                              '/15'
-                                            : 0}
+                                            ? course[0]?.scores[0]?.score
+                                            : '-'}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -222,7 +223,7 @@ const ViewMore = () => {
                                                           100
                                                   ) + '%'
                                               }`
-                                            : 0}
+                                            : '-'}
                                     </b>{' '}
                                 </CardText>
                             </CardBody>

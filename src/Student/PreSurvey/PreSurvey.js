@@ -508,6 +508,7 @@ const PreSurvey = () => {
                                                             className="w-100 challenges-fs"
                                                             id="radioGroup1"
                                                             label="One of these please"
+                                                            
                                                         >
                                                             <>
                                                                 {eachQuestion.type ===
@@ -523,9 +524,11 @@ const PreSurvey = () => {
                                                                                     <Label
                                                                                         check
                                                                                         style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                            fontSize: '1.4rem',
+                                                                                            //paddingLeft: '3rem', // Adjust this padding value
+                                                                                            display: 'flex', // Use flex display to align items
+                                                                                            alignItems: 'center', // Vertically center items
+                                                                                          }}
                                                                                     >
                                                                                         <Input
                                                                                             type="radio"
@@ -569,9 +572,11 @@ const PreSurvey = () => {
                                                                                     <Label
                                                                                         check
                                                                                         style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                            fontSize: '1.4rem',
+                                                                                            //paddingLeft: '3rem', // Adjust this padding value
+                                                                                            display: 'flex', // Use flex display to align items
+                                                                                            alignItems: 'center', // Vertically center items
+                                                                                          }}
                                                                                     >
                                                                                         <Input
                                                                                             type="radio"
@@ -615,9 +620,11 @@ const PreSurvey = () => {
                                                                                     <Label
                                                                                         check
                                                                                         style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                            fontSize: '1.4rem',
+                                                                                            //paddingLeft: '3rem', // Adjust this padding value
+                                                                                            display: 'flex', // Use flex display to align items
+                                                                                            alignItems: 'center', // Vertically center items
+                                                                                          }}
                                                                                     >
                                                                                         <Input
                                                                                             type="radio"
@@ -652,9 +659,11 @@ const PreSurvey = () => {
                                                                                     <Label
                                                                                         check
                                                                                         style={{
-                                                                                            fontSize:
-                                                                                                '1.4rem'
-                                                                                        }}
+                                                                                            fontSize: '1.4rem',
+                                                                                            //paddingLeft: '3rem', // Adjust this padding value
+                                                                                            display: 'flex', // Use flex display to align items
+                                                                                            alignItems: 'center', // Vertically center items
+                                                                                          }}
                                                                                     >
                                                                                         <Input
                                                                                             type="radio"
@@ -690,9 +699,11 @@ const PreSurvey = () => {
                                                                             <Label
                                                                                 check
                                                                                 style={{
-                                                                                    fontSize:
-                                                                                        '1.4rem'
-                                                                                }}
+                                                                                    fontSize: '1.4rem',
+                                                                                    //paddingLeft: '3rem', // Adjust this padding value
+                                                                                    display: 'flex', // Use flex display to align items
+                                                                                    alignItems: 'center', // Vertically center items
+                                                                                  }}
                                                                             >
                                                                                 <Input
                                                                                     type="checkbox"
@@ -734,9 +745,11 @@ const PreSurvey = () => {
                                                                             <Label
                                                                                 check
                                                                                 style={{
-                                                                                    fontSize:
-                                                                                        '1.4rem'
-                                                                                }}
+                                                                                    fontSize: '1.4rem',
+                                                                                    //paddingLeft: '3rem', // Adjust this padding value
+                                                                                    display: 'flex', // Use flex display to align items
+                                                                                    alignItems: 'center', // Vertically center items
+                                                                                  }}
                                                                             >
                                                                                 <Input
                                                                                     type="checkbox"
@@ -778,9 +791,11 @@ const PreSurvey = () => {
                                                                             <Label
                                                                                 check
                                                                                 style={{
-                                                                                    fontSize:
-                                                                                        '1.4rem'
-                                                                                }}
+                                                                                    fontSize: '1.4rem',
+                                                                                    //paddingLeft: '3rem', // Adjust this padding value
+                                                                                    display: 'flex', // Use flex display to align items
+                                                                                    alignItems: 'center', // Vertically center items
+                                                                                  }}
                                                                             >
                                                                                 <Input
                                                                                     type="checkbox"
@@ -825,9 +840,11 @@ const PreSurvey = () => {
                                                                                 <Label
                                                                                     check
                                                                                     style={{
-                                                                                        fontSize:
-                                                                                            '1.4rem'
-                                                                                    }}
+                                                                                        fontSize: '1.4rem',
+                                                                                        //paddingLeft: '3rem', // Adjust this padding value
+                                                                                        display: 'flex', // Use flex display to align items
+                                                                                        alignItems: 'center', // Vertically center items
+                                                                                      }}
                                                                                 >
                                                                                     <Input
                                                                                         type="checkbox"
