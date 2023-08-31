@@ -203,7 +203,8 @@ const ViewMore = () => {
                                     </span>
                                     <b>
                                         {course[0]?.scores[0]?.score
-                                            ? course[0]?.scores[0]?.score
+                                            ? course[0]?.scores[0]?.score +
+                                              '/15'
                                             : '-'}
                                     </b>
                                 </CardText>

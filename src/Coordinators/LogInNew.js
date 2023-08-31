@@ -182,7 +182,7 @@ const LogInNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="district"
                                             >
-                                                District
+                                                District Name
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}

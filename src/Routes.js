@@ -129,6 +129,10 @@ import SchoolEditProfile from './School/SchoolEditProfile';
 import DashboardReport from './ReportsPanel/Dashboard';
 import ViewMoreReport from './ReportsPanel/Dashboard/ViewMore';
 import ReportUserEditProfile from './ReportsPanel/Dashboard/ReportUserEditProfile';
+import Report from './ReportsPanel/Report';
+import RegistrationReport from './ReportsPanel/Report/RegistrationReport';
+import TeacherProgressReport from './ReportsPanel/Report/TeacherProgressReport';
+import StudentDetailedReport from './ReportsPanel/Report/StudentDetailedReport';
 const Routers = () => {
     return (
         <>
@@ -173,6 +177,30 @@ const Routers = () => {
                         user="REPORT"
                         path="/report/edit-user-profile"
                         component={ReportUserEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/category"
+                        component={Report}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/reports-registration"
+                        component={RegistrationReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/TeacherProgressDetailed"
+                        component={TeacherProgressReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/StudentDetailedReport"
+                        component={StudentDetailedReport}
                     />
                     <Route
                         exact={true}

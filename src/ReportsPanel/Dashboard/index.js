@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import {
-    deleteTempMentorById,
+    // deleteTempMentorById,
     teacherResetPassword
 } from '../../Admin/store/admin/actions';
 import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
@@ -370,40 +370,40 @@ const DashboardReport = () => {
             });
     };
 
-    const handleAlert = (id) => {
-        // where id = mentor.userid //
-        // we can delete the userid //
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false,
-            allowOutsideClick: false
-        });
+    // const handleAlert = (id) => {
+    //     // where id = mentor.userid //
+    //     // we can delete the userid //
+    //     const swalWithBootstrapButtons = Swal.mixin({
+    //         customClass: {
+    //             confirmButton: 'btn btn-success',
+    //             cancelButton: 'btn btn-danger'
+    //         },
+    //         buttonsStyling: false,
+    //         allowOutsideClick: false
+    //     });
 
-        swalWithBootstrapButtons
-            .fire({
-                title: 'You are Delete Organization',
-                text: 'Are you sure?',
-                showCloseButton: true,
-                confirmButtonText: 'Confirm',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then(async (result) => {
-                if (result.isConfirmed) {
-                    if (result.isConfirmed) {
-                        await deleteTempMentorById(id);
-                        setOrgData({});
-                        setDiesCode('');
-                    }
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
-                }
-            });
-    };
+    //     swalWithBootstrapButtons
+    //         .fire({
+    //             title: 'You are Delete Organization',
+    //             text: 'Are you sure?',
+    //             showCloseButton: true,
+    //             confirmButtonText: 'Confirm',
+    //             showCancelButton: true,
+    //             cancelButtonText: 'Cancel',
+    //             reverseButtons: false
+    //         })
+    //         .then(async (result) => {
+    //             if (result.isConfirmed) {
+    //                 if (result.isConfirmed) {
+    //                     await deleteTempMentorById(id);
+    //                     setOrgData({});
+    //                     setDiesCode('');
+    //                 }
+    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //                 swalWithBootstrapButtons.fire('Cancelled', '', 'error');
+    //             }
+    //         });
+    // };
     useEffect(() => {
         adminTeamsCount();
         adminSudentCount();
@@ -1400,7 +1400,7 @@ const DashboardReport = () => {
                                                 View Details
                                             </button>
 
-                                            <button
+                                            {/* <button
                                                 onClick={() => {
                                                     handleAlert(
                                                         orgData.mentor?.user_id
@@ -1412,7 +1412,7 @@ const DashboardReport = () => {
                                                 }}
                                             >
                                                 Delete
-                                            </button>
+                                            </button> */}
                                         </div>
 
                                         {/* <div className="mb-5 p-3"> */}
