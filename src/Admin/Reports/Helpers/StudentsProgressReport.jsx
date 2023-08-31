@@ -114,6 +114,7 @@ const ReportsRegistration = () => {
     const [totalCount, setTotalCount] = useState([]);
     const [doughnutChart1Data, setDoughnutChart1Data] = useState(null);
     const [doughnutChart2Data, setDoughnutChart2Data] = useState(null);
+    const [newFormat, setNewFormat] = useState('');
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
         datasets: []
@@ -389,6 +390,9 @@ const ReportsRegistration = () => {
             setDownloadComplete(false);
             setRegTeachersdistrict('');
         }
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
     }, [downloadComplete]);
 
     const fetchChartTableData =() => {
@@ -758,9 +762,9 @@ const ReportsRegistration = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5">
-                                                    <p>
+                                                    <p style={{ whiteSpace: 'nowrap',paddingLeft: '50px'}}>
                                                         <b>
-                                                            Student Course Status
+                                                            Student Course Status As of {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
@@ -774,10 +778,10 @@ const ReportsRegistration = () => {
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
-                                                <div className="col-md-6 text-center mt-5">
-                                                    <p>
+                                                <div className="col-md-6 text-center mt-5 ">
+                                                    <p style={{ whiteSpace: 'nowrap',paddingLeft: '30px' }}>
                                                         <b>
-                                                            Student Idea Submission
+                                                            Student Idea Submission As of {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
@@ -791,24 +795,24 @@ const ReportsRegistration = () => {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                            <div className="col-md-6 chart-container mt-1" style={{ width: '100%', height:'370px' }}>
+                                            <div className="col-md-6 chart-container mt-2" style={{ width: '100%', height:'370px' }}>
                                                 <div className="chart-box">
                                                     <Bar data={barChart1Data} options={stackedBarChart} />
                                                     <div className="chart-title">
                                                         <p>
-                                                            <b>Student Course Completion Status As Of Date</b>
+                                                            <b>Student Course Completion Status As of {newFormat}</b>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             </div>
                                             
-                                            <div className="col-md-6 chart-container mt-5" style={{  width: '100%', height:'370px'}}>
+                                            <div className="col-md-6 chart-container mt-4" style={{  width: '100%', height:'370px'}}>
                                                 <div className="chart-box">
                                                     <Bar data={barChart2Data} options={stackedBarChartOptions}/>
                                                     <div className="chart-title">
                                                         <p>
-                                                            <b>Idea Submission Status Status As Of Date</b>
+                                                            <b>Idea Submission Status Status As of {newFormat}</b>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -820,7 +824,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={studentTableHeaders}
-                                        filename={`Student_Detailed_Summary_Reports.csv`}
+                                        filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -832,7 +836,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         headers={studentDetailsHeaders}
                                         data={downloadData}
-                                        filename={`Student Detailed Reports.csv`}
+                                        filename={`StudentDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {
