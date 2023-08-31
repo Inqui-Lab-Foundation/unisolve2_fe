@@ -6,7 +6,7 @@
 }
 
 .scrolling-container {
-    animation: scroll 25s linear infinite; /* Adjust animation duration as needed */
+    animation: scroll 20s linear infinite; /* Adjust animation duration as needed */
     display: flex;
     flex-direction: column;
 }
