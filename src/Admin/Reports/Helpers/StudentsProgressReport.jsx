@@ -21,160 +21,80 @@ import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 
 const ReportsRegistration = () => {
-    const Data = [
-        {
-            Id: 1,
-            DistrictName: 'Praksam',
-            TotalNoOfTEAMScreated: '8',
-            TotalNoSTUDENTenrolled: '56',
-            NoOfStudentscompletedtheCourse: '15',
-            NoOfStudentscourseInProgress: '20',
-            NoOfstudentsNOTSTARTEDCourse: '21',
-            NoOfTEAMSSUBMITTEDIDEAS: '5',
-            NoOfTeamsIDEASINDRAFT: '6',
-            NoOfTeamsNOTSTARTEDIDEASSUBMISSION: '4',
-            CourseCompletionPercentage: '32%',
-            IDEASubmissionPercentage: '3%'
-        },
-        {
-            Id: 2,
-            DistrictName: 'Nellore',
-            TotalNoOfTEAMScreated: '15',
-            TotalNoSTUDENTenrolled: '76',
-            NoOfStudentscompletedtheCourse: '23',
-            NoOfStudentscourseInProgress: '35',
-            NoOfstudentsNOTSTARTEDCourse: '18',
-            NoOfTEAMSSUBMITTEDIDEAS: '8',
-            NoOfTeamsIDEASINDRAFT: '9',
-            NoOfTeamsNOTSTARTEDIDEASSUBMISSION: '7',
-            CourseCompletionPercentage: '32%',
-            IDEASubmissionPercentage: '5%'
-        },
-        {
-            Id: 3,
-            DistrictName: 'YSR',
-            TotalNoOfTEAMScreated: '10',
-            TotalNoSTUDENTenrolled: '53',
-            NoOfStudentscompletedtheCourse: '26',
-            NoOfStudentscourseInProgress: '10',
-            NoOfstudentsNOTSTARTEDCourse: '17',
-            NoOfTEAMSSUBMITTEDIDEAS: '5',
-            NoOfTeamsIDEASINDRAFT: '6',
-            NoOfTeamsNOTSTARTEDIDEASSUBMISSION: '4',
-            CourseCompletionPercentage: '34%',
-            IDEASubmissionPercentage: '3%'
-        }
-    ];
-    const data1 = {
-        labels: [
-            'ARIYALUR',
-            'CHENGALPATTU',
-            'CHENNAI',
-            'COIMBATORE',
-            'CUDDALORE',
-            'DHARMAPURI',
-            'DINDIGUL',
-            'ERODE',
-            'KALLAKURICHI',
-            'KANCHEEPURAM',
-            'KANNIYAKUMARI',
-            'KARUR',
-            'KRISHNAGIRI',
-            'MADURAI',
-            'MAYILADUTHURAI',
-            'NAGAPATTINAM',
-            'NAMAKKAL',
-            'PERAMBALUR',
-            'PUDUKKOTTAI',
-            'RAMANATHAPURAM'
-        ],
-        datasets: [
-            {
-                label: 'No of Students Completed Course',
-                backgroundColor: 'Lightgreen',
-                data: [
-                    10, 15, 20, 25, 30, 10, 15, 20, 25, 30, 10, 15, 20, 25, 30,
-                    10, 15, 20, 25, 30, 10, 15, 20, 25, 30
-                ]
-            },
-            {
-                label: 'No of Students Course In progress',
-                backgroundColor: 'Yellow',
-                data: [
-                    5, 10, 15, 20, 25, 5, 10, 15, 20, 25, 5, 10, 15, 20, 25, 5,
-                    10, 15, 20, 25, 5, 10, 15, 20, 25
-                ]
-            },
-            {
-                label: 'No of Students Not Started Course ',
-                backgroundColor: 'Red',
-                data: [
-                    2, 4, 6, 8, 10, 2, 4, 6, 8, 10, 2, 4, 6, 8, 10, 2, 4, 6, 8,
-                    10, 2, 4, 6, 8, 10
-                ]
-            }
-        ]
-    };
-
-    const data2 = {
-        labels: [
-            'ARIYALUR',
-            'CHENGALPATTU',
-            'CHENNAI',
-            'COIMBATORE',
-            'CUDDALORE',
-            'DHARMAPURI',
-            'DINDIGUL',
-            'ERODE',
-            'KALLAKURICHI',
-            'KANCHEEPURAM',
-            'KANNIYAKUMARI',
-            'KARUR',
-            'KRISHNAGIRI',
-            'MADURAI',
-            'MAYILADUTHURAI',
-            'NAGAPATTINAM',
-            'NAMAKKAL',
-            'PERAMBALUR',
-            'PUDUKKOTTAI',
-            'RAMANATHAPURAM'
-        ],
-        datasets: [
-            {
-                label: 'No of Teams Submitted Ideas',
-                backgroundColor: 'Lightgreen',
-                data: [
-                    14, 15, 23, 25, 30, 10, 15, 20, 25, 30, 10, 15, 20, 25, 30,
-                    10, 15, 20, 25, 30, 10, 15, 20, 25, 46
-                ]
-            },
-            {
-                label: 'No of Team Ideas in Draft',
-                backgroundColor: 'Yellow',
-                data: [
-                    5, 10, 15, 20, 25, 5, 10, 15, 20, 25, 5, 10, 15, 20, 25, 5,
-                    10, 15, 20, 25, 5, 10, 15, 20, 25
-                ]
-            },
-            {
-                label: 'No of Teams Not Started Idea Submission',
-                backgroundColor: 'Red',
-                data: [
-                    2, 4, 6, 8, 10, 2, 4, 6, 8, 10, 2, 4, 6, 8, 10, 2, 4, 6, 8,
-                    10, 2, 4, 6, 8, 10
-                ]
-            }
-        ]
-    };
-    const options = {
+    
+    const stackedBarChart = {
+        maintainAspectRatio: false, 
+        responsive: true, 
         scales: {
             x: {
-                stacked: true
+                stacked: true,
+                grid: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Districts',
+                    color: 'blue',
+                },
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 85,
+                },
             },
             y: {
-                stacked: true
-            }
-        }
+                stacked: true,
+                beginAtZero: true,
+                stepSize: 20,
+                title: {
+                    display: true,
+                    text: 'Number of Students',
+                    color: 'blue',
+                },
+                grid: {
+                    display: true,
+                    drawBorder: true,
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    lineWidth: 0.5,
+                },
+            },
+        },
+    };
+    const stackedBarChartOptions = {
+        maintainAspectRatio: false, 
+        responsive: true, 
+        scales: {
+            x: {
+                stacked: true,
+                grid: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Districts',
+                    color: 'blue',
+                },
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 85,
+                },
+            },
+            y: {
+                stacked: true,
+                beginAtZero: true,
+                stepSize: 20,
+                title: {
+                    display: true,
+                    text: 'Number of Teachers',
+                    color: 'blue',
+                },
+                grid: {
+                    display: true,
+                    drawBorder: true,
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    lineWidth: 0.5,
+                },
+            },
+        },
     };
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [category, setCategory] = useState('');
@@ -182,21 +102,78 @@ const ReportsRegistration = () => {
         categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
     const [downloadData, setDownloadData] = useState(null);
-    const [chartTableData, setChartTableData] = useState([]);
-    //const [showTable, setShowTable] = useState(false);
-    //const [statsshowTable, setStatsShowTable] = useState(false);
     const csvLinkRef = useRef();
+    const csvLinkRefTable = useRef();
     const dispatch = useDispatch();
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    const [registeredGenderChartData, setRegisteredGenderChartData] =
-        useState(null);
-    const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
+    const [combinedArray, setCombinedArray] = useState([]);
+    const [downloadTableData, setDownloadTableData] = useState([]);
+    const [totalCount, setTotalCount] = useState([]);
+    const [doughnutChart1Data, setDoughnutChart1Data] = useState(null);
+    const [doughnutChart2Data, setDoughnutChart2Data] = useState(null);
+    const [barChart1Data, setBarChart1Data] = useState({
+        labels: [],
+        datasets: []
+    });
+    const [barChart2Data, setBarChart2Data] = useState({
+        labels: [],
+        datasets: []
+    });
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+
+    const studentTableHeaders=[
+
+        {
+            label: 'District Name',
+            key: 'district'
+        },
+        {
+            label: 'Total No.Of TEAMS created',
+            key: 'totalTeams'
+        },
+        {
+            label: 'Total No.Of STUDENTS enrolled',
+            key: 'totalStudents'
+        },
+        {
+            label: 'No.Of Students completed the Course',
+            key: 'courseCompleted'
+        },
+        {
+            label: 'No.Of Students course In Progress',
+            key: 'courseInProgress'
+        },
+        {
+            label: 'No.Of students NOT STARTED Course',
+            key: 'courseNotStarted'
+        },
+        {
+            label: ' No.Of TEAMS SUBMITTED IDEAS',
+            key: 'submittedCount'
+        },
+        {
+            label: 'No.Of Teams IDEAS IN DRAFT',
+            key: 'draftCount'
+        },
+        {
+            label: 'No.Of Teams NOT STARTED IDEAS SUBMISSION',
+            key: 'ideaNotStarted'
+        },
+        {
+            label: 'Course Completion Percentage',
+            key: 'coursePercentage'
+        },
+        {
+            label: 'IDEA Submission Percentage',
+            key: 'ideaSubmissionPercentage'
+        }
+    ];
+    
     const studentDetailsHeaders = [
         {
             label: 'UDISE CODE',
@@ -290,7 +267,6 @@ const ReportsRegistration = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
-        //setStatsShowTable(true);
     }, []);
 
     const chartOption = {
@@ -405,7 +381,6 @@ const ReportsRegistration = () => {
             return;
         }
         setIsDownloading(true);
-        //  setDownloadComplete(false);
         fetchData();
     };
 
@@ -416,10 +391,11 @@ const ReportsRegistration = () => {
         }
     }, [downloadComplete]);
 
-    const fetchChartTableData = () => {
+    const fetchChartTableData =() => {
+        
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/mentorsummary',
+            url: process.env.REACT_APP_API_BASE_URL + '/reports/studentdetailstable',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -429,43 +405,156 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const chartTableData = response?.data?.data || [];
-                    setChartTableData(chartTableData);
+                    const summary = response.data.data[0].summary;
+                    const studentCountDetails = response.data.data[0].studentCountDetails;
+                    const courseCompleted = response.data.data[0].courseCompleted;
+                    const courseINprogesss = response.data.data[0].courseINprogesss;
+                    const submittedCount = response.data.data[0].submittedCount;
+                    const draftCount = response.data.data[0].draftCount;
 
-                    const lastRow = chartTableData[chartTableData.length - 1];
-                    const maleCount = lastRow?.male_mentor_count || 0;
-                    const femaleCount = lastRow?.female_mentor_count || 0;
-                    const regCount = lastRow?.total_registered_teachers || 0;
-                    const regNotCount =
-                        lastRow?.total_not_registered_teachers || 0;
+                    const combinedArray = summary.map(summaryItem => {
+                        const district = summaryItem.district;
+                        const totalTeams= summaryItem.totalTeams;
+                        const studentCountItem = studentCountDetails.find(item => item.district === district);
+                        const courseCompletedItem = courseCompleted.find(item => item.district === district);
+                        const courseInProgressItem = courseINprogesss.find(item => item.district === district);
+                        const courseNotStarted = studentCountItem ? (studentCountItem.totalstudent - (courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0) - (courseInProgressItem ? courseInProgressItem.studentCourseIN : 0)) : 0;
 
-                    setRegisteredGenderChartData({
-                        labels: ['Male', 'Female'],
+                        const submittedCountItem = submittedCount.find(item => item.district === district);
+                        const draftCountItem = draftCount.find(item => item.district === district);
+                        const ideaNotStarted = summaryItem.totalTeams - ((submittedCountItem ? submittedCountItem.submittedCount : 0) + (draftCountItem ? draftCountItem.draftCount : 0));
+
+                        const coursePercentage = studentCountItem && studentCountItem.totalstudent > 0 ? Math.round((courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0) / studentCountItem.totalstudent * 100) : 0;
+                        const ideaSubmissionPercentage = totalTeams > 0 ? Math.round((submittedCountItem ? submittedCountItem.submittedCount : 0) / totalTeams * 100) : 0;
+                        
+                        
+                        return {
+                          district,
+                          totalTeams,
+                          totalStudents: studentCountItem ? studentCountItem.totalstudent : 0,
+                          courseCompleted: courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0,
+                          courseInProgress: courseInProgressItem ? courseInProgressItem.studentCourseIN : 0,
+                          courseNotStarted,
+                          submittedCount: submittedCountItem ? submittedCountItem.submittedCount : 0,
+                          draftCount: draftCountItem ? draftCountItem.draftCount : 0,
+                          ideaNotStarted,
+                          coursePercentage,
+                          ideaSubmissionPercentage
+                        };
+                        
+                      });
+
+                    const total = combinedArray.reduce((acc, item) => {
+                        acc.totalTeams += item.totalTeams;
+                        acc.totalStudents += item.totalStudents;
+                        acc.courseCompleted += item.courseCompleted;
+                        acc.courseInProgress += item.courseInProgress;
+                        acc.submittedCount += item.submittedCount;
+                        acc.draftCount += item.draftCount;
+                        acc.courseNotStarted = acc.totalStudents - (acc.courseCompleted + acc.courseInProgress);
+                        acc.ideaNotStarted = acc.totalTeams - (acc.submittedCount + acc.draftCount);
+                        return acc;
+                    }, {
+                        totalTeams: 0,
+                        totalStudents: 0,
+                        courseCompleted: 0,
+                        courseInProgress: 0,
+                        submittedCount: 0,
+                        draftCount: 0,
+                        courseNotStarted: 0,
+                        ideaNotStarted: 0
+                    });
+                    console.log("Combined Array:", combinedArray);
+                    console.log("Total count",total);
+
+                    const doughNutData1={
+                        labels:['Completed','IN Progress','NOT Started'],
                         datasets: [
                             {
-                                data: [maleCount, femaleCount],
-                                backgroundColor: ['#FF6384', '#36A2EB'],
-                                hoverBackgroundColor: ['#FF6384', '#36A2EB']
+                                data: [
+                                    total.courseCompleted,
+                                    total.courseInProgress,
+                                    total.courseNotStarted
+                                  ],
+                                backgroundColor: ['#36A2EB','#FFCE56','#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB','#FFCE56','#FF6384',]
                             }
                         ]
-                    });
-
-                    setRegisteredChartData({
-                        labels: ['Registered', 'Not Registered'],
+                    };
+                    const doughNutData2={
+                        labels:['Submitted Ideas','IN Draft Ideas','NOT Started Idea Submission'],
                         datasets: [
                             {
-                                data: [regCount, regNotCount],
-                                backgroundColor: ['#FF6384', '#36A2EB'],
-                                hoverBackgroundColor: ['#FF6384', '#36A2EB']
+                                data: [
+                                    total.submittedCount,
+                                    total.draftCount,
+                                    total.ideaNotStarted
+                                ],
+                                backgroundColor: ['#36A2EB','#FFCE56','#FF6384',],
+                                hoverBackgroundColor: ['#36A2EB','#FFCE56','#FF6384',]
                             }
                         ]
-                    });
+                    };
+
+                    const stackedBarChart1Data={
+                        labels: combinedArray.map(item => item.district),
+                        datasets: [
+
+                            {
+                                label: 'No of Students Completed Course',
+                                data: combinedArray.map(item => item.courseCompleted),
+                                backgroundColor: 'Lightgreen',
+                            },
+                            {
+                                label: 'No of Students Course In progress',
+                                data: combinedArray.map(item => item.courseInProgress),
+                                backgroundColor: 'Yellow',
+                            },
+                            {
+                                label: 'No of Students Not Started Course',
+                                data: combinedArray.map(item => item.courseNotStarted),
+                                backgroundColor: 'Red',
+                            }
+                        ]
+                    };
+
+                    const stackedBarChart2Data={
+                        labels: combinedArray.map(item => item.district),
+                        datasets: [
+                            {
+                                label: 'No of Teams Submitted Ideas',
+                                data: combinedArray.map(item => item.submittedCount),
+                                backgroundColor: 'Lightgreen',
+                            },
+                            {
+                                label: 'No of Team Ideas in Draft',
+                                data: combinedArray.map(item => item.draftCount),
+                                backgroundColor: 'Yellow'
+                            },
+                            {
+                                label: 'No of Teams Not Started Idea Submission',
+                                data: combinedArray.map(item => item.ideaNotStarted),
+                                backgroundColor: 'Red'
+                            }
+                        ]
+                    };
+                    setCombinedArray(combinedArray);
+                    setDownloadTableData(combinedArray);
+                    setDoughnutChart1Data(doughNutData1);
+                    setDoughnutChart2Data(doughNutData2);
+                    setBarChart1Data(stackedBarChart1Data);
+                    setBarChart2Data(stackedBarChart2Data);
+                    setTotalCount(total);
                 }
+                
             })
             .catch((error) => {
                 console.log('API error:', error);
             });
     };
+    console.log(downloadTableData);
+
+
 
     return (
         <>
@@ -536,9 +625,27 @@ const ReportsRegistration = () => {
                             </Row>
 
                             <div className="chart">
-                                {chartTableData.length > 0 && (
+                                {combinedArray.length > 0 && (
                                     <div className="mt-5">
-                                        <h3>OVERVIEW</h3>
+                                        <div className="d-flex align-items-center mb-3">
+                                            <h3>OVERVIEW</h3>
+                                            <Button
+                                                label="Download Table"
+                                                btnClass="primary mx-2"
+                                                size="small"
+                                                shape="btn-square"
+                                                onClick={() => {
+                                                    if (downloadTableData) {
+                                                        setDownloadTableData(null); 
+                                                        csvLinkRefTable.current.link.click();
+                                                    }
+                                                }}
+                                                style={{
+                                                    width: '150px',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            />
+                                        </div>
                                         <div className="row">
                                             <div className="col-md-12 mx-10 px-10">
                                                 <div
@@ -550,9 +657,6 @@ const ReportsRegistration = () => {
                                                     <Table
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
-                                                        // style={{
-                                                        //     overflow: 'auto'
-                                                        // }}
                                                     >
                                                         <thead>
                                                             <tr>
@@ -618,200 +722,110 @@ const ReportsRegistration = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {Data.map((stu) => (
-                                                                <tr
-                                                                    key={stu.Id}
-                                                                >
-                                                                    <td>
-                                                                        {stu.Id}
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            stu.DistrictName
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            stu.TotalNoOfTEAMScreated
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            stu.TotalNoSTUDENTenrolled
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfStudentscompletedtheCourse
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfStudentscourseInProgress
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfstudentsNOTSTARTEDCourse
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfTEAMSSUBMITTEDIDEAS
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfTeamsIDEASINDRAFT
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.NoOfTeamsNOTSTARTEDIDEASSUBMISSION
-                                                                        }
-                                                                    </td>
-                                                                    <td>
-                                                                        {
-                                                                            stu.CourseCompletionPercentage
-                                                                        }
-                                                                    </td>{' '}
-                                                                    <td>
-                                                                        {
-                                                                            stu.IDEASubmissionPercentage
-                                                                        }
-                                                                    </td>
+                                                            {combinedArray.map((item, index) => (
+                                                                <tr key={index}>
+                                                                    <td>{index +1}</td>
+                                                                    <td>{item.district}</td>
+                                                                    <td>{item.totalTeams}</td>
+                                                                    <td>{item.totalStudents}</td>
+                                                                    <td>{item.courseCompleted}</td>
+                                                                    <td>{item.courseInProgress}</td>
+                                                                    <td>{item.courseNotStarted}</td>
+                                                                    <td>{item.submittedCount}</td>
+                                                                    <td>{item.draftCount}</td>
+                                                                    <td>{item.ideaNotStarted}</td>
+                                                                    <td>{item.coursePercentage}%</td>
+                                                                    <td>{item.ideaSubmissionPercentage}%</td>
                                                                 </tr>
                                                             ))}
+                                                            <tr>
+                                                                <td>{}</td>
+                                                                <td>{'Total Count'}</td>
+                                                                <td>{totalCount.totalTeams}</td>
+                                                                <td>{totalCount.totalStudents}</td>
+                                                                <td>{totalCount.courseCompleted}</td>
+                                                                <td>{totalCount.courseInProgress}</td>
+                                                                <td>{totalCount.courseNotStarted}</td>
+                                                                <td>{totalCount.submittedCount}</td>
+                                                                <td>{totalCount.draftCount}</td>
+                                                                <td>{totalCount.ideaNotStarted}</td>
+                                                                <td>{Math.round((totalCount.courseCompleted / totalCount.totalStudents) * 100)}%</td>
+                                                                <td>{Math.round((totalCount.submittedCount / totalCount.totalTeams) * 100)}%</td>
+                                                            </tr>
                                                         </tbody>
-                                                        {/* <tbody>
-                                                            {chartTableData.map(
-                                                                (
-                                                                    item,
-                                                                    index
-                                                                ) => (
-                                                                    <tr
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td>
-                                                                            {index +
-                                                                                1}
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.district
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.organization_count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_registered_teachers
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.total_not_registered_teachers
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.male_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.female_mentor_count
-                                                                            }
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            )}
-                                                        </tbody> */}
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div
-                                                className="col-md-6 text-center mt-5"
-                                                style={{
-                                                    overflowX: 'auto'
-                                                }}
-                                            >
-                                                <h2>
-                                                    Student Course Completion
-                                                    Status As Of Date
-                                                </h2>
-                                                <Bar
-                                                    data={data1}
-                                                    options={options}
-                                                />
+                                            <div className="col-md-6">
+                                                <div className="col-md-6 text-center mt-5">
+                                                    <p>
+                                                        <b>
+                                                            Student Course Status
+                                                        </b>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-6 doughnut-chart-container">
+                                                    {doughnutChart1Data && (
+                                                        <Doughnut
+                                                            data={doughnutChart1Data}
+                                                            options={chartOptions}
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div
-                                                className="col-md-6 text-center mt-5"
-                                                style={{
-                                                    overflowX: 'auto'
-                                                }}
-                                            >
-                                                <h2>
-                                                    Idea Submission Status
-                                                    Status As Of Date
-                                                </h2>
-                                                <Bar
-                                                    data={data2}
-                                                    options={options}
-                                                />
+                                            <div className="col-md-6">
+                                                <div className="col-md-6 text-center mt-5">
+                                                    <p>
+                                                        <b>
+                                                            Student Idea Submission
+                                                        </b>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-6 doughnut-chart-container">
+                                                    {doughnutChart2Data && (
+                                                        <Doughnut
+                                                            data={doughnutChart2Data}
+                                                            options={chartOption}
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <div className="col-md-6 doughnut-chart-container">
-                                                        {registeredChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredChartData
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-11 text-center mt-3">
+                                            <div className="row">
+                                            <div className="col-md-6 chart-container mt-1" style={{ width: '100%', height:'370px' }}>
+                                                <div className="chart-box">
+                                                    <Bar data={barChart1Data} options={stackedBarChart} />
+                                                    <div className="chart-title">
                                                         <p>
-                                                            <b>
-                                                                Student Course
-                                                                Status
-                                                            </b>
+                                                            <b>Student Course Completion Status As Of Date</b>
                                                         </p>
                                                     </div>
-
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {registeredGenderChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredGenderChartData
-                                                                }
-                                                                options={
-                                                                    chartOptions
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-11 text-center mt-3">
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                            <div className="col-md-6 chart-container mt-5" style={{  width: '100%', height:'370px'}}>
+                                                <div className="chart-box">
+                                                    <Bar data={barChart2Data} options={stackedBarChartOptions}/>
+                                                    <div className="chart-title">
                                                         <p>
-                                                            <b>
-                                                                Student Idea
-                                                                Submission
-                                                            </b>
+                                                            <b>Idea Submission Status Status As Of Date</b>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                )}
+                                {downloadTableData && (
+                                    <CSVLink
+                                        data={downloadTableData}
+                                        headers={studentTableHeaders}
+                                        filename={`Student_Detailed_Summary_Reports.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRefTable}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
                                 )}
 
                                 {downloadData && (
@@ -838,83 +852,4 @@ const ReportsRegistration = () => {
     );
 };
 export default ReportsRegistration;
-// <div className="row">
-//     <div className="col-md-6">
-//         {/* ... your second chart code ... */}
-//     </div>
-//     <div className="col-md-6 doughnut-chart-container">
-//         {registeredGenderChartData && (
-//             <Doughnut data={registeredGenderChartData} options={chartOptions} />
-//         )}
-//     </div>
 
-{
-    /* {showTable && filterType === 'Registered' && (
-    <div className="mt-5">
-        <h3>Data based on Filter: {filterType}</h3>
-        <div className="table-wrapper bg-white">
-            <div className="table-wrapper">
-                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone Number</th>
-                            <th>Organization Code</th>
-                            <th>Organization District</th>
-                            <th>Organization Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredData.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.full_name}</td>
-                                <td>{item.mobile}</td>
-                                <td>{item['organization.organization_code']}</td>
-                                <td>{item['organization.district']}</td>
-                                <td>{item['organization.organization_name']}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </div> 
-    </div>  
-)}   
-{showTable && filterType === 'Not Registered' && (
-    <div className="mt-5">
-        <h3>Data based on Filter: Not Registered</h3>
-        <div className="table-wrapper bg-white">
-            <div className="table-wrapper">
-                <Table id="dataTable" className="table table-striped table-bordered responsive">
-                    <thead>
-                        <tr>
-                            <th>Organization ID</th>
-                            <th>Organization Name</th>
-                            <th>Organization Code</th>
-                            <th>District</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Principal Name</th>
-                            <th>Principal Mobile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {notRegisteredData.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.organization_id}</td>
-                                <td>{item.organization_name}</td>
-                                <td>{item.organization_code}</td>
-                                <td>{item.district}</td>
-                                <td>{item.city}</td>
-                                <td>{item.state}</td>
-                                <td>{item.principal_name}</td>
-                                <td>{item.principal_mobile}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </div>
-    </div>
-)} */
-}
