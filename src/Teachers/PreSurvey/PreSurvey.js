@@ -461,9 +461,10 @@ const PreSurvey = () => {
                                                                                                 <Label
                                                                                                     check
                                                                                                     style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
+                                                                                                        fontSize: '1.4rem',
+                                                                                                        display: 'flex', 
+                                                                                                        alignItems: 'center', 
+                                                                                                      }}
                                                                                                 >
                                                                                                     <Input
                                                                                                         type="radio"
@@ -507,9 +508,10 @@ const PreSurvey = () => {
                                                                                                 <Label
                                                                                                     check
                                                                                                     style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
+                                                                                                        fontSize: '1.4rem',
+                                                                                                        display: 'flex', 
+                                                                                                        alignItems: 'center', 
+                                                                                                      }}
                                                                                                 >
                                                                                                     <Input
                                                                                                         type="radio"
@@ -553,9 +555,10 @@ const PreSurvey = () => {
                                                                                                 <Label
                                                                                                     check
                                                                                                     style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
+                                                                                                        fontSize: '1.4rem',
+                                                                                                        display: 'flex', 
+                                                                                                        alignItems: 'center', 
+                                                                                                      }}
                                                                                                 >
                                                                                                     <Input
                                                                                                         type="radio"
@@ -590,9 +593,10 @@ const PreSurvey = () => {
                                                                                                 <Label
                                                                                                     check
                                                                                                     style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
+                                                                                                        fontSize: '1.4rem',
+                                                                                                        display: 'flex', 
+                                                                                                        alignItems: 'center', 
+                                                                                                      }}
                                                                                                 >
                                                                                                     <Input
                                                                                                         type="radio"
@@ -628,9 +632,10 @@ const PreSurvey = () => {
                                                                                         <Label
                                                                                             check
                                                                                             style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                                fontSize: '1.4rem',
+                                                                                                display: 'flex', 
+                                                                                                alignItems: 'center', 
+                                                                                              }}
                                                                                         >
                                                                                             <Input
                                                                                                 type="checkbox"
@@ -672,9 +677,10 @@ const PreSurvey = () => {
                                                                                         <Label
                                                                                             check
                                                                                             style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                                fontSize: '1.4rem',
+                                                                                                display: 'flex', 
+                                                                                                alignItems: 'center', 
+                                                                                              }}
                                                                                         >
                                                                                             <Input
                                                                                                 type="checkbox"
@@ -716,9 +722,10 @@ const PreSurvey = () => {
                                                                                         <Label
                                                                                             check
                                                                                             style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                                fontSize: '1.4rem',
+                                                                                                display: 'flex', 
+                                                                                                alignItems: 'center', 
+                                                                                              }}
                                                                                         >
                                                                                             <Input
                                                                                                 type="checkbox"
@@ -763,9 +770,10 @@ const PreSurvey = () => {
                                                                                             <Label
                                                                                                 check
                                                                                                 style={{
-                                                                                                    fontSize:
-                                                                                                        '1.4rem'
-                                                                                                }}
+                                                                                                    fontSize: '1.4rem',
+                                                                                                    display: 'flex', 
+                                                                                                    alignItems: 'center', 
+                                                                                                  }}
                                                                                             >
                                                                                                 <Input
                                                                                                     type="checkbox"
