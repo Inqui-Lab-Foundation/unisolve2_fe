@@ -145,9 +145,7 @@ const LoginNew = (props) => {
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <a
-                                href={process.env.REACT_APP_LANDING_PAGE_URL}
-                            >
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
                                 <Col
                                     md={12}
                                     className="d-flex justify-content-center align-items-center"
@@ -162,7 +160,7 @@ const LoginNew = (props) => {
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
-                                Admin Login
+                                Super Admin Login
                             </h4>
                         </Row>
                         <Row className="mt-5">

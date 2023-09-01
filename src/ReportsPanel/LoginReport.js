@@ -163,7 +163,7 @@ const LoginReport = (props) => {
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
-                                Report Login
+                                Report Admin Login
                             </h4>
                         </Row>
                         <Row className="mt-5">

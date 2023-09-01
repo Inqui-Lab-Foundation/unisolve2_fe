@@ -35,6 +35,7 @@ const DashboardSchool = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const school = useSelector((state) => state.school);
+    console.log(school);
 
     const dispatch = useDispatch();
     useLayoutEffect(() => {

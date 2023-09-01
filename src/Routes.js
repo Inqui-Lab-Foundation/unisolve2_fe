@@ -133,6 +133,12 @@ import Report from './ReportsPanel/Report';
 import RegistrationReport from './ReportsPanel/Report/RegistrationReport';
 import TeacherProgressReport from './ReportsPanel/Report/TeacherProgressReport';
 import StudentDetailedReport from './ReportsPanel/Report/StudentDetailedReport';
+import DistReports from './Coordinators/Reports';
+import CoRegReport from './Coordinators/Reports/CoRegReport';
+import CoTeacherDetailedReport from './Coordinators/Reports/CoTeacherDetailedReport';
+import CostudentDetailedReport from './Coordinators/Reports/CostudentDetailedReport';
+import CooViewMore from './Coordinators/Dashboard/CooViewMore';
+
 const Routers = () => {
     return (
         <>
@@ -213,6 +219,36 @@ const Routers = () => {
                         user="DISTRICT"
                         path="/coordinator/dashboard"
                         component={DashboardCoordinator}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
+                        path="/coordinator/View-More-details"
+                        component={CooViewMore}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
+                        path="/coordinator/reports-registration"
+                        component={CoRegReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
+                        path="/coordinator/TeacherProgressDetailed"
+                        component={CoTeacherDetailedReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
+                        path="/coordinator/StudentDetailedReport"
+                        component={CostudentDetailedReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
+                        path="/coordinator/report"
+                        component={DistReports}
                     />
                     <ProtectedRoute
                         exact={true}

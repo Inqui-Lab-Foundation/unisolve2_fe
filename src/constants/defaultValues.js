@@ -123,6 +123,8 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/dashboard/studentStats/',
     getTeacherById: process.env.REACT_APP_API_BASE_URL + '/mentors/',
     getSchoolById: process.env.REACT_APP_API_BASE_URL + '/organizations/',
+    // getDistrictByName:
+    //     process.env.REACT_APP_API_BASE_URL + '/district_coordinators/',
 
     getTeacherDashboardStatesById:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/mentorStats/',
