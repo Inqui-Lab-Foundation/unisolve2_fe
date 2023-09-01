@@ -82,12 +82,12 @@ const AddNewFaq = (props) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             return await axios
                 .post(
-                    `${URL.getFaqList}?${getLanguage(language)}`,
-                    JSON.stringify(values, null, 2),
+                    `${process.env.REACT_APP_API_BASE_URL}/faqs/addfaqandtranslation`,
+                    JSON.stringify(values),
                     axiosConfig
                 )
                 .then((faqsubmitRest) => {
-                    if (faqsubmitRest?.status == 201) {
+                    if (faqsubmitRest?.status == 200) {
                         openNotificationWithIcon(
                             'success',
                             'Faq Created Sucessfully',

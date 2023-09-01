@@ -80,7 +80,7 @@ const EditFaq = (props) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             return await axios
                 .put(
-                    `${URL.getFaqList}/${faqid}`,
+                    `${process.env.REACT_APP_API_BASE_URL}/faqs/editfaqandtranslation?faq_id=${faqid}`,
                     JSON.stringify(values, null, 2),
                     axiosConfig
                 )
