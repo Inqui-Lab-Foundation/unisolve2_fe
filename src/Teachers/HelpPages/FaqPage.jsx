@@ -4,7 +4,7 @@ import { getNormalHeaders } from '../../helpers/Utils';
 import { Row, Col } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
 import Layout from '../Layout';
-import { KEY, URL } from '../../constants/defaultValues';
+import { KEY } from '../../constants/defaultValues';
 
 const FaqPage = () => {
     const [queryId] = useState('Idea Submission');
@@ -14,12 +14,12 @@ const FaqPage = () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getFaqByCategoryId}/${id}?locale=en`,
+                `${process.env.REACT_APP_API_BASE_URL}/faqs/getbyCategoryid/${id}?locale=en`,
                 axiosConfig
             )
             .then((res) => {
                 if (res?.status === 200) {
-                    SetResponse(res?.data?.data[0]?.faqs);
+                    SetResponse(res?.data?.data);
                 }
             })
             .catch((err) => {

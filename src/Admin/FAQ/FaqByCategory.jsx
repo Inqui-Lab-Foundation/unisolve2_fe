@@ -24,15 +24,20 @@ const FaqByCategory = () => {
     const [data, setData] = useState([]);
     const [activeButton, setActiveButton] = useState('teacher');
     const getFaqByCategory = async (id) => {
+        if(id === 1){
+            setActiveButton('teacher');
+        }else if(id===2){
+            setActiveButton('student');
+        }
         setData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
-            .get(`${URL.getFaqByCategoryId}/${id}`, axiosConfig)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/faqs/getbyCategoryid/${id}`, axiosConfig)
             .then((res) => {
                 if (res?.status === 200) {
                     const updatedWithKey =
-                        res?.data?.data[0]?.faqs &&
-                        res?.data?.data[0]?.faqs.map((item, i) => {
+                        res?.data?.data &&
+                        res?.data?.data.map((item, i) => {
                             const upd = { ...item };
                             upd['key'] = i + 1;
                             return upd;
@@ -51,7 +56,7 @@ const FaqByCategory = () => {
     useEffect(async () => {
         await getFaqByCategory(1);
     }, []);
-    const deleteFaq = async (faqID) => {
+    const deleteFaq = async (faqID,catId) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -64,7 +69,7 @@ const FaqByCategory = () => {
             if (result.isConfirmed) {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
                 axios
-                    .delete(`${URL.getFaqList}/${faqID}`, axiosConfig)
+                    .delete(`${process.env.REACT_APP_API_BASE_URL}/faqs/deletefaqandtranslation?faq_id=${faqID}`, axiosConfig)
                     .then(async (faqDeleteRes) => {
                         if (faqDeleteRes?.status == 200) {
                             Swal.fire(
@@ -72,7 +77,7 @@ const FaqByCategory = () => {
                                 '',
                                 'success'
                             );
-                            await getFaqByCategory(faqID);
+                            await getFaqByCategory(catId);
                         }
                     })
                     .catch((err) => {
@@ -138,7 +143,7 @@ const FaqByCategory = () => {
                                     style={{ marginRight: '10px' }}
                                 />
                             </a>
-                            <a onClick={() => deleteFaq(params.faq_id)}>
+                            <a onClick={() => deleteFaq(params.faq_id,params.faq_category_id)}>
                                 <i
                                     //key={params.faq_id}
                                     className="fa fa-trash"
@@ -172,6 +177,26 @@ const FaqByCategory = () => {
                                 onClick={() => history.push('/admin/New-faq')}
                             />
                             <Button
+                                label={`Student FAQ`}
+                                //btnClass={`primary float-end mb-3 ${activeButton === 'student' ? 'active' : ''}`}
+                                btnClass="primary float-end mb-3"
+                                size="small"
+                                style={{
+                                    backgroundColor:
+                                        activeButton === 'student'
+                                            ? '#0d6efd'
+                                            : '#ffcb34',
+                                    color:
+                                        activeButton === 'student'
+                                            ? 'white'
+                                            : 'black'
+                                }}
+                                onClick={() => {
+                                    setActiveButton('student');
+                                    getFaqByCategory(2);
+                                }}
+                            />
+                            <Button
                                 label={`Teacher FAQ`}
                                 //btnClass={`primary float-end mb-3 ${activeButton === 'teacher' ? 'active' : ''}`}
                                 btnClass="primary  float-end mb-3"
@@ -190,26 +215,6 @@ const FaqByCategory = () => {
                                 onClick={() => {
                                     setActiveButton('teacher');
                                     getFaqByCategory(1);
-                                }}
-                            />
-                            <Button
-                                label={`Student FAQ`}
-                                //btnClass={`primary float-end mb-3 ${activeButton === 'student' ? 'active' : ''}`}
-                                btnClass="primary float-end mb-3"
-                                size="small"
-                                style={{
-                                    backgroundColor:
-                                        activeButton === 'student'
-                                            ? '#0d6efd'
-                                            : '#ffcb34',
-                                    color:
-                                        activeButton === 'student'
-                                            ? 'white'
-                                            : 'black'
-                                }}
-                                onClick={() => {
-                                    setActiveButton('student');
-                                    getFaqByCategory(2);
                                 }}
                             />
                             <DataTableExtensions

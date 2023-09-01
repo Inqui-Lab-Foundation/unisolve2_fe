@@ -44,7 +44,7 @@ const ReportsRegistration = () => {
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
     const [downloadComplete, setDownloadComplete] = useState(false);
-
+    const [newFormat, setNewFormat] = useState('');
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
@@ -173,7 +173,6 @@ const ReportsRegistration = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
-        //setStatsShowTable(true);
     }, []);
 
     const chartOption = {
@@ -255,7 +254,6 @@ const ReportsRegistration = () => {
 
                         csvLinkRef.current.link.click();
                     } else if (item === 'Not Registered') {
-                        //setNotRegisteredData(response?.data?.data || []);
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
@@ -289,7 +287,6 @@ const ReportsRegistration = () => {
     useEffect(() => {
         if (filteredData.length > 0) {
             setDownloadData(filteredData);
-            //setIsDownloading(false);
         }
     }, [filteredData, downloadNotRegisteredData]);
 
@@ -299,6 +296,9 @@ const ReportsRegistration = () => {
             setRegTeachersdistrict('');
             setFilterType('');
         }
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
     }, [downloadComplete]);
 
     const fetchChartTableData = () => {
@@ -457,7 +457,7 @@ const ReportsRegistration = () => {
                                                 onClick={() => {
                                                     if (downloadTableData) {
                                                         setIsDownloading(true);
-                                                        setDownloadTableData(null); // Reset data
+                                                        setDownloadTableData(null); 
                                                         csvLinkRefTable.current.link.click();
                                                     }
                                                 }}
@@ -563,6 +563,16 @@ const ReportsRegistration = () => {
                                             </div>
                                             <div className="col-md-5">
                                                 <div className="row">
+                                                    <div className="col-md-12 text-center mt-3">
+                                                            <p>
+                                                                <b>
+                                                                    Overall
+                                                                    Registered and
+                                                                    Not Registered
+                                                                    Schools As of {newFormat}
+                                                                </b>
+                                                            </p>
+                                                    </div>
                                                     <div className="col-md-12 doughnut-chart-container">
                                                         {registeredChartData && (
                                                             <Doughnut
@@ -575,16 +585,17 @@ const ReportsRegistration = () => {
                                                             />
                                                         )}
                                                     </div>
-                                                    <div className="col-md-11 text-center mt-3">
-                                                        <p>
+                                                    <div className="col-md-12 text-center mt-3">
+                                                        <p style={{paddingLeft: '30px'}}>
                                                             <b>
                                                                 Overall
-                                                                Registered and
-                                                                Not Registered
-                                                                Count
+                                                                Registered Male
+                                                                vs Female
+                                                                Teachers As of {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
+                                                    
                                                     <div className="col-md-12 doughnut-chart-container">
                                                         {registeredGenderChartData && (
                                                             <Doughnut
@@ -597,16 +608,6 @@ const ReportsRegistration = () => {
                                                             />
                                                         )}
                                                     </div>
-                                                    <div className="col-md-11 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                                Overall
-                                                                Registered Male
-                                                                vs Female
-                                                                Teachers
-                                                            </b>
-                                                        </p>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -616,7 +617,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`Mentor_Summary_Table.csv`}
+                                        filename={`MentorSummaryTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                         onDownloaded={() => {
@@ -631,7 +632,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={RegHeaders}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {
@@ -646,7 +647,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadNotRegisteredData}
                                         headers={notRegHeaders}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefNotRegistered}
                                         onDownloaded={() => {
