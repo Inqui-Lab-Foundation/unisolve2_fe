@@ -40,7 +40,7 @@ const Reports = () => {
                                 <Link to="/admin/TeacherProgressDetailed">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            TEACHER PROGRESS DEATAILED REPORT
+                                            TEACHER PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>
@@ -52,7 +52,7 @@ const Reports = () => {
                                 <Link to="/admin/StudentsProgressReport">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            STUDENT PROGRESS DEATAILED REPORT
+                                            STUDENT PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>
