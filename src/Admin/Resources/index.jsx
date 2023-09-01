@@ -39,8 +39,7 @@ const AdminResources = () => {
                 if (response.status === 200) {
                     setResList(
                         response.data &&
-                            response.data.data[0] &&
-                            response.data.data[0].dataValues
+                            response.data.data
                     );
                 }
             })

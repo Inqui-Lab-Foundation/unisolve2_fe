@@ -28,6 +28,7 @@ export default (state = INIT_STATE, action) => {
                 currentUser: null,
                 error: action.payload.message
             };
+
         default:
             return newState;
     }

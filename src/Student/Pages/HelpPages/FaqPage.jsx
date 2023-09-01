@@ -7,7 +7,7 @@ import Layout from '../../Layout.jsx';
 import { getLanguage } from '../../../constants/languageOptions.js';
 import { useSelector } from 'react-redux';
 import { getNormalHeaders } from '../../../helpers/Utils';
-import { KEY, URL } from '../../../constants/defaultValues';
+import { KEY } from '../../../constants/defaultValues';
 
 const FaqPage = () => {
     const [queryId] = useState('Idea Submission');
@@ -20,12 +20,12 @@ const FaqPage = () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`,
+                `${process.env.REACT_APP_API_BASE_URL}/faqs/getbyCategoryid/${id}?${getLanguage(language)}`,
                 axiosConfig
             )
             .then((res) => {
                 if (res?.status === 200) {
-                    SetResponse(res?.data?.data[0]?.faqs);
+                    SetResponse(res?.data?.data);
                 }
             })
             .catch((err) => {
