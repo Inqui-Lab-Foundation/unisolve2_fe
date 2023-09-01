@@ -23,6 +23,7 @@ export const coordinatorLoginUserError = (message) => async (dispatch) => {
         payload: { message }
     });
 };
+
 export const coordinatorLoginUser =
     (data, history, module) => async (dispatch) => {
         try {

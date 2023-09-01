@@ -226,7 +226,6 @@ export const REPORT_LOGIN_USER_ERROR = 'REPORT_LOGIN_USER_ERROR';
 
 export * from './auth/actions';
 export * from '../School/store/school/actions';
-
 export * from '../Coordinators/store/Coordinator/actions';
 export * from '../ReportsPanel/store/actions';
 

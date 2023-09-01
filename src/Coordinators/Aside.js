@@ -15,6 +15,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import logoutIcon from '../assets/media/logoutIcon.png';
+import ReportIcon1 from '../assets/media/ReportIcon1.png';
 
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
@@ -108,6 +109,33 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             <span style={{ color: 'var(--override-color)' }}>
                                 Dashboard
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={ReportIcon1}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="report"
+                            />
+                        }
+                        className={
+                            location.pathname === '/coordinator/report' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/coordinator/report'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Reports
                             </span>
                         </NavLink>
                     </MenuItem>
