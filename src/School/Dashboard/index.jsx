@@ -223,122 +223,7 @@ const DashboardSchool = (props) => {
                 <h2 className="mb-5  text-center mt-5">
                     <strong> School Dashboard</strong>
                 </h2>
-                <Row>
-                    <Col className="md-2">
-                        <Row
-                        // style={{ paddingRight: '20px' }}
-                        >
-                            <Row>
-                                <Card
-                                    bg="light"
-                                    text="dark"
-                                    // className="mb-4"
-                                    // className="md-3 xs-12 mb-4 "
-                                    // style={{ width: '350px' }}
-                                >
-                                    <Card.Body>
-                                        <label htmlFor="teams" className="">
-                                            Number of Teams
-                                        </label>
-
-                                        <Card.Text
-                                            style={{
-                                                fontSize: '48px',
-                                                fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            {teamsCount}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Row>
-                            {/* <Row>
-                                <Card
-                                    bg="light"
-                                    text="dark"
-                                    // className="mb-4 card"
-                                    // className="md-3 xs-12 mb-4 card"
-                                    // style={{ width: '350px' }}
-                                >
-                                    <Card.Body>
-                                        <label
-                                            htmlFor="teams"
-                                            // className="cardbody"
-                                        >
-                                            Course Complete
-                                        </label>
-                                        <Card.Text
-                                            className="cardtext"
-                                            style={{
-                                                fontSize: '48px',
-                                                fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            {coursepercentage + '%'}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Row> */}
-                        </Row>
-                        <Row>
-                            <Row>
-                                <Card
-                                    bg="light"
-                                    text="dark"
-                                    // className="mb-4"
-                                    // style={{ height: '200px' }}
-                                    // className="md-3 xs-12 mb-4 "
-                                >
-                                    <Card.Body>
-                                        <label htmlFor="teams" className="">
-                                            Total Students
-                                        </label>
-                                        <Card.Text
-                                            style={{
-                                                fontSize: '48px',
-                                                fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            {studentCount}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Row>
-                            <Row>
-                                <Card
-                                    bg="light"
-                                    text="dark"
-                                    // className="mb-4"
-                                    // style={{ width: '350px' }}
-                                    // className="md-3 xs-12 mb-4 "
-                                >
-                                    <Card.Body>
-                                        <label htmlFor="teams" className="">
-                                            Number of Ideas
-                                        </label>
-
-                                        <Card.Text
-                                            className="left-aligned"
-                                            style={{
-                                                fontSize: '48px',
-                                                fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            {ideaCount}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Row>
-                        </Row>
-                    </Col>
+                <Row className='p-3'>
                     <Col className="md-5 ">
                         <Col>
                             <Card
@@ -374,14 +259,15 @@ const DashboardSchool = (props) => {
                         </Col>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row className='p-3'>
+                    <Col md={6}>
                         <Card
                             bg="light"
                             text="dark"
                             // className="mb-4"
                             // style={{ width: '350px' }}
                             // className="md-3 xs-12 mb-4 "
+                            style={{height:'16rem'}}
                         >
                             <Card.Body>
                                 <label
@@ -423,12 +309,93 @@ const DashboardSchool = (props) => {
                                         <b> Quiz Score :</b>
                                     </span>
                                     <b>
-                                        {score + '/15'}
+                                        {score?score:0 + '/15'}
                                         {/* {course[0]?.scores[0]?.score
                                             ? course[0]?.scores[0]?.score +
                                               '/15'
                                             : '-'}{' '} */}
                                     </b>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={2}>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className="p-2"
+                            // className="md-3 xs-12 mb-4 "
+                            // style={{ width: '350px' }}
+                            style={{height:'16rem'}}
+                        >
+                            <Card.Body>
+                                <label htmlFor="teams" className="">
+                                    Number of Teams
+                                </label>
+
+                                <Card.Text
+                                    style={{
+                                        fontSize: '48px',
+                                        fontWeight: 'bold',
+                                        marginTop: '10px',
+                                        marginBottom: '20px'
+                                    }}
+                                >
+                                    {teamsCount}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={2}>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className="p-2"
+                            // style={{ height: '200px' }}
+                            // className="md-3 xs-12 mb-4 "
+                            style={{height:'16rem'}}
+                        >
+                            <Card.Body>
+                                <label htmlFor="teams" className="">
+                                    Total Students
+                                </label>
+                                <Card.Text
+                                    style={{
+                                        fontSize: '48px',
+                                        fontWeight: 'bold',
+                                        marginTop: '10px',
+                                        marginBottom: '20px'
+                                    }}
+                                >
+                                    {studentCount}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={2}>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className="p-2"
+                            // style={{ width: '350px' }}
+                            // className="md-3 xs-12 mb-4 "
+                            style={{height:'16rem'}}
+                        >
+                            <Card.Body>
+                                <label htmlFor="teams" className="">
+                                    Number of Ideas
+                                </label>
+
+                                <Card.Text
+                                    className="left-aligned"
+                                    style={{
+                                        fontSize: '48px',
+                                        fontWeight: 'bold',
+                                        marginTop: '10px',
+                                        marginBottom: '20px'
+                                    }}
+                                >
+                                    {ideaCount}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -453,7 +420,7 @@ const DashboardSchool = (props) => {
                         </Card.Body>
                     </Card>
                 </Col> */}
-                <Row className="teacher-statistics">
+                <Row className="teacher-statistics p-3">
                     {' '}
                     <Row className="">
                         <Col>
