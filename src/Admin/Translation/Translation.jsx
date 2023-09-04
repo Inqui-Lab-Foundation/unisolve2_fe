@@ -62,12 +62,12 @@ const Translation = (props) => {
                                 style={{ marginRight: '10px' }}
                             />
                         </a>,
-                        <a onClick={() => handleDeleteTranslationById(params)}>
-                            <i
-                                className="fa fa-trash"
-                                style={{ marginRight: '10px' }}
-                            />
-                        </a>
+                        // <a onClick={() => handleDeleteTranslationById(params)}>
+                        //     <i
+                        //         className="fa fa-trash"
+                        //         style={{ marginRight: '10px' }}
+                        //     />
+                        // </a>
                     ];
                 },
                 width: '12rem',

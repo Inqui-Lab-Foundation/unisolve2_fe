@@ -30,6 +30,7 @@ const MySchoolProfile = () => {
             item: {
                 principal_name: school?.school.principal_name,
                 principal_mobile: school?.school.principal_mobile,
+                principal_email:school?.school.principal_email,
                 city: school?.school.city,
                 organization_name: school?.school.organization_name,
                 category: school?.school.category,
