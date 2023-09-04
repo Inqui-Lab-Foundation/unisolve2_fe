@@ -51,15 +51,15 @@ export const schoolLoginUser = (data, history, module) => async (dispatch) => {
             dispatch(schoolLoginUserSuccess(result));
             history.push('/school/dashboard');
         } else {
-            if (result && result.status === 200) {
+            if (result && result.status === 403) {
                 openNotificationWithIcon(
                     'error',
-                    'Enter the correct credentials'
+                    'User is ditected as inactive'
                 );
             } else {
                 openNotificationWithIcon(
                     'error',
-                    'User is ditected as inactive'
+                    'Enter the correct credentials'
                 );
             }
         }
