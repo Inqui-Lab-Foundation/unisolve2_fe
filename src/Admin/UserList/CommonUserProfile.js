@@ -22,6 +22,7 @@ import {
 } from '../../redux/studentRegistration/actions';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../assets/media/logout.svg';
+import { studentResetPassword } from '../../redux/actions';
 
 const CommonUserProfile = (props) => {
     const history = useHistory();
@@ -110,7 +111,7 @@ const CommonUserProfile = (props) => {
                 if (result.isConfirmed) {
                     dispatch(
                         studentResetPassword({
-                            user_id: data.user_id.toString()
+                            user_id: StudentsDaTa.user_id.toString()
                         })
                     );
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
