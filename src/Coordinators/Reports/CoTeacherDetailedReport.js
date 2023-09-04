@@ -47,7 +47,6 @@ const CoTeacherDetailedReport = () => {
         labels: [],
         datasets: []
     });
-    const [totalCount, setTotalCount] = useState([]);
     // const fullDistrictsNames = useSelector(
     //     (state) => state?.studentRegistration?.dists
     // );
@@ -397,36 +396,14 @@ const CoTeacherDetailedReport = () => {
                             courseNotStarted
                         };
                     });
-                    const total = combinedArray.reduce(
-                        (acc, item) => {
-                            acc.totalReg += item.totalReg;
-                            acc.totalTeams += item.totalTeams;
-                            acc.totalStudents += item.totalStudents;
-                            acc.maleStudents += item.maleStudents;
-                            acc.femaleStudents += item.femaleStudents;
-                            acc.courseCompleted += item.courseCompleted;
-                            acc.courseINcompleted += item.courseINcompleted;
-                            return acc;
-                        },
-                        {
-                            totalReg: 0,
-                            totalTeams: 0,
-                            totalStudents: 0,
-                            maleStudents: 0,
-                            femaleStudents: 0,
-                            courseCompleted: 0,
-                            courseINcompleted: 0
-                        }
-                    );
-                    console.log('Total count', total);
-
+                    
                     const doughnutData = {
                         labels: ['Male', 'Female'],
                         datasets: [
                             {
                                 data: [
-                                    total.maleStudents,
-                                    total.femaleStudents
+                                    combinedArray[0].maleStudents,
+                                    combinedArray[0].femaleStudents
                                 ],
                                 backgroundColor: ['#36A2EB', '#FF6384'],
                                 hoverBackgroundColor: ['#36A2EB', '#FF6384']
@@ -485,7 +462,6 @@ const CoTeacherDetailedReport = () => {
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
                     setBarChart2Data(stackedBarChartData);
-                    setTotalCount(total);
                 }
             })
             .catch((error) => {
@@ -725,54 +701,6 @@ const CoTeacherDetailedReport = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
-                                                                <td>{}</td>
-                                                                <td>
-                                                                    {
-                                                                        'Total Count'
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.totalReg
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.totalTeams
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.totalStudents
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.femaleStudents
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.maleStudents
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.courseCompleted
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.courseINcompleted
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {totalCount.totalReg -
-                                                                        (totalCount.courseCompleted +
-                                                                            totalCount.courseINcompleted)}
-                                                                </td>
-                                                            </tr>
                                                         </tbody>
                                                     </Table>
                                                 </div>

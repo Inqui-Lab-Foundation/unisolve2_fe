@@ -50,6 +50,7 @@ const Dashboard = () => {
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
     const [isideadisable, setIsideadisable] = useState(false);
+    const [isSameDistrict,setIsSameDistrict] = useState(false);
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
@@ -126,14 +127,22 @@ const Dashboard = () => {
         axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
+                    if (
+                        response?.data?.data[0].district ===
+                        currentUser?.data[0]?.district_name
+                    ) {
+                        setOrgData(response?.data?.data[0]);
+                        setCount(count + 1);
+                        setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                        setError('');
+                        if (response?.data?.data[0]?.mentor.mentor_id) {
+                            await getMentorIdApi(
+                                response?.data?.data[0]?.mentor.mentor_id
+                            );
+                        }
+                    }
+                    else{
+                        setIsSameDistrict(true);
                     }
                 }
             })
@@ -1181,7 +1190,15 @@ const Dashboard = () => {
                                             Enter Unique Code
                                         </span>
                                     </div>
-                                )}
+                                )}{
+                                    isSameDistrict && (
+                                        <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                        <span className="text-danger fs-highlight">
+                                            You are not authorised to look at other district data
+                                        </span>
+                                    </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
