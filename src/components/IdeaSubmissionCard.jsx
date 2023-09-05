@@ -69,7 +69,8 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
     }, [props]);
 
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current
+        content: () => componentRef.current,
+        documentTitle : `${response[0]?.team_name ? response[0]?.team_name : 'temp'}_IdeaSubmission`
     });
     return (
         <div>
