@@ -16,7 +16,7 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
 
-import DetailToDownload from '../Evaluation/ViewSelectedIdea/DetailToDownload';
+import DetailToDownload from './DetailToDownload';
 import html2canvas from 'html2canvas';
 
 const ViewDetail = (props) => {
