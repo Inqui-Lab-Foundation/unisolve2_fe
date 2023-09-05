@@ -21,25 +21,24 @@ import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 
 const ReportsRegistration = () => {
-    
     const stackedBarChart = {
-        maintainAspectRatio: false, 
-        responsive: true, 
+        maintainAspectRatio: false,
+        responsive: true,
         scales: {
             x: {
                 stacked: true,
                 grid: {
-                    display: false,
+                    display: false
                 },
                 title: {
                     display: true,
                     text: 'Districts',
-                    color: 'blue',
+                    color: 'blue'
                 },
                 ticks: {
                     autoSkip: false,
-                    maxRotation: 85,
-                },
+                    maxRotation: 85
+                }
             },
             y: {
                 stacked: true,
@@ -48,35 +47,35 @@ const ReportsRegistration = () => {
                 title: {
                     display: true,
                     text: 'Number of Students',
-                    color: 'blue',
+                    color: 'blue'
                 },
                 grid: {
                     display: true,
                     drawBorder: true,
                     color: 'rgba(0, 0, 0, 0.2)',
-                    lineWidth: 0.5,
-                },
-            },
-        },
+                    lineWidth: 0.5
+                }
+            }
+        }
     };
     const stackedBarChartOptions = {
-        maintainAspectRatio: false, 
-        responsive: true, 
+        maintainAspectRatio: false,
+        responsive: true,
         scales: {
             x: {
                 stacked: true,
                 grid: {
-                    display: false,
+                    display: false
                 },
                 title: {
                     display: true,
                     text: 'Districts',
-                    color: 'blue',
+                    color: 'blue'
                 },
                 ticks: {
                     autoSkip: false,
-                    maxRotation: 85,
-                },
+                    maxRotation: 85
+                }
             },
             y: {
                 stacked: true,
@@ -85,16 +84,16 @@ const ReportsRegistration = () => {
                 title: {
                     display: true,
                     text: 'Number of Teachers',
-                    color: 'blue',
+                    color: 'blue'
                 },
                 grid: {
                     display: true,
                     drawBorder: true,
                     color: 'rgba(0, 0, 0, 0.2)',
-                    lineWidth: 0.5,
-                },
-            },
-        },
+                    lineWidth: 0.5
+                }
+            }
+        }
     };
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [category, setCategory] = useState('');
@@ -127,8 +126,7 @@ const ReportsRegistration = () => {
         (state) => state?.studentRegistration?.dists
     );
 
-    const studentTableHeaders=[
-
+    const studentTableHeaders = [
         {
             label: 'District Name',
             key: 'district'
@@ -174,7 +172,7 @@ const ReportsRegistration = () => {
             key: 'ideaSubmissionPercentage'
         }
     ];
-    
+
     const studentDetailsHeaders = [
         {
             label: 'UDISE CODE',
@@ -391,15 +389,18 @@ const ReportsRegistration = () => {
             setRegTeachersdistrict('');
         }
         const newDate = new Date();
-        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
         setNewFormat(formattedDate);
     }, [downloadComplete]);
 
-    const fetchChartTableData =() => {
-        
+    const fetchChartTableData = () => {
         const config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + '/reports/studentdetailstable',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/reports/studentdetailstable',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -410,83 +411,157 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const summary = response.data.data[0].summary;
-                    const studentCountDetails = response.data.data[0].studentCountDetails;
-                    const courseCompleted = response.data.data[0].courseCompleted;
-                    const courseINprogesss = response.data.data[0].courseINprogesss;
+                    const studentCountDetails =
+                        response.data.data[0].studentCountDetails;
+                    const courseCompleted =
+                        response.data.data[0].courseCompleted;
+                    const courseINprogesss =
+                        response.data.data[0].courseINprogesss;
                     const submittedCount = response.data.data[0].submittedCount;
                     const draftCount = response.data.data[0].draftCount;
 
-                    const combinedArray = summary.map(summaryItem => {
+                    const combinedArray = summary.map((summaryItem) => {
                         const district = summaryItem.district;
-                        const totalTeams= summaryItem.totalTeams;
-                        const studentCountItem = studentCountDetails.find(item => item.district === district);
-                        const courseCompletedItem = courseCompleted.find(item => item.district === district);
-                        const courseInProgressItem = courseINprogesss.find(item => item.district === district);
-                        const courseNotStarted = studentCountItem ? (studentCountItem.totalstudent - (courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0) - (courseInProgressItem ? courseInProgressItem.studentCourseIN : 0)) : 0;
+                        const totalTeams = summaryItem.totalTeams;
+                        const studentCountItem = studentCountDetails.find(
+                            (item) => item.district === district
+                        );
+                        const courseCompletedItem = courseCompleted.find(
+                            (item) => item.district === district
+                        );
+                        const courseInProgressItem = courseINprogesss.find(
+                            (item) => item.district === district
+                        );
+                        const courseNotStarted = studentCountItem
+                            ? studentCountItem.totalstudent -
+                              (courseCompletedItem
+                                  ? courseCompletedItem.studentCourseCMP
+                                  : 0) -
+                              (courseInProgressItem
+                                  ? courseInProgressItem.studentCourseIN
+                                  : 0)
+                            : 0;
 
-                        const submittedCountItem = submittedCount.find(item => item.district === district);
-                        const draftCountItem = draftCount.find(item => item.district === district);
-                        const ideaNotStarted = summaryItem.totalTeams - ((submittedCountItem ? submittedCountItem.submittedCount : 0) + (draftCountItem ? draftCountItem.draftCount : 0));
+                        const submittedCountItem = submittedCount.find(
+                            (item) => item.district === district
+                        );
+                        const draftCountItem = draftCount.find(
+                            (item) => item.district === district
+                        );
+                        const ideaNotStarted =
+                            summaryItem.totalTeams -
+                            ((submittedCountItem
+                                ? submittedCountItem.submittedCount
+                                : 0) +
+                                (draftCountItem
+                                    ? draftCountItem.draftCount
+                                    : 0));
 
-                        const coursePercentage = studentCountItem && studentCountItem.totalstudent > 0 ? Math.round((courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0) / studentCountItem.totalstudent * 100) : 0;
-                        const ideaSubmissionPercentage = totalTeams > 0 ? Math.round((submittedCountItem ? submittedCountItem.submittedCount : 0) / totalTeams * 100) : 0;
-                        
-                        
+                        const coursePercentage =
+                            studentCountItem &&
+                            studentCountItem.totalstudent > 0
+                                ? Math.round(
+                                      ((courseCompletedItem
+                                          ? courseCompletedItem.studentCourseCMP
+                                          : 0) /
+                                          studentCountItem.totalstudent) *
+                                          100
+                                  )
+                                : 0;
+                        const ideaSubmissionPercentage =
+                            totalTeams > 0
+                                ? Math.round(
+                                      ((submittedCountItem
+                                          ? submittedCountItem.submittedCount
+                                          : 0) /
+                                          totalTeams) *
+                                          100
+                                  )
+                                : 0;
+
                         return {
-                          district,
-                          totalTeams,
-                          totalStudents: studentCountItem ? studentCountItem.totalstudent : 0,
-                          courseCompleted: courseCompletedItem ? courseCompletedItem.studentCourseCMP : 0,
-                          courseInProgress: courseInProgressItem ? courseInProgressItem.studentCourseIN : 0,
-                          courseNotStarted,
-                          submittedCount: submittedCountItem ? submittedCountItem.submittedCount : 0,
-                          draftCount: draftCountItem ? draftCountItem.draftCount : 0,
-                          ideaNotStarted,
-                          coursePercentage,
-                          ideaSubmissionPercentage
+                            district,
+                            totalTeams,
+                            totalStudents: studentCountItem
+                                ? studentCountItem.totalstudent
+                                : 0,
+                            courseCompleted: courseCompletedItem
+                                ? courseCompletedItem.studentCourseCMP
+                                : 0,
+                            courseInProgress: courseInProgressItem
+                                ? courseInProgressItem.studentCourseIN
+                                : 0,
+                            courseNotStarted,
+                            submittedCount: submittedCountItem
+                                ? submittedCountItem.submittedCount
+                                : 0,
+                            draftCount: draftCountItem
+                                ? draftCountItem.draftCount
+                                : 0,
+                            ideaNotStarted,
+                            coursePercentage,
+                            ideaSubmissionPercentage
                         };
-                        
-                      });
-
-                    const total = combinedArray.reduce((acc, item) => {
-                        acc.totalTeams += item.totalTeams;
-                        acc.totalStudents += item.totalStudents;
-                        acc.courseCompleted += item.courseCompleted;
-                        acc.courseInProgress += item.courseInProgress;
-                        acc.submittedCount += item.submittedCount;
-                        acc.draftCount += item.draftCount;
-                        acc.courseNotStarted = acc.totalStudents - (acc.courseCompleted + acc.courseInProgress);
-                        acc.ideaNotStarted = acc.totalTeams - (acc.submittedCount + acc.draftCount);
-                        return acc;
-                    }, {
-                        totalTeams: 0,
-                        totalStudents: 0,
-                        courseCompleted: 0,
-                        courseInProgress: 0,
-                        submittedCount: 0,
-                        draftCount: 0,
-                        courseNotStarted: 0,
-                        ideaNotStarted: 0
                     });
-                    console.log("Combined Array:", combinedArray);
-                    console.log("Total count",total);
 
-                    const doughNutData1={
-                        labels:['Completed','IN Progress','NOT Started'],
+                    const total = combinedArray.reduce(
+                        (acc, item) => {
+                            acc.totalTeams += item.totalTeams;
+                            acc.totalStudents += item.totalStudents;
+                            acc.courseCompleted += item.courseCompleted;
+                            acc.courseInProgress += item.courseInProgress;
+                            acc.submittedCount += item.submittedCount;
+                            acc.draftCount += item.draftCount;
+                            acc.courseNotStarted =
+                                acc.totalStudents -
+                                (acc.courseCompleted + acc.courseInProgress);
+                            acc.ideaNotStarted =
+                                acc.totalTeams -
+                                (acc.submittedCount + acc.draftCount);
+                            return acc;
+                        },
+                        {
+                            totalTeams: 0,
+                            totalStudents: 0,
+                            courseCompleted: 0,
+                            courseInProgress: 0,
+                            submittedCount: 0,
+                            draftCount: 0,
+                            courseNotStarted: 0,
+                            ideaNotStarted: 0
+                        }
+                    );
+                    console.log('Combined Array:', combinedArray);
+                    console.log('Total count', total);
+
+                    const doughNutData1 = {
+                        labels: ['Completed', 'IN Progress', 'NOT Started'],
                         datasets: [
                             {
                                 data: [
                                     total.courseCompleted,
                                     total.courseInProgress,
                                     total.courseNotStarted
-                                  ],
-                                backgroundColor: ['#36A2EB','#FFCE56','#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB','#FFCE56','#FF6384',]
+                                ],
+                                backgroundColor: [
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#FF6384'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#FF6384'
+                                ]
                             }
                         ]
                     };
-                    const doughNutData2={
-                        labels:['Submitted Ideas','IN Draft Ideas','NOT Started Idea Submission'],
+                    const doughNutData2 = {
+                        labels: [
+                            'Submitted Ideas',
+                            'IN Draft Ideas',
+                            'NOT Started Idea Submission'
+                        ],
                         datasets: [
                             {
                                 data: [
@@ -494,50 +569,69 @@ const ReportsRegistration = () => {
                                     total.draftCount,
                                     total.ideaNotStarted
                                 ],
-                                backgroundColor: ['#36A2EB','#FFCE56','#FF6384',],
-                                hoverBackgroundColor: ['#36A2EB','#FFCE56','#FF6384',]
+                                backgroundColor: [
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#FF6384'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#FF6384'
+                                ]
                             }
                         ]
                     };
 
-                    const stackedBarChart1Data={
-                        labels: combinedArray.map(item => item.district),
+                    const stackedBarChart1Data = {
+                        labels: combinedArray.map((item) => item.district),
                         datasets: [
-
                             {
                                 label: 'No of Students Completed Course',
-                                data: combinedArray.map(item => item.courseCompleted),
-                                backgroundColor: 'Lightgreen',
+                                data: combinedArray.map(
+                                    (item) => item.courseCompleted
+                                ),
+                                backgroundColor: 'Lightgreen'
                             },
                             {
                                 label: 'No of Students Course In progress',
-                                data: combinedArray.map(item => item.courseInProgress),
-                                backgroundColor: 'Yellow',
+                                data: combinedArray.map(
+                                    (item) => item.courseInProgress
+                                ),
+                                backgroundColor: 'Yellow'
                             },
                             {
                                 label: 'No of Students Not Started Course',
-                                data: combinedArray.map(item => item.courseNotStarted),
-                                backgroundColor: 'Red',
+                                data: combinedArray.map(
+                                    (item) => item.courseNotStarted
+                                ),
+                                backgroundColor: 'Red'
                             }
                         ]
                     };
 
-                    const stackedBarChart2Data={
-                        labels: combinedArray.map(item => item.district),
+                    const stackedBarChart2Data = {
+                        labels: combinedArray.map((item) => item.district),
                         datasets: [
                             {
                                 label: 'No of Teams Submitted Ideas',
-                                data: combinedArray.map(item => item.submittedCount),
-                                backgroundColor: 'Lightgreen',
+                                data: combinedArray.map(
+                                    (item) => item.submittedCount
+                                ),
+                                backgroundColor: 'Lightgreen'
                             },
                             {
                                 label: 'No of Team Ideas in Draft',
-                                data: combinedArray.map(item => item.draftCount),
+                                data: combinedArray.map(
+                                    (item) => item.draftCount
+                                ),
                                 backgroundColor: 'Yellow'
                             },
                             {
                                 label: 'No of Teams Not Started Idea Submission',
-                                data: combinedArray.map(item => item.ideaNotStarted),
+                                data: combinedArray.map(
+                                    (item) => item.ideaNotStarted
+                                ),
                                 backgroundColor: 'Red'
                             }
                         ]
@@ -550,15 +644,12 @@ const ReportsRegistration = () => {
                     setBarChart2Data(stackedBarChart2Data);
                     setTotalCount(total);
                 }
-                
             })
             .catch((error) => {
                 console.log('API error:', error);
             });
     };
-    console.log(downloadTableData);
-
-
+    // console.log(downloadTableData);
 
     return (
         <>
@@ -640,7 +731,9 @@ const ReportsRegistration = () => {
                                                 shape="btn-square"
                                                 onClick={() => {
                                                     if (downloadTableData) {
-                                                        setDownloadTableData(null); 
+                                                        setDownloadTableData(
+                                                            null
+                                                        );
                                                         csvLinkRefTable.current.link.click();
                                                     }
                                                 }}
@@ -726,35 +819,143 @@ const ReportsRegistration = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {combinedArray.map((item, index) => (
-                                                                <tr key={index}>
-                                                                    <td>{index +1}</td>
-                                                                    <td>{item.district}</td>
-                                                                    <td>{item.totalTeams}</td>
-                                                                    <td>{item.totalStudents}</td>
-                                                                    <td>{item.courseCompleted}</td>
-                                                                    <td>{item.courseInProgress}</td>
-                                                                    <td>{item.courseNotStarted}</td>
-                                                                    <td>{item.submittedCount}</td>
-                                                                    <td>{item.draftCount}</td>
-                                                                    <td>{item.ideaNotStarted}</td>
-                                                                    <td>{item.coursePercentage}%</td>
-                                                                    <td>{item.ideaSubmissionPercentage}%</td>
-                                                                </tr>
-                                                            ))}
+                                                            {combinedArray.map(
+                                                                (
+                                                                    item,
+                                                                    index
+                                                                ) => (
+                                                                    <tr
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        <td>
+                                                                            {index +
+                                                                                1}
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.district
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalTeams
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalStudents
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.courseCompleted
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.courseInProgress
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.courseNotStarted
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.submittedCount
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.draftCount
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.ideaNotStarted
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.coursePercentage
+                                                                            }
+                                                                            %
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.ideaSubmissionPercentage
+                                                                            }
+                                                                            %
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            )}
                                                             <tr>
                                                                 <td>{}</td>
-                                                                <td>{'Total Count'}</td>
-                                                                <td>{totalCount.totalTeams}</td>
-                                                                <td>{totalCount.totalStudents}</td>
-                                                                <td>{totalCount.courseCompleted}</td>
-                                                                <td>{totalCount.courseInProgress}</td>
-                                                                <td>{totalCount.courseNotStarted}</td>
-                                                                <td>{totalCount.submittedCount}</td>
-                                                                <td>{totalCount.draftCount}</td>
-                                                                <td>{totalCount.ideaNotStarted}</td>
-                                                                <td>{Math.round((totalCount.courseCompleted / totalCount.totalStudents) * 100)}%</td>
-                                                                <td>{Math.round((totalCount.submittedCount / totalCount.totalTeams) * 100)}%</td>
+                                                                <td>
+                                                                    {
+                                                                        'Total Count'
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.totalTeams
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.totalStudents
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.courseCompleted
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.courseInProgress
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.courseNotStarted
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.submittedCount
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.draftCount
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.ideaNotStarted
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {Math.round(
+                                                                        (totalCount.courseCompleted /
+                                                                            totalCount.totalStudents) *
+                                                                            100
+                                                                    )}
+                                                                    %
+                                                                </td>
+                                                                <td>
+                                                                    {Math.round(
+                                                                        (totalCount.submittedCount /
+                                                                            totalCount.totalTeams) *
+                                                                            100
+                                                                    )}
+                                                                    %
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </Table>
@@ -762,57 +963,113 @@ const ReportsRegistration = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5">
-                                                    <p style={{ whiteSpace: 'nowrap',paddingLeft: '50px'}}>
+                                                    <p
+                                                        style={{
+                                                            whiteSpace:
+                                                                'nowrap',
+                                                            paddingLeft: '50px'
+                                                        }}
+                                                    >
                                                         <b>
-                                                            Student Course Status As of {newFormat}
+                                                            Student Course
+                                                            Status As of{' '}
+                                                            {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
                                                 <div className="col-md-6 doughnut-chart-container">
                                                     {doughnutChart1Data && (
                                                         <Doughnut
-                                                            data={doughnutChart1Data}
-                                                            options={chartOptions}
+                                                            data={
+                                                                doughnutChart1Data
+                                                            }
+                                                            options={
+                                                                chartOptions
+                                                            }
                                                         />
                                                     )}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5 ">
-                                                    <p style={{ whiteSpace: 'nowrap',paddingLeft: '30px' }}>
+                                                    <p
+                                                        style={{
+                                                            whiteSpace:
+                                                                'nowrap',
+                                                            paddingLeft: '30px'
+                                                        }}
+                                                    >
                                                         <b>
-                                                            Student Idea Submission As of {newFormat}
+                                                            Student Idea
+                                                            Submission As of{' '}
+                                                            {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
                                                 <div className="col-md-6 doughnut-chart-container">
                                                     {doughnutChart2Data && (
                                                         <Doughnut
-                                                            data={doughnutChart2Data}
-                                                            options={chartOption}
+                                                            data={
+                                                                doughnutChart2Data
+                                                            }
+                                                            options={
+                                                                chartOption
+                                                            }
                                                         />
                                                     )}
                                                 </div>
                                             </div>
                                             <div className="row">
-                                            <div className="col-md-6 chart-container mt-2" style={{ width: '100%', height:'370px' }}>
-                                                <div className="chart-box">
-                                                    <Bar data={barChart1Data} options={stackedBarChart} />
-                                                    <div className="chart-title">
-                                                        <p>
-                                                            <b>Student Course Completion Status As of {newFormat}</b>
-                                                        </p>
+                                                <div
+                                                    className="col-md-6 chart-container mt-2"
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '370px'
+                                                    }}
+                                                >
+                                                    <div className="chart-box">
+                                                        <Bar
+                                                            data={barChart1Data}
+                                                            options={
+                                                                stackedBarChart
+                                                            }
+                                                        />
+                                                        <div className="chart-title">
+                                                            <p>
+                                                                <b>
+                                                                    Student
+                                                                    Course
+                                                                    Completion
+                                                                    Status As of{' '}
+                                                                    {newFormat}
+                                                                </b>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
-                                            
-                                            <div className="col-md-6 chart-container mt-4" style={{  width: '100%', height:'370px'}}>
+
+                                            <div
+                                                className="col-md-6 chart-container mt-4"
+                                                style={{
+                                                    width: '100%',
+                                                    height: '370px'
+                                                }}
+                                            >
                                                 <div className="chart-box">
-                                                    <Bar data={barChart2Data} options={stackedBarChartOptions}/>
+                                                    <Bar
+                                                        data={barChart2Data}
+                                                        options={
+                                                            stackedBarChartOptions
+                                                        }
+                                                    />
                                                     <div className="chart-title">
                                                         <p>
-                                                            <b>Idea Submission Status Status As of {newFormat}</b>
+                                                            <b>
+                                                                Idea Submission
+                                                                Status Status As
+                                                                of {newFormat}
+                                                            </b>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -856,4 +1113,3 @@ const ReportsRegistration = () => {
     );
 };
 export default ReportsRegistration;
-

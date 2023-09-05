@@ -59,6 +59,9 @@ function RegisterNew() {
         setOrgData();
         setError('');
     };
+    localStorage.setItem('mentorData', JSON.stringify(mentorData));
+    localStorage.setItem('orgData', JSON.stringify(orgData));
+
     const handleClose = () => {
         setBtn(false);
     };
@@ -174,6 +177,7 @@ function RegisterNew() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
+                            // console.log(mentorRegRes, 'Data');
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
                                 full_name:
