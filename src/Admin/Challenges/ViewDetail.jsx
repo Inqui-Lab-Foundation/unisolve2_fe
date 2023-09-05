@@ -163,7 +163,8 @@ const ViewDetail = (props) => {
     //     setPdfLoader(false);
     // };
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current
+        content: () => componentRef.current,
+        documentTitle : `${props?.ideaDetails?.team_name ? props?.ideaDetails?.team_name : 'temp'}_IdeaSubmission`
     });
 
     return (
