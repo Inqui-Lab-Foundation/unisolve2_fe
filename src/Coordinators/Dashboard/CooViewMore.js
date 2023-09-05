@@ -5,7 +5,8 @@ import { useHistory, withRouter } from 'react-router-dom';
 import Layout from '../Layout';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
+// import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
+import CoDoughnutChart from './CoDoughnutChart';
 import { Button } from '../../stories/Button';
 import axios from 'axios';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -185,7 +186,7 @@ const ViewMore = () => {
                         <Row className="">
                             <Col>
                                 <div className="d-flex flex-wrap">
-                                    <DoughnutChart
+                                    <CoDoughnutChart
                                         user={teamId}
                                         dashBoard={'Admin'}
                                     />

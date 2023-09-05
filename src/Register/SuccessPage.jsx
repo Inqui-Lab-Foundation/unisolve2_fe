@@ -23,6 +23,8 @@ import { useHistory } from 'react-router-dom';
 const SuccessPage = () => {
     const history = useHistory();
     const { t } = useTranslation();
+    const mentorDaTa = JSON.parse(localStorage.getItem('mentorData'));
+    const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
 
     const successData = history && history.location && history.location.data;
     return (
@@ -143,8 +145,9 @@ const SuccessPage = () => {
                                     }}
                                 >
                                     UDICE Code:{' '}
-                                    {successData &&
-                                        successData.organization_code}
+                                    {/* {successData &&
+                                        successData.organization_code} */}
+                                    {mentorDaTa.organization_code}
                                 </p>
                                 <p
                                     style={{
@@ -152,8 +155,8 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    School Name:{' '}
-                                    {successData && successData.school}
+                                    School Name: {orgDaTa.organization_name}
+                                    {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
                                     style={{
@@ -161,8 +164,8 @@ const SuccessPage = () => {
                                         marginBottom: '4rem'
                                     }}
                                 >
-                                    District:{' '}
-                                    {successData && successData.district}
+                                    District: {orgDaTa.district}
+                                    {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
                                     style={{
@@ -170,9 +173,8 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Faculty Name:{' '}
-                                    {successData && successData.title}.{' '}
-                                    {successData && successData.full_name}
+                                    Faculty Name: {mentorDaTa.title}.{' '}
+                                    {mentorDaTa.full_name}
                                 </p>
                                 <p
                                     style={{
@@ -181,7 +183,7 @@ const SuccessPage = () => {
                                     }}
                                 >
                                     Mobile Number / Login ID:{' '}
-                                    {successData && successData.mobile}
+                                    {mentorDaTa.mobile}
                                 </p>
                                 <p
                                     style={{
@@ -189,8 +191,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Whatsapp Number:{' '}
-                                    {successData && successData.whatapp_mobile}
+                                    Whatsapp Number: {mentorDaTa.whatapp_mobile}
                                 </p>
                                 <p
                                     style={{
@@ -198,8 +199,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Password:{' '}
-                                    {successData && successData.mobile}
+                                    Password: {mentorDaTa.mobile}
                                 </p>
                                 <p
                                     style={{
@@ -207,7 +207,7 @@ const SuccessPage = () => {
                                         marginBottom: '2rem'
                                     }}
                                 >
-                                    Gender: {successData && successData.gender}
+                                    Gender: {mentorDaTa.gender}
                                 </p>
                                 <p
                                     style={{

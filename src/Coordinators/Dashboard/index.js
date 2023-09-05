@@ -50,7 +50,7 @@ const Dashboard = () => {
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
     const [isideadisable, setIsideadisable] = useState(false);
-    const [isSameDistrict,setIsSameDistrict] = useState(false);
+    const [isSameDistrict, setIsSameDistrict] = useState(false);
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
@@ -140,8 +140,7 @@ const Dashboard = () => {
                                 response?.data?.data[0]?.mentor.mentor_id
                             );
                         }
-                    }
-                    else{
+                    } else {
                         setIsSameDistrict(true);
                     }
                 }
@@ -312,38 +311,38 @@ const Dashboard = () => {
                 selector: 'ideaStatus',
                 center: true,
                 width: '25%'
-            },
-            {
-                name: 'Actions',
-                cell: (params) => {
-                    return [
-                        <>
-                            {params.ideaStatus == 'SUBMITTED' && (
-                                <Button
-                                    key={params}
-                                    className={
-                                        isideadisable
-                                            ? `btn btn-success btn-lg mr-5 mx-2`
-                                            : `btn btn-lg mr-5 mx-2`
-                                    }
-                                    label={'REVOKE'}
-                                    size="small"
-                                    shape="btn-square"
-                                    onClick={() =>
-                                        handleRevoke(
-                                            params.challenge_response_id,
-                                            params.ideaStatus
-                                        )
-                                    }
-                                    disabled={!isideadisable}
-                                />
-                            )}
-                        </>
-                    ];
-                },
-                width: '20%',
-                center: true
             }
+            // {
+            //     name: 'Actions',
+            //     cell: (params) => {
+            //         return [
+            //             <>
+            //                 {params.ideaStatus == 'SUBMITTED' && (
+            //                     <Button
+            //                         key={params}
+            //                         className={
+            //                             isideadisable
+            //                                 ? `btn btn-success btn-lg mr-5 mx-2`
+            //                                 : `btn btn-lg mr-5 mx-2`
+            //                         }
+            //                         label={'REVOKE'}
+            //                         size="small"
+            //                         shape="btn-square"
+            //                         onClick={() =>
+            //                             handleRevoke(
+            //                                 params.challenge_response_id,
+            //                                 params.ideaStatus
+            //                             )
+            //                         }
+            //                         disabled={!isideadisable}
+            //                     />
+            //                 )}
+            //             </>
+            //         ];
+            //     },
+            //     width: '20%',
+            //     center: true
+            // }
         ]
     };
     const [teams, setTeam] = useState('-');
@@ -1190,15 +1189,15 @@ const Dashboard = () => {
                                             Enter Unique Code
                                         </span>
                                     </div>
-                                )}{
-                                    isSameDistrict && (
-                                        <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                )}
+                                {isSameDistrict && (
+                                    <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
                                         <span className="text-danger fs-highlight">
-                                            You are not authorised to look at other district data
+                                            You are not authorised to look at
+                                            other district data
                                         </span>
                                     </div>
-                                    )
-                                }
+                                )}
                             </div>
                         </div>
                     </div>
