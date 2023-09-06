@@ -45,6 +45,8 @@ const CoRegReport = () => {
         useState(null);
     const [registeredChartData, setRegisteredChartData] = useState(null);
     const [isDownloading, setIsDownloading] = useState(false);
+    const [newFormat, setNewFormat] = useState('');
+
     const [downloadComplete, setDownloadComplete] = useState(false);
     // const coordinator = useSelector((state) => state.coordinator);
     // console.log(coordinator, 'coordinator');
@@ -181,6 +183,11 @@ const CoRegReport = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
         //setStatsShowTable(true);
     }, []);
 
@@ -579,6 +586,17 @@ const CoRegReport = () => {
                                             </div>
                                             <div className="col-md-5">
                                                 <div className="row">
+                                                    <div className="col-md-12 text-center mt-3">
+                                                        <p>
+                                                            <b>
+                                                                Overall
+                                                                Registered and
+                                                                Not Registered
+                                                                Schools As of{' '}
+                                                                {newFormat}
+                                                            </b>
+                                                        </p>
+                                                    </div>
                                                     <div className="col-md-12 doughnut-chart-container">
                                                         {registeredChartData && (
                                                             <Doughnut
@@ -592,12 +610,18 @@ const CoRegReport = () => {
                                                         )}
                                                     </div>
                                                     <div className="col-md-11 text-center mt-3">
-                                                        <p>
+                                                        <p
+                                                            style={{
+                                                                paddingLeft:
+                                                                    '30px'
+                                                            }}
+                                                        >
                                                             <b>
                                                                 Overall
-                                                                Registered and
-                                                                Not Registered
-                                                                Count
+                                                                Registered Male
+                                                                vs Female
+                                                                Teachers As of{' '}
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -613,16 +637,6 @@ const CoRegReport = () => {
                                                             />
                                                         )}
                                                     </div>
-                                                    <div className="col-md-11 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                                Overall
-                                                                Registered Male
-                                                                vs Female
-                                                                Teachers
-                                                            </b>
-                                                        </p>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -632,7 +646,8 @@ const CoRegReport = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`Mentor_Summary_Table.csv`}
+                                        // filename={`Mentor_Summary_Table.csv`}
+                                        filename={`MentorSummaryTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                         onDownloaded={() => {
@@ -647,7 +662,8 @@ const CoRegReport = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={RegHeaders}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        // filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {
@@ -662,7 +678,8 @@ const CoRegReport = () => {
                                     <CSVLink
                                         data={downloadNotRegisteredData}
                                         headers={notRegHeaders}
-                                        filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        // filename={`Teacher_Registration_Status_${filterType}.csv`}
+                                        filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefNotRegistered}
                                         onDownloaded={() => {

@@ -19,8 +19,6 @@ import { notification } from 'antd';
 import { categoryValue } from '../../Schools/constentText';
 
 const ReportsRegistration = () => {
-   
-   
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState('');
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
@@ -28,7 +26,7 @@ const ReportsRegistration = () => {
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData =
         categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
-     
+
     const [downloadData, setDownloadData] = useState(null);
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
@@ -49,126 +47,124 @@ const ReportsRegistration = () => {
         (state) => state?.studentRegistration?.dists
     );
     const [downloadTableData, setDownloadTableData] = useState(null);
-    const summaryHeaders=[
+    const summaryHeaders = [
         {
-            label: "District Name",
-            key: "district"
+            label: 'District Name',
+            key: 'district'
         },
         {
-            label: "Total Eligible Schools",
-            key: "organization_count"
+            label: 'Total Eligible Schools',
+            key: 'organization_count'
         },
         {
-            label: "Total Registered Teachers",
-            key: "total_registered_teachers"
+            label: 'Total Registered Teachers',
+            key: 'total_registered_teachers'
         },
         {
-            label: "Total Not Registered Teachers",
-            key: "total_not_registered_teachers"
+            label: 'Total Not Registered Teachers',
+            key: 'total_not_registered_teachers'
         },
         {
-            label: "Registered Male Teachers",
-            key: "male_mentor_count"
+            label: 'Registered Male Teachers',
+            key: 'male_mentor_count'
         },
         {
-            label: "Registered Female Teachers",
-            key: "female_mentor_count"
-        },
+            label: 'Registered Female Teachers',
+            key: 'female_mentor_count'
+        }
     ];
-    const RegHeaders=[
+    const RegHeaders = [
         {
-            label: "UDISE CODE",
-            key: "organization.organization_code"
+            label: 'UDISE CODE',
+            key: 'organization.organization_code'
         },
         {
-            label: "School Name",
-            key: "organization.organization_name"
+            label: 'School Name',
+            key: 'organization.organization_name'
         },
         {
-            label: "School Type/Category",
-            key: "organization.category"
+            label: 'School Type/Category',
+            key: 'organization.category'
         },
         {
-            label: "District",
-            key: "organization.district"
+            label: 'District',
+            key: 'organization.district'
         },
         {
-            label: "City",
-            key: "organization.city"
+            label: 'City',
+            key: 'organization.city'
         },
         {
-            label: "HM Name",
-            key: "organization.principal_name"
+            label: 'HM Name',
+            key: 'organization.principal_name'
         },
         {
-            label: "HM Contact",
-            key: "organization.principal_mobile"
+            label: 'HM Contact',
+            key: 'organization.principal_mobile'
         },
         {
-            label: "Teacher Name",
-            key: "full_name"
+            label: 'Teacher Name',
+            key: 'full_name'
         },
         {
-            label: "Teacher Gender",
-            key: "gender"
+            label: 'Teacher Gender',
+            key: 'gender'
         },
         {
-            label: "Teacher Contact",
-            key: "mobile"
+            label: 'Teacher Contact',
+            key: 'mobile'
         },
         {
-            label: "Teacher WhatsApp Contact",
-            key: "whatapp_mobile"
-        },
-        
+            label: 'Teacher WhatsApp Contact',
+            key: 'whatapp_mobile'
+        }
     ];
-    const notRegHeaders=[
+    const notRegHeaders = [
         {
-            label: "Organization_Id",
-            key: "organization_id"
+            label: 'Organization_Id',
+            key: 'organization_id'
         },
         {
-            label: "UDISE CODE",
-            key: "organization_code"
+            label: 'UDISE CODE',
+            key: 'organization_code'
         },
         {
-            label: "School Name",
-            key: "organization_name"
+            label: 'School Name',
+            key: 'organization_name'
         },
         {
-            label: "School Type/Category",
-            key: "category"
+            label: 'School Type/Category',
+            key: 'category'
         },
         {
-            label: "District",
-            key: "district"
+            label: 'District',
+            key: 'district'
         },
         {
-            label: "City",
-            key: "city"
+            label: 'City',
+            key: 'city'
         },
         {
-            label: "State",
-            key: "state"
+            label: 'State',
+            key: 'state'
         },
         {
-            label: "Country",
-            key: "country"
+            label: 'Country',
+            key: 'country'
         },
         {
-            label: "HM Name",
-            key: "principal_name"
+            label: 'HM Name',
+            key: 'principal_name'
         },
         {
-            label: "HM Contact",
-            key: "principal_mobile"
+            label: 'HM Contact',
+            key: 'principal_mobile'
         },
         {
-            label: "HM Email",
-            key: "principal_email"
-        },
+            label: 'HM Email',
+            key: 'principal_email'
+        }
     ];
-    
 
     useEffect(() => {
         dispatch(getDistrictData());
@@ -297,7 +293,9 @@ const ReportsRegistration = () => {
             setFilterType('');
         }
         const newDate = new Date();
-        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
         setNewFormat(formattedDate);
     }, [downloadComplete]);
 
@@ -330,8 +328,8 @@ const ReportsRegistration = () => {
                         datasets: [
                             {
                                 data: [maleCount, femaleCount],
-                                backgroundColor: ['#36A2EB','#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB','#FF6384']
+                                backgroundColor: ['#36A2EB', '#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
                             }
                         ]
                     });
@@ -341,8 +339,8 @@ const ReportsRegistration = () => {
                         datasets: [
                             {
                                 data: [regCount, regNotCount],
-                                backgroundColor: ['#36A2EB','#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB','#FF6384']
+                                backgroundColor: ['#36A2EB', '#FF6384'],
+                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
                             }
                         ]
                     });
@@ -457,7 +455,9 @@ const ReportsRegistration = () => {
                                                 onClick={() => {
                                                     if (downloadTableData) {
                                                         setIsDownloading(true);
-                                                        setDownloadTableData(null); 
+                                                        setDownloadTableData(
+                                                            null
+                                                        );
                                                         csvLinkRefTable.current.link.click();
                                                     }
                                                 }}
@@ -467,7 +467,7 @@ const ReportsRegistration = () => {
                                                 }}
                                             />
                                         </div>
-                                        
+
                                         <div className="row">
                                             <div className="col-md-7">
                                                 <div className="table-wrapper bg-white">
@@ -564,14 +564,15 @@ const ReportsRegistration = () => {
                                             <div className="col-md-5">
                                                 <div className="row">
                                                     <div className="col-md-12 text-center mt-3">
-                                                            <p>
-                                                                <b>
-                                                                    Overall
-                                                                    Registered and
-                                                                    Not Registered
-                                                                    Schools As of {newFormat}
-                                                                </b>
-                                                            </p>
+                                                        <p>
+                                                            <b>
+                                                                Overall
+                                                                Registered and
+                                                                Not Registered
+                                                                Schools As of{' '}
+                                                                {newFormat}
+                                                            </b>
+                                                        </p>
                                                     </div>
                                                     <div className="col-md-12 doughnut-chart-container">
                                                         {registeredChartData && (
@@ -586,16 +587,22 @@ const ReportsRegistration = () => {
                                                         )}
                                                     </div>
                                                     <div className="col-md-12 text-center mt-3">
-                                                        <p style={{paddingLeft: '30px'}}>
+                                                        <p
+                                                            style={{
+                                                                paddingLeft:
+                                                                    '30px'
+                                                            }}
+                                                        >
                                                             <b>
                                                                 Overall
                                                                 Registered Male
                                                                 vs Female
-                                                                Teachers As of {newFormat}
+                                                                Teachers As of{' '}
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
-                                                    
+
                                                     <div className="col-md-12 doughnut-chart-container">
                                                         {registeredGenderChartData && (
                                                             <Doughnut

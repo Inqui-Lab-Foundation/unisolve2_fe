@@ -38,6 +38,9 @@ const CoTeacherDetailedReport = () => {
     const csvLinkRefTable = useRef();
     const dispatch = useDispatch();
     const [combinedArray, setCombinedArray] = useState([]);
+
+    const [newFormat, setNewFormat] = useState('');
+
     const [downloadTableData, setDownloadTableData] = useState([]);
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
@@ -190,6 +193,11 @@ const CoTeacherDetailedReport = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
     }, []);
 
     const chartOption = {
@@ -396,7 +404,7 @@ const CoTeacherDetailedReport = () => {
                             courseNotStarted
                         };
                     });
-                    
+
                     const doughnutData = {
                         labels: ['Male', 'Female'],
                         datasets: [
@@ -705,13 +713,21 @@ const CoTeacherDetailedReport = () => {
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-md-3">
                                                 <div className="row">
                                                     <div className="col-md-12 text-center mt-1">
-                                                        <p>
+                                                        <p
+                                                            style={{
+                                                                whiteSpace:
+                                                                    'nowrap',
+                                                                paddingLeft:
+                                                                    '10px'
+                                                            }}
+                                                        >
                                                             <b>
                                                                 Students Male vs
-                                                                Female
+                                                                Female As of{' '}
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -747,7 +763,7 @@ const CoTeacherDetailedReport = () => {
                                                             <b>
                                                                 Teams, Students
                                                                 Enrolled As of
-                                                                Date
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -773,7 +789,7 @@ const CoTeacherDetailedReport = () => {
                                                             <b>
                                                                 Teacher Course
                                                                 Status As of
-                                                                Date
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -786,7 +802,8 @@ const CoTeacherDetailedReport = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={tableHeaders}
-                                        filename={`Teacher_Detailed_Summary_Reports.csv`}
+                                        // filename={`Teacher_Detailed_Summary_Reports.csv`}
+                                        filename={`TeacherDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -798,7 +815,8 @@ const CoTeacherDetailedReport = () => {
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
-                                        filename={`Teacher Detailed Reports.csv`}
+                                        // filename={`Teacher Detailed Reports.csv`}
+                                        filename={`TeacherDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >

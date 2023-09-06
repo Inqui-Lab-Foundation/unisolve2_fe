@@ -35,6 +35,8 @@ const TeacherDetailed = () => {
     const dispatch = useDispatch();
     const [combinedArray, setCombinedArray] = useState([]);
     const [downloadTableData, setDownloadTableData] = useState([]);
+    const [newFormat, setNewFormat] = useState('');
+
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
         datasets: []
@@ -187,6 +189,11 @@ const TeacherDetailed = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
     }, []);
 
     const chartOption = {
@@ -769,13 +776,21 @@ const TeacherDetailed = () => {
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-md-3">
                                                 <div className="row">
                                                     <div className="col-md-12 text-center mt-1">
-                                                        <p>
+                                                        <p
+                                                            style={{
+                                                                whiteSpace:
+                                                                    'nowrap',
+                                                                paddingLeft:
+                                                                    '10px'
+                                                            }}
+                                                        >
                                                             <b>
                                                                 Students Male vs
-                                                                Female
+                                                                Female As of{' '}
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -795,7 +810,7 @@ const TeacherDetailed = () => {
                                             </div>
 
                                             <div
-                                                className="col-md-6 chart-container mt-1"
+                                                className="col-md-6 chart-container mt-5 "
                                                 style={{
                                                     width: '100%',
                                                     height: '370px'
@@ -811,7 +826,7 @@ const TeacherDetailed = () => {
                                                             <b>
                                                                 Teams, Students
                                                                 Enrolled As of
-                                                                Date
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -837,7 +852,7 @@ const TeacherDetailed = () => {
                                                             <b>
                                                                 Teacher Course
                                                                 Status As of
-                                                                Date
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -850,7 +865,8 @@ const TeacherDetailed = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={tableHeaders}
-                                        filename={`Teacher_Detailed_Summary_Reports.csv`}
+                                        // filename={`Teacher_Detailed_Summary_Reports.csv`}
+                                        filename={`TeacherDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -862,7 +878,8 @@ const TeacherDetailed = () => {
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
-                                        filename={`Teacher Detailed Reports.csv`}
+                                        // filename={`Teacher Detailed Reports.csv`}
+                                        filename={`TeacherDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >

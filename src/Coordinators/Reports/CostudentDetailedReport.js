@@ -112,6 +112,7 @@ const CostudentDetailedReport = () => {
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [combinedArray, setCombinedArray] = useState([]);
     const [downloadTableData, setDownloadTableData] = useState([]);
+    const [newFormat, setNewFormat] = useState('');
 
     const [doughnutChart1Data, setDoughnutChart1Data] = useState(null);
     const [doughnutChart2Data, setDoughnutChart2Data] = useState(null);
@@ -267,6 +268,11 @@ const CostudentDetailedReport = () => {
     useEffect(() => {
         dispatch(getDistrictData());
         fetchChartTableData();
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${
+            1 + newDate.getMonth()
+        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
     }, []);
 
     const chartOption = {
@@ -640,7 +646,7 @@ const CostudentDetailedReport = () => {
                             <Row className="align-items-center">
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
-                                    <p>{RegTeachersdistrict}</p>
+                                        <p>{RegTeachersdistrict}</p>
                                         {/* <Select
                                             list={fullDistrictsNames}
                                             setValue={setRegTeachersdistrict}
@@ -868,10 +874,17 @@ const CostudentDetailedReport = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5">
-                                                    <p>
+                                                    <p
+                                                        style={{
+                                                            whiteSpace:
+                                                                'nowrap',
+                                                            paddingLeft: '50px'
+                                                        }}
+                                                    >
                                                         <b>
                                                             Student Course
-                                                            Status
+                                                            Status As of{' '}
+                                                            {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
@@ -890,10 +903,17 @@ const CostudentDetailedReport = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5">
-                                                    <p>
+                                                    <p
+                                                        style={{
+                                                            whiteSpace:
+                                                                'nowrap',
+                                                            paddingLeft: '30px'
+                                                        }}
+                                                    >
                                                         <b>
                                                             Student Idea
-                                                            Submission
+                                                            Submission As of{' '}
+                                                            {newFormat}
                                                         </b>
                                                     </p>
                                                 </div>
@@ -932,7 +952,7 @@ const CostudentDetailedReport = () => {
                                                                     Course
                                                                     Completion
                                                                     Status As Of
-                                                                    Date
+                                                                    {newFormat}
                                                                 </b>
                                                             </p>
                                                         </div>
@@ -941,7 +961,7 @@ const CostudentDetailedReport = () => {
                                             </div>
 
                                             <div
-                                                className="col-md-6 chart-container mt-5"
+                                                className="col-md-6 chart-container mt-4"
                                                 style={{
                                                     width: '100%',
                                                     height: '370px'
@@ -958,8 +978,8 @@ const CostudentDetailedReport = () => {
                                                         <p>
                                                             <b>
                                                                 Idea Submission
-                                                                Status Status As
-                                                                Of Date
+                                                                Status As of{' '}
+                                                                {newFormat}
                                                             </b>
                                                         </p>
                                                     </div>
@@ -972,7 +992,8 @@ const CostudentDetailedReport = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={studentTableHeaders}
-                                        filename={`Student_Detailed_Summary_Reports.csv`}
+                                        // filename={`Student_Detailed_Summary_Reports.csv`}
+                                        filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -984,7 +1005,8 @@ const CostudentDetailedReport = () => {
                                     <CSVLink
                                         headers={studentDetailsHeaders}
                                         data={downloadData}
-                                        filename={`Student Detailed Reports.csv`}
+                                        filename={`StudentDetailedReport_${newFormat}.csv`}
+                                        // filename={`Student Detailed Reports.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {

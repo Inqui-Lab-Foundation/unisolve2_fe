@@ -6,7 +6,7 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 import { Button } from '../stories/Button';
 import { FaDownload } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
-import DetailToDownload from '../Admin/Evaluation/ViewSelectedIdea/DetailToDownload';
+import DetailToDownload from '../Admin/Challenges/DetailToDownload';
 // import ViewDetail from '../Admin/Challenges/ViewDetail';
 
 const LinkComponent = ({ item }) => {
@@ -69,7 +69,8 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
     }, [props]);
 
     const handlePrint = useReactToPrint({
-        content: () => componentRef.current
+        content: () => componentRef.current,
+        documentTitle : `${response[0]?.team_name ? response[0]?.team_name : 'temp'}_IdeaSubmission`
     });
     return (
         <div>
