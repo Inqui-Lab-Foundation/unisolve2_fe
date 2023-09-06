@@ -997,7 +997,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1022,7 +1022,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1046,7 +1046,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1070,7 +1070,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1101,7 +1101,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1126,7 +1126,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1154,7 +1154,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1183,7 +1183,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1218,7 +1218,7 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '120px' }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
@@ -1243,7 +1243,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1271,7 +1271,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1300,7 +1300,7 @@ const Dashboard = () => {
                                         text="dark"
                                         className="mb-4"
                                         style={{
-                                            height: '120px'
+                                            height: '150px'
                                         }}
                                     >
                                         <Card.Body>
@@ -1324,8 +1324,15 @@ const Dashboard = () => {
                                     </Card>
                                 </Row>
                             </Col>
-                            <Row>
-                                <Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem',
+                                    paddingLeft: '2rem'
+                                    // height: '150px'
+                                }}
+                            >
+                                <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1352,8 +1359,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Col>
-                                <Col>
+                                </Row>
+                                <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1381,8 +1388,9 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Col>
-                                <Col>
+                                </Row>
+
+                                <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1409,8 +1417,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Col>
-                                <Col>
+                                </Row>
+                                <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1437,8 +1445,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Col>
-                            </Row>
+                                </Row>
+                            </Col>
                             {/* <div>
                                 <Card bg="light" text="dark" className="mb-4">
                                     <Card.Body>

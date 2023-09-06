@@ -53,6 +53,8 @@ const Dashboard = () => {
     const [isideadisable, setIsideadisable] = useState(false);
     const [isSameDistrict, setIsSameDistrict] = useState(false);
     const handleOnChange = (e) => {
+        setWrong('');
+
         // we can give diescode as input //
         //where organization_code = diescode //
         localStorage.removeItem('organization_code');
