@@ -112,20 +112,20 @@ const TicketsPage = (props) => {
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
             setLoading(true);
-            const timeout = setTimeout(() => {
-                setLoading(false);
-                props.getStudentListAction(studentDist);
-            }, 2000);
+            props.getStudentListAction(studentDist);
+            // const timeout = setTimeout(() => {
+            //     // setLoading(false);
+            // }, 2000);
         }
     }, [tab, studentDist]);
     useEffect(() => {
         if (Number(tab) === 2 && mentorDist !== '') {
-            props.getAdminMentorsListAction('ALL', mentorDist);
             setLoading(true);
-            const timeout = setTimeout(() => {
-                setLoading(false);
-                props.getStudentListAction(mentorDist);
-            }, 2000);
+            props.getAdminMentorsListAction('All', mentorDist);
+            // const timeout = setTimeout(() => {
+            //     // setLoading(false);
+            //     // props.getStudentListAction(mentorDist);
+            // }, 2000);
         }
     }, [tab, mentorDist]);
     useEffect(() => {
@@ -139,7 +139,7 @@ const TicketsPage = (props) => {
     useEffect(() => {
         setLoading(true);
         const mentorTimeout = setTimeout(() => {
-            setLoading(false);
+            // setLoading(false);
             setMentorRows(TableMentorsProps.data);
         }, 2000);
         return () => clearTimeout(mentorTimeout);
@@ -147,11 +147,25 @@ const TicketsPage = (props) => {
     useEffect(() => {
         setLoading(true);
         const timeout = setTimeout(() => {
-            setLoading(false);
+            // setLoading(false);
             setRows(StudentsData.data);
         }, 2000);
         return () => clearTimeout(timeout);
     }, []);
+    useEffect(() => {
+        if (props.mentorsList.length > 0) {
+            setLoading(false);
+        } else {
+            setLoading(false);
+        }
+    }, [props.mentorsList]);
+    useEffect(() => {
+        if (props.studentList.length > 0) {
+            setLoading(false);
+        } else {
+            setLoading(false);
+        }
+    }, [props.studentList]);
     const changeTab = (e) => {
         // here we can see 4 tabs //
         // here e = students / teachers / evaluators / admins //
@@ -245,6 +259,7 @@ const TicketsPage = (props) => {
         });
         localStorage.setItem('mentor', JSON.stringify(item));
     };
+
     // const handleReset = (item) => {
     //     const body = JSON.stringify({
     //         organization_code: item.organization_code,
