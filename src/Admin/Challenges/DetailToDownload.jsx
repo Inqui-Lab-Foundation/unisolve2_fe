@@ -170,7 +170,7 @@ class detailToDownload extends React.Component {
                             src={IdeaPage1}
                             alt="IdeaPage1"
                             style={{
-                                height: '1120px',
+                                height: '112rem',
                                 width: '100%'
                             }}
                         />
