@@ -27,7 +27,7 @@ import AdminMyProfile from './Admin/MyProfile';
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
 import AdminEvaluationProcess from './Admin/EvalProcess/index';
-import AdminResources from './Admin/Resources/index';
+import AdminResources from './Admin/Resources/ResourcesList';
 import AdminCreateResource from './Admin/Resources/createResource';
 import AdminEditResource from './Admin/Resources/editResource';
 import AdminLatestNews from './Admin/LatestNews/TeacherNews';
@@ -563,7 +563,7 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
-                        path="/admin/Resources/index"
+                        path="/admin/Resources"
                         component={AdminResources}
                     />
                     <ProtectedRoute

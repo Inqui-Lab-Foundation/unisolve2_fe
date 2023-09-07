@@ -241,13 +241,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             <img src={ResourceIcon} style={{ width: '20px' }} />
                         }
                         className={
-                            location.pathname === '/admin/Resources/index' &&
+                            location.pathname === '/admin/Resources' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/admin/Resources/index'}
+                            to={'/admin/Resources'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
