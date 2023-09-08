@@ -89,7 +89,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu"  style={{ paddingRight: '1rem' }}>
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -241,13 +241,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             <img src={ResourceIcon} style={{ width: '20px' }} />
                         }
                         className={
-                            location.pathname === '/admin/Resources/index' &&
+                            location.pathname === '/admin/Resources' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/admin/Resources/index'}
+                            to={'/admin/Resources'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
@@ -288,13 +288,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             />
                         }
                         className={
-                            location.pathname === '/admin/LatestNews/index' &&
+                            location.pathname === '/admin/LatestNews' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/admin/LatestNews/index'}
+                            to={'/admin/LatestNews'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'

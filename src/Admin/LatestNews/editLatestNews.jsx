@@ -119,7 +119,7 @@ const EditLatestNews = (props) => {
                 );
 
                 if (response.status === 200) {
-                    props.history.push('/admin/LatestNews/index');
+                    props.history.push('/admin/LatestNews');
                     openNotificationWithIcon(
                         'success',
                         'LatestNews Updated Successfully'
@@ -355,7 +355,11 @@ const EditLatestNews = (props) => {
                                                 size="small"
                                                 btnClass="primary"
                                                 type="cancel"
-                                                onClick={() => history.goBack()}
+                                                onClick={() =>
+                                                    history.push(
+                                                        '/admin/LatestNews'
+                                                    )
+                                                }
                                             />
                                         </div>
                                     </Col>

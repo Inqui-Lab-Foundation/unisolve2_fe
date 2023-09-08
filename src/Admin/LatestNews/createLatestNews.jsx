@@ -112,7 +112,7 @@ const CreateLatestNews = (props) => {
                 );
 
                 if (response.status === 201) {
-                    props.history.push('/admin/LatestNews/index');
+                    props.history.push('/admin/LatestNews');
                     openNotificationWithIcon(
                         'success',
                         'LatestNews Updated Successfully'
