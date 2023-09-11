@@ -918,9 +918,10 @@ const TicketsPage = (props) => {
                                                 {props.mentorsList.length}
                                             </Card>
                                         )}
+                                        {/* <div className="m-5 "> */}
                                         <Button
                                             label="Add "
-                                            btnClass=" btn btn-success"
+                                            btnClass="m-5 btn btn-success"
                                             size="small"
                                             shape="btn-square"
                                             // Icon={BsPlusLg}
@@ -930,6 +931,7 @@ const TicketsPage = (props) => {
                                                 )
                                             }
                                         />
+                                        {/* </div> */}
                                     </>
                                 )}
 
