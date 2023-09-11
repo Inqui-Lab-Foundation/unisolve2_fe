@@ -37,10 +37,7 @@ const AdminResources = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setResList(
-                        response.data &&
-                            response.data.data
-                    );
+                    setResList(response.data && response.data.data);
                 }
             })
             .catch(function (error) {
@@ -56,35 +53,6 @@ const AdminResources = () => {
         localStorage.setItem('resID', JSON.stringify(item));
     };
 
-    // const handleDelete = async (item) => {
-    //     const resourceID = item.resource_id;
-    //     const confirmed = window.confirm(
-    //         'Are you sure you want to delete this resource?'
-    //     );
-    //     if (!confirmed) {
-    //         return;
-    //     }
-    //     try {
-    //         const response = await axios.delete(
-    //             `${process.env.REACT_APP_API_BASE_URL}/resource/${resourceID}`,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
-    //                 }
-    //             }
-    //         );
-    //         if (response.status === 200) {
-    //             openNotificationWithIcon(
-    //                 'success',
-    //                 'Resource succesfully deleted'
-    //             );
-    //             handleResList();
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
     const handleDelete = (item) => {
         // here we can delete the team //
         const swalWithBootstrapButtons = Swal.mixin({

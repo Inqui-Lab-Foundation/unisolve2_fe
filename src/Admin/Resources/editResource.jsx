@@ -130,7 +130,7 @@ const EditResource = (props) => {
                 );
 
                 if (response.status === 200) {
-                    props.history.push('/admin/Resources/index');
+                    props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'
@@ -359,7 +359,7 @@ const EditResource = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/admin/Resources/index'
+                                                    '/admin/Resources'
                                                 )
                                             }
                                         />

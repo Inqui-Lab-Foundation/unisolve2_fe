@@ -19,6 +19,7 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
 import { getNormalHeaders } from '../../helpers/Utils';
+import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -90,6 +91,8 @@ const SelectDists = ({
 };
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -250,6 +253,7 @@ const TicketsPage = (props) => {
             JSON.stringify(item.organization_code)
         );
     };
+
     const handleEdit = (item) => {
         // where we can edit user details  //
         // where item = mentor id //
@@ -548,6 +552,13 @@ const TicketsPage = (props) => {
                             <div className="btn btn-success">ACTIVE</div>
                         )}
                     </div>
+                    // <div
+                    //     key={record.id}
+                    //     onClick={() => handleAdd(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-warning btn-lg">Add</div>
+                    // </div>
                 ]
             }
         ]
@@ -907,8 +918,45 @@ const TicketsPage = (props) => {
                                                 {props.mentorsList.length}
                                             </Card>
                                         )}
+                                        {/* <div className="m-5 "> */}
+                                        {/* <div className="d-flex justify-content-end">
+                                            <Button
+                                                label="Add "
+                                                btnClass="m-5 btn btn-success"
+                                                size="small"
+                                                shape="btn-square"
+                                                // Icon={BsPlusLg}
+                                                onClick={() =>
+                                                    history.push(
+                                                        '/admin/teacher/register'
+                                                    )
+                                                }
+                                            />
+                                        </div> */}
                                     </>
                                 )}
+                                {tab && tab == 2 && (
+                                    <>
+                                        {/* <div className="m-5 "> */}
+                                        <Col className="ticket-btn col ml-auto ">
+                                            <div className="d-flex justify-content-end">
+                                                <Button
+                                                    label="Add/Register Teacher "
+                                                    btnClass="m-5 btn btn-success"
+                                                    size="small"
+                                                    shape="btn-square"
+                                                    // Icon={BsPlusLg}
+                                                    onClick={() =>
+                                                        history.push(
+                                                            '/admin/teacher/register'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </Col>
+                                    </>
+                                )}
+
                                 {tab && (tab == 3 || tab == 4) && (
                                     <Button
                                         label={

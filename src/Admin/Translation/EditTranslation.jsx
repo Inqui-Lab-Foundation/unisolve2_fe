@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Layout from '../Layout';
 import { Container, Row, Col, Card, Label, Form } from 'reactstrap';
@@ -108,7 +109,7 @@ const EditTranslation = (props) => {
                     <Row>
                         <Card className="mt-5 mb-5 p-5">
                             <Col>
-                                <Label>{t('translation.tamil')}</Label>
+                                <Label>Translation</Label>
                             </Col>
 
                             <Col className="form-group" md={12}>

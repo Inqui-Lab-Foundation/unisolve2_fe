@@ -415,7 +415,7 @@ const CreateResource = (props) => {
                                                 // }
                                                 onClick={() =>
                                                     props.history.push(
-                                                        '/admin/Resources/index'
+                                                        '/admin/Resources'
                                                     )
                                                 }
                                             />

@@ -27,10 +27,10 @@ import AdminMyProfile from './Admin/MyProfile';
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
 import AdminEvaluationProcess from './Admin/EvalProcess/index';
-import AdminResources from './Admin/Resources/index';
+import AdminResources from './Admin/Resources/ResourcesList';
 import AdminCreateResource from './Admin/Resources/createResource';
 import AdminEditResource from './Admin/Resources/editResource';
-import AdminLatestNews from './Admin/LatestNews/index';
+import AdminLatestNews from './Admin/LatestNews/TeacherNews';
 import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
 import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
@@ -138,7 +138,8 @@ import CoRegReport from './Coordinators/Reports/CoRegReport';
 import CoTeacherDetailedReport from './Coordinators/Reports/CoTeacherDetailedReport';
 import CostudentDetailedReport from './Coordinators/Reports/CostudentDetailedReport';
 import CooViewMore from './Coordinators/Dashboard/CooViewMore';
-
+import TeacherRegister from './Admin/UserList/TeacherRegister';
+import SuccessTeacher from './Admin/UserList/SuccessTeacher';
 const Routers = () => {
     return (
         <>
@@ -369,6 +370,18 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/teacher/register"
+                        component={TeacherRegister}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/success"
+                        component={SuccessTeacher}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/my-profile"
                         component={AdminMyProfile}
                     />
@@ -564,7 +577,7 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
-                        path="/admin/Resources/index"
+                        path="/admin/Resources"
                         component={AdminResources}
                     />
                     <ProtectedRoute
@@ -583,9 +596,10 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
-                        path="/admin/LatestNews/index"
+                        path="/admin/LatestNews"
                         component={AdminLatestNews}
                     />
+
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
