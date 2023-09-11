@@ -919,19 +919,41 @@ const TicketsPage = (props) => {
                                             </Card>
                                         )}
                                         {/* <div className="m-5 "> */}
-                                        <Button
-                                            label="Add "
-                                            btnClass="m-5 btn btn-success"
-                                            size="small"
-                                            shape="btn-square"
-                                            // Icon={BsPlusLg}
-                                            onClick={() =>
-                                                history.push(
-                                                    '/admin/teacher/register'
-                                                )
-                                            }
-                                        />
-                                        {/* </div> */}
+                                        {/* <div className="d-flex justify-content-end">
+                                            <Button
+                                                label="Add "
+                                                btnClass="m-5 btn btn-success"
+                                                size="small"
+                                                shape="btn-square"
+                                                // Icon={BsPlusLg}
+                                                onClick={() =>
+                                                    history.push(
+                                                        '/admin/teacher/register'
+                                                    )
+                                                }
+                                            />
+                                        </div> */}
+                                    </>
+                                )}
+                                {tab && tab == 2 && (
+                                    <>
+                                        {/* <div className="m-5 "> */}
+                                        <Col className="ticket-btn col ml-auto ">
+                                            <div className="d-flex justify-content-end">
+                                                <Button
+                                                    label="Add/Register Teacher "
+                                                    btnClass="m-5 btn btn-success"
+                                                    size="small"
+                                                    shape="btn-square"
+                                                    // Icon={BsPlusLg}
+                                                    onClick={() =>
+                                                        history.push(
+                                                            '/admin/teacher/register'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </Col>
                                     </>
                                 )}
 

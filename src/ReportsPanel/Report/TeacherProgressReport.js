@@ -502,7 +502,7 @@ const TeacherDetailed = () => {
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
-                            <h2>Teacher Progress Detailed Report</h2>
+                            <h2>School Progress Detailed Report</h2>
                         </Col>
                         <Col className="text-right mb-1">
                             <Button
@@ -866,7 +866,7 @@ const TeacherDetailed = () => {
                                         data={downloadTableData}
                                         headers={tableHeaders}
                                         // filename={`Teacher_Detailed_Summary_Reports.csv`}
-                                        filename={`TeacherDetailedSummaryReport_${newFormat}.csv`}
+                                        filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -879,7 +879,7 @@ const TeacherDetailed = () => {
                                         headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
                                         // filename={`Teacher Detailed Reports.csv`}
-                                        filename={`TeacherDetailedReport_${newFormat}.csv`}
+                                        filename={`SchoolDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >

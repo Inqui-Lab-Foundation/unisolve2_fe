@@ -41,7 +41,7 @@ const DistReports = () => {
                                 <Link to="/coordinator/TeacherProgressDetailed">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            TEACHER PROGRESS DEATAILED REPORT
+                                            SCHOOL PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>
@@ -53,7 +53,7 @@ const DistReports = () => {
                                 <Link to="/coordinator/StudentDetailedReport">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            STUDENT PROGRESS DEATAILED REPORT
+                                            STUDENT PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>
