@@ -443,7 +443,7 @@ const AdminResources = () => {
                             ) : (
                                 <div className="d-flex justify-content-end">
                                     <Button
-                                        label="Student Latest News"
+                                        label="Student Resources"
                                         btnClass=" btn btn-success"
                                         size="small"
                                         shape="btn-square"

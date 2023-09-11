@@ -138,6 +138,8 @@ import CoRegReport from './Coordinators/Reports/CoRegReport';
 import CoTeacherDetailedReport from './Coordinators/Reports/CoTeacherDetailedReport';
 import CostudentDetailedReport from './Coordinators/Reports/CostudentDetailedReport';
 import CooViewMore from './Coordinators/Dashboard/CooViewMore';
+import TeacherRegister from './Admin/UserList/TeacherRegister';
+import SuccessTeacher from './Admin/UserList/SuccessTeacher';
 const Routers = () => {
     return (
         <>
@@ -364,6 +366,18 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/teacher/dashboard"
                         component={AdminTeacherDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/teacher/register"
+                        component={TeacherRegister}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/success"
+                        component={SuccessTeacher}
                     />
                     <ProtectedRoute
                         exact={true}
