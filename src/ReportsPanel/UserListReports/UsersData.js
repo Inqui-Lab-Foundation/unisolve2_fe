@@ -534,43 +534,6 @@ const TicketsPage = (props) => {
                     >
                         <div className="btn btn-primary ">VIEW</div>
                     </div>
-                    // <div
-                    //
-                    //     key={record.id}
-                    //     onClick={() => handleEdit(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-warning btn-lg">EDIT</div>
-                    // </div>,
-                    // <div
-                    //     key={record.id}
-                    //     className="mr-5"
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(
-                    //             status,
-                    //             record?.mentor_id,
-                    //             undefined,
-                    //             record
-                    //         );
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger">INACTIVE</div>
-                    //     ) : (
-                    //         <div className="btn btn-success">ACTIVE</div>
-                    //     )}
-                    // </div>
-                    // <div
-                    //     key={record.id}
-                    //     onClick={() => handleAdd(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-warning btn-lg">Add</div>
-                    // </div>
                 ]
             }
         ]
