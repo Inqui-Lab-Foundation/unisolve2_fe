@@ -111,6 +111,8 @@ const TicketsPage = (props) => {
     //         props.getAdminListAction();
     //     }
     // }, [tab]);
+    const MentorItemsList = props.mentorsList;
+    const StudentItemsList = props.studentList;
 
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
@@ -156,19 +158,19 @@ const TicketsPage = (props) => {
         return () => clearTimeout(timeout);
     }, []);
     useEffect(() => {
-        if (props.mentorsList.length > 0) {
+        if (MentorItemsList.length > 0) {
             setLoading(false);
         } else {
             setLoading(false);
         }
-    }, [props.mentorsList]);
+    }, [MentorItemsList]);
     useEffect(() => {
-        if (props.studentList.length > 0) {
+        if (StudentItemsList.length > 0) {
             setLoading(false);
         } else {
             setLoading(false);
         }
-    }, [props.studentList]);
+    }, [StudentItemsList]);
     const changeTab = (e) => {
         // here we can see 4 tabs //
         // here e = students / teachers / evaluators / admins //
@@ -447,11 +449,10 @@ const TicketsPage = (props) => {
                 }
             });
     };
-
     const TableMentorsProps = {
         data:
-            props.mentorsList && props.mentorsList.length > 0
-                ? props.mentorsList
+            MentorItemsList && MentorItemsList.length > 0
+                ? MentorItemsList
                 : [],
         // totalItems: props.totalItems,
         columns: [
@@ -575,7 +576,7 @@ const TicketsPage = (props) => {
         ]
     };
     const StudentsData = {
-        data: props.studentList,
+        data: StudentItemsList,
         columns: [
             {
                 name: 'No',
@@ -907,7 +908,7 @@ const TicketsPage = (props) => {
                                         {studentDist && (
                                             <Card className="ms-3 p-3">
                                                 Total Students :{' '}
-                                                {props.studentList.length}
+                                                {StudentItemsList.length}
                                             </Card>
                                         )}
                                     </>
@@ -926,7 +927,7 @@ const TicketsPage = (props) => {
                                         {mentorDist && (
                                             <Card className="ms-3 p-3">
                                                 Total Teachers :{' '}
-                                                {props.mentorsList.length}
+                                                {MentorItemsList.length}
                                             </Card>
                                         )}
                                         {/* <div className="m-5 "> */}
