@@ -31,7 +31,7 @@ const TicketsPage = () => {
         // where we can see all tickets //
         setFetchData(true);
         // alert('hii');
-        var config = {
+        const config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/supportTickets',
             headers: {
@@ -58,7 +58,7 @@ const TicketsPage = () => {
     async function openListApi() {
         setFetchData(true);
         // where we can see all open tickets //
-        var config = {
+        const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
@@ -85,7 +85,7 @@ const TicketsPage = () => {
     async function inProgressApi() {
         setFetchData(true);
         // where  we can see  all inprogress tickets //
-        var config = {
+        const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
@@ -112,7 +112,7 @@ const TicketsPage = () => {
     async function resolvedApi() {
         setFetchData(true);
         // where we ca see all resolved tickets //
-        var config = {
+        const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
@@ -138,7 +138,7 @@ const TicketsPage = () => {
     }
     async function invalidApi() {
         // where we can see all invalid tickets //
-        var config = {
+        const config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
