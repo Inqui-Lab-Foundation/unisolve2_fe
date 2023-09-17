@@ -42,7 +42,7 @@ const TicketsPage = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(setFetchData);
+                    // console.log(response);
                     setAllTicketResponse(
                         response.data.data[0] &&
                             response.data.data[0].dataValues
@@ -172,11 +172,19 @@ const TicketsPage = () => {
                 width: '10rem'
             },
             {
-                name: ' Query Category',
-                selector: (row) => row.query_category,
-                cellExport: (row) => row.query_category,
+                name: 'District',
+                selector: (row) => row.district,
+                cellExport: (row) => row.district,
                 sortable: true,
-                width: '25rem'
+                width: '20rem'
+            },
+
+            {
+                name: 'UDISE Code',
+                selector: (row) => row.organization_code,
+                cellExport: (row) => row.organization_code,
+                sortable: true,
+                width: '20rem'
             },
 
             {
