@@ -14,7 +14,7 @@ import { getCurrentUser } from '../../helpers/Utils';
 const ViewMore = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-
+    
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
@@ -182,12 +182,13 @@ const ViewMore = () => {
                             </CardBody>
                         </Card>
                     </Row>
-                    <Row className="teacher-statistics bg-white p-5">
+                    <Row className="teacher-statistics">
                         <Row className="">
                             <Col>
                                 <div className="d-flex flex-wrap">
                                     <CoDoughnutChart
                                         user={teamId}
+                                        UserId={orgDaTa?.mentor?.user_id}
                                         dashBoard={'Admin'}
                                     />
                                 </div>

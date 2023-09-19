@@ -5,10 +5,10 @@ import { Card, Progress } from 'reactstrap';
 import { Table } from 'antd';
 import { getTeamMemberStatus } from '../../Teachers/store/teams/actions';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaDownload, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
 import { Button } from '../../stories/Button';
 import IdeaSubmissionCard from '../../components/IdeaSubmissionCard';
 import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistration/actions';
@@ -17,7 +17,9 @@ import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 import { Row, Col } from 'reactstrap';
-export default function DoughnutChart({ user }) {
+import { useReactToPrint } from 'react-to-print';
+import Schoolpdf from '../../School/SchoolPdf';
+export default function DoughnutChart({ user , UserId}) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
@@ -282,15 +284,147 @@ export default function DoughnutChart({ user }) {
         setstudentchangelist(studentlist);
         setstudentchangeObj(studentlistObj);
     }, [teamsMembersStatus, ChangeShow]);
+
+    ///// school pdf code
+    const [showPrintSymbol, setShowPrintSymbol] = useState(true);
+    //school pdf idea deatils
+    const [ideaValuesForPDF, setIdeaValuesForPDF] = useState();
+    const ideaDataforPDF = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/challenge_response/schoolpdfideastatus?mentor_id=${user[0].mentor_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setIdeaValuesForPDF(response?.data?.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    const [teamsData, setTeamsData] = useState([]);
+
+    //school pdf mentor deatils
+    const [mentorValuesForPDF, setMentorValuesForPDF] = useState();
+    const mentorDataforPDF = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/mentors/mentorpdfdata?id=${user[0].mentor_id}&user_id=${UserId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setMentorValuesForPDF(response?.data?.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    // Function to fetch data for a single team by ID
+    const fetchTeamData = async (teamId, teamName) => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_BASE_URL}/dashboard/teamStats/${teamId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                    }
+                }
+            );
+            return [...response.data.data, { name: teamName }];
+        } catch (error) {
+            console.error(`Error fetching data for team ID ${teamId}:`, error);
+            return null;
+        }
+    };
+
+    // Function to fetch data for all teams and store in a single array
+    const fetchAllTeamsData = async () => {
+        try {
+            const teamDataPromises = teamsList.map((teamId) =>
+                fetchTeamData(teamId.team_id, teamId.team_name)
+            );
+            const teamDataArray = await Promise.all(teamDataPromises);
+            const filteredDataArray = teamDataArray.filter(
+                (data) => data !== null
+            );
+            setTeamsData(filteredDataArray);
+        } catch (error) {
+            console.error('Error fetching team data:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (
+            teamsData.length === teamsList.length &&
+            teamsData.length !== 0 &&
+            mentorValuesForPDF !== undefined &&
+            ideaValuesForPDF !== undefined
+        ) {
+            handlePrint();
+            console.log('printcontinue');
+            setShowPrintSymbol(true);
+        } else {
+            console.log("Some PDF printing related api's are failing");
+            setShowPrintSymbol(true);
+        }
+    }, [teamsData, mentorValuesForPDF]);
+    const tsetcall = () => {
+        setShowPrintSymbol(false);
+        mentorDataforPDF();
+        ideaDataforPDF();
+        fetchAllTeamsData();
+    };
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+
+    //////
+
     return (
         <>
+        <div style={{ display: 'none' }}>
+                <Schoolpdf
+                    ref={componentRef}
+                    tabledata={teamsData}
+                    remMentor={mentorValuesForPDF}
+                    ideaStatusDetails={ideaValuesForPDF}
+                />
+            </div>
             <Card
                 className="select-team p-5 w-100"
                 style={{ overflowX: 'auto' }}
             >
-                <label htmlFor="teams" className="">
-                    Team Progress:
-                </label>
+                <div className="d-flex justify-content-between">
+                    <label htmlFor="teams" className="">
+                        Team Progress:
+                    </label>
+                    {showPrintSymbol ? (
+                        <FaDownload size={22} onClick={tsetcall} />
+                    ) : (
+                        <FaHourglassHalf size={22} />
+                    )}
+                </div>
                 <div className="d-flex align-items-center teamProgreess">
                     <Col md="3" xs="12">
                         <div className="singlediv">
