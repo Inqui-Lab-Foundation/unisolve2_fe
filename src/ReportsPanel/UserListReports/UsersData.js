@@ -141,22 +141,22 @@ const TicketsPage = (props) => {
     const [rows, setRows] = React.useState([]);
     const [mentorRows, setMentorRows] = React.useState([]);
 
-    useEffect(() => {
-        setLoading(true);
-        const mentorTimeout = setTimeout(() => {
-            // setLoading(false);
-            setMentorRows(TableMentorsProps.data);
-        }, 2000);
-        return () => clearTimeout(mentorTimeout);
-    }, []);
-    useEffect(() => {
-        setLoading(true);
-        const timeout = setTimeout(() => {
-            // setLoading(false);
-            setRows(StudentsData.data);
-        }, 2000);
-        return () => clearTimeout(timeout);
-    }, []);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     const mentorTimeout = setTimeout(() => {
+    //         setMentorRows(TableMentorsProps.data);
+    //         setLoading(false);
+    //     }, 2000);
+    //     return () => clearTimeout(mentorTimeout);
+    // }, []);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     const timeout = setTimeout(() => {
+    //         setRows(StudentsData.data);
+    //         setLoading(false);
+    //     }, 2000);
+    //     return () => clearTimeout(timeout);
+    // }, []);
     useEffect(() => {
         if (MentorItemsList.length > 0) {
             setLoading(false);
