@@ -35,8 +35,7 @@ const DashboardSchool = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const school = useSelector((state) => state.school);
-    console.log(school);
-
+    
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         if (currentUser?.data[0]?.organization_id) {
@@ -70,7 +69,7 @@ const DashboardSchool = (props) => {
                         setUserId(response?.data?.data[0]?.mentor.user_id);
                         var array = [];
                         array.push({
-                            mentor_id: response?.data?.data[0]?.mentor.mentor_id
+                            mentor_id: response?.data?.data[0]?.mentor.mentor_id,user_id: response?.data?.data[0]?.mentor.user_id
                         });
                         setMentorArrayId(array);
                     }
