@@ -158,6 +158,13 @@ const TicketsPage = (props) => {
     //     return () => clearTimeout(timeout);
     // }, []);
     useEffect(() => {
+        if (TableMentorsProps) {
+            setLoading(false);
+        } else {
+            setLoading(false);
+        }
+    }, [TableMentorsProps]);
+    useEffect(() => {
         if (MentorItemsList.length > 0) {
             setLoading(false);
         } else {
