@@ -157,13 +157,13 @@ const TicketsPage = (props) => {
     //     }, 2000);
     //     return () => clearTimeout(timeout);
     // }, []);
-    useEffect(() => {
-        if (TableMentorsProps) {
-            setLoading(false);
-        } else {
-            setLoading(false);
-        }
-    }, [TableMentorsProps]);
+    // useEffect(() => {
+    //     if (TableMentorsProps) {
+    //         setLoading(false);
+    //     } else {
+    //         setLoading(false);
+    //     }
+    // }, [TableMentorsProps]);
     useEffect(() => {
         if (MentorItemsList.length > 0) {
             setLoading(false);
