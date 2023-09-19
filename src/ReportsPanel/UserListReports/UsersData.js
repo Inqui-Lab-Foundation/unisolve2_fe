@@ -175,9 +175,10 @@ const TicketsPage = (props) => {
     useEffect(() => {
         if (StudentItemsList.length > 0) {
             setLoading(false);
-        } else {
-            setLoading(false);
         }
+        // else {
+        //     setLoading(false);
+        // }
     }, [StudentItemsList]);
     const changeTab = (e) => {
         // here we can see 4 tabs //
