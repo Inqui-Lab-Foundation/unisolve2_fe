@@ -140,6 +140,17 @@ import CostudentDetailedReport from './Coordinators/Reports/CostudentDetailedRep
 import CooViewMore from './Coordinators/Dashboard/CooViewMore';
 import TeacherRegister from './Admin/UserList/TeacherRegister';
 import SuccessTeacher from './Admin/UserList/SuccessTeacher';
+import ReportUser from './ReportsPanel/UserListReports/UsersData';
+import ReportCommonUserProfile from './ReportsPanel/UserListReports/CommonUserProfile';
+import ReportStudentEditProfile from './ReportsPanel/UserListReports/StudentEditProfile';
+import ReportTeacherDashboard from './ReportsPanel/UserListReports/ReportTeacherDashboard';
+import ReportMentorEditProfile from './ReportsPanel/UserListReports/MentorEditProfile';
+import ReportTeacherViewDetails from './ReportsPanel/UserListReports/TeacherViewDetails';
+import ReportTeacherRegister from './ReportsPanel/UserListReports/TeacherRegister';
+import ReportSuccessTeacher from './ReportsPanel/UserListReports/SuccessTeacher';
+import ReportTickets from './ReportsPanel/ReportTickets/Ticket';
+import ReportTicketResView from './ReportsPanel/ReportTickets/TicketResView';
+
 const Routers = () => {
     return (
         <>
@@ -182,6 +193,18 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="REPORT"
+                        path="/report/userprofile"
+                        component={ReportCommonUserProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/student/edit-user-profile"
+                        component={ReportStudentEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
                         path="/report/edit-user-profile"
                         component={ReportUserEditProfile}
                     />
@@ -206,8 +229,57 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="REPORT"
+                        path="/report/mentor/edit-user-profile"
+                        component={ReportMentorEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
                         path="/report/StudentDetailedReport"
                         component={StudentDetailedReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/success"
+                        component={ReportSuccessTeacher}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/teacher/register"
+                        component={ReportTeacherRegister}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/teacher/dashboard"
+                        component={ReportTeacherDashboard}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/userlist"
+                        component={ReportUser}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/teacher/View-More-details"
+                        component={ReportTeacherViewDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/tickets"
+                        component={ReportTickets}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/support-journey/ans-ticket"
+                        component={ReportTicketResView}
                     />
                     <Route
                         exact={true}
