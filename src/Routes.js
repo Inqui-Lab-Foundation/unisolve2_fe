@@ -148,6 +148,8 @@ import ReportMentorEditProfile from './ReportsPanel/UserListReports/MentorEditPr
 import ReportTeacherViewDetails from './ReportsPanel/UserListReports/TeacherViewDetails';
 import ReportTeacherRegister from './ReportsPanel/UserListReports/TeacherRegister';
 import ReportSuccessTeacher from './ReportsPanel/UserListReports/SuccessTeacher';
+import ReportTickets from './ReportsPanel/ReportTickets/Ticket';
+import ReportTicketResView from './ReportsPanel/ReportTickets/TicketResView';
 
 const Routers = () => {
     return (
@@ -266,6 +268,18 @@ const Routers = () => {
                         user="REPORT"
                         path="/report/teacher/View-More-details"
                         component={ReportTeacherViewDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/tickets"
+                        component={ReportTickets}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/support-journey/ans-ticket"
+                        component={ReportTicketResView}
                     />
                     <Route
                         exact={true}
