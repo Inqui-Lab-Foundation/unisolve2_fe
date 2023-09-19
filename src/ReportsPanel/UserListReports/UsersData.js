@@ -141,14 +141,14 @@ const TicketsPage = (props) => {
     const [rows, setRows] = React.useState([]);
     const [mentorRows, setMentorRows] = React.useState([]);
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     const mentorTimeout = setTimeout(() => {
-    //         setMentorRows(TableMentorsProps.data);
-    //         setLoading(false);
-    //     }, 2000);
-    //     return () => clearTimeout(mentorTimeout);
-    // }, []);
+    useEffect(() => {
+        setLoading(true);
+        const mentorTimeout = setTimeout(() => {
+            setMentorRows(TableMentorsProps.data);
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(mentorTimeout);
+    }, []);
     // useEffect(() => {
     //     setLoading(true);
     //     const timeout = setTimeout(() => {
@@ -167,9 +167,10 @@ const TicketsPage = (props) => {
     useEffect(() => {
         if (MentorItemsList.length > 0) {
             setLoading(false);
-        } else {
-            setLoading(false);
         }
+        // } else {
+        //     setLoading(false);
+        // }
     }, [MentorItemsList]);
     useEffect(() => {
         if (StudentItemsList.length > 0) {
