@@ -621,23 +621,6 @@ const TicketsPage = (props) => {
                     >
                         <div className="btn btn-primary  mr-5">VIEW</div>
                     </div>
-                    // <div
-                    //     key={record.id}
-                    //     style={{ marginRight: '10px' }}
-                    //     onClick={() => {
-                    //         let status =
-                    //             record?.status === 'ACTIVE'
-                    //                 ? 'INACTIVE'
-                    //                 : 'ACTIVE';
-                    //         handleStatus(status, record?.student_id, 'student');
-                    //     }}
-                    // >
-                    //     {record?.status === 'ACTIVE' ? (
-                    //         <div className="btn btn-danger ">INACTIVE</div>
-                    //     ) : (
-                    //         <div className="btn btn-warning ">ACTIVE</div>
-                    //     )}
-                    // </div>
                 ]
             }
         ]
