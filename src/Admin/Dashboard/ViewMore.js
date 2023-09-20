@@ -23,8 +23,7 @@ const ViewMore = () => {
         options: []
     };
     var teamId = [];
-    teamId.push({ mentor_id: orgDaTa.mentor.mentor_id });
-
+    teamId.push({ mentor_id: orgDaTa.mentor.mentor_id ,user_id:orgDaTa.mentor.user_id});
     const handleBack = () => {
         history.push({
             pathname: '/admin/dashboard'

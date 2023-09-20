@@ -5,8 +5,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import Layout from '../Layout';
 import { Container, Row, Card, CardBody, CardText, Col } from 'reactstrap';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
-import CoDoughnutChart from './CoDoughnutChart';
+import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
 import { Button } from '../../stories/Button';
 import axios from 'axios';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -14,7 +13,7 @@ import { getCurrentUser } from '../../helpers/Utils';
 const ViewMore = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    
+
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
@@ -28,7 +27,7 @@ const ViewMore = () => {
 
     const handleBack = () => {
         history.push({
-            pathname: '/coordinator/dashboard'
+            pathname: '/report/teacher/dashboard'
         });
         localStorage.setItem(
             'organization_code',
@@ -41,7 +40,7 @@ const ViewMore = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${orgDaTa?.mentor.user_id}&role=MENTOR`,
+                `/dashboard/quizscores?user_id=${orgDaTa.mentor.user_id}&role=MENTOR`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -52,14 +51,12 @@ const ViewMore = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     setCourse(response.data.data);
-                    // console.log(response);
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
     }, []);
-    // console.log(course);
     const percentageBWNumbers = (a, b) => {
         // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
@@ -182,13 +179,12 @@ const ViewMore = () => {
                             </CardBody>
                         </Card>
                     </Row>
-                    <Row className="teacher-statistics">
+                    <Row className="teacher-statistics bg-white p-5">
                         <Row className="">
                             <Col>
                                 <div className="d-flex flex-wrap">
-                                    <CoDoughnutChart
+                                    <DoughnutChart
                                         user={teamId}
-                                        UserId={orgDaTa?.mentor?.user_id}
                                         dashBoard={'Admin'}
                                     />
                                 </div>
@@ -205,8 +201,9 @@ const ViewMore = () => {
                                     </span>
                                     <b>
                                         {course[0]?.scores[0]?.score
-                                            ? course[0]?.scores[0]?.score
-                                            : '-'}
+                                            ? course[0]?.scores[0]?.score +
+                                              '/15'
+                                            : 0}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -225,7 +222,7 @@ const ViewMore = () => {
                                                           100
                                                   ) + '%'
                                               }`
-                                            : '-'}
+                                            : 0}
                                     </b>{' '}
                                 </CardText>
                             </CardBody>
