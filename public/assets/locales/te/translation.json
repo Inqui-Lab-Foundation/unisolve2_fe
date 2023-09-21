@@ -401,6 +401,15 @@
     "comm_tech_stu": {
         "resources_note": "Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
     },
+    "idea_page":{
+        "main":"Idea Submission Guidelines",
+        "title1":"Problem you Identified",
+        "title2":"Your Innovation to solve problem",
+        "title3":"Let's take User Feedback",
+        "title4":"Prototype - Make & Test",
+        "next":"Next",
+        "back":"Back"
+    },
     "translation": {
         "tamil": "Telugu Content :-",
         "tamil_to": "tn"
