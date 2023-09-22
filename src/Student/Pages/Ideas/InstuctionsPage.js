@@ -35,7 +35,7 @@ const InstructionsPage = (props) => {
                             <Fragment>
                                 <Card className="course-sec-basic p-5">
                                     <CardTitle className="text-left" tag="h2">
-                                        <p style={{color:'blue',fontSize:'2.5rem',fontWeight:'bold'}}> Idea Submission Guidelines </p>
+                                        <p style={{color:'blue',fontSize:'2.5rem',fontWeight:'bold'}}> {t('idea_page.main')} </p>
                                     </CardTitle>
                                     <CardBody>
                                         <div
@@ -48,7 +48,7 @@ const InstructionsPage = (props) => {
 
                                         <div className="text-right">
                                             <Button
-                                                label="next"
+                                                label={t('idea_page.next')}
                                                 btnClass="primary mt-4 mx-4"
                                                 size="small"
                                                 onClick={handleNext}

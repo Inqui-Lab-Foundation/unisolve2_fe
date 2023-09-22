@@ -15,7 +15,6 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { getCurrentUser } from '../../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudentByIdData } from '../../redux/studentRegistration/actions';
-import { t } from 'i18next';
 
 const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
@@ -31,7 +30,7 @@ const MyProfile = () => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <Label>{t('student.profile')}</Label>
+                        <Label>My Profile</Label>
                         <Row>
                             <Col md={12}>
                                 <Card className="w-100  mb-5 p-4">

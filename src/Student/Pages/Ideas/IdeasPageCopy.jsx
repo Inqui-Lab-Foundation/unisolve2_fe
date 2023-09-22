@@ -131,16 +131,16 @@ const IdeasPageNew = () => {
             setScreenQst(challengeQuestions);
         } else if (screenCount === 1) {
             setScreenQst(screenOneQst);
-            setScreenTitle('Problem you Identified');
+            setScreenTitle(t('idea_page.title1'));
         } else if (screenCount === 2) {
             setScreenQst(screenTwoQst);
-            setScreenTitle('Your Innovation to solve problem');
+            setScreenTitle(t('idea_page.title2'));
         } else if (screenCount === 3) {
             setScreenQst(screenThreeQst);
-            setScreenTitle("Let's take User Feedback");
+            setScreenTitle(t('idea_page.title3'));
         } else if (screenCount === 4) {
             setScreenQst(screenFourQst);
-            setScreenTitle('Prototype - Make & Test');
+            setScreenTitle(t('idea_page.title4'));
         }
     }, [screenCount, challengeQuestions, isDisabled]);
 
@@ -1470,7 +1470,7 @@ const IdeasPageNew = () => {
                                         }
                                         onClick={handleBack}
                                         size="small"
-                                        label="Back"
+                                        label={t('idea_page.back')}
                                         disabled={!(screenCount > 1)}
                                     />
                                     <p>{screenCount}</p>
@@ -1488,7 +1488,7 @@ const IdeasPageNew = () => {
                                                 // disabled={
                                                 //     !(screenCount < 4 )
                                                 // }
-                                                label="Next"
+                                                label={t('idea_page.next')}
                                             />
                                         )}
                                         <Button

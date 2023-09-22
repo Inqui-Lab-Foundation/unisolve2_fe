@@ -99,7 +99,7 @@ const StudentResources = () => {
                 <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
-                            <h2>Resources</h2>
+                            <h2>{t('home.resources')}</h2>
                         </Col>
                     </Row>
                     <Row>
