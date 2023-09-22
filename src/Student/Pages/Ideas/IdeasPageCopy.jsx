@@ -436,7 +436,8 @@ const IdeasPageNew = () => {
             responses,
             status: type ? 'DRAFT' : 'SUBMITTED',
             sdg,
-            others: others ? others : ''
+            others: others ? others : '',
+            district: currentUser?.data[0]?.district
         };
         await axios
             .post(
