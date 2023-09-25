@@ -43,6 +43,8 @@ export const coordinatorLoginUser =
                 const item = result.data;
                 setCurrentUser(item);
                 localStorage.setItem('module', module);
+                localStorage.setItem('time', new Date().toString());
+
                 dispatch(coordinatorLoginUserSuccess(result));
                 history.push('/coordinator/dashboard');
             } else {

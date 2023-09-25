@@ -3,7 +3,7 @@ import './Header.scss';
 import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
 import AvatarImg from '../assets/media/img/Avatar.png';
-
+import LanguageSelectorComp from '../components/LanguageSelectorComp';
 import {getCurrentUser} from "../helpers/Utils"; 
 import { useDispatch, useSelector } from 'react-redux';
 import i18next from 'i18next';
@@ -57,7 +57,7 @@ const Header = (props) => {
                                         </span> 
                                         
                                         {window.location.pathname === '/student/pre-survey' && presuveyStatusGl && presuveyStatusGl !=="COMPLETED" && <span className="common-language-selc">
-                                            
+                                            <LanguageSelectorComp module="student" />
                                         </span>}
                                     </div>
                                 </Col>

@@ -169,7 +169,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={(e) => handleClick(e, 'Resources')}
                             to={'/Student/Resources/index'}
                         >
-                            {t('Resources')}
+                            {t('home.resources')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
 import React, { useLayoutEffect } from 'react';
@@ -23,6 +24,9 @@ const LoginNew = (props) => {
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
+        const loginTime = localStorage.getItem('time');
+        // console.log(loginTime, 'q');
+
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')

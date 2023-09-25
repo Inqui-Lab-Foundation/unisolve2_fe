@@ -113,14 +113,23 @@ export const teacherLoginUser = (data, history, module) => async (dispatch) => {
             const item = result.data;
             setCurrentUser(item);
             localStorage.setItem('module', module);
+            localStorage.setItem('time', new Date().toString());
             dispatch(teacherLoginUserSuccess(result));
             history.push('/teacher/dashboard');
+            // setTimeout(() => {
+            //     localStorage.clear();
+            // }, 60000);
         } else {
-            if(result.status === 401){
-                openNotificationWithIcon('error', 'Your Account is Inactive. Contact administrator');
-            }
-            else{
-                openNotificationWithIcon('error', 'Enter the correct credentials');
+            if (result.status === 401) {
+                openNotificationWithIcon(
+                    'error',
+                    'Your Account is Inactive. Contact administrator'
+                );
+            } else {
+                openNotificationWithIcon(
+                    'error',
+                    'Enter the correct credentials'
+                );
             }
             dispatch(teacherLoginUserError(result.statusText));
         }

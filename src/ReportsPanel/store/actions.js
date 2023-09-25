@@ -41,6 +41,8 @@ export const reportLoginUser = (data, history, module) => async (dispatch) => {
             const item = result.data;
             setCurrentUser(item);
             localStorage.setItem('module', module);
+            localStorage.setItem('time', new Date().toString());
+
             dispatch(reportLoginUserSuccess(result));
             history.push('/report/dashboard');
         } else {

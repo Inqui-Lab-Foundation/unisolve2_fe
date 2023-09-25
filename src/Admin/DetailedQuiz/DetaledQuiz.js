@@ -289,20 +289,24 @@ const DetaledQuiz = (props) => {
                                                     <thead>
                                                         <tr>
                                                             <th>
-                                                                {t('Attempts')}
-                                                            </th>
-                                                            <th>
                                                                 {t(
-                                                                    'Correct Answers'
+                                                                    'student_course.quiz_score_attempts'
                                                                 )}
                                                             </th>
                                                             <th>
                                                                 {t(
-                                                                    'Wrong Answers'
+                                                                    'student_course.quiz_score_correctanswers'
                                                                 )}
                                                             </th>
                                                             <th>
-                                                                {t('Result')}
+                                                                {t(
+                                                                    'student_course.quiz_score_wronganswers'
+                                                                )}
+                                                            </th>
+                                                            <th>
+                                                                {t(
+                                                                    'student_course.quiz_score_result'
+                                                                )}
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -364,7 +368,7 @@ const DetaledQuiz = (props) => {
                                                             }}
                                                         >
                                                             {t(
-                                                                'You scored less than the cutoff (60%)'
+                                                                'student.cutoff'
                                                             )}
                                                         </h2>
                                                     )}
@@ -380,7 +384,9 @@ const DetaledQuiz = (props) => {
                                                 {currentPercentage < 60 ? (
                                                     <div className="text-right">
                                                         <Button
-                                                            label={t('Retest')}
+                                                            label={t(
+                                                                'student.retest'
+                                                            )}
                                                             btnClass="primary w-auto"
                                                             size="small"
                                                             type="submit"

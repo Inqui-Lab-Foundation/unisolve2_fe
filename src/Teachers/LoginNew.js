@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -11,7 +11,6 @@ import { Carousel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import studentIcon from '../assets/media/student_login_icon.png';
 import teacherIcon from '../assets/media/teacher_login_icon.png';
@@ -25,12 +24,15 @@ import i18next from 'i18next';
 import { numberFormat } from 'highcharts';
 
 const LoginNew = (props) => {
-    const { t } = useTranslation();
     const history = useHistory();
+
     // const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
+        const loginTime = localStorage.getItem('time');
+        // console.log(loginTime, 'q');
+
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')
@@ -101,17 +103,16 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'mobile',
-        // placeholder: t('loginPage.Enter_your_email')
         placeholder: 'Enter your Mobile number'
     };
 
     const inputPassword = {
-        placeholder: t('loginPage.Password'),
+        placeholder: 'Enter your password',
         showEyeIcon: true
     };
 
     const logInBtn = {
-        label: t('login.logIn'),
+        label: 'Log in',
         size: 'large'
     };
 
@@ -121,10 +122,6 @@ const LoginNew = (props) => {
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
-                            {t('login.Title')}
-                        </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
                                 <div className="mobile_tab-hide">
@@ -192,7 +189,7 @@ const LoginNew = (props) => {
                                             alt="login icon"
                                             className="img-fluid"
                                         />{' '}
-                                        {t('loginPage.teacher_login')}
+                                        Teacher Login
                                     </button>
                                 </Link>
                                 <Link
@@ -206,7 +203,7 @@ const LoginNew = (props) => {
                                             alt="login icon"
                                             className="img-fluid"
                                         />{' '}
-                                        {t('loginPage.student_login')}
+                                        Student Login
                                     </button>
                                 </Link>
                             </div>
@@ -228,7 +225,6 @@ const LoginNew = (props) => {
                                                 htmlFor="phone"
                                             >
                                                 Mobile Number
-                                                {/* {t('loginPage.User_ID_Teacher')} */}
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -265,7 +261,7 @@ const LoginNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="Password"
                                             >
-                                                {t('loginPage.Password_label')}
+                                                Password
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
@@ -298,17 +294,12 @@ const LoginNew = (props) => {
                                                         // onClick={handleOnClick}
                                                         className="text-link pt-1 text-primary"
                                                     >
-                                                        {/* {t(
-                                                            'loginPage.Forgot_password'
-                                                        )} */}
                                                         <Link
                                                             exact="true"
                                                             to="/teacher/forgotpassword"
                                                             className="text-link pt-1"
                                                         >
-                                                            {t(
-                                                                'loginPage.Forgot_password'
-                                                            )}
+                                                            Forgot password
                                                         </Link>
                                                     </div>
                                                 </Col>
