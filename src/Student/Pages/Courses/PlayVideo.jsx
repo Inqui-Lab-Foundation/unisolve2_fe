@@ -500,7 +500,7 @@ const PlayVideoCourses = (props) => {
         if (event.reflective_quiz_status !== 'INCOMPLETE') {
             if (
                 topicObj.topic_type_id !==
-                setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id
+                setTopicArrays[setTopicArrays?.length - 1]?.topic_type_id || topicObj.topic_type!= setTopicArrays[setTopicArrays?.length - 1]?.topic_type 
             ) {
                 setTopic(setTopicArrays[topixIndex]);
                 modulesListUpdateApi(topicObj.course_topic_id);
