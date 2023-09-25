@@ -227,7 +227,11 @@
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of characters is ",
-        "max_length_msg2": " only..."
+        "max_length_msg2": " only...",
+        "cutoff":"You scored less than the cutoff (60%)",
+        "retest":"Retest",
+        "resume_quiz":"Resume Quiz",
+        "see_result":"See Result"
     },
     "teacher_presurvey": {
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."

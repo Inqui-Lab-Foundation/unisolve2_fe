@@ -364,7 +364,7 @@ const DetaledQuiz = (props) => {
                                                             }}
                                                         >
                                                             {t(
-                                                                'You scored less than the cutoff (60%)'
+                                                                'student.cutoff'
                                                             )}
                                                         </h2>
                                                     )}
@@ -380,7 +380,7 @@ const DetaledQuiz = (props) => {
                                                 {currentPercentage < 60 ? (
                                                     <div className="text-right">
                                                         <Button
-                                                            label={t('Retest')}
+                                                            label={t('student.retest')}
                                                             btnClass="primary w-auto"
                                                             size="small"
                                                             type="submit"

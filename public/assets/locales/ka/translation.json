@@ -215,7 +215,11 @@
         "post_survey_desc": "ಅಭಿನಂದನೆಗಳು! 2022-23 ರ ನಿಮ್ಮ SIP ಪ್ರಯಾಣ ಪೂರ್ಣಗೊಂಡಿದೆ.",
         "click_button_post_survey": "ನಿಮ್ಮ ಪ್ರಮಾಣಪತ್ರವು ಶೀಘ್ರದಲ್ಲೇ ಸಿದ್ಧವಾಗಲಿದೆ ಮತ್ತು ನೀವು ಅದನ್ನು 'ನನ್ನ ಪ್ರಮಾಣಪತ್ರ ಪುಟ'ದಿಂದ ಡೌನ್‌ಲೋಡ್ ಮಾಡಬಹುದು",
         "max_length_msg1": "ಅಕ್ಷರಗಳ ಗರಿಷ್ಠ ಉದ್ದ ",
-        "max_length_msg2": " ಕೇವಲ..."
+        "max_length_msg2": " ಕೇವಲ...",
+        "cutoff":"You scored less than the cutoff (60%)",
+        "retest":"Retest",
+        "resume_quiz":"Resume Quiz",
+        "see_result":"See Result"
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"

@@ -216,7 +216,11 @@
         "post_survey_desc": "అభినందనలు! 2022-23 కోసం మీ SIDP ప్రయాణం పూర్తయింది.",
         "click_button_post_survey": "మీ సర్టిఫికేట్ త్వరలో సిద్ధంగా ఉంటుంది మరియు మీరు దానిని 'నా సర్టిఫికేట్ పేజీ' నుండి డౌన్‌లోడ్ చేసుకోవచ్చు",
         "max_length_msg1": "అక్షరాల గరిష్ట నిడివి ",
-        "max_length_msg2": " మాత్రమే..."
+        "max_length_msg2": " మాత్రమే...",
+        "cutoff":"You scored less than the cutoff (60%)",
+        "retest":"Retest",
+        "resume_quiz":"Resume Quiz",
+        "see_result":"See Result"
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"
