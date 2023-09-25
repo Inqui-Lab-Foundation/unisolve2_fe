@@ -177,7 +177,7 @@ const PreSurvey = () => {
         if (preSurveyList.length != nonEmptySelectedOptions.length) {
             openNotificationWithIcon(
                 'warning',
-                'Please Attempt All Questions..!!',
+                t('student.attempt_all_questions'),
                 ''
             );
         } else {

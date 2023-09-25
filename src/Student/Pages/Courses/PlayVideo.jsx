@@ -1138,13 +1138,13 @@ const PlayVideoCourses = (props) => {
                                                     {quizStart ? (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                            <div
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: t(
-                                                                        'student_course.quiz_start_title'
-                                                                    )
-                                                                }}
-                                                            ></div>
+                                                                <div
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html: t(
+                                                                            'student_course.quiz_start_title'
+                                                                        )
+                                                                    }}
+                                                                ></div>
                                                             </Modal.Title>
                                                             <div
                                                                 className="w-100 d-block text-left"
@@ -1158,25 +1158,33 @@ const PlayVideoCourses = (props) => {
                                                     ) : quizCompleted ? (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                                Quick test
-                                                                Completed
-                                                                successfully
+                                                                <div
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html: t(
+                                                                            'student_course.quiz_com_title'
+                                                                        )
+                                                                    }}
+                                                                ></div>
                                                             </Modal.Title>
-                                                            <p className="w-100 d-block">
-                                                                Check your
-                                                                score.
-                                                            </p>
+                                                            <p
+                                                                className="w-100 d-block"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_com_note'
+                                                                    )
+                                                                }}
+                                                            ></p>
                                                         </Modal.Header>
                                                     ) : (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                            <div
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: t(
-                                                                        'student_course.quiz_con_title'
-                                                                    )
-                                                                }}
-                                                            ></div>  
+                                                                <div
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html: t(
+                                                                            'student_course.quiz_con_title'
+                                                                        )
+                                                                    }}
+                                                                ></div>
                                                             </Modal.Title>
                                                             <div
                                                                 className="w-100 d-block text-left"
@@ -1206,8 +1214,12 @@ const PlayVideoCourses = (props) => {
                                                                           'student.lets_start'
                                                                       )
                                                                     : quizCompleted
-                                                                    ? ' See Result'
-                                                                    : 'Resume Quiz'
+                                                                    ? t(
+                                                                          'student.see_result'
+                                                                      )
+                                                                    : t(
+                                                                          'student.resume_quiz'
+                                                                      )
                                                             }
                                                             btnClass="primary mt-4"
                                                             size="small"
