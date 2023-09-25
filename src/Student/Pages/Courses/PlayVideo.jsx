@@ -1158,14 +1158,22 @@ const PlayVideoCourses = (props) => {
                                                     ) : quizCompleted ? (
                                                         <Modal.Header>
                                                             <Modal.Title className="w-100 d-block mb-2">
-                                                                Quick test
-                                                                Completed
-                                                                successfully
+                                                                <div
+                                                                    dangerouslySetInnerHTML={{
+                                                                        __html: t(
+                                                                            'student_course.quiz_com_title'
+                                                                        )
+                                                                    }}
+                                                                ></div>
                                                             </Modal.Title>
-                                                            <p className="w-100 d-block">
-                                                                Check your
-                                                                score.
-                                                            </p>
+                                                            <p
+                                                                className="w-100 d-block"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: t(
+                                                                        'student_course.quiz_com_note'
+                                                                    )
+                                                                }}
+                                                            ></p>
                                                         </Modal.Header>
                                                     ) : (
                                                         <Modal.Header>
