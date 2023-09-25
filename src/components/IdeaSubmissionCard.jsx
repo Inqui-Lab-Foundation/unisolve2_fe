@@ -70,7 +70,9 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle : `${response[0]?.team_name ? response[0]?.team_name : 'temp'}_IdeaSubmission`
+        documentTitle: `${
+            response[0]?.team_name ? response[0]?.team_name : 'temp'
+        }_IdeaSubmission`
     });
     return (
         <div>
@@ -84,6 +86,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
             </div>
             <Modal
                 show={show}
+                size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className="assign-evaluator ChangePSWModal teacher-register-modal"

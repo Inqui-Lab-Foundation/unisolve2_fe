@@ -833,10 +833,9 @@ const PostSurvey = () => {
                                                     //     )
                                                     // }
                                                     size="small"
-                                                    label="Submit"
-                                                    // label={t(
-                                                    //     'student_presurvey.submit'
-                                                    // )}
+                                                    label={t(
+                                                        'student_presurvey.submmit'
+                                                    )}
                                                     onClick={(e) =>
                                                         handleOnSubmit(e)
                                                     }
