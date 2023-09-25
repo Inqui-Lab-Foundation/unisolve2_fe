@@ -42,7 +42,10 @@ export const getAdmin = () => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify =
+                data.length > 0
+                    ? data.forEach((item, i) => (item.id = i + 1))
+                    : [];
             console.log(datamodify);
             dispatch(getAdminSuccess(data));
         } else {
@@ -79,7 +82,10 @@ export const getAdminList = () => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            let datamodify = data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify =
+                data.length > 0
+                    ? data.forEach((item, i) => (item.id = i + 1))
+                    : [];
             console.log(datamodify);
             dispatch(getAdminListSuccess(data));
         } else {
@@ -129,6 +135,7 @@ export const adminLoginUser = (data, history, module) => async (dispatch) => {
             const item = result.data;
             setCurrentUser(item);
             localStorage.setItem('module', module);
+            localStorage.setItem('time', new Date().toString());
             dispatch(adminLoginUserSuccess(result));
 
             history.push('/admin/dashboard');
