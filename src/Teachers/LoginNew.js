@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -25,10 +25,14 @@ import { numberFormat } from 'highcharts';
 
 const LoginNew = (props) => {
     const history = useHistory();
+
     // const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
+        const loginTime = localStorage.getItem('time');
+        // console.log(loginTime, 'q');
+
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')
@@ -103,12 +107,12 @@ const LoginNew = (props) => {
     };
 
     const inputPassword = {
-        placeholder: "Enter your password",
+        placeholder: 'Enter your password',
         showEyeIcon: true
     };
 
     const logInBtn = {
-        label: "Log in",
+        label: 'Log in',
         size: 'large'
     };
 
