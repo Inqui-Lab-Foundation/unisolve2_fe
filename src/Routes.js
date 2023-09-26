@@ -87,6 +87,7 @@ import EvaluatorDashboard from './Evaluator/Dashboard/index';
 import EvaluatorChangePassword from './Evaluator/ChangePSWModal';
 import EvaluatorForgotPassword from './Evaluator/ForgotPassword';
 import EvaluatorIdeaList from './Evaluator/IdeaList/IdeaList';
+import NextLevel from './Evaluator/IdeaList/NextLevel';
 
 import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
 import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
@@ -922,6 +923,12 @@ const Routers = () => {
                         user="EVALUATOR"
                         path="/evaluator/submitted-ideas"
                         component={EvaluatorIdeaList}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EVALUATOR"
+                        path="/evaluator2/submitted-ideas"
+                        component={NextLevel}
                     />
 
                     <ProtectedRoute

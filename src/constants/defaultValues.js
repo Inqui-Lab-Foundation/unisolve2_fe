@@ -18,7 +18,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/admins/login?eAdmin=true',
     adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins/register',
     evaluatorLogin: process.env.REACT_APP_API_BASE_URL + '/evaluators/login',
-    evaluatorRegister: `${process.env.REACT_APP_API_BASE_URL}/evaluators/register`,
+    // evaluatorRegister: `${process.env.REACT_APP_API_BASE_URL}/evaluators/register`,
     teacherLogin: process.env.REACT_APP_API_BASE_URL + '/mentors/login',
     addMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/create',
     addAdminCourses: process.env.REACT_APP_API_BASE_URL + '/course',
