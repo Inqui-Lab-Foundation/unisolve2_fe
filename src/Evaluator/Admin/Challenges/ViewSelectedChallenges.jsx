@@ -1,43 +1,37 @@
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
-import './ViewFinalSelectedideas.scss';
+import React, { useEffect } from 'react';
+import './ViewSelectedChallenges.scss';
 import Layout from '../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation } from 'react-router-dom';
+import ViewDetail from './ViewDetail';
 import axios from 'axios';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { Button } from '../../../stories/Button';
-import Select from '../../Helper/Select';
+import Select from './pages/Select';
 import { Col, Container, Row } from 'reactstrap';
 import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
 import { getDistrictData } from '../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
 import { getNormalHeaders } from '../../../helpers/Utils';
-import { Spinner } from 'react-bootstrap';
-import jsPDF from 'jspdf';
-import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
-import html2canvas from 'html2canvas';
-import TableDetailPdf from '../../../Admin/Evaluation/FinalResults/TableDetailPdf.jsx';
+import Spinner from 'react-bootstrap/Spinner';
+import { useLocation } from 'react-router-dom';
 
 const ViewSelectedIdea = () => {
-    const { search } = useLocation();
-    const history = useHistory();
+    // here we can see the selected ideas in district wise and sdg //
     const dispatch = useDispatch();
-    //const currentUser = getCurrentUser('current_user');
-    const title = new URLSearchParams(search).get('title');
-    const level = new URLSearchParams(search).get('level');
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState({});
-    const [tableData, settableData] = React.useState({});
+    const [tableData, settableData] = React.useState([]);
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
+    //---for handle next idea---
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
+    // eslint-disable-next-line no-unused-vars
+    const [btnDisabler, setBtnDisabler] = React.useState(false);
     const [showspin, setshowspin] = React.useState(false);
-
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
@@ -45,8 +39,9 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-
-    const filterParamsfinal =
+    const { search } = useLocation();
+    const status = new URLSearchParams(search).get('status');
+    const filterParams =
         (district && district !== 'All Districts'
             ? '&district=' + district
             : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
@@ -55,26 +50,31 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handleclickcall = async() => {
+    const handleclickcall = async () => {
+        // where we can select district and sdg //
+        // where we can see list of challenges districtwise //
         setshowspin(true);
         await handleideaList();
     };
 
     async function handleideaList() {
-        settableData({});
+        // handleideaList api //
+        //where we can see all ideas in districtwise //
+        settableData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getFinalEvaluation}?key=${
-                    title && title == '0' ? '0' : '1'
-                }${filterParamsfinal}`,
+                `${URL.getidealist}status=${
+                    status ? status : 'ALL'
+                }${filterParams}`,
                 axiosConfig
             )
             .then(function (response) {
                 if (response.status === 200) {
                     const updatedWithKey =
                         response.data &&
-                        response.data.data.map((item, i) => {
+                        response.data.data[0] &&
+                        response.data.data[0].dataValues.map((item, i) => {
                             const upd = { ...item };
                             upd['key'] = i + 1;
                             return upd;
@@ -89,113 +89,36 @@ const ViewSelectedIdea = () => {
             });
     }
 
-    const evaluatedIdeafinal = {
+    const evaluatedIdeaforsub = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
             {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '6%'
-            },
-            {
-                name: 'CID',
-                selector: (row) => row.challenge_response_id,
-                width: '6%'
+                width: '10%'
             },
             {
                 name: 'Team Name',
-                selector: (row) => row?.team_name || '',
-                sortable: true
+                selector: (row) => row.team_name || '',
+                sortable: true,
+                width: '21%'
             },
             {
                 name: 'SDG',
-                selector: (row) => row?.sdg,
-                width: '10%'
-            },
-
-            {
-                name: 'Novelty',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].param_1_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-                sortable: true
+                selector: (row) => row.sdg,
+                width: '21%'
             },
             {
-                name: 'Usefulness',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].param_2_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-                sortable: true
+                name: 'Submitted By',
+                selector: (row) => row.initiated_name,
+                width: '21%'
             },
             {
-                name: 'Feasability',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].param_3_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-                sortable: true
+                name: 'Status',
+                cell: (row) => row.status,
+                width: '11%'
             },
-            {
-                name: 'Scalability',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].param_4_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-
-                sortable: true
-            },
-            {
-                name: 'Sustainability',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].param_5_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-
-                sortable: true
-            },
-            {
-                name: 'Overall',
-                selector: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? row.evaluator_ratings[0].overall_avg
-                                : ' '
-                            : ' '
-                    ];
-                },
-
-                sortable: true
-            },
-
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -204,7 +127,6 @@ const ViewSelectedIdea = () => {
                             <div
                                 className="btn btn-primary btn-lg mr-5 mx-2"
                                 onClick={() => {
-                                    console.warn(params);
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
@@ -221,38 +143,19 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
-                            <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
-                                    <FaDownload
-                                        size={22}
-                                        onClick={async() => {
-                                            await downloadPDF(params);
-                                        }}
-                                        className="text-danger"
-                                    />
-                                ) : (
-                                    <FaHourglassHalf
-                                        size={22}
-                                        className="text-info"
-                                    />
-                                )}
-                            </div>
                         </div>
                     ];
                 },
-                width: '18%',
+                width: '12%',
                 left: true
             }
         ]
-    };
-    const [sortid, setsortid] = useState();
-    const handlesortid = (e) => {
-        setsortid(e.id);
     };
 
     const showbutton = district && sdg;
 
     const handleNext = () => {
+        // here we can go for next page //
         if (tableData && currentRow < tableData?.length) {
             setIdeaDetails(tableData[currentRow]);
             setIsDetail(true);
@@ -260,73 +163,25 @@ const ViewSelectedIdea = () => {
         }
     };
     const handlePrev = () => {
+        // here we can go for previous page //
         if (tableData && currentRow >= 1) {
             setIdeaDetails(tableData[currentRow - 2]);
             setIsDetail(true);
             setCurrentRow(currentRow - 1);
         }
     };
-
-    const [pdfLoader, setPdfLoader] = React.useState(false);
-    const [teamResponse, setTeamResponse] = React.useState([]);
-    const [details, setDetails] = React.useState();
-    const downloadPDF = async (params) => {
-        await setDetails(params);
-        if (params?.response) {
-            await setTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
-            );
-
-            setPdfLoader(true);
-            const domElement = document.getElementById('pdfIdd');
-            await html2canvas(domElement, {
-                onclone: (document) => {
-                    document.getElementById('pdfIdd').style.display = 'block';
-                },
-                scale: 1.13
-            }).then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'px', [2580, 3508]);
-                pdf.addImage(
-                    imgData,
-                    'JPEG',
-                    20,
-                    20,
-                    2540,
-                    pdf.internal.pageSize.height,
-                    undefined,
-                    'FAST'
-                );
-                pdf.save(`${new Date().toISOString()}.pdf`);
-            });
-            setPdfLoader(false);
-        }
-    };
-
     return (
         <Layout>
             <div className="container evaluated_idea_wrapper pt-5 mb-50">
-                <div id="pdfIdd" style={{ display: 'none' }}>
-                    <TableDetailPdf
-                        ideaDetails={details}
-                        teamResponse={teamResponse}
-                        level={level}
-                    />
-                </div>
                 <div className="row">
                     <div className="col-12 p-0">
                         {!isDetail && (
                             <div>
-                                <h2 className="ps-2 pb-3">
-                                    {title == '0'
-                                        ? 'Final Evaluated'
-                                        : 'Final Winners'}{' '}
-                                    Challenges
-                                </h2>
+                                <h2 className="ps-2 pb-3">Challenges</h2>
 
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={2}>
+                                        <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullDistrictsNames}
@@ -338,7 +193,7 @@ const ViewSelectedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={2}>
+                                        <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -365,18 +220,6 @@ const ViewSelectedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={6}>
-                                            <div className="text-right">
-                                                <Button
-                                                    btnClass="primary"
-                                                    size="small"
-                                                    label="Back"
-                                                    onClick={() =>
-                                                        history.goBack()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
                                     </Row>
                                 </Container>
                             </div>
@@ -395,12 +238,11 @@ const ViewSelectedIdea = () => {
                                     <DataTableExtensions
                                         print={false}
                                         export={false}
-                                        {...evaluatedIdeafinal}
+                                        {...evaluatedIdeaforsub}
                                     >
                                         <DataTable
                                             data={tableData || []}
-                                            //defaultSortField="id"
-                                            defaultSortFieldId={sortid}
+                                            defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
                                             highlightOnHover
@@ -414,7 +256,6 @@ const ViewSelectedIdea = () => {
                                                 setTablePage(page)
                                             }
                                             paginationDefaultPage={tablePage}
-                                            onSort={(e) => handlesortid(e)}
                                         />
                                     </DataTableExtensions>
                                 </div>
@@ -422,6 +263,9 @@ const ViewSelectedIdea = () => {
                                 <ViewDetail
                                     ideaDetails={ideaDetails}
                                     setIsDetail={setIsDetail}
+                                    settableData={settableData}
+                                    setdistrict={setdistrict}
+                                    setsdg={setsdg}
                                     handleNext={handleNext}
                                     handlePrev={handlePrev}
                                     currentRow={currentRow}

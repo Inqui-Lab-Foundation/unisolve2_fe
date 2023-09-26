@@ -25,7 +25,7 @@ import AdminDashboard from './Admin/Dashboard/index';
 import ViewMore from './Admin/Dashboard/ViewMore';
 import AdminMyProfile from './Admin/MyProfile';
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
-import AdminEvaluation from './Admin/Evaluation/index';
+import AdminEvaluation from './Admin/Evaluation/indexStatic';
 import AdminEvaluationProcess from './Admin/EvalProcess/index';
 import AdminResources from './Admin/Resources/ResourcesList';
 import AdminCreateResource from './Admin/Resources/createResource';
@@ -93,10 +93,7 @@ import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
 import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
 
 import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
-import Eadmindashboard from './Evaluator/Admin/Dashboard/EAdminDashboard';
 import EadminChangePassword from './Evaluator/Admin/Pages/ChangePSWModal';
-import ListOfIdeas from './Evaluator/Admin/ViewTable/ViewSelectedIdea';
-import ListOfFinalIdeas from './Evaluator/Admin/FinalResulteadmin/ViewFinalSelectedideas';
 import TicketResView from './Admin/Tickets/TicketResView';
 import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
@@ -151,6 +148,13 @@ import ReportTeacherRegister from './ReportsPanel/UserListReports/TeacherRegiste
 import ReportSuccessTeacher from './ReportsPanel/UserListReports/SuccessTeacher';
 import ReportTickets from './ReportsPanel/ReportTickets/Ticket';
 import ReportTicketResView from './ReportsPanel/ReportTickets/TicketResView';
+
+//EADMIN routers
+import EvaluatorChallenges from './Evaluator/Admin/Challenges/ViewSelectedChallenges';
+import EAdminEvaluation from './Evaluator/Admin/Evaluation/index';
+import EAdminEvaluationProcess from './Evaluator/Admin/EvalProcess/index';
+import EAdminSelectedlist from './Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
+import EAdminSelectedfinallist from './Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 
 const Routers = () => {
     return (
@@ -953,25 +957,37 @@ const Routers = () => {
                         exact={true}
                         user="EADMIN"
                         path="/eadmin/dashboard"
-                        component={Eadmindashboard}
+                        component={EvaluatorChallenges}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/evaluationStatus"
+                        component={EAdminEvaluation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/evaluationProcess"
+                        component={EAdminEvaluationProcess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/evaluationStatus/viewlist"
+                        component={EAdminSelectedlist}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/evaluationStatus/viewfinallist"
+                        component={EAdminSelectedfinallist}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="EADMIN"
                         path="/eadmin/change-password"
                         component={EadminChangePassword}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        user="EADMIN"
-                        path="/eadmin/listofideas"
-                        component={ListOfIdeas}
-                    />
-                    <ProtectedRoute
-                        exact={true}
-                        user="EADMIN"
-                        path="/eadmin/listofFinalideas"
-                        component={ListOfFinalIdeas}
                     />
                     <Route component={PageNotFound} path="*" />
                 </Switch>

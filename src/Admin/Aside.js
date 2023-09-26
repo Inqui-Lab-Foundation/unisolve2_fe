@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import UsersIcon1 from '../assets/media/UsersIcon1.png';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
-import ChallengesIcon from '../assets/media/ChallengesIcon.png';
+//import ChallengesIcon from '../assets/media/ChallengesIcon.png';
 import EvaluationIcon from '../assets/media/EvaluationIcon.png';
 import BadgesIcon from '../assets/media/BadgesIcon.png';
 import SupportIcon from '../assets/media/SupportIcon.png';
@@ -14,7 +14,7 @@ import logoutIcon from '../assets/media/logoutIcon.png';
 import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import ResourceIcon from '../assets/media/resourceIcon.png';
 import PopupIcon from '../assets/media/popupIcon.png';
-import EvalConifIcon from '../assets/media/EvalConifIcon.png';
+//import EvalConifIcon from '../assets/media/EvalConifIcon.png';
 import SmallLogo from '../assets/media/logo192.png';
 import {
     ProSidebar,
@@ -126,7 +126,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={ChallengesIcon}
@@ -152,7 +152,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Challenges
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     <MenuItem
                         icon={
@@ -181,7 +181,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={EvalConifIcon}
@@ -205,7 +205,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Evaluation Config
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={
                             <img
