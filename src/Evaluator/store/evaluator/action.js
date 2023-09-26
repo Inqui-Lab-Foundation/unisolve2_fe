@@ -104,6 +104,8 @@ export const evaluatorAdminLoginUser =
                 const item = result.data;
                 setCurrentUser(item);
                 localStorage.setItem('module', module);
+                localStorage.setItem('time', new Date().toString());
+
                 dispatch(evaluatorAdminLoginUserSuccess(result));
 
                 history.push('/eadmin/dashboard');
