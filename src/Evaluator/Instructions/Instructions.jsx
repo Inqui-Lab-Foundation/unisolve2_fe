@@ -41,9 +41,9 @@ const Instructions = () => {
                         label={'L2-Round Evaluator'}
                         btnClass="primary mx-3"
                         size="small"
-                        // onClick={() =>
-                        //     history.push('/evaluator2/submitted-ideas')
-                        // }
+                        onClick={() =>
+                            history.push('/evaluator2/submitted-ideas')
+                        }
                     />
                 </div>
             </Card>
