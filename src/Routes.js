@@ -152,9 +152,12 @@ import ReportTicketResView from './ReportsPanel/ReportTickets/TicketResView';
 //EADMIN routers
 import EvaluatorChallenges from './Evaluator/Admin/Challenges/ViewSelectedChallenges';
 import EAdminEvaluation from './Evaluator/Admin/Evaluation/index';
+import EadminEvaluator from './Evaluator/Admin/Evaluator/EadminEvaluator';
+
 import EAdminEvaluationProcess from './Evaluator/Admin/EvalProcess/index';
 import EAdminSelectedlist from './Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import EAdminSelectedfinallist from './Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
+import EadminEditProfile from './Evaluator/Admin/Evaluator/EadminEditProfile';
 
 const Routers = () => {
     return (
@@ -970,6 +973,18 @@ const Routers = () => {
                         user="EADMIN"
                         path="/eadmin/evaluationStatus"
                         component={EAdminEvaluation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/evaluator"
+                        component={EadminEvaluator}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/edit-user-profile"
+                        component={EadminEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}

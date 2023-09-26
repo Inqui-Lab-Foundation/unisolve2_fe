@@ -96,28 +96,33 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10%'
+                width: '6%'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '21%'
+                width: '45%'
             },
             {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '21%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '8%'
             },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '15%'
+            // },
             {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '21%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '15%'
             },
             {
                 name: 'Status',
                 cell: (row) => row.status,
-                width: '11%'
+                width: '10%'
             },
             {
                 name: 'Actions',
@@ -151,7 +156,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-
+    // console.log(tableData, 'tableData');
     const showbutton = district && sdg;
 
     const handleNext = () => {

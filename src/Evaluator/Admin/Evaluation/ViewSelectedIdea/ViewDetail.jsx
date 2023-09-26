@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import './ViewSelectedideas.scss';
@@ -18,6 +19,7 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
 import html2canvas from 'html2canvas';
+import { Row, Col, Form, Label } from 'reactstrap';
 
 const ViewDetail = (props) => {
     const history = useHistory();
@@ -27,6 +29,8 @@ const ViewDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
+    const [reasonSec, setReasonSec] = React.useState('');
+
     const selectData = [
         'Idea is very common and already in use.',
         'Idea does not have proper details and information to make a decision.',
@@ -81,7 +85,8 @@ const ViewDetail = (props) => {
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason: handledText == 'reject' ? reason : ''
+            rejected_reason: handledText == 'reject' ? reason : '',
+            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
         var config = {
             method: 'put',
@@ -117,7 +122,7 @@ const ViewDetail = (props) => {
     };
 
     const handleReject = () => {
-        if (reason) {
+        if (reason && reasonSec) {
             handleAlert('reject');
             setIsreject(false);
         }
@@ -165,13 +170,27 @@ const ViewDetail = (props) => {
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <h2 className="mb-md-4 mb-3">
-                                        SDG:{' '}
-                                        <span className="text-capitalize fs-3">
-                                            {props?.ideaDetails?.sdg?.toLowerCase() ||
-                                                ''}
-                                        </span>
-                                    </h2>
+                                    <Row>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                SDG :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails
+                                                        ?.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                    </Row>
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -218,7 +237,7 @@ const ViewDetail = (props) => {
                                         {!pdfLoader ? (
                                             <FaDownload
                                                 size={22}
-                                                onClick={async() => {
+                                                onClick={async () => {
                                                     await downloadPDF();
                                                 }}
                                             />
@@ -341,8 +360,9 @@ const ViewDetail = (props) => {
                                         <span className="text-bold">
                                             Rejected Reason:{' '}
                                         </span>{' '}
-                                        {props?.ideaDetails?.rejected_reason ||
-                                            ''}
+                                        {props?.ideaDetails?.rejected_reason &&
+                                            props?.ideaDetails
+                                                ?.rejected_reasonSecond}
                                     </p>
                                 )}
                                 {level === 'L1' &&
@@ -354,6 +374,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     setIsreject(true);
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -366,6 +387,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -380,6 +402,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     setIsreject(true);
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -391,6 +414,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -462,20 +486,34 @@ const ViewDetail = (props) => {
                         <h3 className="mb-sm-4 mb-3">
                             Please Select the reason for rejection.
                         </h3>
-                        <Select
-                            list={selectData}
-                            setValue={setReason}
-                            placeHolder={'Please Select'}
-                            value={reason}
-                        />
+                        <Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReason}
+                                    placeHolder="Please Select Reject Reason 1"
+                                    value={reason}
+                                />
+                            </Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReasonSec}
+                                    placeHolder="Please Select Reject Reason 2"
+                                    value={reasonSec}
+                                />
+                            </Col>
+                        </Col>
                     </div>
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={!reason ? 'default' : 'primary'}
+                            btnClass={
+                                !reason && reasonSec ? 'default' : 'primary'
+                            }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason}
+                            disabled={!reason && reasonSec}
                         />
                     </div>
                 </Modal.Body>

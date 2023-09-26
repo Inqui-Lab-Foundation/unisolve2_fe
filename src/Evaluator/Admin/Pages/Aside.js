@@ -164,7 +164,31 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-
+                    <MenuItem
+                        icon={
+                            <img
+                                src={ChallengesIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
+                        className={
+                            location.pathname === '/eadmin/evaluator' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/evaluator'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluator
+                            </span>
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
