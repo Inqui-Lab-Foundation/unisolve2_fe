@@ -4,7 +4,10 @@ import React, { useRef } from 'react';
 import './ViewSelectedChallenges.scss';
 import { Button } from '../../../stories/Button';
 import LinkComponent from './pages/LinkComponent';
-import { getCurrentUser, openNotificationWithIcon } from '../../../helpers/Utils';
+import {
+    getCurrentUser,
+    openNotificationWithIcon
+} from '../../../helpers/Utils';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Modal } from 'react-bootstrap';
@@ -12,6 +15,8 @@ import axios from 'axios';
 import Select from './pages/Select';
 //import { useHistory } from 'react-router-dom';
 //import { useDispatch } from 'react-redux';
+import { Row, Col, Form, Label } from 'reactstrap';
+
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
@@ -25,6 +30,8 @@ const ViewDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
+    const [reasonSec, setReasonSec] = React.useState('');
+
     const selectData = [
         'Idea is very common and already in use.',
         'Idea does not have proper details and information to make a decision.',
@@ -79,7 +86,8 @@ const ViewDetail = (props) => {
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason: handledText == 'reject' ? reason : ''
+            rejected_reason: handledText == 'reject' ? reason : '',
+            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
         var config = {
             method: 'put',
@@ -116,7 +124,7 @@ const ViewDetail = (props) => {
     };
 
     const handleReject = () => {
-        if (reason) {
+        if (reason && reasonSec) {
             handleAlert('reject');
             setIsreject(false);
         }
@@ -164,7 +172,11 @@ const ViewDetail = (props) => {
     // };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle : `${props?.ideaDetails?.team_name ? props?.ideaDetails?.team_name : 'temp'}_IdeaSubmission`
+        documentTitle: `${
+            props?.ideaDetails?.team_name
+                ? props?.ideaDetails?.team_name
+                : 'temp'
+        }_IdeaSubmission`
     });
 
     return (
@@ -183,14 +195,37 @@ const ViewDetail = (props) => {
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
+                                    <Row>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                SDG :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails
+                                                        ?.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                    </Row>
+                                </div>
+                                {/* <div className="col-sm-8">
                                     <h2 className="mb-md-4 mb-3">
-                                        SDG:{' '}
+                                        Challenge Response Id :
                                         <span className="text-capitalize fs-3">
-                                            {props?.ideaDetails?.sdg?.toLowerCase() ||
-                                                ''}
+                                            {props?.ideaDetails
+                                                ?.challenge_response_id || ''}
                                         </span>
                                     </h2>
-                                </div>
+                                </div> */}
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
                                         <Button
@@ -384,7 +419,9 @@ const ViewDetail = (props) => {
                                                 Rejected Reason:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
-                                                ?.rejected_reason || ''}
+                                                ?.rejected_reason &&
+                                                props?.ideaDetails
+                                                    ?.rejected_reasonSecond}
                                         </p>
                                     )}
                                     {props?.ideaDetails?.evaluation_status ? (
@@ -396,6 +433,7 @@ const ViewDetail = (props) => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -408,6 +446,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -423,6 +462,7 @@ const ViewDetail = (props) => {
                                                     // handleAlert('reject');
                                                     setIsreject(true);
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -434,6 +474,7 @@ const ViewDetail = (props) => {
                                                 onClick={() => {
                                                     handleAlert('accept');
                                                     setReason('');
+                                                    setReasonSec('');
                                                 }}
                                             >
                                                 <span className="fs-4">
@@ -499,20 +540,34 @@ const ViewDetail = (props) => {
                         <h3 className="mb-sm-4 mb-3">
                             Please Select the reason for rejection.
                         </h3>
-                        <Select
-                            list={selectData}
-                            setValue={setReason}
-                            placeHolder={'Please Select'}
-                            value={reason}
-                        />
+                        <Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReason}
+                                    placeHolder="Please Select Reject Reason 1"
+                                    value={reason}
+                                />
+                            </Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReasonSec}
+                                    placeHolder="Please Select Reject Reason 2"
+                                    value={reasonSec}
+                                />
+                            </Col>
+                        </Col>
                     </div>
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={!reason ? 'default' : 'primary'}
+                            btnClass={
+                                !reason && reasonSec ? 'default' : 'primary'
+                            }
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason}
+                            disabled={!reason && reasonSec}
                         />
                     </div>
                 </Modal.Body>

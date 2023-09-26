@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import './ViewSelectedideas.scss';
@@ -40,6 +41,8 @@ const ViewSelectedIdea = () => {
     const [ideaDetails, setIdeaDetails] = React.useState({});
     const [tableData, settableData] = React.useState({});
     const [reason, setReason] = React.useState('');
+    const [reasonSec, setReasonSec] = React.useState('');
+
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
     const [evalname, setevalname] = React.useState('');
@@ -84,6 +87,7 @@ const ViewSelectedIdea = () => {
             : '') +
         (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '') +
         (reason && '&rejected_reason=' + reason) +
+        (reasonSec && '&rejected_reasonSecond=' + reasonSec) +
         (evalname && '&evaluator_id=' + Allevalobj[evalname]);
     const filterParamsfinal =
         (district && district !== 'All Districts'
@@ -95,7 +99,7 @@ const ViewSelectedIdea = () => {
         dispatch(getAdminList());
     }, []);
 
-    const handlePromotel2processed = async(item) => {
+    const handlePromotel2processed = async (item) => {
         await promoteapi(item.challenge_response_id);
     };
 
@@ -125,7 +129,7 @@ const ViewSelectedIdea = () => {
             });
     }
 
-    const handleclickcall = async() => {
+    const handleclickcall = async () => {
         setshowspin(true);
         await handleideaList();
     };
@@ -169,36 +173,46 @@ const ViewSelectedIdea = () => {
                 width: '7%'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '15%'
+                width: '45%'
             },
             {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '15%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '10%'
             },
             {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '15%'
             },
-            {
-                name: 'Evaluated By',
-                cell: (row) => {
-                    return [row.evaluated_name ? row.evaluated_name : ''];
-                },
-                width: '15%'
-            },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
-                width: '15%'
-            },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '15%'
+            // },
+            // {
+            //     name: 'Submitted By',
+            //     selector: (row) => row.initiated_name,
+            //     width: '15%'
+            // },
+            // {
+            //     name: 'Evaluated By',
+            //     cell: (row) => {
+            //         return [row.evaluated_name ? row.evaluated_name : ''];
+            //     },
+            //     width: '15%'
+            // },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row.evaluated_at
+            //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+            //             : row.evaluated_at,
+            //     width: '15%'
+            // },
 
             {
                 name: 'Status',
@@ -263,21 +277,36 @@ const ViewSelectedIdea = () => {
                 width: '10%'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '20%'
+                width: '45%'
             },
             {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '30%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '10%'
             },
             {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '20%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '15%'
             },
+            // {
+            //     name: 'CID',
+            //     selector: (row) => row.challenge_response_id,
+            //     width: '10%'
+            // },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '30%'
+            // },
+            // {
+            //     name: 'Submitted By',
+            //     selector: (row) => row.initiated_name,
+            //     width: '20%'
+            // },
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -356,26 +385,42 @@ const ViewSelectedIdea = () => {
                 width: '9%'
             },
             {
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
+                sortable: true,
+                width: '45%'
+            },
+            {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '9%'
+                width: '10%'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '17%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '15%'
             },
-            {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '13%'
-            },
-            {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '22%'
-            },
+            // {
+            //     name: 'CID',
+            //     selector: (row) => row.challenge_response_id,
+            //     width: '10%'
+            // },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name || '',
+            //     sortable: true,
+            //     width: '17%'
+            // },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '13%'
+            // },
+            // {
+            //     name: 'Submitted By',
+            //     selector: (row) => row.initiated_name,
+            //     width: '22%'
+            // },
             {
                 name: 'Overall',
 
@@ -418,7 +463,7 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={async() => {
+                                        onClick={async () => {
                                             await downloadPDF(params);
                                         }}
                                         className="text-danger"
@@ -462,21 +507,31 @@ const ViewSelectedIdea = () => {
                 width: '10%'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '20%'
+                width: '45%'
             },
             {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '30%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '10%'
             },
             {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '20%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '15%'
             },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '30%'
+            // },
+            // {
+            //     name: 'Submitted By',
+            //     selector: (row) => row.initiated_name,
+            //     width: '20%'
+            // },
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -507,7 +562,7 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={async() => {
+                                        onClick={async () => {
                                             await downloadPDF(params);
                                         }}
                                         className="text-danger"
@@ -622,13 +677,13 @@ const ViewSelectedIdea = () => {
                                             )}
 
                                         {title === 'Rejected' ? (
-                                            <Col md={3}>
+                                            <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={ReasonsOptions}
                                                         setValue={setReason}
                                                         placeHolder={
-                                                            'Select Reason for rejection'
+                                                            'Select Reason 1 for rejection'
                                                         }
                                                         value={reason}
                                                     />
@@ -637,7 +692,23 @@ const ViewSelectedIdea = () => {
                                         ) : (
                                             ''
                                         )}
-                                        <Col md={2}>
+                                        {title === 'Rejected' ? (
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={ReasonsOptions}
+                                                        setValue={setReasonSec}
+                                                        placeHolder={
+                                                            'Select Reason 2 for rejection'
+                                                        }
+                                                        value={reasonSec}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        ) : (
+                                            ''
+                                        )}
+                                        <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={

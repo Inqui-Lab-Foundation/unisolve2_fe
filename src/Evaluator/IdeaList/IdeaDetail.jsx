@@ -140,7 +140,30 @@ const IdeaDetail = (props) => {
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
                             <div className="row">
-                                <div className="col-sm-8">
+                                <div className="col-lg-6">
+                                    <Row>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                SDG :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails
+                                                        ?.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                    </Row>
+                                </div>
+                                {/* <div className="col-sm-8">
                                     <h2 className="mb-md-4 mb-3">
                                         SDG:{' '}
                                         <span className="text-capitalize fs-3">
@@ -157,7 +180,7 @@ const IdeaDetail = (props) => {
                                                 ?.challenge_response_id || ''}
                                         </span>
                                     </h2>
-                                </div>
+                                </div> */}
                                 <div className="col-sm-4 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
                                         <Button
