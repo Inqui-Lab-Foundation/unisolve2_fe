@@ -130,7 +130,6 @@ export const getSubmittedIdeaListSuccess = (data) => async (dispatch) => {
 };
 export const getSubmittedIdeaList = (level) => async (dispatch) => {
     const currentUser = getCurrentUser('current_user');
-    console.log(level, 'data');
     // const level = currentUser?.data[0]?.level_name;
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);

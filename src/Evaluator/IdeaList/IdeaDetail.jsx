@@ -15,11 +15,9 @@ import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 
 const IdeaDetail = (props) => {
-    console.log(props, 'no');
 
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    // console.log(currentUser, 'data');
     const [teamResponse, setTeamResponse] = React.useState([]);
 
     const [isReject, setIsreject] = React.useState(false);
