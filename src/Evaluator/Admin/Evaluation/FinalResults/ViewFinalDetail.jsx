@@ -1,14 +1,14 @@
 /* eslint-disable indent */
 import React from 'react';
 import './ViewFinalSelectedideas.scss';
-import { Button } from '../../../stories/Button';
-import LinkComponent from '../../IdeaList/LinkComponent';
+import { Button } from '../../../../stories/Button';
+import LinkComponent from '../Pages/LinkComponent';
 import moment from 'moment';
 import {useLocation } from 'react-router-dom';
 import RatedDetailCard from '../Pages/RatedDetailCard';
 import jsPDF from 'jspdf';
 import {FaDownload, FaHourglassHalf} from 'react-icons/fa';
-import DetailToDownload from '../../../Admin/Evaluation/FinalResults/DetailToDownload';
+import DetailToDownload from './DetailToDownload';
 import html2canvas from "html2canvas";
 
 const ViewDetail = (props) => {

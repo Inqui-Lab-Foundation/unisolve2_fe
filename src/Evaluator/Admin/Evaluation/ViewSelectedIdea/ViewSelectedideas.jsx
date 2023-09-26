@@ -1,49 +1,48 @@
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
-import './ViewSelectedIdea.scss';
-import Layout from '../Pages/Layout';
+import React, { useEffect, useState } from 'react';
+import './ViewSelectedideas.scss';
+import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import moment from 'moment';
 import ViewDetail from './ViewDetail';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { URL, KEY } from '../../../constants/defaultValues';
-import { getNormalHeaders } from '../../../helpers/Utils';
-import { Button } from '../../../stories/Button';
-import Select from '../../Helper/Select';
+import { KEY, URL } from '../../../../constants/defaultValues';
+import { Button } from '../../../../stories/Button';
+import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
-import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
+import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
-import { getDistrictData } from '../../../redux/studentRegistration/actions';
+import { getDistrictData } from '../../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
-import { ReasonsOptions } from '../Pages/ReasonForRejectionData';
-import { getAdminList, getAdminEvalutorsList } from '../../../redux/actions';
+import { ReasonsOptions } from '../../../../Evaluator/Admin/Pages/ReasonForRejectionData';
+import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
+import { getAdminEvalutorsList } from '../../../../Admin/store/adminEvalutors/actions';
+import { getAdminList } from '../../../../Admin/store/admin/actions';
 import { Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
-import TableDetailPdf from '../../../Admin/Evaluation/ViewSelectedIdea/TableDetailPdf';
+import TableDetailPdf from './TableDetailPdf';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
+    const currentUser = getCurrentUser('current_user');
     const title = new URLSearchParams(search).get('title');
-    const status = new URLSearchParams(search).get('status');
+    const level = new URLSearchParams(search).get('level');
     const evaluation_status = new URLSearchParams(search).get(
         'evaluation_status'
     );
-    const level0 = new URLSearchParams(search).get('level0');
-    const level = new URLSearchParams(search).get('level');
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState({});
-    const [tableData, settableData] = React.useState([]);
+    const [tableData, settableData] = React.useState({});
     const [reason, setReason] = React.useState('');
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
     const [evalname, setevalname] = React.useState('');
-    //---for handle next idea---
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
     const [showspin, setshowspin] = React.useState(false);
@@ -61,6 +60,7 @@ const ViewSelectedIdea = () => {
     );
     const adminlist = useSelector((state) => state?.admin?.adminList);
     const Allevalobj = {};
+
     const Allevalnamelist = evallist.map((i) => {
         Allevalobj[i.user.full_name] = i.user.user_id;
         return i.user.full_name;
@@ -70,8 +70,6 @@ const ViewSelectedIdea = () => {
         Allevalnamelist.push(i.user.full_name);
     });
 
-    const level0Param = level0 === 'L0' ? 'status=' + status : '';
-    const levelParm = level ? 'level=' + level : '';
     const dataParam =
         level === 'L1' && title !== 'L1 - Yet to Processed'
             ? '&evaluation_status=' + evaluation_status
@@ -87,19 +85,59 @@ const ViewSelectedIdea = () => {
         (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '') +
         (reason && '&rejected_reason=' + reason) +
         (evalname && '&evaluator_id=' + Allevalobj[evalname]);
-
+    const filterParamsfinal =
+        (district && district !== 'All Districts'
+            ? '?district=' + district
+            : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
     useEffect(() => {
         dispatch(getDistrictData());
         dispatch(getAdminEvalutorsList());
         dispatch(getAdminList());
     }, []);
 
+    const handlePromotel2processed = async(item) => {
+        await promoteapi(item.challenge_response_id);
+    };
+
+    async function promoteapi(id) {
+        const body = JSON.stringify({ final_result: '0' });
+        var config = {
+            method: 'put',
+            url: `${
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                id
+            }`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        await axios(config)
+            .then(async function (response) {
+                if (response.status === 200) {
+                    await handleclickcall();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const handleclickcall = async() => {
+        setshowspin(true);
+        await handleideaList();
+    };
+
     async function handleideaList() {
-        settableData([]);
+        settableData({});
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getidealist}${level0Param}${levelParm}${dataParam}${filterParams}`,
+                title === 'Final'
+                    ? `${URL.getidealistfinal}${filterParamsfinal}`
+                    : `${URL.getidealist}level=${level}${dataParam}${filterParams}`,
                 axiosConfig
             )
             .then(function (response) {
@@ -121,12 +159,7 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-    const handleclickcall = async() => {
-        setshowspin(true);
-        await handleideaList();
-    };
-    const average = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length;
-    const evaluatedIdeaL1 = {
+    const evaluatedIdea = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
             {
@@ -169,6 +202,7 @@ const ViewSelectedIdea = () => {
 
             {
                 name: 'Status',
+
                 cell: (row) => {
                     return [
                         <div className="d-flex" key={row}>
@@ -186,6 +220,7 @@ const ViewSelectedIdea = () => {
                 },
                 width: '10%'
             },
+
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -218,7 +253,6 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-
     const l1yettoprocessed = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -276,6 +310,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
+
     const [pdfLoader, setPdfLoader] = React.useState(false);
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [details, setDetails] = React.useState();
@@ -310,28 +345,36 @@ const ViewSelectedIdea = () => {
         });
         setPdfLoader(false);
     };
+
     const evaluatedIdeaL2 = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
             {
                 name: 'No',
                 selector: (row) => row.key,
-                width: '10%'
+                sortable: true,
+                width: '9%'
+            },
+            {
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '9%'
             },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name || '',
-                width: '20%'
+                sortable: true,
+                width: '17%'
             },
             {
                 name: 'SDG',
                 selector: (row) => row.sdg,
-                width: '15%'
+                width: '13%'
             },
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '25%'
+                width: '22%'
             },
             {
                 name: 'Overall',
@@ -341,7 +384,8 @@ const ViewSelectedIdea = () => {
                         ? row.evaluator_ratings[0]?.overall_avg
                         : '-',
                 width: '10%',
-                sortable: true
+                sortable: true,
+                id: 'overall'
             },
 
             {
@@ -374,7 +418,7 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={async () => {
+                                        onClick={async() => {
                                             await downloadPDF(params);
                                         }}
                                         className="text-danger"
@@ -386,6 +430,20 @@ const ViewSelectedIdea = () => {
                                     />
                                 )}
                             </div>
+                            {!params.final_result && (
+                                <div
+                                    //exact="true"
+                                    // key={record}
+                                    onClick={() =>
+                                        handlePromotel2processed(params)
+                                    }
+                                    style={{ marginRight: '12px' }}
+                                >
+                                    <div className="btn btn-info btn-lg mx-2">
+                                        Promote
+                                    </div>
+                                </div>
+                            )}
                         </>
                     ];
                 },
@@ -470,238 +528,20 @@ const ViewSelectedIdea = () => {
         ]
     };
 
-    const evaluatedIdeaforL0 = {
-        data: tableData && tableData.length > 0 ? tableData : [],
-        columns: [
-            {
-                name: 'No',
-                cell: (params, index) => {
-                    return [
-                        <div className="ms-3" key={params}>
-                            {index + 1}
-                        </div>
-                    ];
-                },
-                sortable: true,
-                width: '10%'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '21%'
-            },
-            {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '21%'
-            },
-            {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '21%'
-            },
-            {
-                name: 'Status',
-                cell: (row) => row.status,
-                width: '11%'
-            },
-            {
-                name: 'Actions',
-                cell: (params) => {
-                    return [
-                        <div className="d-flex" key={params}>
-                            <div
-                                className="btn btn-primary btn-lg mr-5 mx-2"
-                                onClick={() => {
-                                    setIdeaDetails(params);
-                                    setIsDetail(true);
-                                    let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
-                                    setCurrentRow(index + 1);
-                                }}
-                            >
-                                View
-                            </div>
-                        </div>
-                    ];
-                },
-                width: '12%',
-                left: true
-            }
-        ]
-    };
-
-    const evaluatedIdeafinal = {
-        data: tableData && tableData.length > 0 ? tableData : [],
-        columns: [
-            {
-                name: 'No',
-                selector: (row) => row.key,
-                sortable: true,
-                width: '6%'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '11.5%'
-            },
-            {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '10%'
-            },
-            {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '11.5%'
-            },
-            {
-                name: 'overall',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].overall
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '7%'
-            },
-            {
-                name: 'Novelty',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].param_1
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '8%'
-            },
-            {
-                name: 'Usefulness',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].param_2
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '9%'
-            },
-            {
-                name: 'Feasability',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].param_3
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '9%'
-            },
-            {
-                name: 'Scalability',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].param_4
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '9%'
-            },
-            {
-                name: 'Sustainability',
-                cell: (row) => {
-                    return [
-                        row.evaluator_ratings
-                            ? row.evaluator_ratings.length > 0
-                                ? average(
-                                      row.evaluator_ratings[0].param_5
-                                  ).toFixed(2)
-                                : ' '
-                            : ' '
-                    ];
-                },
-                width: '11%'
-            },
-
-            {
-                name: 'Actions',
-                cell: (params) => {
-                    return [
-                        <div className="d-flex" key={params}>
-                            <div
-                                className="btn btn-primary btn-lg mr-5 mx-2"
-                                onClick={() => {
-                                    setIdeaDetails(params);
-                                    setIsDetail(true);
-                                    let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
-                                    setCurrentRow(index + 1);
-                                }}
-                            >
-                                View
-                            </div>
-                        </div>
-                    ];
-                },
-                width: '8%',
-                left: true
-            }
-        ]
-    };
-    const [sortid, setsortid] = React.useState();
+    const [sortid, setsortid] = useState();
     const handlesortid = (e) => {
         setsortid(e.id);
     };
-    const sel = level0
-        ? evaluatedIdeaforL0
-        : level === 'L1' && title !== 'L1 - Yet to Processed'
-        ? evaluatedIdeaL1
-        : level === 'L1' && title === 'L1 - Yet to Processed'
-        ? l1yettoprocessed
-        : level === 'L2' && title !== 'L2 - Yet to Processed'
-        ? evaluatedIdeaL2
-        : level === 'L2' && title === 'L2 - Yet to Processed'
-        ? L2yettoprocessed
-        : evaluatedIdeafinal;
+    const sel =
+        level === 'L1' && title !== 'L1 - Yet to Processed'
+            ? evaluatedIdea
+            : level === 'L1' && title === 'L1 - Yet to Processed'
+            ? l1yettoprocessed
+            : level === 'L2' && title !== 'L2 - Yet to Processed'
+            ? evaluatedIdeaL2
+            : level === 'L2' && title === 'L2 - Yet to Processed'
+            ? L2yettoprocessed
+            : ' ';
     const showbutton = district && sdg;
 
     const handleNext = () => {
@@ -859,6 +699,7 @@ const ViewSelectedIdea = () => {
                                         <DataTable
                                             data={tableData || []}
                                             defaultSortFieldId={sortid}
+                                            //defaultSortField='ID'
                                             defaultSortAsc={false}
                                             pagination
                                             highlightOnHover
