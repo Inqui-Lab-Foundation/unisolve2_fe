@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Button } from '../../stories/Button';
@@ -11,7 +12,7 @@ import { Modal } from 'react-bootstrap';
 import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 
-const IdeaDetail = (props) => {
+const NextLevel = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
@@ -106,7 +107,7 @@ const IdeaDetail = (props) => {
                         : response?.data?.message
                 );
                 setTimeout(() => {
-                    dispatch(getSubmittedIdeaList());
+                    dispatch(getSubmittedIdeaList('L2'));
                     props?.setIsNextDiv(true);
                 }, 100);
             })
@@ -137,6 +138,15 @@ const IdeaDetail = (props) => {
                                         <span className="text-capitalize fs-3">
                                             {props?.ideaDetails?.sdg?.toLowerCase() ||
                                                 ''}
+                                        </span>
+                                    </h2>
+                                </div>
+                                <div className="col-sm-8">
+                                    <h2 className="mb-md-4 mb-3">
+                                        Challenge Response Id :
+                                        <span className="text-capitalize fs-3">
+                                            {props?.ideaDetails
+                                                ?.challenge_response_id || ''}
                                         </span>
                                     </h2>
                                 </div>
@@ -214,7 +224,7 @@ const IdeaDetail = (props) => {
                                 );
                             })}
                             {/* -----level 1 accept/reject process---- */}
-                            {evalSchema?.toLowerCase() == 'accept_reject' && (
+                            {/* {evalSchema?.toLowerCase() == 'accept_reject' && (
                                 <div className="d-md-flex">
                                     {props?.ideaDetails?.status ===
                                         'SUBMITTED' && (
@@ -245,23 +255,23 @@ const IdeaDetail = (props) => {
                                         </div>
                                     )}
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     </div>
 
                     {/* //-----------Rating section---- */}
-                    {evalSchema?.toLowerCase() == 'rating_scale' ? (
-                        <RateIdea
-                            challenge_response_id={
-                                props?.ideaDetails?.challenge_response_id
-                            }
-                            evaluator_id={currentUser?.data[0]?.user_id}
-                            level={levelName}
-                            setIsNextDiv={props?.setIsNextDiv}
-                        />
-                    ) : (
-                        <></>
-                    )}
+                    {/* {evalSchema?.toLowerCase() == 'rating_scale' ? ( */}
+                    <RateIdea
+                        challenge_response_id={
+                            props?.ideaDetails?.challenge_response_id
+                        }
+                        evaluator_id={currentUser?.data[0]?.user_id}
+                        level={levelName}
+                        setIsNextDiv={props?.setIsNextDiv}
+                    />
+                    {/* ) : ( */}
+                    <></>
+                    {/* )} */}
                 </>
             ) : (
                 <>
@@ -328,4 +338,4 @@ const IdeaDetail = (props) => {
     );
 };
 
-export default IdeaDetail;
+export default NextLevel;

@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Button } from '../../stories/Button';
 import LinkComponent from './LinkComponent';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
+import { Row, Col, Form, Label } from 'reactstrap';
+
 import { useDispatch } from 'react-redux';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -12,12 +15,17 @@ import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 
 const IdeaDetail = (props) => {
+    console.log(props, 'no');
+
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
+    // console.log(currentUser, 'data');
     const [teamResponse, setTeamResponse] = React.useState([]);
-   
-    const [isReject, setIsreject]=React.useState(false);
-    const [reason, setReason]=React.useState('');
+
+    const [isReject, setIsreject] = React.useState(false);
+    const [reason, setReason] = React.useState('');
+    const [reasonSec, setReasonSec] = React.useState('');
+
     const selectData = [
         'Idea is very common and already in use.',
         'Idea does not have proper details and information to make a decision.',
@@ -26,15 +34,14 @@ const IdeaDetail = (props) => {
         'Inaccurate Data (Form is not filled properly)'
     ];
 
-
-     const [levelName, setLevelName]=React.useState('');
-     const [evalSchema, setEvalSchema]=React.useState('');
-     React.useEffect(()=>{
-         if(currentUser){
-             setLevelName(currentUser?.data[0]?.level_name);
-             setEvalSchema(currentUser?.data[0]?.eval_schema);
-         }
-     },[currentUser]);
+    const [levelName, setLevelName] = React.useState('');
+    const [evalSchema, setEvalSchema] = React.useState('');
+    React.useEffect(() => {
+        if (currentUser) {
+            setLevelName(currentUser?.data[0]?.level_name);
+            setEvalSchema(currentUser?.data[0]?.eval_schema);
+        }
+    }, [currentUser]);
 
     React.useEffect(() => {
         if (props?.ideaDetails?.response) {
@@ -73,9 +80,7 @@ const IdeaDetail = (props) => {
                     if (result.isConfirmed) {
                         handleL1Round(handledText);
                     }
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire('Cancelled', '', 'error');
                 }
             });
@@ -85,7 +90,8 @@ const IdeaDetail = (props) => {
         const body = JSON.stringify({
             status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason:handledText == 'reject' ? reason : ''
+            rejected_reason: handledText == 'reject' ? reason : '',
+            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
         var config = {
             method: 'put',
@@ -102,9 +108,14 @@ const IdeaDetail = (props) => {
         };
         axios(config)
             .then(function (response) {
-                openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
+                openNotificationWithIcon(
+                    'success',
+                    response?.data?.message == 'OK'
+                        ? 'Idea processed successfully!'
+                        : response?.data?.message
+                );
                 setTimeout(() => {
-                    dispatch(getSubmittedIdeaList());
+                    dispatch(getSubmittedIdeaList('L1'));
                     props?.setIsNextDiv(true);
                 }, 100);
             })
@@ -115,12 +126,12 @@ const IdeaDetail = (props) => {
                 );
             });
     };
-   const handleReject=()=>{
-        if(reason){
-            handleAlert('reject'); 
+    const handleReject = () => {
+        if (reason && reasonSec) {
+            handleAlert('reject');
             setIsreject(false);
         }
-   };
+    };
 
     return (
         <>
@@ -138,15 +149,22 @@ const IdeaDetail = (props) => {
                                         </span>
                                     </h2>
                                 </div>
+                                <div className="col-sm-8">
+                                    <h2 className="mb-md-4 mb-3">
+                                        Challenge Response Id :
+                                        <span className="text-capitalize fs-3">
+                                            {props?.ideaDetails
+                                                ?.challenge_response_id || ''}
+                                        </span>
+                                    </h2>
+                                </div>
                                 <div className="col-sm-4 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
                                         <Button
                                             btnClass="primary"
                                             size="small"
                                             label="Skip"
-                                            onClick={() =>
-                                                props?.handleSkip()
-                                            }
+                                            onClick={() => props?.handleSkip()}
                                         />
                                     </div>
                                 </div>
@@ -214,9 +232,8 @@ const IdeaDetail = (props) => {
                                 );
                             })}
                             {/* -----level 1 accept/reject process---- */}
-                            {evalSchema?.toLowerCase()=='accept_reject' && 
-                                <div className="d-md-flex">
-                                
+                            {/* {evalSchema?.toLowerCase() == 'accept_reject' && ( */}
+                            <div className="d-md-flex">
                                 {props?.ideaDetails?.status === 'SUBMITTED' && (
                                     <div className="d-flex ms-auto">
                                         <button
@@ -224,6 +241,7 @@ const IdeaDetail = (props) => {
                                             onClick={() => {
                                                 handleAlert('accept');
                                                 setReason('');
+                                                setReasonSec('');
                                             }}
                                         >
                                             <span className="fs-4">Accept</span>
@@ -234,29 +252,31 @@ const IdeaDetail = (props) => {
                                                 // handleAlert('reject');
                                                 setIsreject(true);
                                                 setReason('');
+                                                setReasonSec('');
                                             }}
                                         >
                                             <span className="fs-4">Reject</span>
                                         </button>
                                     </div>
                                 )}
-                                </div>
-                            }
+                            </div>
+                            {/* )} */}
                         </div>
                     </div>
 
                     {/* //-----------Rating section---- */}
-                    {evalSchema?.toLowerCase()=='rating_scale'? (
-                       <RateIdea
-                        challenge_response_id={props?.ideaDetails?.challenge_response_id}
-                        evaluator_id={currentUser?.data[0]?.user_id}
-                        level={levelName}
-                        setIsNextDiv={props?.setIsNextDiv}
-                       />
-                    ):
-                    <>
-                    </>
-                }
+                    {/* {evalSchema?.toLowerCase() == 'rating_scale' ? (
+                        <RateIdea
+                            challenge_response_id={
+                                props?.ideaDetails?.challenge_response_id
+                            }
+                            evaluator_id={currentUser?.data[0]?.user_id}
+                            level={levelName}
+                            setIsNextDiv={props?.setIsNextDiv}
+                        />
+                    ) : (
+                        <></>
+                    )} */}
                 </>
             ) : (
                 <>
@@ -277,46 +297,64 @@ const IdeaDetail = (props) => {
             )}
             {/* ----------reject-modal----- */}
             <Modal
-            show={isReject}
-            onHide={()=>setIsreject(false)}
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            className="assign-evaluator ChangePSWModal teacher-register-modal"
-            backdrop="static"
-            scrollable={true}
-        >
-            <Modal.Header closeButton onHide={()=>setIsreject(false)}>
-                <Modal.Title
-                    id="contained-modal-title-vcenter"
-                    className="w-100 d-block text-center"
-                >
-                    Reject
-                </Modal.Title>
-            </Modal.Header>
+                show={isReject}
+                onHide={() => setIsreject(false)}
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                className="assign-evaluator ChangePSWModal teacher-register-modal"
+                backdrop="static"
+                scrollable={true}
+            >
+                <Modal.Header closeButton onHide={() => setIsreject(false)}>
+                    <Modal.Title
+                        id="contained-modal-title-vcenter"
+                        className="w-100 d-block text-center"
+                    >
+                        Reject
+                    </Modal.Title>
+                </Modal.Header>
 
-            <Modal.Body>
-                <div className='my-3 text-center'>
-                    <h3 className='mb-sm-4 mb-3'>Please Select the reason for rejection.</h3>
-                    <Select 
-                    list={selectData}
-                    setValue={setReason}
-                    placeHolder={'Please Select'}
-                    value={reason}
-                    />
-                </div>
-                <div className='text-center'>
-                    <Button
-                        label={'Submit'}
-                        btnClass={!reason?'default':'primary'}
-                        size="small "
-                        onClick={()=>handleReject()}
-                       disabled={!reason}
-                    />
-                </div>
-            </Modal.Body>
-        </Modal>
+                <Modal.Body>
+                    <div className="my-3 text-center">
+                        <h3 className="mb-sm-4 mb-3">
+                            Please Select the reason for rejection.
+                        </h3>
+                        <Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReason}
+                                    placeHolder={
+                                        'Please Select Reject Reason 1'
+                                    }
+                                    value={reason}
+                                />
+                            </Col>
+                            <Col className="m-5">
+                                <Select
+                                    list={selectData}
+                                    setValue={setReasonSec}
+                                    placeHolder={'Please Select Reject Reason2'}
+                                    value={reasonSec}
+                                />
+                            </Col>
+                        </Col>
+                    </div>
+                    <div className="text-center">
+                        <Button
+                            label={'Submit'}
+                            btnClass={
+                                !reason && reasonSec ? 'default' : 'primary'
+                            }
+                            size="small "
+                            onClick={() => handleReject()}
+                            disabled={!reason && reasonSec}
+                        />
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     );
 };
