@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import '../Student/Pages/SignUp.scss';
@@ -12,7 +13,10 @@ import * as Yup from 'yup';
 import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { evaluatorLoginUser } from '../redux/actions';
-
+import { Carousel } from 'react-bootstrap';
+import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import image_1 from '../assets/media/unisolve_slider1.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import Register from './Register';
@@ -86,11 +90,12 @@ const LoginEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter evaluator email '
+        placeholder: 'Enter Evaluator Mobile Number '
     };
 
     const inputPassword = {
-        placeholder: 'Enter password'
+        placeholder: 'Enter password',
+        showEyeIcon: true
     };
 
     const logInBtn = {
@@ -98,59 +103,74 @@ const LoginEvaluator = (props) => {
         size: 'large'
     };
 
-    const handleShow = (e, type) => {
-        if (type === 'password') {
-            handlePassword('text');
-        } else {
-            handlePassword('password');
-        }
-    };
+    // const handleShow = (e, type) => {
+    //     if (type === 'password') {
+    //         handlePassword('text');
+    //     } else {
+    //         handlePassword('password');
+    //     }
+    // };
     return (
         <React.Fragment>
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
                     <div className="col-md-4 aside mobile-header">
-                        <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                                <Col
-                                    md={12}
-                                    className=" mr-auto mobile_tab-hide"
-                                >
-                                    {' '}
-                                    <h2 className="text-white">
+                        <Carousel>
+                            <Carousel.Item>
+                                <div className="mobile_tab-hide">
+                                    <figure>
                                         <img
-                                            src={signuplogo}
-                                            alt="Signup logo"
-                                            className="img-fluid w-50"
+                                            src={image_1}
+                                            alt="image_1"
+                                            className="img-fluid img-1"
                                         />
-                                    </h2>
-                                </Col>
-                            </a>
-                        </div>
-
-                        <h1 className="text-left pb-5 mobile_tab-hide">
-                            Together let’s learn and build something amazing.
-                        </h1>
-                        <p className="mobile_tab-hide">
-                            Creating change makers of tomorrow
-                        </p>
+                                    </figure>
+                                </div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <div className="mobile_tab-hide">
+                                    <figure>
+                                        <img
+                                            src={image_2}
+                                            alt="image_2"
+                                            className="img-fluid img-2"
+                                        />
+                                    </figure>
+                                </div>
+                            </Carousel.Item>
+                            {/* <Carousel.Item>
                         <div className="mobile_tab-hide">
                             <figure>
                                 <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
-                                    className="img-fluid img-1"
+                                    src={ellipse_2}
+                                    alt="ellipse_2"
+                                    className="img-fluid img-3"
                                 />
                             </figure>
                         </div>
+                            </Carousel.Item> */}
+                        </Carousel>
                     </div>
 
                     <Col xs={12} sm={12} md={8} xl={8} className="article">
+                        <Row className="logo">
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                    />
+                                </Col>
+                            </a>
+                        </Row>
                         <Row className=" article-header mb-4">
-                            <h4 className="mb-4">
-                                <span className="color-green">Evaluator</span>{' '}
-                                Login
+                            <h4 className="mb-4 d-flex justify-content-center align-elements-center">
+                                Evaluator Login
                             </h4>
                         </Row>
 
@@ -162,14 +182,14 @@ const LoginEvaluator = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Email
+                                                Mobile Number
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -195,8 +215,8 @@ const LoginEvaluator = (props) => {
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Label
                                                 className="mb-2"
@@ -208,7 +228,7 @@ const LoginEvaluator = (props) => {
                                                 {...inputPassword}
                                                 id="password"
                                                 name="password"
-                                                type={password}
+                                                type="password"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
@@ -222,12 +242,12 @@ const LoginEvaluator = (props) => {
                                             ) : null}
                                         </Col>
 
-                                        <Col
+                                        {/* <Col
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Row className="keepme_login">
                                                 <Col className="col-sm-4">
@@ -259,15 +279,15 @@ const LoginEvaluator = (props) => {
                                                     </Link>
                                                 </Col>
                                             </Row>
-                                        </Col>
+                                        </Col> */}
                                     </div>
                                     <div className="form-row row mb-5">
                                         <Col
                                             className="form-group"
                                             xs={12}
                                             sm={12}
-                                            md={10}
-                                            xl={7}
+                                            md={12}
+                                            xl={12}
                                         >
                                             <Button
                                                 {...logInBtn}
@@ -286,6 +306,7 @@ const LoginEvaluator = (props) => {
                                                         formik.isValid
                                                     )
                                                 }
+                                                style={{ borderRadius: '0' }}
                                             />
                                             <div
                                                 className="text-primary text-center fs-4 pointer pt-1 mt-4"

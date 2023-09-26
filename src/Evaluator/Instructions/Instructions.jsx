@@ -28,15 +28,23 @@ const Instructions = () => {
                     }}
                 ></div>
 
-                <div className="text-right">
+                <div className="text-center mt-5">
                     <Button
-                        label={"Let's Start"}
+                        label={'L1-Round Evaluator'}
                         btnClass="primary mx-3"
                         size="small"
                         onClick={() =>
                             history.push('/evaluator/submitted-ideas')
                         }
-                    ></Button>
+                    />
+                    <Button
+                        label={'L2-Round Evaluator'}
+                        btnClass="primary mx-3"
+                        size="small"
+                        // onClick={() =>
+                        //     history.push('/evaluator2/submitted-ideas')
+                        // }
+                    />
                 </div>
             </Card>
         </Layout>

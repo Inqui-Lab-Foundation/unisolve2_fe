@@ -108,7 +108,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/submitted-ideas'}>
-                            Evaluation
+                            L1 Evaluation
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaLightbulb />}
+                        className={
+                            location.pathname ===
+                                '/evaluator2/submitted-ideas' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/evaluator2/submitted-ideas'}
+                        >
+                            L2 Evaluation
                         </NavLink>
                     </MenuItem>
                     <MenuItem

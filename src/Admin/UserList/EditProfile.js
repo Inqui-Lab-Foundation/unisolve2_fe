@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
@@ -89,8 +90,8 @@ const EditProfile = (props) => {
             const body = mentorData?.evaluator_id
                 ? JSON.stringify({
                       full_name: full_name,
-                      username: email,
-                      district: district
+                      username: email
+                      //   district: district
                   })
                 : mentorData?.admin_id
                 ? JSON.stringify({
@@ -256,68 +257,6 @@ const EditProfile = (props) => {
                                                     ) : null}
                                                 </Col> */}
                                                 <div className="w-100" />
-                                                {!mentorData?.mentor_id && (
-                                                    <Col md={6}>
-                                                        <Label
-                                                            className="name-req mt-5"
-                                                            htmlFor="district"
-                                                        >
-                                                            District
-                                                        </Label>
-                                                        {/* <InputBox
-                                                            className={
-                                                                'defaultInput'
-                                                            }
-                                                            id="district"
-                                                            name="district"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .district
-                                                            }
-                                                        /> */}
-                                                        <div className="md-12  justify-content-center">
-                                                            <Select
-                                                                list={
-                                                                    fullDistrictsNames
-                                                                }
-                                                                setValue={(
-                                                                    value
-                                                                ) =>
-                                                                    formik.setFieldValue(
-                                                                        'district',
-                                                                        value
-                                                                    )
-                                                                }
-                                                                placeHolder={
-                                                                    'Select District'
-                                                                }
-                                                                value={
-                                                                    formik
-                                                                        .values
-                                                                        .district
-                                                                }
-                                                            />
-                                                        </div>
-                                                        {formik.touched
-                                                            .district &&
-                                                        formik.errors
-                                                            .district ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .district
-                                                                }
-                                                            </small>
-                                                        ) : null}
-                                                    </Col>
-                                                )}
                                             </>
                                         )}
                                     </Row>
