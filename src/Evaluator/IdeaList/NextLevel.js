@@ -3,127 +3,19 @@
 import React from 'react';
 import { Button } from '../../stories/Button';
 import LinkComponent from './LinkComponent';
-import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { getSubmittedIdeaList } from '../store/evaluator/action';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { Modal } from 'react-bootstrap';
-import Select from '../Helper/Select';
+import { getCurrentUser } from '../../helpers/Utils';
 import RateIdea from './RateIdea';
 
 const NextLevel = (props) => {
-    const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
-
-    const [isReject, setIsreject] = React.useState(false);
-    const [reason, setReason] = React.useState('');
-    const selectData = [
-        'Idea is very common and already in use.',
-        'Idea does not have proper details and information to make a decision.',
-        'Idea does not solve the problem identified/the solution and problem are not connected.',
-        'Not very clear about the idea and solution.',
-        'Inaccurate Data (Form is not filled properly)'
-    ];
-
-    const [levelName, setLevelName] = React.useState('');
-    const [evalSchema, setEvalSchema] = React.useState('');
-    React.useEffect(() => {
-        if (currentUser) {
-            setLevelName(currentUser?.data[0]?.level_name);
-            setEvalSchema(currentUser?.data[0]?.eval_schema);
-        }
-    }, [currentUser]);
-
     React.useEffect(() => {
         if (props?.ideaDetails?.response) {
             setTeamResponse(
                 Object.entries(props?.ideaDetails?.response).map((e) => e[1])
             );
-        }
+        } else setTeamResponse([]);
     }, [props]);
-
-    const handleAlert = (handledText) => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false,
-            allowOutsideClick: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title:
-                    handledText === 'accept'
-                        ? 'You are attempting to accept this Idea'
-                        : 'You are attempting to reject this Idea',
-                text: 'Are you sure?',
-                // imageUrl: `${logout}`,
-                showCloseButton: true,
-                confirmButtonText: 'Confirm',
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                reverseButtons: false
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    if (result.isConfirmed) {
-                        handleL1Round(handledText);
-                    }
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
-                }
-            });
-    };
-
-    const handleL1Round = (handledText) => {
-        const body = JSON.stringify({
-            status:
-                handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason: handledText == 'reject' ? reason : ''
-        });
-        var config = {
-            method: 'put',
-            url: `${
-                process.env.REACT_APP_API_BASE_URL +
-                '/challenge_response/' +
-                props?.ideaDetails?.challenge_response_id
-            }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            },
-            data: body
-        };
-        axios(config)
-            .then(function (response) {
-                openNotificationWithIcon(
-                    'success',
-                    response?.data?.message == 'OK'
-                        ? 'Idea processed successfully!'
-                        : response?.data?.message
-                );
-                setTimeout(() => {
-                    dispatch(getSubmittedIdeaList('L2'));
-                    props?.setIsNextDiv(true);
-                }, 100);
-            })
-            .catch(function (error) {
-                openNotificationWithIcon(
-                    'error',
-                    error?.response?.data?.message
-                );
-            });
-    };
-    const handleReject = () => {
-        if (reason) {
-            handleAlert('reject');
-            setIsreject(false);
-        }
-    };
 
     return (
         <>
@@ -223,55 +115,19 @@ const NextLevel = (props) => {
                                     </div>
                                 );
                             })}
-                            {/* -----level 1 accept/reject process---- */}
-                            {/* {evalSchema?.toLowerCase() == 'accept_reject' && (
-                                <div className="d-md-flex">
-                                    {props?.ideaDetails?.status ===
-                                        'SUBMITTED' && (
-                                        <div className="d-flex ms-auto">
-                                            <button
-                                                className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                }}
-                                            >
-                                                <span className="fs-4">
-                                                    Accept
-                                                </span>
-                                            </button>
-                                            <button
-                                                className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
-                                                onClick={() => {
-                                                    // handleAlert('reject');
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                }}
-                                            >
-                                                <span className="fs-4">
-                                                    Reject
-                                                </span>
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            )} */}
                         </div>
                     </div>
 
                     {/* //-----------Rating section---- */}
-                    {/* {evalSchema?.toLowerCase() == 'rating_scale' ? ( */}
+
                     <RateIdea
                         challenge_response_id={
                             props?.ideaDetails?.challenge_response_id
                         }
                         evaluator_id={currentUser?.data[0]?.user_id}
-                        level={levelName}
+                        level={'L2'}
                         setIsNextDiv={props?.setIsNextDiv}
                     />
-                    {/* ) : ( */}
-                    <></>
-                    {/* )} */}
                 </>
             ) : (
                 <>
@@ -290,50 +146,6 @@ const NextLevel = (props) => {
                     </div>
                 </>
             )}
-            {/* ----------reject-modal----- */}
-            <Modal
-                show={isReject}
-                onHide={() => setIsreject(false)}
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                className="assign-evaluator ChangePSWModal teacher-register-modal"
-                backdrop="static"
-                scrollable={true}
-            >
-                <Modal.Header closeButton onHide={() => setIsreject(false)}>
-                    <Modal.Title
-                        id="contained-modal-title-vcenter"
-                        className="w-100 d-block text-center"
-                    >
-                        Reject
-                    </Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <div className="my-3 text-center">
-                        <h3 className="mb-sm-4 mb-3">
-                            Please Select the reason for rejection.
-                        </h3>
-                        <Select
-                            list={selectData}
-                            setValue={setReason}
-                            placeHolder={'Please Select'}
-                            value={reason}
-                        />
-                    </div>
-                    <div className="text-center">
-                        <Button
-                            label={'Submit'}
-                            btnClass={!reason ? 'default' : 'primary'}
-                            size="small "
-                            onClick={() => handleReject()}
-                            disabled={!reason}
-                        />
-                    </div>
-                </Modal.Body>
-            </Modal>
         </>
     );
 };
