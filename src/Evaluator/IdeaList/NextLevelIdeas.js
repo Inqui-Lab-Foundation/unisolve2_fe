@@ -3,7 +3,6 @@
 import React from 'react';
 import './IdeaList.scss';
 import Layout from '../Layout';
-import IdeaDetail from './IdeaDetail';
 import { Button } from '../../stories/Button';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import { useDispatch, useSelector } from 'react-redux';

@@ -91,7 +91,7 @@ import NextLevelIdeas from './Evaluator/IdeaList/NextLevelIdeas';
 
 import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
 import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
-
+import EvaluatedIdeaL2 from './Evaluator/EvaluatedIdea/EvaluatedIdeaL2';
 import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
 import EadminChangePassword from './Evaluator/Admin/Pages/ChangePSWModal';
 import TicketResView from './Admin/Tickets/TicketResView';
@@ -950,6 +950,12 @@ const Routers = () => {
                         user="EVALUATOR"
                         path="/evaluator/evaluated-ideas"
                         component={EvaluatedIdea}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EVALUATOR"
+                        path="/evaluator/evaluated-ideasL2"
+                        component={EvaluatedIdeaL2}
                     />
                     <Route
                         exact={true}
