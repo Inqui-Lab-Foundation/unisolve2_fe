@@ -12,7 +12,10 @@ import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
-import { ReasonsOptions } from '../Admin/Pages/ReasonForRejectionData';
+import {
+    ReasonsOptions,
+    reasondata2
+} from '../Admin/Pages/ReasonForRejectionData';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -29,7 +32,6 @@ const EvaluatedIdea = () => {
     const evaluatedIdeaList = useSelector(
         (state) => state?.evaluator.evaluatedIdeaL1
     );
-
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
@@ -52,7 +54,11 @@ const EvaluatedIdea = () => {
         dispatch(getDistrictData());
     }, []);
     useEffect(() => {
-        settabledate(evaluatedIdeaList);
+        if (district === '') {
+            settabledate([]);
+        } else {
+            settabledate(evaluatedIdeaList);
+        }
     }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
@@ -74,7 +80,8 @@ const EvaluatedIdea = () => {
         statusparam +
         districtparam +
         sdgparam +
-        (reason && '&rejected_reason=' + reason)+(reason2 && '&rejected_reasonSecond=' + reason2);
+        (reason && '&rejected_reason=' + reason) +
+        (reason2 && '&rejected_reasonSecond=' + reason2);
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
@@ -251,7 +258,7 @@ const EvaluatedIdea = () => {
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={ReasonsOptions}
+                                                        list={reasondata2}
                                                         setValue={setReason2}
                                                         placeHolder={
                                                             'Select Reason for rejection 2'
@@ -336,7 +343,7 @@ const EvaluatedIdea = () => {
                                         evaluatedIdeaList &&
                                         evaluatedIdeaList?.length
                                     }
-                                    levelName='L1'
+                                    levelName="L1"
                                 />
                             ))}
                     </div>

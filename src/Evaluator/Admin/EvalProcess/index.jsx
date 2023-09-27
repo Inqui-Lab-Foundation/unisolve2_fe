@@ -45,7 +45,7 @@ const Evalprocess = () => {
         // where we can select district //
         // where item = district //
         history.push({
-            pathname: '/admin/selectingDistricts-evaluationProcess'
+            pathname: '/eadmin/selectingDistricts-evaluationProcess'
         });
         localStorage.setItem('eavlId', JSON.stringify(item));
     };

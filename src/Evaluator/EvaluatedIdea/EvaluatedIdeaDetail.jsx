@@ -160,13 +160,22 @@ const EvaluatedIdeaDetail = (props) => {
                                 </p>
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Rejected Reason:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.rejected_reason ||
-                                            ''}
-                                    </p>
+                                    <>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 1:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reason || ''}
+                                        </p>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 2:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reasonSecond || ''}
+                                        </p>
+                                    </>
                                 )}
                             </div>
                             {props?.levelName !== 'L1' && (

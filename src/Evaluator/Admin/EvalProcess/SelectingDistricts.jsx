@@ -1,17 +1,17 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-import Layout from '../../Admin/Layout';
+import Layout from '../Pages/Layout';
 import { Row, Col, Label, Container, Card } from 'reactstrap';
-import { Button } from '../../stories/Button';
+import { Button } from '../../../stories/Button';
 import {
     getNormalHeaders,
     openNotificationWithIcon
-} from '../../helpers/Utils';
+} from '../../../helpers/Utils';
 import axios from 'axios';
-import { URL, KEY } from '../../constants/defaultValues';
+import { URL, KEY } from '../../../constants/defaultValues';
 import Check from './Pages/Check';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDistrictData } from '../../redux/studentRegistration/actions';
+import { getDistrictData } from '../../../redux/studentRegistration/actions';
 
 const EditEvalProcess = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
@@ -86,7 +86,7 @@ const EditEvalProcess = (props) => {
                         'success',
                         'Districts Update Successfully'
                     );
-                    props.history.push('/admin/evaluationProcess');
+                    props.history.push('/eadmin/evaluationProcess');
                 }
             })
             .catch((err) => {
@@ -152,7 +152,7 @@ const EditEvalProcess = (props) => {
                             btnClass="secondary"
                             size="small"
                             onClick={() =>
-                                props.history.push('/admin/evaluationProcess')
+                                props.history.push('/eadmin/evaluationProcess')
                             }
                         />
                     </Col>

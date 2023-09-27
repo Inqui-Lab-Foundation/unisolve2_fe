@@ -33,11 +33,17 @@ const ViewDetail = (props) => {
     const [reasonSec, setReasonSec] = React.useState('');
 
     const selectData = [
-        'Idea is very common and already in use.',
-        'Idea does not have proper details and information to make a decision.',
-        'Idea does not solve the problem identified/the solution and problem are not connected.',
-        'Not very clear about the idea and solution.',
-        'Inaccurate Data (Form is not filled properly)'
+        'Not novel - Idea and problem common and already in use.',
+        'Not novel - Idea has been 100% plagiarized.',
+        'Not useful - Idea does not solve the problem identified / problem & solution not connected.',
+        'Not understandable - Idea Submission does not have proper details to make a decision.',
+        'Not clear (usefulness)',
+        'Not filled - Inaccurate data (form is not filled properly)'
+    ];
+    const reasondata2 = [
+        'Lot of project effort visible (all of the 1, 2, 3,10, 14, 16 steps in the Idea Submission Format are clearly explained and are valid)',
+        'Some project effort visible (at least the steps 2,3,10 inthe Idea Submission Format are clearly explained and are valid)',
+        'Zero project effort visible (the steps 2,3 and 10 are not clear/relevant)'
     ];
     React.useEffect(() => {
         if (props?.ideaDetails?.response) {
@@ -414,15 +420,22 @@ const ViewDetail = (props) => {
 
                                     {props?.ideaDetails?.evaluation_status ==
                                         'REJECTEDROUND1' && (
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Rejected Reason:{' '}
-                                            </span>{' '}
-                                            {props?.ideaDetails
-                                                ?.rejected_reason &&
-                                                props?.ideaDetails
-                                                    ?.rejected_reasonSecond}
-                                        </p>
+                                            <>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 1:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reason || ''}
+                                            </p>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason 2:{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reasonSecond || ''}
+                                            </p>
+                                        </>
                                     )}
                                     {props?.ideaDetails?.evaluation_status ? (
                                         props?.ideaDetails?.evaluation_status ==
@@ -542,18 +555,28 @@ const ViewDetail = (props) => {
                         </h3>
                         <Col>
                             <Col className="m-5">
+                                <p className="text-left">
+                                    <b>1. Novelty & Usefulness</b>
+                                </p>
                                 <Select
                                     list={selectData}
                                     setValue={setReason}
-                                    placeHolder="Please Select Reject Reason 1"
+                                    placeHolder="Please Select Reject Reason"
                                     value={reason}
                                 />
                             </Col>
                             <Col className="m-5">
+                                <p className="text-left">
+                                    <b>
+                                        2. Does the submission show any evidence
+                                        of efforts put in to complete the
+                                        project?
+                                    </b>
+                                </p>
                                 <Select
-                                    list={selectData}
+                                    list={reasondata2}
                                     setValue={setReasonSec}
-                                    placeHolder="Please Select Reject Reason 2"
+                                    placeHolder="Please Select Reject Reason"
                                     value={reasonSec}
                                 />
                             </Col>
