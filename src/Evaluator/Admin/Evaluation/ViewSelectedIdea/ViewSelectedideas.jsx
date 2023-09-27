@@ -396,23 +396,23 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '9%'
+                width: '8%'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '20%'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '7%'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '13%'
             },
             {
                 name: 'Quality Score',
@@ -429,28 +429,30 @@ const ViewSelectedIdea = () => {
                             2
                     ).toFixed(2),
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '15%'
+                width: '10%'
             },
             {
                 name: 'Feasibility Score',
                 selector: (row) =>
-                   ( (row.evaluator_ratings[0]?.param_3[0] +
-                        row.evaluator_ratings[0]?.param_3[1] +
-                        row.evaluator_ratings[0]?.param_3[2]) /
-                        3 +
-                    (row.evaluator_ratings[0]?.param_4[0] +
-                        row.evaluator_ratings[0]?.param_4[1] +
-                        row.evaluator_ratings[0]?.param_4[2]) /
-                        3 /
-                        +(
-                            row.evaluator_ratings[0]?.param_5[0] +
-                            row.evaluator_ratings[0]?.param_5[1] +
-                            row.evaluator_ratings[0]?.param_5[2]
-                        ) /
-                        3 /
-                        3).toFixed(2),
+                    (
+                        (row.evaluator_ratings[0]?.param_3[0] +
+                            row.evaluator_ratings[0]?.param_3[1] +
+                            row.evaluator_ratings[0]?.param_3[2]) /
+                            3 +
+                        (row.evaluator_ratings[0]?.param_4[0] +
+                            row.evaluator_ratings[0]?.param_4[1] +
+                            row.evaluator_ratings[0]?.param_4[2]) /
+                            3 /
+                            +(
+                                row.evaluator_ratings[0]?.param_5[0] +
+                                row.evaluator_ratings[0]?.param_5[1] +
+                                row.evaluator_ratings[0]?.param_5[2]
+                            ) /
+                            3 /
+                            3
+                    ).toFixed(2),
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '15%'
+                width: '10%'
             },
             // {
             //     name: 'CID',
@@ -474,13 +476,13 @@ const ViewSelectedIdea = () => {
             //     width: '22%'
             // },
             {
-                name: 'Overall Score',
+                name: 'Overall',
 
                 selector: (row) =>
                     row.evaluator_ratings[0]?.overall_avg
                         ? row.evaluator_ratings[0]?.overall_avg
                         : '-',
-                width: '15%',
+                width: '10%',
                 sortable: true,
                 id: 'overall'
             },
@@ -544,7 +546,7 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '20%',
+                width: '22%',
                 left: true
             }
         ]
