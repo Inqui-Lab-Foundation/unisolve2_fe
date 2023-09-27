@@ -40,6 +40,7 @@ export default function DoughnutChart({ user }) {
     const [studentchangelist, setstudentchangelist] = useState([]);
     const [studentchangeObj, setstudentchangeObj] = useState({});
     const [isideadisable, setIsideadisable] = useState(false);
+    const [isEvlCom, setIsEvlCom] = useState(false);
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
@@ -104,6 +105,31 @@ export default function DoughnutChart({ user }) {
                         setIsideadisable(true);
                     } else {
                         setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/3`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '0') {
+                        setIsEvlCom(true);
+                    } else {
+                        setIsEvlCom(false);
                     }
                 }
             })
@@ -405,7 +431,38 @@ export default function DoughnutChart({ user }) {
     });
 
     //////
-    
+    const [ideaStatusEval, setIdeaStatusEval] = useState('-');
+    useEffect(() => {
+        if (challengesSubmittedResponse.length === 0) {
+            setIdeaStatusEval('NOT STARTED');
+        } else if (challengesSubmittedResponse[0].final_result === '1') {
+            setIdeaStatusEval(
+                'Congratulations,Idea is selected for grand finale'
+            );
+        } else if (challengesSubmittedResponse[0].final_result === '0') {
+            setIdeaStatusEval('L2_Promoted - Shortlisted for final round of evaluation');
+            if (isEvlCom) {
+                setIdeaStatusEval('Runner - “Better luck next time”');
+            }
+        } else if (
+            challengesSubmittedResponse[0].evaluation_status ===
+            'REJECTEDROUND1'
+        ) {
+            setIdeaStatusEval('L1_Rejected - “Better luck next time”');
+        } else if (
+            challengesSubmittedResponse[0].evaluation_status === 'SELECTEDROUND1'
+        ) {
+            setIdeaStatusEval(
+                'L1_Accepted - “Promoted to Level 2 round of evaluation”'
+            );
+            if (isEvlCom) {
+                setIdeaStatusEval('L2_Not Promoted - “Better luck next time”');
+            }
+        } else {
+            setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
+        }
+    }, [challengesSubmittedResponse]);
+
     return (
         <>
             <div style={{ display: 'none' }}>
@@ -471,10 +528,7 @@ export default function DoughnutChart({ user }) {
                                             IDEA STATUS :
                                         </span>
                                         <span style={{ paddingLeft: '1rem' }}>
-                                            {challengesSubmittedResponse[0]
-                                                ?.status
-                                                ? ` ${challengesSubmittedResponse[0]?.status}`
-                                                : 'NOT STARTED'}
+                                            {ideaStatusEval}
                                         </span>
                                     </Card>
                                 </div>
