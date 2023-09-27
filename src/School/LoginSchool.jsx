@@ -92,10 +92,14 @@ function LoginSchool(props) {
             const iv = CryptoJS.enc.Hex.parse(
                 '00000000000000000000000000000000'
             );
-            const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                iv: iv,
-                padding: CryptoJS.pad.NoPadding
-            }).toString();
+            const encrypted = CryptoJS.AES.encrypt(
+                values.password.trim(),
+                key,
+                {
+                    iv: iv,
+                    padding: CryptoJS.pad.NoPadding
+                }
+            ).toString();
             const body = {
                 organization_code: values.discecode,
                 password: encrypted

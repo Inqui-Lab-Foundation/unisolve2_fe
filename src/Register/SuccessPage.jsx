@@ -134,8 +134,7 @@ const SuccessPage = () => {
                                         marginBottom: '2rem'
                                     }}
                                 >
-                                    Your school has been successfully
-                                    registered.
+                                    You have successfully registered.
                                 </p>
 
                                 <p
