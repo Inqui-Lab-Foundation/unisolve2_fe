@@ -681,21 +681,21 @@ const TicketsPage = (props) => {
                 selector: 'user.full_name',
                 width: '20rem'
             },
-            {
-                name: 'Email',
-                selector: 'user.username',
-                width: '25rem'
-            },
+            // {
+            //     name: 'Email',
+            //     selector: 'user.username',
+            //     width: '25rem'
+            // },
             {
                 name: 'Mobile',
-                selector: 'mobile',
-                width: '11%'
+                selector: 'user.username',
+                width: '20rem'
             },
-            {
-                name: 'District',
-                selector: 'district',
-                width: '11rem'
-            },
+            // {
+            //     name: 'District',
+            //     selector: 'district',
+            //     width: '11rem'
+            // },
             {
                 name: 'Status',
                 cell: (row) => [
@@ -708,13 +708,13 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '10rem'
+                width: '18rem'
             },
             {
                 name: 'Actions',
                 sortable: false,
                 selector: 'null',
-                width: '15rem',
+                width: '25rem',
                 cell: (record) => [
                     // <div
                     //     key={record.id}

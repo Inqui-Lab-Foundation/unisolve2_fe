@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import React from 'react';
+
 import { useLocation } from 'react-router-dom';
 
 const RatedDetailCard = (props) => {
@@ -55,9 +56,7 @@ const RatedDetailCard = (props) => {
                     </p>
                 </div>
                 <div className="col-12">
-                    <p className="text-muted my-3 text-center">
-                        OverAll Rating
-                    </p>
+                    <p className="text-muted text-center">OverAll Rating</p>
                 </div>
             </div>
             <div className="row mb-1">

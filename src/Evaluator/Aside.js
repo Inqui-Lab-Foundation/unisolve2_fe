@@ -108,7 +108,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/submitted-ideas'}>
-                            Evaluation
+                            L1 Evaluation
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaLightbulb />}
+                        className={
+                            location.pathname ===
+                                '/evaluator2/submitted-ideas' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/evaluator2/submitted-ideas'}
+                        >
+                            L2 Evaluation
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -119,7 +134,18 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/evaluated-ideas'}>
-                            Evaluated Ideas
+                            L1 Evaluated Ideas
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaLightbulb />}
+                        className={
+                            location.pathname ===
+                                '/evaluator/evaluated-ideasL2' && 'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/evaluator/evaluated-ideasL2'}>
+                            L2 Evaluated Ideas
                         </NavLink>
                     </MenuItem>
                     <MenuItem

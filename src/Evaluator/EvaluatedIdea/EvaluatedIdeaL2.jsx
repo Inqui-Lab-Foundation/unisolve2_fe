@@ -12,10 +12,6 @@ import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
-import {
-    ReasonsOptions,
-    reasondata2
-} from '../Admin/Pages/ReasonForRejectionData';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -24,14 +20,12 @@ const EvaluatedIdea = () => {
     // here we can see all the EvaluatedIdeas in  status wise , district wise , SDG wise   //
     const dispatch = useDispatch();
     const [showspin, setshowspin] = React.useState(false);
-    const [reason, setReason] = React.useState('');
-    const [reason2, setReason2] = React.useState('');
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
-    const [status, setstatus] = React.useState('');
     const evaluatedIdeaList = useSelector(
         (state) => state?.evaluator.evaluatedIdeaL1
     );
+
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
@@ -39,15 +33,7 @@ const EvaluatedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    const statusdata = ['Accepted', 'Rejected', 'Both'];
-
-    React.useEffect(() => {
-        if (status && status === 'Accepted') {
-            setReason('');
-            setReason2('');
-        }
-    }, [status]);
-
+    
     const [tabledate, settabledate] = React.useState([]);
 
     useEffect(() => {
@@ -66,22 +52,11 @@ const EvaluatedIdea = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(filterParams, setshowspin));
     };
-    const levelparam = '?level=L1';
-    const statusparam =
-        status && status !== 'Both'
-            ? '&evaluation_status=' +
-              (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1')
-            : '';
+    const levelparam = '?evaluation_status=SELECTEDROUND1&level=L2';
     const districtparam =
         district && district !== 'All Districts' ? '&district=' + district : '';
     const sdgparam = sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '';
-    const filterParams =
-        levelparam +
-        statusparam +
-        districtparam +
-        sdgparam +
-        (reason && '&rejected_reason=' + reason) +
-        (reason2 && '&rejected_reasonSecond=' + reason2);
+    const filterParams = levelparam + districtparam + sdgparam;
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
@@ -121,25 +96,20 @@ const EvaluatedIdea = () => {
             {
                 name: 'Evaluated At',
                 selector: (row) =>
-                    row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
+                    row?.evaluator_ratings[0]?.created_at
+                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
+                              'DD-MM-YY h:mm:ss a'
+                          )
+                        : row?.evaluator_ratings[0]?.created_at,
                 width: '17%'
             },
             {
-                name: 'Status',
+                name: 'Overall',
+
                 cell: (row) => {
                     return [
                         <div className="d-flex" key={row}>
-                            {row.evaluation_status &&
-                                row.evaluation_status == 'SELECTEDROUND1' && (
-                                    <span className="text-success">
-                                        Accepted
-                                    </span>
-                                )}
-                            {row.evaluation_status == 'REJECTEDROUND1' && (
-                                <span className="text-danger">Rejected</span>
-                            )}
+                            <span>{row?.evaluator_ratings[0]?.overall}</span>
                         </div>
                     ];
                 },
@@ -202,23 +172,10 @@ const EvaluatedIdea = () => {
                     <div className="col-12 p-0">
                         {!isDetail && (
                             <div>
-                                <h2 className="ps-2 pb-3">L1 Evaluated Idea</h2>
+                                <h2 className="ps-2 pb-3">L2 Evaluated Idea</h2>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={1}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={statusdata}
-                                                    setValue={setstatus}
-                                                    placeHolder={
-                                                        'Select Status'
-                                                    }
-                                                    value={status}
-                                                />
-                                            </div>
-                                        </Col>
-
-                                        <Col md={2}>
+                                        <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullDistrictsNames}
@@ -230,7 +187,7 @@ const EvaluatedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={2}>
+                                        <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -240,52 +197,19 @@ const EvaluatedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                        {status && status !== 'Accepted' && (
-                                            <Col md={3}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={ReasonsOptions}
-                                                        setValue={setReason}
-                                                        placeHolder={
-                                                            'Select Reason for rejection 1'
-                                                        }
-                                                        value={reason}
-                                                    />
-                                                </div>
-                                            </Col>
-                                        )}
-                                        {status && status !== 'Accepted' && (
-                                            <Col md={3}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={reasondata2}
-                                                        setValue={setReason2}
-                                                        placeHolder={
-                                                            'Select Reason for rejection 2'
-                                                        }
-                                                        value={reason2}
-                                                    />
-                                                </div>
-                                            </Col>
-                                        )}
+
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        status &&
-                                                        district &&
-                                                        sdg
+                                                        district && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
                                                     disabled={
-                                                        !(
-                                                            status &&
-                                                            district &&
-                                                            sdg
-                                                        )
+                                                        !(district && sdg)
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()
@@ -343,7 +267,7 @@ const EvaluatedIdea = () => {
                                         evaluatedIdeaList &&
                                         evaluatedIdeaList?.length
                                     }
-                                    levelName="L1"
+                                    levelName="L2"
                                 />
                             ))}
                     </div>

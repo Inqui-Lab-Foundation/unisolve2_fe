@@ -83,7 +83,7 @@ const RateIdea = (props) => {
             .then(function (response) {
                 openNotificationWithIcon('success', response?.data?.message == 'OK' ? 'Idea processed successfully!' : response?.data?.message);
                 setTimeout(() => {
-                    dispatch(getSubmittedIdeaList());
+                    dispatch(getSubmittedIdeaList('L2'));
                     props?.setIsNextDiv(true);
                 }, 100);
             })

@@ -1,32 +1,32 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import './ViewFinalSelectedideas.scss';
-import Layout from '../Pages/Layout';
+import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation} from 'react-router-dom';
 import axios from 'axios';
-import { KEY, URL } from '../../../constants/defaultValues';
-import { Button } from '../../../stories/Button';
-import Select from '../../Helper/Select';
+import { KEY, URL } from '../../../../constants/defaultValues';
+import { Button } from '../../../../stories/Button';
+import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
-import { cardData } from '../../../Student/Pages/Ideas/SDGData.js';
+import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
-import { getDistrictData } from '../../../redux/studentRegistration/actions';
+import { getDistrictData } from '../../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
-import { getNormalHeaders } from '../../../helpers/Utils';
+import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
-import TableDetailPdf from '../../../Admin/Evaluation/FinalResults/TableDetailPdf.jsx';
+import TableDetailPdf from './TableDetailPdf';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
-    //const currentUser = getCurrentUser('current_user');
+    const currentUser = getCurrentUser('current_user');
     const title = new URLSearchParams(search).get('title');
     const level = new URLSearchParams(search).get('level');
     const [isDetail, setIsDetail] = React.useState(false);
@@ -50,11 +50,39 @@ const ViewSelectedIdea = () => {
         (district && district !== 'All Districts'
             ? '&district=' + district
             : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
-
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
 
+    const handlePromotelFinalEvaluated = async(item) => {
+        await promoteapi(item.challenge_response_id);
+    };
+
+    async function promoteapi(id) {
+        const body = JSON.stringify({ final_result: '1' });
+        var config = {
+            method: 'put',
+            url: `${
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                id
+            }`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        await axios(config)
+            .then(async function (response) {
+                if (response.status === 200) {
+                    await handleclickcall();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     const handleclickcall = async() => {
         setshowspin(true);
         await handleideaList();
@@ -88,7 +116,6 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
-
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -125,6 +152,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
+
                 sortable: true
             },
             {
@@ -138,6 +166,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
+
                 sortable: true
             },
             {
@@ -151,6 +180,7 @@ const ViewSelectedIdea = () => {
                             : ' '
                     ];
                 },
+
                 sortable: true
             },
             {
@@ -237,6 +267,18 @@ const ViewSelectedIdea = () => {
                                     />
                                 )}
                             </div>
+                            {params.final_result === '0' && (
+                                <div
+                                    onClick={() =>
+                                        handlePromotelFinalEvaluated(params)
+                                    }
+                                    style={{ marginRight: '12px' }}
+                                >
+                                    <div className="btn btn-info btn-lg mx-2">
+                                        Promote
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ];
                 },
@@ -399,7 +441,6 @@ const ViewSelectedIdea = () => {
                                     >
                                         <DataTable
                                             data={tableData || []}
-                                            //defaultSortField="id"
                                             defaultSortFieldId={sortid}
                                             defaultSortAsc={false}
                                             pagination

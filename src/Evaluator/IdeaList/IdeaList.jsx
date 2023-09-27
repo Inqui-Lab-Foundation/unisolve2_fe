@@ -20,7 +20,7 @@ const IdeaList = () => {
     );
 
     React.useEffect(() => {
-        dispatch(getSubmittedIdeaList());
+        dispatch(getSubmittedIdeaList('L1'));
     }, []);
     React.useEffect(() => {
         if (allIdeaList) {
@@ -30,7 +30,7 @@ const IdeaList = () => {
         }
     }, [allIdeaList]);
     const handleNext = () => {
-        dispatch(getSubmittedIdeaList());
+        dispatch(getSubmittedIdeaList('L1'));
     };
 
     return (

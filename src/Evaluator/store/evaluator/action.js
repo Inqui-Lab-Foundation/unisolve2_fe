@@ -104,6 +104,8 @@ export const evaluatorAdminLoginUser =
                 const item = result.data;
                 setCurrentUser(item);
                 localStorage.setItem('module', module);
+                localStorage.setItem('time', new Date().toString());
+
                 dispatch(evaluatorAdminLoginUserSuccess(result));
 
                 history.push('/eadmin/dashboard');
@@ -126,9 +128,9 @@ export const getSubmittedIdeaListSuccess = (data) => async (dispatch) => {
         payload: data
     });
 };
-export const getSubmittedIdeaList = () => async (dispatch) => {
+export const getSubmittedIdeaList = (level) => async (dispatch) => {
     const currentUser = getCurrentUser('current_user');
-    const level = currentUser?.data[0]?.level_name;
+    // const level = currentUser?.data[0]?.level_name;
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
@@ -147,6 +149,7 @@ export const getSubmittedIdeaList = () => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
+
             const data = result?.data?.data[0];
             dispatch(getSubmittedIdeaListSuccess(data));
         } else {

@@ -4,12 +4,10 @@ import './EvaluatedIdea.scss';
 import { Button } from '../../stories/Button';
 import LinkComponent from '../IdeaList/LinkComponent';
 import moment from 'moment';
-import { getCurrentUser } from '../../helpers/Utils';
 import RatedDetailCard from './RatedDetailCard';
 
 const EvaluatedIdeaDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState([]);
-    const currentUser = getCurrentUser('current_user');
     React.useEffect(() => {
         if (props?.ideaDetails?.response) {
             setTeamResponse(
@@ -17,12 +15,6 @@ const EvaluatedIdeaDetail = (props) => {
             );
         }
     }, [props]);
-    const [levelName, setLevelName] = React.useState('');
-    React.useEffect(() => {
-        if (currentUser) {
-            setLevelName(currentUser?.data[0]?.level_name);
-        }
-    }, [currentUser]);
 
     return (
         <div>
@@ -168,16 +160,25 @@ const EvaluatedIdeaDetail = (props) => {
                                 </p>
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                    <p className="text-center">
-                                        <span className="text-bold">
-                                            Rejected Reason:{' '}
-                                        </span>{' '}
-                                        {props?.ideaDetails?.rejected_reason ||
-                                            ''}
-                                    </p>
+                                    <>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 1:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reason || ''}
+                                        </p>
+                                        <p className="text-center">
+                                            <span className="text-bold">
+                                                Rejected Reason 2:{' '}
+                                            </span>{' '}
+                                            {props?.ideaDetails
+                                                ?.rejected_reasonSecond || ''}
+                                        </p>
+                                    </>
                                 )}
                             </div>
-                            {levelName !== 'L1' && (
+                            {props?.levelName !== 'L1' && (
                                 <RatedDetailCard details={props?.ideaDetails} />
                             )}
                         </div>
