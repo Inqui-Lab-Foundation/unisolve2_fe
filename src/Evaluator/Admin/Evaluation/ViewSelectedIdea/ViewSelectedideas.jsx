@@ -417,22 +417,24 @@ const ViewSelectedIdea = () => {
             {
                 name: 'Quality Score',
                 selector: (row) =>
-                    (row.evaluator_ratings[0]?.param_1[0] +
-                        row.evaluator_ratings[0]?.param_1[1] +
-                        row.evaluator_ratings[0]?.param_1[2]) /
-                        3 +
-                    (row.evaluator_ratings[0]?.param_2[0] +
-                        row.evaluator_ratings[0]?.param_2[1] +
-                        row.evaluator_ratings[0]?.param_2[2]) /
-                        3 /
-                        2,
+                    (
+                        (row.evaluator_ratings[0]?.param_1[0] +
+                            row.evaluator_ratings[0]?.param_1[1] +
+                            row.evaluator_ratings[0]?.param_1[2]) /
+                            3 +
+                        (row.evaluator_ratings[0]?.param_2[0] +
+                            row.evaluator_ratings[0]?.param_2[1] +
+                            row.evaluator_ratings[0]?.param_2[2]) /
+                            3 /
+                            2
+                    ).toFixed(2),
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
                 width: '15%'
             },
             {
                 name: 'Feasibility Score',
                 selector: (row) =>
-                    (row.evaluator_ratings[0]?.param_3[0] +
+                   ( (row.evaluator_ratings[0]?.param_3[0] +
                         row.evaluator_ratings[0]?.param_3[1] +
                         row.evaluator_ratings[0]?.param_3[2]) /
                         3 +
@@ -446,7 +448,7 @@ const ViewSelectedIdea = () => {
                             row.evaluator_ratings[0]?.param_5[2]
                         ) /
                         3 /
-                        3,
+                        3).toFixed(2),
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
                 width: '15%'
             },

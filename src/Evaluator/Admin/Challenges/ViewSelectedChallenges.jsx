@@ -156,7 +156,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-    // console.log(tableData, 'tableData');
+    console.log(tableData, 'tableData');
     const showbutton = district && sdg;
 
     const handleNext = () => {
