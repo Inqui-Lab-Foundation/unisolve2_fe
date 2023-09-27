@@ -420,7 +420,7 @@ const ViewDetail = (props) => {
 
                                     {props?.ideaDetails?.evaluation_status ==
                                         'REJECTEDROUND1' && (
-                                            <>
+                                        <>
                                             <p className="text-center">
                                                 <span className="text-bold">
                                                     Rejected Reason 1:{' '}
@@ -433,7 +433,8 @@ const ViewDetail = (props) => {
                                                     Rejected Reason 2:{' '}
                                                 </span>{' '}
                                                 {props?.ideaDetails
-                                                    ?.rejected_reasonSecond || ''}
+                                                    ?.rejected_reasonSecond ||
+                                                    ''}
                                             </p>
                                         </>
                                     )}
@@ -561,7 +562,7 @@ const ViewDetail = (props) => {
                                 <Select
                                     list={selectData}
                                     setValue={setReason}
-                                    placeHolder="Please Select Reject Reason"
+                                    placeHolder="Please Select Reject Reason 1"
                                     value={reason}
                                 />
                             </Col>
@@ -576,7 +577,7 @@ const ViewDetail = (props) => {
                                 <Select
                                     list={reasondata2}
                                     setValue={setReasonSec}
-                                    placeHolder="Please Select Reject Reason"
+                                    placeHolder="Please Select Reject Reason 2"
                                     value={reasonSec}
                                 />
                             </Col>

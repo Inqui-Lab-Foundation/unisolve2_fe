@@ -75,10 +75,14 @@ const LoginEvaluator = (props) => {
             const iv = CryptoJS.enc.Hex.parse(
                 '00000000000000000000000000000000'
             );
-            const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                iv: iv,
-                padding: CryptoJS.pad.NoPadding
-            }).toString();
+            const encrypted = CryptoJS.AES.encrypt(
+                values.password.trim(),
+                key,
+                {
+                    iv: iv,
+                    padding: CryptoJS.pad.NoPadding
+                }
+            ).toString();
             const body = {
                 username: values.email,
                 password: encrypted,

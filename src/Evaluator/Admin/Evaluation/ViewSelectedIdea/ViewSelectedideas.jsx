@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
@@ -17,7 +18,10 @@ import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
 import { getDistrictData } from '../../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
-import { ReasonsOptions ,reasondata2} from '../../../../Evaluator/Admin/Pages/ReasonForRejectionData';
+import {
+    ReasonsOptions,
+    reasondata2
+} from '../../../../Evaluator/Admin/Pages/ReasonForRejectionData';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { getAdminEvalutorsList } from '../../../../Admin/store/adminEvalutors/actions';
 import { getAdminList } from '../../../../Admin/store/admin/actions';
@@ -146,6 +150,15 @@ const ViewSelectedIdea = () => {
             )
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response);
+                    // const val1 =
+                    //     response?.data?.data[0]?.dataValues[0]
+                    //         ?.evaluator_ratings[0]?.param_1;
+                    // const sum = val1.reduce((acc, value) => acc + value, 0);
+                    // const average = sum / val1.length;
+
+                    // console.log('Average:', average);
+
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -163,6 +176,7 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
+
     const evaluatedIdea = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -374,7 +388,7 @@ const ViewSelectedIdea = () => {
         });
         setPdfLoader(false);
     };
-
+    console.log(tableData, 'Data');
     const evaluatedIdeaL2 = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -382,23 +396,63 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '9%'
+                width: '8%'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '20%'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '7%'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '13%'
+            },
+            {
+                name: 'Quality Score',
+                selector: (row) =>
+                    (
+                        (row.evaluator_ratings[0]?.param_1[0] +
+                            row.evaluator_ratings[0]?.param_1[1] +
+                            row.evaluator_ratings[0]?.param_1[2]) /
+                            3 +
+                        (row.evaluator_ratings[0]?.param_2[0] +
+                            row.evaluator_ratings[0]?.param_2[1] +
+                            row.evaluator_ratings[0]?.param_2[2]) /
+                            3 /
+                            2
+                    ).toFixed(2),
+                // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
+                width: '10%'
+            },
+            {
+                name: 'Feasibility Score',
+                selector: (row) =>
+                    (
+                        (row.evaluator_ratings[0]?.param_3[0] +
+                            row.evaluator_ratings[0]?.param_3[1] +
+                            row.evaluator_ratings[0]?.param_3[2]) /
+                            3 +
+                        (row.evaluator_ratings[0]?.param_4[0] +
+                            row.evaluator_ratings[0]?.param_4[1] +
+                            row.evaluator_ratings[0]?.param_4[2]) /
+                            3 /
+                            +(
+                                row.evaluator_ratings[0]?.param_5[0] +
+                                row.evaluator_ratings[0]?.param_5[1] +
+                                row.evaluator_ratings[0]?.param_5[2]
+                            ) /
+                            3 /
+                            3
+                    ).toFixed(2),
+                // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
+                width: '10%'
             },
             // {
             //     name: 'CID',
@@ -414,7 +468,7 @@ const ViewSelectedIdea = () => {
             // {
             //     name: 'SDG',
             //     selector: (row) => row.sdg,
-            //     width: '13%'
+            //     wi '13%'
             // },
             // {
             //     name: 'Submitted By',
@@ -492,11 +546,12 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '20%',
+                width: '22%',
                 left: true
             }
         ]
     };
+
     const L2yettoprocessed = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -522,11 +577,7 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.district,
                 width: '15%'
             },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row.sdg,
-            //     width: '30%'
-            // },
+
             // {
             //     name: 'Submitted By',
             //     selector: (row) => row.initiated_name,
@@ -582,7 +633,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-
+    console.log(tableData, '1');
     const [sortid, setsortid] = useState();
     const handlesortid = (e) => {
         setsortid(e.id);

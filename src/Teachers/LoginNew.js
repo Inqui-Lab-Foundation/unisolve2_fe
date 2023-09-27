@@ -58,7 +58,7 @@ const LoginNew = (props) => {
         validationSchema: Yup.object({
             phone: Yup.string()
                 .required('required')
-                .trim()
+                // .trim()
                 .matches(
                     /^[0-9\s/^ *$/]+$/,
                     'Enter Valid Phone No (Enter only digits) '
@@ -88,13 +88,17 @@ const LoginNew = (props) => {
             const iv = CryptoJS.enc.Hex.parse(
                 '00000000000000000000000000000000'
             );
-            const encrypted = CryptoJS.AES.encrypt(values.password, key, {
-                iv: iv,
-                padding: CryptoJS.pad.NoPadding
-            }).toString();
+            const encrypted = CryptoJS.AES.encrypt(
+                values.password.trim(),
+                key,
+                {
+                    iv: iv,
+                    padding: CryptoJS.pad.NoPadding
+                }
+            ).toString();
             const body = {
                 username: values.phone.trim(),
-                password: encrypted.trim(),
+                password: encrypted,
                 role: 'MENTOR'
             };
             props.teacherLoginUserAction(body, history, 'MENTOR');
