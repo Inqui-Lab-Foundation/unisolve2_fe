@@ -40,7 +40,11 @@ const EvaluatedIdea = () => {
         dispatch(getDistrictData());
     }, []);
     useEffect(() => {
-        settabledate(evaluatedIdeaList);
+        if (district === '') {
+            settabledate([]);
+        } else {
+            settabledate(evaluatedIdeaList);
+        }
     }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
@@ -52,10 +56,7 @@ const EvaluatedIdea = () => {
     const districtparam =
         district && district !== 'All Districts' ? '&district=' + district : '';
     const sdgparam = sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '';
-    const filterParams =
-        levelparam +
-        districtparam +
-        sdgparam;
+    const filterParams = levelparam + districtparam + sdgparam;
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);

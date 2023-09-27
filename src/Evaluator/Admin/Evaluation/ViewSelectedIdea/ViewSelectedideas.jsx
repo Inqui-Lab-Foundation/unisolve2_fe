@@ -17,7 +17,7 @@ import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
 import { getDistrictData } from '../../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
-import { ReasonsOptions } from '../../../../Evaluator/Admin/Pages/ReasonForRejectionData';
+import { ReasonsOptions ,reasondata2} from '../../../../Evaluator/Admin/Pages/ReasonForRejectionData';
 import { getCurrentUser, getNormalHeaders } from '../../../../helpers/Utils';
 import { getAdminEvalutorsList } from '../../../../Admin/store/adminEvalutors/actions';
 import { getAdminList } from '../../../../Admin/store/admin/actions';
@@ -696,7 +696,7 @@ const ViewSelectedIdea = () => {
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={ReasonsOptions}
+                                                        list={reasondata2}
                                                         setValue={setReasonSec}
                                                         placeHolder={
                                                             'Select Reason 2 for rejection'

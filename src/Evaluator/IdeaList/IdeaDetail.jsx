@@ -15,7 +15,6 @@ import Select from '../Helper/Select';
 import RateIdea from './RateIdea';
 
 const IdeaDetail = (props) => {
-
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
@@ -25,11 +24,17 @@ const IdeaDetail = (props) => {
     const [reasonSec, setReasonSec] = React.useState('');
 
     const selectData = [
-        'Idea is very common and already in use.',
-        'Idea does not have proper details and information to make a decision.',
-        'Idea does not solve the problem identified/the solution and problem are not connected.',
-        'Not very clear about the idea and solution.',
-        'Inaccurate Data (Form is not filled properly)'
+        'Not novel - Idea and problem common and already in use.',
+        'Not novel - Idea has been 100% plagiarized.',
+        'Not useful - Idea does not solve the problem identified / problem & solution not connected.',
+        'Not understandable - Idea Submission does not have proper details to make a decision.',
+        'Not clear (usefulness)',
+        'Not filled - Inaccurate data (form is not filled properly)'
+    ];
+    const reasondata2 = [
+        'Lot of project effort visible (all of the 1, 2, 3,10, 14, 16 steps in the Idea Submission Format are clearly explained and are valid)',
+        'Some project effort visible (at least the steps 2,3,10 inthe Idea Submission Format are clearly explained and are valid)',
+        'Zero project effort visible (the steps 2,3 and 10 are not clear/relevant)'
     ];
 
     const [levelName, setLevelName] = React.useState('');
@@ -344,20 +349,29 @@ const IdeaDetail = (props) => {
                         </h3>
                         <Col>
                             <Col className="m-5">
+                                <p className="text-left">
+                                    <b>1. Novelty & Usefulness</b>
+                                </p>
                                 <Select
                                     list={selectData}
                                     setValue={setReason}
                                     placeHolder={
-                                        'Please Select Reject Reason 1'
+                                        'Please Select Reject Reason'
                                     }
                                     value={reason}
                                 />
                             </Col>
                             <Col className="m-5">
+                                <p className="text-left">
+                                    <b>
+                                        2. Does the submission show any evidence of
+                                        efforts put in to complete the project?
+                                    </b>
+                                </p>
                                 <Select
-                                    list={selectData}
+                                    list={reasondata2}
                                     setValue={setReasonSec}
-                                    placeHolder={'Please Select Reject Reason2'}
+                                    placeHolder={'Please Select Reject Reason'}
                                     value={reasonSec}
                                 />
                             </Col>

@@ -158,6 +158,7 @@ import EAdminEvaluationProcess from './Evaluator/Admin/EvalProcess/index';
 import EAdminSelectedlist from './Evaluator/Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import EAdminSelectedfinallist from './Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import EadminEditProfile from './Evaluator/Admin/Evaluator/EadminEditProfile';
+import EadminSelDistricts from './Evaluator/Admin/EvalProcess/SelectingDistricts';
 
 const Routers = () => {
     return (
@@ -1009,6 +1010,12 @@ const Routers = () => {
                         user="EADMIN"
                         path="/eadmin/change-password"
                         component={EadminChangePassword}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/selectingDistricts-evaluationProcess"
+                        component={EadminSelDistricts}
                     />
                     <Route component={PageNotFound} path="*" />
                 </Switch>
