@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ViewSelectedideas.scss';
 import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -30,6 +30,8 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
+import { useReactToPrint } from 'react-to-print';
+import DetailToDownload from '../../Challenges/DetailToDownload';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -253,27 +255,35 @@ const ViewSelectedIdea = () => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <div className="d-flex" key={params}>
-                            <div
-                                className="btn btn-primary btn-lg mr-5 mx-2"
-                                onClick={() => {
-                                    setIdeaDetails(params);
-                                    setIsDetail(true);
-                                    let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
-                                    setCurrentRow(index + 1);
-                                }}
-                            >
-                                View
+                        <>
+                            <div className="d-flex" key={params}>
+                                <div
+                                    className="btn btn-primary btn-lg mr-5 mx-2"
+                                    onClick={() => {
+                                        setIdeaDetails(params);
+                                        setIsDetail(true);
+                                        let index = 0;
+                                        tableData?.forEach((item, i) => {
+                                            if (
+                                                item?.challenge_response_id ==
+                                                params?.challenge_response_id
+                                            ) {
+                                                index = i;
+                                            }
+                                        });
+                                        setCurrentRow(index + 1);
+                                    }}
+                                >
+                                    View
+                                </div>
                             </div>
-                        </div>
+                            <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            />
+                        </>
                     ];
                 },
                 width: '8%',
@@ -345,6 +355,12 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
+                            <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            />
                         </div>
                     ];
                 },
@@ -514,7 +530,7 @@ const ViewSelectedIdea = () => {
                                 </div>
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
+                                {/* {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
                                         onClick={async () => {
@@ -527,7 +543,13 @@ const ViewSelectedIdea = () => {
                                         size={22}
                                         className="text-info"
                                     />
-                                )}
+                                )} */}
+                                <FaDownload
+                                    size={22}
+                                    onClick={() => {
+                                        handleDownpdf(params);
+                                    }}
+                                />
                             </div>
                             {!params.final_result && (
                                 <div
@@ -610,7 +632,7 @@ const ViewSelectedIdea = () => {
                                 </div>
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
+                                {/* {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
                                         onClick={async () => {
@@ -623,7 +645,13 @@ const ViewSelectedIdea = () => {
                                         size={22}
                                         className="text-info"
                                     />
-                                )}
+                                )} */}
+                                <FaDownload
+                                    size={22}
+                                    onClick={() => {
+                                        handleDownpdf(params);
+                                    }}
+                                />
                             </div>
                         </>
                     ];
@@ -664,195 +692,246 @@ const ViewSelectedIdea = () => {
             setCurrentRow(currentRow - 1);
         }
     };
-    return (
-        <Layout>
-            <div className="container evaluated_idea_wrapper pt-5 mb-50">
-                <div id="pdfIdd" style={{ display: 'none' }}>
-                    <TableDetailPdf
-                        ideaDetails={details}
-                        teamResponse={teamResponse}
-                        level={level}
-                    />
-                </div>
-                <div className="row">
-                    <div className="col-12 p-0">
-                        {!isDetail && (
-                            <div>
-                                <h2 className="ps-2 pb-3">
-                                    {title} Challenges
-                                </h2>
 
-                                <Container fluid className="px-0">
-                                    <Row className="align-items-center">
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={fullDistrictsNames}
-                                                    setValue={setdistrict}
-                                                    placeHolder={
-                                                        'Select District'
-                                                    }
-                                                    value={district}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={SDGDate}
-                                                    setValue={setsdg}
-                                                    placeHolder={'Select SDG'}
-                                                    value={sdg}
-                                                />
-                                            </div>
-                                        </Col>
-                                        {level === 'L1' &&
-                                            title !==
-                                                'L1 - Yet to Processed' && (
+    ////////////////pdf////////////////
+    const componentRef = useRef();
+    const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
+    const [pdfTeamResponse, setpdfTeamResponse] = useState('');
+    const handleDownpdf = (params) => {
+        setPdfIdeaDetails(params);
+        if (params?.response) {
+            setpdfTeamResponse(
+                Object.entries(params?.response).map((e) => e[1])
+            );
+        }
+    };
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: `${
+            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+        }_IdeaSubmission`
+    });
+    useEffect(() => {
+        if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
+            handlePrint();
+        }
+    }, [pdfIdeaDetails, pdfTeamResponse]);
+
+    /////////////////
+
+    return (
+        <>
+            <div style={{ display: 'none' }}>
+                <DetailToDownload
+                    ref={componentRef}
+                    ideaDetails={pdfIdeaDetails}
+                    teamResponse={pdfTeamResponse}
+                    level={'Draft'}
+                />
+            </div>
+            <Layout>
+                <div className="container evaluated_idea_wrapper pt-5 mb-50">
+                    {/* <div id="pdfIdd" style={{ display: 'none' }}>
+                        <TableDetailPdf
+                            ideaDetails={details}
+                            teamResponse={teamResponse}
+                            level={level}
+                        />
+                    </div> */}
+                    <div className="row">
+                        <div className="col-12 p-0">
+                            {!isDetail && (
+                                <div>
+                                    <h2 className="ps-2 pb-3">
+                                        {title} Challenges
+                                    </h2>
+
+                                    <Container fluid className="px-0">
+                                        <Row className="align-items-center">
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={
+                                                            fullDistrictsNames
+                                                        }
+                                                        setValue={setdistrict}
+                                                        placeHolder={
+                                                            'Select District'
+                                                        }
+                                                        value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={SDGDate}
+                                                        setValue={setsdg}
+                                                        placeHolder={
+                                                            'Select SDG'
+                                                        }
+                                                        value={sdg}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            {level === 'L1' &&
+                                                title !==
+                                                    'L1 - Yet to Processed' && (
+                                                    <Col md={2}>
+                                                        <div className="my-3 d-md-block d-flex justify-content-center">
+                                                            <Select
+                                                                list={
+                                                                    Allevalnamelist
+                                                                }
+                                                                setValue={
+                                                                    setevalname
+                                                                }
+                                                                placeHolder={
+                                                                    'Select evaluator name'
+                                                                }
+                                                                value={evalname}
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                )}
+
+                                            {title === 'Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
                                                             list={
-                                                                Allevalnamelist
+                                                                ReasonsOptions
                                                             }
-                                                            setValue={
-                                                                setevalname
-                                                            }
+                                                            setValue={setReason}
                                                             placeHolder={
-                                                                'Select evaluator name'
+                                                                'Select Reason 1 for rejection'
                                                             }
-                                                            value={evalname}
+                                                            value={reason}
                                                         />
                                                     </div>
                                                 </Col>
+                                            ) : (
+                                                ''
                                             )}
-
-                                        {title === 'Rejected' ? (
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={ReasonsOptions}
-                                                        setValue={setReason}
-                                                        placeHolder={
-                                                            'Select Reason 1 for rejection'
+                                            {title === 'Rejected' ? (
+                                                <Col md={2}>
+                                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                                        <Select
+                                                            list={reasondata2}
+                                                            setValue={
+                                                                setReasonSec
+                                                            }
+                                                            placeHolder={
+                                                                'Select Reason 2 for rejection'
+                                                            }
+                                                            value={reasonSec}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            ) : (
+                                                ''
+                                            )}
+                                            <Col md={1}>
+                                                <div className="text-center">
+                                                    <Button
+                                                        btnClass={
+                                                            showbutton
+                                                                ? 'primary'
+                                                                : 'default'
                                                         }
-                                                        value={reason}
+                                                        size="small"
+                                                        label="Search"
+                                                        disabled={!showbutton}
+                                                        onClick={() =>
+                                                            handleclickcall()
+                                                        }
                                                     />
                                                 </div>
                                             </Col>
-                                        ) : (
-                                            ''
-                                        )}
-                                        {title === 'Rejected' ? (
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={reasondata2}
-                                                        setValue={setReasonSec}
-                                                        placeHolder={
-                                                            'Select Reason 2 for rejection'
+                                            <Col
+                                                md={
+                                                    title === 'Rejected'
+                                                        ? 1
+                                                        : level === 'L1' &&
+                                                          title !==
+                                                              'L1 - Yet to Processed'
+                                                        ? 4
+                                                        : 6
+                                                }
+                                            >
+                                                <div className="text-right">
+                                                    <Button
+                                                        btnClass="primary"
+                                                        size="small"
+                                                        label="Back"
+                                                        onClick={() =>
+                                                            history.goBack()
                                                         }
-                                                        value={reasonSec}
                                                     />
                                                 </div>
                                             </Col>
-                                        ) : (
-                                            ''
-                                        )}
-                                        <Col md={1}>
-                                            <div className="text-center">
-                                                <Button
-                                                    btnClass={
-                                                        showbutton
-                                                            ? 'primary'
-                                                            : 'default'
-                                                    }
-                                                    size="small"
-                                                    label="Search"
-                                                    disabled={!showbutton}
-                                                    onClick={() =>
-                                                        handleclickcall()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col
-                                            md={
-                                                title === 'Rejected'
-                                                    ? 1
-                                                    : level === 'L1' &&
-                                                      title !==
-                                                          'L1 - Yet to Processed'
-                                                    ? 4
-                                                    : 6
-                                            }
-                                        >
-                                            <div className="text-right">
-                                                <Button
-                                                    btnClass="primary"
-                                                    size="small"
-                                                    label="Back"
-                                                    onClick={() =>
-                                                        history.goBack()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </div>
-                        )}
-                        {showspin && (
-                            <div className="text-center mt-5">
-                                <Spinner
-                                    animation="border"
-                                    variant="secondary"
-                                />
-                            </div>
-                        )}
-                        {!showspin &&
-                            (!isDetail ? (
-                                <div className="bg-white border card pt-3 mt-5">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...sel}
-                                    >
-                                        <DataTable
-                                            data={tableData || []}
-                                            defaultSortFieldId={sortid}
-                                            //defaultSortField='ID'
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                            paginationRowsPerPageOptions={[
-                                                10, 25, 50, 100
-                                            ]}
-                                            paginationPerPage={10}
-                                            onChangePage={(page) =>
-                                                setTablePage(page)
-                                            }
-                                            paginationDefaultPage={tablePage}
-                                            onSort={(e) => handlesortid(e)}
-                                        />
-                                    </DataTableExtensions>
+                                        </Row>
+                                    </Container>
                                 </div>
-                            ) : (
-                                <ViewDetail
-                                    ideaDetails={ideaDetails}
-                                    setIsDetail={setIsDetail}
-                                    handleNext={handleNext}
-                                    handlePrev={handlePrev}
-                                    currentRow={currentRow}
-                                    dataLength={tableData && tableData?.length}
-                                />
-                            ))}
+                            )}
+                            {showspin && (
+                                <div className="text-center mt-5">
+                                    <Spinner
+                                        animation="border"
+                                        variant="secondary"
+                                    />
+                                </div>
+                            )}
+                            {!showspin &&
+                                (!isDetail ? (
+                                    <div className="bg-white border card pt-3 mt-5">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...sel}
+                                        >
+                                            <DataTable
+                                                data={tableData || []}
+                                                defaultSortFieldId={sortid}
+                                                //defaultSortField='ID'
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                                paginationRowsPerPageOptions={[
+                                                    10, 25, 50, 100
+                                                ]}
+                                                paginationPerPage={10}
+                                                onChangePage={(page) =>
+                                                    setTablePage(page)
+                                                }
+                                                paginationDefaultPage={
+                                                    tablePage
+                                                }
+                                                onSort={(e) => handlesortid(e)}
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                ) : (
+                                    <ViewDetail
+                                        ideaDetails={ideaDetails}
+                                        setIsDetail={setIsDetail}
+                                        handleNext={handleNext}
+                                        handlePrev={handlePrev}
+                                        currentRow={currentRow}
+                                        dataLength={
+                                            tableData && tableData?.length
+                                        }
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 

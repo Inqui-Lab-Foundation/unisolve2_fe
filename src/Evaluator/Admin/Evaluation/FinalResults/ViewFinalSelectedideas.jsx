@@ -1,11 +1,13 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ViewFinalSelectedideas.scss';
 import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../../constants/defaultValues';
 import { Button } from '../../../../stories/Button';
@@ -21,6 +23,8 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
+import { useReactToPrint } from 'react-to-print';
+import DetailToDownload from '../../Challenges/DetailToDownload';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -54,7 +58,7 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handlePromotelFinalEvaluated = async(item) => {
+    const handlePromotelFinalEvaluated = async (item) => {
         await promoteapi(item.challenge_response_id);
     };
 
@@ -83,7 +87,7 @@ const ViewSelectedIdea = () => {
                 console.log(error);
             });
     }
-    const handleclickcall = async() => {
+    const handleclickcall = async () => {
         setshowspin(true);
         await handleideaList();
     };
@@ -252,7 +256,7 @@ const ViewSelectedIdea = () => {
                                 View
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
+                                {/* {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
                                         onClick={async() => {
@@ -265,7 +269,13 @@ const ViewSelectedIdea = () => {
                                         size={22}
                                         className="text-info"
                                     />
-                                )}
+                                )} */}
+                                <FaDownload
+                                    size={22}
+                                    onClick={() => {
+                                        handleDownpdf(params);
+                                    }}
+                                />
                             </div>
                             {params.final_result === '0' && (
                                 <div
@@ -345,134 +355,181 @@ const ViewSelectedIdea = () => {
         }
     };
 
+    ////////////////pdf////////////////
+    const componentRef = useRef();
+    const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
+    const [pdfTeamResponse, setpdfTeamResponse] = useState('');
+    const handleDownpdf = (params) => {
+        setPdfIdeaDetails(params);
+        if (params?.response) {
+            setpdfTeamResponse(
+                Object.entries(params?.response).map((e) => e[1])
+            );
+        }
+    };
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: `${
+            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+        }_IdeaSubmission`
+    });
+    useEffect(() => {
+        if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
+            handlePrint();
+        }
+    }, [pdfIdeaDetails, pdfTeamResponse]);
+
+    /////////////////
+
     return (
-        <Layout>
-            <div className="container evaluated_idea_wrapper pt-5 mb-50">
-                <div id="pdfIdd" style={{ display: 'none' }}>
+        <>
+            <div style={{ display: 'none' }}>
+                <DetailToDownload
+                    ref={componentRef}
+                    ideaDetails={pdfIdeaDetails}
+                    teamResponse={pdfTeamResponse}
+                    level={'Draft'}
+                />
+            </div>
+
+            <Layout>
+                <div className="container evaluated_idea_wrapper pt-5 mb-50">
+                    {/* <div id="pdfIdd" style={{ display: 'none' }}>
                     <TableDetailPdf
                         ideaDetails={details}
                         teamResponse={teamResponse}
                         level={level}
                     />
-                </div>
-                <div className="row">
-                    <div className="col-12 p-0">
-                        {!isDetail && (
-                            <div>
-                                <h2 className="ps-2 pb-3">
-                                    {title == '0'
-                                        ? 'Final Evaluated'
-                                        : 'Final Winners'}{' '}
-                                    Challenges
-                                </h2>
+                </div> */}
+                    <div className="row">
+                        <div className="col-12 p-0">
+                            {!isDetail && (
+                                <div>
+                                    <h2 className="ps-2 pb-3">
+                                        {title == '0'
+                                            ? 'Final Evaluated'
+                                            : 'Final Winners'}{' '}
+                                        Challenges
+                                    </h2>
 
-                                <Container fluid className="px-0">
-                                    <Row className="align-items-center">
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={fullDistrictsNames}
-                                                    setValue={setdistrict}
-                                                    placeHolder={
-                                                        'Select District'
-                                                    }
-                                                    value={district}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={SDGDate}
-                                                    setValue={setsdg}
-                                                    placeHolder={'Select SDG'}
-                                                    value={sdg}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={2}>
-                                            <div className="text-center">
-                                                <Button
-                                                    btnClass={
-                                                        showbutton
-                                                            ? 'primary'
-                                                            : 'default'
-                                                    }
-                                                    size="small"
-                                                    label="Search"
-                                                    disabled={!showbutton}
-                                                    onClick={() =>
-                                                        handleclickcall()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={6}>
-                                            <div className="text-right">
-                                                <Button
-                                                    btnClass="primary"
-                                                    size="small"
-                                                    label="Back"
-                                                    onClick={() =>
-                                                        history.goBack()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </div>
-                        )}
-                        {showspin && (
-                            <div className="text-center mt-5">
-                                <Spinner
-                                    animation="border"
-                                    variant="secondary"
-                                />
-                            </div>
-                        )}
-                        {!showspin &&
-                            (!isDetail ? (
-                                <div className="bg-white border card pt-3 mt-5">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...evaluatedIdeafinal}
-                                    >
-                                        <DataTable
-                                            data={tableData || []}
-                                            defaultSortFieldId={sortid}
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                            paginationRowsPerPageOptions={[
-                                                10, 25, 50, 100
-                                            ]}
-                                            paginationPerPage={10}
-                                            onChangePage={(page) =>
-                                                setTablePage(page)
-                                            }
-                                            paginationDefaultPage={tablePage}
-                                            onSort={(e) => handlesortid(e)}
-                                        />
-                                    </DataTableExtensions>
+                                    <Container fluid className="px-0">
+                                        <Row className="align-items-center">
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={
+                                                            fullDistrictsNames
+                                                        }
+                                                        setValue={setdistrict}
+                                                        placeHolder={
+                                                            'Select District'
+                                                        }
+                                                        value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={SDGDate}
+                                                        setValue={setsdg}
+                                                        placeHolder={
+                                                            'Select SDG'
+                                                        }
+                                                        value={sdg}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="text-center">
+                                                    <Button
+                                                        btnClass={
+                                                            showbutton
+                                                                ? 'primary'
+                                                                : 'default'
+                                                        }
+                                                        size="small"
+                                                        label="Search"
+                                                        disabled={!showbutton}
+                                                        onClick={() =>
+                                                            handleclickcall()
+                                                        }
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={6}>
+                                                <div className="text-right">
+                                                    <Button
+                                                        btnClass="primary"
+                                                        size="small"
+                                                        label="Back"
+                                                        onClick={() =>
+                                                            history.goBack()
+                                                        }
+                                                    />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Container>
                                 </div>
-                            ) : (
-                                <ViewDetail
-                                    ideaDetails={ideaDetails}
-                                    setIsDetail={setIsDetail}
-                                    handleNext={handleNext}
-                                    handlePrev={handlePrev}
-                                    currentRow={currentRow}
-                                    dataLength={tableData && tableData?.length}
-                                />
-                            ))}
+                            )}
+                            {showspin && (
+                                <div className="text-center mt-5">
+                                    <Spinner
+                                        animation="border"
+                                        variant="secondary"
+                                    />
+                                </div>
+                            )}
+                            {!showspin &&
+                                (!isDetail ? (
+                                    <div className="bg-white border card pt-3 mt-5">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...evaluatedIdeafinal}
+                                        >
+                                            <DataTable
+                                                data={tableData || []}
+                                                defaultSortFieldId={sortid}
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                                paginationRowsPerPageOptions={[
+                                                    10, 25, 50, 100
+                                                ]}
+                                                paginationPerPage={10}
+                                                onChangePage={(page) =>
+                                                    setTablePage(page)
+                                                }
+                                                paginationDefaultPage={
+                                                    tablePage
+                                                }
+                                                onSort={(e) => handlesortid(e)}
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                ) : (
+                                    <ViewDetail
+                                        ideaDetails={ideaDetails}
+                                        setIsDetail={setIsDetail}
+                                        handleNext={handleNext}
+                                        handlePrev={handlePrev}
+                                        currentRow={currentRow}
+                                        dataLength={
+                                            tableData && tableData?.length
+                                        }
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 
