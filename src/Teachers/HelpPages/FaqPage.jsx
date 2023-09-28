@@ -4,25 +4,22 @@ import { getNormalHeaders } from '../../helpers/Utils';
 import { Row, Col } from 'react-bootstrap';
 import { Accordion } from 'react-bootstrap';
 import Layout from '../Layout';
-import { useSelector } from 'react-redux';
-import { getLanguage } from '../../constants/languageOptions';
-import { KEY, URL } from '../../constants/defaultValues';
+import { KEY } from '../../constants/defaultValues';
 
 const FaqPage = () => {
     const [queryId] = useState('Idea Submission');
     const [response, SetResponse] = useState([]);
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const getFaqByCategory = async (id) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`,
+                `${process.env.REACT_APP_API_BASE_URL}/faqs/getbyCategoryid/${id}?locale=en`,
                 axiosConfig
             )
             .then((res) => {
                 if (res?.status === 200) {
-                    SetResponse(res?.data?.data[0]?.faqs);
+                    SetResponse(res?.data?.data);
                 }
             })
             .catch((err) => {
@@ -30,9 +27,9 @@ const FaqPage = () => {
             });
     };
     // changed
-    useEffect(() => {
-        getFaqByCategory(1);
-    }, [language]);
+    useEffect(async() => {
+        await getFaqByCategory(1);
+    }, []);
     return (
         <Layout>
             <div className="faq-page">

@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -10,13 +11,15 @@ import axios from 'axios';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { getAdminEvalutorsList } from '../store/adminEvalutors/actions';
 import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from 'react-redux';
+import Select from '../../Admin/Challenges/pages/Select';
+import { getDistrictData } from '../../redux/studentRegistration/actions';
 
+import { useSelector } from 'react-redux';
 const EditProfile = (props) => {
     // here we can edit the users details //
     const history = useHistory();
@@ -25,22 +28,14 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-    const headingDetails = {
-        title: 'User Edit Details',
 
-        options: [
-            {
-                title: 'User List',
-                path: '/admin/userlist'
-            },
-            {
-                title: 'User Edit Profile',
-                path: '/admin/userlist'
-            }
-        ]
-    };
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp = /^[0-9\s]+$/;
+    const fullDistrictsNames = useSelector(
+        (state) => state?.studentRegistration?.dists
+    );
+    useEffect(() => {
+        dispatch(getDistrictData());
+    }, []);
 
     const getValidationSchema = (data) => {
         // where data = mentorData //
@@ -50,20 +45,26 @@ const EditProfile = (props) => {
                 .min(2, 'Enter a valid name')
                 .required('Name is Required'),
             email: Yup.string()
-                .email('Invalid email address format')
-                .required('Email is required')
+                .required('required')
+                .trim()
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits')
         });
-        // if (data?.mentor_id)
-        //     adminValidation['phone'] = Yup.string()
-        //         .matches(phoneRegExp, 'Mobile number is not valid')
-        //         .min(10, 'Enter a valid mobile number')
-        //         .max(10, 'Enter a valid mobile number')
-        //         .required('Mobile Number is Required');
-        if (data?.evaluator_id)
-            adminValidation['district'] = Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
-                .min(2, 'Enter a valid district')
-                .required('District is Required');
+        if (data?.mentor_id)
+            if (data?.evaluator_id)
+                // adminValidation['phone'] = Yup.string()
+                //     .matches(phoneRegExp, 'Mobile number is not valid')
+                //     .min(10, 'Enter a valid mobile number')
+                //     .max(10, 'Enter a valid mobile number')
+                //     .required('Mobile Number is Required');
+                adminValidation['district'] = Yup.string()
+                    .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
+                    .min(2, 'Enter a valid district')
+                    .required('District is Required');
         return adminValidation;
     };
     const getInitialValues = (data) => {
@@ -86,12 +87,22 @@ const EditProfile = (props) => {
             const email = values.email;
             // const mobile = values.phone;
             const district = values.district;
-            const body = JSON.stringify({
-                full_name: full_name,
-                // mobile: mobile,
-                username: email,
-                district: district
-            });
+            const body = mentorData?.evaluator_id
+                ? JSON.stringify({
+                      full_name: full_name,
+                      username: email
+                      //   district: district
+                  })
+                : mentorData?.admin_id
+                ? JSON.stringify({
+                      full_name: full_name,
+                      username: email
+                  })
+                : JSON.stringify({
+                      full_name: full_name,
+                      username: email,
+                      mobile: email
+                  });
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL +
                   '/evaluators/' +
@@ -154,7 +165,8 @@ const EditProfile = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
+                        <h3 className="mb-5">User Edit Profile</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
@@ -190,7 +202,7 @@ const EditProfile = (props) => {
                                                 className="name-req mt-5"
                                                 htmlFor="email"
                                             >
-                                                Email
+                                                Mobile No
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
@@ -245,46 +257,6 @@ const EditProfile = (props) => {
                                                     ) : null}
                                                 </Col> */}
                                                 <div className="w-100" />
-                                                {!mentorData?.mentor_id && (
-                                                    <Col md={6}>
-                                                        <Label
-                                                            className="name-req mt-5"
-                                                            htmlFor="district"
-                                                        >
-                                                            District
-                                                        </Label>
-                                                        <InputBox
-                                                            className={
-                                                                'defaultInput'
-                                                            }
-                                                            id="district"
-                                                            name="district"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .district
-                                                            }
-                                                        />
-
-                                                        {formik.touched
-                                                            .district &&
-                                                        formik.errors
-                                                            .district ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .district
-                                                                }
-                                                            </small>
-                                                        ) : null}
-                                                    </Col>
-                                                )}
                                             </>
                                         )}
                                     </Row>

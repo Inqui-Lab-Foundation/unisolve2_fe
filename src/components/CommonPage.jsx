@@ -28,7 +28,7 @@ const CommonPage = ({
                         <div>
                             <img
                                 className={`${
-                                    showButton ? 'w-50' : 'w-25'
+                                    showButton ? 'w-50' : 'imgWidthSize'
                                 } img-fluid `}
                                 src={showButton ? IdeaSuccessImg : Congo}
                             ></img>

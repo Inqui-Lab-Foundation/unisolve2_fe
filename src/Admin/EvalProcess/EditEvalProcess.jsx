@@ -2,7 +2,7 @@
 import React from 'react';
 import Layout from '../../Admin/Layout';
 import { Row, Col, FormGroup, Label, Form } from 'reactstrap';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import { InputBox } from '../../stories/InputBox/InputBox';
@@ -21,20 +21,7 @@ const EditEvalProcess = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const headingDetails = {
-        title: 'Edit Evaluation Process Details',
 
-        options: [
-            {
-                title: 'Evaluation Process',
-                path: '/admin/evaluationProcess'
-            },
-            {
-                title: 'Edit Evaluation  Process',
-                path: '/admin/edit-evaluationProcess'
-            }
-        ]
-    };
     const formik = useFormik({
         initialValues: {
             level_name: evalID && evalID.level_name,
@@ -47,9 +34,9 @@ const EditEvalProcess = (props) => {
                 .required('Level Name is Required'),
             no_of_evaluation: Yup.number()
                 .optional()
-                
+
                 .positive()
-                
+
                 .required('No of Evaluation is Required')
         }),
         onSubmit: async (values) => {
@@ -79,7 +66,10 @@ const EditEvalProcess = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">
+                            {' '}
+                            Edit Evaluation Process Details
+                        </h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
@@ -87,7 +77,6 @@ const EditEvalProcess = (props) => {
                                         <Label
                                             className="mb-2"
                                             htmlFor="level_name"
-                                    
                                         >
                                             Level Name
                                         </Label>

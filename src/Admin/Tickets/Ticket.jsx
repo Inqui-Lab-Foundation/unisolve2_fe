@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import { Tabs } from 'antd';
@@ -8,6 +9,7 @@ import { FaComments } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
@@ -19,14 +21,16 @@ const TicketsPage = () => {
     // eslint-disable-next-line no-unused-vars
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
+    const [fetchData, setFetchData] = useState(false);
 
-    useEffect(() => {
-        listApi();
+    useEffect(async () => {
+        await listApi();
     }, []);
 
     async function listApi() {
         // where we can see all tickets //
-
+        setFetchData(true);
+        // alert('hii');
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/supportTickets',
@@ -38,10 +42,13 @@ const TicketsPage = () => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response);
                     setAllTicketResponse(
                         response.data.data[0] &&
                             response.data.data[0].dataValues
                     );
+                    setFetchData(false);
+                    // setFetchData(false);
                 }
             })
             .catch(function (error) {
@@ -49,6 +56,7 @@ const TicketsPage = () => {
             });
     }
     async function openListApi() {
+        setFetchData(true);
         // where we can see all open tickets //
         var config = {
             method: 'get',
@@ -67,6 +75,7 @@ const TicketsPage = () => {
                         response.data.data[0] &&
                             response.data.data[0].dataValues
                     );
+                    setFetchData(false);
                 }
             })
             .catch(function (error) {
@@ -74,6 +83,7 @@ const TicketsPage = () => {
             });
     }
     async function inProgressApi() {
+        setFetchData(true);
         // where  we can see  all inprogress tickets //
         var config = {
             method: 'get',
@@ -92,6 +102,7 @@ const TicketsPage = () => {
                         response.data.data[0] &&
                             response.data.data[0].dataValues
                     );
+                    setFetchData(false);
                 }
             })
             .catch(function (error) {
@@ -99,6 +110,7 @@ const TicketsPage = () => {
             });
     }
     async function resolvedApi() {
+        setFetchData(true);
         // where we ca see all resolved tickets //
         var config = {
             method: 'get',
@@ -117,6 +129,7 @@ const TicketsPage = () => {
                         response.data.data[0] &&
                             response.data.data[0].dataValues
                     );
+                    setFetchData(false);
                 }
             })
             .catch(function (error) {
@@ -152,22 +165,34 @@ const TicketsPage = () => {
         data: allTicketResponse,
         columns: [
             {
-                name: 'No.',
+                name: 'No',
+                // selector: (row) => row.index,
                 selector: (row, key) => key + 1,
-
-                width: '7%'
+                // cellExport: (row) => row.index,
+                width: '10rem'
             },
             {
-                name: 'Category',
-                selector: (row) => row.query_category,
+                name: 'District',
+                selector: (row) => row.district,
+                cellExport: (row) => row.district,
                 sortable: true,
-                width: '15%'
+                width: '20rem'
+            },
+
+            {
+                name: 'UDISE Code',
+                selector: (row) => row.organization_code,
+                cellExport: (row) => row.organization_code,
+                sortable: true,
+                width: '20rem'
             },
 
             {
                 name: ' Query Details',
                 selector: (row) => row.query_details,
-                width: '55%',
+                cellExport: (row) => row.query_details,
+
+                width: '45rem',
                 // center: true,
                 cell: (params) => [
                     <Link
@@ -183,7 +208,9 @@ const TicketsPage = () => {
             {
                 name: 'Status',
                 selector: (row) => row.status,
-                width: '23%',
+                cellExport: (row) => row.status,
+
+                width: '20rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
@@ -216,18 +243,17 @@ const TicketsPage = () => {
         }, 2000);
         return () => clearTimeout(timeout);
     }, []);
-
-    const changeTab = (e) => {
+    const changeTab = async (e) => {
         if (e === '1') {
-            listApi();
+            await listApi();
         } else if (e === '2') {
-            openListApi();
+            await openListApi();
         } else if (e === '3') {
-            inProgressApi();
+            await inProgressApi();
         } else if (e === '4') {
-            resolvedApi();
+            await resolvedApi();
         } else {
-            invalidApi();
+            await invalidApi();
         }
     };
 
@@ -243,104 +269,154 @@ const TicketsPage = () => {
                             onChange={(key) => changeTab(key)}
                         >
                             <TabPane tab="All Tickets" key="1">
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...allData}
-                                        exportHeaders
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+                                {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                             <TabPane tab="Open" key="2">
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...allData}
-                                        exportHeaders
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+                                {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                             <TabPane tab="Inprogress" key="3">
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...allData}
-                                        exportHeaders
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+                                {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                             <TabPane tab="Resolved" key="4">
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...allData}
-                                        exportHeaders
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+                                {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={true}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                             <TabPane tab="Invalid" key="5">
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...allData}
-                                        exportHeaders
-                                    >
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
+                                {fetchData ? (
+                                    <ClipLoader
+                                        // fetchData={fetchData}
+                                        color={'blue'}
+                                        size={20}
+                                    />
+                                ) : (
+                                    <div className="my-2">
+                                        <DataTableExtensions
+                                            print={false}
+                                            // export={false}
+                                            {...allData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                         </Tabs>
                     </div>

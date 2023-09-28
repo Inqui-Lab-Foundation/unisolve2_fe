@@ -12,25 +12,26 @@ import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
-import { ReasonsOptions } from '../Admin/Pages/ReasonForRejectionData';
+import {
+    ReasonsOptions,
+    reasondata2
+} from '../Admin/Pages/ReasonForRejectionData';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
-import { getCurrentUser } from '../../helpers/Utils';
 import Spinner from 'react-bootstrap/Spinner';
 
 const EvaluatedIdea = () => {
     // here we can see all the EvaluatedIdeas in  status wise , district wise , SDG wise   //
     const dispatch = useDispatch();
     const [showspin, setshowspin] = React.useState(false);
-    const currentUser = getCurrentUser('current_user');
     const [reason, setReason] = React.useState('');
+    const [reason2, setReason2] = React.useState('');
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
     const [status, setstatus] = React.useState('');
     const evaluatedIdeaList = useSelector(
         (state) => state?.evaluator.evaluatedIdeaL1
     );
-
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
@@ -43,24 +44,19 @@ const EvaluatedIdea = () => {
     React.useEffect(() => {
         if (status && status === 'Accepted') {
             setReason('');
+            setReason2('');
         }
     }, [status]);
-    const [levelName, setLevelName] = React.useState('');
-    const [evalSchema, setEvalSchema] = React.useState('');
-    const [tabledate, settabledate] = React.useState([]);
 
-    React.useEffect(() => {
-        if (currentUser) {
-            setLevelName(currentUser?.data[0]?.level_name);
-            setEvalSchema(currentUser?.data[0]?.eval_schema);
-        }
-    }, [currentUser]);
+    const [tabledate, settabledate] = React.useState([]);
 
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
     useEffect(() => {
-        if (levelName !== '' && evalSchema !== '') {
+        if (district === '') {
+            settabledate([]);
+        } else {
             settabledate(evaluatedIdeaList);
         }
     }, [evaluatedIdeaList]);
@@ -70,10 +66,7 @@ const EvaluatedIdea = () => {
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(filterParams, setshowspin));
     };
-    const levelparam =
-        levelName === 'L1'
-            ? '?level=L1'
-            : '?evaluation_status=SELECTEDROUND1&level=L2';
+    const levelparam = '?level=L1';
     const statusparam =
         status && status !== 'Both'
             ? '&evaluation_status=' +
@@ -87,7 +80,8 @@ const EvaluatedIdea = () => {
         statusparam +
         districtparam +
         sdgparam +
-        (reason && '&rejected_reason=' + reason);
+        (reason && '&rejected_reason=' + reason) +
+        (reason2 && '&rejected_reasonSecond=' + reason2);
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
     const [currentRow, setCurrentRow] = React.useState(1);
@@ -127,52 +121,27 @@ const EvaluatedIdea = () => {
             {
                 name: 'Evaluated At',
                 selector: (row) =>
-                    evalSchema && evalSchema?.toLowerCase() == 'accept_reject'
-                        ? row.evaluated_at
-                            ? moment(row.evaluated_at).format(
-                                  'DD-MM-YY h:mm:ss a'
-                              )
-                            : row.evaluated_at
-                        : row?.evaluator_ratings[0]?.created_at
-                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
-                              'DD-MM-YY h:mm:ss a'
-                          )
-                        : row?.evaluator_ratings[0]?.created_at,
+                    row.evaluated_at
+                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+                        : row.evaluated_at,
                 width: '17%'
             },
             {
-                name:
-                    evalSchema && evalSchema?.toLowerCase() == 'accept_reject'
-                        ? 'Status'
-                        : 'Overall',
-
+                name: 'Status',
                 cell: (row) => {
-                    return evalSchema &&
-                        evalSchema?.toLowerCase() == 'accept_reject'
-                        ? [
-                              <div className="d-flex" key={row}>
-                                  {row.evaluation_status &&
-                                      row.evaluation_status ==
-                                          'SELECTEDROUND1' && (
-                                          <span className="text-success">
-                                              Accepted
-                                          </span>
-                                      )}
-                                  {row.evaluation_status ==
-                                      'REJECTEDROUND1' && (
-                                      <span className="text-danger">
-                                          Rejected
-                                      </span>
-                                  )}
-                              </div>
-                          ]
-                        : [
-                              <div className="d-flex" key={row}>
-                                  <span>
-                                      {row?.evaluator_ratings[0]?.overall}
-                                  </span>
-                              </div>
-                          ];
+                    return [
+                        <div className="d-flex" key={row}>
+                            {row.evaluation_status &&
+                                row.evaluation_status == 'SELECTEDROUND1' && (
+                                    <span className="text-success">
+                                        Accepted
+                                    </span>
+                                )}
+                            {row.evaluation_status == 'REJECTEDROUND1' && (
+                                <span className="text-danger">Rejected</span>
+                            )}
+                        </div>
+                    ];
                 },
                 width: '10%'
             },
@@ -233,27 +202,23 @@ const EvaluatedIdea = () => {
                     <div className="col-12 p-0">
                         {!isDetail && (
                             <div>
-                                <h2 className="ps-2 pb-3">Evaluated Idea</h2>
+                                <h2 className="ps-2 pb-3">L1 Evaluated Idea</h2>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        {evalSchema &&
-                                            evalSchema?.toLowerCase() ==
-                                                'accept_reject' && (
-                                                <Col md={2}>
-                                                    <div className="my-3 d-md-block d-flex justify-content-center">
-                                                        <Select
-                                                            list={statusdata}
-                                                            setValue={setstatus}
-                                                            placeHolder={
-                                                                'Select Status'
-                                                            }
-                                                            value={status}
-                                                        />
-                                                    </div>
-                                                </Col>
-                                            )}
+                                        <Col md={1}>
+                                            <div className="my-3 d-md-block d-flex justify-content-center">
+                                                <Select
+                                                    list={statusdata}
+                                                    setValue={setstatus}
+                                                    placeHolder={
+                                                        'Select Status'
+                                                    }
+                                                    value={status}
+                                                />
+                                            </div>
+                                        </Col>
 
-                                        <Col md={3}>
+                                        <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={fullDistrictsNames}
@@ -265,7 +230,7 @@ const EvaluatedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={3}>
+                                        <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -282,9 +247,23 @@ const EvaluatedIdea = () => {
                                                         list={ReasonsOptions}
                                                         setValue={setReason}
                                                         placeHolder={
-                                                            'Select Reason for rejection'
+                                                            'Select Reason for rejection 1'
                                                         }
                                                         value={reason}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {status && status !== 'Accepted' && (
+                                            <Col md={3}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={reasondata2}
+                                                        setValue={setReason2}
+                                                        placeHolder={
+                                                            'Select Reason for rejection 2'
+                                                        }
+                                                        value={reason2}
                                                     />
                                                 </div>
                                             </Col>
@@ -293,28 +272,20 @@ const EvaluatedIdea = () => {
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                              district &&
-                                                              sdg
-                                                                ? 'primary'
-                                                                : 'default'
-                                                            : district && sdg
+                                                        status &&
+                                                        district &&
+                                                        sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
                                                     disabled={
-                                                        !(evalSchema &&
-                                                        evalSchema?.toLowerCase() ==
-                                                            'accept_reject'
-                                                            ? status &&
-                                                              district &&
-                                                              sdg
-                                                            : district && sdg)
+                                                        !(
+                                                            status &&
+                                                            district &&
+                                                            sdg
+                                                        )
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()
@@ -372,6 +343,7 @@ const EvaluatedIdea = () => {
                                         evaluatedIdeaList &&
                                         evaluatedIdeaList?.length
                                     }
+                                    levelName="L1"
                                 />
                             ))}
                     </div>

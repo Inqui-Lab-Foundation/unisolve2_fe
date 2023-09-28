@@ -1,0 +1,168 @@
+// .dashboard-wrapper {
+//     .dashboard {
+//         min-height: 80vh !important;
+//     }
+//     .btn-danger {
+//         border-radius: 2rem;
+//         width: 10rem;
+//         float: right;
+//     }
+//     .disc-card-search{
+//         min-height: 35rem;
+//     }
+//     .fs-highlight{
+//         font-size:1.6rem;
+//         font-weight:1.6rem;
+//     }
+//     .btn-warning{
+//         border-radius: 2rem;
+//         width: 10rem;
+//         color : #ffff;
+//     }
+// }
+.dashboard {
+    .teacher-statistics {
+        // min-height: 80vh !important;
+        .card-wrapper {
+            display: flex;
+            .card {
+                display: flex;
+                border-radius: 1;
+                width: max-content;
+                min-width: 24rem !important;
+                flex-direction: column;
+                justify-content: cen !important;
+                height: 12rem !important;
+                padding: 1rem;
+                font-size: 1.6rem;
+                .r-value {
+                    font-weight: 600;
+                    width: 50%;
+                }
+                .l-value {
+                    font-weight: 500;
+                }
+            }
+        }
+        .fs-4 {
+            font-size: 4rem !important;
+        }
+        .teacher-progress {
+            min-height: 20rem;
+        }
+        .stepper {
+            min-height: 40rem;
+        }
+    }
+    // .ant-steps-item-content :first-child {
+    //     color: red !important;
+    //     background-color: yellow;
+    //     font-size: 40px;
+    //   }
+    .anticon svg {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+    .ant-steps-item-title {
+        margin-bottom: 4rem;
+    }
+}
+.border-left {
+    border-left: 5px solid #067de1;
+}
+.border-top-blue {
+    border-top: 5px solid #067de1;
+}
+.border-top-dark-blue {
+    border-top: 5px solid #00008b;
+}
+.border-top-green {
+    border-top: 5px solid #0da650;
+}
+.border-top-yellow {
+    border-top: 5px solid #ffcb34;
+}
+.color-blue {
+    color: #067de1;
+}
+.color-dark-blue {
+    color: #00008b;
+}
+.color-green {
+    color: #0da650;
+}
+.color-yellow {
+    color: #ffcb34;
+}
+.fs-600 {
+    font-weight: 600;
+}
+.fs-700 {
+    font-weight: 700;
+    font-size: 3.2rem;
+}
+.row-gap {
+    width: 100%;
+    gap: 1rem;
+    justify-content: space-between;
+}
+.select-team select {
+    padding: 1rem;
+    padding-right: 5rem;
+    width: '50%';
+    box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
+    border-color: #f8f1f1;
+    border-radius: 0.5rem;
+}
+.progress-height {
+    height: 3rem;
+}
+
+.text-wrapped {
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .teamProgreess {
+        flex-direction: column;
+    }
+    .singlediv {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .select-team select {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.cards {
+    padding: 0.5rem !important;
+    justify-content: left !important;
+    border-radius: 1 !important;
+}
+@media only screen and (max-width: 991px) and (orientation: landscape) {
+    .teamProgreess {
+        flex-direction: column;
+    }
+    .singlediv {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .select-team select {
+        display: flex;
+        justify-content: center;
+    }
+    .buttons-container.mobile-landscape {
+        display: flex;
+        flex-direction: row; /* Set to row to arrange buttons in a single line */
+        justify-content: space-between; /* Add spacing between buttons */
+        align-items: center; /* Center buttons vertically */
+    }
+}

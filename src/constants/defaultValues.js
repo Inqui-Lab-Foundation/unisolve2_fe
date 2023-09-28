@@ -6,13 +6,19 @@ export const UserRole = {
 
 export const URL = {
     // Post //
+    schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
+    coordinatorLogin:
+        process.env.REACT_APP_API_BASE_URL + '/district_coordinators/login',
+    reportLogin:
+        process.env.REACT_APP_API_BASE_URL + '/admins/login?report=true',
+
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
     eadminLogin:
         process.env.REACT_APP_API_BASE_URL + '/admins/login?eAdmin=true',
     adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins/register',
     evaluatorLogin: process.env.REACT_APP_API_BASE_URL + '/evaluators/login',
-    evaluatorRegister: `${process.env.REACT_APP_API_BASE_URL}/evaluators/register`,
+    // evaluatorRegister: `${process.env.REACT_APP_API_BASE_URL}/evaluators/register`,
     teacherLogin: process.env.REACT_APP_API_BASE_URL + '/mentors/login',
     addMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/create',
     addAdminCourses: process.env.REACT_APP_API_BASE_URL + '/course',
@@ -69,8 +75,14 @@ export const URL = {
 
     //Get//
     logOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+    schoolLogOut: process.env.REACT_APP_API_BASE_URL + '/organizations/logout',
+    coordinatorLogOut:
+        process.env.REACT_APP_API_BASE_URL + '/district_coordinators/logout',
+
     adminLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
     teacherLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+    reportLogOut: process.env.REACT_APP_API_BASE_URL + '/auth/logout',
+
     getMentors: process.env.REACT_APP_API_BASE_URL + '/mentors',
     getModules: process.env.REACT_APP_API_BASE_URL + '/modules/list',
     getAdminCouses: process.env.REACT_APP_API_BASE_URL + '/courses',
@@ -81,7 +93,7 @@ export const URL = {
     getAdminQstList: process.env.REACT_APP_API_BASE_URL + '/quiz/',
     getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + '/reflectiveQuiz/',
     getSchoolRegistrationBulkupload:
-        process.env.REACT_APP_API_BASE_URL + '/organizations',
+        process.env.REACT_APP_API_BASE_URL + '/organizations?status=ACTIVE',
     getFaqCategoryList: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqByCategoryId: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqList: `${process.env.REACT_APP_API_BASE_URL}/faqs`,
@@ -89,6 +101,7 @@ export const URL = {
     mentorRegister: `${process.env.REACT_APP_API_BASE_URL}/mentors/register`,
     mentorOTP: `${process.env.REACT_APP_API_BASE_URL}/mentors/validateOtp`,
     mentorChangePwd: `${process.env.REACT_APP_API_BASE_URL}/mentors/changePassword`,
+    schoolChangePwd: `${process.env.REACT_APP_API_BASE_URL}/organizations/changePassword`,
     getTeamsList: `${process.env.REACT_APP_API_BASE_URL}/teams`,
     getTeamMembersList: `${process.env.REACT_APP_API_BASE_URL}/teams/`,
     getReportsView: `${process.env.REACT_APP_API_BASE_URL}/reports/challengesDistrictCount`,
@@ -109,6 +122,10 @@ export const URL = {
     getStudentDashboardStatusCommonById:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/studentStats/',
     getTeacherById: process.env.REACT_APP_API_BASE_URL + '/mentors/',
+    getSchoolById: process.env.REACT_APP_API_BASE_URL + '/organizations/',
+    // getDistrictByName:
+    //     process.env.REACT_APP_API_BASE_URL + '/district_coordinators/',
+
     getTeacherDashboardStatesById:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/mentorStats/',
     getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + '/challenge',

@@ -7,13 +7,17 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaLightbulb } from 'react-icons/fa';
-
+import EvaluationIcon from '../../../assets/media/EvaluationIcon.png';
+import EvalConifIcon from '../../../assets/media/EvalConifIcon.png';
+import ChallengesIcon from '../../../assets/media/ChallengesIcon.png';
+import logoutIcon from '../../../assets/media/logoutIcon.png';
+import { FaBars } from 'react-icons/fa';
+import SmallLogo from '../../../assets/media/logo192.png';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../../../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { useHistory } from 'react-router-dom';
-import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
+import { RiLockPasswordFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
 import { logout } from '../../../helpers/Utils';
 
@@ -54,7 +58,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <Link to={'/eadmin/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
                                     className="img-fluid img-close"
                                 />
@@ -70,7 +74,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -83,15 +87,106 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<FaLightbulb />}
+                        icon={
+                            <img
+                                src={ChallengesIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
                         className={
                             (location.pathname === '/eadmin/dashboard' ||
                                 location.pathname === '/eadmin/listofideas') &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/eadmin/dashboard'}>
-                            Dashboard
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/dashboard'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Challenges
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={EvaluationIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
+                        className={
+                            (location.pathname === '/eadmin/evaluationStatus' ||
+                                location.pathname ===
+                                    '/admin/evaluationStatus/viewlist') &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/evaluationStatus'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluation Status
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={EvalConifIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
+                        className={
+                            location.pathname === '/eadmin/evaluationProcess' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/evaluationProcess'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluation Config
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={ChallengesIcon}
+                                style={{ width: '20px' }}
+                            />
+                        }
+                        className={
+                            location.pathname === '/eadmin/evaluator' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/evaluator'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Evaluator
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -101,16 +196,37 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/eadmin/change-password'}>
-                            Change Password
+                        <NavLink
+                            exact={true}
+                            to={'/eadmin/change-password'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Change Password
+                            </span>
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<RiLogoutBoxRFill />}
+                        icon={
+                            <img src={logoutIcon} style={{ width: '20px' }} />
+                        }
                         className={location.pathname === '' && 'sidebar-active'}
                     >
-                        <NavLink exact={true} onClick={handleLogout} to={''}>
-                            Logout
+                        <NavLink
+                            exact={true}
+                            onClick={handleLogout}
+                            to={''}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Logout
+                            </span>
                         </NavLink>
                     </MenuItem>
                 </Menu>

@@ -159,7 +159,7 @@ export const getAdminQuizQuestionsError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminQuizQuestions = (quizId, lang) => async (dispatch) => {
+export const getAdminQuizQuestions = (quizId, lang, attempt) => async (dispatch) => {
     // here quizId = quizId //
     try {
         dispatch({ type: ADMIN_COURSES_QUESTIONS });
@@ -168,7 +168,7 @@ export const getAdminQuizQuestions = (quizId, lang) => async (dispatch) => {
             .get(
                 `${
                     URL.getAdminQstList + quizId + '/' + 'nextQuestion'
-                }?${getLanguage(lang)}`,
+                }?${getLanguage(lang)}&attempts=${attempt}`,
                 axiosConfig
             )
             .then((user) => user)

@@ -33,8 +33,8 @@ const Certificate = ({
         // here we can download the certificates //
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
-        const size = type ? [298, 220] : [298, 220];
-        const orientation = type ? 'l' : 'l';
+        const size = [298, 220];
+        const orientation = 'l';
         const doc = new jsPDF(orientation, 'px', size);
         const certName = `${currentUser?.data[0]?.full_name}_${
             type ? 'idea_certificate' : 'course_certificate'
@@ -102,7 +102,7 @@ const Certificate = ({
                             style={{
                                 position: 'absolute',
                                 top: `${type ? '9.5rem' : '8.8rem'}`,
-                                left: `${type ? '5rem' : '5rem'}`,
+                                left: `${type ? '5rem' : '5.1rem'}`,
                                 fontSize: '0.8rem',
                                 fontFamily: 'Times New Roman'
                             }}
@@ -149,7 +149,7 @@ const Certificate = ({
 };
 
 const MyCertificate = () => {
-    const showDummypage = false;
+    const showDummypage = true;
     const { t } = useTranslation();
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
@@ -196,13 +196,23 @@ const MyCertificate = () => {
         if (!postSurveyStatusGl)
             dispatch(studentPostSurveyCertificate(language));
     }, [language]);
-    const enablePostSurvey = ideaSubmissionStatus === 'SUBMITTED';
+    const enablePostSurvey =
+        ideaSubmissionStatus === 'SUBMITTED' &&
+        postSurveyStatusGl === 'COMPLETED';
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
                     {showDummypage ? (
                         <Row>
+                            <Row>
+                                <div
+                                    className="m-4 text-center"
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('student_course.my_cer_note')
+                                    }}
+                                ></div>
+                            </Row>
                             <Col className="d-lg-flex justify-content-center">
                                 <Certificate
                                     type={'participate'}
@@ -225,12 +235,22 @@ const MyCertificate = () => {
                     ) : (
                         <Card className="course-sec-basic p-5">
                             <div className="text-left">
-                                <div>
+                                <div className="text-center">
                                     <img
-                                        className={`${'w-25'} img-fluid `}
+                                        className={`img-fluid imgWidthSize`}
                                         src={Congo}
                                     ></img>
                                 </div>
+                                <h6
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('dummytext.dear')
+                                    }}
+                                ></h6>
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('dummytext.student_my_cer')
+                                    }}
+                                ></div>
                                 <h6
                                     dangerouslySetInnerHTML={{
                                         __html:
@@ -238,13 +258,11 @@ const MyCertificate = () => {
                                             currentUser?.data[0].full_name
                                     }}
                                 ></h6>
-                                <p
+                                <div
                                     dangerouslySetInnerHTML={{
-                                        __html:
-                                            t('dummytext.certificate_msg') +
-                                            t('dummytext.student_my_cer')
+                                        __html: t('dummytext.certificate_msg')
                                     }}
-                                ></p>
+                                ></div>
                             </div>
                         </Card>
                     )}

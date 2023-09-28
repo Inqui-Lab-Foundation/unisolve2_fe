@@ -1,56 +1,104 @@
 import React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Card, Col, Container, Row } from 'reactstrap';
 import Layout from '../Layout';
-import Cards from './Helpers/Cards';
+import { Link } from 'react-router-dom';
 import './reports.scss';
+import PageNotFoundImg from '../../assets/media/page-not-found.png';
 
 const Reports = () => {
-    // here we can see all reports //
-    const survey = [
-        'Download Students Report'
-        // 'Students Download'
-        // 'Download Teachers Report',
-        // 'Registered Teachers List',
-        // 'Not Registered Teachers List',
-        // 'Teachers Pre Survey',
-        // 'Teachers Course Completion'
-    ];
-    const teacherReports = [
-        'Registered Teachers List',
-        'Not Registered Teachers List',
-        'Teachers Pre Survey Completed List',
-        'Teachers Pre Survey Not Completed List',
-        'Teachers Course Completion List',
-        'Download Teachers Report'
-    ];
-    const districtReports = [
-        'Submitted Challenges',
-        'Draft Challenges',
-        'Accepted Challenges',
-        'Rejected Challenges',
-        'L1 - Yet to Processed Challenges',
-        'L2 - Processed Challenges',
-        'L2 - Yet to  Processed Challenges',
-        'Final Evaluation Challenges',
-        'Final Winner Challenges'
-    ];
-
+    const showPage = true;
     return (
         <Layout>
-            <Container className="mt-5 report-wrapper mb-5 pb-5">
-                <h2>Reports</h2>
-                <Row>
-                    <Col md={12}>
-                        <Cards
-                            list={survey}
-                            reports={teacherReports}
-                            distList={districtReports}
-                        />
-                    </Col>
-                </Row>
-            </Container>
+            {showPage ? (
+                <Container className="mt-5 report-wrapper mb-5 pb-5">
+                    <h2>Reports</h2>
+                    <div className="reports-data p-5 bg-gray">
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/reports-registration">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            SCHOOL/TEACHER REGISTRATION REPORTS
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+                        {/* <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/SurveyStatus">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            SURVEY DEATAILED REPORTS
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row> */}
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/TeacherProgressDetailed">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            SCHOOL PROGRESS DETAILED REPORT
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/StudentsProgressReport">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            STUDENT PROGRESS DETAILED REPORT
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            IDEA SUBMISSION DETAILED REPORT
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/ChallengesReport">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            CHALLENGES EVALUATION REPORTS
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+                    </div>
+                </Container>
+            ) : (
+                <Container className="mt-5 report-wrapper mb-5 pb-5">
+                    <Card className="p-5 text-center">
+                        <div>
+                            <img
+                                src={PageNotFoundImg}
+                                alt="under construction"
+                                className="img-fluid w-25"
+                            />
+                        </div>
+
+                        <p>Page is under construction</p>
+                    </Card>
+                </Container>
+            )}
         </Layout>
     );
 };
-
 export default Reports;

@@ -15,7 +15,6 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { getCurrentUser } from '../../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudentByIdData } from '../../redux/studentRegistration/actions';
-import { t } from 'i18next';
 
 const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
@@ -31,7 +30,7 @@ const MyProfile = () => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <Label>{t('student.profile')}</Label>
+                        <Label>My Profile</Label>
                         <Row>
                             <Col md={12}>
                                 <Card className="w-100  mb-5 p-4">
@@ -44,14 +43,30 @@ const MyProfile = () => {
                                                 <CardText>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Name</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -64,14 +79,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Class</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                            // md={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -84,14 +115,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Age</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -104,14 +151,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Gender</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -136,14 +199,30 @@ const MyProfile = () => {
                                                 <CardText>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>UDISE</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -160,14 +239,30 @@ const MyProfile = () => {
                                                     </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>School Name</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -187,14 +282,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Team Name</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -210,14 +321,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>Teacher Name</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -234,14 +361,30 @@ const MyProfile = () => {
                                                     </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>City</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -261,14 +404,30 @@ const MyProfile = () => {
 
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>District</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
@@ -287,14 +446,30 @@ const MyProfile = () => {
                                                     </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
-                                                            md={3}
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>State</b>
                                                         </Col>
-                                                        <Col md={1}>:</Col>
                                                         <Col
-                                                            md={8}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                            // md={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>

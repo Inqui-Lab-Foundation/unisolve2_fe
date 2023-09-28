@@ -15,8 +15,8 @@ import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWit
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
-import { RichText } from '../../stories/RichText/RichText';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+//import { RichText } from '../../stories/RichText/RichText';
 
 import Layout from '../Layout';
 import { URL, KEY } from '../../constants/defaultValues';
@@ -27,7 +27,7 @@ import {
 import AddFaqCategoryModal from './AddFaqCategoryModal';
 import plusIcon from '../../assets/media/img/plus-icon.svg';
 import axios from 'axios';
-import { EditorState } from 'draft-js';
+//import { EditorState } from 'draft-js';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -37,28 +37,14 @@ import { useSelector } from 'react-redux';
 
 const AddNewFaq = (props) => {
     const language = useSelector((state) => state?.admin?.adminLanguage);
-    const headingDetails = {
-        title: 'Create a new FAQ',
-
-        options: [
-            {
-                title: 'FAQ’s',
-                path: '/admin/faq'
-            },
-            {
-                title: 'Add New FAQ',
-                path: '/admin/New-faq'
-            }
-        ]
-    };
 
     const [categoriesList, setCategoriesList] = useState([]);
     const [faqData, setFaqData] = useState({});
     const [showFaqCatModal, setShowFaqCatModal] = useState(false);
     const [defaultCategory, setDefaultCategory] = useState();
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+    // const [editorState, setEditorState] = useState(() =>
+    //     EditorState.createEmpty()
+    // );
     const history = useHistory();
     let query = useQuery();
     const faqID = query.get('faqid');
@@ -71,13 +57,13 @@ const AddNewFaq = (props) => {
         return React.useMemo(() => new URLSearchParams(search), [search]);
     }
 
-    const handleEditorChange = (state) => {
-        setEditorState(state);
-        formik.setFieldValue(
-            'answer',
-            state.getCurrentContent().getPlainText()
-        );
-    };
+    // const handleEditorChange = (state) => {
+    //     setEditorState(state);
+    //     formik.setFieldValue(
+    //         'answer',
+    //         state.getCurrentContent().getPlainText()
+    //     );
+    // };
 
     const formik = useFormik({
         initialValues: {
@@ -96,12 +82,12 @@ const AddNewFaq = (props) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             return await axios
                 .post(
-                    `${URL.getFaqList}?${getLanguage(language)}`,
-                    JSON.stringify(values, null, 2),
+                    `${process.env.REACT_APP_API_BASE_URL}/faqs/addfaqandtranslation`,
+                    JSON.stringify(values),
                     axiosConfig
                 )
                 .then((faqsubmitRest) => {
-                    if (faqsubmitRest?.status == 201) {
+                    if (faqsubmitRest?.status == 200) {
                         openNotificationWithIcon(
                             'success',
                             'Faq Created Sucessfully',
@@ -193,13 +179,13 @@ const AddNewFaq = (props) => {
     const toggleFaqCatModal = () => {
         setShowFaqCatModal((showFaqCatModal) => !showFaqCatModal);
     };
-    useEffect(() => {
-        getFaqCategoryList();
-        getFaqList();
+    useEffect(async () => {
+        await getFaqCategoryList();
+        await getFaqList();
     }, [language]);
 
-    const updateFaqCatList = () => {
-        getFaqCategoryList();
+    const updateFaqCatList = async () => {
+        await getFaqCategoryList();
         toggleFaqCatModal();
     };
 
@@ -222,7 +208,7 @@ const AddNewFaq = (props) => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5">Create a new FAQ</h3>
                         <Row className=" article-header mb-50">
                             <Col
                                 md={12}
@@ -349,22 +335,19 @@ const AddNewFaq = (props) => {
                                                 FAQ answer
                                             </Label>
                                             <Col className="form-group" md={12}>
-                                                <div
-                                                    style={{ height: '211px' }}
-                                                >
-                                                    <RichText
-                                                        name="answer"
-                                                        value={
-                                                            formik.values.answer
-                                                        }
-                                                        handleEditorChange={
-                                                            handleEditorChange
-                                                        }
-                                                        editorState={
-                                                            editorState
-                                                        }
-                                                    />
-                                                </div>
+                                                <textarea
+                                                    className="form-control form-control-lg"
+                                                    rows="8"
+                                                    name="answer"
+                                                    value={formik.values.answer}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    style={{
+                                                        fontSize: '2rem'
+                                                    }}
+                                                ></textarea>
+
                                                 {formik.errors.answer ? (
                                                     <small className="error-cls">
                                                         {formik.errors.answer}

@@ -13,6 +13,7 @@ import {
 import {
     FaBars,
     FaTh,
+    FaLandmark,
     FaQuestionCircle,
     FaCaretSquareRight,
     FaCertificate,
@@ -27,6 +28,7 @@ import {
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import SmallLogo from '../assets/media/logo192.png';
 import { compareDates, logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,23 +96,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {menuCollapse ? (
                                 <img
-                                    src={Logo}
+                                    src={SmallLogo}
                                     alt="logo"
-                                    className="img-fluid img-close"
+                                    className="img-fluid img-close p-2"
                                 />
                             ) : (
                                 <>
                                     <img
                                         src={Logo}
                                         alt="logo"
-                                        className="img-fluid img-open w-100"
+                                        className="img-fluid img-open w-100 "
                                     />
                                 </>
                             )}
                         </Link>
                     </div>
                 </div>
-                <div className="closemenu">
+                <div className="closemenu" style={{ paddingRight: '1rem' }}>
                     {/* changing menu collapse icon on click */}
                     {menuCollapse ? (
                         <FaBars onClick={() => menuIconClick(false)} />
@@ -189,6 +191,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             to={'/teacher/teamlist'}
                         >
                             {t('teacher.team')}
+                        </NavLink>
+                    </MenuItem>
+
+                    <MenuItem
+                        icon={<FaLandmark />}
+                        className={
+                            location.pathname === '/teacher/Resources' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            onClick={(e) => handleClick(e)}
+                            // onClick={(e) => handleClick(e, 'Resources')}
+                            to={'/teacher/Resources/index'}
+                        >
+                            {t('Resources')}
                         </NavLink>
                     </MenuItem>
 

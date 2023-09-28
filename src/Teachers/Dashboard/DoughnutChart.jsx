@@ -1,28 +1,36 @@
 /* eslint-disable indent */
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import 'antd/dist/antd.css';
-import { Card, Col, Progress } from 'reactstrap';
+import { Card, Progress } from 'reactstrap';
 import { Table } from 'antd';
-import { getAdminTeamsList, getTeamMemberStatus } from '../store/teams/actions';
+import { getTeamMemberStatus } from '../store/teams/actions';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import {
+    FaCheckCircle,
+    FaDownload,
+    FaHourglassHalf,
+    FaTimesCircle
+} from 'react-icons/fa';
 import { Button } from '../../stories/Button';
 import IdeaSubmissionCard from '../../components/IdeaSubmissionCard';
 import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistration/actions';
-import { useTranslation } from 'react-i18next';
 import Select from '../../Admin/Challenges/pages/Select';
 import { Modal } from 'react-bootstrap';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
-
+import { Row, Col } from 'reactstrap';
+import { useReactToPrint } from 'react-to-print';
+import Schoolpdf from '../../School/SchoolPdf';
 export default function DoughnutChart({ user }) {
-    const { t } = useTranslation();
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
-    const { teamsList, teamsMembersStatus, teamsMembersStatusErr } =
-        useSelector((state) => state.teams);
+    const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
+        (state) => state.teams
+    );
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
     const [ideaShow, setIdeaShow] = useState(false);
@@ -31,6 +39,8 @@ export default function DoughnutChart({ user }) {
     const [mentorid, setmentorid] = useState('');
     const [studentchangelist, setstudentchangelist] = useState([]);
     const [studentchangeObj, setstudentchangeObj] = useState({});
+    const [isideadisable, setIsideadisable] = useState(false);
+    const [isEvlCom, setIsEvlCom] = useState(false);
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
@@ -46,12 +56,87 @@ export default function DoughnutChart({ user }) {
             setmentorid(user[0].mentor_id);
         }
     }, [user]);
+    const [teamsList, setTeamsList] = useState([]);
     useEffect(() => {
         if (mentorid) {
             setshowDefault(true);
-            dispatch(getAdminTeamsList(mentorid));
+            teamNameandIDsbymentorid(mentorid);
         }
     }, [mentorid]);
+
+    const teamNameandIDsbymentorid = (mentorid) => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/teams/namebymenterid?mentor_id=${mentorid}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTeamsList(response.data.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    // console.log(teamsMembersStatus, challengesSubmittedResponse);
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/3`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '0') {
+                        setIsEvlCom(true);
+                    } else {
+                        setIsEvlCom(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     const handleChangeStudent = async (id, name) => {
         //  handleChangeStudent Api we can update the initiate student //
@@ -87,17 +172,49 @@ export default function DoughnutChart({ user }) {
                 setChangeShow(false);
             });
     };
+    const handleRevoke = async (id, type) => {
+        let submitData = {
+            status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
+        };
+        var config = {
+            method: 'put',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                JSON.stringify(id),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: submitData
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    openNotificationWithIcon(
+                        'success',
+                        'Idea Submission Status Successfully Update!',
+                        ''
+                    );
+                    dispatch(getTeamMemberStatus(teamId, setshowDefault));
+                    dispatch(getStudentChallengeSubmittedResponse(teamId));
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     const columns = [
         {
             title: 'Name',
             dataIndex: 'full_name',
-            width: '20%'
+            width: '15rem'
         },
         {
             title: 'Pre Survey',
             dataIndex: 'pre_survey_status',
             align: 'center',
-            width: '10%',
+            width: '15rem',
             render: (_, record) =>
                 record?.pre_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -109,7 +226,7 @@ export default function DoughnutChart({ user }) {
             title: 'Lesson Progress',
             dataIndex: 'address',
             align: 'center',
-            width: '30%',
+            width: '30rem',
             render: (_, record) => {
                 let percent =
                     100 -
@@ -149,7 +266,7 @@ export default function DoughnutChart({ user }) {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
             align: 'center',
-            width: '20%',
+            width: '20rem',
             render: (_, record) =>
                 record?.idea_submission ? (
                     <FaCheckCircle size={20} color="green" />
@@ -161,7 +278,7 @@ export default function DoughnutChart({ user }) {
             title: 'Post Survey',
             dataIndex: 'post_survey_status',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.post_survey_status ? (
                     <FaCheckCircle size={20} color="green" />
@@ -173,7 +290,7 @@ export default function DoughnutChart({ user }) {
             title: 'Certificate',
             dataIndex: 'certificate',
             align: 'center',
-            width: '10%',
+            width: '10rem',
             render: (_, record) =>
                 record?.certificate ? (
                     <FaCheckCircle size={20} color="green" />
@@ -198,75 +315,306 @@ export default function DoughnutChart({ user }) {
         setstudentchangelist(studentlist);
         setstudentchangeObj(studentlistObj);
     }, [teamsMembersStatus, ChangeShow]);
+
+    ///// school pdf code
+    const [showPrintSymbol, setShowPrintSymbol] = useState(true);
+    //school pdf idea deatils
+    const [ideaValuesForPDF, setIdeaValuesForPDF] = useState();
+    const ideaDataforPDF = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/challenge_response/schoolpdfideastatus?mentor_id=${user[0].mentor_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setIdeaValuesForPDF(response?.data?.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    const [teamsData, setTeamsData] = useState([]);
+
+    //school pdf mentor deatils
+    const [mentorValuesForPDF, setMentorValuesForPDF] = useState();
+    const mentorDataforPDF = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/mentors/mentorpdfdata?id=${user[0].mentor_id}&user_id=${user[0].user_id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setMentorValuesForPDF(response?.data?.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    // Function to fetch data for a single team by ID
+    const fetchTeamData = async (teamId, teamName) => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_BASE_URL}/dashboard/teamStats/${teamId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                    }
+                }
+            );
+            return [...response.data.data, { name: teamName }];
+        } catch (error) {
+            console.error(`Error fetching data for team ID ${teamId}:`, error);
+            return null;
+        }
+    };
+
+    // Function to fetch data for all teams and store in a single array
+    const fetchAllTeamsData = async () => {
+        try {
+            const teamDataPromises = teamsList.map((teamId) =>
+                fetchTeamData(teamId.team_id, teamId.team_name)
+            );
+            const teamDataArray = await Promise.all(teamDataPromises);
+            const filteredDataArray = teamDataArray.filter(
+                (data) => data !== null
+            );
+            setTeamsData(filteredDataArray);
+        } catch (error) {
+            console.error('Error fetching team data:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (
+            teamsData.length === teamsList.length &&
+            teamsData.length !== 0 &&
+            mentorValuesForPDF !== undefined &&
+            ideaValuesForPDF !== undefined
+        ) {
+            handlePrint();
+            console.log('printcontinue');
+            setShowPrintSymbol(true);
+        } else {
+            console.log("Some PDF printing related api's are failing");
+            setShowPrintSymbol(true);
+        }
+    }, [teamsData, mentorValuesForPDF]);
+    const tsetcall = () => {
+        setShowPrintSymbol(false);
+        mentorDataforPDF();
+        ideaDataforPDF();
+        fetchAllTeamsData();
+    };
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+
+    //////
+    const [ideaStatusEval, setIdeaStatusEval] = useState('-');
+    useEffect(() => {
+        if (challengesSubmittedResponse.length === 0) {
+            setIdeaStatusEval('NOT STARTED');
+        } else if (challengesSubmittedResponse[0].final_result === '1') {
+            setIdeaStatusEval(
+                'Congratulations,Idea is selected for grand finale'
+            );
+        } else if (challengesSubmittedResponse[0].final_result === '0') {
+            setIdeaStatusEval('L2_Promoted - Shortlisted for final round of evaluation');
+            if (isEvlCom) {
+                setIdeaStatusEval('Runner - “Better luck next time”');
+            }
+        } else if (
+            challengesSubmittedResponse[0].evaluation_status ===
+            'REJECTEDROUND1'
+        ) {
+            setIdeaStatusEval('L1_Rejected - “Better luck next time”');
+        } else if (
+            challengesSubmittedResponse[0].evaluation_status === 'SELECTEDROUND1'
+        ) {
+            setIdeaStatusEval(
+                'L1_Accepted - “Promoted to Level 2 round of evaluation”'
+            );
+            if (isEvlCom) {
+                setIdeaStatusEval('L2_Not Promoted - “Better luck next time”');
+            }
+        } else {
+            setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
+        }
+    }, [challengesSubmittedResponse]);
+
     return (
         <>
-            <div className="select-team w-100">
-                <label htmlFor="teams" className="">
-                    Team Progress:
-                </label>
-                <div className="d-flex align-items-center">
-                    <Col className="row p-4">
-                        <select
-                            onChange={(e) => setTeamId(e.target.value)}
-                            name="teams"
-                            id="teams"
-                            style={{ backgroundColor: 'lavender' }}
-                        >
-                            <option value="">Select Team</option>
-                            {teamsList && teamsList.length > 0 ? (
-                                teamsList.map((item, i) => (
-                                    <option key={i} value={item.team_id}>
-                                        {item.team_name}
-                                    </option>
-                                ))
-                            ) : (
-                                <option value="">There are no teams</option>
-                            )}
-                        </select>
-                    </Col>
-                    <Col className="d-flex justify-content-end align-items-center">
-                        <Card className="p-3 mx-4 d-flex flex-row">
-                            <span className="fw-bold">IDEA STATUS :</span>
-                            <span>
-                                {' '}
-                                {challengesSubmittedResponse[0]?.status
-                                    ? challengesSubmittedResponse[0]?.status
-                                    : 'NOT STARTED'}{' '}
-                            </span>
-                        </Card>
-
-                        <Button
-                            button="button"
-                            label={t('student.view_idea')}
-                            disabled={
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? false
-                                    : true
-                            }
-                            btnClass={`${
-                                teamsMembersStatus.length > 0 &&
-                                challengesSubmittedResponse[0]?.status
-                                    ? 'primary'
-                                    : 'default'
-                            }`}
-                            size="small"
-                            onClick={() => setIdeaShow(true)}
-                        />
-                        <div className="m-3">
-                            <Button
-                                label={'Change'}
-                                btnClass={`${
-                                    teamsMembersStatus.length > 0 &&
-                                    challengesSubmittedResponse[0]?.status
-                                        ? 'primary'
-                                        : 'default'
-                                }`}
-                                size="small"
-                                onClick={() => setChangeShow(true)}
-                            />
+            <div style={{ display: 'none' }}>
+                <Schoolpdf
+                    ref={componentRef}
+                    tabledata={teamsData}
+                    remMentor={mentorValuesForPDF}
+                    ideaStatusDetails={ideaValuesForPDF}
+                />
+            </div>
+            <Card
+                className="select-team p-5 w-100"
+                style={{ overflowX: 'auto' }}
+            >
+                <div className="d-flex justify-content-between">
+                    <label htmlFor="teams" className="">
+                        Team Progress:
+                    </label>
+                    {showPrintSymbol ? (
+                        <FaDownload size={22} onClick={tsetcall} />
+                    ) : (
+                        <FaHourglassHalf size={22} />
+                    )}
+                </div>
+                <div className="d-flex align-items-center teamProgreess">
+                    <Col md="3" xs="12">
+                        <div className="singlediv">
+                            <select
+                                onChange={(e) => setTeamId(e.target.value)}
+                                name="teams"
+                                id="teams"
+                                style={{
+                                    backgroundColor: 'lavender',
+                                    height: '40px', // Set the desired height
+                                    fontSize: '16px'
+                                }}
+                            >
+                                <option hidden>Select Team</option>
+                                {teamsList &&
+                                teamsList.length > 0 &&
+                                teamId !== ''
+                                    ? teamsList.map((item, i) => (
+                                          <option key={i} value={item.team_id}>
+                                              {item.team_name}
+                                          </option>
+                                      ))
+                                    : null}
+                            </select>
                         </div>
                     </Col>
+                    {teamId && (
+                        <>
+                            <Row>
+                                <div className="singlediv">
+                                    <Card
+                                        className="p-3 mx-4 d-flex flex-row"
+                                        style={{
+                                            marginTop: '.5rem',
+                                            marginBottom: '1rem'
+                                        }}
+                                    >
+                                        <span className="fw-bold">
+                                            IDEA STATUS :
+                                        </span>
+                                        <span style={{ paddingLeft: '1rem' }}>
+                                            {ideaStatusEval}
+                                        </span>
+                                    </Card>
+                                </div>
+                            </Row>
+                            <>
+                                <div>
+                                    <Button
+                                        button="button"
+                                        label="View Idea"
+                                        disabled={
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? false
+                                                : true
+                                        }
+                                        btnClass={`${
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? 'primary'
+                                                : 'default'
+                                        }`}
+                                        size="small"
+                                        shape="btn-square"
+                                        style={{ padding: '1rem 2.4rem' }}
+                                        onClick={() => setIdeaShow(true)}
+                                    />
+                                </div>
+                                <div className="m-3">
+                                    <Button
+                                        label={' Change  '}
+                                        disabled={
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? false
+                                                : true
+                                        }
+                                        btnClass={`${
+                                            teamsMembersStatus.length > 0 &&
+                                            challengesSubmittedResponse[0]
+                                                ?.status
+                                                ? 'primary'
+                                                : 'default'
+                                        }`}
+                                        size="small"
+                                        shape="btn-square"
+                                        style={{ padding: '1rem 3rem' }}
+                                        onClick={() => setChangeShow(true)}
+                                    />
+                                </div>
+                                <div>
+                                    {challengesSubmittedResponse[0]?.status ==
+                                    'SUBMITTED' ? (
+                                        <Button
+                                            className={
+                                                isideadisable
+                                                    ? `btn btn-success btn-lg mr-5 mx-2`
+                                                    : `btn btn-lg mr-5 mx-2`
+                                            }
+                                            label={'REVOKE'}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{
+                                                padding: '1rem 3rem',
+                                                fontSize: '14px',
+                                                marginBottom: '.8rem'
+                                            }}
+                                            onClick={() =>
+                                                handleRevoke(
+                                                    challengesSubmittedResponse[0]
+                                                        .challenge_response_id,
+                                                    challengesSubmittedResponse[0]
+                                                        .status
+                                                )
+                                            }
+                                            disabled={!isideadisable}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </>
+                        </>
+                    )}
                 </div>
                 {showDefault && (
                     <div
@@ -293,7 +641,7 @@ export default function DoughnutChart({ user }) {
                         </p>
                     </div>
                 ) : null}
-            </div>
+            </Card>
             {ideaShow && (
                 <IdeaSubmissionCard
                     show={ideaShow}

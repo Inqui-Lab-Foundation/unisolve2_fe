@@ -1,8 +1,10 @@
 import React from 'react';
 var parse = require('html-react-parser');
+import './quiz.scss';
 
 const QuizResponse = ({ response }) => {
     const { accimg, msg, ar_image, ar_link } = response;
+    console.log(response);
     const config = process.env.REACT_APP_API_IMAGE_BASE_URL;
     return (
         <div className="w-100">
@@ -17,9 +19,28 @@ const QuizResponse = ({ response }) => {
                     </div>
                 )}
                 <div className={`${!accimg ? 'col-12' : 'col-9'}`}>
-                    <div className="row">
-                        {parse("<p className = 'text-left'>" + msg + '</p>')}
-                    </div>
+                    {response.is_correct ? (
+                        <div className="row mt-4">
+                            {parse(
+                                `
+                                <p  className="text-left responce_true">
+                                    ${msg ? msg : 'No Data'}
+                                </p>
+                                `
+                            )}
+                        </div>
+                    ) : (
+                        <div className="row mt-4">
+                            {parse(
+                                `
+                        <p  className="text-left responce_false">
+                            ${msg ? msg : 'No Data'}
+                        </p>
+                        `
+                            )}
+                        </div>
+                    )}
+
                     {ar_image && (
                         <div className="row">
                             <img

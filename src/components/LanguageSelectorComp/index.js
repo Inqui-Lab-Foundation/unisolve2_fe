@@ -35,7 +35,6 @@ const LanguageSelectorComp = ({ module }) => {
     }, []);
     
     const handleSelector = (item) => {
-        console.log(item,"item-------");
         let forMentor;
         if (item && item.code !== "en") {
             forMentor = { ...item };

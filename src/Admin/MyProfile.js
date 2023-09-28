@@ -5,9 +5,10 @@ import {
     Row,
     Col,
     Card,
-    CardTitle,
+    // CardTitle,
     CardBody,
-    CardText
+    CardText,
+    Button
 } from 'reactstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -15,7 +16,6 @@ import withReactContent from 'sweetalert2-react-content';
 import { IoIosArrowBack } from 'react-icons/io';
 import ChangePSWModal from './ChangePSWModal';
 import { Link } from 'react-router-dom';
-import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import Layout from './Layout';
 const MySwal = withReactContent(Swal);
@@ -71,20 +71,6 @@ const MyProfile = () => {
             setProfileAction(false);
         }
     });
-    const headingDetails = {
-        title: 'My Profile',
-
-        options: [
-            {
-                title: 'Home',
-                path: '/admin/dashboard'
-            },
-            {
-                title: 'My Profile',
-                path: '/my-profile'
-            }
-        ]
-    };
 
     return (
         <Layout>
@@ -93,7 +79,7 @@ const MyProfile = () => {
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         {profileAction ? (
-                            <BreadcrumbTwo {...headingDetails} />
+                            <h3 className="mb-5">My Profile</h3>
                         ) : (
                             <Link
                                 to="/teams"
@@ -139,10 +125,10 @@ const MyProfile = () => {
                                                                 }
                                                             </b>
                                                         </CardText>
-                                                        <CardText>
+                                                        {/*   <CardText>
                                                             <span>state :</span>{' '}
                                                             <b>Maldives</b>
-                                                        </CardText>
+                                                            </CardText> */}
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -152,20 +138,34 @@ const MyProfile = () => {
                                         <br />
                                         <Row>
                                             <Col md={6}>
-                                                <CardText>
+                                                {/*    <CardText>
                                                     <CardTitle className="pb-2">
                                                         Password
                                                     </CardTitle>
-                                                </CardText>
-                                                <CardText>
-                                                    <Link
-                                                        exact="true"
+                                                        </CardText> */}
+
+                                                {/*  <div
                                                         onClick={showModal}
-                                                        className="my-auto pt-0 text-link "
+                                                        
+                                                        className="my-auto pt-0 text-link text-primary"
                                                     >
                                                         Change Password
-                                                    </Link>
-                                                </CardText>
+                                                    </div> */}
+                                                <div>
+                                                    <Button
+                                                        size="small"
+                                                        //className="btn  btn-lg   text-black"
+                                                        className="storybook-button storybook-button--small storybook-button--primary sweet-btn-max"
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#ffcb34'
+                                                        }}
+                                                        onClick={showModal}
+                                                    >
+                                                        {' '}
+                                                        Change Password
+                                                    </Button>
+                                                </div>
                                             </Col>
                                         </Row>
                                     </CardBody>

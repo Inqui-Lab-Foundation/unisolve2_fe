@@ -2,19 +2,22 @@
     font-size: 1.6rem;
     border: 0rem !important;
     box-sizing: border-box;
-    border-radius: 6rem;
     font-style: normal;
     font-weight: normal;
     padding: 1.3rem 2rem;
     border-radius: 1rem !important;
     background-color: var(--color-white-3);
+    display: inline-block;
 }
 
 .name-req-create-member {
     font-size: 1.4rem;
     font-weight: 600 !important;
     @media screen and (max-width: 575px) {
-      font-size: 1.4rem;
+        font-size: 1.4rem;
+        // .form-control.custom-dropdown {
+        //     display: inline-block;
+        // }
     }
     color: var(--color-black-1);
-  }
+}

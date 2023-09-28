@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import axios from 'axios';
 
 import {
@@ -23,8 +24,10 @@ import {
     // MENTORS_CREATE_SUPPORT_TICKETS
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
-import { getNormalHeaders, openNotificationWithIcon } from '../../../helpers/Utils.js';
-import { getLanguage } from '../../../constants/languageOptions.js';
+import {
+    getNormalHeaders,
+    openNotificationWithIcon
+} from '../../../helpers/Utils.js';
 
 export const mentorCreateSuccess = (user) => async (dispatch) => {
     dispatch({
@@ -32,13 +35,12 @@ export const mentorCreateSuccess = (user) => async (dispatch) => {
         payload: user
     });
 };
-export const getMentorGlobalLanguage =
-    (language) => async (dispatch) => {
-        dispatch({
-            type: MENTORS_LANGUAGE,
-            payload: language
-        });
-    };
+export const getMentorGlobalLanguage = (language) => async (dispatch) => {
+    dispatch({
+        type: MENTORS_LANGUAGE,
+        payload: language
+    });
+};
 export const mentorCreateError = (message) => async (dispatch) => {
     dispatch({
         type: MENTORS_CREATE_ERROR,
@@ -81,7 +83,6 @@ export const getMentorsListError = (message) => async (dispatch) => {
     });
 };
 
-
 export const getStudentByIdData = (id) => async (dispatch) => {
     try {
         dispatch({ type: GET_TEACHERS });
@@ -94,14 +95,10 @@ export const getStudentByIdData = (id) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data =
-                result.data &&
-                result.data.data[0] &&
-                result.data.data[0];
-            dispatch(getMentorsListSuccess(data)); 
+                result.data && result.data.data[0] && result.data.data[0];
+            dispatch(getMentorsListSuccess(data));
         } else {
-            dispatch(
-                getMentorsListError(result.statusText)
-            );
+            dispatch(getMentorsListError(result.statusText));
         }
     } catch (error) {
         dispatch(getMentorsListError({}));
@@ -143,7 +140,7 @@ export const deleteMentorError = (message) => async (dispatch) => {
         payload: { message }
     });
 };
- 
+
 export const deleteMentor = (courseId) => async (dispatch) => {
     try {
         dispatch({ type: MENTORS_DELETE });
@@ -206,24 +203,28 @@ export const getSupportTicketsSuccess = (tickets) => async (dispatch) => {
         payload: tickets
     });
 };
-export const getSupportTickets = (lang,user) => async (dispatch) => {
+export const getSupportTickets = (user) => async (dispatch) => {
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getMentorSupportTickets}?user_id=${user.user_id}&${getLanguage(lang)}`, axiosConfig)
+            .get(
+                `${URL.getMentorSupportTickets}?user_id=${user.user_id}&locale=en`,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result.data.data[0].dataValues.length > 0 ?
-                result.data.data[0].dataValues.map((item,i)=>{
-                    item.id=i+1;
-                    return item;
-                }) :[];
+            const data =
+                result.data.data[0].dataValues.length > 0
+                    ? result.data.data[0].dataValues.map((item, i) => {
+                          item.id = i + 1;
+                          return item;
+                      })
+                    : [];
 
             dispatch(getSupportTicketsSuccess(data));
-            
         } else {
             dispatch(getMentorsListError(result.statusText));
         }
@@ -241,7 +242,6 @@ export const getSupportTickets = (lang,user) => async (dispatch) => {
 
 export const createSupportTickets = (data, history) => async () => {
     try {
-       
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
             .post(`${URL.createMentorSupportTickets}`, data, axiosConfig)
@@ -249,23 +249,19 @@ export const createSupportTickets = (data, history) => async () => {
             .catch((err) => {
                 return err.response;
             });
-        
+
         if (result && result.status === 201) {
-            
             history.push('/teacher/support-journey');
-            openNotificationWithIcon('success',
+            openNotificationWithIcon(
+                'success',
                 'Ticket Created Sucessfully!',
-                '');
+                ''
+            );
         } else {
-            openNotificationWithIcon('error',
-                'Something went wrong!',
-                '');
+            openNotificationWithIcon('error', 'Something went wrong!', '');
         }
     } catch (error) {
-        openNotificationWithIcon('error',
-            'Something went wrong!',
-            '');
-        
+        openNotificationWithIcon('error', 'Something went wrong!', '');
     }
 };
 
@@ -276,35 +272,29 @@ export const getSupportTicketByIdSuccess = (tickets) => async (dispatch) => {
     });
 };
 
-export const getSupportTicketById = (id,lang) => async (dispatch) => {
+export const getSupportTicketById = (id) => async (dispatch) => {
     try {
-       
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getMentorSupportTicketsById}${id}?${getLanguage(lang)}`,  axiosConfig)
+            .get(
+                `${URL.getMentorSupportTicketsById}${id}?locale=en`,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
-        
+
         if (result && result.status === 200) {
             const data = result.data.data[0];
             dispatch(getSupportTicketByIdSuccess(data));
-           
         } else {
-            openNotificationWithIcon('error',
-                'Something went wrong!',
-                '');
+            openNotificationWithIcon('error', 'Something went wrong!', '');
         }
     } catch (error) {
-        openNotificationWithIcon('error',
-            'Something went wrong!456',
-            '');        
+        openNotificationWithIcon('error', 'Something went wrong!456', '');
     }
 };
-
-
-
 
 export const getSupportResponseTicketById = (tickets) => async (dispatch) => {
     dispatch({
@@ -315,28 +305,22 @@ export const getSupportResponseTicketById = (tickets) => async (dispatch) => {
 
 export const getSupportResponsesTicketById = () => async (dispatch) => {
     try {
-       
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const result = await axios.get(`${URL.getMentorSupportTicketResponsesById}`,  axiosConfig)
+        const result = await axios
+            .get(`${URL.getMentorSupportTicketResponsesById}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
-        
+
         if (result && result.status === 200) {
             const data = result.data.data[0];
             dispatch(getSupportResponseTicketById(data));
-           
         } else {
-            openNotificationWithIcon('error',
-                'Something went wrong!',
-                '');
+            openNotificationWithIcon('error', 'Something went wrong!', '');
         }
     } catch (error) {
-        openNotificationWithIcon('error',
-            'Something went wrong!',
-            '');
-        
+        openNotificationWithIcon('error', 'Something went wrong!', '');
     }
 };
 export const getTeacherPresurveyStatusSuccess = (data) => async (dispatch) => {
@@ -365,10 +349,8 @@ export const getTeacherPresurveyStatus = () => async (dispatch) => {
     }
 };
 
-
 export const createSupportTicketResponse = (data) => async () => {
     try {
-       
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
             .post(`${URL.createMentorSupportTicketResponse}`, data, axiosConfig)
@@ -376,26 +358,21 @@ export const createSupportTicketResponse = (data) => async () => {
             .catch((err) => {
                 return err.response;
             });
-        
+
         if (result && result.status === 201) {
-            
             // history.push('/teacher/support-journey');
-            openNotificationWithIcon('success',
-                'Reply submitted sucessfully!',
-                '');
+            openNotificationWithIcon(
+                'success',
+                'Reply submitted successfully!',
+                ''
+            );
         } else {
-            openNotificationWithIcon('error',
-                'Something went wrong!',
-                '');
+            openNotificationWithIcon('error', 'Something went wrong!', '');
         }
     } catch (error) {
-        openNotificationWithIcon('error',
-            'Something went wrong!',
-            '');
-        
+        openNotificationWithIcon('error', 'Something went wrong!', '');
     }
 };
-
 
 export const SupportTicketStatus = (message) => async (dispatch) => {
     dispatch({
@@ -409,7 +386,11 @@ export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
         dispatch({ type: MENTORS_SUPPORT_TICKETS_STATUS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
-            .put(`${URL.updateSupportTicketResponse + '/' + id}`, data, axiosConfig)
+            .put(
+                `${URL.updateSupportTicketResponse + '/' + id}`,
+                data,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
@@ -417,7 +398,7 @@ export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
         // if (result && result.status === 200) {
         //     // const data = result.data.text;
         //     // dispatch(mentorsEditSuccess(data));
-            
+
         // } else {
         //     dispatch(SupportTicketStatus(result.statusText));
         // }

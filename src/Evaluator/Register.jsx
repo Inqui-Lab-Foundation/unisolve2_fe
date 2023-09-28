@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
@@ -8,7 +9,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
-import { URL, KEY } from '../constants/defaultValues';
+import { KEY } from '../constants/defaultValues';
 import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import { getAdminEvalutorsList } from '../redux/actions';
@@ -18,18 +19,11 @@ const Register = (props) => {
     const handleClose = () => {};
     const dispatch = useDispatch();
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    const phoneRegExp = /^[0-9\s]+$/;
 
     const inputPhone = {
         type: 'text',
         placeholder: 'Enter Phone Number',
-        className: 'defaultInput'
-    };
-
-    const inputEmail = {
-        type: 'email',
-        placeholder: 'Enter Email Address',
         className: 'defaultInput'
     };
 
@@ -38,11 +32,11 @@ const Register = (props) => {
         placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
-    const inputCity = {
-        type: 'text',
-        placeholder: 'District Name',
-        className: 'defaultInput'
-    };
+    // const inputCity = {
+    //     type: 'text',
+    //     placeholder: 'District Name',
+    //     className: 'defaultInput'
+    // };
 
     const validationForEvaluator = Yup.object({
         full_name: Yup.string()
@@ -55,44 +49,64 @@ const Register = (props) => {
             .trim()
             .matches(phoneRegExp, 'Contact number is not valid')
             .min(10, 'Please enter valid number')
-            .max(10, 'Please enter valid number'),
-        username: Yup.string()
-            .trim()
-            .email('Invalid username format')
-            .required('Required'),
-        district: Yup.string().trim().required('Required')
+            .max(10, 'Please enter valid number')
+        // username: Yup.string()
+        //     .trim()
+        //     .email('Invalid username format')
+        //     .required('Required'),
+        // district: Yup.string().trim().required('Required')
     });
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            // username: '',
             mobile: '',
             full_name: '',
             password: '',
-            role: 'EVALUATOR',
-            district: ''
+            role: 'EVALUATOR'
+            // district: ''
         },
 
         validationSchema: validationForEvaluator,
 
         onSubmit: async (values) => {
-            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            // const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            values.password = values.mobile.trim();
+            var pass = values.mobile.trim();
+
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
             );
             const iv = CryptoJS.enc.Hex.parse(
                 '00000000000000000000000000000000'
             );
-            const encrypted = CryptoJS.AES.encrypt(values.password, key, {
+            const encrypted = CryptoJS.AES.encrypt(pass, key, {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
             values.password = encrypted;
-            const actualUrl = URL.evaluatorRegister;
-            await axios
-                .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
+            const body = JSON.stringify({
+                full_name: values.full_name.trim(),
+                // mobile: values.username.trim(),
+
+                username: values.mobile.trim(),
+                role: values.role.trim(),
+                password: encrypted
+            });
+            var config = {
+                method: 'post',
+                url:
+                    process.env.REACT_APP_API_BASE_URL + '/evaluators/register',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                data: body
+            };
+            console.log(body);
+            // const actualUrl = URL.evaluatorRegister;
+            await axios(config)
+                // .post(actualUrl, JSON.stringify(values, null, 2), axiosConfig)
                 .then((evaluatorRegRes) => {
                     if (evaluatorRegRes?.data?.status == 201) {
                         dispatch(getAdminEvalutorsList());
@@ -195,60 +209,6 @@ const Register = (props) => {
                                     formik.errors.mobile ? (
                                         <small className="error-cls">
                                             {formik.errors.mobile}
-                                        </small>
-                                    ) : null}
-                                </FormGroup>
-                            </div>
-                        </div>
-
-                        <div className="row justify-content-center pe-md-0">
-                            <div className="col-md-6 p-0">
-                                <FormGroup
-                                    className="form-group mt-5 me-md-3"
-                                    md={12}
-                                >
-                                    <Label className="mb-2" htmlFor="username">
-                                        Email Address
-                                    </Label>
-                                    <InputBox
-                                        {...inputEmail}
-                                        id="username"
-                                        name="username"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.username}
-                                        maxLength={100}
-                                        // isDisabled={stepTwoData.mobile ? true : false}
-                                    />
-
-                                    {formik.touched.username &&
-                                    formik.errors.username ? (
-                                        <small className="error-cls">
-                                            {formik.errors.username}
-                                        </small>
-                                    ) : null}
-                                </FormGroup>
-                            </div>
-
-                            <div className="col-md-6 p-0">
-                                <FormGroup className="form-group mt-5" md={12}>
-                                    <Label className="mb-2" htmlFor="district">
-                                        District Name
-                                    </Label>
-                                    <InputBox
-                                        {...inputCity}
-                                        id="district"
-                                        name="district"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.district}
-                                        maxLength={50}
-                                    />
-
-                                    {formik.touched.district &&
-                                    formik.errors.district ? (
-                                        <small className="error-cls">
-                                            {formik.errors.district}
                                         </small>
                                     ) : null}
                                 </FormGroup>

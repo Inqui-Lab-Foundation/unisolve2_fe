@@ -47,7 +47,6 @@ import { useTranslation } from 'react-i18next';
 
 const TeacherPlayVideo = (props) => {
     const { t } = useTranslation();
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
     const pdfRef = useRef(null);
     const course_id = props.match.params.id ? props.match.params.id : 1;
     const currentUser = getCurrentUser('current_user');
@@ -97,7 +96,9 @@ const TeacherPlayVideo = (props) => {
     const [instructions, setInstructions] = useState(false);
     const [continueObj, setContinueObj] = useState([]);
     const [courseData, setCourseData] = useState(null);
+    const [isquizcompleted, setisquizcompleted] = useState(false);
     const scrollRef = React.createRef();
+    const [quizStart, setQuizStart] = useState(false);
 
     const getLastCourseStatus = (data = []) => {
         const length = data && data.length > 0 ? data.length - 1 : 0;
@@ -107,8 +108,8 @@ const TeacherPlayVideo = (props) => {
         return false;
     };
     useEffect(() => {
-        props.getTeacherCourseDetailsActions(course_id, language);
-    }, [course_id, language]);
+        props.getTeacherCourseDetailsActions(course_id);
+    }, [course_id]);
 
     useLayoutEffect(() => {
         props.getMentorCourseAttachmentsActions();
@@ -142,7 +143,7 @@ const TeacherPlayVideo = (props) => {
             );
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
-            topicArrays.map((item, i) => {
+            topicArrays.forEach((item, i) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }
@@ -206,6 +207,42 @@ const TeacherPlayVideo = (props) => {
                 console.log(error);
             });
     }
+    useEffect(() => {
+        getisquizcompleted();
+    }, []);
+    async function getisquizcompleted() {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/quiz/8/nextQuestion?locale=en&attempts=1',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (
+                        response.data.data ===
+                        'Quiz has been completed no more questions to display'
+                    ) {
+                        setisquizcompleted(true);
+                        setQuizStart(false);
+                    } else if (response?.data?.data[0]?.question_no === 1) {
+                        setQuizStart(true);
+                        setisquizcompleted(false);
+                    } else {
+                        setQuizStart(false);
+                        setisquizcompleted(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     const handleNxtVideo = (id) => {
         // here id = course_id //
@@ -236,7 +273,7 @@ const TeacherPlayVideo = (props) => {
                     setUpdateModuleResponce(
                         response.data && response.data.data[0]
                     );
-                    props.getTeacherCourseDetailsActions(course_id, language);
+                    props.getTeacherCourseDetailsActions(course_id);
                 }
             })
             .catch(function (error) {
@@ -318,6 +355,7 @@ const TeacherPlayVideo = (props) => {
         );
         handlePlayerPlay();
         setHandbook(true);
+        setCourseData(topicObj);
     };
 
     const handleSelect = (topicId, couseId, type) => {
@@ -345,6 +383,7 @@ const TeacherPlayVideo = (props) => {
             fetchData(topicId);
             setHideQuiz(false);
         } else if (type === 'QUIZ') {
+            getisquizcompleted();
             setItem('QUIZ');
             setQizId(topicId);
         } else {
@@ -466,7 +505,7 @@ const TeacherPlayVideo = (props) => {
 
     const startFirstCourse = (e) => {
         // here we can start the course //
-        setCourseData(null);
+        setCourseData(firstObj[0]);
         modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
             firstObj[0].topic_type_id,
@@ -477,13 +516,20 @@ const TeacherPlayVideo = (props) => {
 
     const startContinueCourse = (e) => {
         // here we can continue the course //
-        setCourseData(null);
-        modulesListUpdateApi(continueObj[0].course_topic_id);
+        setCourseData(continueObj[0]);
+        modulesListUpdateApi(continueObj[0].mentor_course_topic_id);
         handleSelect(
             continueObj[0].topic_type_id,
-            continueObj[0].course_topic_id,
+            continueObj[0].mentor_course_topic_id,
             continueObj[0].topic_type
         );
+        if (
+            continueObj[0].title.toLowerCase() === 'handbook' ||
+            continueObj[0].title === 'கையேடு'
+        ) {
+            setHandbook(true);
+            setInstructions(false);
+        }
         // toggle(continueObj[0].course_module_id);
     };
 
@@ -593,7 +639,7 @@ const TeacherPlayVideo = (props) => {
                                                                         );
                                                                     } else if (
                                                                         course.title.toLowerCase() ===
-                                                                            'instructions' ||
+                                                                            'congratulations' ||
                                                                         course.title ===
                                                                             'வழிமுறைகள்'
                                                                     ) {
@@ -658,37 +704,107 @@ const TeacherPlayVideo = (props) => {
                                     className="modal-popup text-screen text-center  modal-popup"
                                 >
                                     <div className="modal-content">
-                                        <Modal.Header>
-                                            <Modal.Title className="w-100 d-block mb-2">
-                                                Ready for a quick test?
-                                            </Modal.Title>
-                                            <p className="w-100 d-block">
-                                                Test your course skills in a
-                                                short test challenge!
-                                            </p>
-                                            <div className="row justify-content-center text-center">
-                                                <div className="col col-lg-3">
-                                                    <p>
-                                                        <VscCircleFilled
-                                                            style={{
-                                                                color: '#067DE1'
-                                                            }}
-                                                        />
-                                                        Questions
+                                        {quizStart ? (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Ready for a quick test?
+                                                </Modal.Title>
+                                                <div className="w-100 d-block text-left">
+                                                    <p
+                                                        className="text-center"
+                                                        style={{
+                                                            fontSize: '1.5rem'
+                                                        }}
+                                                    >
+                                                        Here is a short quiz (15
+                                                        Questions) to check for
+                                                        understanding about the
+                                                        program and teachers
+                                                        role.
                                                     </p>
+                                                    <b>Instructions:</b>
+                                                    <ol>
+                                                        <li>
+                                                            Read the Teacher
+                                                            Handbook completely
+                                                            before taking the
+                                                            quiz.
+                                                        </li>
+                                                        <li>
+                                                            Quiz will consist of
+                                                            15 questions and
+                                                            will take 5-10
+                                                            minutes to complete.
+                                                        </li>
+                                                        <li>
+                                                            Score will be
+                                                            displayed at the end
+                                                            of the quiz for your
+                                                            reference.
+                                                        </li>
+                                                        <li>
+                                                            You can attempt the
+                                                            quiz only once.
+                                                        </li>
+                                                    </ol>
                                                 </div>
-                                                <div className="col col-lg-3">
-                                                    <p>
-                                                        <VscCircleFilled
-                                                            style={{
-                                                                color: '#067DE1'
-                                                            }}
-                                                        />{' '}
-                                                        Minutes
+                                            </Modal.Header>
+                                        ) : isquizcompleted ? (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Quick test Completed
+                                                    successfully
+                                                </Modal.Title>
+                                                <p className="w-100 d-block">
+                                                    Check your score.
+                                                </p>
+                                            </Modal.Header>
+                                        ) : (
+                                            <Modal.Header>
+                                                <Modal.Title className="w-100 d-block mb-2">
+                                                    Continue your quick test
+                                                </Modal.Title>
+                                                <div className="w-100 d-block text-left">
+                                                    <p
+                                                        className="text-center"
+                                                        style={{
+                                                            fontSize: '1.5rem'
+                                                        }}
+                                                    >
+                                                        Here is a short quiz (15
+                                                        Questions) to check for
+                                                        understanding about the
+                                                        program and teachers
+                                                        role.
                                                     </p>
+                                                    <b>Instructions:</b>
+                                                    <ol>
+                                                        <li>
+                                                            Read the Teacher
+                                                            Handbook completely
+                                                            before taking the
+                                                            quiz.
+                                                        </li>
+                                                        <li>
+                                                            Quiz will consist of
+                                                            15 questions and
+                                                            will take 5-10
+                                                            minutes to complete.
+                                                        </li>
+                                                        <li>
+                                                            Score will be
+                                                            displayed at the end
+                                                            of the quiz for your
+                                                            reference.
+                                                        </li>
+                                                        <li>
+                                                            You can attempt the
+                                                            quiz only once.
+                                                        </li>
+                                                    </ol>
                                                 </div>
-                                            </div>
-                                        </Modal.Header>
+                                            </Modal.Header>
+                                        )}
 
                                         <Modal.Body>
                                             <figure>
@@ -699,7 +815,13 @@ const TeacherPlayVideo = (props) => {
                                                 />
                                             </figure>
                                             <Button
-                                                label="Let's Start"
+                                                label={
+                                                    quizStart
+                                                        ? "Let's Start"
+                                                        : isquizcompleted
+                                                        ? 'See Score'
+                                                        : 'Resume Quiz'
+                                                }
                                                 btnClass="primary mt-4"
                                                 size="small"
                                                 onClick={() =>
@@ -720,102 +842,86 @@ const TeacherPlayVideo = (props) => {
                                     <Card className="course-sec-basic p-5">
                                         <CardBody>
                                             <CardTitle
-                                                className="text-left"
+                                                className="text-left text-primary"
                                                 tag="h2"
                                             >
-                                                {t('teacehr_red.hand_book')}
+                                                Teacher Handbook
                                             </CardTitle>
                                             <CardBody>
-                                                <p className="text-primary">
+                                                <p>
+                                                    <b>Dear Guide Teacher!</b>
+                                                </p>
+                                                <p>
+                                                    Hope the instructional
+                                                    videos gave you an insight
+                                                    into the course. Further
+                                                    detailed instructions can be
+                                                    found in the handbook.
+                                                </p>
+                                                <p className="text-success">
                                                     <b>
-                                                        Guidelines for Handbook
+                                                        The handbook is a small
+                                                        booklet that covers :
                                                     </b>
                                                 </p>
-                                                <p>Dear Guide Teachers,</p>
+
+                                                <ul>
+                                                    <li>Program Schedule</li>
+                                                    <li>Program Objectives</li>
+                                                    <li>
+                                                        Major milestones in the
+                                                        program
+                                                    </li>
+                                                    <li>
+                                                        Best Practices for
+                                                        teachers
+                                                    </li>
+                                                    <li>Course Elements</li>
+                                                    <li>Learning Concepts</li>
+                                                    <li>
+                                                        Other important
+                                                        instructions
+                                                    </li>
+                                                </ul>
+
                                                 <p>
-                                                    This handbook is an
-                                                    important document which
-                                                    will help you understand the
-                                                    program objectives and
-                                                    enable you to support your
-                                                    Unisolve student teams
-                                                    better.
+                                                    You can refer to the
+                                                    handbook whenever there are
+                                                    any doubts about the
+                                                    program. Both the
+                                                    instructional videos and
+                                                    handbook together will equip
+                                                    you to be an efficient guide
+                                                    to the students especially
+                                                    when they are working on
+                                                    Student Workbook.
                                                 </p>
+
                                                 <p>
-                                                    STEP 1 : Go through pages 1
-                                                    - 28, to understand about
-                                                    the program before giving
-                                                    the Quiz.
-                                                </p>
-                                                <p>
-                                                    STEP 2 : Refer to pages 29 -
-                                                    38 to roll out the program
-                                                    in your schools and
-                                                    familiarise all the studetns
-                                                    about the program and the
-                                                    course components.
-                                                </p>
-                                                <p>
-                                                    STEP 3 : Register the
-                                                    students on the platform and
-                                                    guide then through the
-                                                    journey.
-                                                </p>
-                                                <p className="text-primary text-left">
                                                     <b>
-                                                        Instructions on Idea
-                                                        Submission
+                                                        The resource section
+                                                        will have the Teacher
+                                                        Handbook and the Student
+                                                        workbook.
                                                     </b>
+                                                    The students will also be
+                                                    able to access the Student
+                                                    workbook in their own
+                                                    profiles.
                                                 </p>
+
                                                 <p>
-                                                    Final IDEA SUBMISSION by the
-                                                    team should happen only
-                                                    after all the students in
-                                                    the team complete the
-                                                    following activities:
+                                                    To know that you are ready
+                                                    to support the students for
+                                                    this program, you will be
+                                                    required to take a quiz.
+                                                    Don’t worry,the quiz is not
+                                                    a test, it is designed to
+                                                    help you recall the thing
+                                                    you have to keep in mind
+                                                    while doing the program. All
+                                                    the best!
                                                 </p>
-                                                <div>
-                                                    <p className="mb-0">
-                                                        A. Watching the videos
-                                                        as team/individually
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        B. Complete the quiz
-                                                        individually{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        C. Complete the
-                                                        worksheet (as a team)
-                                                    </p>
-                                                </div>
-                                                {/* <br />
-                                                <p>
-                                                    Initial Idea Submission{' '}
-                                                    <b>DOES NOT</b> require a
-                                                    Model or Prototype. Idea
-                                                    submission process includes
-                                                    submission of form with the
-                                                    following details:
-                                                </p>
-                                                <div>
-                                                    <p className="mb-0">
-                                                        1.Real life problem that
-                                                        team has identified{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        2. Solution details for
-                                                        the identified problem{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        3. Details about how was
-                                                        the solution arrived
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        4. Upload relevant photo
-                                                        or a document (If
-                                                        applicable)
-                                                    </p>
-                                                </div> */}
                                             </CardBody>
                                             <div className="text-left mb-2">
                                                 <div>
@@ -874,9 +980,7 @@ const TeacherPlayVideo = (props) => {
                             ) : item === 'VIDEO' && condition === 'Video1' ? (
                                 <Card className="embed-container">
                                     <CardTitle className=" text-left p-4 d-flex justify-content-between align-items-center">
-                                        {/* <h3>
-                                                {topic?.title + " " + quizTopic}
-                                            </h3> */}
+                                        <h3>{courseData.title}</h3>
                                         {backToQuiz && (
                                             <Button
                                                 label="Back to Quiz"
@@ -910,56 +1014,140 @@ const TeacherPlayVideo = (props) => {
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
                                             <CardBody>
-                                                <text
-                                                // style={{
-                                                //     whiteSpace: 'pre-wrap'
-                                                // }}
-                                                >
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html:
-                                                                teacherCourse &&
-                                                                teacherCourse.description
-                                                        }}
-                                                    ></div>
-                                                </text>
-                                                {firstObj[0] &&
-                                                firstObj[0].progress ==
-                                                    'INCOMPLETE' ? (
-                                                    <div>
-                                                        <Button
-                                                            label="START COURSE"
-                                                            btnClass="primary mt-4"
-                                                            size="small"
-                                                            onClick={(e) =>
-                                                                startFirstCourse(
-                                                                    e
-                                                                )
-                                                            }
-                                                        />
+                                                {getLastCourseStatus(
+                                                    teacherCourseDetails
+                                                ) && isquizcompleted ? (
+                                                    <div className="text-center">
+                                                        <h2 className="text-success">
+                                                            🎉 Congratulations
+                                                            on completing the
+                                                            course! 🎉
+                                                        </h2>
+                                                        <br />
+                                                        <p>
+                                                            <b>
+                                                                Now that you
+                                                                have completed
+                                                                the quiz, Below
+                                                                are your next
+                                                                action items in
+                                                                the program :
+                                                            </b>
+                                                        </p>
+
+                                                        <ol className="text-left">
+                                                            <li>
+                                                                Create a plan
+                                                                for doing the
+                                                                program using
+                                                                the handbook.
+                                                            </li>
+                                                            <li>
+                                                                Arrange for
+                                                                device access
+                                                                and workbook.
+                                                            </li>
+                                                            <li>
+                                                                Schedule weekly
+                                                                sessions to
+                                                                watch/discuss
+                                                                videos and
+                                                                workbook.
+                                                            </li>
+                                                            <li>
+                                                                Ensure students
+                                                                complete the
+                                                                workbook before
+                                                                the next
+                                                                session.
+                                                            </li>
+                                                            <li>
+                                                                Guide students
+                                                                through the
+                                                                program.
+                                                            </li>
+                                                            <li>
+                                                                Evaluate
+                                                                students’
+                                                                performance
+                                                                using the
+                                                                teacher rubric.
+                                                            </li>
+                                                        </ol>
+
+                                                        <p>
+                                                            You are now ready to
+                                                            guide your students
+                                                            on their problem
+                                                            solving journeys!
+                                                        </p>
                                                     </div>
                                                 ) : (
                                                     <div>
-                                                        {getLastCourseStatus(
-                                                            teacherCourseDetails
-                                                        ) ? (
-                                                            <h2 className="text-success text-center">
-                                                                Congratulations
-                                                                ! your course
-                                                                completed
-                                                                successfully !
-                                                            </h2>
-                                                        ) : (
-                                                            <Button
-                                                                label={`CONTINUE COURSE`}
-                                                                btnClass={`primary mt-4`}
-                                                                size="small"
-                                                                onClick={(e) =>
-                                                                    startContinueCourse(
+                                                        <text
+                                                        // style={{
+                                                        //     whiteSpace: 'pre-wrap'
+                                                        // }}
+                                                        >
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        teacherCourse &&
+                                                                        teacherCourse.description
+                                                                }}
+                                                            ></div>
+                                                        </text>
+                                                        {firstObj[0] &&
+                                                        firstObj[0].progress ==
+                                                            'INCOMPLETE' ? (
+                                                            <div>
+                                                                <Button
+                                                                    label="START COURSE"
+                                                                    btnClass="primary mt-4"
+                                                                    size="small"
+                                                                    onClick={(
                                                                         e
-                                                                    )
-                                                                }
-                                                            />
+                                                                    ) =>
+                                                                        startFirstCourse(
+                                                                            e
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                                {getLastCourseStatus(
+                                                                    teacherCourseDetails
+                                                                ) ? (
+                                                                    <Button
+                                                                        label={
+                                                                            'CONTINUE QUIZ'
+                                                                        }
+                                                                        btnClass={`primary mt-4`}
+                                                                        size="small"
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
+                                                                            startContinueCourse(
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <Button
+                                                                        label={`CONTINUE COURSE`}
+                                                                        btnClass={`primary mt-4`}
+                                                                        size="small"
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
+                                                                            startContinueCourse(
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </div>
                                                         )}
                                                     </div>
                                                 )}
@@ -995,185 +1183,66 @@ const TeacherPlayVideo = (props) => {
                                 ).length > 2 && (
                                     <Fragment>
                                         <Card className="course-sec-basic p-5">
-                                            <CardBody>
-                                                <CardTitle
-                                                    className=" text-left pt-4 pb-4"
-                                                    tag="h2"
-                                                >
-                                                    Unisolve Worksheets
+                                            <CardBody className="text-center p-5">
+                                                <CardTitle>
+                                                    <h2 className="text-success">
+                                                        🎉 Congratulations on
+                                                        completing the course!
+                                                        🎉
+                                                    </h2>
                                                 </CardTitle>
+
                                                 <CardBody>
-                                                    {/* <p className="text-primary">
-                                                        <b>
-                                                            Additional Resources
-                                                        </b>
-                                                    </p> */}
-                                                    <p>Dear Guide Teachers,</p>
                                                     <p>
-                                                        In addition to the
-                                                        teacher handbook there
-                                                        are worksheets and
-                                                        additional readings for
-                                                        your student teams which
-                                                        will aid in this
-                                                        Unisolve learning
-                                                        journey:
-                                                    </p>
-                                                    {/* <p className="mb-0">
-                                                        A. Worksheets
-                                                    </p>
-                                                    <p className="mb-3">
-                                                        B. Additional Readings
+                                                        <b>
+                                                            Now that you have
+                                                            completed the quiz,
+                                                            Below are your next
+                                                            action items in the
+                                                            program :
+                                                        </b>
                                                     </p>
 
-                                                    <p className="text-decoration-underline">
-                                                        <b>A.Worksheets </b>
-                                                    </p> */}
-                                                    <h3>WORKSHEETS</h3>
-                                                    <p className="mb-0">
-                                                        1. This document had one
-                                                        set of Worksheet per
-                                                        Module.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        2. Respective worksheets
-                                                        are required to be
-                                                        completed/filled by the
-                                                        Unisolve Students (as a
-                                                        TEAM) after they watch
-                                                        each lesson from lesson
-                                                        1 to lesson 6.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        3. Download, Print/Xerox
-                                                        this worksheets and hand
-                                                        over one set per team.{' '}
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        4. Support/Mentor/Guide
-                                                        Unisolve students to
-                                                        complete the worksheets
-                                                        if they need help.
-                                                    </p>
-                                                    <p className="mb-0">
-                                                        5. Guide the teams to
-                                                        upload their worksheets
-                                                        on the portal after they
-                                                        complete it.
-                                                    </p>
-                                                    <br></br>
-                                                    <h3>ADDITIONAL READINGS</h3>
+                                                    <ol className="text-left">
+                                                        <li>
+                                                            Create a plan for
+                                                            doing the program
+                                                            using the handbook.
+                                                        </li>
+                                                        <li>
+                                                            Arrange for device
+                                                            access and workbook.
+                                                        </li>
+                                                        <li>
+                                                            Schedule weekly
+                                                            sessions to
+                                                            watch/discuss videos
+                                                            and workbook.
+                                                        </li>
+                                                        <li>
+                                                            Ensure students
+                                                            complete the
+                                                            workbook before the
+                                                            next session.
+                                                        </li>
+                                                        <li>
+                                                            Guide students
+                                                            through the program.
+                                                        </li>
+                                                        <li>
+                                                            Evaluate students’
+                                                            performance using
+                                                            the teacher rubric.
+                                                        </li>
+                                                    </ol>
+
                                                     <p>
-                                                        Print and provide the
-                                                        related pages from the
-                                                        Additional Reading
-                                                        document to each student
-                                                        while they watch the
-                                                        respective video to
-                                                        support their learning.
+                                                        You are now ready to
+                                                        guide your students on
+                                                        their problem solving
+                                                        journeys!
                                                     </p>
                                                 </CardBody>
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i > 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
-
-                                                {/* <p className="text-decoration-underline">
-                                                    <b>
-                                                        B. Additional Readings{' '}
-                                                    </b>
-                                                </p>
-                                                <p>
-                                                    These are additional reading
-                                                    material for the students
-                                                    after each lesson. This
-                                                    document contains more
-                                                    information and examples on
-                                                    the topics covered in each
-                                                    lesson.
-                                                </p>
-                                                <p>
-                                                    This can be shared with Unisolve
-                                                    students. We recommend to
-                                                    share the soft copy or print
-                                                    it for future reference.
-                                                </p> */}
-                                                <div className="text-left mb-5">
-                                                    {worksheetResponce &&
-                                                        worksheetResponce?.length >
-                                                            0 &&
-                                                        worksheetResponce.map(
-                                                            (item, i) =>
-                                                                i <= 1 && (
-                                                                    <Button
-                                                                        style={{
-                                                                            margin: '5px'
-                                                                        }}
-                                                                        key={i}
-                                                                        label={`Download ${item
-                                                                            .split(
-                                                                                '/'
-                                                                            )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                        btnClass="secondary mx-2"
-                                                                        size="small"
-                                                                        onClick={() =>
-                                                                            handleInstructionDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                )
-                                                        )}
-                                                </div>
                                             </CardBody>
                                         </Card>
                                     </Fragment>

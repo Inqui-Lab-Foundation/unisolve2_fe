@@ -42,7 +42,11 @@ export const getAdmin = () => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify =
+                data.length > 0
+                    ? data.forEach((item, i) => (item.id = i + 1))
+                    : [];
+            console.log(datamodify);
             dispatch(getAdminSuccess(data));
         } else {
             dispatch(getAdminError(result.statusText));
@@ -78,7 +82,11 @@ export const getAdminList = () => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
-            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            let datamodify =
+                data.length > 0
+                    ? data.forEach((item, i) => (item.id = i + 1))
+                    : [];
+            console.log(datamodify);
             dispatch(getAdminListSuccess(data));
         } else {
             dispatch(getAdminListError(result.statusText));
@@ -127,6 +135,7 @@ export const adminLoginUser = (data, history, module) => async (dispatch) => {
             const item = result.data;
             setCurrentUser(item);
             localStorage.setItem('module', module);
+            localStorage.setItem('time', new Date().toString());
             dispatch(adminLoginUserSuccess(result));
 
             history.push('/admin/dashboard');
@@ -155,7 +164,7 @@ export const adminLoginUserLogOut = (history) => async () => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            alert('hii');
+            // alert('hii');
             history.push('/admin');
             setCurrentUser();
             localStorage.removeItem('headerOption');

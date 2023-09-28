@@ -20,8 +20,8 @@ const Translation = (props) => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [count, setCount] = useState(0);
-    useEffect(() => {
-        handletranslationList();
+    useEffect(async () => {
+        await handletranslationList();
     }, [count]);
     async function handletranslationList() {
         var config = {
@@ -53,26 +53,6 @@ const Translation = (props) => {
                 : [],
         columns: [
             {
-                name: 'From',
-                selector: 'from_locale',
-                width: '8%'
-            },
-            {
-                name: 'To',
-                selector: 'to_locale',
-                width: '5%'
-            },
-            {
-                name: 'From _Key',
-                selector: 'key',
-                width: '35%'
-            },
-            {
-                name: 'To_value',
-                selector: 'value',
-                width: '35%'
-            },
-            {
                 name: 'Actions',
                 cell: (params) => {
                     return [
@@ -82,16 +62,36 @@ const Translation = (props) => {
                                 style={{ marginRight: '10px' }}
                             />
                         </a>,
-                        <a onClick={() => handleDeleteTranslationById(params)}>
-                            <i
-                                className="fa fa-trash"
-                                style={{ marginRight: '10px' }}
-                            />
-                        </a>
+                        // <a onClick={() => handleDeleteTranslationById(params)}>
+                        //     <i
+                        //         className="fa fa-trash"
+                        //         style={{ marginRight: '10px' }}
+                        //     />
+                        // </a>
                     ];
                 },
-                width: '17%',
+                width: '12rem',
                 center: true
+            },
+          /*  {
+                name: 'From',
+                selector: 'from_locale',
+                width: '8%'
+            },
+            {
+                name: 'To',
+                selector: 'to_locale',
+                width: '5%'
+            }, */
+            {
+                name: 'English',
+                selector: 'key',
+                width: '50rem'
+            },
+            {
+                name: 'Translation',
+                selector: 'value',
+                width: '50rem'
             }
         ]
     };
@@ -176,7 +176,7 @@ const Translation = (props) => {
                             <h2>Translation</h2>
                         </div>
                     </Col>
-                    <Col className="text-right">
+                 {/*   <Col className="text-right">
                         <Button
                             label="Add"
                             btnClass="primary mx-3"
@@ -186,7 +186,7 @@ const Translation = (props) => {
                                 history.push('/admin/create-translation')
                             }
                         />
-                    </Col>
+                        </Col> */}
                 </Row>
                 <Row>
                     <div className="my-2">

@@ -20,7 +20,8 @@ import Layout from '../../Layout';
 import { useSelector } from 'react-redux';
 import {
     getStudentChallengeQuestions,
-    getStudentChallengeSubmittedResponse
+    getStudentChallengeSubmittedResponse,
+    updateStudentBadges
 } from '../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../../helpers/Utils';
@@ -93,6 +94,7 @@ const IdeasPageNew = () => {
     const [files, setFiles] = useState([]);
     const [uploadQId, setuploadQId] = useState(null);
     const [immediateLink, setImmediateLink] = useState(null);
+    const [hide, setHide] = useState(false);
     const [others, setOthers] = useState(
         challengesSubmittedResponse[0]?.others
     );
@@ -106,6 +108,42 @@ const IdeasPageNew = () => {
     );
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
+
+    const screenOneQst = challengeQuestions.slice(0, 7);
+    const screenTwoQst = challengeQuestions.slice(7, 11);
+    const screenThreeQst = challengeQuestions.slice(11, 13);
+    const screenFourQst = challengeQuestions.slice(13, 17);
+    const [screenCount, setScreenCount] = useState(1);
+    const [screenQst, setScreenQst] = useState(challengeQuestions.slice(0, 7));
+    const [screenTitle, setScreenTitle] = useState('');
+
+    const handleBack = () => {
+        setScreenCount(screenCount - 1);
+        scroll();
+    };
+    const handleNext = () => {
+        setScreenCount(screenCount + 1);
+        scroll();
+    };
+
+    useEffect(() => {
+        if (isDisabled) {
+            setScreenQst(challengeQuestions);
+        } else if (screenCount === 1) {
+            setScreenQst(screenOneQst);
+            setScreenTitle(t('idea_page.title1'));
+        } else if (screenCount === 2) {
+            setScreenQst(screenTwoQst);
+            setScreenTitle(t('idea_page.title2'));
+        } else if (screenCount === 3) {
+            setScreenQst(screenThreeQst);
+            setScreenTitle(t('idea_page.title3'));
+        } else if (screenCount === 4) {
+            setScreenQst(screenFourQst);
+            setScreenTitle(t('idea_page.title4'));
+        }
+    }, [screenCount, challengeQuestions, isDisabled]);
+
     const prePopulatingCount = (answers) => {
         if (answers && answers !== {}) {
             const data = Object.entries(answers);
@@ -258,10 +296,54 @@ const IdeasPageNew = () => {
             selected_option: eachValues.selected_option
         };
     });
+
+    const handlefinalsubmit = async (id) => {
+        var config = {
+            method: 'put',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/updateEntry/' +
+                JSON.stringify(id),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: { status: 'SUBMITTED' }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    openNotificationWithIcon(
+                        'success',
+                        'Idea Submission Submitted Successfully',
+                        ''
+                    );
+                    dispatch(
+                        updateStudentBadges(
+                            { badge_slugs: ['the_change_maker'] },
+                            currentUser?.data[0]?.user_id,
+                            language,
+                            t
+                        )
+                    );
+
+                    dispatch(
+                        getStudentChallengeSubmittedResponse(
+                            currentUser?.data[0]?.team_id,
+                            language
+                        )
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     const swalWrapper = (e, type) => {
-        let responses = [...responseData];
+        const nonEmptySelectedOptions = responseData.filter(item => item.selected_option[0] !== "" || item.selected_option.length>1);
         let responseLength =
-            responses.length + (sdg === 'OTHERS' && others ? 1 : 0);
+        nonEmptySelectedOptions.length + (sdg === 'OTHERS' && others ? 1 : 0);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -270,7 +352,7 @@ const IdeasPageNew = () => {
             buttonsStyling: false,
             allowOutsideClick: false
         });
-        if (!type && responseLength < lengthCheck) {
+        if (responseLength < lengthCheck) {
             swalWithBootstrapButtons.fire({
                 title: t('student.not_allowed'),
                 text: t('student.please_com_all'),
@@ -290,10 +372,13 @@ const IdeasPageNew = () => {
                 cancelButtonText: t('general_req.btn_cancel'),
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        handleSubmit(e, type);
+                        await handlefinalsubmit(
+                            challengesSubmittedResponse[0]
+                                ?.challenge_response_id
+                        );
                     }
                 } else if (
                     /* Read more about handling dismissals below */
@@ -321,7 +406,7 @@ const IdeasPageNew = () => {
         fileAdded.splice(i, 1);
         setFiles(fileAdded);
     };
-    let maxFileSize = 20000000;
+    let maxFileSize = 10000000;
     const fileHandler = (e, id) => {
         let choosenFiles = Array.prototype.slice.call(e.target.files);
         e.target.files = null;
@@ -339,7 +424,7 @@ const IdeasPageNew = () => {
             return;
         }
         if (choosenFiles.filter((item) => item.size > maxFileSize).length > 0) {
-            openNotificationWithIcon('error', t('student.less_20MB'));
+            openNotificationWithIcon('error', t('student.less_10MB'));
             return;
         }
         handleUploadFiles(choosenFiles);
@@ -351,7 +436,8 @@ const IdeasPageNew = () => {
             responses,
             status: type ? 'DRAFT' : 'SUBMITTED',
             sdg,
-            others: others ? others : ''
+            others: others ? others : '',
+            district: currentUser?.data[0]?.district
         };
         await axios
             .post(
@@ -435,7 +521,7 @@ const IdeasPageNew = () => {
                     challenge_question_id: uploadQId,
                     selected_option: result.data?.data[0]?.attachments
                 });
-                submittingCall(type, responses);
+                await submittingCall(type, responses);
                 setTimeout(() => {
                     dispatch(
                         getStudentChallengeSubmittedResponse(
@@ -452,7 +538,7 @@ const IdeasPageNew = () => {
                 return;
             }
         } else {
-            submittingCall(type, responses);
+            await submittingCall(type, responses);
             setLoading(initialLoadingStatus);
         }
     };
@@ -475,7 +561,7 @@ const IdeasPageNew = () => {
     };
     const comingSoonText = t('dummytext.student_idea_sub');
     const acceptedParamfileTypes =
-        'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 20MB';
+        'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
     return (
         <Layout>
             {showPage ? (
@@ -505,10 +591,16 @@ const IdeasPageNew = () => {
                                         {t(
                                             'student_course.idea_submission_msg3'
                                         )}
-                                        {moment(
-                                            challengesSubmittedResponse[0]
-                                                ?.created_at
-                                        ).format('DD-MM-YYYY')}
+                                        {challengesSubmittedResponse[0]
+                                            ?.status === 'DRAFT'
+                                            ? moment(
+                                                  challengesSubmittedResponse[0]
+                                                      ?.created_at
+                                              ).format('DD-MM-YYYY')
+                                            : moment(
+                                                  challengesSubmittedResponse[0]
+                                                      ?.submitted_at
+                                              ).format('DD-MM-YYYY')}
                                     </Card>
                                 </div>
                             )}
@@ -560,7 +652,7 @@ const IdeasPageNew = () => {
                                                             </>
                                                         ) : (
                                                             <div className="d-flex justify-content-between">
-                                                                <Button
+                                                                {/* <Button
                                                                     type="button"
                                                                     btnClass="secondary me-3"
                                                                     onClick={
@@ -570,9 +662,15 @@ const IdeasPageNew = () => {
                                                                     label={t(
                                                                         'teacher_teams.discard'
                                                                     )}
-                                                                />
+                                                                /> */}
+                                                                <h3>
+                                                                    {
+                                                                        screenTitle
+                                                                    }
+                                                                </h3>
+
                                                                 <div>
-                                                                    <Button
+                                                                    {/* <Button
                                                                         type="button"
                                                                         btnClass="me-3 text-white"
                                                                         backgroundColor="#067DE1"
@@ -594,8 +692,8 @@ const IdeasPageNew = () => {
                                                                                       'teacher_teams.draft'
                                                                                   )
                                                                         }`}
-                                                                    />
-                                                                    <Button
+                                                                    /> */}
+                                                                    {/* <Button
                                                                         type="button"
                                                                         btnClass="primary"
                                                                         disabled={
@@ -616,70 +714,14 @@ const IdeasPageNew = () => {
                                                                                       'teacher_teams.submit'
                                                                                   )
                                                                         }`}
-                                                                    />
+                                                                    /> */}
                                                                 </div>
                                                             </div>
                                                         )}
                                                     </div>
                                                 )}
-                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize: '1.6rem'
-                                                        }}
-                                                    >
-                                                        {1}.{' '}
-                                                        {t(
-                                                            'student_course.sdg'
-                                                        )}
-                                                    </b>
-                                                </div>
-                                                <div>
-                                                    <p
-                                                        className="text-muted ms-5"
-                                                        style={{
-                                                            fontSize: '1.4rem'
-                                                        }}
-                                                    >
-                                                        {t(
-                                                            'student_course.sdg_desc'
-                                                        )}
-                                                    </p>
-                                                </div>
-                                                <div className=" answers row flex-column p-4">
-                                                    <select
-                                                        disabled={isDisabled}
-                                                        onChange={(e) =>
-                                                            setSdg(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        name="teams"
-                                                        id="teams"
-                                                    >
-                                                        {cardData.map(
-                                                            (item, i) => (
-                                                                <option
-                                                                    key={i}
-                                                                    value={
-                                                                        item.goal_title
-                                                                    }
-                                                                    selected={
-                                                                        item.goal_title ===
-                                                                        sdg
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        item.goal_title
-                                                                    }
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </Row>
-                                            {sdg === 'OTHERS' && (
+                                            {(screenCount === 1 ||
+                                                isDisabled) && (
                                                 <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                     <div className="question quiz mb-0">
                                                         <b
@@ -688,51 +730,125 @@ const IdeasPageNew = () => {
                                                                     '1.6rem'
                                                             }}
                                                         >
-                                                            {2}.{' '}
+                                                            {1}.{' '}
                                                             {t(
-                                                                'student_course.others'
+                                                                'student_course.sdg'
                                                             )}
                                                         </b>
                                                     </div>
-                                                    <FormGroup
-                                                        check
-                                                        className="answers"
-                                                    >
-                                                        <Label
-                                                            check
+                                                    <div>
+                                                        <p
+                                                            className="text-muted ms-5"
                                                             style={{
-                                                                width: '100%'
+                                                                fontSize:
+                                                                    '1.4rem'
                                                             }}
                                                         >
-                                                            <TextArea
-                                                                disabled={
-                                                                    isDisabled
-                                                                }
-                                                                placeholder="Enter others description"
-                                                                value={others}
-                                                                maxLength={100}
-                                                                onChange={(e) =>
-                                                                    setOthers(
-                                                                        e.target
-                                                                            .value
-                                                                    )
-                                                                }
-                                                            />
-                                                        </Label>
-                                                    </FormGroup>
-                                                    <div className="text-end">
-                                                        {t(
-                                                            'student_course.chars'
-                                                        )}{' '}
-                                                        :
-                                                        {100 -
-                                                            (others
-                                                                ? others.length
-                                                                : 0)}
+                                                            {t(
+                                                                'student_course.sdg_desc'
+                                                            )}
+                                                        </p>
+                                                    </div>
+                                                    <div className=" answers row flex-column p-4">
+                                                        <select
+                                                            disabled={
+                                                                isDisabled
+                                                            }
+                                                            onChange={(e) =>
+                                                                setSdg(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            name="teams"
+                                                            id="teams"
+                                                        >
+                                                            {cardData.map(
+                                                                (item, i) => (
+                                                                    <option
+                                                                        key={i}
+                                                                        value={
+                                                                            item.goal_title
+                                                                        }
+                                                                        selected={
+                                                                            item.goal_title ===
+                                                                            sdg
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            item.goal_title
+                                                                        }
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
                                                     </div>
                                                 </Row>
                                             )}
-                                            {challengeQuestions.map(
+
+                                            {(screenCount === 1 ||
+                                                isDisabled) &&
+                                                sdg === 'OTHERS' && (
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {2}.{' '}
+                                                                {t(
+                                                                    'student_course.others'
+                                                                )}
+                                                            </b>
+                                                        </div>
+                                                        <FormGroup
+                                                            check
+                                                            className="answers"
+                                                        >
+                                                            <Label
+                                                                check
+                                                                style={{
+                                                                    width: '100%'
+                                                                }}
+                                                            >
+                                                                <TextArea
+                                                                    disabled={
+                                                                        isDisabled
+                                                                    }
+                                                                    placeholder="Enter others description"
+                                                                    value={
+                                                                        others
+                                                                    }
+                                                                    maxLength={
+                                                                        100
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setOthers(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </Label>
+                                                        </FormGroup>
+                                                        <div className="text-end">
+                                                            {t(
+                                                                'student_course.chars'
+                                                            )}{' '}
+                                                            :
+                                                            {100 -
+                                                                (others
+                                                                    ? others.length
+                                                                    : 0)}
+                                                        </div>
+                                                    </Row>
+                                                )}
+                                            {screenQst.map(
                                                 (eachQuestion, i) => (
                                                     <>
                                                         <Row
@@ -747,10 +863,15 @@ const IdeasPageNew = () => {
                                                                     }}
                                                                 >
                                                                     {i +
-                                                                        (sdg ===
-                                                                        'OTHERS'
+                                                                        (screenCount ===
+                                                                            1 &&
+                                                                        sdg ===
+                                                                            'OTHERS'
                                                                             ? 3
-                                                                            : 2)}
+                                                                            : screenCount ===
+                                                                              1
+                                                                            ? 2
+                                                                            : 1)}
                                                                     .{' '}
                                                                     {
                                                                         eachQuestion.question
@@ -1337,6 +1458,57 @@ const IdeasPageNew = () => {
                                 </CardBody>
                             </div>
                         </Row>
+                        {!isDisabled && (
+                            <Row>
+                                <Col className="d-flex justify-content-between">
+                                    <Button
+                                        type="button"
+                                        btnClass={
+                                            screenCount > 1
+                                                ? 'primary'
+                                                : 'default'
+                                        }
+                                        onClick={handleBack}
+                                        size="small"
+                                        label={t('idea_page.back')}
+                                        disabled={!(screenCount > 1)}
+                                    />
+                                    <p>{screenCount}</p>
+                                    <div>
+                                        {screenCount < 4 && (
+                                            <Button
+                                                type="button"
+                                                btnClass={
+                                                    screenCount < 4
+                                                        ? 'primary'
+                                                        : 'default'
+                                                }
+                                                onClick={handleNext}
+                                                size="small"
+                                                // disabled={
+                                                //     !(screenCount < 4 )
+                                                // }
+                                                label={t('idea_page.next')}
+                                            />
+                                        )}
+                                        <Button
+                                            type="button"
+                                            btnClass="me-3 text-white"
+                                            backgroundColor="#067DE1"
+                                            onClick={(e) =>
+                                                handleSubmit(e, 'DRAFT')
+                                            }
+                                            size="small"
+                                            label={`${
+                                                loading.draft
+                                                    ? t('teacher_teams.loading')
+                                                    : t('teacher_teams.draft')
+                                            }`}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        )}
                     </Col>
                 </Container>
             )}

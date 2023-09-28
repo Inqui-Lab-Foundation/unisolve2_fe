@@ -1,27 +1,92 @@
 .report-wrapper {
     min-height: 80vh;
+    margin-bottom: -30px;
 }
-.individual-report-wrapper {
-    .card {
-        min-height: 50vh;
-    }
-    select {
-        padding: 1rem;
-        box-shadow: 0px 12px 26px rgba(16, 30, 115, 0.06);
-        border-color: #f8f1f1;
-        border-radius: 0.5rem;
-        width: 100%;
-    }
-    label {
-        font-size: 1.6rem;
-        font-weight: 400;
-    }
-    .check-flex {
-        display: flex;
-        justify-content: center;
-        align-items: end;
-    }
-    .filter-card{
-        min-height: 68vh;
-    }
+
+.card-effect:hover {
+    box-shadow:5px 10px 8px #440df72a;
+}
+
+.view{
+    margin-left: 10rem;
+    margin-top: 0rem;
+}
+
+.table-wrapper {
+    display:block;
+    max-height:900px;
+    max-width:max-content;
+    overflow-y:auto;
+    overflow-x: hidden; 
+    border: 1px solid #ccc;
+    position: relative;
+}
+.table-wrapper table {
+    display:table;
+    width: 100px;
+    table-layout:auto;
+    border-collapse: collapse;
+}
+.table-wrapper thead {
+    width: calc( 100% - 1em );
+    position: sticky;
+    top: 0; 
+    background-color: #fff;
+    z-index: 2;
+    margin-top: -1px;
+    border-bottom: 1px solid #ccc;
+} 
+
+
+.rep{
+    margin-top: 0;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    margin-bottom: 10px;
+}
+.hidden {
+    display: none;
+}
+.doughnut-chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 400px;
+    padding: 20px;
+    margin-left: 30px;
+    box-sizing: border-box;
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.chart-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.chart-box {
+    //border: 1px solid #000;
+    padding: 20px;
+    //background-color: #f5f5f5;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.chart-title {
+    position: absolute;
+    top: 3%;
+    //bottom: 1%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px;
 }

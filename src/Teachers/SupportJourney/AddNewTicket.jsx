@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Row, Col, Form, Label, FormGroup, Card, CardBody } from 'reactstrap';
@@ -9,56 +10,37 @@ import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWit
 import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+// import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useDispatch } from 'react-redux';
 import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
+import logout from '../../assets/media/logout.svg';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { useTranslation } from 'react-i18next';
 
 const AddNewTicket = (props) => {
     // here we can add new support tickets //
+    // console.log(props);
     const dispatch = useDispatch();
     const history = useHistory();
+    const { t } = useTranslation();
 
-    const headingDetails = {
-        title: 'Query Details',
-
-        options: [
-            {
-                title: 'Support',
-                path: '/teacher/support-journey/'
-            },
-            {
-                title: 'Add New',
-                path: '/teacher/support-journey/add-ticket'
-            }
-        ]
-    };
-
-    const selectCategory = {
-        // here we can select the category of support tickets //
-        label: 'Select Category',
-        options: [
-            { label: 'General', value: 'General' },
-            { label: 'Technical', value: 'Technical' },
-            { label: 'Suggestion', value: 'Suggestion' }
-        ],
-        className: 'defaultDropdown'
-    };
+   
 
     const formik = useFormik({
         initialValues: {
-            selectCategory: '',
+            ticket: '',
             ticketDetails: ''
         },
 
         validationSchema: Yup.object({
-            selectCategory: Yup.string().required('Required'),
+            ticket: Yup.string().required('Required'),
 
             ticketDetails: Yup.string().required('Required')
         }),
 
         onSubmit: (values) => {
-            const query_category = values.selectCategory;
+            const query_category = values.ticket;
             const query_details = values.ticketDetails;
 
             const body = JSON.stringify({
@@ -69,13 +51,46 @@ const AddNewTicket = (props) => {
             dispatch(createSupportTickets(body, history));
         }
     });
+    const handleDiscard = () => {
+        // alert('hii');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to Discard the Support Ticket',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: t('general_req.btn_cancel'),
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(props.history.push('/teacher/support-journey'));
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ' Discard the Support Ticket is cancelled',
+                        'error'
+                    );
+                }
+            })
+            .catch((err) => console.log(err.response));
+    };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5"> Add New Query Details</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
@@ -88,33 +103,55 @@ const AddNewTicket = (props) => {
                                             >
                                                 <Label className="mb-2">
                                                     Select Category
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
 
                                                 <Col
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    <DropDownWithSearch
-                                                        {...selectCategory}
+                                                  
+                                                    <select
+                                                        name="ticket"
+                                                        id="ticket"
+                                                        className="form-control custom-dropdown"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
-                                                        onChange={(option) => {
-                                                            formik.setFieldValue(
-                                                                'selectCategory',
-                                                                option[0].value
-                                                            );
-                                                        }}
-                                                        name="selectCategory"
-                                                        id="selectCategory"
-                                                    />
-
-                                                    {formik.errors
-                                                        .selectCategory ? (
+                                                        value={
+                                                            formik.values.ticket
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled={true}
+                                                        >
+                                                            Select Category
+                                                        </option>
+                                                        <option value="General">
+                                                            General
+                                                        </option>
+                                                        <option value="Technical">
+                                                            Technical
+                                                        </option>
+                                                        <option value="Suggestion">
+                                                            Suggestion
+                                                        </option>
+                                                    </select>
+                                                    {formik.errors.ticket ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .selectCategory
+                                                                    .ticket
                                                             }
                                                         </small>
                                                     ) : null}
@@ -127,9 +164,16 @@ const AddNewTicket = (props) => {
                                             <Col md={12}>
                                                 <Label
                                                     className="name-req "
-                                                    htmlFor="ticketDetails"
+                                                    htmlFor="ticket Details"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}
@@ -167,11 +211,12 @@ const AddNewTicket = (props) => {
                                             label="Discard"
                                             btnClass="secondary"
                                             size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    '/teacher/support-journey'
-                                                )
-                                            }
+                                            onClick={handleDiscard}
+                                            // onClick={() =>
+                                            //     props.history.push(
+                                            //         '/teacher/support-journey'
+                                            //     )
+                                            // }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">

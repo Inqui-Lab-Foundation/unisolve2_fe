@@ -44,6 +44,6 @@ export const getEvaluatorsBulkUploadList = () => async (dispatch) => {
             dispatch(getEvaluatorsBulkuploadListError(result.statusText));
         }
     } catch (error) {
-        dispatch(getEvaluatorsBulkUploadList({}));
+        dispatch(getEvaluatorsBulkUploadList());
     }
 };

@@ -20,39 +20,38 @@ const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { supportTickets } = useSelector((state) => state.mentors);
-    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
     useEffect(() => {
-        dispatch(getSupportTickets(language, currentUser?.data[0]));
-    }, [language]);
+        dispatch(getSupportTickets(currentUser?.data[0]));
+    }, []);
     // here  we can also rise the tickets as well as we can give the replies to tickets //
     const SchoolsData = {
         data: supportTickets,
         columns: [
             {
-                name: 'No.',
+                name: 'No',
                 selector: 'id',
-                width: '8%'
+                width: '13rem'
             },
             {
-                name: 'Category',
+                name: ' Query Category',
                 selector: 'query_category',
                 sortable: true,
-                width: '13%'
+                width: '25rem'
             },
             {
-                name: 'Query',
+                name: 'Query Details',
                 selector: 'query_details',
                 sortable: true,
-                width: '64%',
+                width: '42rem',
 
                 cell: (params) => [
                     <Link
                         key={params.support_ticket_id}
                         to={`/teacher/support-journey/ans-ticket?id=${params.support_ticket_id}`}
                     >
-                        {params?.query_category} <FaComments />{' '}
+                        {params?.query_details} <FaComments />{' '}
                         {params.replies_count}{' '}
                     </Link>
                 ]
@@ -60,7 +59,7 @@ const TicketsPage = (props) => {
 
             {
                 name: 'Status',
-                width: '15%',
+                width: '20rem',
                 cell: (params) => [
                     params.status === 'OPEN' ? (
                         <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">

@@ -1,15 +1,17 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Col, Row } from 'reactstrap';
+// import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import {
     deleteTempMentorById,
     teacherResetPassword
 } from '../store/admin/actions';
+import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
@@ -27,6 +29,8 @@ import {
     getNormalHeaders,
     openNotificationWithIcon
 } from '../../helpers/Utils';
+import { Card } from 'react-bootstrap';
+
 const Dashboard = () => {
     // here we can see the registration details //
     const history = useHistory();
@@ -44,6 +48,8 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
+
+    const [isideadisable, setIsideadisable] = useState(false);
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
@@ -53,12 +59,12 @@ const Dashboard = () => {
         setOrgData({});
         setError('');
     };
-    useEffect(() => {
+    useEffect(async () => {
         // where list = diescode //
         //where organization_code = diescode //
         const list = JSON.parse(localStorage.getItem('organization_code'));
         setDiesCode(list);
-        apiCall(list);
+        await apiCall(list);
     }, []);
     async function apiCall(list) {
         // Dice code list API //
@@ -76,15 +82,16 @@ const Dashboard = () => {
         };
 
         await axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
+                    // console.log(orgData);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
 
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
+                        await getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -115,14 +122,14 @@ const Dashboard = () => {
         };
 
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        getMentorIdApi(
+                        await getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
                     }
@@ -244,6 +251,30 @@ const Dashboard = () => {
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/popup/2`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data[0]?.on_off === '1') {
+                        setIsideadisable(true);
+                    } else {
+                        setIsideadisable(false);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -275,22 +306,28 @@ const Dashboard = () => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <Link
-                            key={params}
-                            exact="true"
-                            onClick={() =>
-                                handleRevoke(
-                                    params.challenge_response_id,
-                                    params.ideaStatus
-                                )
-                            }
-                        >
+                        <>
                             {params.ideaStatus == 'SUBMITTED' && (
-                                <div className="btn btn-success btn-lg mr-5 mx-2">
-                                    Revoke
-                                </div>
+                                <Button
+                                    key={params}
+                                    className={
+                                        isideadisable
+                                            ? `btn btn-success btn-lg mr-5 mx-2`
+                                            : `btn btn-lg mr-5 mx-2`
+                                    }
+                                    label={'REVOKE'}
+                                    size="small"
+                                    shape="btn-square"
+                                    onClick={() =>
+                                        handleRevoke(
+                                            params.challenge_response_id,
+                                            params.ideaStatus
+                                        )
+                                    }
+                                    disabled={!isideadisable}
+                                />
                             )}
-                        </Link>
+                        </>
                     ];
                 },
                 width: '20%',
@@ -318,14 +355,14 @@ const Dashboard = () => {
             data: submitData
         };
         axios(config)
-            .then(function (response) {
+            .then(async function (response) {
                 if (response.status === 200) {
                     openNotificationWithIcon(
                         'success',
                         'Idea Submission Status Successfully Update!',
                         ''
                     );
-                    getMentorIdApi(mentorId);
+                    await getMentorIdApi(mentorId);
                 }
             })
             .catch(function (error) {
@@ -355,10 +392,10 @@ const Dashboard = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then((result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        deleteTempMentorById(id);
+                        await deleteTempMentorById(id);
                         setOrgData({});
                         setDiesCode('');
                     }
@@ -367,96 +404,1363 @@ const Dashboard = () => {
                 }
             });
     };
+    useEffect(() => {
+        adminTeamsCount();
+        adminSudentCount();
+        adminideasCount();
+        adminMentorCount();
+        adminSudentbygenderCount();
+        adminSchoolCount();
+        adminmentorCourseCount();
+        adminStudentCourseCount();
+    }, []);
 
+    const [totalteamsCount, setTotalteamsCount] = useState('-');
+    const [totalStudentCount, setTotalStudentCount] = useState('-');
+    const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
+        useState('-');
+    const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
+    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
+    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
+    const [totalSchoolCount, setTotalSchoolCount] = useState('-');
+    const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
+        useState('-');
+    const [studentCoursesCompletedCount, setStudentCoursesCompletedCount] =
+        useState('-');
+    const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
+        useState('-');
+
+    const adminTeamsCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/teamCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/studentCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentCount(response.data.data[0].student_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminideasCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/ideasCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalSubmittedideasCount(
+                        response.data.data[0].submitted_ideas
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminMentorCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/mentorCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalMentorCount(response.data.data[0].mentorCount);
+                    setTotalMentorMaleCount(response.data.data[0].mentorMale);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSudentbygenderCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCountbygender`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalStudentMaleCount(response.data.data[0].studentMale);
+                    setTotalStudentFemaleCount(
+                        response.data.data[0].studentFemale
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminSchoolCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalSchoolCount(response.data.data[0].schoolCount);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminmentorCourseCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/mentorCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setMentorCoursesCompletedCount(
+                        response.data.data[0].mentorCoursesCompletedCount
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminStudentCourseCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/studentCourseCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setStudentCoursesCompletedCount(
+                        response.data.data[0].StudentCoursesCompletedCount
+                    );
+                    setTotalstudentCoursesCount(response.data.data[0].started);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    //     return (
+    //         <Layout>
+    //             <Container>
+    //                 <Row>
+    //             <div className="dashboard-wrapper pb-5 my-5 px-5">
+    //                 <h2 className="mb-5">Dashboard </h2>
+    //                 <div className="dashboard p-5 mb-5">
+    //                     <div className="row " style={{ overflow: 'auto' }}>
+    //                         <div className=" row col-6">
+    //                             <Col
+    //                                 style={{
+    //                                     paddingRight: '20px'
+    //                                 }}
+    //                             >
+    //                                 <Row>
+    //                                     <Card
+    //                                         bg="light"
+    //                                         text="dark"
+    //                                         className="mb-4"
+    //                                         style={{ height: '120px' }}
+    //                                     >
+    //                                         <Card.Body>
+    //                                             <label htmlFor="teams" className="">
+    //                                                 Total Reg. Teachers
+    //                                             </label>
+
+    //                                             <Card.Text
+    //                                                 style={{
+    //                                                     fontSize: '20px',
+    //                                                     fontWeight: 'bold',
+    //                                                     marginTop: '10px',
+    //                                                     marginBottom: '20px'
+    //                                                 }}
+    //                                             >
+    //                                                 950
+    //                                                 {/* {dashboardStates &&
+    //                                             dashboardStates?.teams_count
+    //                                                 ? dashboardStates?.teams_count
+    //                                                 : 0} */}
+    //                                             </Card.Text>
+    //                                         </Card.Body>
+    //                                     </Card>
+    //                                 </Row>
+    //                                 <Row>
+    //                                     <Card
+    //                                         bg="light"
+    //                                         text="dark"
+    //                                         className="mb-4"
+    //                                         style={{ height: '120px' }}
+    //                                     >
+    //                                         <Card.Body>
+    //                                             <label htmlFor="teams" className="">
+    //                                                 Total Teams
+    //                                             </label>
+    //                                             <Card.Text
+    //                                                 style={{
+    //                                                     fontSize: '20px',
+    //                                                     fontWeight: 'bold',
+    //                                                     marginTop: '10px',
+    //                                                     marginBottom: '20px'
+    //                                                 }}
+    //                                             >
+    //                                                 2,004
+    //                                                 {/* {dashboardStates &&
+    //                                             dashboardStates?.course_completed_count !==
+    //                                                 undefined
+    //                                                 ? `${
+    //                                                       (dashboardStates?.course_completed_count /
+    //                                                           dashboardStates?.Total_course_count) *
+    //                                                       100
+    //                                                   }%`
+    //                                                 : '-'} */}
+    //                                             </Card.Text>
+    //                                         </Card.Body>
+    //                                     </Card>
+    //                                 </Row>
+    //                             </Col>
+    //                             <Col style={{ paddingRight: '20px' }}>
+    //                                 <Row>
+    //                                     <Card
+    //                                         bg="light"
+    //                                         text="dark"
+    //                                         className="mb-4"
+    //                                         style={{ height: '120px' }}
+    //                                     >
+    //                                         <Card.Body>
+    //                                             <label htmlFor="teams" className="">
+    //                                                 Total Students
+    //                                             </label>
+    //                                             <Card.Text
+    //                                                 style={{
+    //                                                     fontSize: '20px',
+    //                                                     fontWeight: 'bold',
+    //                                                     marginTop: '10px',
+    //                                                     marginBottom: '20px'
+    //                                                 }}
+    //                                             >
+    //                                                 1,10,000
+    //                                                 {/* {dashboardStates &&
+    //                                             dashboardStates.students_count
+    //                                                 ? dashboardStates.students_count
+    //                                                 : '-'} */}
+    //                                             </Card.Text>
+    //                                         </Card.Body>
+    //                                     </Card>
+    //                                 </Row>
+    //                                 <Row>
+    //                                     <Card
+    //                                         bg="light"
+    //                                         text="dark"
+    //                                         className="mb-4"
+    //                                         style={{
+    //                                             height: '120px'
+    //                                         }}
+    //                                     >
+    //                                         <Card.Body>
+    //                                             <label htmlFor="teams" className="">
+    //                                                 Total Submitted Ideas
+    //                                             </label>
+
+    //                                             <Card.Text
+    //                                                 className="left-aligned"
+    //                                                 style={{
+    //                                                     fontSize: '20px',
+    //                                                     fontWeight: 'bold',
+    //                                                     marginTop: '10px',
+    //                                                     marginBottom: '20px'
+    //                                                 }}
+    //                                             >
+    //                                                 1,940
+    //                                                 {/* {dashboardStates &&
+    //                                             dashboardStates?.ideas_count
+    //                                                 ? dashboardStates?.ideas_count
+    //                                                 : 0} */}
+    //                                             </Card.Text>
+    //                                         </Card.Body>
+    //                                     </Card>
+    //                                 </Row>
+    //                             </Col>
+    //                             {/* <div style={{ flex: 1 }} className="col-lg-12">
+    //                             Data__
+    //                         </div> */}
+    //                         </div>
+    //                         <div className=" row col-6 ">
+    //                             <div
+    //                                 style={{  flex: 1,overflowX: 'auto' }}
+    //                                 className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
+    //                             >
+    //                                 <h2 className="mt-3">
+    //                                     Search Registration Details
+    //                                 </h2>
+    //                                 <Row className="text-center justify-content-md-center my-4">
+    //                                     <Col md={9} lg={12}>
+    //                                         <Row>
+    //                                             <Col md={9} className="my-auto">
+    //                                                 <Input
+    //                                                     {...inputField}
+    //                                                     id="organization_code"
+    //                                                     onChange={(e) =>
+    //                                                         handleOnChange(e)
+    //                                                     }
+    //                                                     value={diesCode}
+    //                                                     name="organization_code"
+    //                                                     placeholder="Enter Unique Code"
+    //                                                     className="w-100 mb-3 mb-md-0"
+    //                                                     style={{
+    //                                                         borderRadius: '60px',
+    //                                                         padding: '9px 11px'
+    //                                                     }}
+    //                                                 />
+    //                                             </Col>
+    //                                             <Col md={3} className="partner-btn">
+    //                                                 <Button
+    //                                                     label={'Search'}
+    //                                                     btnClass="primary tex-center my-0 py-0 mx-3 px-3"
+    //                                                     style={{
+    //                                                         fontSize: '15px',
+    //                                                         height: '35px'
+    //                                                     }}
+    //                                                     size="small"
+    //                                                     onClick={(e) =>
+    //                                                         handleSearch(e)
+    //                                                     }
+    //                                                 />
+    //                                             </Col>
+    //                                         </Row>
+    //                                     </Col>
+    //                                 </Row>
+    // <Col>
+    //                                 {orgData &&
+    //                                 orgData?.organization_name &&
+    //                                 orgData?.mentor !== null ? (
+    //                                     <>
+    //                                         <div className="mb-5 p-3" ref={pdfRef}  style={{ overflowX: 'auto' }}>
+    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
+    //                                                 <div className="row" >
+    //                                                     <div className="col" style={{ overflowX: 'auto' }}>
+    //                                                         <h2 className="text-center m-3 text-primary ">
+    //                                                             Registration Details
+    //                                                         </h2>
+    //                                                         <hr />
+    //                                                     </div>
+    //                                                 </div>
+    //                                                 <div className="row">
+    //                                                     <div className="col">
+    //                                                         <ul className="p-0">
+    //                                                             <li className="d-flex justify-content-between">
+    //                                                                 School:
+    //                                                                 <p>
+    //                                                                     {
+    //                                                                         orgData.organization_name
+    //                                                                     }
+    //                                                                 </p>
+    //                                                             </li>
+    //                                                             <li className="d-flex justify-content-between">
+    //                                                                 City:{' '}
+    //                                                                 <p>
+    //                                                                     {
+    //                                                                         orgData.city
+    //                                                                     }
+    //                                                                 </p>
+    //                                                             </li>
+    //                                                             <li className="d-flex justify-content-between">
+    //                                                                 District:{' '}
+    //                                                                 <p>
+    //                                                                     {
+    //                                                                         orgData.district
+    //                                                                     }
+    //                                                                 </p>
+    //                                                             </li>
+    //                                                             <li className="d-flex justify-content-between">
+    //                                                                 Mentor Name:{' '}
+    //                                                                 <p>
+    //                                                                     {
+    //                                                                         orgData
+    //                                                                             .mentor
+    //                                                                             ?.full_name
+    //                                                                     }
+    //                                                                 </p>
+    //                                                             </li>
+    //                                                             <li className="d-flex justify-content-between">
+    //                                                                 Mentor Mobile No
+    //                                                                 :{' '}
+    //                                                                 <p>
+    //                                                                     {
+    //                                                                         orgData
+    //                                                                             .mentor
+    //                                                                             ?.user
+    //                                                                             ?.username
+    //                                                                     }
+    //                                                                 </p>
+    //                                                             </li>
+    //                                                         </ul>
+    //                                                     </div>
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    //                                         <div className="d-flex justify-content-between">
+    //                                             <button
+    //                                                 onClick={handleEdit}
+    //                                                 className="btn btn-warning btn-lg"
+    //                                             >
+    //                                                 Edit
+    //                                             </button>
+    //                                             <button
+    //                                                 onClick={() =>
+    //                                                     handleresetpassword({
+    //                                                         mentor_id:
+    //                                                             orgData.mentor
+    //                                                                 .mentor_id,
+    //                                                         organization_code:
+    //                                                             orgData.organization_code
+    //                                                     })
+    //                                                 }
+    //                                                 className="btn btn-info rounded-pill px-4 btn-lg text-white"
+    //                                             >
+    //                                                 Reset
+    //                                             </button>
+    //                                             <button
+    //                                                 onClick={() => {
+    //                                                     downloadPDF();
+    //                                                 }}
+    //                                                 className="btn btn-primary rounded-pill px-4 btn-lg"
+    //                                             >
+    //                                                 Download
+    //                                             </button>
+    //                                             <button
+    //                                                 onClick={viewDetails}
+    //                                                 className="btn btn-success rounded-pill px-4 btn-lg"
+    //                                             >
+    //                                                 View Details
+    //                                             </button>
+    //                                             <button
+    //                                                 onClick={() => {
+    //                                                     handleAlert(
+    //                                                         orgData.mentor?.user_id
+    //                                                     );
+    //                                                 }}
+    //                                                 className="btn btn-danger btn-lg"
+    //                                             >
+    //                                                 Delete
+    //                                             </button>
+    //                                         </div>
+
+    //                                         <div className="mb-5 p-3">
+    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
+    //                                                 <div className="row">
+    //                                                     <div className="col">
+    //                                                         <h2 className="text-center m-3 text-primary">
+    //                                                             Mentor Details
+    //                                                         </h2>
+    //                                                         <hr />
+    //                                                     </div>
+    //                                                 </div>
+    //                                                 <div>
+    //                                                     <DataTableExtensions
+    //                                                         print={false}
+    //                                                         export={false}
+    //                                                         {...MentorsData}
+    //                                                     >
+    //                                                         <DataTable
+    //                                                             noHeader
+    //                                                             defaultSortField="id"
+    //                                                             defaultSortAsc={
+    //                                                                 false
+    //                                                             }
+    //                                                             highlightOnHover
+    //                                                         />
+    //                                                     </DataTableExtensions>
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    //                                     </>
+    //                                 ) : (
+    //                                     count != 0 && (
+    //                                         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+    //                                             <span>
+    //                                                 Still No Teacher Registered
+    //                                             </span>
+    //                                         </div>
+    //                                     )
+    //                                 )}
+    //                                 {error && diesCode && (
+    //                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
+    //                                         <span>{error}</span>
+    //                                     </div>
+    //                                 )}
+    //                                 {!diesCode && (
+    //                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+    //                                         <span className="text-primary fs-highlight">
+    //                                             Enter Unique Code
+    //                                         </span>
+    //                                     </div>
+    //                                 )}
+    //                                 </Col>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             </Row>
+    //             </Container>
+    //         </Layout>
+    //     );
+    // };
+
+    // export default Dashboard;
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
                 <div className="dashboard p-5 mb-5">
-                    <div className="row">
-                        <div style={{ flex: 1 }} className="col-lg-12">
-                            Data
-                        </div>
-                        <div
-                            style={{ flex: 1 }}
-                            className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search"
-                        >
-                            <h2 className="mt-3">
-                                Search Registration Details
-                            </h2>
-                            <Row className="text-center justify-content-md-center my-4">
-                                <Col md={9} lg={12}>
-                                    <Row>
-                                        <Col md={9} className="my-auto">
-                                            <Input
-                                                {...inputField}
-                                                id="organization_code"
-                                                onChange={(e) =>
-                                                    handleOnChange(e)
-                                                }
-                                                value={diesCode}
-                                                name="organization_code"
-                                                placeholder="Enter Unique Code"
-                                                className="w-100 mb-3 mb-md-0"
-                                                style={{
-                                                    borderRadius: '60px',
-                                                    padding: '9px 11px'
-                                                }}
-                                            />
-                                        </Col>
-                                        <Col md={3} className="partner-btn">
-                                            <Button
-                                                label={'Search'}
-                                                btnClass="primary mx-3 w-100"
-                                                size="small"
-                                                onClick={(e) => handleSearch(e)}
-                                            />
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
+                    <div className="row " style={{ overflow: 'auto' }}>
+                        <div className=" row col-xs-12 col-md-7">
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem',
+                                    paddingLeft: '2rem'
+                                }}
+                            >
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Eligible Schools
+                                            </label>
 
-                            {orgData &&
-                            orgData?.organization_name &&
-                            orgData?.mentor !== null ? (
-                                <>
-                                    <div className="mb-5 p-3" ref={pdfRef}>
-                                        <div className="container-fluid card shadow border">
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalSchoolCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg Schools
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalMentorCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg Teachers
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalMentorCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Teachers Course Completed
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {mentorCoursesCompletedCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalteamsCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Submitted Ideas
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalSubmittedideasCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Ideas in Draft
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalideasCount -
+                                                    totalSubmittedideasCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams Not initiated Ideas
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalteamsCount -
+                                                    totalideasCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Students
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalStudentCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Students course completed
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {studentCoursesCompletedCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Students course in progress
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalstudentCoursesCount -
+                                                    studentCoursesCompletedCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Students Course not started
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalStudentCount -
+                                                    totalstudentCoursesCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem',
+                                    paddingLeft: '2rem'
+                                    // height: '150px'
+                                }}
+                            >
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Male Teachers
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalMentorMaleCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Female Teachers
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalMentorCount -
+                                                    totalMentorMaleCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Male Students
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalStudentMaleCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Female Students
+                                            </label>
+
+                                            <Card.Text
+                                                className="left-aligned"
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalStudentFemaleCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                            </Col>
+                            {/* <div>
+                                <Card bg="light" text="dark" className="mb-4">
+                                    <Card.Body>
+                                        <Row style={{ marginRight: '3rem' }}>
+                                            <Col md={3} style={{}}>
+                                                <label htmlFor="teams">
+                                                    Total Male Teachers
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    {totalMentorMaleCount}
+                                                </Card.Text>
+                                            </Col>
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Female Teachers
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    {totalMentorCount -
+                                                        totalMentorMaleCount}
+                                                </Card.Text>
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Male Students
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    {totalStudentMaleCount}
+                                                </Card.Text>
+                                            </Col>
+                                            <Col md={3}>
+                                                <label htmlFor="teams">
+                                                    Total Female Students
+                                                </label>
+                                                <Card.Text
+                                                    className="left-aligned"
+                                                    style={{
+                                                        fontSize: '30px',
+                                                        fontWeight: 'bold',
+                                                        marginTop: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    {totalStudentFemaleCount}
+                                                </Card.Text>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </div> */}
+                            {/* <div style={{ flex: 1 }} className="col-lg-12">
+                            Data__
+                        </div> */}
+                        </div>
+                        <div className=" row  col-xs-12 col-md-5">
+                            <div
+                                style={{ flex: 1, overflow: 'auto' }}
+                                className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
+                            >
+                                <h2 className="mt-3">
+                                    Search Registration Details
+                                </h2>
+                                <Row className="text-center justify-content-md-center my-4">
+                                    <Col md={9} lg={12}>
+                                        <Row>
+                                            <Col md={9} className="my-auto">
+                                                <Input
+                                                    {...inputField}
+                                                    id="organization_code"
+                                                    onChange={(e) =>
+                                                        handleOnChange(e)
+                                                    }
+                                                    value={diesCode}
+                                                    name="organization_code"
+                                                    placeholder="Enter Unique Code"
+                                                    className="w-100 mb-3 mb-md-0"
+                                                    style={{
+                                                        borderRadius: '60px',
+                                                        padding: '9px 11px'
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col md={3} className="partner-btn">
+                                                <Button
+                                                    label={'Search'}
+                                                    btnClass="primary tex-center my-0 py-0 mx-3 px-3"
+                                                    style={{
+                                                        fontSize: '15px',
+                                                        height: '35px'
+                                                    }}
+                                                    size="small"
+                                                    onClick={(e) =>
+                                                        handleSearch(e)
+                                                    }
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+
+                                {orgData &&
+                                orgData?.organization_name &&
+                                orgData?.mentor !== null ? (
+                                    <>
+                                        {/* <div className="mb-5 p-3" >  */}
+                                        {/* <div
+                                                className="container-fluid card shadow border" ref={pdfRef}
+                                                // style={{
+                                                //     width: '300px',
+                                                //     height: '300px'
+                                                // }}
+                                            > */}
+                                        <div ref={pdfRef}>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
-                                                        Registration Detail
+                                                    <h2 className="text-center m-3 text-primary ">
+                                                        Registration Details
                                                     </h2>
                                                     <hr />
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            <div className="row ">
                                                 <div className="col">
-                                                    <ul className="p-0">
-                                                        <li className="d-flex justify-content-between">
-                                                            School:
+                                                    {/* <ul className="p-0">
+                                                            <li className="d-flex justify-content-between">
+                                                                School:
+                                                                <p>
+                                                                    {
+                                                                        orgData.organization_name
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                City:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData.city
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                District:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData.district
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                Mentor Name:{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData
+                                                                            .mentor
+                                                                            ?.full_name
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                            <li className="d-flex justify-content-between">
+                                                                Mentor Mobile No
+                                                                :{' '}
+                                                                <p>
+                                                                    {
+                                                                        orgData
+                                                                            .mentor
+                                                                            ?.user
+                                                                            ?.username
+                                                                    }
+                                                                </p>
+                                                            </li>
+                                                        </ul> */}
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>School</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <p>
                                                                 {
                                                                     orgData.organization_name
                                                                 }
                                                             </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            City:{' '}
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>City</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <p>
                                                                 {orgData.city}
                                                             </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            District:{' '}
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>District</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <p>
                                                                 {
                                                                     orgData.district
                                                                 }
                                                             </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            Mentor Name:{' '}
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Mentor Name</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <p>
                                                                 {
                                                                     orgData
@@ -464,9 +1768,35 @@ const Dashboard = () => {
                                                                         ?.full_name
                                                                 }
                                                             </p>
-                                                        </li>
-                                                        <li className="d-flex justify-content-between">
-                                                            Mentor email:{' '}
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                Mentor Mobile No
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <p>
                                                                 {
                                                                     orgData
@@ -475,65 +1805,113 @@ const Dashboard = () => {
                                                                         ?.username
                                                                 }
                                                             </p>
-                                                        </li>
-                                                    </ul>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                WhatsApp Mobile
+                                                                No
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.whatapp_mobile
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-between">
-                                        <button
-                                            onClick={handleEdit}
-                                            className="btn btn-warning btn-lg"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                handleresetpassword({
-                                                    mentor_id:
-                                                        orgData.mentor
-                                                            .mentor_id,
-                                                    organization_code:
-                                                        orgData.organization_code
-                                                })
-                                            }
-                                            className="btn btn-info rounded-pill px-4 btn-lg text-white"
-                                        >
-                                            Reset
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                downloadPDF();
-                                            }}
-                                            className="btn btn-primary rounded-pill px-4 btn-lg"
-                                        >
-                                            Download
-                                        </button>
-                                        <button
-                                            onClick={viewDetails}
-                                            className="btn btn-success rounded-pill px-4 btn-lg"
-                                        >
-                                            View Details
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                handleAlert(
-                                                    orgData.mentor?.user_id
-                                                );
-                                            }}
-                                            className="btn btn-danger btn-lg"
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
+                                        {/* </div> */}
+                                        {/* <div className="d-flex justify-content-between"> */}
+                                        <div className="d-flex justify-content-between flex-column flex-md-row">
+                                            <button
+                                                className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
+                                                style={{
+                                                    backgroundColor: '#ffcb34'
+                                                }}
+                                                onClick={handleEdit}
+                                                //className="btn btn-warning btn-lg  px-4"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleresetpassword({
+                                                        mentor_id:
+                                                            orgData.mentor
+                                                                .mentor_id,
+                                                        organization_code:
+                                                            orgData.organization_code
+                                                    })
+                                                }
+                                                className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
+                                            >
+                                                Reset
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    downloadPDF();
+                                                }}
+                                                className="btn btn-primary rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
+                                            >
+                                                Download
+                                            </button>
 
-                                    <div className="mb-5 p-3">
-                                        <div className="container-fluid card shadow border">
+                                            <button
+                                                onClick={viewDetails}
+                                                className="btn btn-success rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
+                                            >
+                                                View Details
+                                            </button>
+
+                                            <button
+                                                onClick={() => {
+                                                    handleAlert(
+                                                        orgData.mentor?.user_id
+                                                    );
+                                                }}
+                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
+                                                style={{
+                                                    backgroundColor: '#dc3545'
+                                                }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+
+                                        {/* <div className="mb-5 p-3"> */}
+                                        {/* <div className="container-fluid card shadow border"> */}
+                                        <div>
                                             <div className="row">
                                                 <div className="col">
                                                     <h2 className="text-center m-3 text-primary">
-                                                        Mentor Details
+                                                        Teams Registered
                                                     </h2>
                                                     <hr />
                                                 </div>
@@ -553,27 +1931,30 @@ const Dashboard = () => {
                                                 </DataTableExtensions>
                                             </div>
                                         </div>
+                                        {/* </div> */}
+                                    </>
+                                ) : (
+                                    count != 0 && (
+                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                            <span>
+                                                Still No Teacher Registered
+                                            </span>
+                                        </div>
+                                    )
+                                )}
+                                {error && diesCode && (
+                                    <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
+                                        <span>{error}</span>
                                     </div>
-                                </>
-                            ) : (
-                                count != 0 && (
-                                    <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                        <span>Still No Teacher Registered</span>
+                                )}
+                                {!diesCode && (
+                                    <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                        <span className="text-primary fs-highlight">
+                                            Enter Unique Code
+                                        </span>
                                     </div>
-                                )
-                            )}
-                            {error && diesCode && (
-                                <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-                                    <span>{error}</span>
-                                </div>
-                            )}
-                            {!diesCode && (
-                                <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-                                    <span className="text-primary fs-highlight">
-                                        Enter Unique Code
-                                    </span>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -583,3 +1964,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+//export default Dashboard;

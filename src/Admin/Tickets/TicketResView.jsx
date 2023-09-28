@@ -38,41 +38,30 @@ const TicketResView = (props) => {
         dispatch(getSupportTicketById(id, language));
     }, [dispatch, id]);
 
-    const headingDetails = {
-        title: 'Support Details',
-
-        options: [
-            {
-                title: 'Support',
-                path: '/admin/tickets'
-            },
-
-            {
-                title: 'Support View'
-            }
-        ]
-    };
     const formik = useFormik({
         initialValues: {
-            ansDetails: '',
-            selectStatus: ''
+            ansTicket: '',
+            selectStatusTicket: ''
         },
 
         validationSchema: Yup.object({
-            ansDetails: Yup.string().required('Required'),
-            selectStatus: Yup.string().required('Required')
+            ansTicket: Yup.string().required('Required'),
+            selectStatusTicket: Yup.string()
         }),
 
         onSubmit: (values) => {
-            const ansDetails = values.ansDetails;
+            const ansTicket = values.ansTicket;
             const body = JSON.stringify({
                 support_ticket_id: id,
-                reply_details: ansDetails
+                reply_details: ansTicket
+                // selectStatusTicket: values.selectStatusTicket
             });
 
             dispatch(createSupportTicketResponse(body));
             dispatch(
-                SupportTicketStatusChange(id, { status: values.selectStatus })
+                SupportTicketStatusChange(id, {
+                    status: values.selectStatusTicket
+                })
             );
             props.history.push('/admin/tickets');
 
@@ -82,25 +71,25 @@ const TicketResView = (props) => {
         }
     });
 
-    const selectProgress = {
-        label:
-            supportTicket && supportTicket.status
-                ? supportTicket.status
-                : 'Select Status',
-        options: [
-            { label: 'OPEN', value: 'OPEN' },
-            { label: 'INPROGRESS', value: 'INPROGRESS' },
-            { label: 'RESOLVED', value: 'RESOLVED' },
-            { label: 'INVALID', value: 'INVALID' }
-        ],
-        className: 'defaultDropdown'
-    };
+    // const selectProgress = {
+    //     label:
+    //         supportTicket && supportTicket.status
+    //             ? supportTicket.status
+    //             : 'Select Status',
+    //     options: [
+    //         { label: 'OPEN', value: 'OPEN' },
+    //         { label: 'INPROGRESS', value: 'INPROGRESS' },
+    //         { label: 'RESOLVED', value: 'RESOLVED' },
+    //         { label: 'INVALID', value: 'INVALID' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3 className="mb-5"></h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <Card className="card mb-4 my-3 comment-card px-0 card-outline-warning">
@@ -182,30 +171,37 @@ const TicketResView = (props) => {
                                             <Col md={12}>
                                                 <Label
                                                     className="name-req mt-5"
-                                                    htmlFor="ticketDetails"
+                                                    htmlFor="ticket"
                                                 >
                                                     Details
+                                                    <span
+                                                        required
+                                                        // style={{ color: 'red' }}
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
                                                 </Label>
                                                 <TextArea
                                                     className={'defaultInput'}
                                                     placeholder="Enter reply comments"
-                                                    id="ansDetails"
-                                                    name="ansDetails"
+                                                    id="ansTicket"
+                                                    name="ansTicket"
                                                     onChange={
                                                         formik.handleChange
                                                     }
                                                     onBlur={formik.handleBlur}
                                                     value={
-                                                        formik.values.ansDetails
+                                                        formik.values.ansTicket
                                                     }
                                                 />
 
-                                                {formik.touched.ansDetails &&
-                                                formik.errors.ansDetails ? (
+                                                {formik.touched.ansTicket &&
+                                                formik.errors.ansTicket ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                .ansDetails
+                                                                .ansTicket
                                                         }
                                                     </small>
                                                 ) : null}
@@ -215,15 +211,17 @@ const TicketResView = (props) => {
                                                 className="form-group my-5  mb-md-0"
                                                 md={12}
                                             >
-                                                <Label className="mb-2">
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="select status"
+                                                >
                                                     Select Status
                                                 </Label>
-
                                                 <Col
                                                     className="form-group"
                                                     md={12}
                                                 >
-                                                    <DropDownWithSearch
+                                                    {/* <DropDownWithSearch
                                                         {...selectProgress}
                                                         onBlur={
                                                             formik.handleBlur
@@ -236,17 +234,62 @@ const TicketResView = (props) => {
                                                         }}
                                                         name="selectStatus"
                                                         id="selectStatus"
-                                                    />
-
-                                                    {formik.errors
-                                                        .selectStatus ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .selectStatus
-                                                            }
-                                                        </small>
-                                                    ) : null}
+                                                    /> */}
+                                                    <select
+                                                        name=" selectStatusTicket"
+                                                        id=" selectStatusTicket"
+                                                        className="form-control custom-dropdown"
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            formik.setFieldValue(
+                                                                'selectStatusTicket',
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .selectStatusTicket
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled={true}
+                                                        >
+                                                            {supportTicket &&
+                                                            supportTicket.status
+                                                                ? supportTicket.status
+                                                                : 'Select Status'}
+                                                        </option>
+                                                        <option value="OPEN">
+                                                            OPEN
+                                                        </option>
+                                                        <option value="INPROGRESS">
+                                                            INPROGRESS
+                                                        </option>
+                                                        <option value="RESOLVED">
+                                                            RESOLVED
+                                                        </option>
+                                                        <option value="INVALID">
+                                                            INVALID
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched
+                                                        .selectStatusTicket &&
+                                                        formik.errors
+                                                            .selectStatusTicket && (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .selectStatusTicket
+                                                                }
+                                                            </small>
+                                                        )}
                                                 </Col>
 
                                                 <Col
@@ -290,7 +333,7 @@ const TicketResView = (props) => {
                                     {supportTicket.status != 'INVALID' ? (
                                         <Col className="submit-btn col-xs-12 col-sm-6">
                                             <Button
-                                                label="Submit details"
+                                                label="Submit"
                                                 type="submit"
                                                 btnClass={
                                                     !(
