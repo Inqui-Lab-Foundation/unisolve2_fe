@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ViewSelectedChallenges.scss';
 import Layout from '../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -17,6 +17,9 @@ import { useDispatch } from 'react-redux';
 import { getNormalHeaders } from '../../../helpers/Utils';
 import Spinner from 'react-bootstrap/Spinner';
 import { useLocation } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
+import { FaDownload } from 'react-icons/fa';
+import DetailToDownload from './DetailToDownload';
 
 const ViewSelectedIdea = () => {
     // here we can see the selected ideas in district wise and sdg //
@@ -148,6 +151,12 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
+                            <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            />
                         </div>
                     ];
                 },
@@ -175,112 +184,158 @@ const ViewSelectedIdea = () => {
             setCurrentRow(currentRow - 1);
         }
     };
-    return (
-        <Layout>
-            <div className="container evaluated_idea_wrapper pt-5 mb-50">
-                <div className="row">
-                    <div className="col-12 p-0">
-                        {!isDetail && (
-                            <div>
-                                <h2 className="ps-2 pb-3">Challenges</h2>
 
-                                <Container fluid className="px-0">
-                                    <Row className="align-items-center">
-                                        <Col md={3}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={fullDistrictsNames}
-                                                    setValue={setdistrict}
-                                                    placeHolder={
-                                                        'Select District'
-                                                    }
-                                                    value={district}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={3}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={SDGDate}
-                                                    setValue={setsdg}
-                                                    placeHolder={'Select SDG'}
-                                                    value={sdg}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={2}>
-                                            <div className="text-center">
-                                                <Button
-                                                    btnClass={
-                                                        showbutton
-                                                            ? 'primary'
-                                                            : 'default'
-                                                    }
-                                                    size="small"
-                                                    label="Search"
-                                                    disabled={!showbutton}
-                                                    onClick={() =>
-                                                        handleclickcall()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </div>
-                        )}
-                        {showspin && (
-                            <div className="text-center mt-5">
-                                <Spinner
-                                    animation="border"
-                                    variant="secondary"
-                                />
-                            </div>
-                        )}
-                        {!showspin &&
-                            (!isDetail ? (
-                                <div className="bg-white border card pt-3 mt-5">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...evaluatedIdeaforsub}
-                                    >
-                                        <DataTable
-                                            data={tableData || []}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                            paginationRowsPerPageOptions={[
-                                                10, 25, 50, 100
-                                            ]}
-                                            paginationPerPage={10}
-                                            onChangePage={(page) =>
-                                                setTablePage(page)
-                                            }
-                                            paginationDefaultPage={tablePage}
-                                        />
-                                    </DataTableExtensions>
+    ////////////////pdf////////////////
+    const componentRef = useRef();
+    const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
+    const [pdfTeamResponse, setpdfTeamResponse] = useState('');
+    const handleDownpdf = (params) => {
+        setPdfIdeaDetails(params);
+        if (params?.response) {
+            setpdfTeamResponse(
+                Object.entries(params?.response).map((e) => e[1])
+            );
+        }
+    };
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: `${
+            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+        }_IdeaSubmission`
+    });
+    useEffect(() => {
+        if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
+            handlePrint();
+        }
+    }, [pdfIdeaDetails, pdfTeamResponse]);
+
+    /////////////////
+    return (
+        <>
+            <div style={{ display: 'none' }}>
+                <DetailToDownload
+                    ref={componentRef}
+                    ideaDetails={pdfIdeaDetails}
+                    teamResponse={pdfTeamResponse}
+                    level={'Draft'}
+                />
+            </div>
+            <Layout>
+                <div className="container evaluated_idea_wrapper pt-5 mb-50">
+                    <div className="row">
+                        <div className="col-12 p-0">
+                            {!isDetail && (
+                                <div>
+                                    <h2 className="ps-2 pb-3">Challenges</h2>
+
+                                    <Container fluid className="px-0">
+                                        <Row className="align-items-center">
+                                            <Col md={3}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={
+                                                            fullDistrictsNames
+                                                        }
+                                                        setValue={setdistrict}
+                                                        placeHolder={
+                                                            'Select District'
+                                                        }
+                                                        value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={3}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={SDGDate}
+                                                        setValue={setsdg}
+                                                        placeHolder={
+                                                            'Select SDG'
+                                                        }
+                                                        value={sdg}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="text-center">
+                                                    <Button
+                                                        btnClass={
+                                                            showbutton
+                                                                ? 'primary'
+                                                                : 'default'
+                                                        }
+                                                        size="small"
+                                                        label="Search"
+                                                        disabled={!showbutton}
+                                                        onClick={() =>
+                                                            handleclickcall()
+                                                        }
+                                                    />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Container>
                                 </div>
-                            ) : (
-                                <ViewDetail
-                                    ideaDetails={ideaDetails}
-                                    setIsDetail={setIsDetail}
-                                    settableData={settableData}
-                                    setdistrict={setdistrict}
-                                    setsdg={setsdg}
-                                    handleNext={handleNext}
-                                    handlePrev={handlePrev}
-                                    currentRow={currentRow}
-                                    dataLength={tableData && tableData?.length}
-                                />
-                            ))}
+                            )}
+                            {showspin && (
+                                <div className="text-center mt-5">
+                                    <Spinner
+                                        animation="border"
+                                        variant="secondary"
+                                    />
+                                </div>
+                            )}
+                            {!showspin &&
+                                (!isDetail ? (
+                                    <div className="bg-white border card pt-3 mt-5">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...evaluatedIdeaforsub}
+                                        >
+                                            <DataTable
+                                                data={tableData || []}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                                paginationRowsPerPageOptions={[
+                                                    10, 25, 50, 100
+                                                ]}
+                                                paginationPerPage={10}
+                                                onChangePage={(page) =>
+                                                    setTablePage(page)
+                                                }
+                                                paginationDefaultPage={
+                                                    tablePage
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                ) : (
+                                    <ViewDetail
+                                        ideaDetails={ideaDetails}
+                                        setIsDetail={setIsDetail}
+                                        settableData={settableData}
+                                        setdistrict={setdistrict}
+                                        setsdg={setsdg}
+                                        handleNext={handleNext}
+                                        handlePrev={handlePrev}
+                                        currentRow={currentRow}
+                                        dataLength={
+                                            tableData && tableData?.length
+                                        }
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 

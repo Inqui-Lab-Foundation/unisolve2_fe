@@ -73,6 +73,9 @@ const EditEvalProcess = (props) => {
     async function handledistricts(value) {
         //  handledistricts Api where value = district //
         // where we can update the district //
+        if(value.district===''){
+            value.district = '-';
+        }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .put(
