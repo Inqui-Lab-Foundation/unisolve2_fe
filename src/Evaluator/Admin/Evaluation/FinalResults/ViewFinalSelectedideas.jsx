@@ -120,6 +120,7 @@ const ViewSelectedIdea = () => {
                 setshowspin(false);
             });
     }
+    // console.log(tableData, 'data');
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -127,23 +128,34 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '6%'
+                width: '8rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '6%'
+                width: '6rem'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row?.team_name || '',
-                sortable: true
+                name: 'Idea Name',
+                selector: (row) => row?.response[1]?.selected_option || '',
+                // sortable: true,
+                width: '27rem'
             },
             {
-                name: 'SDG',
-                selector: (row) => row?.sdg,
-                width: '10%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '15rem'
             },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row?.team_name || '',
+            //     sortable: true
+            // },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row?.sdg,
+            //     width: '10%'
+            // },
 
             {
                 name: 'Novelty',
@@ -157,7 +169,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '13rem'
             },
             {
                 name: 'Usefulness',
@@ -171,7 +184,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '13rem'
             },
             {
                 name: 'Feasability',
@@ -185,7 +199,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '13rem'
             },
             {
                 name: 'Scalability',
@@ -199,7 +214,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '13rem'
             },
             {
                 name: 'Sustainability',
@@ -213,7 +229,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '13rem'
             },
             {
                 name: 'Overall',
@@ -227,7 +244,8 @@ const ViewSelectedIdea = () => {
                     ];
                 },
 
-                sortable: true
+                sortable: true,
+                width: '12rem'
             },
 
             {
@@ -292,9 +310,35 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '18%',
+                width: '23rem',
                 left: true
             }
+            //       {params.final_result === '0' ?
+            //       (
+            //     {
+            //         name: 'Final Evaluation',
+            //         cell: (params) => {
+            //             return [
+            //                 <div className="d-flex" key={params}>
+            //                     {params.final_result === '0' && (
+            //                         <div
+            //                             onClick={() =>
+            //                                 handlePromotelFinalEvaluated(params)
+            //                             }
+            //                             style={{ marginRight: '12px' }}
+            //                         >
+            //                             <div className="btn btn-info btn-lg mx-2">
+            //                                 Promote
+            //                             </div>
+            //                         </div>
+            //                     )}
+            //                 </div>
+            //             ];
+            //         },
+            //         width: '15%',
+            //         left: true
+            //     } )
+            // : ""}
         ]
     };
     const [sortid, setsortid] = useState();
