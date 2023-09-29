@@ -186,23 +186,23 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '7%'
+                width: '10rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '35rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'SDG',
@@ -248,7 +248,7 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
 
             {
@@ -286,7 +286,7 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '8%',
+                width: '20rem',
                 left: true
             }
         ]
@@ -298,23 +298,23 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '45rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'CID',
@@ -364,7 +364,7 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '20%',
+                width: '20rem',
                 left: true
             }
         ]
@@ -412,63 +412,74 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '8%'
+                width: '8rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
                 sortable: true,
-                width: '20%'
+                width: '15rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '7%'
+                width: '7rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '13%'
+                width: '15rem'
             },
             {
                 name: 'Quality Score',
-                selector: (row) =>
-                    (
-                        (row.evaluator_ratings[0]?.param_1[0] +
-                            row.evaluator_ratings[0]?.param_1[1] +
-                            row.evaluator_ratings[0]?.param_1[2]) /
-                            3 +
-                        (row.evaluator_ratings[0]?.param_2[0] +
-                            row.evaluator_ratings[0]?.param_2[1] +
-                            row.evaluator_ratings[0]?.param_2[2]) /
-                            3 /
+                selector: (row) => {
+                    return [
+                        (
+                            ((row.evaluator_ratings[0]?.param_1[0] +
+                                row.evaluator_ratings[0]?.param_1[1] +
+                                row.evaluator_ratings[0]?.param_1[2]) /
+                                3 +
+                                (row.evaluator_ratings[0]?.param_2[0] +
+                                    row.evaluator_ratings[0]?.param_2[1] +
+                                    row.evaluator_ratings[0]?.param_2[2]) /
+                                    3) /
                             2
-                    ).toFixed(2),
+                        ).toFixed(2)
+                    ];
+                },
+                sortable: true,
+
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '10%'
+                width: '15rem'
             },
             {
                 name: 'Feasibility Score',
-                selector: (row) =>
-                    (
-                        (row.evaluator_ratings[0]?.param_3[0] +
-                            row.evaluator_ratings[0]?.param_3[1] +
-                            row.evaluator_ratings[0]?.param_3[2]) /
-                            3 +
-                        (row.evaluator_ratings[0]?.param_4[0] +
-                            row.evaluator_ratings[0]?.param_4[1] +
-                            row.evaluator_ratings[0]?.param_4[2]) /
-                            3 /
-                            +(
-                                row.evaluator_ratings[0]?.param_5[0] +
-                                row.evaluator_ratings[0]?.param_5[1] +
-                                row.evaluator_ratings[0]?.param_5[2]
-                            ) /
-                            3 /
-                            3
-                    ).toFixed(2),
+                selector: (row) => {
+                    return [
+                        (
+                            (row.evaluator_ratings[0]?.param_3[0] +
+                                row.evaluator_ratings[0]?.param_3[1] +
+                                row.evaluator_ratings[0]?.param_3[2]) /
+                                3 +
+                            (row.evaluator_ratings[0]?.param_4[0] +
+                                row.evaluator_ratings[0]?.param_4[1] +
+                                row.evaluator_ratings[0]?.param_4[2]) /
+                                3 /
+                                +(
+                                    row.evaluator_ratings[0]?.param_5[0] +
+                                    row.evaluator_ratings[0]?.param_5[1] +
+                                    row.evaluator_ratings[0]?.param_5[2]
+                                ) /
+                                3 /
+                                3
+                        ).toFixed(2)
+                    ];
+                },
+                sortable: true,
+
+                // id: 'feasibility',
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '10%'
+                width: '20rem'
             },
             // {
             //     name: 'CID',
@@ -498,7 +509,7 @@ const ViewSelectedIdea = () => {
                     row.evaluator_ratings[0]?.overall_avg
                         ? row.evaluator_ratings[0]?.overall_avg
                         : '-',
-                width: '10%',
+                width: '15rem',
                 sortable: true,
                 id: 'overall'
             },
@@ -551,6 +562,31 @@ const ViewSelectedIdea = () => {
                                     }}
                                 />
                             </div>
+                            {/* {!params.final_result && (
+                                <div
+                                    //exact="true"
+                                    // key={record}
+                                    onClick={() =>
+                                        handlePromotel2processed(params)
+                                    }
+                                    style={{ marginRight: '12px' }}
+                                >
+                                    <div className="btn btn-info btn-lg mx-2">
+                                        Promote
+                                    </div>
+                                </div>
+                            )} */}
+                        </>
+                    ];
+                },
+                width: '15rem',
+                left: true
+            },
+            {
+                name: 'L2 Evaluation',
+                cell: (params) => {
+                    return [
+                        <>
                             {!params.final_result && (
                                 <div
                                     //exact="true"
@@ -568,8 +604,7 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '22%',
-                left: true
+                width: '15rem'
             }
         ]
     };
@@ -586,7 +621,7 @@ const ViewSelectedIdea = () => {
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
-                sortable: true,
+                // sortable: true,
                 width: '45%'
             },
             {
@@ -661,7 +696,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-    console.log(tableData, '1');
+    // console.log(tableData, '1');
     const [sortid, setsortid] = useState();
     const handlesortid = (e) => {
         setsortid(e.id);

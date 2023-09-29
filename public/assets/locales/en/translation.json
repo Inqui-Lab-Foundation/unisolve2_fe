@@ -114,7 +114,7 @@
         "New_password": "New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Verify New password",
+        "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
         "Change_password": "Change password"
     },
@@ -126,7 +126,7 @@
         "New_password": "New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Verify New password",
+        "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
         "Change_password": "Change password"
     },
@@ -138,7 +138,7 @@
         "New_password": "New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Verify New password",
+        "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
         "Change_password": "Change password"
     },
@@ -153,7 +153,7 @@
         "idea_submission": "Idea Submission",
         "my_profile": "My Profile",
         "change_pass": "Change password",
-        "resources":"Resources"
+        "resources": "Resources"
     },
     "get_started": {
         "heading": "Welcome Students!",
@@ -228,10 +228,10 @@
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of characters is ",
         "max_length_msg2": " only...",
-        "cutoff":"You scored less than the cutoff (60%)",
-        "retest":"Retest",
-        "resume_quiz":"Resume Quiz",
-        "see_result":"See Result"
+        "cutoff": "You scored less than the cutoff (60%)",
+        "retest": "Retest",
+        "resume_quiz": "Resume Quiz",
+        "see_result": "See Result"
     },
     "teacher_presurvey": {
         "completed_text": "Thank you for completing the Survey. Your responses are important for us to get to know you and your students better."
@@ -253,7 +253,7 @@
     "teacher_teams": {
         "team_heading": "Teams Management",
         "create_team": "Create Team",
-        
+
         "create_team_members": "Create Team Members details",
         "add_new_team": "Add New Team details",
         "s_no": "No",
@@ -341,7 +341,6 @@
         "teacher_title_misss": "Miss",
         "teacher_title_mrss": "Mrs",
 
-
         "faculty_name_pl": "Enter full name",
         "faculty_email": "Faculty Email Address",
         "faculty_ph": "Faculty Phone Number",
@@ -404,25 +403,24 @@
         "quiz_con_title": " Continue your quick test",
         "idea_ins_note": "<p class='text-success'><b>Congratulations to you and your team!</b></p><p>For successfully completing the course and starting the idea submission. As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b>Go through Idea submission Process video in Resources section. Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Choose the Sustainable Development Goal (SDG) as per the selected problem which will appear in the next screen.</li><li>Write down the Current State, Desired State, Effects and Causes of the selected problem.</li><li>Write down Idea Name & its descriptions clearly. Idea name should convey the uniqueness of your solution.</li><li>Make note of user feedback to your idea which helped improve your solution.</li><li>List materials you’ll need to make a working model & gather images & videos related to your prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
         "my_cer_note": "<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>",
-        "quiz_com_title":"Quick test Completed successfully",
-        "quiz_com_note":"Check your score.",
-        "quiz_score_attempts":"Attempts",
-        "quiz_score_correctanswers":"Correct Answers",
-        "quiz_score_wronganswers":"Wrong Answers",
-        "quiz_score_result":"Result"
-
+        "quiz_com_title": "Quick test Completed successfully",
+        "quiz_com_note": "Check your score.",
+        "quiz_score_attempts": "Attempts",
+        "quiz_score_correctanswers": "Correct Answers",
+        "quiz_score_wronganswers": "Wrong Answers",
+        "quiz_score_result": "Result"
     },
     "comm_tech_stu": {
         "resources_note": "Welcome to Resources Tab! This page will contain all the useful resources that will help you in successfully completing the program. Please refer to this page for useful links, files and reference videos about the program."
     },
-    "idea_page":{
-        "main":"Idea Submission Guidelines",
-        "title1":"Problem you Identified",
-        "title2":"Your Innovation to solve problem",
-        "title3":"Let's take User Feedback",
-        "title4":"Prototype - Make & Test",
-        "next":"Next",
-        "back":"Back"
+    "idea_page": {
+        "main": "Idea Submission Guidelines",
+        "title1": "Problem you Identified",
+        "title2": "Your Innovation to solve problem",
+        "title3": "Let's take User Feedback",
+        "title4": "Prototype - Make & Test",
+        "next": "Next",
+        "back": "Back"
     },
     "translation": {
         "tamil": "English Content :-",

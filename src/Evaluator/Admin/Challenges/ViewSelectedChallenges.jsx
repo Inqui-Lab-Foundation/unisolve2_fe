@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useRef, useState } from 'react';
 import './ViewSelectedChallenges.scss';
@@ -98,19 +99,19 @@ const ViewSelectedIdea = () => {
             {
                 name: 'No',
                 selector: (row) => row.key,
-                sortable: true,
-                width: '6%'
+                // sortable: true,
+                width: '10rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[1]?.selected_option || '',
-                sortable: true,
-                width: '45%'
+                // sortable: true,
+                width: '40rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '8%'
+                width: '10rem'
             },
             // {
             //     name: 'SDG',
@@ -120,12 +121,12 @@ const ViewSelectedIdea = () => {
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '10rem'
             },
             {
                 name: 'Status',
                 cell: (row) => row.status,
-                width: '10%'
+                width: '15rem'
             },
             {
                 name: 'Actions',
@@ -160,12 +161,13 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '12%',
-                left: true
+                width: '15rem',
+                center: true
+                // left: true
             }
         ]
     };
-    console.log(tableData, 'tableData');
+    // console.log(tableData, 'tableData');
     const showbutton = district && sdg;
 
     const handleNext = () => {
@@ -292,6 +294,7 @@ const ViewSelectedIdea = () => {
                                             print={false}
                                             export={false}
                                             {...evaluatedIdeaforsub}
+                                            exportHeaders
                                         >
                                             <DataTable
                                                 data={tableData || []}
