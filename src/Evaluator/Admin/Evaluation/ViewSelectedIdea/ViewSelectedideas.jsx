@@ -190,7 +190,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
                 width: '35rem'
             },
@@ -302,7 +302,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
                 width: '45rem'
             },
@@ -416,7 +416,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
                 width: '15rem'
             },
@@ -620,7 +620,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 // sortable: true,
                 width: '45%'
             },

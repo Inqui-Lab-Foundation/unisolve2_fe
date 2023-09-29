@@ -104,7 +104,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 // sortable: true,
                 width: '40rem'
             },
@@ -167,7 +167,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-    // console.log(tableData, 'tableData');
+    console.log(tableData, 'tableData');
     const showbutton = district && sdg;
 
     const handleNext = () => {
