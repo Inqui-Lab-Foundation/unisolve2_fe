@@ -137,7 +137,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 // sortable: true,
                 width: '27rem'
             },
