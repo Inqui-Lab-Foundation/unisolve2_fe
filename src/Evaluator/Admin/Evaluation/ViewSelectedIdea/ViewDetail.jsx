@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useRef } from 'react';
 import './ViewSelectedideas.scss';
 import { Button } from '../../../../stories/Button';
 import LinkComponent from '../Pages/LinkComponent';
@@ -17,9 +17,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import RatedDetailCard from '../Pages/RatedDetailCard';
 import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
-import DetailToDownload from './DetailToDownload';
+import DetailToDownload from '../../Challenges/DetailToDownload';
 import html2canvas from 'html2canvas';
 import { Row, Col, Form, Label } from 'reactstrap';
+import { useReactToPrint } from 'react-to-print';
 
 const ViewDetail = (props) => {
     const history = useHistory();
@@ -161,17 +162,35 @@ const ViewDetail = (props) => {
         setPdfLoader(false);
     };
 
+    const componentRef = useRef();
+const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: `${
+        props?.ideaDetails?.team_name
+            ? props?.ideaDetails?.team_name
+            : 'temp'
+    }_IdeaSubmission`
+});
+
     return (
         <div>
             {teamResponse && teamResponse?.length > 0 ? (
                 <>
-                    <div id="pdfId" style={{ display: 'none' }}>
+                <div style={{ display: 'none' }}>
+                        <DetailToDownload
+                            ref={componentRef}
+                            ideaDetails={props?.ideaDetails}
+                            teamResponse={teamResponse}
+                            level={'Draft'}
+                        />
+                    </div>
+                    {/* <div id="pdfId" style={{ display: 'none' }}>
                         <DetailToDownload
                             ideaDetails={props?.ideaDetails}
                             teamResponse={teamResponse}
                             level={level}
                         />
-                    </div>
+                    </div> */}
                     <div className="row idea_detail_card">
                         <div className="col-12 p-0">
                             <div className="row">
@@ -240,7 +259,7 @@ const ViewDetail = (props) => {
                                         />
                                     </div>
                                     <div className="mx-2 pointer d-flex align-items-center">
-                                        {!pdfLoader ? (
+                                        {/* {!pdfLoader ? (
                                             <FaDownload
                                                 size={22}
                                                 onClick={async () => {
@@ -249,7 +268,11 @@ const ViewDetail = (props) => {
                                             />
                                         ) : (
                                             <FaHourglassHalf size={22} />
-                                        )}
+                                        )} */}
+                                        <FaDownload
+                                            size={22}
+                                            onClick={handlePrint}
+                                        />
                                     </div>
                                 </div>
                             </div>
