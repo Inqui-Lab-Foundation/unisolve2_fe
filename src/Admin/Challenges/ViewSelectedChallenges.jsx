@@ -99,28 +99,49 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10%'
+                width: '10rem'
+            },
+             {
+                name: 'Idea Name',
+                selector: (row) => row?.response[8]?.selected_option || '',
+                // sortable: true,
+                width: '40rem'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '21%'
+                name: 'CID',
+                selector: (row) => row.challenge_response_id,
+                width: '10rem'
             },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '15%'
+            // },
             {
-                name: 'SDG',
-                selector: (row) => row.sdg,
-                width: '21%'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '10rem'
             },
-            {
-                name: 'Submitted By',
-                selector: (row) => row.initiated_name,
-                width: '21%'
-            },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name || '',
+            //     sortable: true,
+            //     width: '21%'
+            // },
+            // {
+            //     name: 'SDG',
+            //     selector: (row) => row.sdg,
+            //     width: '21%'
+            // },
+            // {
+            //     name: 'Submitted By',
+            //     selector: (row) => row.initiated_name,
+            //     width: '21%'
+            // },
             {
                 name: 'Status',
                 cell: (row) => row.status,
-                width: '11%'
+                width: '11rem'
             },
             {
                 name: 'Actions',
@@ -155,7 +176,7 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '12%',
+                width: '12rem',
                 left: true
             }
         ]
