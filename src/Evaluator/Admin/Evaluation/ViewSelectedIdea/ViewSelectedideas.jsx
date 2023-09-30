@@ -404,7 +404,7 @@ const ViewSelectedIdea = () => {
         });
         setPdfLoader(false);
     };
-    console.log(tableData, 'Data');
+    // console.log(tableData, 'Data');
     const evaluatedIdeaL2 = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [

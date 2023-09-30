@@ -59,7 +59,7 @@ const Reports = () => {
                             </Col>
                         </Row>
 
-                        <Row className="mb-3">
+                        {/* <Row className="mb-3">
                             <Col lg={6} md={6}>
                                 <Link to="/admin/">
                                     <Card className="p-4 text-center card-effect mb-4">
@@ -69,8 +69,8 @@ const Reports = () => {
                                     </Card>
                                 </Link>
                             </Col>
-                        </Row>
-                        <Row className="mb-3">
+                        </Row> */}
+                        {/* <Row className="mb-3">
                             <Col lg={6} md={6}>
                                 <Link to="/admin/ChallengesReport">
                                     <Card className="p-4 text-center card-effect mb-4">
@@ -80,7 +80,7 @@ const Reports = () => {
                                     </Card>
                                 </Link>
                             </Col>
-                        </Row>
+                        </Row> */}
                     </div>
                 </Container>
             ) : (
