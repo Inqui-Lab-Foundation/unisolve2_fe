@@ -18,6 +18,7 @@ import { useReactToPrint } from 'react-to-print';
 
 import DetailToDownload from './DetailToDownload';
 import html2canvas from 'html2canvas';
+import { Row, Col, Form, Label } from 'reactstrap';
 
 const ViewDetail = (props) => {
     const componentRef = useRef();
@@ -164,7 +165,11 @@ const ViewDetail = (props) => {
     // };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle : `${props?.ideaDetails?.team_name ? props?.ideaDetails?.team_name : 'temp'}_IdeaSubmission`
+        documentTitle: `${
+            props?.ideaDetails?.team_name
+                ? props?.ideaDetails?.team_name
+                : 'temp'
+        }_IdeaSubmission`
     });
 
     return (
@@ -183,13 +188,27 @@ const ViewDetail = (props) => {
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <h2 className="mb-md-4 mb-3">
-                                        SDG:{' '}
-                                        <span className="text-capitalize fs-3">
-                                            {props?.ideaDetails?.sdg?.toLowerCase() ||
-                                                ''}
-                                        </span>
-                                    </h2>
+                                    <Row>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                SDG :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails
+                                                        ?.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                    </Row>
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
