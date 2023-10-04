@@ -232,7 +232,7 @@ const Dashboard = () => {
     };
 
     const handleresetpassword = (data) => {
-        //  here we can reset the password as disecode //
+        // We can resset the password//
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -805,8 +805,7 @@ const Dashboard = () => {
                                             onClick={() =>
                                                 handleresetpassword({
                                                     mentor_id:
-                                                        MentorData.mentor
-                                                            .mentor_id,
+                                                        MentorData.mentor_id,
                                                     organization_code:
                                                         MentorData.organization_code
                                                 })
