@@ -235,13 +235,14 @@ function RegisterNew() {
             .then(function (response) {
                 if (response?.status == 200) {
                     if (
-                        response?.data?.data[0].mentor != null &&
-                        process.env.REACT_APP_USEDICECODE == 1
+                        response?.data?.data[0] &&
+                        process.env.REACT_APP_USEDICECODE == 2
                     ) {
-                        setError(
-                            'Another Teacher is already registered in given School'
-                        );
-                    } else {
+                        // {
+                        //     setError(
+                        //         'Another Teacher is already registered in given School'
+                        //     );
+                        // } else
                         if (Object.keys(response?.data?.data[0]).length) {
                             setOrgData(response?.data?.data[0]);
                             formik.setFieldValue(
