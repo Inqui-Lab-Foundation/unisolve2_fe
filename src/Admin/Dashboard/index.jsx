@@ -475,6 +475,7 @@ const Dashboard = () => {
         adminSchoolCount();
         adminmentorCourseCount();
         adminStudentCourseCount();
+        adminRegschoolsCount();
     }, []);
 
     const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -483,6 +484,7 @@ const Dashboard = () => {
     const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
         useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalRegschoolsCount, setTotalRegschoolsCount] = useState('-');
     const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
     const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
     const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
@@ -508,6 +510,26 @@ const Dashboard = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminRegschoolsCount = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolRegCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalRegschoolsCount(response.data.data[0].RegSchools);
                 }
             })
             .catch(function (error) {
@@ -731,7 +753,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalMentorCount}
+                                                {totalRegschoolsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
