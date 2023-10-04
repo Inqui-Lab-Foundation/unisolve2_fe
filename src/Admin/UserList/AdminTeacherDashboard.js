@@ -212,7 +212,6 @@ const Dashboard = () => {
     //             return err.response;
     //         });
     // }
-    const handleresetpassword = (data) => {};
     const handleEdit = () => {
         //  here  We can edit the Registration details //
         // Where data = orgData //
@@ -232,46 +231,46 @@ const Dashboard = () => {
         });
     };
 
-    // const handleresetpassword = (data) => {
-    //     //  here we can reset the password as disecode //
-    //     const swalWithBootstrapButtons = Swal.mixin({
-    //         customClass: {
-    //             confirmButton: 'btn btn-success',
-    //             cancelButton: 'btn btn-danger'
-    //         },
-    //         buttonsStyling: false
-    //     });
+    const handleresetpassword = (data) => {
+        //  here we can reset the password as disecode //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
-    //     swalWithBootstrapButtons
-    //         .fire({
-    //             title: 'You are attempting to reset the password',
-    //             text: 'Are you sure?',
-    //             imageUrl: `${logout}`,
-    //             showCloseButton: true,
-    //             confirmButtonText: 'Reset Password',
-    //             showCancelButton: true,
-    //             cancelButtonText: 'cancel',
-    //             reverseButtons: false
-    //         })
-    //         .then((result) => {
-    //             if (result.isConfirmed) {
-    //                 dispatch(
-    //                     teacherResetPassword({
-    //                         organization_code: data.organization_code,
-    //                         mentor_id: data.mentor_id,
-    //                         otp: false
-    //                     })
-    //                 );
-    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //                 swalWithBootstrapButtons.fire(
-    //                     'Cancelled',
-    //                     'Reset password is cancelled',
-    //                     'error'
-    //                 );
-    //             }
-    //         })
-    //         .catch((err) => console.log(err.response));
-    // };
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to reset the password',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Reset Password',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(
+                        teacherResetPassword({
+                            organization_code: data.organization_code,
+                            mentor_id: data.mentor_id,
+                            otp: false
+                        })
+                    );
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Reset password is cancelled',
+                        'error'
+                    );
+                }
+            })
+            .catch((err) => console.log(err.response));
+    };
     const downloadPDF = () => {
         // where we can download the Registration Details //
         const content = pdfRef.current;
