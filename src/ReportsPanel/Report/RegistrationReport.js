@@ -321,7 +321,7 @@ const RegistrationReport = () => {
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const maleCount = lastRow?.male_mentor_count || 0;
                     const femaleCount = lastRow?.female_mentor_count || 0;
-                    const regCount = lastRow?.total_registered_teachers || 0;
+                    const regCount = lastRow?.uniqueRegSchools || 0;
                     const regNotCount =
                         lastRow?.total_not_registered_teachers || 0;
 
