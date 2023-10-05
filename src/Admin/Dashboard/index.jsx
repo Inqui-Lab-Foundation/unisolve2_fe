@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
@@ -42,10 +43,13 @@ const Dashboard = () => {
     };
     const currentUser = getCurrentUser('current_user');
     const [diesCode, setDiesCode] = useState('');
-    const [orgData, setOrgData] = useState({});
+    // const [orgData, setOrgData] = useState({});
+    const [orgData, setOrgData] = useState([]);
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
+    const [mentorTeamList, setMentorTeamList] = useState([]);
+    const [multiOrgData, setMultiOrgData] = useState({});
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
 
@@ -58,6 +62,7 @@ const Dashboard = () => {
         setDiesCode(e.target.value);
         setOrgData({});
         setError('');
+        setMultiOrgData({});
     };
     useEffect(async () => {
         // where list = diescode //
@@ -84,17 +89,17 @@ const Dashboard = () => {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
+                    setOrgData(response?.data?.data);
                     // console.log(orgData);
                     setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
 
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
+                    // if (response?.data?.data[0]?.mentor.mentor_id) {
+                    //     await getMentorIdApi(
+                    //         response?.data?.data[0]?.mentor.mentor_id
+                    //     );
+                    // }
                 }
             })
             .catch(function (error) {
@@ -124,22 +129,42 @@ const Dashboard = () => {
         axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
+                    // console.log(response, '1');
+                    if (response.status == 200) {
+                        setMultiOrgData(response?.data?.data);
+                        setCount(count + 1);
                     }
+                    if (response?.data?.count === 0) {
+                        setError('Entered Invalid Teacher Unique Code');
+                    }
+                    // var MentorList = [];
+                    // response &&
+                    //     response.data &&
+                    //     response.data.data.length > 0 &&
+                    //     response &&
+                    //     response.data &&
+                    //     response.data.data.map((list, index) => {
+                    //         var key = index + 1;
+                    //         return MentorList.push({ ...list, key });
+                    //     });
+                    // setMentorTeamList(MentorList);
+                    // console.log(mentorTeamList, 'data');
+                    // setOrgData(response?.data?.data);
+                    // setCount(count + 1);
+                    // // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setError('');
+                    // if (response?.data?.data[0]?.mentor.mentor_id) {
+                    //     await getMentorIdApi(
+                    //         response?.data?.data[0]?.mentor.mentor_id
+                    //     );
+                    // }
                 }
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
                     setError('Entered Invalid Unique Code');
                 }
-                setOrgData({});
+                setMultiOrgData({});
             });
         e.preventDefault();
     };
@@ -157,6 +182,7 @@ const Dashboard = () => {
             .get(`${URL.getTeamMembersList}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
+                    // console.log(res, 'res');
                     var mentorTeamArray = [];
                     res &&
                         res.data &&
@@ -174,6 +200,41 @@ const Dashboard = () => {
                 return err.response;
             });
     }
+
+    const handelSelectentor = (data) => {
+        setOrgData(data);
+        setMentorId(data.mentor.mentor_id);
+        setError('');
+        if (data.mentor.mentor_id) {
+            getMentorIdApi(data.mentor.mentor_id);
+        }
+    };
+    const MultipleMentorsData = {
+        data: multiOrgData,
+        columns: [
+            {
+                name: 'Mentor Name',
+                selector: (row) => row?.mentor?.full_name,
+                center: true
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handelSelectentor(params)}
+                        >
+                            <div className="btn btn-primary btn-lg mr-5 mx-2">
+                                view
+                            </div>
+                        </div>
+                    ];
+                },
+                center: true
+            }
+        ]
+    };
 
     const handleEdit = () => {
         //  here  We can edit the Registration details //
@@ -384,7 +445,7 @@ const Dashboard = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are Delete Organization',
+                title: 'You are Deleting this Registration',
                 text: 'Are you sure?',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -413,6 +474,7 @@ const Dashboard = () => {
         adminSchoolCount();
         adminmentorCourseCount();
         adminStudentCourseCount();
+        adminRegschoolsCount();
     }, []);
 
     const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -421,6 +483,7 @@ const Dashboard = () => {
     const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
         useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
+    const [totalRegschoolsCount, setTotalRegschoolsCount] = useState('-');
     const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
     const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
     const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
@@ -446,6 +509,28 @@ const Dashboard = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     setTotalteamsCount(response.data.data[0].teams_count);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const adminRegschoolsCount = () => {
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/schoolRegCount`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setTotalRegschoolsCount(response.data.data[0].RegSchools);
                 }
             })
             .catch(function (error) {
@@ -611,373 +696,6 @@ const Dashboard = () => {
             });
     };
 
-    //     return (
-    //         <Layout>
-    //             <Container>
-    //                 <Row>
-    //             <div className="dashboard-wrapper pb-5 my-5 px-5">
-    //                 <h2 className="mb-5">Dashboard </h2>
-    //                 <div className="dashboard p-5 mb-5">
-    //                     <div className="row " style={{ overflow: 'auto' }}>
-    //                         <div className=" row col-6">
-    //                             <Col
-    //                                 style={{
-    //                                     paddingRight: '20px'
-    //                                 }}
-    //                             >
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Reg. Teachers
-    //                                             </label>
-
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 950
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.teams_count
-    //                                                 ? dashboardStates?.teams_count
-    //                                                 : 0} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Teams
-    //                                             </label>
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 2,004
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.course_completed_count !==
-    //                                                 undefined
-    //                                                 ? `${
-    //                                                       (dashboardStates?.course_completed_count /
-    //                                                           dashboardStates?.Total_course_count) *
-    //                                                       100
-    //                                                   }%`
-    //                                                 : '-'} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                             </Col>
-    //                             <Col style={{ paddingRight: '20px' }}>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Students
-    //                                             </label>
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 1,10,000
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates.students_count
-    //                                                 ? dashboardStates.students_count
-    //                                                 : '-'} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{
-    //                                             height: '120px'
-    //                                         }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Submitted Ideas
-    //                                             </label>
-
-    //                                             <Card.Text
-    //                                                 className="left-aligned"
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 1,940
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.ideas_count
-    //                                                 ? dashboardStates?.ideas_count
-    //                                                 : 0} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                             </Col>
-    //                             {/* <div style={{ flex: 1 }} className="col-lg-12">
-    //                             Data__
-    //                         </div> */}
-    //                         </div>
-    //                         <div className=" row col-6 ">
-    //                             <div
-    //                                 style={{  flex: 1,overflowX: 'auto' }}
-    //                                 className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
-    //                             >
-    //                                 <h2 className="mt-3">
-    //                                     Search Registration Details
-    //                                 </h2>
-    //                                 <Row className="text-center justify-content-md-center my-4">
-    //                                     <Col md={9} lg={12}>
-    //                                         <Row>
-    //                                             <Col md={9} className="my-auto">
-    //                                                 <Input
-    //                                                     {...inputField}
-    //                                                     id="organization_code"
-    //                                                     onChange={(e) =>
-    //                                                         handleOnChange(e)
-    //                                                     }
-    //                                                     value={diesCode}
-    //                                                     name="organization_code"
-    //                                                     placeholder="Enter Unique Code"
-    //                                                     className="w-100 mb-3 mb-md-0"
-    //                                                     style={{
-    //                                                         borderRadius: '60px',
-    //                                                         padding: '9px 11px'
-    //                                                     }}
-    //                                                 />
-    //                                             </Col>
-    //                                             <Col md={3} className="partner-btn">
-    //                                                 <Button
-    //                                                     label={'Search'}
-    //                                                     btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-    //                                                     style={{
-    //                                                         fontSize: '15px',
-    //                                                         height: '35px'
-    //                                                     }}
-    //                                                     size="small"
-    //                                                     onClick={(e) =>
-    //                                                         handleSearch(e)
-    //                                                     }
-    //                                                 />
-    //                                             </Col>
-    //                                         </Row>
-    //                                     </Col>
-    //                                 </Row>
-    // <Col>
-    //                                 {orgData &&
-    //                                 orgData?.organization_name &&
-    //                                 orgData?.mentor !== null ? (
-    //                                     <>
-    //                                         <div className="mb-5 p-3" ref={pdfRef}  style={{ overflowX: 'auto' }}>
-    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
-    //                                                 <div className="row" >
-    //                                                     <div className="col" style={{ overflowX: 'auto' }}>
-    //                                                         <h2 className="text-center m-3 text-primary ">
-    //                                                             Registration Details
-    //                                                         </h2>
-    //                                                         <hr />
-    //                                                     </div>
-    //                                                 </div>
-    //                                                 <div className="row">
-    //                                                     <div className="col">
-    //                                                         <ul className="p-0">
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 School:
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.organization_name
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 City:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.city
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 District:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.district
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 Mentor Name:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData
-    //                                                                             .mentor
-    //                                                                             ?.full_name
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 Mentor Mobile No
-    //                                                                 :{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData
-    //                                                                             .mentor
-    //                                                                             ?.user
-    //                                                                             ?.username
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                         </ul>
-    //                                                     </div>
-    //                                                 </div>
-    //                                             </div>
-    //                                         </div>
-    //                                         <div className="d-flex justify-content-between">
-    //                                             <button
-    //                                                 onClick={handleEdit}
-    //                                                 className="btn btn-warning btn-lg"
-    //                                             >
-    //                                                 Edit
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() =>
-    //                                                     handleresetpassword({
-    //                                                         mentor_id:
-    //                                                             orgData.mentor
-    //                                                                 .mentor_id,
-    //                                                         organization_code:
-    //                                                             orgData.organization_code
-    //                                                     })
-    //                                                 }
-    //                                                 className="btn btn-info rounded-pill px-4 btn-lg text-white"
-    //                                             >
-    //                                                 Reset
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() => {
-    //                                                     downloadPDF();
-    //                                                 }}
-    //                                                 className="btn btn-primary rounded-pill px-4 btn-lg"
-    //                                             >
-    //                                                 Download
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={viewDetails}
-    //                                                 className="btn btn-success rounded-pill px-4 btn-lg"
-    //                                             >
-    //                                                 View Details
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() => {
-    //                                                     handleAlert(
-    //                                                         orgData.mentor?.user_id
-    //                                                     );
-    //                                                 }}
-    //                                                 className="btn btn-danger btn-lg"
-    //                                             >
-    //                                                 Delete
-    //                                             </button>
-    //                                         </div>
-
-    //                                         <div className="mb-5 p-3">
-    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
-    //                                                 <div className="row">
-    //                                                     <div className="col">
-    //                                                         <h2 className="text-center m-3 text-primary">
-    //                                                             Mentor Details
-    //                                                         </h2>
-    //                                                         <hr />
-    //                                                     </div>
-    //                                                 </div>
-    //                                                 <div>
-    //                                                     <DataTableExtensions
-    //                                                         print={false}
-    //                                                         export={false}
-    //                                                         {...MentorsData}
-    //                                                     >
-    //                                                         <DataTable
-    //                                                             noHeader
-    //                                                             defaultSortField="id"
-    //                                                             defaultSortAsc={
-    //                                                                 false
-    //                                                             }
-    //                                                             highlightOnHover
-    //                                                         />
-    //                                                     </DataTableExtensions>
-    //                                                 </div>
-    //                                             </div>
-    //                                         </div>
-    //                                     </>
-    //                                 ) : (
-    //                                     count != 0 && (
-    //                                         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-    //                                             <span>
-    //                                                 Still No Teacher Registered
-    //                                             </span>
-    //                                         </div>
-    //                                     )
-    //                                 )}
-    //                                 {error && diesCode && (
-    //                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-    //                                         <span>{error}</span>
-    //                                     </div>
-    //                                 )}
-    //                                 {!diesCode && (
-    //                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-    //                                         <span className="text-primary fs-highlight">
-    //                                             Enter Unique Code
-    //                                         </span>
-    //                                     </div>
-    //                                 )}
-    //                                 </Col>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             </Row>
-    //             </Container>
-    //         </Layout>
-    //     );
-    // };
-
-    // export default Dashboard;
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
@@ -1036,7 +754,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalMentorCount}
+                                                {totalRegschoolsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1570,7 +1288,21 @@ const Dashboard = () => {
                                         </Row>
                                     </Col>
                                 </Row>
-
+                                {multiOrgData.length !== undefined &&
+                                    multiOrgData.length !== 0 &&
+                                    multiOrgData[0]?.mentor !== null && (
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...MultipleMentorsData}
+                                        >
+                                            <DataTable
+                                                data={multiOrgData}
+                                                noHeader
+                                                highlightOnHover
+                                            />
+                                        </DataTableExtensions>
+                                    )}
                                 {orgData &&
                                 orgData?.organization_name &&
                                 orgData?.mentor !== null ? (
@@ -1594,6 +1326,7 @@ const Dashboard = () => {
                                             </div>
                                             <div className="row ">
                                                 <div className="col">
+                                                    {}
                                                     {/* <ul className="p-0">
                                                             <li className="d-flex justify-content-between">
                                                                 School:
@@ -1934,7 +1667,15 @@ const Dashboard = () => {
                                         {/* </div> */}
                                     </>
                                 ) : (
-                                    count != 0 && (
+                                    // count != 0 && (
+                                    //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //         <span>
+                                    //             Still No Teacher Registered
+                                    //         </span>
+                                    //     </div>
+                                    // )
+                                    multiOrgData[0]?.mentor === null && (
+                                        // <Card className="mt-3 p-4">
                                         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
                                             <span>
                                                 Still No Teacher Registered

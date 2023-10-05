@@ -57,12 +57,16 @@ const ReportsRegistration = () => {
             key: 'organization_count'
         },
         {
-            label: 'Total Registered Teachers',
-            key: 'total_registered_teachers'
+            label: 'Total Registered Schools',
+            key: 'uniqueRegSchools'
         },
         {
-            label: 'Total Not Registered Teachers',
+            label: 'Total Not Registered Schools',
             key: 'total_not_registered_teachers'
+        },
+        {
+            label: 'Total Registered Teachers',
+            key: 'total_registered_teachers'
         },
         {
             label: 'Registered Male Teachers',
@@ -319,7 +323,7 @@ const ReportsRegistration = () => {
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const maleCount = lastRow?.male_mentor_count || 0;
                     const femaleCount = lastRow?.female_mentor_count || 0;
-                    const regCount = lastRow?.total_registered_teachers || 0;
+                    const regCount = lastRow?.uniqueRegSchools || 0;
                     const regNotCount =
                         lastRow?.total_not_registered_teachers || 0;
 
@@ -490,10 +494,15 @@ const ReportsRegistration = () => {
                                                                 <th>
                                                                     Total
                                                                     Registered
-                                                                    Teachers
+                                                                    Schools
                                                                 </th>
                                                                 <th>
                                                                     Total Not
+                                                                    Registered
+                                                                    Schools
+                                                                </th>
+                                                                <th>
+                                                                    Total
                                                                     Registered
                                                                     Teachers
                                                                 </th>
@@ -536,12 +545,17 @@ const ReportsRegistration = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.total_registered_teachers
+                                                                                item.uniqueRegSchools
                                                                             }
                                                                         </td>
                                                                         <td>
                                                                             {
                                                                                 item.total_not_registered_teachers
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.total_registered_teachers
                                                                             }
                                                                         </td>
                                                                         <td>

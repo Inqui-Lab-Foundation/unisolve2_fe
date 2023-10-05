@@ -45,6 +45,10 @@ export default function DoughnutChart({ user }) {
         (state) => state?.studentRegistration
     );
     useEffect(() => {
+        setTeamId(null);
+    }, [user[0]?.mentor_id]);
+    // console.log(user[0]?.mentor_id, 'data');
+    useEffect(() => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
         dispatch(getStudentChallengeSubmittedResponse(teamId));
     }, [teamId, dispatch]);
@@ -440,7 +444,9 @@ export default function DoughnutChart({ user }) {
                 'Congratulations,Idea is selected for grand finale'
             );
         } else if (challengesSubmittedResponse[0].final_result === '0') {
-            setIdeaStatusEval('L2_Promoted - Shortlisted for final round of evaluation');
+            setIdeaStatusEval(
+                'L2_Promoted - Shortlisted for final round of evaluation'
+            );
             if (isEvlCom) {
                 setIdeaStatusEval('Runner - “Better luck next time”');
             }
@@ -450,7 +456,8 @@ export default function DoughnutChart({ user }) {
         ) {
             setIdeaStatusEval('L1_Rejected - “Better luck next time”');
         } else if (
-            challengesSubmittedResponse[0].evaluation_status === 'SELECTEDROUND1'
+            challengesSubmittedResponse[0].evaluation_status ===
+            'SELECTEDROUND1'
         ) {
             setIdeaStatusEval(
                 'L1_Accepted - “Promoted to Level 2 round of evaluation”'

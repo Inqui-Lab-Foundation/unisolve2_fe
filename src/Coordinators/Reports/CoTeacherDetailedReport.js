@@ -59,6 +59,10 @@ const CoTeacherDetailedReport = () => {
             key: 'district'
         },
         {
+            label: 'Total Registered Schools',
+            key: 'totalRegSchools'
+        },
+        {
             label: 'Total Registered Teachers',
             key: 'totalReg'
         },
@@ -347,8 +351,8 @@ const CoTeacherDetailedReport = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response);
                     const summary = response.data.data[0].summary;
+                    const regSchools = response.data.data[0].Regschool;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails =
                         response.data.data[0].studentCountDetails;
@@ -359,6 +363,9 @@ const CoTeacherDetailedReport = () => {
 
                     const combinedArray = summary.map((summaryItem) => {
                         const district = summaryItem.district;
+                        const regSchoolsItem = regSchools.find(
+                            (item) => item.district === district
+                        );
                         const teamCountItem = teamCount.find(
                             (item) => item.district === district
                         );
@@ -383,6 +390,9 @@ const CoTeacherDetailedReport = () => {
                         return {
                             district,
                             totalReg: summaryItem.totalReg,
+                            totalRegSchools: regSchoolsItem
+                                ? regSchoolsItem.totalRegSchools
+                                : 0,
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
                                 : 0,
@@ -404,7 +414,7 @@ const CoTeacherDetailedReport = () => {
                             courseNotStarted
                         };
                     });
-
+                    
                     const doughnutData = {
                         labels: ['Male', 'Female'],
                         datasets: [
@@ -605,6 +615,11 @@ const CoTeacherDetailedReport = () => {
                                                                 <th>
                                                                     Total
                                                                     Registered
+                                                                    Schools
+                                                                </th>
+                                                                <th>
+                                                                    Total
+                                                                    Registered
                                                                     Teachers
                                                                 </th>
                                                                 <th>
@@ -664,6 +679,11 @@ const CoTeacherDetailedReport = () => {
                                                                         <td>
                                                                             {
                                                                                 item.district
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalRegSchools
                                                                             }
                                                                         </td>
                                                                         <td>
