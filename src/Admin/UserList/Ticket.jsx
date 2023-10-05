@@ -248,6 +248,7 @@ const TicketsPage = (props) => {
             pathname: '/admin/teacher/dashboard',
             data: item
         });
+        localStorage.setItem('teacherData', JSON.stringify(item));
         localStorage.setItem(
             'organization_code',
             JSON.stringify(item.organization_code)

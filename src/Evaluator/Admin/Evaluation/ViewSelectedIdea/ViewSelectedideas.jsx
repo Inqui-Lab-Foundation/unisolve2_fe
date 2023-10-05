@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ViewSelectedideas.scss';
 import Layout from '../../Pages/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
@@ -30,6 +30,8 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
+import { useReactToPrint } from 'react-to-print';
+import DetailToDownload from '../../Challenges/DetailToDownload';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -184,23 +186,23 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '7%'
+                width: '10rem'
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '35rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'SDG',
@@ -246,37 +248,45 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
 
             {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        <div className="d-flex" key={params}>
-                            <div
-                                className="btn btn-primary btn-lg mr-5 mx-2"
-                                onClick={() => {
-                                    setIdeaDetails(params);
-                                    setIsDetail(true);
-                                    let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
-                                    setCurrentRow(index + 1);
-                                }}
-                            >
-                                View
+                        <>
+                            <div className="d-flex" key={params}>
+                                <div
+                                    className="btn btn-primary btn-lg mr-5 mx-2"
+                                    onClick={() => {
+                                        setIdeaDetails(params);
+                                        setIsDetail(true);
+                                        let index = 0;
+                                        tableData?.forEach((item, i) => {
+                                            if (
+                                                item?.challenge_response_id ==
+                                                params?.challenge_response_id
+                                            ) {
+                                                index = i;
+                                            }
+                                        });
+                                        setCurrentRow(index + 1);
+                                    }}
+                                >
+                                    View
+                                </div>
                             </div>
-                        </div>
+                            <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            />
+                        </>
                     ];
                 },
-                width: '8%',
+                width: '20rem',
                 left: true
             }
         ]
@@ -288,23 +298,23 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
-                width: '45%'
+                width: '45rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '15rem'
             },
             // {
             //     name: 'CID',
@@ -345,10 +355,16 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
+                            <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            />
                         </div>
                     ];
                 },
-                width: '20%',
+                width: '20rem',
                 left: true
             }
         ]
@@ -388,7 +404,7 @@ const ViewSelectedIdea = () => {
         });
         setPdfLoader(false);
     };
-    console.log(tableData, 'Data');
+    // console.log(tableData, 'Data');
     const evaluatedIdeaL2 = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -396,63 +412,74 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '8%'
+                width: '8rem'
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
+                selector: (row) => row?.response[8]?.selected_option || '',
                 sortable: true,
-                width: '20%'
+                width: '15rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '7%'
+                width: '7rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '13%'
+                width: '15rem'
             },
             {
                 name: 'Quality Score',
-                selector: (row) =>
-                    (
-                        (row.evaluator_ratings[0]?.param_1[0] +
-                            row.evaluator_ratings[0]?.param_1[1] +
-                            row.evaluator_ratings[0]?.param_1[2]) /
-                            3 +
-                        (row.evaluator_ratings[0]?.param_2[0] +
-                            row.evaluator_ratings[0]?.param_2[1] +
-                            row.evaluator_ratings[0]?.param_2[2]) /
-                            3 /
+                selector: (row) => {
+                    return [
+                        (
+                            ((row.evaluator_ratings[0]?.param_1[0] +
+                                row.evaluator_ratings[0]?.param_1[1] +
+                                row.evaluator_ratings[0]?.param_1[2]) /
+                                3 +
+                                (row.evaluator_ratings[0]?.param_2[0] +
+                                    row.evaluator_ratings[0]?.param_2[1] +
+                                    row.evaluator_ratings[0]?.param_2[2]) /
+                                    3) /
                             2
-                    ).toFixed(2),
+                        ).toFixed(2)
+                    ];
+                },
+                sortable: true,
+
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '10%'
+                width: '15rem'
             },
             {
                 name: 'Feasibility Score',
-                selector: (row) =>
-                    (
-                        (row.evaluator_ratings[0]?.param_3[0] +
-                            row.evaluator_ratings[0]?.param_3[1] +
-                            row.evaluator_ratings[0]?.param_3[2]) /
-                            3 +
-                        (row.evaluator_ratings[0]?.param_4[0] +
-                            row.evaluator_ratings[0]?.param_4[1] +
-                            row.evaluator_ratings[0]?.param_4[2]) /
-                            3 /
-                            +(
-                                row.evaluator_ratings[0]?.param_5[0] +
-                                row.evaluator_ratings[0]?.param_5[1] +
-                                row.evaluator_ratings[0]?.param_5[2]
-                            ) /
-                            3 /
-                            3
-                    ).toFixed(2),
+                selector: (row) => {
+                    return [
+                        (
+                            (row.evaluator_ratings[0]?.param_3[0] +
+                                row.evaluator_ratings[0]?.param_3[1] +
+                                row.evaluator_ratings[0]?.param_3[2]) /
+                                3 +
+                            (row.evaluator_ratings[0]?.param_4[0] +
+                                row.evaluator_ratings[0]?.param_4[1] +
+                                row.evaluator_ratings[0]?.param_4[2]) /
+                                3 /
+                                +(
+                                    row.evaluator_ratings[0]?.param_5[0] +
+                                    row.evaluator_ratings[0]?.param_5[1] +
+                                    row.evaluator_ratings[0]?.param_5[2]
+                                ) /
+                                3 /
+                                3
+                        ).toFixed(2)
+                    ];
+                },
+                sortable: true,
+
+                // id: 'feasibility',
                 // row.evaluator_ratings[0]?.param_2[Number[0 + 1 + 2]],
-                width: '10%'
+                width: '20rem'
             },
             // {
             //     name: 'CID',
@@ -482,7 +509,7 @@ const ViewSelectedIdea = () => {
                     row.evaluator_ratings[0]?.overall_avg
                         ? row.evaluator_ratings[0]?.overall_avg
                         : '-',
-                width: '10%',
+                width: '15rem',
                 sortable: true,
                 id: 'overall'
             },
@@ -514,7 +541,7 @@ const ViewSelectedIdea = () => {
                                 </div>
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
+                                {/* {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
                                         onClick={async () => {
@@ -527,8 +554,39 @@ const ViewSelectedIdea = () => {
                                         size={22}
                                         className="text-info"
                                     />
-                                )}
+                                )} */}
+                                <FaDownload
+                                    size={22}
+                                    onClick={() => {
+                                        handleDownpdf(params);
+                                    }}
+                                />
                             </div>
+                            {/* {!params.final_result && (
+                                <div
+                                    //exact="true"
+                                    // key={record}
+                                    onClick={() =>
+                                        handlePromotel2processed(params)
+                                    }
+                                    style={{ marginRight: '12px' }}
+                                >
+                                    <div className="btn btn-info btn-lg mx-2">
+                                        Promote
+                                    </div>
+                                </div>
+                            )} */}
+                        </>
+                    ];
+                },
+                width: '15rem',
+                left: true
+            },
+            {
+                name: 'L2 Evaluation',
+                cell: (params) => {
+                    return [
+                        <>
                             {!params.final_result && (
                                 <div
                                     //exact="true"
@@ -546,8 +604,7 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '22%',
-                left: true
+                width: '15rem'
             }
         ]
     };
@@ -563,8 +620,8 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Idea Name',
-                selector: (row) => row?.response[1]?.selected_option || '',
-                sortable: true,
+                selector: (row) => row?.response[8]?.selected_option || '',
+                // sortable: true,
                 width: '45%'
             },
             {
@@ -610,7 +667,7 @@ const ViewSelectedIdea = () => {
                                 </div>
                             </div>
                             <div className="mx-2 pointer d-flex align-items-center">
-                                {!pdfLoader ? (
+                                {/* {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
                                         onClick={async () => {
@@ -623,7 +680,13 @@ const ViewSelectedIdea = () => {
                                         size={22}
                                         className="text-info"
                                     />
-                                )}
+                                )} */}
+                                <FaDownload
+                                    size={22}
+                                    onClick={() => {
+                                        handleDownpdf(params);
+                                    }}
+                                />
                             </div>
                         </>
                     ];
@@ -633,7 +696,7 @@ const ViewSelectedIdea = () => {
             }
         ]
     };
-    console.log(tableData, '1');
+    // console.log(tableData, '1');
     const [sortid, setsortid] = useState();
     const handlesortid = (e) => {
         setsortid(e.id);
@@ -664,195 +727,246 @@ const ViewSelectedIdea = () => {
             setCurrentRow(currentRow - 1);
         }
     };
-    return (
-        <Layout>
-            <div className="container evaluated_idea_wrapper pt-5 mb-50">
-                <div id="pdfIdd" style={{ display: 'none' }}>
-                    <TableDetailPdf
-                        ideaDetails={details}
-                        teamResponse={teamResponse}
-                        level={level}
-                    />
-                </div>
-                <div className="row">
-                    <div className="col-12 p-0">
-                        {!isDetail && (
-                            <div>
-                                <h2 className="ps-2 pb-3">
-                                    {title} Challenges
-                                </h2>
 
-                                <Container fluid className="px-0">
-                                    <Row className="align-items-center">
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={fullDistrictsNames}
-                                                    setValue={setdistrict}
-                                                    placeHolder={
-                                                        'Select District'
-                                                    }
-                                                    value={district}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col md={2}>
-                                            <div className="my-3 d-md-block d-flex justify-content-center">
-                                                <Select
-                                                    list={SDGDate}
-                                                    setValue={setsdg}
-                                                    placeHolder={'Select SDG'}
-                                                    value={sdg}
-                                                />
-                                            </div>
-                                        </Col>
-                                        {level === 'L1' &&
-                                            title !==
-                                                'L1 - Yet to Processed' && (
+    ////////////////pdf////////////////
+    const componentRef = useRef();
+    const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
+    const [pdfTeamResponse, setpdfTeamResponse] = useState('');
+    const handleDownpdf = (params) => {
+        setPdfIdeaDetails(params);
+        if (params?.response) {
+            setpdfTeamResponse(
+                Object.entries(params?.response).map((e) => e[1])
+            );
+        }
+    };
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: `${
+            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+        }_IdeaSubmission`
+    });
+    useEffect(() => {
+        if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
+            handlePrint();
+        }
+    }, [pdfIdeaDetails, pdfTeamResponse]);
+
+    /////////////////
+
+    return (
+        <>
+            <div style={{ display: 'none' }}>
+                <DetailToDownload
+                    ref={componentRef}
+                    ideaDetails={pdfIdeaDetails}
+                    teamResponse={pdfTeamResponse}
+                    level={'Draft'}
+                />
+            </div>
+            <Layout>
+                <div className="container evaluated_idea_wrapper pt-5 mb-50">
+                    {/* <div id="pdfIdd" style={{ display: 'none' }}>
+                        <TableDetailPdf
+                            ideaDetails={details}
+                            teamResponse={teamResponse}
+                            level={level}
+                        />
+                    </div> */}
+                    <div className="row">
+                        <div className="col-12 p-0">
+                            {!isDetail && (
+                                <div>
+                                    <h2 className="ps-2 pb-3">
+                                        {title} Challenges
+                                    </h2>
+
+                                    <Container fluid className="px-0">
+                                        <Row className="align-items-center">
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={
+                                                            fullDistrictsNames
+                                                        }
+                                                        setValue={setdistrict}
+                                                        placeHolder={
+                                                            'Select District'
+                                                        }
+                                                        value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={SDGDate}
+                                                        setValue={setsdg}
+                                                        placeHolder={
+                                                            'Select SDG'
+                                                        }
+                                                        value={sdg}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            {level === 'L1' &&
+                                                title !==
+                                                    'L1 - Yet to Processed' && (
+                                                    <Col md={2}>
+                                                        <div className="my-3 d-md-block d-flex justify-content-center">
+                                                            <Select
+                                                                list={
+                                                                    Allevalnamelist
+                                                                }
+                                                                setValue={
+                                                                    setevalname
+                                                                }
+                                                                placeHolder={
+                                                                    'Select evaluator name'
+                                                                }
+                                                                value={evalname}
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                )}
+
+                                            {title === 'Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
                                                             list={
-                                                                Allevalnamelist
+                                                                ReasonsOptions
                                                             }
-                                                            setValue={
-                                                                setevalname
-                                                            }
+                                                            setValue={setReason}
                                                             placeHolder={
-                                                                'Select evaluator name'
+                                                                'Select Reason 1 for rejection'
                                                             }
-                                                            value={evalname}
+                                                            value={reason}
                                                         />
                                                     </div>
                                                 </Col>
+                                            ) : (
+                                                ''
                                             )}
-
-                                        {title === 'Rejected' ? (
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={ReasonsOptions}
-                                                        setValue={setReason}
-                                                        placeHolder={
-                                                            'Select Reason 1 for rejection'
+                                            {title === 'Rejected' ? (
+                                                <Col md={2}>
+                                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                                        <Select
+                                                            list={reasondata2}
+                                                            setValue={
+                                                                setReasonSec
+                                                            }
+                                                            placeHolder={
+                                                                'Select Reason 2 for rejection'
+                                                            }
+                                                            value={reasonSec}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            ) : (
+                                                ''
+                                            )}
+                                            <Col md={1}>
+                                                <div className="text-center">
+                                                    <Button
+                                                        btnClass={
+                                                            showbutton
+                                                                ? 'primary'
+                                                                : 'default'
                                                         }
-                                                        value={reason}
+                                                        size="small"
+                                                        label="Search"
+                                                        disabled={!showbutton}
+                                                        onClick={() =>
+                                                            handleclickcall()
+                                                        }
                                                     />
                                                 </div>
                                             </Col>
-                                        ) : (
-                                            ''
-                                        )}
-                                        {title === 'Rejected' ? (
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={reasondata2}
-                                                        setValue={setReasonSec}
-                                                        placeHolder={
-                                                            'Select Reason 2 for rejection'
+                                            <Col
+                                                md={
+                                                    title === 'Rejected'
+                                                        ? 1
+                                                        : level === 'L1' &&
+                                                          title !==
+                                                              'L1 - Yet to Processed'
+                                                        ? 4
+                                                        : 6
+                                                }
+                                            >
+                                                <div className="text-right">
+                                                    <Button
+                                                        btnClass="primary"
+                                                        size="small"
+                                                        label="Back"
+                                                        onClick={() =>
+                                                            history.goBack()
                                                         }
-                                                        value={reasonSec}
                                                     />
                                                 </div>
                                             </Col>
-                                        ) : (
-                                            ''
-                                        )}
-                                        <Col md={1}>
-                                            <div className="text-center">
-                                                <Button
-                                                    btnClass={
-                                                        showbutton
-                                                            ? 'primary'
-                                                            : 'default'
-                                                    }
-                                                    size="small"
-                                                    label="Search"
-                                                    disabled={!showbutton}
-                                                    onClick={() =>
-                                                        handleclickcall()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col
-                                            md={
-                                                title === 'Rejected'
-                                                    ? 1
-                                                    : level === 'L1' &&
-                                                      title !==
-                                                          'L1 - Yet to Processed'
-                                                    ? 4
-                                                    : 6
-                                            }
-                                        >
-                                            <div className="text-right">
-                                                <Button
-                                                    btnClass="primary"
-                                                    size="small"
-                                                    label="Back"
-                                                    onClick={() =>
-                                                        history.goBack()
-                                                    }
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </div>
-                        )}
-                        {showspin && (
-                            <div className="text-center mt-5">
-                                <Spinner
-                                    animation="border"
-                                    variant="secondary"
-                                />
-                            </div>
-                        )}
-                        {!showspin &&
-                            (!isDetail ? (
-                                <div className="bg-white border card pt-3 mt-5">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...sel}
-                                    >
-                                        <DataTable
-                                            data={tableData || []}
-                                            defaultSortFieldId={sortid}
-                                            //defaultSortField='ID'
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                            paginationRowsPerPageOptions={[
-                                                10, 25, 50, 100
-                                            ]}
-                                            paginationPerPage={10}
-                                            onChangePage={(page) =>
-                                                setTablePage(page)
-                                            }
-                                            paginationDefaultPage={tablePage}
-                                            onSort={(e) => handlesortid(e)}
-                                        />
-                                    </DataTableExtensions>
+                                        </Row>
+                                    </Container>
                                 </div>
-                            ) : (
-                                <ViewDetail
-                                    ideaDetails={ideaDetails}
-                                    setIsDetail={setIsDetail}
-                                    handleNext={handleNext}
-                                    handlePrev={handlePrev}
-                                    currentRow={currentRow}
-                                    dataLength={tableData && tableData?.length}
-                                />
-                            ))}
+                            )}
+                            {showspin && (
+                                <div className="text-center mt-5">
+                                    <Spinner
+                                        animation="border"
+                                        variant="secondary"
+                                    />
+                                </div>
+                            )}
+                            {!showspin &&
+                                (!isDetail ? (
+                                    <div className="bg-white border card pt-3 mt-5">
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...sel}
+                                        >
+                                            <DataTable
+                                                data={tableData || []}
+                                                defaultSortFieldId={sortid}
+                                                //defaultSortField='ID'
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                                paginationRowsPerPageOptions={[
+                                                    10, 25, 50, 100
+                                                ]}
+                                                paginationPerPage={10}
+                                                onChangePage={(page) =>
+                                                    setTablePage(page)
+                                                }
+                                                paginationDefaultPage={
+                                                    tablePage
+                                                }
+                                                onSort={(e) => handlesortid(e)}
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                ) : (
+                                    <ViewDetail
+                                        ideaDetails={ideaDetails}
+                                        setIsDetail={setIsDetail}
+                                        handleNext={handleNext}
+                                        handlePrev={handlePrev}
+                                        currentRow={currentRow}
+                                        dataLength={
+                                            tableData && tableData?.length
+                                        }
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 

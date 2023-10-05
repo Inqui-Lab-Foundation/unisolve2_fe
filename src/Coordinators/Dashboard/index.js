@@ -52,6 +52,8 @@ const Dashboard = () => {
     const [wrong, setWrong] = useState('');
     const [isideadisable, setIsideadisable] = useState(false);
     const [isSameDistrict, setIsSameDistrict] = useState(false);
+    const [multiOrgData, setMultiOrgData] = useState({});
+
     const handleOnChange = (e) => {
         setWrong('');
 
@@ -63,6 +65,7 @@ const Dashboard = () => {
         setDiesCode(e.target.value);
         setOrgData({});
         setError('');
+        setMultiOrgData({});
     };
 
     // console.log(stuData, 'reg');
@@ -93,18 +96,18 @@ const Dashboard = () => {
                 setWrong('');
 
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
+                    setOrgData(response?.data?.data);
                     // console.log(orgData);
                     setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     setWrong('');
 
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
+                    // if (response?.data?.data[0]?.mentor.mentor_id) {
+                    //     await getMentorIdApi(
+                    //         response?.data?.data[0]?.mentor.mentor_id
+                    //     );
+                    // }
                 }
             })
             .catch(function (error) {
@@ -139,18 +142,25 @@ const Dashboard = () => {
                         response?.data?.data[0].district ===
                         currentUser?.data[0]?.district_name
                     ) {
+                        if (response.status == 200) {
+                            setMultiOrgData(response?.data?.data);
+                            setCount(count + 1);
+                        }
+                        if (response?.data?.count === 0) {
+                            setError('Entered Invalid Teacher Unique Code');
+                        }
                         // setIsSameDistrict(false);
 
-                        setOrgData(response?.data?.data[0]);
-                        setCount(count + 1);
-                        setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                        setError('');
-                        setWrong('');
-                        if (response?.data?.data[0]?.mentor.mentor_id) {
-                            await getMentorIdApi(
-                                response?.data?.data[0]?.mentor.mentor_id
-                            );
-                        }
+                        // setOrgData(response?.data?.data[0]);
+                        // setCount(count + 1);
+                        // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                        // setError('');
+                        // setWrong('');
+                        // if (response?.data?.data[0]?.mentor.mentor_id) {
+                        //     await getMentorIdApi(
+                        //         response?.data?.data[0]?.mentor.mentor_id
+                        //     );
+                        // }
                     } else {
                         // setIsSameDistrict(true);
                         setWrong(
@@ -163,7 +173,7 @@ const Dashboard = () => {
                 if (error?.response?.data?.status === 404) {
                     setError('Entered Invalid Unique Code');
                 }
-                setOrgData({});
+                setMultiOrgData({});
             });
         e.preventDefault();
     };
@@ -301,6 +311,40 @@ const Dashboard = () => {
                 console.log(error);
             });
     }, []);
+    const handelSelectentor = (data) => {
+        setOrgData(data);
+        setMentorId(data.mentor.mentor_id);
+        setError('');
+        if (data.mentor.mentor_id) {
+            getMentorIdApi(data.mentor.mentor_id);
+        }
+    };
+    const MultipleMentorsData = {
+        data: multiOrgData,
+        columns: [
+            {
+                name: 'Mentor Name',
+                selector: (row) => row?.mentor?.full_name,
+                center: true
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handelSelectentor(params)}
+                        >
+                            <div className="btn btn-primary btn-lg mr-5 mx-2">
+                                view
+                            </div>
+                        </div>
+                    ];
+                },
+                center: true
+            }
+        ]
+    };
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -823,7 +867,21 @@ const Dashboard = () => {
                                         </Row>
                                     </Col>
                                 </Row>
-
+                                {multiOrgData.length !== undefined &&
+                                    multiOrgData.length !== 0 &&
+                                    multiOrgData[0]?.mentor !== null && (
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...MultipleMentorsData}
+                                        >
+                                            <DataTable
+                                                data={multiOrgData}
+                                                noHeader
+                                                highlightOnHover
+                                            />
+                                        </DataTableExtensions>
+                                    )}
                                 {orgData &&
                                 orgData?.organization_name &&
                                 orgData?.mentor !== null ? (
@@ -1187,7 +1245,15 @@ const Dashboard = () => {
                                         {/* </div> */}
                                     </>
                                 ) : (
-                                    count != 0 && (
+                                    // count != 0 && (
+                                    //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //         <span>
+                                    //             Still No Teacher Registered
+                                    //         </span>
+                                    //     </div>
+                                    // )
+                                    multiOrgData[0]?.mentor === null && (
+                                        // <Card className="mt-3 p-4">
                                         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
                                             <span>
                                                 Still No Teacher Registered

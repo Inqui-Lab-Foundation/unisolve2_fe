@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import UsersIcon1 from '../assets/media/UsersIcon1.png';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
-//import ChallengesIcon from '../assets/media/ChallengesIcon.png';
+import ChallengesIcon from '../assets/media/ChallengesIcon.png';
 import EvaluationIcon from '../assets/media/EvaluationIcon.png';
 import BadgesIcon from '../assets/media/BadgesIcon.png';
 import SupportIcon from '../assets/media/SupportIcon.png';
@@ -23,7 +23,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPhotoVideo } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -126,7 +126,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
+                    <MenuItem
                         icon={
                             <img
                                 src={ChallengesIcon}
@@ -152,7 +152,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Challenges
                             </span>
                         </NavLink>
-                    </MenuItem> */}
+                    </MenuItem>
 
                     <MenuItem
                         icon={
@@ -408,7 +408,35 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-
+                    <MenuItem
+                        // icon={
+                        //     <img
+                        //         src={FaPhotoVideo}
+                        //         style={{ width: '20px' }}
+                        //         className="img-fluid"
+                        //         alt="ticket"
+                        //     />
+                        // }
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/admin/help' &&
+                            'sidebar-active'
+                        }
+                        style={{ color: 'black' }}
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/help'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Help
+                            </span>
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem
                         icon={
                             <img

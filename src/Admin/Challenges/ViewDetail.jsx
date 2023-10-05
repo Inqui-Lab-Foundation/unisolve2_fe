@@ -18,6 +18,7 @@ import { useReactToPrint } from 'react-to-print';
 
 import DetailToDownload from './DetailToDownload';
 import html2canvas from 'html2canvas';
+import { Row, Col, Form, Label } from 'reactstrap';
 
 const ViewDetail = (props) => {
     const componentRef = useRef();
@@ -164,7 +165,11 @@ const ViewDetail = (props) => {
     // };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle : `${props?.ideaDetails?.team_name ? props?.ideaDetails?.team_name : 'temp'}_IdeaSubmission`
+        documentTitle: `${
+            props?.ideaDetails?.team_name
+                ? props?.ideaDetails?.team_name
+                : 'temp'
+        }_IdeaSubmission`
     });
 
     return (
@@ -183,13 +188,27 @@ const ViewDetail = (props) => {
                         <div className="col-12 p-0">
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <h2 className="mb-md-4 mb-3">
-                                        SDG:{' '}
-                                        <span className="text-capitalize fs-3">
-                                            {props?.ideaDetails?.sdg?.toLowerCase() ||
-                                                ''}
-                                        </span>
-                                    </h2>
+                                    <Row>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                SDG :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col>
+                                            <h2 className="mb-md-4 mb-3">
+                                                CID :
+                                                <span className="text-capitalize fs-3">
+                                                    {props?.ideaDetails
+                                                        ?.challenge_response_id ||
+                                                        ''}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                    </Row>
                                 </div>
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
@@ -270,7 +289,7 @@ const ViewDetail = (props) => {
                             </div>
                         </div>
 
-                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                             {teamResponse?.map((item, index) => {
                                 return (
                                     <div
@@ -325,7 +344,7 @@ const ViewDetail = (props) => {
                                 );
                             })}
                         </div>
-                        {props?.ideaDetails?.status === 'SUBMITTED' && (
+                        {/* {props?.ideaDetails?.status === 'SUBMITTED' && (
                             <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                     {props?.ideaDetails?.evaluation_status ? (
@@ -444,7 +463,7 @@ const ViewDetail = (props) => {
                                     )}
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </div>
                     <div>
                         <Button

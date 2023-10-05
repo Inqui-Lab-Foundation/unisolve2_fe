@@ -1,7 +1,9 @@
 import React, { useLayoutEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
-import AvatarImg from '../assets/media/img/teacher.png';
+// import AvatarImg from '../assets/media/img/teacher.png';
+import AvatarImg from '../assets/media/img/Avatar.png';
+
 import {
     getAdminNotificationsList,
     getTeacherPresurveyStatus

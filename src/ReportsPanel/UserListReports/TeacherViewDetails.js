@@ -12,9 +12,12 @@ import { getCurrentUser } from '../../helpers/Utils';
 
 const ViewMore = () => {
     const history = useHistory();
+    const [orgDaTa, setOrgData] = useState({});
     const currentUser = getCurrentUser('current_user');
 
-    const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    // const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    const MentorData = JSON.parse(localStorage.getItem('MentorData'));
+
     const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
@@ -23,15 +26,46 @@ const ViewMore = () => {
         options: []
     };
     var teamId = [];
-    teamId.push({ mentor_id: orgDaTa.mentor.mentor_id });
+    teamId.push({
+        mentor_id: MentorData.mentor_id
+        // user_id: MentorData.user_id
+    });
+    useEffect(() => {
+        apiCall(MentorData.organization_code);
+    }, []);
 
+    async function apiCall(Ocode) {
+        // Dice code list API //
+        // list= Dise code  //
+        const body = JSON.stringify({
+            organization_code: Ocode
+        });
+        var config = {
+            method: 'post',
+            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: body
+        };
+
+        await axios(config)
+            .then(function (response) {
+                if (response.status == 200) {
+                    setOrgData(response?.data?.data[0]);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     const handleBack = () => {
         history.push({
             pathname: '/report/teacher/dashboard'
         });
         localStorage.setItem(
             'organization_code',
-            JSON.stringify(orgDaTa.organization_code)
+            JSON.stringify(MentorData.organization_code)
         );
     };
 
@@ -40,7 +74,7 @@ const ViewMore = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${orgDaTa.mentor.user_id}&role=MENTOR`,
+                `/dashboard/quizscores?user_id=${MentorData.user_id}&role=MENTOR`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -82,56 +116,71 @@ const ViewMore = () => {
                                 <span className="mx-3">
                                     <b>principal Name :</b>
                                 </span>
-                                <b>{orgDaTa.principal_name}</b>
+                                <b>
+                                    {' '}
+                                    {orgDaTa.principal_name
+                                        ? orgDaTa.principal_name
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>principal Email :</b>
                                 </span>
-                                <b>{orgDaTa.principal_email}</b>
+                                <b>
+                                    {' '}
+                                    {orgDaTa.principal_email
+                                        ? orgDaTa.principal_email
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>organization Name :</b>
                                 </span>
-                                <b>{orgDaTa.organization_name}</b>
+                                <b>
+                                    {' '}
+                                    {MentorData?.organization.organization_name}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>organization Code :</b>
                                 </span>
-                                <b>{orgDaTa.organization_code}</b>
+                                <b>
+                                    {MentorData?.organization.organization_code}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Category :</b>
                                 </span>
-                                <b>{orgDaTa.category}</b>
+                                <b>{MentorData?.organization.category}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>City :</b>
                                 </span>
-                                <b>{orgDaTa.city}</b>
+                                <b>{orgDaTa.city ? orgDaTa.city : '-'}</b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
                                     <b>District :</b>
                                 </span>
-                                <b>{orgDaTa.district}</b>
+                                <b>{MentorData?.organization.district}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>state :</b>
                                 </span>
-                                <b>{orgDaTa.state}</b>
+                                <b>{orgDaTa.state ? orgDaTa.state : '-'}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Country :</b>
                                 </span>
-                                <b>{orgDaTa.country}</b>
+                                <b>{orgDaTa.country ? orgDaTa.country : '-'}</b>
                             </CardText>
                         </CardBody>
                     </Card>
@@ -143,38 +192,38 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.title}</b>
+                                    <b>{MentorData.title}</b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.full_name}</b>
+                                    <b>{MentorData.full_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Gender :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.gender}</b>
+                                    <b>{MentorData.gender}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_id}</b>
+                                    <b>{MentorData.mentor_id}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mobile No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.user.username}</b>
+                                    <b>{MentorData.username}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>WhatsApp No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
+                                    <b>{MentorData.whatapp_mobile}</b>
                                 </CardText>
                             </CardBody>
                         </Card>

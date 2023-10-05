@@ -125,7 +125,7 @@ const CreateResource = (props) => {
                 );
 
                 if (response.status === 201) {
-                    props.history.push('/admin/Resources/index');
+                    props.history.push('/admin/Resources');
                     openNotificationWithIcon(
                         'success',
                         'Resource Updated Successfully'

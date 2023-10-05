@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSelector } from 'react-redux';
 const EditProfile = (props) => {
+    // console.log(props, 'pro');
     // here we can edit the users details //
     const history = useHistory();
     const { t } = useTranslation();
@@ -32,7 +33,7 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-
+    console.log(mentorData, 'data');
     // const phoneRegExp = /^[0-9\s]+$/;
     const getValidationSchema = () => {
         // where data = mentorData //
