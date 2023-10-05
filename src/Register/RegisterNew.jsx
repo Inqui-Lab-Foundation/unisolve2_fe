@@ -108,7 +108,10 @@ function RegisterNew() {
             full_name: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .matches(
+                    /^[a-zA-Z][a-zA-Z \\s]+$/,
+                    'Special Characters are not allowed'
+                )
                 .required('Required'),
             username: Yup.string()
                 .required('required')

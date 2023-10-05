@@ -8,7 +8,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPhotoVideo } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 import { FaHouseUser } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -105,6 +105,26 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             <span style={{ color: 'var(--override-color)' }}>
                                 Dashboard
+                            </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/school/help' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/school/help'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Help
                             </span>
                         </NavLink>
                     </MenuItem>
