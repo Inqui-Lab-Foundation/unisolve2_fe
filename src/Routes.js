@@ -159,7 +159,12 @@ import EAdminSelectedlist from './Evaluator/Admin/Evaluation/ViewSelectedIdea/Vi
 import EAdminSelectedfinallist from './Evaluator/Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import EadminEditProfile from './Evaluator/Admin/Evaluator/EadminEditProfile';
 import EadminSelDistricts from './Evaluator/Admin/EvalProcess/SelectingDistricts';
-
+import AdminHelp from './Admin/Help';
+import TeacherHelp from './Teachers/Help';
+import HelpSchool from './School/Help';
+import ReportHelp from './ReportsPanel/Help';
+import CooHelp from './Coordinators/Help';
+import StudentHelp from './Student/Pages/Help';
 const Routers = () => {
     return (
         <>
@@ -265,7 +270,12 @@ const Routers = () => {
                         path="/report/teacher/dashboard"
                         component={ReportTeacherDashboard}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        user="REPORT"
+                        path="/report/help"
+                        component={ReportHelp}
+                    />
                     <ProtectedRoute
                         exact={true}
                         user="REPORT"
@@ -311,6 +321,12 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="DISTRICT"
+                        path="/coordinator/help"
+                        component={CooHelp}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="DISTRICT"
                         path="/coordinator/reports-registration"
                         component={CoRegReport}
                     />
@@ -349,6 +365,12 @@ const Routers = () => {
                         user="SCHOOL"
                         path="/school/dashboard"
                         component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="SCHOOL"
+                        path="/school/help"
+                        component={HelpSchool}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -553,6 +575,12 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/help"
+                        component={AdminHelp}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/registered-schools"
                         component={AdminAllSchools}
                     />
@@ -713,7 +741,12 @@ const Routers = () => {
                         user="MENTOR"
                         component={TeacherDashboard}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        path="/teacher/help"
+                        user="MENTOR"
+                        component={TeacherHelp}
+                    />
                     <ProtectedRoute
                         exact={true}
                         path="/teacher/faq"
@@ -853,7 +886,12 @@ const Routers = () => {
                         path="/teacher/my-certificate"
                         component={MyCertificate}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        user="STUDENT"
+                        path="/student/help"
+                        component={StudentHelp}
+                    />
                     <ProtectedRoute
                         exact={true}
                         user="STUDENT"

@@ -23,7 +23,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPhotoVideo } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
@@ -408,7 +408,35 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-
+                    <MenuItem
+                        // icon={
+                        //     <img
+                        //         src={FaPhotoVideo}
+                        //         style={{ width: '20px' }}
+                        //         className="img-fluid"
+                        //         alt="ticket"
+                        //     />
+                        // }
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/admin/help' &&
+                            'sidebar-active'
+                        }
+                        style={{ color: 'black' }}
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/help'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                Help
+                            </span>
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem
                         icon={
                             <img

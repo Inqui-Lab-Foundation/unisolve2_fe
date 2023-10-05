@@ -17,7 +17,8 @@ import {
     FaQuestionCircle,
     FaCaretSquareRight,
     FaCertificate,
-    FaHouseUser
+    FaHouseUser,
+    FaPhotoVideo
 } from 'react-icons/fa';
 import {
     RiSurveyFill,
@@ -210,7 +211,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('Resources')}
                         </NavLink>
                     </MenuItem>
-
+                    <MenuItem
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/teacher/help' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            onClick={(e) => handleClick(e)}
+                            // onClick={(e) => handleClick(e, 'Resources')}
+                            to={'/teacher/help'}
+                        >
+                            Help
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem
                         icon={<FaQuestionCircle />}
                         className={
