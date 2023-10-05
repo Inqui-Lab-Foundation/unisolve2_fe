@@ -57,12 +57,16 @@ const ReportsRegistration = () => {
             key: 'organization_count'
         },
         {
-            label: 'Total Registered Teachers',
-            key: 'total_registered_teachers'
+            label: 'Total Registered Schools',
+            key: 'uniqueRegSchools'
         },
         {
-            label: 'Total Not Registered Teachers',
+            label: 'Total Not Registered Schools',
             key: 'total_not_registered_teachers'
+        },
+        {
+            label: 'Total Registered Teachers',
+            key: 'total_registered_teachers'
         },
         {
             label: 'Registered Male Teachers',
@@ -490,10 +494,15 @@ const ReportsRegistration = () => {
                                                                 <th>
                                                                     Total
                                                                     Registered
-                                                                    Teachers
+                                                                    Schools
                                                                 </th>
                                                                 <th>
                                                                     Total Not
+                                                                    Registered
+                                                                    Schools
+                                                                </th>
+                                                                <th>
+                                                                    Total
                                                                     Registered
                                                                     Teachers
                                                                 </th>
@@ -536,12 +545,17 @@ const ReportsRegistration = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.total_registered_teachers
+                                                                                item.uniqueRegSchools
                                                                             }
                                                                         </td>
                                                                         <td>
                                                                             {
                                                                                 item.total_not_registered_teachers
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.total_registered_teachers
                                                                             }
                                                                         </td>
                                                                         <td>

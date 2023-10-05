@@ -51,6 +51,10 @@ const TeacherDetailed = () => {
             key: 'district'
         },
         {
+            label: 'Total Registered Schools',
+            key: 'totalRegSchools'
+        },
+        {
             label: 'Total Registered Teachers',
             key: 'totalReg'
         },
@@ -357,6 +361,7 @@ const TeacherDetailed = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const summary = response.data.data[0].summary;
+                    const regSchools = response.data.data[0].Regschool;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails =
                         response.data.data[0].studentCountDetails;
@@ -367,6 +372,9 @@ const TeacherDetailed = () => {
 
                     const combinedArray = summary.map((summaryItem) => {
                         const district = summaryItem.district;
+                        const regSchoolsItem = regSchools.find(
+                            (item) => item.district === district
+                        );
                         const teamCountItem = teamCount.find(
                             (item) => item.district === district
                         );
@@ -391,6 +399,9 @@ const TeacherDetailed = () => {
                         return {
                             district,
                             totalReg: summaryItem.totalReg,
+                            totalRegSchools: regSchoolsItem
+                                ? regSchoolsItem.totalRegSchools
+                                : 0,
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
                                 : 0,
@@ -415,6 +426,7 @@ const TeacherDetailed = () => {
                     const total = combinedArray.reduce(
                         (acc, item) => {
                             acc.totalReg += item.totalReg;
+                            acc.totalRegSchools += item.totalRegSchools;
                             acc.totalTeams += item.totalTeams;
                             acc.totalStudents += item.totalStudents;
                             acc.maleStudents += item.maleStudents;
@@ -425,6 +437,7 @@ const TeacherDetailed = () => {
                         },
                         {
                             totalReg: 0,
+                            totalRegSchools: 0,
                             totalTeams: 0,
                             totalStudents: 0,
                             maleStudents: 0,
@@ -612,7 +625,7 @@ const TeacherDetailed = () => {
                                             />
                                         </div>
                                         <div className="row">
-                                            <div className="col-md-8">
+                                            <div className="col-md-9">
                                                 <div className="table-wrapper bg-white">
                                                     <Table
                                                         id="dataTable"
@@ -624,6 +637,11 @@ const TeacherDetailed = () => {
                                                                 <th>
                                                                     District
                                                                     Name
+                                                                </th>
+                                                                <th>
+                                                                    Total
+                                                                    Registered
+                                                                    Schools
                                                                 </th>
                                                                 <th>
                                                                     Total
@@ -687,6 +705,11 @@ const TeacherDetailed = () => {
                                                                         <td>
                                                                             {
                                                                                 item.district
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalRegSchools
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -789,8 +812,8 @@ const TeacherDetailed = () => {
                                                     <div className="col-md-12 text-center mt-1">
                                                         <p
                                                             style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
+                                                                // whiteSpace:
+                                                                //     'nowrap',
                                                                 paddingLeft:
                                                                     '10px'
                                                             }}
@@ -802,7 +825,7 @@ const TeacherDetailed = () => {
                                                             </b>
                                                         </p>
                                                     </div>
-                                                    <div className="col-md-5 doughnut-chart-container">
+                                                    <div className="col-md-5 doughnut-chart-container" style={{marginLeft:'0'}}>
                                                         {doughnutChartData && (
                                                             <Doughnut
                                                                 data={

@@ -55,6 +55,10 @@ const TeacherDetailed = () => {
             key: 'district'
         },
         {
+            label: 'Total Registered Schools',
+            key: 'totalRegSchools'
+        },
+        {
             label: 'Total Registered Teachers',
             key: 'totalReg'
         },
@@ -344,6 +348,7 @@ const TeacherDetailed = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const summary = response.data.data[0].summary;
+                    const regSchools = response.data.data[0].Regschool;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails =
                         response.data.data[0].studentCountDetails;
@@ -354,6 +359,9 @@ const TeacherDetailed = () => {
 
                     const combinedArray = summary.map((summaryItem) => {
                         const district = summaryItem.district;
+                        const regSchoolsItem = regSchools.find(
+                            (item) => item.district === district
+                        );
                         const teamCountItem = teamCount.find(
                             (item) => item.district === district
                         );
@@ -378,6 +386,9 @@ const TeacherDetailed = () => {
                         return {
                             district,
                             totalReg: summaryItem.totalReg,
+                            totalRegSchools: regSchoolsItem
+                                ? regSchoolsItem.totalRegSchools
+                                : 0,
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
                                 : 0,
@@ -402,6 +413,7 @@ const TeacherDetailed = () => {
                     const total = combinedArray.reduce(
                         (acc, item) => {
                             acc.totalReg += item.totalReg;
+                            acc.totalRegSchools += item.totalRegSchools;
                             acc.totalTeams += item.totalTeams;
                             acc.totalStudents += item.totalStudents;
                             acc.maleStudents += item.maleStudents;
@@ -412,6 +424,7 @@ const TeacherDetailed = () => {
                         },
                         {
                             totalReg: 0,
+                            totalRegSchools: 0,
                             totalTeams: 0,
                             totalStudents: 0,
                             maleStudents: 0,
@@ -620,6 +633,11 @@ const TeacherDetailed = () => {
                                                                 <th>
                                                                     Total
                                                                     Registered
+                                                                    Schools
+                                                                </th>
+                                                                <th>
+                                                                    Total
+                                                                    Registered
                                                                     Teachers
                                                                 </th>
                                                                 <th>
@@ -679,6 +697,11 @@ const TeacherDetailed = () => {
                                                                         <td>
                                                                             {
                                                                                 item.district
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalRegSchools
                                                                             }
                                                                         </td>
                                                                         <td>
