@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useLayoutEffect, useState } from 'react';
@@ -16,7 +17,9 @@ import TeacherLatestScroll from './TeacherLatestScroll';
 import StudentLatestScroll from './StudentLatestScroll';
 // import './style.css';
 import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
-
+import DataTable, { Alignment } from 'react-data-table-component';
+import DataTableExtensions from 'react-data-table-component-extensions';
+import { array } from 'prop-types';
 const DashboardSchool = (props) => {
     const [orgData, setOrgData] = useState({});
     const [mentorId, setMentorId] = useState('');
@@ -26,6 +29,8 @@ const DashboardSchool = (props) => {
     const [mentorData, setMentorData] = useState({});
     const [userData, setUserData] = useState({});
     // const [course, setCourse] = useState([]);
+    const [multiOrgData, setMultiOrgData] = useState({});
+    const [table, setTable] = useState(false);
 
     const [teamsCount, setTeamsCount] = useState('-');
     const [ideaCount, setIdeaCount] = useState('-');
@@ -35,7 +40,7 @@ const DashboardSchool = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const school = useSelector((state) => state.school);
-    
+    // console.log(school, 'school');
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         if (currentUser?.data[0]?.organization_id) {
@@ -43,6 +48,11 @@ const DashboardSchool = (props) => {
         }
     }, [currentUser?.data[0]?.organization_id]);
 
+    var teamId = [];
+    teamId.push({
+        mentor_id: mentorId,
+        user_id: userId
+    });
     useEffect(() => {
         if (school.school.organization_code) {
             const body = JSON.stringify({
@@ -62,43 +72,85 @@ const DashboardSchool = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status == 200) {
-                        setOrgData(response?.data?.data[0]);
-                        setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                        setMentorData(response?.data?.data[0]?.mentor);
-                        setUserData(response?.data?.data[0]?.mentor?.user);
-                        setUserId(response?.data?.data[0]?.mentor.user_id);
-                        var array = [];
-                        array.push({
-                            mentor_id: response?.data?.data[0]?.mentor.mentor_id,user_id: response?.data?.data[0]?.mentor.user_id
-                        });
-                        setMentorArrayId(array);
+                        // console.log(response, 'res');
+                        setMultiOrgData(response?.data?.data);
+                        setMentorId(response?.data?.data?.mentor.mentor_id);
+                        // setMentorData(response?.data?.data?.mentor);
+                        // setUserData(response?.data?.data?.mentor?.user);
+                        // setUserId(response?.data?.data?.mentor.user_id);
+                        // var array = [];
+                        // array.push({
+                        //     mentor_id: response?.data?.data?.mentor.mentor_id,
+                        //     user_id: response?.data?.data?.mentor.user_id
+                        // });
+                        // setMentorArrayId(array);
                     }
                 })
                 .catch(function (error) {});
         }
     }, [school.school.organization_code]);
 
+    // console.log(userId, 'id');
+
     useEffect(() => {
-        if (mentorId) {
+        if (school.school.organization_code) {
             mentorTeamsCount();
             mentorIdeaCount();
             mentorStudentCount();
             // mentorcoursepercentage();
         }
-    }, [mentorId]);
+    }, [school.school.organization_code]);
     useEffect(() => {
         if (userId) {
             mentorcoursepercentage();
             mentorScore();
         }
     }, [userId]);
-
+    const handelSelectentor = (data) => {
+        setOrgData(data);
+        setMentorId(data.mentor.mentor_id);
+        setUserId(data.mentor.user_id);
+        setTable(true);
+        mentorScore();
+        mentorcoursepercentage();
+        // teamId();
+        // if (data.mentor.mentor_id) {
+        //     mentorArrayId(array);
+        //     // getMentorIdApi(data.mentor.mentor_id);
+        // }
+    };
+    const MultipleMentorsData = {
+        data: multiOrgData,
+        columns: [
+            {
+                name: 'Mentor Name',
+                selector: (row) => row?.mentor?.full_name,
+                center: true
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handelSelectentor(params)}
+                        >
+                            <div className="btn btn-primary btn-lg mr-5 mx-2">
+                                view
+                            </div>
+                        </div>
+                    ];
+                },
+                center: true
+            }
+        ]
+    };
     const mentorTeamsCount = () => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/teamCount?mentor_id=${mentorId}`,
+                `/dashboard/SchoolteamCount?organization_code=${school.school.organization_code}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -108,7 +160,7 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setTeamsCount(response.data.data[0].teams_count);
+                    setTeamsCount(response.data.data[0].teamCount);
                 }
             })
             .catch(function (error) {
@@ -120,7 +172,7 @@ const DashboardSchool = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/ideaCount?mentor_id=${mentorId}`,
+                `/dashboard/SchoolideaCount?organization_code=${school.school.organization_code}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -142,7 +194,7 @@ const DashboardSchool = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCount?mentor_id=${mentorId}`,
+                `/dashboard/SchoolStudentCount?organization_code=${school.school.organization_code}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -222,7 +274,7 @@ const DashboardSchool = (props) => {
                 <h2 className="mb-5  text-center mt-5">
                     <strong> School Dashboard</strong>
                 </h2>
-                <Row className='p-3'>
+                <Row className="p-3">
                     <Col className="md-5 ">
                         <Col>
                             <Card
@@ -258,74 +310,15 @@ const DashboardSchool = (props) => {
                         </Col>
                     </Col>
                 </Row>
-                <Row className='p-3'>
-                    <Col md={6}>
-                        <Card
-                            bg="light"
-                            text="dark"
-                            // className="mb-4"
-                            // style={{ width: '350px' }}
-                            // className="md-3 xs-12 mb-4 "
-                            style={{height:'16rem'}}
-                        >
-                            <Card.Body>
-                                <label
-                                    htmlFor="teams"
-                                    className=""
-                                    style={{
-                                        fontWeight: 'bold',
-                                        fontSize: '24px'
-                                    }}
-                                >
-                                    Guide Teacher Details
-                                </label>
-
-                                <Card.Text
-                                    className="left-aligned"
-                                    style={{
-                                        // fontSize: '48px',
-                                        // fontWeight: 'bold',
-                                        marginTop: '10px',
-                                        marginBottom: '20px'
-                                    }}
-                                >
-                                    <span className="mx-3">
-                                        <b>Teacher Name :</b>
-                                    </span>
-                                    <b>{mentorData.full_name}</b>
-                                    <br />
-                                    <span className="mx-3">
-                                        <b>Teacher Mobile No : </b>
-                                    </span>
-                                    <b>{userData.username}</b>
-                                    <br />
-                                    <span className="mx-3">
-                                        <b>Course Completion : </b>
-                                    </span>
-                                    <b> {coursepercentage + '%'}</b>
-                                    <br />
-                                    <span className="mx-3">
-                                        <b> Quiz Score :</b>
-                                    </span>
-                                    <b>
-                                        {score?score:0 + '/15'}
-                                        {/* {course[0]?.scores[0]?.score
-                                            ? course[0]?.scores[0]?.score +
-                                              '/15'
-                                            : '-'}{' '} */}
-                                    </b>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col md={2}>
+                <Row>
+                    <Col md={4}>
                         <Card
                             bg="light"
                             text="dark"
                             className="p-2"
                             // className="md-3 xs-12 mb-4 "
                             // style={{ width: '350px' }}
-                            style={{height:'16rem'}}
+                            style={{ height: '16rem' }}
                         >
                             <Card.Body>
                                 <label htmlFor="teams" className="">
@@ -345,14 +338,14 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={2}>
+                    <Col md={4}>
                         <Card
                             bg="light"
                             text="dark"
                             className="p-2"
                             // style={{ height: '200px' }}
                             // className="md-3 xs-12 mb-4 "
-                            style={{height:'16rem'}}
+                            style={{ height: '16rem' }}
                         >
                             <Card.Body>
                                 <label htmlFor="teams" className="">
@@ -371,14 +364,14 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={2}>
+                    <Col md={4}>
                         <Card
                             bg="light"
                             text="dark"
                             className="p-2"
                             // style={{ width: '350px' }}
                             // className="md-3 xs-12 mb-4 "
-                            style={{height:'16rem'}}
+                            style={{ height: '16rem' }}
                         >
                             <Card.Body>
                                 <label htmlFor="teams" className="">
@@ -399,6 +392,95 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+
+                <Row className="p-3">
+                    <Row>
+                        {multiOrgData.length !== undefined &&
+                            multiOrgData.length !== 0 &&
+                            multiOrgData[0]?.mentor !== null && (
+                                <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...MultipleMentorsData}
+                                >
+                                    <DataTable
+                                        data={multiOrgData}
+                                        noHeader
+                                        highlightOnHover
+                                    />
+                                </DataTableExtensions>
+                            )}
+                    </Row>
+
+                    {table === true && (
+                        <Row className="p-3">
+                            <Col md={12}>
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    // className="mb-4"
+                                    // style={{ width: '350px' }}
+                                    // className="md-3 xs-12 mb-4 "
+                                    style={{ height: '16rem' }}
+                                >
+                                    <Card.Body>
+                                        <label
+                                            htmlFor="teams"
+                                            className=""
+                                            style={{
+                                                fontWeight: 'bold',
+                                                fontSize: '24px'
+                                            }}
+                                        >
+                                            Guide Teacher Details
+                                        </label>
+
+                                        <Card.Text
+                                            className="left-aligned"
+                                            style={{
+                                                // fontSize: '48px',
+                                                // fontWeight: 'bold',
+                                                marginTop: '10px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <span className="mx-3">
+                                                <b>Teacher Name :</b>
+                                            </span>
+                                            <b>{orgData?.mentor?.full_name}</b>
+                                            <br />
+                                            <span className="mx-3">
+                                                <b>Teacher Mobile No : </b>
+                                            </span>
+                                            <b>
+                                                {
+                                                    orgData?.mentor?.user
+                                                        ?.username
+                                                }
+                                            </b>
+                                            <br />
+                                            <span className="mx-3">
+                                                <b>Course Completion : </b>
+                                            </span>
+                                            <b> {coursepercentage + '%'}</b>
+                                            <br />
+                                            <span className="mx-3">
+                                                <b> Quiz Score :</b>
+                                            </span>
+                                            <b>
+                                                {score ? score : 0 + '/15'}
+                                                {/* {course[0]?.scores[0]?.score
+                                            ? course[0]?.scores[0]?.score +
+                                              '/15'
+                                            : '-'}{' '} */}
+                                            </b>
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    )}
                 </Row>
                 {/* <p>Teacher Name :{orgData.mentor.full_name}</p> */}
                 {/* <Col>
@@ -424,8 +506,13 @@ const DashboardSchool = (props) => {
                     <Row className="">
                         <Col>
                             <div className="d-flex flex-wrap">
-                                {mentorArrayId.length > 0 && (
-                                    <DoughnutChart user={mentorArrayId} />
+                                {table === true && (
+                                    <DoughnutChart
+                                        user={teamId}
+                                        dashBoard={'School'}
+                                    />
+                                    // ) : (
+                                    //     ''
                                 )}
                             </div>
                         </Col>

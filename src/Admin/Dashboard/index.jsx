@@ -45,7 +45,6 @@ const Dashboard = () => {
     const [diesCode, setDiesCode] = useState('');
     // const [orgData, setOrgData] = useState({});
     const [orgData, setOrgData] = useState([]);
-
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -130,7 +129,7 @@ const Dashboard = () => {
         axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    console.log(response, '1');
+                    // console.log(response, '1');
                     if (response.status == 200) {
                         setMultiOrgData(response?.data?.data);
                         setCount(count + 1);
@@ -446,7 +445,7 @@ const Dashboard = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are Delete Organization',
+                title: 'You are Deleting this Registration',
                 text: 'Are you sure?',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -519,7 +518,9 @@ const Dashboard = () => {
     const adminRegschoolsCount = () => {
         var config = {
             method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/schoolRegCount`,
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/schoolRegCount`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
