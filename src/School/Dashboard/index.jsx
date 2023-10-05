@@ -34,6 +34,7 @@ const DashboardSchool = (props) => {
 
     const [teamsCount, setTeamsCount] = useState('-');
     const [ideaCount, setIdeaCount] = useState('-');
+    const [count, setCount] = useState('-');
     const [studentCount, setStudentCount] = useState('-');
     const [coursepercentage, setCoursepercentage] = useState('-');
     const [score, setScore] = useState('-');
@@ -72,9 +73,13 @@ const DashboardSchool = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status == 200) {
+                        // console.log(response?.data?.data.length, 'id');
+                        setCount(response?.data?.data.length);
+
                         // console.log(response, 'res');
                         setMultiOrgData(response?.data?.data);
                         setMentorId(response?.data?.data?.mentor.mentor_id);
+
                         // setMentorData(response?.data?.data?.mentor);
                         // setUserData(response?.data?.data?.mentor?.user);
                         // setUserId(response?.data?.data?.mentor.user_id);
@@ -100,19 +105,19 @@ const DashboardSchool = (props) => {
             // mentorcoursepercentage();
         }
     }, [school.school.organization_code]);
-    useEffect(() => {
-        if (userId) {
-            mentorcoursepercentage();
-            mentorScore();
-        }
-    }, [userId]);
+    // useEffect(() => {
+    //     if (userId) {
+    //         mentorcoursepercentage();
+    //         mentorScore();
+    //     }
+    // }, [userId]);
     const handelSelectentor = (data) => {
         setOrgData(data);
         setMentorId(data.mentor.mentor_id);
         setUserId(data.mentor.user_id);
         setTable(true);
-        mentorScore();
-        mentorcoursepercentage();
+        mentorScore(data.mentor.user_id);
+        mentorcoursepercentage(data.mentor.user_id);
         // teamId();
         // if (data.mentor.mentor_id) {
         //     mentorArrayId(array);
@@ -211,12 +216,12 @@ const DashboardSchool = (props) => {
                 console.log(error);
             });
     };
-    const mentorcoursepercentage = () => {
+    const mentorcoursepercentage = (id) => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorpercentage?user_id=${userId}`,
+                `/dashboard/mentorpercentage?user_id=${id}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -239,12 +244,12 @@ const DashboardSchool = (props) => {
             });
     };
     // useEffect(() => {
-    const mentorScore = () => {
+    const mentorScore = (id) => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${userId}&role=MENTOR`,
+                `/dashboard/quizscores?user_id=${id}&role=MENTOR`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -264,8 +269,6 @@ const DashboardSchool = (props) => {
             });
     };
     // }, []);
-
-    // console.log(mentorArrayId);
 
     const hi = false;
     return (
@@ -311,7 +314,7 @@ const DashboardSchool = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={4}>
+                    <Col md={3}>
                         <Card
                             bg="light"
                             text="dark"
@@ -338,7 +341,7 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={3}>
                         <Card
                             bg="light"
                             text="dark"
@@ -364,7 +367,7 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={3}>
                         <Card
                             bg="light"
                             text="dark"
@@ -392,10 +395,40 @@ const DashboardSchool = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
+                    <Col md={3}>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className="p-2"
+                            // style={{ width: '350px' }}
+                            // className="md-3 xs-12 mb-4 "
+                            style={{ height: '16rem' }}
+                        >
+                            <Card.Body>
+                                <label htmlFor="teams" className="">
+                                    Registered Teachers
+                                </label>
+
+                                <Card.Text
+                                    className="left-aligned"
+                                    style={{
+                                        fontSize: '48px',
+                                        fontWeight: 'bold',
+                                        marginTop: '10px',
+                                        marginBottom: '20px'
+                                    }}
+                                >
+                                    {/* {ideaCount} */}
+                                    {count ? count : '-'}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
 
                 <Row className="p-3">
-                    <Row>
+                    {/* <Row> */}
+                    <Col md={6}>
                         {multiOrgData.length !== undefined &&
                             multiOrgData.length !== 0 &&
                             multiOrgData[0]?.mentor !== null && (
@@ -411,18 +444,22 @@ const DashboardSchool = (props) => {
                                     />
                                 </DataTableExtensions>
                             )}
-                    </Row>
-
-                    {table === true && (
-                        <Row className="p-3">
-                            <Col md={12}>
+                    </Col>
+                    {/* </Row> */}
+                    <Col md={6}>
+                        {table === true && (
+                            // <Row className="p-3">
+                            <Col>
                                 <Card
                                     bg="light"
                                     text="dark"
                                     // className="mb-4"
                                     // style={{ width: '350px' }}
                                     // className="md-3 xs-12 mb-4 "
-                                    style={{ height: '16rem' }}
+                                    style={{
+                                        height: '18rem',
+                                        marginTop: '5rem'
+                                    }}
                                 >
                                     <Card.Body>
                                         <label
@@ -479,8 +516,9 @@ const DashboardSchool = (props) => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                        </Row>
-                    )}
+                            // </Row>
+                        )}
+                    </Col>
                 </Row>
                 {/* <p>Teacher Name :{orgData.mentor.full_name}</p> */}
                 {/* <Col>
