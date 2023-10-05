@@ -428,7 +428,7 @@ const Dashboard = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are Delete Organization',
+                title: 'You are Deleting this Registration',
                 text: 'Are you sure?',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
