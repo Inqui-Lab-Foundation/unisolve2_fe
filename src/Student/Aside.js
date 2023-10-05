@@ -15,7 +15,8 @@ import {
     FaShieldVirus,
     FaBars,
     FaHouseUser,
-    FaCertificate
+    FaCertificate,
+    FaPhotoVideo
 } from 'react-icons/fa';
 import { RiSurveyFill, RiLockPasswordFill } from 'react-icons/ri';
 
@@ -256,6 +257,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             to={'/student/my-certificate'}
                         >
                             {t('teacher.certificate')}
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/student/help' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/student/help'}>
+                            Help
                         </NavLink>
                     </MenuItem>
 

@@ -7,7 +7,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPhotoVideo } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 import SmallLogo from '../assets/media/logo192.png';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -154,7 +154,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('teacher.password')}
                         </NavLink>
                     </MenuItem>
-
+                    <MenuItem
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/coordinator/help' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/coordinator/help'}>
+                            Help
+                        </NavLink>
+                    </MenuItem>
                     <MenuItem
                         icon={
                             <img

@@ -7,7 +7,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaPhotoVideo } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 import SmallLogo from '../assets/media/logo192.png';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -134,6 +134,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             <span style={{ color: 'var(--override-color)' }}>
                                 Users
                             </span>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<FaPhotoVideo />}
+                        className={
+                            location.pathname === '/report/help' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            // onClick={(e) => handleClick(e)}
+                            // onClick={(e) => handleClick(e, 'Resources')}
+                            to={'/report/help'}
+                        >
+                            Help
                         </NavLink>
                     </MenuItem>
                     <MenuItem
