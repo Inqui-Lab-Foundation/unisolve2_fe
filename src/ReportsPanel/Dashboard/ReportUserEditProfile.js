@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import '../../Admin/UserList/style.scss';
-import Layout from '../../Admin/Layout';
+import Layout from '../Layout';
 import { Button } from '../../stories/Button';
 import axios from 'axios';
 
