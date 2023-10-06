@@ -73,6 +73,7 @@ const DashboardSchool = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status == 200) {
+
                         setCount(
                             response?.data?.data[0].mentor === null
                                 ? 0
