@@ -109,7 +109,7 @@ const EditProfile = (props) => {
                         // currentUser.data[0].full_name = values.name;
                         // setCurrentUser(currentUser);
                         // setTimeout(() => {
-                        props.history.push('/report/teacher/dashboard');
+                        props.history.push('/report/userlist');
                         // }, 200);
                     }
                 })

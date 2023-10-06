@@ -33,7 +33,7 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-    console.log(mentorData, 'data');
+    // console.log(mentorData, 'data');
     // const phoneRegExp = /^[0-9\s]+$/;
     const getValidationSchema = () => {
         // where data = mentorData //
@@ -110,7 +110,7 @@ const EditProfile = (props) => {
                         // currentUser.data[0].full_name = values.name;
                         // setCurrentUser(currentUser);
                         // setTimeout(() => {
-                        props.history.push('/admin/teacher/dashboard');
+                        props.history.push('/admin/userlist');
                         // }, 200);
                     }
                 })
