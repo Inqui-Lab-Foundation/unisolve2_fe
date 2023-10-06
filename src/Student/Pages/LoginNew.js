@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import './SignUp.scss';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../../stories/InputBox/InputBox.jsx';
@@ -22,7 +23,7 @@ import { openNotificationWithIcon } from '../../helpers/Utils';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
-
+    const hide = false;
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
@@ -201,110 +202,128 @@ const LoginNew = (props) => {
                             </div>
                         </Row>
 
-                        <Row className="my-2">
-                            <Col md={12}>
-                                <Form onSubmit={formik.handleSubmit}>
-                                    <div className="form-row row mb-5">
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            xl={12}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="email"
+                        {hide ? (
+                            <Row className="my-2">
+                                <Col md={12}>
+                                    <Form onSubmit={formik.handleSubmit}>
+                                        <div className="form-row row mb-5">
+                                            <Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
                                             >
-                                                {t('loginPage.User_ID_Email')}
-                                            </Label>
-                                            <InputBox
-                                                {...inputUserId}
-                                                id="email"
-                                                name="email"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.email}
-                                            />
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="email"
+                                                >
+                                                    {t(
+                                                        'loginPage.User_ID_Email'
+                                                    )}
+                                                </Label>
+                                                <InputBox
+                                                    {...inputUserId}
+                                                    id="email"
+                                                    name="email"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={formik.values.email}
+                                                />
 
-                                            {formik.touched.email &&
-                                            formik.errors.email ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.email}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                    </div>
-                                    <div className="w-100 clearfix" />
+                                                {formik.touched.email &&
+                                                formik.errors.email ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.email}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                        </div>
+                                        <div className="w-100 clearfix" />
 
-                                    <div className="form-row row mb-5">
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            xl={12}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="Password"
+                                        <div className="form-row row mb-5">
+                                            <Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
                                             >
-                                                {t('loginPage.Password_label')}
-                                            </Label>
-                                            <InputBox
-                                                {...inputPassword}
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.password}
-                                            />
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="Password"
+                                                >
+                                                    {t(
+                                                        'loginPage.Password_label'
+                                                    )}
+                                                </Label>
+                                                <InputBox
+                                                    {...inputPassword}
+                                                    type="password"
+                                                    id="password"
+                                                    name="password"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values.password
+                                                    }
+                                                />
 
-                                            {formik.touched.password &&
-                                            formik.errors.password ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.password}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <Row className="keepme_login"></Row>
-                                    </div>
+                                                {formik.touched.password &&
+                                                formik.errors.password ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.password}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                            <Row className="keepme_login"></Row>
+                                        </div>
 
-                                    <div className="form-row row mb-5">
-                                        {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
-                                        {/* Login button */}
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            xl={12}
-                                        >
-                                            <Button
-                                                {...logInBtn}
-                                                type="submit"
-                                                btnClass={
-                                                    !(
-                                                        formik.dirty &&
-                                                        formik.isValid
-                                                    )
-                                                        ? 'default'
-                                                        : 'primary'
-                                                }
-                                                disabled={
-                                                    !(
-                                                        formik.dirty &&
-                                                        formik.isValid
-                                                    )
-                                                }
-                                                style={{ borderRadius: '0' }}
-                                            />
-                                        </Col>
-                                    </div>
-                                </Form>
-                            </Col>
-                        </Row>
+                                        <div className="form-row row mb-5">
+                                            {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
+                                            {/* Login button */}
+                                            <Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                <Button
+                                                    {...logInBtn}
+                                                    type="submit"
+                                                    btnClass={
+                                                        !(
+                                                            formik.dirty &&
+                                                            formik.isValid
+                                                        )
+                                                            ? 'default'
+                                                            : 'primary'
+                                                    }
+                                                    disabled={
+                                                        !(
+                                                            formik.dirty &&
+                                                            formik.isValid
+                                                        )
+                                                    }
+                                                    style={{
+                                                        borderRadius: '0'
+                                                    }}
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form>
+                                </Col>
+                            </Row>
+                        ) : (
+                            <h2 className="text-center">
+                                Student Journey Will be Enable Soon
+                            </h2>
+                        )}
                     </Col>
                 </Row>
             </div>

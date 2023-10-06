@@ -361,7 +361,7 @@
         "student_my_cer": "<p>Your certificate will be available once you complete the course, submit ideas and complete the post survey.If you have completed these, your certificate will be ready shortly.</p>",
         "student_post_survey": "Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",
         "student_course": "Dear Student, your learning journey will begin soon. Please discuss with your School Guide Teacher and prepare yourself for this journey.",
-        "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your guide teacher to update the name in the Teams Page of Teacher login.<p>",
+        "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your guide teacher to update it.<p>",
         "name": "Name : ",
         "school": "</br>School : ",
         "dear": "Dear Student,"
