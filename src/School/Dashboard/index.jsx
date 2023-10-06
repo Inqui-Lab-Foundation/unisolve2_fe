@@ -28,7 +28,7 @@ const DashboardSchool = (props) => {
     const [mentorArrayId, setMentorArrayId] = useState([]);
     const [mentorData, setMentorData] = useState({});
     const [userData, setUserData] = useState({});
-    // const [course, setCourse] = useState([]);
+    const [course, setCourse] = useState([]);
     const [multiOrgData, setMultiOrgData] = useState({});
     const [table, setTable] = useState(false);
 
@@ -259,9 +259,19 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response);
                     // setCourse(response.data.data);
-                    setScore(response.data.data[0].scores[0].score);
-                    // console.log(response);
+                    console.log(
+                        response?.data?.data[0]?.scores[0]?.score !== undefined
+                            ? response?.data?.data[0]?.scores[0]?.score
+                            : 0
+                    );
+
+                    setScore(
+                        response?.data?.data[0]?.scores[0]?.score !== undefined
+                            ? response?.data?.data[0]?.scores[0]?.score
+                            : 0
+                    );
                 }
             })
             .catch(function (error) {
@@ -269,7 +279,6 @@ const DashboardSchool = (props) => {
             });
     };
     // }, []);
-
     const hi = false;
     return (
         <Layout>
@@ -508,9 +517,9 @@ const DashboardSchool = (props) => {
                                             <b>
                                                 {score ? score : 0 + '/15'}
                                                 {/* {course[0]?.scores[0]?.score
-                                            ? course[0]?.scores[0]?.score +
-                                              '/15'
-                                            : '-'}{' '} */}
+                                                    ? course[0]?.scores[0]
+                                                          ?.score + '/15'
+                                                    : '-'}{' '} */}
                                             </b>
                                         </Card.Text>
                                     </Card.Body>
