@@ -73,10 +73,13 @@ const DashboardSchool = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status == 200) {
-                        // console.log(response?.data?.data.length, 'id');
-                        setCount(response?.data?.data.length);
 
-                        // console.log(response, 'res');
+                        setCount(
+                            response?.data?.data[0].mentor === null
+                                ? 0
+                                : response?.data?.data.length
+                        );
+                      
                         setMultiOrgData(response?.data?.data);
                         setMentorId(response?.data?.data?.mentor.mentor_id);
 
@@ -428,7 +431,7 @@ const DashboardSchool = (props) => {
                                     }}
                                 >
                                     {/* {ideaCount} */}
-                                    {count ? count : '-'}
+                                    {count}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
