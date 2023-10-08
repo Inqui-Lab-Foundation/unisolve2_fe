@@ -411,6 +411,7 @@ const Dashboard = () => {
     const [stuCount, setStuCount] = useState('-');
     const [schoolCount, setSchoolCount] = useState('-');
     const [tecCourse, setTecCourse] = useState('-');
+    // console.log(stuCourseComplete, '1');
     useEffect(() => {
         regData();
         mentData();
@@ -431,18 +432,25 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response);
-                    setTeam(response.data.data[0].summary[0].totalTeams);
+                    console.log(response);
+                    setTeam(response?.data?.data[0]?.summary[0]?.totalTeams);
                     setSubIdea(
-                        response.data.data[0].submittedCount[0].submittedCount
+                        response?.data?.data[0]?.submittedCount[0]
+                            ?.submittedCount
                     );
                     setStuCourseComplete(
-                        response.data.data[0].courseCompleted[0]
-                            .studentCourseCMP
+                        // response &&
+                        //     response.data &&
+                        //     response.data.data[0] &&
+                        //     response.data.data[0].courseCompleted[0] &&
+                        //     response.data.data[0].courseCompleted[0]
+                        //         .studentCourseCMP
+                        response?.data?.data[0]?.courseCompleted[0]
+                            ?.studentCourseCMP
                     );
                     setStuCount(
-                        response.data.data[0].studentCountDetails[0]
-                            .totalstudent
+                        response?.data?.data[0]?.studentCountDetails[0]
+                            ?.totalstudent
                     );
                 }
             })
