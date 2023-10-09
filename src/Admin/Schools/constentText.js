@@ -1,5 +1,5 @@
 export const categoryValue = {
-    tn: ['All Categorys', 'Non Model'],
+    tn: ['All Categorys', 'Non Model', 'Model'],
     ka: [
         'All Categorys',
         'HPS - KRISHNARAJA PET',
