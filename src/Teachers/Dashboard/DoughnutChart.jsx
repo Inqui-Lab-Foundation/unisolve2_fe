@@ -47,6 +47,7 @@ export default function DoughnutChart({ user }) {
     useEffect(() => {
         setTeamId(null);
     }, [user[0]?.mentor_id]);
+    
     // console.log(user[0]?.mentor_id, 'data');
     useEffect(() => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));

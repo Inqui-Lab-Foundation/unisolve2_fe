@@ -27,8 +27,8 @@ const ViewMore = () => {
 
     var teamId = [];
     teamId.push({
-        mentor_id: MentorData.mentor_id
-        // user_id: MentorData.user_id
+        mentor_id: MentorData.mentor_id,
+        user_id: MentorData.user_id
     });
     // var teamId = [];
     // teamId.push({ mentor_id: MentorData.mentor_id });
