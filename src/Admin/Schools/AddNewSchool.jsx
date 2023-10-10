@@ -32,7 +32,7 @@ const AddNewSchool = (props) => {
         (state) => state?.studentRegistration?.dists
     );
 
-    fullDistrictsNames.shift();
+    // fullDistrictsNames.shift();
     const categoryData =
         categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 

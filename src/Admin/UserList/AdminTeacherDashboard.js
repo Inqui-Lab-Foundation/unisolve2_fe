@@ -644,9 +644,14 @@ const Dashboard = () => {
                                                         className="my-auto profile-detail"
                                                     >
                                                         <p>
-                                                            {MentorData?.city
+                                                            {/* {MentorData?.city
                                                                 ? MentorData?.city
-                                                                : '-'}
+                                                                : '-'} */}
+                                                            {
+                                                                MentorData
+                                                                    ?.organization
+                                                                    ?.city
+                                                            }
                                                         </p>
                                                     </Col>
                                                 </Row>

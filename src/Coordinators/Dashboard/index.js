@@ -96,6 +96,9 @@ const Dashboard = () => {
                 setWrong('');
 
                 if (response.status == 200) {
+                    // if (response?.data?.count === 0) {
+                    //     setError('Entered Invalid Teacher Unique Code');
+                    // }
                     setOrgData(response?.data?.data);
                     // console.log(orgData);
                     setCount(count + 1);
@@ -138,6 +141,9 @@ const Dashboard = () => {
             .then(async function (response) {
                 setWrong('');
                 if (response.status == 200) {
+                    if (response?.data?.count === 0) {
+                        setError('Entered Invalid Teacher Unique Code');
+                    }
                     if (
                         response?.data?.data[0].district ===
                         currentUser?.data[0]?.district_name
