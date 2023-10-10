@@ -114,6 +114,7 @@ export const getDistrictData = () => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data.data.length > 0 ? result.data.data : [];
+            console.log(data);
             dispatch(getDistrictsSuccess(data));
         } else {
             dispatch(getDistrictsSuccess([]));
