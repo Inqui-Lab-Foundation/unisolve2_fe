@@ -86,6 +86,7 @@ const ChangePswModal = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
+                        SetError(error.response.data.message);
                         console.log(error);
                     });
             }
