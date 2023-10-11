@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -25,6 +25,7 @@ const EditProfile = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
+    const [error, setError] = useState('');
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
@@ -133,6 +134,8 @@ const EditProfile = (props) => {
                             'success',
                             'Updated Successfully'
                         );
+                        setError();
+
                         setTimeout(() => {
                             props.history.push(
                                 mentorData.where === 'Dashbord'
@@ -143,7 +146,11 @@ const EditProfile = (props) => {
                     }
                 })
                 .catch(function (error) {
+                    if (error.response.status === 420) {
+                        setError('Mobile Number must be unique');
+                    }
                     console.log(error);
+                    
                 });
         }
     });
