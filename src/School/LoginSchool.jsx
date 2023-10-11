@@ -101,7 +101,7 @@ function LoginSchool(props) {
                 }
             ).toString();
             const body = {
-                organization_code: values.discecode,
+                organization_code: values.discecode.trim(),
                 password: encrypted
             };
             props.schoolLoginUserAction(body, history, 'SCHOOL');
@@ -229,6 +229,8 @@ function LoginSchool(props) {
                                                 {...inputUserId}
                                                 id="discecode"
                                                 name="discecode"
+                                                maxLength={11}
+                                                minLength={11}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.discecode}

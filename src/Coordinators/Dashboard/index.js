@@ -438,7 +438,7 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
+                    // console.log(response);
                     setTeam(response?.data?.data[0]?.summary[0]?.totalTeams);
                     setSubIdea(
                         response?.data?.data[0]?.submittedCount[0]
@@ -521,8 +521,10 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response);
-                    setSchoolCount(response.data.data[0].organization_count);
+                    console.log(response);
+                    setSchoolCount(
+                        response.data.data[0].total_registered_teachers
+                    );
                 }
             })
             .catch(function (error) {
@@ -639,7 +641,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Schools
+                                                Registered Teachers
                                             </label>
 
                                             <Card.Text

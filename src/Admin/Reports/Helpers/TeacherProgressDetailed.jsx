@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import Layout from '../../Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
@@ -360,7 +361,9 @@ const TeacherDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+                    // console.log(response, '1');
                     const summary = response.data.data[0].summary;
+                    const registerSchool = response.data.data[0].reg;
                     const regSchools = response.data.data[0].Regschool;
                     const teamCount = response.data.data[0].teamCount;
                     const studentCountDetails =
@@ -375,6 +378,7 @@ const TeacherDetailed = () => {
                         const regSchoolsItem = regSchools.find(
                             (item) => item.district === district
                         );
+
                         const teamCountItem = teamCount.find(
                             (item) => item.district === district
                         );
@@ -402,6 +406,7 @@ const TeacherDetailed = () => {
                             totalRegSchools: regSchoolsItem
                                 ? regSchoolsItem.totalRegSchools
                                 : 0,
+
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
                                 : 0,
@@ -446,7 +451,8 @@ const TeacherDetailed = () => {
                             courseINcompleted: 0
                         }
                     );
-                    console.log('Total count', total);
+
+                    // console.log('Total count', total);
 
                     const doughnutData = {
                         labels: ['Male', 'Female'],
@@ -520,7 +526,6 @@ const TeacherDetailed = () => {
                 console.log('API error:', error);
             });
     };
-    // console.log(downloadTableData);
 
     return (
         <>
@@ -764,6 +769,11 @@ const TeacherDetailed = () => {
                                                                 </td>
                                                                 <td>
                                                                     {
+                                                                        totalCount.totalRegSchools
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
                                                                         totalCount.totalReg
                                                                     }
                                                                 </td>
@@ -825,7 +835,12 @@ const TeacherDetailed = () => {
                                                             </b>
                                                         </p>
                                                     </div>
-                                                    <div className="col-md-5 doughnut-chart-container" style={{marginLeft:'0'}}>
+                                                    <div
+                                                        className="col-md-5 doughnut-chart-container"
+                                                        style={{
+                                                            marginLeft: '0'
+                                                        }}
+                                                    >
                                                         {doughnutChartData && (
                                                             <Doughnut
                                                                 data={
