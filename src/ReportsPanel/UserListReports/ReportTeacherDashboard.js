@@ -668,9 +668,14 @@ const Dashboard = () => {
                                                     >
                                                         <p>
                                                             {' '}
-                                                            {MentorData?.city
+                                                            {/* {MentorData?.city
                                                                 ? MentorData?.city
-                                                                : '-'}
+                                                                : '-'} */}
+                                                            {
+                                                                MentorData
+                                                                    ?.organization
+                                                                    ?.city
+                                                            }
                                                         </p>
                                                     </Col>
                                                 </Row>
