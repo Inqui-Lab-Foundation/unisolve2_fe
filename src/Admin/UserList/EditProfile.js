@@ -134,7 +134,7 @@ const EditProfile = (props) => {
                             'success',
                             'Updated Successfully'
                         );
-                        setError();
+                        setError('');
 
                         setTimeout(() => {
                             props.history.push(
@@ -146,11 +146,10 @@ const EditProfile = (props) => {
                     }
                 })
                 .catch(function (error) {
-                    if (error.response.status === 420) {
+                    if (error?.response?.data?.status === 420) {
                         setError('Mobile Number must be unique');
                     }
                     console.log(error);
-                    
                 });
         }
     });
