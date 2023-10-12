@@ -51,8 +51,11 @@ const LogInNew = (props) => {
             district: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
-                .required('Required'),
+                .matches(
+                    /^[aA-zZ]+$/,
+                    'Special Characters are not allowed, ("Remove the Spaces")'
+                ),
+            // .required('Required'),
             password: Yup.string().required('required')
         }),
         onSubmit: (values) => {
@@ -83,7 +86,7 @@ const LogInNew = (props) => {
                 }
             ).toString();
             const body = {
-                username: values.district,
+                username: values.district.trim(),
                 password: encrypted
             };
             props.coordinatorLoginUserAction(body, history, 'COORDINATOR');
@@ -199,8 +202,11 @@ const LogInNew = (props) => {
 
                                             {formik.touched.district &&
                                             formik.errors.district ? (
+                                                // <small className="error-cls">
+                                                //     Required
+                                                // </small>
                                                 <small className="error-cls">
-                                                    Required
+                                                    {formik.errors.district}
                                                 </small>
                                             ) : null}
                                         </Col>

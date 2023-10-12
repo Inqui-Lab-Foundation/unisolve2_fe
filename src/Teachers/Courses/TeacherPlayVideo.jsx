@@ -899,7 +899,7 @@ const TeacherPlayVideo = (props) => {
 
                                                 <p>
                                                     <b>
-                                                        The resource section
+                                                        The Resources section
                                                         will have the Teacher
                                                         Handbook and the Student
                                                         workbook.
@@ -915,9 +915,9 @@ const TeacherPlayVideo = (props) => {
                                                     to support the students for
                                                     this program, you will be
                                                     required to take a quiz.
-                                                    Don’t worry,the quiz is not
+                                                    Please note,the quiz is not
                                                     a test, it is designed to
-                                                    help you recall the thing
+                                                    help you recall the things
                                                     you have to keep in mind
                                                     while doing the program. All
                                                     the best!
@@ -1028,7 +1028,7 @@ const TeacherPlayVideo = (props) => {
                                                             <b>
                                                                 Now that you
                                                                 have completed
-                                                                the quiz, Below
+                                                                the quiz, below
                                                                 are your next
                                                                 action items in
                                                                 the program :
@@ -1197,7 +1197,7 @@ const TeacherPlayVideo = (props) => {
                                                         <b>
                                                             Now that you have
                                                             completed the quiz,
-                                                            Below are your next
+                                                            below are your next
                                                             action items in the
                                                             program :
                                                         </b>

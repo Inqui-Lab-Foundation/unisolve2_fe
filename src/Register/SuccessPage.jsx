@@ -143,7 +143,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    UDICE Code:{' '}
+                                    UDISE Code:{' '}
                                     {/* {successData &&
                                         successData.organization_code} */}
                                     {mentorDaTa.organization_code}

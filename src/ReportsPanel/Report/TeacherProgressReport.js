@@ -756,6 +756,11 @@ const TeacherDetailed = () => {
                                                                 </td>
                                                                 <td>
                                                                     {
+                                                                        totalCount.totalRegSchools
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
                                                                         totalCount.totalReg
                                                                     }
                                                                 </td>

@@ -31,6 +31,7 @@ const DashboardSchool = (props) => {
     const [course, setCourse] = useState([]);
     const [multiOrgData, setMultiOrgData] = useState({});
     const [table, setTable] = useState(false);
+    const [error, setError] = useState('');
 
     const [teamsCount, setTeamsCount] = useState('-');
     const [ideaCount, setIdeaCount] = useState('-');
@@ -73,13 +74,15 @@ const DashboardSchool = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status == 200) {
-
+                        // if (response?.data?.count === 0) {
+                        //     setError('Entered Invalid Teacher Unique Code');
+                        // }
                         setCount(
                             response?.data?.data[0].mentor === null
                                 ? 0
                                 : response?.data?.data.length
                         );
-                      
+
                         setMultiOrgData(response?.data?.data);
                         setMentorId(response?.data?.data?.mentor.mentor_id);
 

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, List, Label, Card } from 'reactstrap';
-import { Tabs} from 'antd';
+import { Tabs } from 'antd';
 import Layout from '../Layout';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
@@ -134,11 +134,11 @@ const TicketsPage = () => {
     };
     const handleView = (item) => {
         // here item = team member details  //
-        item['mentorid']=currentUser?.data[0]?.mentor_id;
+        item['mentorid'] = currentUser?.data[0]?.mentor_id;
         history.push({
             pathname: '/teacher/view-team-member',
             item: item,
-            mentorid :currentUser?.data[0]?.mentor_id
+            mentorid: currentUser?.data[0]?.mentor_id
         });
         localStorage.setItem('teamId', JSON.stringify(item));
     };
@@ -214,9 +214,9 @@ const TicketsPage = () => {
                             ready with the list of students and their details
                             (Team Name, Full Name, Class, Age, Gender) before
                             you start creating teams. Please ensure you are
-                            selecting students who are interested and will
-                            benefit out of this program irrespective of their
-                            communication skills or academic performance.
+                            selecting students who will benefit out of this
+                            program irrespective of their communication skills
+                            or academic performance.
                         </p>
                         <List>
                             <li>

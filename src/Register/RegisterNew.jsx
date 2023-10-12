@@ -233,6 +233,10 @@ function RegisterNew() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
+                    console.log(response);
+                    if (response?.data.count === 0) {
+                        setError('Enter Valid UDISE code ');
+                    }
                     if (
                         response?.data?.data[0] &&
                         process.env.REACT_APP_USEDICECODE == 2
@@ -287,7 +291,7 @@ function RegisterNew() {
             setTimer(0);
         }, 60000);
         const body = JSON.stringify({
-            mobile: formik.values.username
+            mobile: formik.values.username.trim()
         });
         var config = {
             method: 'post',

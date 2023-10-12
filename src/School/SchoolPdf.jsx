@@ -371,7 +371,9 @@ class Schoolpdf extends React.Component {
                                                         padding: '1rem'
                                                     }}
                                                 >
-                                                    {idea?.ideaStatus}
+                                                    {idea?.ideaStatus
+                                                        ? idea?.ideaStatus
+                                                        : 'NOT INITIATED'}
                                                 </td>
                                                 <td
                                                     style={{

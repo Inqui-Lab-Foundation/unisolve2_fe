@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
@@ -25,6 +25,7 @@ const EditProfile = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
+    const [error, setError] = useState('');
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
@@ -126,6 +127,7 @@ const EditProfile = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status === 200) {
+                        console.log(response, 'Data');
                         mentorData?.evaluator_id
                             ? dispatch(getAdminEvalutorsList())
                             : mentorData?.admin_id && dispatch(getAdmin());
@@ -133,6 +135,8 @@ const EditProfile = (props) => {
                             'success',
                             'Updated Successfully'
                         );
+                        setError('');
+
                         setTimeout(() => {
                             props.history.push(
                                 mentorData.where === 'Dashbord'
@@ -143,6 +147,12 @@ const EditProfile = (props) => {
                     }
                 })
                 .catch(function (error) {
+                    if (error?.response?.data?.status === 420) {
+                        openNotificationWithIcon(
+                            'error',
+                            'Mobile Number must be unique'
+                        );
+                    }
                     console.log(error);
                 });
         }
@@ -264,6 +274,7 @@ const EditProfile = (props) => {
 
                                 <hr className="mt-4 mb-4"></hr>
                                 <Row>
+                                    {/* <p> {error}</p> */}
                                     <Col className="col-xs-12 col-sm-6">
                                         <Button
                                             label="Discard"

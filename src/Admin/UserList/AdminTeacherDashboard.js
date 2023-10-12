@@ -46,8 +46,8 @@ const Dashboard = () => {
         className: 'defaultInput'
     };
     // console.log(MentorData, 'Data');
-    // const [diesCode, setDiesCode] = useState('');
-    // const [orgData, setOrgData] = useState({});
+    const [diesCode, setDiesCode] = useState('');
+    const [orgData, setOrgData] = useState({});
     // const [mentorId, setMentorId] = useState('');
     // const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -142,45 +142,6 @@ const Dashboard = () => {
     //             setOrgData({});
     //         });
     // }
-
-    // const handleSearch = (e) => {
-    //     //where we can search through diescode //
-    //     // we can see Registration Details & Mentor Details //
-
-    //     const body = JSON.stringify({
-    //         organization_code: diesCode
-    //     });
-    //     var config = {
-    //         method: 'post',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         data: body
-    //     };
-
-    //     axios(config)
-    //         .then(async function (response) {
-    //             if (response.status == 200) {
-    //                 setOrgData(response?.data?.data[0]);
-    //                 setCount(count + 1);
-    //                 setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-    //                 setError('');
-    //                 if (response?.data?.data[0]?.mentor.mentor_id) {
-    //                     await getMentorIdApi(
-    //                         response?.data?.data[0]?.mentor.mentor_id
-    //                     );
-    //                 }
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             if (error?.response?.data?.status === 404) {
-    //                 setError('Entered Invalid Unique Code');
-    //             }
-    //             setOrgData({});
-    //         });
-    //     e.preventDefault();
-    // };
 
     // async function getMentorIdApi(id) {
     //     // Mentor Id  Api//
@@ -415,8 +376,7 @@ const Dashboard = () => {
     };
 
     const handleAlert = (id) => {
-        // where id = mentor.userid //
-        // we can delete the userid //
+        // id = mentor  user id //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -428,7 +388,7 @@ const Dashboard = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'You are Deleting this Registration',
+                title: 'You are Delete Organization',
                 text: 'Are you sure?',
                 showCloseButton: true,
                 confirmButtonText: 'Confirm',
@@ -436,18 +396,20 @@ const Dashboard = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then(async (result) => {
+            .then((result) => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
-                        await deleteTempMentorById(id);
-                        // setOrgData({});
-                        // setDiesCode('');
+                        deleteTempMentorById(id);
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire('Cancelled', '', 'error');
                 }
             });
     };
+    console.log(
+        MentorData,
+        'MentorDataMentorDataMentorDataMentorDataMentorData'
+    );
 
     return (
         <Layout>
@@ -644,9 +606,14 @@ const Dashboard = () => {
                                                         className="my-auto profile-detail"
                                                     >
                                                         <p>
-                                                            {MentorData?.city
+                                                            {/* {MentorData?.city
                                                                 ? MentorData?.city
-                                                                : '-'}
+                                                                : '-'} */}
+                                                            {
+                                                                MentorData
+                                                                    ?.organization
+                                                                    ?.city
+                                                            }
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -832,9 +799,7 @@ const Dashboard = () => {
 
                                         <button
                                             onClick={() => {
-                                                handleAlert(
-                                                    MentorData.mentor?.user_id
-                                                );
+                                                handleAlert(MentorData.user_id);
                                             }}
                                             className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
                                             style={{
