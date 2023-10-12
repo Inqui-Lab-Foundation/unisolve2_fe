@@ -319,7 +319,7 @@
     },
     "teacehr_red": {
         "heading": "REGISTER",
-        "UDISE": "Unique Code",
+        "UDISE": "UDISE Code/Unique Code",
         "req": "Required",
         "continue": "CONTINUE",
         "clear": "CLEAR",

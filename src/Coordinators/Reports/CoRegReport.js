@@ -446,23 +446,32 @@ const CoRegReport = () => {
                                     <Button
                                         onClick={handleDownload}
                                         //label={'Download Report'}
+                                        // label={
+                                        //     downloadComplete
+                                        //         ? 'Download Complete'
+                                        //         : isDownloading
+                                        //         ? 'Downloading...'
+                                        //         : 'Download Report'
+                                        // }
                                         label={
-                                            downloadComplete
-                                                ? 'Download Complete'
-                                                : isDownloading
-                                                ? 'Downloading...'
+                                            isDownloading
+                                                ? 'Downloading'
                                                 : 'Download Report'
                                         }
                                         btnClass="primary mx-3"
                                         size="small"
                                         shape="btn-square"
                                         type="submit"
+                                        // style={{
+                                        //     width: '160px',
+                                        //     whiteSpace: 'nowrap',
+                                        //     pointerEvents: isDownloading
+                                        //         ? 'none'
+                                        //         : 'auto'
+                                        // }}
                                         style={{
-                                            width: '160px',
-                                            whiteSpace: 'nowrap',
-                                            pointerEvents: isDownloading
-                                                ? 'none'
-                                                : 'auto'
+                                            width: '150px',
+                                            whiteSpace: 'nowrap'
                                         }}
                                         disabled={isDownloading}
                                     />
@@ -481,7 +490,7 @@ const CoRegReport = () => {
                                                 shape="btn-square"
                                                 onClick={() => {
                                                     if (downloadTableData) {
-                                                        setIsDownloading(true);
+                                                        // setIsDownloading(true);
                                                         setDownloadTableData(
                                                             null
                                                         ); // Reset data
@@ -502,7 +511,7 @@ const CoRegReport = () => {
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
                                                     >
-                                                         <thead>
+                                                        <thead>
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
@@ -664,10 +673,10 @@ const CoRegReport = () => {
                                         filename={`MentorSummaryTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
-                                        onDownloaded={() => {
-                                            setIsDownloading(false);
-                                            setDownloadComplete(true);
-                                        }}
+                                        // onDownloaded={() => {
+                                        //     setIsDownloading(false);
+                                        //     setDownloadComplete(true);
+                                        // }}
                                     >
                                         Download Table CSV
                                     </CSVLink>
@@ -680,10 +689,10 @@ const CoRegReport = () => {
                                         filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
-                                        onDownloaded={() => {
-                                            setIsDownloading(false);
-                                            setDownloadComplete(true);
-                                        }}
+                                        // onDownloaded={() => {
+                                        //     setIsDownloading(false);
+                                        //     setDownloadComplete(true);
+                                        // }}
                                     >
                                         Download CSV
                                     </CSVLink>
@@ -696,10 +705,10 @@ const CoRegReport = () => {
                                         filename={`Teacher_${filterType}Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefNotRegistered}
-                                        onDownloaded={() => {
-                                            setIsDownloading(false);
-                                            setDownloadComplete(true);
-                                        }}
+                                        // onDownloaded={() => {
+                                        //     setIsDownloading(false);
+                                        //     setDownloadComplete(true);
+                                        // }}
                                     >
                                         Download Not Registered CSV
                                     </CSVLink>
