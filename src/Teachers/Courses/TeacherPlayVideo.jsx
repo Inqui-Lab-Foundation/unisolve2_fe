@@ -1197,7 +1197,7 @@ const TeacherPlayVideo = (props) => {
                                                         <b>
                                                             Now that you have
                                                             completed the quiz,
-                                                            Below are your next
+                                                            below are your next
                                                             action items in the
                                                             program :
                                                         </b>
