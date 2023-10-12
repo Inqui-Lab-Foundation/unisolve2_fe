@@ -147,7 +147,10 @@ const EditProfile = (props) => {
                 })
                 .catch(function (error) {
                     if (error?.response?.data?.status === 420) {
-                        setError('Mobile Number must be unique');
+                        openNotificationWithIcon(
+                            'error',
+                            'Mobile Number must be unique'
+                        );
                     }
                     console.log(error);
                 });
