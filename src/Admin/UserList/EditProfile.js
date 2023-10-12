@@ -127,6 +127,7 @@ const EditProfile = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status === 200) {
+                        console.log(response, 'Data');
                         mentorData?.evaluator_id
                             ? dispatch(getAdminEvalutorsList())
                             : mentorData?.admin_id && dispatch(getAdmin());
@@ -147,8 +148,13 @@ const EditProfile = (props) => {
                 })
                 .catch(function (error) {
                     if (error?.response?.data?.status === 420) {
-                        setError('Mobile Number must be unique');
+                        // setError('Mobile Number must be unique');
+                        openNotificationWithIcon(
+                            'error',
+                            'Mobile Number must be unique'
+                        );
                     }
+                    // console.log(error.response.data.status);
                     console.log(error);
                 });
         }
@@ -270,6 +276,7 @@ const EditProfile = (props) => {
 
                                 <hr className="mt-4 mb-4"></hr>
                                 <Row>
+                                    {/* <p> {error}</p> */}
                                     <Col className="col-xs-12 col-sm-6">
                                         <Button
                                             label="Discard"
