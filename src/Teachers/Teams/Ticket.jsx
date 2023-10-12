@@ -214,9 +214,9 @@ const TicketsPage = () => {
                             ready with the list of students and their details
                             (Team Name, Full Name, Class, Age, Gender) before
                             you start creating teams. Please ensure you are
-                            selecting students who are and will benefit out of
-                            this program irrespective of their communication
-                            skills or academic performance.
+                            selecting students who will benefit out of this
+                            program irrespective of their communication skills
+                            or academic performance.
                         </p>
                         <List>
                             <li>
