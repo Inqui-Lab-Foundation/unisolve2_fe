@@ -24,7 +24,7 @@ const CreateResource = (props) => {
 
     const fileHandler = (e) => {
         let file = e.target.files[0];
-
+        
         if (!file) {
             return;
         }
@@ -35,6 +35,11 @@ const CreateResource = (props) => {
 
         const maxFileSize = 10000000;
         const isOverMaxSize = file.size > maxFileSize;
+        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if(!allowedTypes.includes(file.type)){
+            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
+            return;
+        }
 
         if (isOverMaxSize) {
             openNotificationWithIcon('error', t('student.less_10MB'));
@@ -296,14 +301,14 @@ const CreateResource = (props) => {
                                                     File
                                                 </Label>
                                                 <div className="d-flex align-items-center">
-                                                    <InputBox
+                                                    <input
                                                         type="file"
                                                         id="attachments"
                                                         name="attachments"
                                                         style={{
                                                             display: 'none'
                                                         }}
-                                                        accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
+                                                        accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                                                         onChange={(e) =>
                                                             fileHandler(e)
                                                         }
