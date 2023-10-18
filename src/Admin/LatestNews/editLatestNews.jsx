@@ -5,7 +5,6 @@ import { Row, Col, FormGroup, Label, Form, Input } from 'reactstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../stories/Button';
-import { InputBox } from '../../stories/InputBox/InputBox';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -34,6 +33,12 @@ const EditLatestNews = (props) => {
 
         const maxFileSize = 10000000;
         const isOverMaxSize = file.size > maxFileSize;
+
+        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if(!allowedTypes.includes(file.type)){
+            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
+            return;
+        }
 
         if (isOverMaxSize) {
             openNotificationWithIcon('error', t('student.less_10MB'));
@@ -250,14 +255,14 @@ const EditLatestNews = (props) => {
                                             File
                                         </Label>
                                         <div className="d-flex align-items-center">
-                                            <InputBox
+                                            <input
                                                 type="file"
                                                 id="file_name"
                                                 name="file_name"
                                                 style={{
                                                     display: 'none'
                                                 }}
-                                                accept=".png, .jpg, .jpeg,.pdf,video/mp4,video/x-m4v,.doc,.docx"
+                                                accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                                                 onChange={(e) => fileHandler(e)}
                                                 onBlur={formik.handleBlur}
                                             />

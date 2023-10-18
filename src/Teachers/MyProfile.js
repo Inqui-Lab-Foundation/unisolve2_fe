@@ -8,16 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 const MyProfile = () => {
     // here we can see all the details of details of teacher //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
+    const key = "PMBXDE9N53V89K65";
+    const stringotp = String(currentUser?.data[0]?.mentor_id);
+    const hashedPassword = CryptoJS.AES.encrypt(stringotp, key).toString();
+    var modifiedCiphertext = hashedPassword.replace(/\//g, '+');
     // console.log(teacher);
     useLayoutEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
-            dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
+            dispatch(getTeacherByID(modifiedCiphertext));
         }
     }, [currentUser?.data[0]?.mentor_id]);
     const handleEdit = () => {
