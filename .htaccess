@@ -1,3 +1,4 @@
+Options All -Indexes
 Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /
