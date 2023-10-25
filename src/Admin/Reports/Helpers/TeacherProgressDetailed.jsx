@@ -361,7 +361,7 @@ const TeacherDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response, '1');
+                    // console.log(response, '1');
                     const summary = response.data.data[0].summary;
                     const registerSchool = response.data.data[0].reg;
                     const regSchools = response.data.data[0].Regschool;
@@ -425,6 +425,7 @@ const TeacherDetailed = () => {
                             courseINcompleted: courseINcompletedItem
                                 ? courseINcompletedItem.courseIN
                                 : 0,
+
                             courseNotStarted
                         };
                     });
@@ -438,6 +439,8 @@ const TeacherDetailed = () => {
                             acc.femaleStudents += item.femaleStudents;
                             acc.courseCompleted += item.courseCompleted;
                             acc.courseINcompleted += item.courseINcompleted;
+                            acc.courseNotStarted += item.courseNotStarted;
+
                             return acc;
                         },
                         {
@@ -448,7 +451,8 @@ const TeacherDetailed = () => {
                             maleStudents: 0,
                             femaleStudents: 0,
                             courseCompleted: 0,
-                            courseINcompleted: 0
+                            courseINcompleted: 0,
+                            courseNotStarted: 0
                         }
                     );
 
