@@ -421,6 +421,7 @@ const TeacherDetailed = () => {
                             acc.femaleStudents += item.femaleStudents;
                             acc.courseCompleted += item.courseCompleted;
                             acc.courseINcompleted += item.courseINcompleted;
+                            acc.courseNotStarted += item.courseNotStarted;
                             return acc;
                         },
                         {
@@ -431,7 +432,8 @@ const TeacherDetailed = () => {
                             maleStudents: 0,
                             femaleStudents: 0,
                             courseCompleted: 0,
-                            courseINcompleted: 0
+                            courseINcompleted: 0,
+                            courseNotStarted: 0
                         }
                     );
                     console.log('Total count', total);
