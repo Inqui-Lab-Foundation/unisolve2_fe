@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
@@ -636,7 +637,9 @@ const ReportsRegistration = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district: 'Total Count', ...total });
+                    setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChart1Data(doughNutData1);
                     setDoughnutChart2Data(doughNutData2);
@@ -893,7 +896,7 @@ const ReportsRegistration = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -956,7 +959,7 @@ const ReportsRegistration = () => {
                                                                     )}
                                                                     %
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>

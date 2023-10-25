@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import Layout from '../Layout';
 import { Container, Row, Col, Table } from 'reactstrap';
@@ -495,7 +496,9 @@ const TeacherDetailed = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district: 'Total Count', ...total });
+                    setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
@@ -747,7 +750,7 @@ const TeacherDetailed = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -799,7 +802,7 @@ const TeacherDetailed = () => {
                                                                         (totalCount.courseCompleted +
                                                                             totalCount.courseINcompleted)}
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>

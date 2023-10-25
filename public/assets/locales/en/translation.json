@@ -195,7 +195,7 @@
     "student": {
         "profile": "My Profile",
         "worksheet": "<p><b>Dear Student,</b></p><p>The workbook is a set of activity sheets that will help you do the course, understand and practice your problem solving journey better. They are based on the concepts you learnt in the videos and are expected to do it as a team. Every team will have a workbook.</p><p><b>Step-1:</b> While it is good to have a printed workbook, it is not compulsory to take a print out. In case you do not have a printed workbook, you can refer to the workbook on a digital device and write down the page number and question number and then answer the questions in notebooks / papers.</p><p><b>Step-2:</b>After watching the videos, discuss the concepts you learnt and the related module workbook pages with your team before you start to do the workbook. (Remember that Workbook is a Team Activity, not individual task)</p><p><b>Step-3:</b>Keep these pages safely Or Suggest to hand it over to your guide teacher after the completion of your course as you will need it during the idea submission</p><p>Hope you and your team learn new things and enjoy completing this workbook.</p>",
-        "download_worksheet": "Download Worksheet",
+        "download_worksheet": "Download Workbook",
         "continue": "Continue",
         "w_sheet": "Student Team Workbook",
         "quiz_heading": "Ready for a quick test?",

@@ -15,11 +15,11 @@ const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
-    const key = "PMBXDE9N53V89K65";
+    const key = 'PMBXDE9N53V89K65';
     const stringotp = String(currentUser?.data[0]?.mentor_id);
     const hashedPassword = CryptoJS.AES.encrypt(stringotp, key).toString();
     var modifiedCiphertext = hashedPassword.replace(/\//g, '+');
-    // console.log(teacher);
+    console.log(teacher);
     useLayoutEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             dispatch(getTeacherByID(modifiedCiphertext));
@@ -295,7 +295,9 @@ const MyProfile = () => {
                                                                     xl={5}
                                                                     className="my-auto profile-detail"
                                                                 >
-                                                                    <b>UDISE</b>
+                                                                    <b>
+                                                                        ATL Code
+                                                                    </b>
                                                                 </Col>
                                                                 <Col
                                                                     xs={1}

@@ -361,7 +361,7 @@ const TeacherDetailed = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, '1');
+                    console.log(response, '1');
                     const summary = response.data.data[0].summary;
                     const registerSchool = response.data.data[0].reg;
                     const regSchools = response.data.data[0].Regschool;
@@ -452,7 +452,7 @@ const TeacherDetailed = () => {
                         }
                     );
 
-                    // console.log('Total count', total);
+                    console.log('Total count', total);
 
                     const doughnutData = {
                         labels: ['Male', 'Female'],
@@ -514,7 +514,9 @@ const TeacherDetailed = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district: 'Total Count', ...total });
+                    setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
@@ -526,7 +528,6 @@ const TeacherDetailed = () => {
                 console.log('API error:', error);
             });
     };
-
     return (
         <>
             <Layout>
@@ -760,7 +761,7 @@ const TeacherDetailed = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -807,12 +808,13 @@ const TeacherDetailed = () => {
                                                                         totalCount.courseINcompleted
                                                                     }
                                                                 </td>
+                                                                
                                                                 <td>
                                                                     {totalCount.totalReg -
                                                                         (totalCount.courseCompleted +
                                                                             totalCount.courseINcompleted)}
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>
