@@ -519,6 +519,14 @@ const StudentDetailedReport = () => {
                             acc.ideaNotStarted =
                                 acc.totalTeams -
                                 (acc.submittedCount + acc.draftCount);
+                            acc.coursePercentage = (
+                                (acc.courseCompleted / acc.totalStudents) *
+                                100
+                            ).toFixed(2);
+                            acc.ideaSubmissionPercentage = (
+                                (acc.submittedCount / acc.totalTeams) *
+                                100
+                            ).toFixed(2);
                             return acc;
                         },
                         {
@@ -529,7 +537,9 @@ const StudentDetailedReport = () => {
                             submittedCount: 0,
                             draftCount: 0,
                             courseNotStarted: 0,
-                            ideaNotStarted: 0
+                            ideaNotStarted: 0,
+                            coursePercentage: 0,
+                            ideaSubmissionPercentage: 0
                         }
                     );
                     console.log('Combined Array:', combinedArray);
