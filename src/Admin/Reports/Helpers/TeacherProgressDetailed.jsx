@@ -425,6 +425,7 @@ const TeacherDetailed = () => {
                             courseINcompleted: courseINcompletedItem
                                 ? courseINcompletedItem.courseIN
                                 : 0,
+
                             courseNotStarted
                         };
                     });
@@ -438,6 +439,8 @@ const TeacherDetailed = () => {
                             acc.femaleStudents += item.femaleStudents;
                             acc.courseCompleted += item.courseCompleted;
                             acc.courseINcompleted += item.courseINcompleted;
+                            acc.courseNotStarted += item.courseNotStarted;
+
                             return acc;
                         },
                         {
@@ -448,11 +451,12 @@ const TeacherDetailed = () => {
                             maleStudents: 0,
                             femaleStudents: 0,
                             courseCompleted: 0,
-                            courseINcompleted: 0
+                            courseINcompleted: 0,
+                            courseNotStarted: 0
                         }
                     );
 
-                    // console.log('Total count', total);
+                    console.log('Total count', total);
 
                     const doughnutData = {
                         labels: ['Male', 'Female'],
@@ -514,7 +518,9 @@ const TeacherDetailed = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district: 'Total Count', ...total });
+                    setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
@@ -526,7 +532,6 @@ const TeacherDetailed = () => {
                 console.log('API error:', error);
             });
     };
-
     return (
         <>
             <Layout>
@@ -760,7 +765,7 @@ const TeacherDetailed = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -807,12 +812,13 @@ const TeacherDetailed = () => {
                                                                         totalCount.courseINcompleted
                                                                     }
                                                                 </td>
+                                                                
                                                                 <td>
                                                                     {totalCount.totalReg -
                                                                         (totalCount.courseCompleted +
                                                                             totalCount.courseINcompleted)}
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>

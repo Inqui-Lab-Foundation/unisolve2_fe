@@ -303,7 +303,9 @@ function RegisterNew() {
         };
         axios(config).then(function (response) {
             if (response.status === 202) {
-                setOtpRes(response?.data?.data);
+                const key = "PMBXDE9N53V89K65";
+                const UNhashedPassword = CryptoJS.AES.decrypt(response?.data?.data, key).toString(CryptoJS.enc.Utf8);
+                setOtpRes(UNhashedPassword);
                 openNotificationWithIcon('success', 'Otp send to mobile');
                 setBtnOtp(true);
             }
