@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable indent */
 import React, { useState, useEffect, useRef } from 'react';
@@ -518,6 +519,14 @@ const StudentDetailedReport = () => {
                             acc.ideaNotStarted =
                                 acc.totalTeams -
                                 (acc.submittedCount + acc.draftCount);
+                            acc.coursePercentage = (
+                                (acc.courseCompleted / acc.totalStudents) *
+                                100
+                            ).toFixed(2);
+                            acc.ideaSubmissionPercentage = (
+                                (acc.submittedCount / acc.totalTeams) *
+                                100
+                            ).toFixed(2);
                             return acc;
                         },
                         {
@@ -528,7 +537,9 @@ const StudentDetailedReport = () => {
                             submittedCount: 0,
                             draftCount: 0,
                             courseNotStarted: 0,
-                            ideaNotStarted: 0
+                            ideaNotStarted: 0,
+                            coursePercentage: 0,
+                            ideaSubmissionPercentage: 0
                         }
                     );
                     console.log('Combined Array:', combinedArray);
@@ -636,7 +647,9 @@ const StudentDetailedReport = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district: 'Total Count', ...total });
+                    setCombinedArray(array);
                     setDownloadTableData(combinedArray);
                     setDoughnutChart1Data(doughNutData1);
                     setDoughnutChart2Data(doughNutData2);
@@ -893,7 +906,7 @@ const StudentDetailedReport = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -956,7 +969,7 @@ const StudentDetailedReport = () => {
                                                                     )}
                                                                     %
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>

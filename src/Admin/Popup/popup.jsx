@@ -122,12 +122,9 @@ const Popup = () => {
 
         const maxFileSize = 3000000;
         const isOverMaxSize = file.size > maxFileSize;
+        const allowedTypes = ['image/jpeg', 'image/png'];
         if (
-            !(
-                file.type === 'image/png' ||
-                file.type === 'image/jpeg' ||
-                file.type === 'image/jpg'
-            )
+            !allowedTypes.includes(file.type)
         ) {
             openNotificationWithIcon(
                 'error',

@@ -55,6 +55,7 @@ const ForgotPasswordNew = () => {
                 )
                 .then((checkOrgRes) => {
                     if (checkOrgRes.status == 202) {
+                        // console.log(checkOrgRes, 'pass');
                         // props.setShow(false);
                         openNotificationWithIcon(
                             'success',
