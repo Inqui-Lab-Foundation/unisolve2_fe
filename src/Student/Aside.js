@@ -267,7 +267,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/student/help'}>
-                            Help
+                            {/* Help */}
+                            {t('home.help')}
                         </NavLink>
                     </MenuItem>
 
