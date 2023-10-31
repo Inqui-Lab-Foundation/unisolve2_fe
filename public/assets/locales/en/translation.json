@@ -153,7 +153,8 @@
         "idea_submission": "Idea Submission",
         "my_profile": "My Profile",
         "change_pass": "Change password",
-        "resources": "Resources"
+        "resources": "Resources",
+        "help": "Help"
     },
     "get_started": {
         "heading": "Welcome Students!",
