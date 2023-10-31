@@ -179,7 +179,7 @@ const Dashboard = () => {
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="cardbody">
-                                        Course Complete
+                                        Teacher Course %
                                     </label>
                                     <Card.Text
                                         className="cardtext"

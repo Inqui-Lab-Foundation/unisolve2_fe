@@ -299,7 +299,7 @@ const ViewTeamMember = (props) => {
             {
                 name: 'User Id',
                 selector: 'user.username',
-                width: '16rem'
+                width: '30rem'
             },
             {
                 name: 'Default Password',
@@ -452,7 +452,6 @@ const ViewTeamMember = (props) => {
                 }
             });
     };
-
 
     return (
         <Layout>
