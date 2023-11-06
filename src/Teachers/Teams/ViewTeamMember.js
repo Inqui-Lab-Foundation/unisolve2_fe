@@ -299,17 +299,29 @@ const ViewTeamMember = (props) => {
             {
                 name: 'User Id',
                 selector: 'user.username',
-                width: '16rem'
+                cell: (row) => (
+                    <div style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                      {row.user.username}
+                    </div>
+                  ),
             },
             {
                 name: 'Default Password',
                 selector: 'UUID',
-                width: '20rem'
+                cell: (row) => (
+                    <div style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                      {row.UUID}
+                    </div>
+                  ),
             },
             {
                 name: t('teacher_teams.student_name'),
                 selector: 'full_name',
-                width: '16rem'
+                cell: (row) => (
+                    <div style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                      {row.full_name}
+                    </div>
+                  ),
             },
             {
                 name: 'Class',
@@ -452,7 +464,6 @@ const ViewTeamMember = (props) => {
                 }
             });
     };
-
 
     return (
         <Layout>
