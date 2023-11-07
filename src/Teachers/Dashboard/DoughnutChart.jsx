@@ -47,7 +47,7 @@ export default function DoughnutChart({ user }) {
     useEffect(() => {
         setTeamId(null);
     }, [user[0]?.mentor_id]);
-    
+
     // console.log(user[0]?.mentor_id, 'data');
     useEffect(() => {
         dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -152,7 +152,8 @@ export default function DoughnutChart({ user }) {
             url:
                 process.env.REACT_APP_API_BASE_URL +
                 '/challenge_response/updateEntry/' +
-                JSON.stringify(id),
+                JSON.stringify(id) +
+                `?nameChange=true`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

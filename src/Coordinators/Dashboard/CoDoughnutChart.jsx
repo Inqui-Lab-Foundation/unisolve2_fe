@@ -8,7 +8,12 @@ import { useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { FaCheckCircle, FaDownload, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
+import {
+    FaCheckCircle,
+    FaDownload,
+    FaHourglassHalf,
+    FaTimesCircle
+} from 'react-icons/fa';
 import { Button } from '../../stories/Button';
 import IdeaSubmissionCard from '../../components/IdeaSubmissionCard';
 import { getStudentChallengeSubmittedResponse } from '../../redux/studentRegistration/actions';
@@ -19,7 +24,7 @@ import axios from 'axios';
 import { Row, Col } from 'reactstrap';
 import { useReactToPrint } from 'react-to-print';
 import Schoolpdf from '../../School/SchoolPdf';
-export default function DoughnutChart({ user , UserId}) {
+export default function DoughnutChart({ user, UserId }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
@@ -141,7 +146,8 @@ export default function DoughnutChart({ user , UserId}) {
             url:
                 process.env.REACT_APP_API_BASE_URL +
                 '/challenge_response/updateEntry/' +
-                JSON.stringify(id),
+                JSON.stringify(id) +
+                `?nameChange=true`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -435,7 +441,9 @@ export default function DoughnutChart({ user , UserId}) {
                 'Congratulations,Idea is selected for grand finale'
             );
         } else if (challengesSubmittedResponse[0].final_result === '0') {
-            setIdeaStatusEval('L2_Promoted - Shortlisted for final round of evaluation');
+            setIdeaStatusEval(
+                'L2_Promoted - Shortlisted for final round of evaluation'
+            );
             if (isEvlCom) {
                 setIdeaStatusEval('Runner - “Better luck next time”');
             }
@@ -445,7 +453,8 @@ export default function DoughnutChart({ user , UserId}) {
         ) {
             setIdeaStatusEval('L1_Rejected - “Better luck next time”');
         } else if (
-            challengesSubmittedResponse[0].evaluation_status === 'SELECTEDROUND1'
+            challengesSubmittedResponse[0].evaluation_status ===
+            'SELECTEDROUND1'
         ) {
             setIdeaStatusEval(
                 'L1_Accepted - “Promoted to Level 2 round of evaluation”'
@@ -460,7 +469,7 @@ export default function DoughnutChart({ user , UserId}) {
 
     return (
         <>
-        <div style={{ display: 'none' }}>
+            <div style={{ display: 'none' }}>
                 <Schoolpdf
                     ref={componentRef}
                     tabledata={teamsData}

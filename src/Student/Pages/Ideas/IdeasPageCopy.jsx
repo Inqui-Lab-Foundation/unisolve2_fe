@@ -423,10 +423,10 @@ const IdeasPageNew = () => {
             );
             return;
         }
-        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','video/mp4'];
       
         if(choosenFiles.filter((item) => allowedTypes.includes(item.type) === false).length > 0){
-            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
+            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx,mp4 Only'));
             return;
         }
 
@@ -1007,7 +1007,7 @@ const IdeasPageNew = () => {
                                                                                                     disabled={
                                                                                                         isDisabled
                                                                                                     }
-                                                                                                    accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                                                                                    accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,video/mp4"
                                                                                                     multiple
                                                                                                     onChange={(
                                                                                                         e
