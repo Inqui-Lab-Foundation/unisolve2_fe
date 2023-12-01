@@ -4,41 +4,40 @@
 }
 
 .card-effect:hover {
-    box-shadow:5px 10px 8px #440df72a;
+    box-shadow: 5px 10px 8px #440df72a;
 }
 
-.view{
+.view {
     margin-left: 10rem;
     margin-top: 0rem;
 }
 
 .table-wrapper {
-    display:block;
-    max-height:900px;
-    max-width:max-content;
-    overflow-y:auto;
-    overflow-x: hidden; 
+    display: block;
+    max-height: 900px;
+    max-width: max-content;
+    overflow-y: auto;
+    overflow-x: auto;
     border: 1px solid #ccc;
     position: relative;
 }
 .table-wrapper table {
-    display:table;
+    display: table;
     width: 100px;
-    table-layout:auto;
+    table-layout: auto;
     border-collapse: collapse;
 }
 .table-wrapper thead {
-    width: calc( 100% - 1em );
+    width: calc(100% - 1em);
     position: sticky;
-    top: 0; 
+    top: 0;
     background-color: #fff;
     z-index: 2;
     margin-top: -1px;
     border-bottom: 1px solid #ccc;
-} 
+}
 
-
-.rep{
+.rep {
     margin-top: 0;
     padding-left: 1.2rem;
     padding-right: 1.2rem;

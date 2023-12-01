@@ -18,11 +18,11 @@ import { categoryValue } from '../../Admin/Schools/constentText';
 // import { getDistrictByName } from '../../Coordinators/store/Coordinator/actions';
 
 const CoRegReport = () => {
-    const currentUser = getCurrentUser('current_user');
     // console.log(currentUser);
     const [RegTeachersdistrict, setRegTeachersdistrict] = React.useState(
         currentUser?.data[0]?.district_name
     );
+    const currentUser = getCurrentUser('current_user');
     const [filterType, setFilterType] = useState('');
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -325,7 +325,7 @@ const CoRegReport = () => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/reports/mentorsummary?district=${currentUser?.data[0]?.district_name}`,
+                `/reports/mentorsummary?state=${currentUser?.data[0]?.district_name}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

@@ -457,21 +457,19 @@ const ViewSelectedIdea = () => {
                 selector: (row) => {
                     return [
                         (
-                            (row.evaluator_ratings[0]?.param_3[0] +
+                            ((row.evaluator_ratings[0]?.param_3[0] +
                                 row.evaluator_ratings[0]?.param_3[1] +
                                 row.evaluator_ratings[0]?.param_3[2]) /
                                 3 +
-                            (row.evaluator_ratings[0]?.param_4[0] +
-                                row.evaluator_ratings[0]?.param_4[1] +
-                                row.evaluator_ratings[0]?.param_4[2]) /
-                                3 /
-                                +(
-                                    row.evaluator_ratings[0]?.param_5[0] +
+                                (row.evaluator_ratings[0]?.param_4[0] +
+                                    row.evaluator_ratings[0]?.param_4[1] +
+                                    row.evaluator_ratings[0]?.param_4[2]) /
+                                    3 +
+                                (row.evaluator_ratings[0]?.param_5[0] +
                                     row.evaluator_ratings[0]?.param_5[1] +
-                                    row.evaluator_ratings[0]?.param_5[2]
-                                ) /
-                                3 /
-                                3
+                                    row.evaluator_ratings[0]?.param_5[2]) /
+                                    3) /
+                            3
                         ).toFixed(2)
                     ];
                 },
