@@ -19,7 +19,7 @@ const Register = (props) => {
     const handleClose = () => {};
     const dispatch = useDispatch();
 
-    const phoneRegExp = /^[0-9\s]+$/;
+    const phoneRegExp = /^[0-9]+$/;
 
     const inputPhone = {
         type: 'text',
@@ -48,7 +48,7 @@ const Register = (props) => {
             .required('required')
             .trim()
             .matches(phoneRegExp, 'Contact number is not valid')
-            .min(10, 'Please enter valid number')
+            .min(10, 'Number is less than 10 digits')
             .max(10, 'Please enter valid number')
         // username: Yup.string()
         //     .trim()
