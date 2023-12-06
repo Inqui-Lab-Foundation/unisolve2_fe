@@ -17,7 +17,7 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
     // let tempVar = postSurveyStatus === 'COMPLETED';
-    let tempVar = false;
+    let tempVar = true;
     const handleCertificateDownload = () => {
         // here we can download the certificates //
         const content = pdfRef.current;
@@ -87,8 +87,8 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '7.2rem',
-                                            left: '10rem',
+                                            top: '8.9rem',
+                                            left: '11.5rem',
                                             fontSize: '1rem',
                                             fontFamily: 'Times New Roman'
                                         }}
@@ -100,7 +100,7 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '8.6rem',
+                                            top: '9.8rem',
                                             left: '5rem',
                                             fontSize: '1rem',
                                             fontFamily: 'Times New Roman'
