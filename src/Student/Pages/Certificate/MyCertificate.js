@@ -89,8 +89,8 @@ const Certificate = ({
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: `${type ? '8.1rem' : '7.4rem'}`,
-                                left: `${type ? '10.3rem' : '10rem'}`,
+                                top: `${type ? '9.5rem' : '9.4rem'}`,
+                                left: `${type ? '12.8rem' : '12.8rem'}`,
                                 fontSize: '0.8rem',
                                 fontFamily: 'Times New Roman'
                             }}
@@ -101,9 +101,9 @@ const Certificate = ({
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: `${type ? '9.5rem' : '8.8rem'}`,
-                                left: `${type ? '5rem' : '5.1rem'}`,
-                                fontSize: '0.8rem',
+                                top: `${type ? '10.7rem' : '10.7rem'}`,
+                                left: `${type ? '3.1rem' : '3rem'}`,
+                                fontSize: '0.5rem',
                                 fontFamily: 'Times New Roman'
                             }}
                         >
@@ -149,7 +149,7 @@ const Certificate = ({
 };
 
 const MyCertificate = () => {
-    const showDummypage = false;
+    const showDummypage = true;
     const { t } = useTranslation();
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
