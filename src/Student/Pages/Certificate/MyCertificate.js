@@ -103,7 +103,7 @@ const Certificate = ({
                                 position: 'absolute',
                                 top: `${type ? '10.7rem' : '10.7rem'}`,
                                 left: `${type ? '3.1rem' : '3rem'}`,
-                                fontSize: '0.5rem',
+                                fontSize: '0.3rem',
                                 fontFamily: 'Times New Roman'
                             }}
                         >
