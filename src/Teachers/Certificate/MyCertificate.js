@@ -87,7 +87,7 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '8.9rem',
+                                            top: '9.3rem',
                                             left: '11.5rem',
                                             fontSize: '0.5rem',
                                             fontFamily: 'Times New Roman'
