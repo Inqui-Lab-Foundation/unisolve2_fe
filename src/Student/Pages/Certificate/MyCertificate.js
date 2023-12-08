@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Fragment, useLayoutEffect, useRef } from 'react';
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap';
 import { Button } from '../../../stories/Button';
@@ -58,14 +59,14 @@ const Certificate = ({
                 updateStudentCertificate(currentUser?.data[0]?.student_id)
             );
     };
-    const certDateCheck = () => {
-        const check =
-            type !== 'participate'
-                ? certDate?.course_completed_date &&
-                  moment(certDate?.course_completed_date).format('DD-MM-YYYY')
-                : '';
-        return check ? ' on ' + check : '';
-    };
+    // const certDateCheck = () => {
+    //     const check =
+    //         type !== 'participate'
+    //             ? certDate?.course_completed_date &&
+    //               moment(certDate?.course_completed_date).format('DD-MM-YYYY')
+    //             : '';
+    //     return check ? ' on ' + check : '';
+    // };
     return (
         <Card
             className="course-sec-basic p-5 m-4 w-100"
@@ -91,7 +92,7 @@ const Certificate = ({
                                 position: 'absolute',
                                 top: `${type ? '9.5rem' : '9.4rem'}`,
                                 left: `${type ? '12.8rem' : '12.8rem'}`,
-                                fontSize: '0.8rem',
+                                fontSize: '0.5rem',
                                 fontFamily: 'Times New Roman'
                             }}
                         >
@@ -103,12 +104,11 @@ const Certificate = ({
                                 position: 'absolute',
                                 top: `${type ? '10.7rem' : '10.7rem'}`,
                                 left: `${type ? '3.1rem' : '3rem'}`,
-                                fontSize: '0.3rem',
+                                fontSize: '0.5rem',
                                 fontFamily: 'Times New Roman'
                             }}
                         >
-                            {currentUser?.data[0]?.organization_name +
-                                certDateCheck()}
+                            {currentUser?.data[0]?.organization_name}
                         </span>
                         <img
                             src={

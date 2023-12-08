@@ -89,7 +89,7 @@ const MyCertificate = () => {
                                             position: 'absolute',
                                             top: '8.9rem',
                                             left: '11.5rem',
-                                            fontSize: '1rem',
+                                            fontSize: '0.5rem',
                                             fontFamily: 'Times New Roman'
                                         }}
                                     >
