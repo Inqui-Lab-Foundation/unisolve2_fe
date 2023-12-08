@@ -165,6 +165,11 @@ import HelpSchool from './School/Help';
 import ReportHelp from './ReportsPanel/Help';
 import CooHelp from './Coordinators/Help';
 import StudentHelp from './Student/Pages/Help';
+import IdeaReport from './Admin/Reports/Helpers/IdeaDetailsReport';
+import EadminReports from './Evaluator/Admin/Reports/index';
+import ReportL1 from './Evaluator/Admin/Reports/ReportL1';
+import ReportsL2 from './Evaluator/Admin/Reports/ReportL2';
+import ReportsL3 from './Evaluator/Admin/Reports/ReportL3';
 const Routers = () => {
     return (
         <>
@@ -679,10 +684,39 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/ideareport"
+                        component={IdeaReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/ChallengesReport"
                         component={ChallengesReport}
                     />
-
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/reports"
+                        component={EadminReports}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/l1-reports"
+                        component={ReportL1}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/l2-reports"
+                        component={ReportsL2}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="EADMIN"
+                        path="/eadmin/l3-reports"
+                        component={ReportsL3}
+                    />
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
