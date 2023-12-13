@@ -5,7 +5,7 @@ import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
-import TeacherCertificate from '../../assets/media/img/certificates/GuideTeacherCertificate-min.jpg';
+import TeacherCertificate from '../../assets/media/img/certificates/TeacherCourseCompletionCertificate.jpg';
 import { useTranslation } from 'react-i18next';
 import { KEY, URL } from '../../constants/defaultValues';
 import Congo from '../../assets/media/survey-success.jpg';
@@ -87,8 +87,8 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '9.3rem',
-                                            left: '11.5rem',
+                                            top: '9rem',
+                                            left: '15.8rem',
                                             fontSize: '0.5rem',
                                             fontFamily: 'Times New Roman'
                                         }}
@@ -100,8 +100,8 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '10.1rem',
-                                            left: '4.7rem',
+                                            top: '9.9rem',
+                                            left: '5rem',
                                             fontSize: '0.5rem',
                                             fontFamily: 'Times New Roman'
                                         }}

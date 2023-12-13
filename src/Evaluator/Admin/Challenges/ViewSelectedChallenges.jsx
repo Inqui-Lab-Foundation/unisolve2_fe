@@ -103,8 +103,28 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
+            },
+            {
                 name: 'Idea Name',
                 selector: (row) => row?.response[8]?.selected_option || '',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
                 // sortable: true,
                 width: '40rem'
             },
@@ -113,11 +133,21 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.challenge_response_id,
                 width: '10rem'
             },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row.sdg,
-            //     width: '15%'
-            // },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
+                width: '15rem'
+            },
             {
                 name: 'District',
                 selector: (row) => row.district,

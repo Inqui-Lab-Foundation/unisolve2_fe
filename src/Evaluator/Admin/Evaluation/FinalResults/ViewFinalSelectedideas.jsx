@@ -130,27 +130,59 @@ const ViewSelectedIdea = () => {
                 sortable: true,
                 width: '8rem'
             },
+
+            {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
+            },
+            {
+                name: 'Idea Name',
+                selector: (row) => row?.response[8]?.selected_option || '',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
+                // sortable: true,
+                width: '25rem'
+            },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
+                width: '15rem'
+            },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
                 width: '6rem'
             },
             {
-                name: 'Idea Name',
-                selector: (row) => row?.response[8]?.selected_option || '',
-                // sortable: true,
-                width: '27rem'
-            },
-            {
                 name: 'District',
                 selector: (row) => row.district,
                 width: '15rem'
             },
-            // {
-            //     name: 'Team Name',
-            //     selector: (row) => row?.team_name || '',
-            //     sortable: true
-            // },
+
             // {
             //     name: 'SDG',
             //     selector: (row) => row?.sdg,

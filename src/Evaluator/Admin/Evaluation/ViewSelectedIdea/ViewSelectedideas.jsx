@@ -186,13 +186,33 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10rem'
+                width: '8rem'
+            },
+            {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[8]?.selected_option || '',
-                sortable: true,
-                width: '35rem'
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
+                // sortable: true,
+                width: '25rem'
             },
             {
                 name: 'CID',
@@ -204,11 +224,21 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.district,
                 width: '15rem'
             },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row.sdg,
-            //     width: '15%'
-            // },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
+                width: '15%'
+            },
             // {
             //     name: 'Submitted By',
             //     selector: (row) => row.initiated_name,
@@ -301,10 +331,30 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
+            },
+            {
                 name: 'Idea Name',
                 selector: (row) => row?.response[8]?.selected_option || '',
-                sortable: true,
-                width: '45rem'
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
+                // sortable: true,
+                width: '25rem'
             },
             {
                 name: 'CID',
@@ -321,11 +371,21 @@ const ViewSelectedIdea = () => {
             //     selector: (row) => row.challenge_response_id,
             //     width: '10%'
             // },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row.sdg,
-            //     width: '30%'
-            // },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
+                width: '15rem'
+            },
             // {
             //     name: 'Submitted By',
             //     selector: (row) => row.initiated_name,
@@ -415,10 +475,30 @@ const ViewSelectedIdea = () => {
                 width: '8rem'
             },
             {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
+            },
+            {
                 name: 'Idea Name',
                 selector: (row) => row?.response[8]?.selected_option || '',
-                sortable: true,
-                width: '15rem'
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
+                // sortable: true,
+                width: '25rem'
             },
             {
                 name: 'CID',
@@ -428,6 +508,21 @@ const ViewSelectedIdea = () => {
             {
                 name: 'District',
                 selector: (row) => row.district,
+                width: '15rem'
+            },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
                 width: '15rem'
             },
             {
@@ -490,11 +585,7 @@ const ViewSelectedIdea = () => {
             //     sortable: true,
             //     width: '17%'
             // },
-            // {
-            //     name: 'SDG',
-            //     selector: (row) => row.sdg,
-            //     wi '13%'
-            // },
+
             // {
             //     name: 'Submitted By',
             //     selector: (row) => row.initiated_name,
@@ -614,23 +705,58 @@ const ViewSelectedIdea = () => {
                 name: 'No',
                 selector: (row) => row.key,
                 sortable: true,
-                width: '10%'
+                width: '8ren'
+            },
+            {
+                name: 'Udise Code',
+                selector: (row) => row.organization_code,
+                width: '15rem'
+            },
+            {
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '15rem'
             },
             {
                 name: 'Idea Name',
                 selector: (row) => row?.response[8]?.selected_option || '',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.response[8]?.selected_option || ''}
+                    </div>
+                ),
                 // sortable: true,
-                width: '45%'
+                width: '25rem'
             },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '15%'
+                width: '15rem'
+            },
+            {
+                name: 'SDG',
+                selector: (row) => row.sdg,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.sdg}
+                    </div>
+                ),
+                width: '15rem'
             },
 
             // {
@@ -689,7 +815,7 @@ const ViewSelectedIdea = () => {
                         </>
                     ];
                 },
-                width: '20%',
+                width: '20rem',
                 left: true
             }
         ]

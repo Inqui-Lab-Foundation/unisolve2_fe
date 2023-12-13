@@ -585,7 +585,7 @@ const ReportL2 = () => {
                                         <Select
                                             list={SDGDate}
                                             setValue={setsdg}
-                                            placeHolder={'Select Themes'}
+                                            placeHolder={'Select SGD'}
                                             value={sdg}
                                         />
                                         {/* <Select

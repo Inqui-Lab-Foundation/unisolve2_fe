@@ -20,7 +20,10 @@ const MyProfile = () => {
         if (currentUser?.data[0]?.mentor_id) {
             const key = 'PMBXDE9N53V89K65';
             const stringotp = String(currentUser?.data[0]?.mentor_id);
-            const hashedPassword = CryptoJS.AES.encrypt(stringotp, key).toString();
+            const hashedPassword = CryptoJS.AES.encrypt(
+                stringotp,
+                key
+            ).toString();
             const encoded = btoa(hashedPassword);
             dispatch(getTeacherByID(encoded));
         }
@@ -296,7 +299,8 @@ const MyProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        ATL Code
+                                                                        UDISE
+                                                                        Code
                                                                     </b>
                                                                 </Col>
                                                                 <Col
