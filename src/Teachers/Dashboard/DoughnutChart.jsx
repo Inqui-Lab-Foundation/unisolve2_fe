@@ -446,32 +446,28 @@ export default function DoughnutChart({ user }) {
                 'Congratulations,Idea is selected for grand finale'
             );
         } else if (challengesSubmittedResponse[0].final_result === '0') {
-            setIdeaStatusEval(
-                'L2_Promoted - Shortlisted for final round of evaluation'
-            );
+            setIdeaStatusEval('Shortlisted for final round of evaluation');
             if (isEvlCom) {
-                setIdeaStatusEval('Runner - “Better luck next time”');
+                setIdeaStatusEval('Better luck next time');
             }
         } else if (
             challengesSubmittedResponse[0].evaluation_status ===
             'REJECTEDROUND1'
         ) {
-            setIdeaStatusEval('L1_Rejected - “Better luck next time”');
+            setIdeaStatusEval('Better luck next time');
         } else if (
             challengesSubmittedResponse[0].evaluation_status ===
             'SELECTEDROUND1'
         ) {
-            setIdeaStatusEval(
-                'L1_Accepted - “Promoted to Level 2 round of evaluation”'
-            );
+            setIdeaStatusEval('Promoted to Level 2 round of evaluation');
             if (isEvlCom) {
-                setIdeaStatusEval('L2_Not Promoted - “Better luck next time”');
+                setIdeaStatusEval('Better luck next time');
             }
         } else {
             setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
         }
     }, [challengesSubmittedResponse]);
-
+    
     return (
         <>
             <div style={{ display: 'none' }}>
@@ -537,7 +533,13 @@ export default function DoughnutChart({ user }) {
                                             IDEA STATUS :
                                         </span>
                                         <span style={{ paddingLeft: '1rem' }}>
-                                            {ideaStatusEval}
+                                            {isEvlCom
+                                                ? ideaStatusEval
+                                                : challengesSubmittedResponse.length ===
+                                                  0
+                                                ? 'Not Started'
+                                                : challengesSubmittedResponse[0]
+                                                      ?.status}
                                         </span>
                                     </Card>
                                 </div>
