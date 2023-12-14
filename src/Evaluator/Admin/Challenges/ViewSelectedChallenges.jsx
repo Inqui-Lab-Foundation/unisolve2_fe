@@ -126,7 +126,12 @@ const ViewSelectedIdea = () => {
                     </div>
                 ),
                 // sortable: true,
-                width: '40rem'
+                width: '25rem'
+            },
+            {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '15rem'
             },
             {
                 name: 'CID',
