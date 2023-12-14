@@ -467,7 +467,7 @@ export default function DoughnutChart({ user }) {
             setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
         }
     }, [challengesSubmittedResponse]);
-
+    
     return (
         <>
             <div style={{ display: 'none' }}>
@@ -533,8 +533,11 @@ export default function DoughnutChart({ user }) {
                                             IDEA STATUS :
                                         </span>
                                         <span style={{ paddingLeft: '1rem' }}>
-                                            {ideaStatusEval
-                                                ? isEvlCom
+                                            {isEvlCom
+                                                ? ideaStatusEval
+                                                : challengesSubmittedResponse.length ===
+                                                  0
+                                                ? 'Not Started'
                                                 : challengesSubmittedResponse[0]
                                                       ?.status}
                                         </span>
