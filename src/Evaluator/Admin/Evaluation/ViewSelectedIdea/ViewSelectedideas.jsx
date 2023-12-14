@@ -220,6 +220,11 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '15rem'
+            },
+            {
                 name: 'District',
                 selector: (row) => row.district,
                 width: '15rem'
@@ -360,6 +365,11 @@ const ViewSelectedIdea = () => {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
                 width: '10rem'
+            },
+            {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '15rem'
             },
             {
                 name: 'District',
@@ -504,6 +514,11 @@ const ViewSelectedIdea = () => {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
                 width: '7rem'
+            },
+            {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '15rem'
             },
             {
                 name: 'District',
@@ -737,6 +752,11 @@ const ViewSelectedIdea = () => {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
                 width: '10rem'
+            },
+            {
+                name: 'Category',
+                selector: (row) => row.category,
+                width: '15rem'
             },
             {
                 name: 'District',
