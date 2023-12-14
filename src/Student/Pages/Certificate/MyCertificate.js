@@ -5,8 +5,8 @@ import { Button } from '../../../stories/Button';
 import Layout from '../../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser } from '../../../helpers/Utils';
-import courseCompletionCertificate from '../../../assets/media/img/certificates/StudentCourseCompletionCertificate.jpeg';
-import ideaSubmissionCertificate from '../../../assets/media/img/certificates/StudentIdeaSubmissionCertificate.jpeg';
+import courseCompletionCertificate from '../../../assets/media/img/certificates/StudentCourseCompletionCertificate.jpg';
+import ideaSubmissionCertificate from '../../../assets/media/img/certificates/StudentIdeaSubmissioCertificate.jpg';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -34,7 +34,7 @@ const Certificate = ({
         // here we can download the certificates //
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
-        const size = [298, 220];
+        const size = [211, 298];
         const orientation = 'l';
         const doc = new jsPDF(orientation, 'px', size);
         const certName = `${currentUser?.data[0]?.full_name}_${
@@ -103,7 +103,7 @@ const Certificate = ({
                             style={{
                                 position: 'absolute',
                                 top: `${type ? '10.7rem' : '10.7rem'}`,
-                                left: `${type ? '3.1rem' : '3rem'}`,
+                                left: `${type ? '3.3rem' : '3.3rem'}`,
                                 fontSize: '0.5rem',
                                 fontFamily: 'Times New Roman'
                             }}
@@ -117,7 +117,7 @@ const Certificate = ({
                                     : courseCompletionCertificate
                             }
                             alt="certificate"
-                            className="img-fluid mx-auto"
+                            // className="img-fluid mx-auto"
                             style={{
                                 width: '297px',
                                 height: '210px',

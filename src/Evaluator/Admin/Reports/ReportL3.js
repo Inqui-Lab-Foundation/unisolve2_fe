@@ -118,11 +118,11 @@ const ReportL3 = () => {
     ];
     const summaryHeaders2 = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district'
         },
         {
-            label: ' No of Ideas Shortlistedfor L3',
+            label: 'No of Ideas Shortlistedfor L3',
             key: 'shortedlisted'
         },
         {
@@ -543,14 +543,14 @@ const ReportL3 = () => {
                     const total = chartTableData2.reduce(
                         (acc, item) => {
                             (acc.shortedlisted += item.shortedlisted),
-                                // (acc.state += item.state);
+                                // (acc.district += item.district);
                                 (acc.winners += item.winners),
                                 (acc.runners += item.runners);
 
                             return acc;
                         },
                         {
-                            // state: 0,
+                            // district: 0,
                             shortedlisted: 0,
                             winners: 0,
                             runners: 0
@@ -624,7 +624,7 @@ const ReportL3 = () => {
                                         <Select
                                             list={SDGDate}
                                             setValue={setsdg}
-                                            placeHolder={'Select Themes'}
+                                            placeHolder={'Select SDG'}
                                             value={sdg}
                                         />
                                         {/* <Select
