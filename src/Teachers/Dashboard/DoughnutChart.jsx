@@ -594,7 +594,7 @@ export default function DoughnutChart({ user }) {
                                 </div>
                                 <div>
                                     {challengesSubmittedResponse[0]?.status ==
-                                    'SUBMITTED' ? (
+                                    'SUBMITTED' && challengesSubmittedResponse[0]?.evaluation_status === null ? (
                                         <Button
                                             className={
                                                 isideadisable
