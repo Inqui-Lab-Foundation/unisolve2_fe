@@ -352,8 +352,19 @@ const ReportL3 = () => {
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];
-                            entry[challenge_question_id] =
-                                selected_option.toString();
+                                var newSelectedOption;
+                                const tostringCovert = selected_option.toString();
+                                if (
+                                    tostringCovert === null ||
+                                    tostringCovert === undefined
+                                ) {
+                                    newSelectedOption = selected_option;
+                                } else {
+                                    newSelectedOption = tostringCovert
+                                        .replace(/\n/g, ' ')
+                                        .replace(/,/g, ';');
+                                }
+                                entry[challenge_question_id] = newSelectedOption;
                         });
 
                         return {
