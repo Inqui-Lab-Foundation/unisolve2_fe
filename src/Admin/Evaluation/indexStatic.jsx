@@ -86,7 +86,7 @@ const Eadmindashboard = () => {
                             <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-warning">
-                                        L1 - YET TO PROCESSED CHALLENGES
+                                        L1 - YET TO BE PROCESSED CHALLENGES
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.l1_yet_to_process}
@@ -108,7 +108,7 @@ const Eadmindashboard = () => {
                             <Col lg={6} md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-warning">
-                                        L2 - YET TO PROCESSED CHALLENGES
+                                        L2 - YET TO BE PROCESSED CHALLENGES
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.l2_yet_to_processed}

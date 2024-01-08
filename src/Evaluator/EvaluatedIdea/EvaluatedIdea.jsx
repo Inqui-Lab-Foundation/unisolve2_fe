@@ -102,18 +102,18 @@ const EvaluatedIdea = () => {
                 sortable: true,
                 width: '9rem'
             },
-            {
-                name: 'Udise Code',
-                selector: (row) => row.organization_code || '',
-                sortable: true,
-                width: '15rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Udise Code',
+            //     selector: (row) => row.organization_code || '',
+            //     sortable: true,
+            //     width: '15rem'
+            // },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name || '',
+            //     sortable: true,
+            //     width: '15rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id || '',

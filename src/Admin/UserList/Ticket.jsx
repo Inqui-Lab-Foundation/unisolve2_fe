@@ -682,14 +682,14 @@ const TicketsPage = (props) => {
                 selector: 'user.full_name',
                 width: '20rem'
             },
-            // {
-            //     name: 'Email',
-            //     selector: 'user.username',
-            //     width: '25rem'
-            // },
+            {
+                name: 'Email',
+                selector: 'user.username',
+                width: '25rem'
+            },
             {
                 name: 'Mobile',
-                selector: 'user.username',
+                selector: 'mobile',
                 width: '20rem'
             },
             // {

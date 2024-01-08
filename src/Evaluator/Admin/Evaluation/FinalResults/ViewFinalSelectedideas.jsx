@@ -25,6 +25,8 @@ import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import logout from '../../../../assets/media/logout.svg';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -59,7 +61,40 @@ const ViewSelectedIdea = () => {
     }, []);
 
     const handlePromotelFinalEvaluated = async (item) => {
-        await promoteapi(item.challenge_response_id);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    
+        swalWithBootstrapButtons
+            .fire({
+                title: 'Promoting to Final Winners',
+                text: 'Are you sure ?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Promote',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then(async(result) => {
+                if (result.isConfirmed) {
+                    await promoteapi(item.challenge_response_id);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Promoting is cancelled',
+                        'error'
+                    );
+                }
+            });
     };
 
     async function promoteapi(id) {
@@ -225,7 +260,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Feasability',
+                name: 'Feasibility',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings

@@ -134,9 +134,10 @@ const ReportsRegistration = () => {
         labels: [],
         datasets: []
     });
-    const fullDistrictsNames = useSelector(
+    const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
 
     const summaryHeaders = [
         {
