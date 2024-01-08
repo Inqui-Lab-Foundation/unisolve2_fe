@@ -11,7 +11,7 @@ import { getSubmittedIdeaList } from '../store/evaluator/action';
 const RateIdea = (props) => {
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const ratingParams = ['novelity', 'usefulness', 'feasability', 'scalability', 'sustainability'];
+    const ratingParams = ['novelity', 'usefulness', 'feasibility', 'scalability', 'sustainability'];
     const [novelityScore, setNovelityScore] = React.useState(0);
     const [usefulnessScore, setUsefulnessScore] = React.useState(0);
     const [feasabilityScore, setFeasabilityScore] = React.useState(0);
@@ -144,18 +144,18 @@ const RateIdea = (props) => {
                                     {item} score -{' '}
                                     <span
                                         className={
-                                            (item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasability' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore) == 0
+                                            (item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasibility' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore) == 0
                                                 ? 'text-muted fs-2'
                                                 : 'fs-2 text-primary'
                                         }
                                     >
-                                        {item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasability' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore}
+                                        {item === 'novelity' ? novelityScore : item === 'usefulness' ? usefulnessScore : item === 'feasibility' ? feasabilityScore : item === 'scalability' ? scalabilityScore : sustainabilityScore}
                                     </span>
                                 </label>
                                 {item === 'novelity' ?
                                     <NumberScale
                                         name={item}
-                                        setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
+                                        setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasibility' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
                                         text1={'Not Novel'}
                                         text2={'Inspired'}
                                         text3={'Novel & Original'}
@@ -163,26 +163,26 @@ const RateIdea = (props) => {
                                     : item === 'usefulness' ?
                                         <NumberScale
                                             name={item}
-                                            setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
+                                            setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasibility' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
                                             text1={'Does Not Solve'}
                                             text2={'Useful but not effective'}
                                             text3={'Solve Problem Effectively'}
-                                        /> : item === 'feasability' ? <NumberScale
+                                        /> : item === 'feasibility' ? <NumberScale
                                             name={item}
-                                            setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
+                                            setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasibility' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
                                             text1={'Not Feasible/Out of Scope'}
                                             text2={'Feasible but Difficult'}
                                             text3={'Feasible, Resourceful & Simple'}
                                         /> : item === 'scalability' ?
                                             <NumberScale
                                                 name={item}
-                                                setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
+                                                setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasibility' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
                                                 text1={'Not Scalable, No Impact'}
                                                 text2={'Scaleable, Impacts only a Few '}
                                                 text3={'Scaleable, Benefits Large Group'}
                                             /> : <NumberScale
                                                 name={item}
-                                                setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasability' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
+                                                setScore={item === 'novelity' ? setNovelityScore : item === 'usefulness' ? setUsefulnessScore : item === 'feasibility' ? setFeasabilityScore : item === 'scalability' ? setScalabilityScore : setSustainabilityScore}
                                                 text1={'Not Sustainable'}
                                                 text2={'Difficult to Sustain'}
                                                 text3={'Sustainable and Environment friendly'}

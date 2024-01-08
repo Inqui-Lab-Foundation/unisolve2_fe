@@ -170,7 +170,7 @@ const ViewSelectedIdea = () => {
                 sortable: true
             },
             {
-                name: 'Feasability',
+                name: 'Feasibility',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings

@@ -52,7 +52,10 @@ const LoginEvaluator = (props) => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().required('required'),
+            email: Yup.string()
+            .trim()
+            .email('Invalid username format')
+            .required('Required'),
             password: Yup.string().required('required')
         }),
         // EVALUATOR ROLE
@@ -94,7 +97,7 @@ const LoginEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Evaluator Mobile Number '
+        placeholder: 'Enter Evaluator Email Address'
     };
 
     const inputPassword = {
@@ -193,7 +196,7 @@ const LoginEvaluator = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Mobile Number
+                                                Email Address
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -207,7 +210,7 @@ const LoginEvaluator = (props) => {
                                             {formik.touched.email &&
                                             formik.errors.email ? (
                                                 <small className="error-cls">
-                                                    Required
+                                                   {formik.errors.email}
                                                 </small>
                                             ) : null}
                                         </Col>
@@ -241,7 +244,7 @@ const LoginEvaluator = (props) => {
                                             {formik.touched.password &&
                                             formik.errors.password ? (
                                                 <small className="error-cls">
-                                                    Required
+                                                    {formik.errors.password}
                                                 </small>
                                             ) : null}
                                         </Col>

@@ -53,7 +53,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
             url = '/reports/challengesDistrictCount?level=SELECTEDROUND1';
         } else if (item == 'Rejected Challenges') {
             url = '/reports/challengesDistrictCount?level=REJECTEDROUND1';
-        } else if (item == 'L1 - Yet to Processed Challenges') {
+        } else if (item == 'L1 - Yet to be Processed Challenges') {
             url = '/reports/challengesDistrictCount?level=L1YETPROCESSED';
         } else if (item == 'L2 - Processed Challenges') {
             url = '/reports/challengesDistrictCount?level=L2PROCESSED';
@@ -97,9 +97,9 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                         msg = 'Accepted Challenges  Download Successfully';
                     } else if (item == 'Rejected Challenges') {
                         msg = 'Rejected Challenges  Download Successfully';
-                    } else if (item == 'L1 - Yet to Processed Challenges') {
+                    } else if (item == 'L1 - Yet to be Processed Challenges') {
                         msg =
-                            'L1 - Yet to Processed Challenges  Download Successfully';
+                            'L1 - Yet to be Processed Challenges  Download Successfully';
                     } else if (item == 'L2 - Processed Challenges') {
                         msg =
                             'L2 - Processed Challenges  Download Successfully';
@@ -138,7 +138,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
             url = 'SELECTEDROUND1';
         } else if (item == 'Rejected Challenges') {
             url = 'REJECTEDROUND1';
-        } else if (item == 'L1 - Yet to Processed Challenges') {
+        } else if (item == 'L1 - Yet to be Processed Challenges') {
             url = 'L1YETPROCESSED';
         } else if (item == 'L2 - Processed Challenges') {
             url = 'L2PROCESSED';
@@ -297,8 +297,8 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                               'Rejected Challenges  Download Successfully'
                             ? 'Rejected Challenges.csv'
                             : msg ==
-                              'L1 - Yet to Processed Challenges  Download Successfully'
-                            ? 'L1 - Yet to Processed Challenges.csv'
+                              'L1 - Yet to be Processed Challenges  Download Successfully'
+                            ? 'L1 - Yet to be Processed Challenges.csv'
                             : msg ==
                               'L2 - Processed Challenges  Download Successfully'
                             ? 'L2 - Processed Challenges.csv'

@@ -32,6 +32,8 @@ import html2canvas from 'html2canvas';
 import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import logout from '../../../../assets/media/logout.svg';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -80,11 +82,11 @@ const ViewSelectedIdea = () => {
     });
 
     const dataParam =
-        level === 'L1' && title !== 'L1 - Yet to Processed'
+        level === 'L1' && title !== 'L1 - Yet to be Processed'
             ? '&evaluation_status=' + evaluation_status
-            : level === 'L1' && title === 'L1 - Yet to Processed'
+            : level === 'L1' && title === 'L1 - Yet to be Processed'
             ? '&yetToProcessList=L1'
-            : title === 'L2 - Yet to Processed'
+            : title === 'L2 - Yet to be Processed'
             ? '&yetToProcessList=L2'
             : '';
     const filterParams =
@@ -106,7 +108,40 @@ const ViewSelectedIdea = () => {
     }, []);
 
     const handlePromotel2processed = async (item) => {
-        await promoteapi(item.challenge_response_id);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    
+        swalWithBootstrapButtons
+            .fire({
+                title: 'Promoting to Final Evaluation',
+                text: 'Are you sure ?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Promote',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then(async(result) => {
+                if (result.isConfirmed) {
+                    await promoteapi(item.challenge_response_id);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Promoting is cancelled',
+                        'error'
+                    );
+                }
+            });
     };
 
     async function promoteapi(id) {
@@ -846,13 +881,13 @@ const ViewSelectedIdea = () => {
         setsortid(e.id);
     };
     const sel =
-        level === 'L1' && title !== 'L1 - Yet to Processed'
+        level === 'L1' && title !== 'L1 - Yet to be Processed'
             ? evaluatedIdea
-            : level === 'L1' && title === 'L1 - Yet to Processed'
+            : level === 'L1' && title === 'L1 - Yet to be Processed'
             ? l1yettoprocessed
-            : level === 'L2' && title !== 'L2 - Yet to Processed'
+            : level === 'L2' && title !== 'L2 - Yet to be Processed'
             ? evaluatedIdeaL2
-            : level === 'L2' && title === 'L2 - Yet to Processed'
+            : level === 'L2' && title === 'L2 - Yet to be Processed'
             ? L2yettoprocessed
             : ' ';
     const showbutton = district && sdg;
@@ -955,7 +990,7 @@ const ViewSelectedIdea = () => {
                                             </Col>
                                             {level === 'L1' &&
                                                 title !==
-                                                    'L1 - Yet to Processed' && (
+                                                    'L1 - Yet to be Processed' && (
                                                     <Col md={2}>
                                                         <div className="my-3 d-md-block d-flex justify-content-center">
                                                             <Select
@@ -1033,7 +1068,7 @@ const ViewSelectedIdea = () => {
                                                         ? 1
                                                         : level === 'L1' &&
                                                           title !==
-                                                              'L1 - Yet to Processed'
+                                                              'L1 - Yet to be Processed'
                                                         ? 4
                                                         : 6
                                                 }

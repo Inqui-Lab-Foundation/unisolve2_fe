@@ -71,7 +71,7 @@ const TableDetailPdf = (props) => {
                                         <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_2)?.toFixed(1)}</div>
                                     </div>
                                     <div className="row my-2">
-                                        <div className="col-3 fw-bold fs-4">Feasability</div>
+                                        <div className="col-3 fw-bold fs-4">Feasibility</div>
                                         <div className="col-9 text-capitalize fs-4">: {average(props?.ideaDetails?.evaluator_ratings[0]?.param_3)?.toFixed(1)}</div>
                                     </div>
                                     <div className="row my-2">

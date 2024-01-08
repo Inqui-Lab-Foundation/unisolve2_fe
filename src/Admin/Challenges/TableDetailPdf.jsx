@@ -129,7 +129,7 @@ const TableDetailPdf = (props) => {
                                         </div>
                                         <div className="row my-2">
                                             <div className="col-3 fw-bold fs-4">
-                                                Feasability
+                                                Feasibility
                                             </div>
                                             <div className="col-9 text-capitalize fs-4">
                                                 :{' '}
