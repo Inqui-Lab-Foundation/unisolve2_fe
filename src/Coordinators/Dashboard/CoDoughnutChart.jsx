@@ -39,7 +39,6 @@ export default function DoughnutChart({ user, UserId }) {
     const [studentchangelist, setstudentchangelist] = useState([]);
     const [studentchangeObj, setstudentchangeObj] = useState({});
     const [isideadisable, setIsideadisable] = useState(false);
-    const [isEvlCom, setIsEvlCom] = useState(false);
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
@@ -112,30 +111,31 @@ export default function DoughnutChart({ user, UserId }) {
             });
     }, []);
 
-    useEffect(() => {
-        var config = {
-            method: 'get',
-            url: process.env.REACT_APP_API_BASE_URL + `/popup/3`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    if (response.data.data[0]?.on_off === '0') {
-                        setIsEvlCom(true);
-                    } else {
-                        setIsEvlCom(false);
-                    }
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    //const [isEvlCom, setIsEvlCom] = useState(false);
+    // useEffect(() => {
+    //     var config = {
+    //         method: 'get',
+    //         url: process.env.REACT_APP_API_BASE_URL + `/popup/3`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 if (response.data.data[0]?.on_off === '0') {
+    //                     setIsEvlCom(true);
+    //                 } else {
+    //                     setIsEvlCom(false);
+    //                 }
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
 
     const handleChangeStudent = async (id, name) => {
         //  handleChangeStudent Api we can update the initiate student //
@@ -432,36 +432,36 @@ export default function DoughnutChart({ user, UserId }) {
     });
 
     //////
-    const [ideaStatusEval, setIdeaStatusEval] = useState('-');
-    useEffect(() => {
-        if (challengesSubmittedResponse.length === 0) {
-            setIdeaStatusEval('NOT STARTED');
-        } else if (challengesSubmittedResponse[0].final_result === '1') {
-            setIdeaStatusEval(
-                'Congratulations,Idea is selected for grand finale'
-            );
-        } else if (challengesSubmittedResponse[0].final_result === '0') {
-            setIdeaStatusEval('Shortlisted for final round of evaluation');
-            if (isEvlCom) {
-                setIdeaStatusEval('Better luck next time');
-            }
-        } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'REJECTEDROUND1'
-        ) {
-            setIdeaStatusEval('Better luck next time');
-        } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'SELECTEDROUND1'
-        ) {
-            setIdeaStatusEval('Promoted to Level 2 round of evaluation');
-            if (isEvlCom) {
-                setIdeaStatusEval('Better luck next time');
-            }
-        } else {
-            setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
-        }
-    }, [challengesSubmittedResponse]);
+    // const [ideaStatusEval, setIdeaStatusEval] = useState('-');
+    // useEffect(() => {
+    //     if (challengesSubmittedResponse.length === 0) {
+    //         setIdeaStatusEval('NOT STARTED');
+    //     } else if (challengesSubmittedResponse[0].final_result === '1') {
+    //         setIdeaStatusEval(
+    //             'Congratulations,Idea is selected for grand finale'
+    //         );
+    //     } else if (challengesSubmittedResponse[0].final_result === '0') {
+    //         setIdeaStatusEval('Shortlisted for final round of evaluation');
+    //         if (isEvlCom) {
+    //             setIdeaStatusEval('Better luck next time');
+    //         }
+    //     } else if (
+    //         challengesSubmittedResponse[0].evaluation_status ===
+    //         'REJECTEDROUND1'
+    //     ) {
+    //         setIdeaStatusEval('Better luck next time');
+    //     } else if (
+    //         challengesSubmittedResponse[0].evaluation_status ===
+    //         'SELECTEDROUND1'
+    //     ) {
+    //         setIdeaStatusEval('Promoted to Level 2 round of evaluation');
+    //         if (isEvlCom) {
+    //             setIdeaStatusEval('Better luck next time');
+    //         }
+    //     } else {
+    //         setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
+    //     }
+    // }, [challengesSubmittedResponse]);
 
     return (
         <>
@@ -528,10 +528,8 @@ export default function DoughnutChart({ user, UserId }) {
                                             IDEA STATUS :
                                         </span>
                                         <span style={{ paddingLeft: '1rem' }}>
-                                            {isEvlCom
-                                                ? ideaStatusEval
-                                                : challengesSubmittedResponse.length ===
-                                                  0
+                                            {challengesSubmittedResponse.length ===
+                                            0
                                                 ? 'Not Started'
                                                 : challengesSubmittedResponse[0]
                                                       ?.status}
