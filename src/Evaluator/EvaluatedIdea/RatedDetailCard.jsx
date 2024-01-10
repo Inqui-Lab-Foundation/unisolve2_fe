@@ -83,7 +83,7 @@ const RatedDetailCard = (props) => {
             <div className="row mb-1">
                 <div className="col-6">
                     <p className="my-0">
-                        Usefulness :{' '}
+                        Useful :{' '}
                         <span style={{ fontSize: 'bold' }}>
                             {' '}
                             {usefulness.toFixed(2)}{' '}
@@ -143,7 +143,7 @@ const RatedDetailCard = (props) => {
             <div className="row mb-1">
                 <div className="col-6">
                     <p className="my-0">
-                        Scalability :{' '}
+                        Scalability and Impact :{' '}
                         <span style={{ fontSize: 'bold' }}>
                             {' '}
                             {scalability.toFixed(2)}{' '}

@@ -51,7 +51,9 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
+        (item) => item !== 'All Districts'
+    );
 
     const filterParamsfinal =
         (district && district !== 'All Districts'
@@ -70,7 +72,7 @@ const ViewSelectedIdea = () => {
             buttonsStyling: false,
             allowOutsideClick: false
         });
-    
+
         swalWithBootstrapButtons
             .fire({
                 title: 'Promoting to Final Winners',
@@ -82,7 +84,7 @@ const ViewSelectedIdea = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: false
             })
-            .then(async(result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     await promoteapi(item.challenge_response_id);
                 } else if (
@@ -246,7 +248,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Usefulness',
+                name: 'Useful',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -276,7 +278,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Scalability',
+                name: 'Scalability and Impact',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -288,7 +290,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '25rem'
             },
             {
                 name: 'Sustainability',
@@ -303,7 +305,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '17rem'
             },
             {
                 name: 'Overall',

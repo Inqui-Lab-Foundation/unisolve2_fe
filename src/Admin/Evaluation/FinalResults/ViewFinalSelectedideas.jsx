@@ -5,7 +5,7 @@ import Layout from '../../../Admin/Layout';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ViewDetail from './ViewFinalDetail';
-import { useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { KEY, URL } from '../../../constants/defaultValues';
 import { Button } from '../../../stories/Button';
@@ -54,7 +54,7 @@ const ViewSelectedIdea = () => {
         dispatch(getDistrictData());
     }, []);
 
-    const handlePromotelFinalEvaluated = async(item) => {
+    const handlePromotelFinalEvaluated = async (item) => {
         await promoteapi(item.challenge_response_id);
     };
 
@@ -83,7 +83,7 @@ const ViewSelectedIdea = () => {
                 console.log(error);
             });
     }
-    const handleclickcall = async() => {
+    const handleclickcall = async () => {
         setshowspin(true);
         await handleideaList();
     };
@@ -156,7 +156,7 @@ const ViewSelectedIdea = () => {
                 sortable: true
             },
             {
-                name: 'Usefulness',
+                name: 'Useful',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -184,7 +184,7 @@ const ViewSelectedIdea = () => {
                 sortable: true
             },
             {
-                name: 'Scalability',
+                name: 'Scalability and Impact',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -255,7 +255,7 @@ const ViewSelectedIdea = () => {
                                 {!pdfLoader ? (
                                     <FaDownload
                                         size={22}
-                                        onClick={async() => {
+                                        onClick={async () => {
                                             await downloadPDF(params);
                                         }}
                                         className="text-danger"
