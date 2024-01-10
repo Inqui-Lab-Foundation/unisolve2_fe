@@ -44,7 +44,7 @@ const Eadmindashboard = () => {
                             <Col lg={6} md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-primary">
-                                        SUBMITTED CHALLENGES
+                                        SUBMITTED IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.submitted_count}
@@ -54,7 +54,7 @@ const Eadmindashboard = () => {
                             <Col lg={6} md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-secondary">
-                                        DRAFT CHALLENGES
+                                        DRAFT IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.draft_count || 0}
@@ -66,7 +66,7 @@ const Eadmindashboard = () => {
                             <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-success">
-                                        ACCEPTED CHALLENGES
+                                       L1 ACCEPTED IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.selected_round_one_count}
@@ -76,7 +76,7 @@ const Eadmindashboard = () => {
                             <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-danger">
-                                        REJECTED CHALLENGES
+                                       L1 REJECTED IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.rejected_round_one_count}
@@ -86,7 +86,7 @@ const Eadmindashboard = () => {
                             <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-warning">
-                                        L1 - YET TO BE PROCESSED CHALLENGES
+                                        L1 - YET TO BE PROCESSED
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.l1_yet_to_process}
@@ -98,7 +98,7 @@ const Eadmindashboard = () => {
                             <Col lg={6} md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-success">
-                                        L2 - PROCESSED CHALLENGES
+                                        L2 - PROCESSED IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.l2_processed}
@@ -108,7 +108,7 @@ const Eadmindashboard = () => {
                             <Col lg={6} md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-warning">
-                                        L2 - YET TO BE PROCESSED CHALLENGES
+                                        L2 - YET TO BE PROCESSED
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.l2_yet_to_processed}
@@ -120,7 +120,7 @@ const Eadmindashboard = () => {
                             <Col md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-warning">
-                                        FINAL EVALUATION CHALLENGES
+                                        SHORTLISTED FOR BOOTCAMP
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.final_evaluation_challenge}
@@ -130,7 +130,7 @@ const Eadmindashboard = () => {
                             <Col md={6}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-success">
-                                        FINAL WINNERS CHALLENGES
+                                        FINAL IDEAS
                                     </b>
                                     <h3 className="display-5 bold m-2">
                                         {dateCount?.final_evaluation_final}
