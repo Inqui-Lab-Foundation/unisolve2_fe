@@ -339,8 +339,8 @@ const ReportL3 = () => {
                         const parsedResponse = JSON.parse(response);
                         entry['final_result'] =
                             final_result === '0'
-                                ? 'Runner-Not Promoted'
-                                : 'Winner-Promoted';
+                                ? 'Not Promoted'
+                                : 'Promoted';
                         entry['Overall score'] = parseFloat(
                             entry['Overall score']
                         ).toFixed(2);
