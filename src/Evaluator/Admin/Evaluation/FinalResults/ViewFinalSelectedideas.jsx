@@ -27,6 +27,7 @@ import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../../../assets/media/logout.svg';
+import { categoryValue } from '../../../../Admin/Schools/constentText.js';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -48,22 +49,25 @@ const ViewSelectedIdea = () => {
         return i.goal_title;
     });
     SDGDate.unshift('ALL SDGs');
-    const fullDistrictsNamesWithAllDistrict = useSelector(
+    const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
-        (item) => item !== 'All Districts'
-    );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
 
     const filterParamsfinal =
         (district && district !== 'All Districts'
             ? '&district=' + district
-            : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
+            : '') +
+        (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '') +
+        (category && category !== 'All Categorys'
+            ? '&category=' + category
+            : '');
+
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
 
-    const handlePromotelFinalEvaluated = async (item) => {
+    const handlePromotelFinalEvaluated = async (item,proId) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -75,7 +79,7 @@ const ViewSelectedIdea = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: 'Promoting to Final Winners',
+                title: proId === '1' ? 'Promoting idea to Winner' : 'Promoting idea to Runner',
                 text: 'Are you sure ?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
@@ -86,7 +90,7 @@ const ViewSelectedIdea = () => {
             })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    await promoteapi(item.challenge_response_id);
+                    await promoteapi(item.challenge_response_id,proId);
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
@@ -100,8 +104,8 @@ const ViewSelectedIdea = () => {
             });
     };
 
-    async function promoteapi(id) {
-        const body = JSON.stringify({ final_result: '1' });
+    async function promoteapi(id,proId) {
+        const body = JSON.stringify({ final_result: proId });
         var config = {
             method: 'put',
             url: `${
@@ -213,7 +217,7 @@ const ViewSelectedIdea = () => {
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id,
-                width: '6rem'
+                width: '10rem'
             },
             {
                 name: 'Category',
@@ -322,7 +326,14 @@ const ViewSelectedIdea = () => {
                 sortable: true,
                 width: '12rem'
             },
-
+            {
+                name:'Status',
+                selector: (row) => {
+                    return [
+                        row.final_result === '1' ? 'Winner' : 'Runner'
+                    ];
+                },
+            },
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -371,21 +382,32 @@ const ViewSelectedIdea = () => {
                                 />
                             </div>
                             {params.final_result === '0' && (
-                                <div
-                                    onClick={() =>
-                                        handlePromotelFinalEvaluated(params)
-                                    }
-                                    style={{ marginRight: '12px' }}
-                                >
-                                    <div className="btn btn-info btn-lg mx-2">
-                                        Promote
+                                <>
+                                    <div
+                                        onClick={() =>
+                                            handlePromotelFinalEvaluated(params,'1')
+                                        }
+                                        style={{ marginRight: '1px' }}
+                                    >
+                                        <div className="btn btn-success btn-lg mx-2">
+                                            Winner
+                                        </div>
                                     </div>
-                                </div>
+                                    <div
+                                        onClick={() =>
+                                            handlePromotelFinalEvaluated(params,'2')
+                                        }
+                                    >
+                                        <div className="btn btn-info btn-lg mx-2">
+                                            Runner
+                                        </div>
+                                    </div>
+                                </>
                             )}
                         </div>
                     ];
                 },
-                width: '23rem',
+                width: '33rem',
                 left: true
             }
             //       {params.final_result === '0' ?
@@ -526,9 +548,9 @@ const ViewSelectedIdea = () => {
                                 <div>
                                     <h2 className="ps-2 pb-3">
                                         {title == '0'
-                                            ? 'Final Evaluated'
-                                            : 'Final Winners'}{' '}
-                                        Challenges
+                                            ? 'Shortlisted For BootCamp'
+                                            : 'Final '}{' '}
+                                        Ideas
                                     </h2>
 
                                     <Container fluid className="px-0">
@@ -544,6 +566,18 @@ const ViewSelectedIdea = () => {
                                                             'Select District'
                                                         }
                                                         value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={categoryData}
+                                                        setValue={setCategory}
+                                                        placeHolder={
+                                                            'Select Category'
+                                                        }
+                                                        value={category}
                                                     />
                                                 </div>
                                             </Col>
@@ -576,7 +610,7 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <div className="text-right">
                                                     <Button
                                                         btnClass="primary"

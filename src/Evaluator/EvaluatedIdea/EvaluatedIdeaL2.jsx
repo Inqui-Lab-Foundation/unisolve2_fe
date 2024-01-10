@@ -141,7 +141,11 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.submitted_at}
+                        {row.submitted_at
+                            ? moment(row.submitted_at).format(
+                                  'DD-MM-YY h:mm:ss'
+                              )
+                            : row.submitted_at}
                     </div>
                 ),
                 width: '15rem'
@@ -151,7 +155,7 @@ const EvaluatedIdea = () => {
                 selector: (row) =>
                     row?.evaluator_ratings[0]?.created_at
                         ? moment(row?.evaluator_ratings[0]?.created_at).format(
-                              'DD-MM-YY h:mm:ss a'
+                              'DD-MM-YY h:mm:ss'
                           )
                         : row?.evaluator_ratings[0]?.created_at,
                 width: '17rem'

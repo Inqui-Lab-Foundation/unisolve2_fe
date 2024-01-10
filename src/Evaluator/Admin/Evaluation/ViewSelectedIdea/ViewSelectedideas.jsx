@@ -34,6 +34,7 @@ import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../../../assets/media/logout.svg';
+import { categoryValue } from '../../../../Admin/Schools/constentText.js';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -66,6 +67,9 @@ const ViewSelectedIdea = () => {
         (state) => state?.studentRegistration?.dists
     );
     let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
+    const [category, setCategory] = useState('');
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
     const evallist = useSelector(
         (state) => state?.adminEvalutors?.evalutorsList
@@ -95,6 +99,7 @@ const ViewSelectedIdea = () => {
             ? '&district=' + district
             : '') +
         (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '') +
+        (category && category !== 'All Categorys' ? '&category=' + category :'') +
         (reason && '&rejected_reason=' + reason) +
         (reasonSec && '&rejected_reasonSecond=' + reasonSec) +
         (evalname && '&evaluator_id=' + Allevalobj[evalname]);
@@ -120,7 +125,7 @@ const ViewSelectedIdea = () => {
     
         swalWithBootstrapButtons
             .fire({
-                title: 'Promoting to Final Evaluation',
+                title: 'Promoting to BootCamp',
                 text: 'Are you sure ?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
@@ -958,7 +963,7 @@ const ViewSelectedIdea = () => {
                             {!isDetail && (
                                 <div>
                                     <h2 className="ps-2 pb-3">
-                                        {title} Challenges
+                                        {title} Ideas
                                     </h2>
 
                                     <Container fluid className="px-0">
@@ -974,6 +979,18 @@ const ViewSelectedIdea = () => {
                                                             'Select District'
                                                         }
                                                         value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={categoryData}
+                                                        setValue={setCategory}
+                                                        placeHolder={
+                                                            'Select Category'
+                                                        }
+                                                        value={category}
                                                     />
                                                 </div>
                                             </Col>
@@ -1010,7 +1027,7 @@ const ViewSelectedIdea = () => {
                                                     </Col>
                                                 )}
 
-                                            {title === 'Rejected' ? (
+                                            {title === 'L1 Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
@@ -1028,7 +1045,7 @@ const ViewSelectedIdea = () => {
                                             ) : (
                                                 ''
                                             )}
-                                            {title === 'Rejected' ? (
+                                            {title === 'L1 Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
@@ -1065,13 +1082,13 @@ const ViewSelectedIdea = () => {
                                             </Col>
                                             <Col
                                                 md={
-                                                    title === 'Rejected'
-                                                        ? 1
+                                                    title === 'L1 Rejected'
+                                                        ? 11
                                                         : level === 'L1' &&
                                                           title !==
                                                               'L1 - Yet to be Processed'
-                                                        ? 4
-                                                        : 6
+                                                        ? 3
+                                                        : 5
                                                 }
                                             >
                                                 <div className="text-right">

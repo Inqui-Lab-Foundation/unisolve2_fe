@@ -21,6 +21,7 @@ import { useLocation } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { FaDownload } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
+import { categoryValue } from '../../../Admin/Schools/constentText.js';
 
 const ViewSelectedIdea = () => {
     // here we can see the selected ideas in district wise and sdg //
@@ -46,12 +47,20 @@ const ViewSelectedIdea = () => {
     let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
         (item) => item !== 'All Districts'
     );
+    const [category, setCategory] = useState('');
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+
     const { search } = useLocation();
     const status = new URLSearchParams(search).get('status');
     const filterParams =
         (district && district !== 'All Districts'
             ? '&district=' + district
-            : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
+            : '') +
+        (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '') +
+        (category && category !== 'All Categorys'
+            ? '&category=' + category
+            : '');
 
     useEffect(() => {
         dispatch(getDistrictData());
@@ -281,6 +290,18 @@ const ViewSelectedIdea = () => {
                                                             'Select District'
                                                         }
                                                         value={district}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={3}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={categoryData}
+                                                        setValue={setCategory}
+                                                        placeHolder={
+                                                            'Select Category'
+                                                        }
+                                                        value={category}
                                                     />
                                                 </div>
                                             </Col>
