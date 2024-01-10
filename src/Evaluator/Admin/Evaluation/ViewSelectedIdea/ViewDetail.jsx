@@ -38,7 +38,9 @@ const ViewDetail = (props) => {
         'Not useful - Idea does not solve the problem identified / problem & solution not connected.',
         'Not understandable - Idea Submission does not have proper details to make a decision.',
         'Not clear (usefulness)',
-        'Not filled - Inaccurate data (form is not filled properly)'
+        'Not filled - Inaccurate data (form is not filled properly)',
+        'Not clear / Too generic a solution',
+        'Not selected,Requires changing government polices'
     ];
     const reasondata2 = [
         'Lot of project effort visible (all of the 1, 2, 3,10, 14, 16 steps in the Idea Submission Format are clearly explained and are valid)',
@@ -163,20 +165,20 @@ const ViewDetail = (props) => {
     };
 
     const componentRef = useRef();
-const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: `${
-        props?.ideaDetails?.team_name
-            ? props?.ideaDetails?.team_name
-            : 'temp'
-    }_IdeaSubmission`
-});
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: `${
+            props?.ideaDetails?.team_name
+                ? props?.ideaDetails?.team_name
+                : 'temp'
+        }_IdeaSubmission`
+    });
 
     return (
         <div>
             {teamResponse && teamResponse?.length > 0 ? (
                 <>
-                <div style={{ display: 'none' }}>
+                    <div style={{ display: 'none' }}>
                         <DetailToDownload
                             ref={componentRef}
                             ideaDetails={props?.ideaDetails}
@@ -385,7 +387,7 @@ const handlePrint = useReactToPrint({
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                        <>
+                                    <>
                                         <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 1:{' '}
