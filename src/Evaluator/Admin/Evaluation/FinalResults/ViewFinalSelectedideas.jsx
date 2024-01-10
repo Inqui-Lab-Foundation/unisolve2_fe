@@ -52,7 +52,9 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
+    const [category, setCategory] = useState('');
+    const categoryData =
+        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
     const filterParamsfinal =
         (district && district !== 'All Districts'
