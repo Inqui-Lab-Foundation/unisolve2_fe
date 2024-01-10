@@ -52,9 +52,7 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    const [category, setCategory] = useState('');
-    const categoryData =
-        categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
 
     const filterParamsfinal =
         (district && district !== 'All Districts'
@@ -254,7 +252,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Usefulness',
+                name: 'Useful',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -284,7 +282,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Scalability',
+                name: 'Scalability and Impact',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -296,7 +294,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '25rem'
             },
             {
                 name: 'Sustainability',
@@ -311,7 +309,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '17rem'
             },
             {
                 name: 'Overall',

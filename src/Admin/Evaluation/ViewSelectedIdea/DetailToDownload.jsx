@@ -175,7 +175,7 @@ class detailToDownload extends React.Component {
                                             </div>
                                             <div className="row my-2">
                                                 <div className="col-3 fw-bold fs-4">
-                                                    Usefullness
+                                                    Useful
                                                 </div>
                                                 <div className="col-9 text-capitalize fs-4">
                                                     :{' '}
@@ -201,7 +201,7 @@ class detailToDownload extends React.Component {
                                             </div>
                                             <div className="row my-2">
                                                 <div className="col-3 fw-bold fs-4">
-                                                    Scalability
+                                                    Scalability and Impact
                                                 </div>
                                                 <div className="col-9 text-capitalize fs-4">
                                                     :{' '}
