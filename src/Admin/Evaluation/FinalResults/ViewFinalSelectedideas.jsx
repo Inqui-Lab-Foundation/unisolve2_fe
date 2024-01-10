@@ -47,8 +47,7 @@ const ViewSelectedIdea = () => {
     );
 
     const filterParamsfinal =
-        (district && district !== 'All Districts'
-            ? '&district=' + district
+        (district && district !== 'All Districts' ? '&district=' + district
             : '') + (sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '');
     useEffect(() => {
         dispatch(getDistrictData());
