@@ -807,9 +807,9 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger ">INACTIVE</div>
+                            <div className="btn btn-lg btn-danger ">INACTIVE</div>
                         ) : (
-                            <div className="btn btn-warning ">ACTIVE</div>
+                            <div className="btn btn-lg btn-warning ">ACTIVE</div>
                         )}
                     </div>,
                     <div
@@ -818,7 +818,7 @@ const TicketsPage = (props) => {
                         style={{ marginLeft: '10px' }}
                     >
                         <div className="btn btn-info btn-lg text-white">
-                            reset
+                            Reset
                         </div>
                     </div>
                 ]

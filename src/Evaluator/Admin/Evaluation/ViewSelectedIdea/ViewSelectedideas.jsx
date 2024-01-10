@@ -1027,7 +1027,7 @@ const ViewSelectedIdea = () => {
                                                     </Col>
                                                 )}
 
-                                            {title === 'Rejected' ? (
+                                            {title === 'L1 Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
@@ -1045,7 +1045,7 @@ const ViewSelectedIdea = () => {
                                             ) : (
                                                 ''
                                             )}
-                                            {title === 'Rejected' ? (
+                                            {title === 'L1 Rejected' ? (
                                                 <Col md={2}>
                                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                                         <Select
@@ -1082,7 +1082,7 @@ const ViewSelectedIdea = () => {
                                             </Col>
                                             <Col
                                                 md={
-                                                    title === 'Rejected'
+                                                    title === 'L1 Rejected'
                                                         ? 11
                                                         : level === 'L1' &&
                                                           title !==

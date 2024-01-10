@@ -550,8 +550,8 @@ const ViewSelectedIdea = () => {
                                 <div>
                                     <h2 className="ps-2 pb-3">
                                         {title == '0'
-                                            ? 'Shortlisted to BootCamp'
-                                            : 'Final Winners'}{' '}
+                                            ? 'Shortlisted For BootCamp'
+                                            : 'Final '}{' '}
                                         Ideas
                                     </h2>
 
