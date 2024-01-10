@@ -53,10 +53,16 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Novelty:</p>
+                <div className="col-6">
+                    <p className="my-0">
+                        Novelty :{' '}
+                        <span style={{ fontSize: 'bold' }}>
+                            {' '}
+                            {novelity.toFixed(2)}{' '}
+                        </span>
+                    </p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-6 pt-3">
                     <div className="progress">
                         <div
                             className={
@@ -75,10 +81,16 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Usefulness:</p>
+                <div className="col-6">
+                    <p className="my-0">
+                        Usefulness :{' '}
+                        <span style={{ fontSize: 'bold' }}>
+                            {' '}
+                            {usefulness.toFixed(2)}{' '}
+                        </span>
+                    </p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-6 pt-3">
                     <div className="progress">
                         <div
                             className={
@@ -99,10 +111,16 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Feasibility:</p>
+                <div className="col-6">
+                    <p className="my-0">
+                        Feasibility :{' '}
+                        <span style={{ fontSize: 'bold' }}>
+                            {' '}
+                            {feasability.toFixed(2)}{' '}
+                        </span>
+                    </p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-6 pt-3">
                     <div className="progress">
                         <div
                             className={
@@ -123,10 +141,16 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Scalability:</p>
+                <div className="col-6">
+                    <p className="my-0">
+                        Scalability :{' '}
+                        <span style={{ fontSize: 'bold' }}>
+                            {' '}
+                            {scalability.toFixed(2)}{' '}
+                        </span>
+                    </p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-6 pt-3">
                     <div className="progress">
                         <div
                             className={
@@ -147,10 +171,16 @@ const RatedDetailCard = (props) => {
                 </div>
             </div>
             <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Sustainability:</p>
+                <div className="col-6">
+                    <p className="my-0">
+                        Sustainability :{' '}
+                        <span style={{ fontSize: 'bold' }}>
+                            {' '}
+                            {sustainability.toFixed(2)}{' '}
+                        </span>
+                    </p>
                 </div>
-                <div className="col-8 pt-3">
+                <div className="col-6 pt-3">
                     <div className="progress">
                         <div
                             className={
