@@ -97,10 +97,10 @@ const Eadmindashboard = () => {
                                 </Link>
                             </Col>
                             <Col lg={4} md={4}>
-                                <Link to="/admin/evaluationStatus/viewlist?title=L1 - Yet to Processed&level=L1">
+                                <Link to="/admin/evaluationStatus/viewlist?title=L1 - Yet to be Processed&level=L1">
                                     <Card className="p-4 text-center card-effect mb-3">
                                         <b className="text-warning">
-                                            L1 - YET TO PROCESSED CHALLENGES
+                                            L1 - YET TO BE PROCESSED CHALLENGES
                                         </b>
                                         <h3 className="display-5 bold m-2">
                                             {dateCount?.l1_yet_to_process}
@@ -123,10 +123,10 @@ const Eadmindashboard = () => {
                                 </Link>
                             </Col>
                             <Col lg={6} md={6}>
-                                <Link to="/admin/evaluationStatus/viewlist?title=L2 - Yet to Processed&level=L2">
+                                <Link to="/admin/evaluationStatus/viewlist?title=L2 - Yet to be Processed&level=L2">
                                     <Card className="p-4 text-center card-effect mb-3">
                                         <b className="text-warning">
-                                            L2 - YET TO PROCESSED CHALLENGES
+                                            L2 - YET TO BE PROCESSED CHALLENGES
                                         </b>
                                         <h3 className="display-5 bold m-2">
                                             {dateCount?.l2_yet_to_processed}

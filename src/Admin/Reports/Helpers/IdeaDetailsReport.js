@@ -134,9 +134,10 @@ const ReportsRegistration = () => {
         labels: [],
         datasets: []
     });
-    const fullDistrictsNames = useSelector(
+    const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
 
     const summaryHeaders = [
         {
@@ -459,8 +460,19 @@ const ReportsRegistration = () => {
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];
-                            entry[challenge_question_id] =
-                                selected_option.toString();
+                            var newSelectedOption;
+                            const tostringCovert = selected_option.toString();
+                            if (
+                                tostringCovert === null ||
+                                tostringCovert === undefined
+                            ) {
+                                newSelectedOption = selected_option;
+                            } else {
+                                newSelectedOption = tostringCovert
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';');
+                            }
+                            entry[challenge_question_id] = newSelectedOption;
                         });
 
                         return {
@@ -482,7 +494,7 @@ const ReportsRegistration = () => {
                 setIsDownloading(false);
             });
     };
-
+    const distEx = RegTeachersdistrict ? RegTeachersdistrict : '';
     const handleDownload = () => {
         if (!RegTeachersdistrict || !category || !sdg) {
             notification.warning({
@@ -1156,7 +1168,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`StudentDetailedSummaryReport_${newFormat}.csv`}
+                                        filename={`IdeaDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -1168,7 +1180,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
                                         data={downloadData}
-                                        filename={`StudentDetailedReport_${newFormat}.csv`}
+                                        filename={`${distEx}_IdeaDetails_Report_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                         onDownloaded={() => {

@@ -23,9 +23,9 @@ const ChallengesReport = () => {
         { label: 'Draft Challenges', value: 'DRAFT' },
         { label: 'Accepted Challenges', value: 'SELECTEDROUND1' },
         { label: 'Rejected Challenges', value: 'REJECTEDROUND1' },
-        { label: 'L1 - Yet to Processed Challenges', value: 'L1YETPROCESSED' },
+        { label: 'L1 - Yet to be Processed Challenges', value: 'L1YETPROCESSED' },
         { label: 'L2 - Processed Challenges', value: 'L2PROCESSED' },
-        { label: 'L2 - Yet to Processed Challenges', value: 'L2YETPROCESSED' },
+        { label: 'L2 - Yet to be Processed Challenges', value: 'L2YETPROCESSED' },
         { label: 'Final Evaluation Challenges', value: 'FINALCHALLENGES' },
         { label: 'Final Winner Challenges', value: 'FINALACCEPTED' }
     ];

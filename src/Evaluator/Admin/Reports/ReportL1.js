@@ -75,9 +75,10 @@ const ReportL1 = () => {
     // const fiterDistData = useSelector(
     //     (state) => state?.studentRegistration?.fetchdist
     // );
-    const fullDistrictsNames = useSelector(
+    const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(item => item !== 'All Districts');
     const [downloadTableData, setDownloadTableData] = useState(null);
     const [downloadTableData2, setDownloadTableData2] = useState(null);
 
@@ -320,8 +321,19 @@ const ReportL1 = () => {
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];
-                            entry[challenge_question_id] =
-                                selected_option.toString();
+                                var newSelectedOption;
+                                const tostringCovert = selected_option.toString();
+                                if (
+                                    tostringCovert === null ||
+                                    tostringCovert === undefined
+                                ) {
+                                    newSelectedOption = selected_option;
+                                } else {
+                                    newSelectedOption = tostringCovert
+                                        .replace(/\n/g, ' ')
+                                        .replace(/,/g, ';');
+                                }
+                                entry[challenge_question_id] = newSelectedOption;
                         });
 
                         return {

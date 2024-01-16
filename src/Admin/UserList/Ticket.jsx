@@ -18,7 +18,7 @@ import {
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
-import { getNormalHeaders } from '../../helpers/Utils';
+import { getCurrentUser, getNormalHeaders, openNotificationWithIcon } from '../../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -92,7 +92,7 @@ const SelectDists = ({
 const TicketsPage = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const currentUser = getCurrentUser('current_user');
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -263,6 +263,65 @@ const TicketsPage = (props) => {
             data: item
         });
         localStorage.setItem('mentor', JSON.stringify(item));
+    };
+    const handleEvalReset = async (item) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to reset the password',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Reset Password',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    var config = {
+                        method: 'put',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/evaluators/resetPassword',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                        },
+                        data: JSON.stringify({
+                            username: item.user.username,
+                            mobile: item.mobile
+                        })
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            if (response.status === 202) {
+                                openNotificationWithIcon(
+                                    'success',
+                                    'Reset Password Successfully Update!',
+                                    ''
+                                );
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Reset password is cancelled',
+                        'error'
+                    );
+                }
+            })
+            .catch((err) => console.log(err.response));
     };
 
     // const handleReset = (item) => {
@@ -748,10 +807,19 @@ const TicketsPage = (props) => {
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger ">INACTIVE</div>
+                            <div className="btn btn-lg btn-danger ">INACTIVE</div>
                         ) : (
-                            <div className="btn btn-warning ">ACTIVE</div>
+                            <div className="btn btn-lg btn-warning ">ACTIVE</div>
                         )}
+                    </div>,
+                    <div
+                        key={record.id}
+                        onClick={() => handleEvalReset(record)}
+                        style={{ marginLeft: '10px' }}
+                    >
+                        <div className="btn btn-info btn-lg text-white">
+                            Reset
+                        </div>
                     </div>
                 ]
             }

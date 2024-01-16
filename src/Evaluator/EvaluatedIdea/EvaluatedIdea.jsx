@@ -102,18 +102,18 @@ const EvaluatedIdea = () => {
                 sortable: true,
                 width: '9rem'
             },
-            {
-                name: 'Udise Code',
-                selector: (row) => row.organization_code || '',
-                sortable: true,
-                width: '15rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Udise Code',
+            //     selector: (row) => row.organization_code || '',
+            //     sortable: true,
+            //     width: '15rem'
+            // },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name || '',
+            //     sortable: true,
+            //     width: '15rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.challenge_response_id || '',
@@ -166,7 +166,11 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.submitted_at}
+                        {row.submitted_at
+                            ? moment(row.submitted_at).format(
+                                  'DD-MM-YY h:mm:ss'
+                              )
+                            : row.submitted_at}
                     </div>
                 ),
                 width: '15rem'
@@ -175,7 +179,7 @@ const EvaluatedIdea = () => {
                 name: 'Evaluated At',
                 selector: (row) =>
                     row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss')
                         : row.evaluated_at,
                 width: '17rem'
             },

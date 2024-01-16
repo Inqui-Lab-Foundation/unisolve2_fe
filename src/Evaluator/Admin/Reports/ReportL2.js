@@ -75,8 +75,11 @@ const ReportL2 = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
-    const fullDistrictsNames = useSelector(
+    const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
+    );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
+        (item) => item !== 'All Districts'
     );
     const [downloadTableData, setDownloadTableData] = useState(null);
     const [downloadTableData2, setDownloadTableData2] = useState(null);
@@ -281,6 +284,10 @@ const ReportL2 = () => {
         {
             label: 'L2 Status',
             key: 'final_result'
+        },
+        {
+            label: 'L3 Status',
+            key:''
         }
     ];
 
@@ -335,8 +342,19 @@ const ReportL2 = () => {
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];
-                            entry[challenge_question_id] =
-                                selected_option.toString();
+                            var newSelectedOption;
+                            const tostringCovert = selected_option.toString();
+                            if (
+                                tostringCovert === null ||
+                                tostringCovert === undefined
+                            ) {
+                                newSelectedOption = selected_option;
+                            } else {
+                                newSelectedOption = tostringCovert
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';');
+                            }
+                            entry[challenge_question_id] = newSelectedOption;
                         });
 
                         return {
@@ -520,8 +538,14 @@ const ReportL2 = () => {
         axios(config)
             .then((res) => {
                 if (res.status === 200) {
-                    const chartTableData2 = res?.data?.data || [];
-
+                    let objofEval = res?.data?.data;
+                    
+                    let totalEvaluatedSum = res?.data?.data.reduce(
+                        (total, user) => total + user.totalEvaluated,
+                        0
+                    );
+                    objofEval.push({full_name:'Total',totalEvaluated:totalEvaluatedSum});
+                    const chartTableData2 = objofEval || [];
                     setChartTableData2(chartTableData2);
                     setDownloadTableData2(chartTableData2);
                 }

@@ -76,8 +76,11 @@ const ReportL3 = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
-    const fullDistrictsNames = useSelector(
+    const fullDistrictsNamesWithAllDistrict = useSelector(
         (state) => state?.studentRegistration?.dists
+    );
+    let fullDistrictsNames = fullDistrictsNamesWithAllDistrict.filter(
+        (item) => item !== 'All Districts'
     );
     const [downloadTableData, setDownloadTableData] = useState(null);
     const [downloadTableData2, setDownloadTableData2] = useState(null);
@@ -126,12 +129,15 @@ const ReportL3 = () => {
             key: 'shortedlisted'
         },
         {
+            label: 'No of Ideas Not Promoted',
+            key: 'notPro'
+        },
+        {
             label: 'No of Ideas Promoted(Winners)',
             key: 'winners'
         },
-
         {
-            label: 'No of Ideas Not Promoted(Runners)',
+            label: 'No of Ideas Promoted(Runners)',
             key: 'runners'
         }
     ];
@@ -338,8 +344,10 @@ const ReportL3 = () => {
                         const parsedResponse = JSON.parse(response);
                         entry['final_result'] =
                             final_result === '0'
-                                ? 'Runner-Not Promoted'
-                                : 'Winner-Promoted';
+                                ? 'Not Promoted'
+                                : final_result === '1'
+                                ? 'Winner'
+                                : 'Runner';
                         entry['Overall score'] = parseFloat(
                             entry['Overall score']
                         ).toFixed(2);
@@ -352,8 +360,19 @@ const ReportL3 = () => {
                         Object.keys(parsedResponse).forEach((key) => {
                             const { challenge_question_id, selected_option } =
                                 parsedResponse[key];
-                            entry[challenge_question_id] =
-                                selected_option.toString();
+                            var newSelectedOption;
+                            const tostringCovert = selected_option.toString();
+                            if (
+                                tostringCovert === null ||
+                                tostringCovert === undefined
+                            ) {
+                                newSelectedOption = selected_option;
+                            } else {
+                                newSelectedOption = tostringCovert
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';');
+                            }
+                            entry[challenge_question_id] = newSelectedOption;
                         });
 
                         return {
@@ -545,6 +564,7 @@ const ReportL3 = () => {
                             (acc.shortedlisted += item.shortedlisted),
                                 // (acc.district += item.district);
                                 (acc.winners += item.winners),
+                                (acc.notPro += item.notPro),
                                 (acc.runners += item.runners);
 
                             return acc;
@@ -553,7 +573,8 @@ const ReportL3 = () => {
                             // district: 0,
                             shortedlisted: 0,
                             winners: 0,
-                            runners: 0
+                            runners: 0,
+                            notPro: 0
                         }
                     );
                     // console.log(total, 'Total');
@@ -876,12 +897,16 @@ const ReportL3 = () => {
                                                                 </th>
                                                                 <th>
                                                                     No of Ideas
+                                                                    Not Promoted
+                                                                </th>
+                                                                <th>
+                                                                    No of Ideas
                                                                     Promoted
                                                                     (Winners)
                                                                 </th>
                                                                 <th>
                                                                     No of Ideas
-                                                                    Not Promoted
+                                                                    Promoted
                                                                     (runners)
                                                                 </th>
                                                             </tr>
@@ -909,6 +934,11 @@ const ReportL3 = () => {
                                                                         <td>
                                                                             {
                                                                                 item.shortedlisted
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.notPro
                                                                             }
                                                                         </td>
                                                                         <td>

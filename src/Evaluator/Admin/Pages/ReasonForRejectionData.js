@@ -4,7 +4,9 @@ export const ReasonsOptions = [
     'Not useful - Idea does not solve the problem identified / problem & solution not connected.',
     'Not understandable - Idea Submission does not have proper details to make a decision.',
     'Not clear (usefulness)',
-    'Not filled - Inaccurate data (form is not filled properly)'
+    'Not filled - Inaccurate data (form is not filled properly)',
+    'Not clear / Too generic a solution',
+    'Not selected,Requires changing government polices'
 ];
 export const reasondata2 = [
     'Lot of project effort visible (all of the 1, 2, 3,10, 14, 16 steps in the Idea Submission Format are clearly explained and are valid)',
