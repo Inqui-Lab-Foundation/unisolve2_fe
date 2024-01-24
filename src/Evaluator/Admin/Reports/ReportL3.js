@@ -283,6 +283,26 @@ const ReportL3 = () => {
             key: '17'
         },
         {
+            label: 'Novelty',
+            key: 'novelty'
+        },
+        {
+            label: 'Useful',
+            key: 'useful'
+        },
+        {
+            label: 'Feasibility',
+            key: 'feasibility'
+        },
+        {
+            label: 'Scalability',
+            key: 'scalability'
+        },
+        {
+            label: 'Sustainability',
+            key: 'sustainability'
+        },
+        {
             label: 'Overall Score',
             key: 'Overall score'
         },
@@ -296,7 +316,7 @@ const ReportL3 = () => {
         },
 
         {
-            label: 'L3 Status (Promoted/Not Promoted)',
+            label: 'Status',
             key: 'final_result'
         }
         // {
@@ -348,6 +368,21 @@ const ReportL3 = () => {
                                 : final_result === '1'
                                 ? 'Winner'
                                 : 'Runner';
+                        entry['novelty'] = parseFloat(entry['novelty']).toFixed(
+                            2
+                        );
+                        entry['useful'] = parseFloat(entry['useful']).toFixed(
+                            2
+                        );
+                        entry['feasibility'] = parseFloat(
+                            entry['feasibility']
+                        ).toFixed(2);
+                        entry['scalability'] = parseFloat(
+                            entry['scalability']
+                        ).toFixed(2);
+                        entry['sustainability'] = parseFloat(
+                            entry['sustainability']
+                        ).toFixed(2);
                         entry['Overall score'] = parseFloat(
                             entry['Overall score']
                         ).toFixed(2);
