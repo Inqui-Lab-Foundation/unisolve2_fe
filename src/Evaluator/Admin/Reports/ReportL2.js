@@ -270,6 +270,26 @@ const ReportL2 = () => {
             key: '17'
         },
         {
+            label: 'Novelty',
+            key: 'novelty'
+        },
+        {
+            label: 'Useful',
+            key: 'useful'
+        },
+        {
+            label: 'Feasibility',
+            key: 'feasibility'
+        },
+        {
+            label: 'Scalability',
+            key: 'scalability'
+        },
+        {
+            label: 'Sustainability',
+            key: 'sustainability'
+        },
+        {
             label: 'Overall Score',
             key: 'Overall score'
         },
@@ -282,12 +302,12 @@ const ReportL2 = () => {
             key: 'Feasibility score'
         },
         {
-            label: 'L2 Status',
+            label: 'L3 Status',
             key: 'final_result'
         },
         {
-            label: 'L3 Status',
-            key:''
+            label: 'Evaluator Count',
+            key: 'eval_count'
         }
     ];
 
@@ -330,6 +350,22 @@ const ReportL2 = () => {
                         const parsedResponse = JSON.parse(response);
                         entry['final_result'] =
                             final_result === null ? 'Not Promoted' : 'Promoted';
+                        entry['novelty'] = parseFloat(entry['novelty']).toFixed(
+                            2
+                        );
+                        entry['useful'] = parseFloat(entry['useful']).toFixed(
+                            2
+                        );
+                        entry['feasibility'] = parseFloat(
+                            entry['feasibility']
+                        ).toFixed(2);
+                        entry['scalability'] = parseFloat(
+                            entry['scalability']
+                        ).toFixed(2);
+                        entry['sustainability'] = parseFloat(
+                            entry['sustainability']
+                        ).toFixed(2);
+
                         entry['Overall score'] = parseFloat(
                             entry['Overall score']
                         ).toFixed(2);
@@ -539,12 +575,15 @@ const ReportL2 = () => {
             .then((res) => {
                 if (res.status === 200) {
                     let objofEval = res?.data?.data;
-                    
+
                     let totalEvaluatedSum = res?.data?.data.reduce(
                         (total, user) => total + user.totalEvaluated,
                         0
                     );
-                    objofEval.push({full_name:'Total',totalEvaluated:totalEvaluatedSum});
+                    objofEval.push({
+                        full_name: 'Total',
+                        totalEvaluated: totalEvaluatedSum
+                    });
                     const chartTableData2 = objofEval || [];
                     setChartTableData2(chartTableData2);
                     setDownloadTableData2(chartTableData2);
