@@ -20,6 +20,7 @@ const DownPage = () => {
     const dispatch = useDispatch();
     const [apilistCount,setapilistCount] = useState('');
     const currentUser = getCurrentUser('current_user');
+    const [title,settitle] = useState('');
     const cerList = ['teacher', 'studentIdea', 'studentCourse'];
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
@@ -69,6 +70,9 @@ const DownPage = () => {
         let ctestCount = 0;
         const myInterval = setInterval(() => {
             if (ctestCount < dataList.length) {
+                if(certificate === 'teacher'){
+                    settitle(dataList[ctestCount]?.title);
+                }
                 setName(dataList[ctestCount]?.full_name);
                 setOrg(dataList[ctestCount]?.organization_name);
                 setCount(ctestCount + 1);
@@ -147,7 +151,7 @@ const DownPage = () => {
                         fontFamily: 'Times New Roman'
                     }}
                 >
-                    {/* {currentUser?.data[0]?.title}{' '} */}
+                    {title}{' '}
                     {name}
                 </span>
                 <span
