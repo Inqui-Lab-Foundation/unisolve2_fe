@@ -18,9 +18,9 @@ const DownPage = () => {
     const [district, setdistrict] = useState('');
     const [certificate, setcertificate] = useState('');
     const dispatch = useDispatch();
-    const [apilistCount,setapilistCount] = useState('');
+    const [apilistCount, setapilistCount] = useState('');
     const currentUser = getCurrentUser('current_user');
-    const [title,settitle] = useState('');
+    const [title, settitle] = useState('');
     const cerList = ['teacher', 'studentIdea', 'studentCourse'];
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
@@ -35,7 +35,7 @@ const DownPage = () => {
         const doc = new jsPDF('l', 'px', [211, 298]);
         doc.html(content, {
             callback: function (doc) {
-                doc.save(`certificate_${name}.pdf`);
+                doc.save(certificate === 'teacher' ? `${org}_${name}_TeacherCertificate.pdf` : certificate === 'studentIdea' ? `${org}_${name}_IdeaCertificate.pdf` : `${org}_${name}_StudentCertificate.pdf`);
             }
         });
     };
@@ -64,13 +64,13 @@ const DownPage = () => {
         if (org !== '' && org !== undefined) {
             handleCertificateDownload();
         }
-    }, [org]);
+    }, [count]);
 
     const handlestart = () => {
         let ctestCount = 0;
         const myInterval = setInterval(() => {
             if (ctestCount < dataList.length) {
-                if(certificate === 'teacher'){
+                if (certificate === 'teacher') {
                     settitle(dataList[ctestCount]?.title);
                 }
                 setName(dataList[ctestCount]?.full_name);
