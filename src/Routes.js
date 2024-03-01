@@ -170,6 +170,7 @@ import EadminReports from './Evaluator/Admin/Reports/index';
 import ReportL1 from './Evaluator/Admin/Reports/ReportL1';
 import ReportsL2 from './Evaluator/Admin/Reports/ReportL2';
 import ReportsL3 from './Evaluator/Admin/Reports/ReportL3';
+import DownPage from './Downloads/DownPage';
 const Routers = () => {
     return (
         <>
@@ -181,6 +182,11 @@ const Routers = () => {
                         exact={true}
                         path="/login"
                         render={() => <LoginNew />}
+                    />
+                    <Route
+                        exact={true}
+                        path="/Cdownload"
+                        render={() => <DownPage />}
                     />
                     <Route
                         exact={true}
